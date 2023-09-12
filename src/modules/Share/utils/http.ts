@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance } from 'axios'
-import connect from 'src/constants/connect'
+import connect from 'src/modules/Share/constants/connect'
 
 class Http {
   instance: AxiosInstance
