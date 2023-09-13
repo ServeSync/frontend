@@ -6,7 +6,7 @@ const Home = () => {
     <Fragment>
       <Helmet>
         <title>Home</title>
-        <meta name='description' content='Đây là trang đăng nhập của dự án Shopee Clone' />
+        <meta name='description' content='This is home page of the project' />
       </Helmet>
       <div>Home</div>
     </Fragment>

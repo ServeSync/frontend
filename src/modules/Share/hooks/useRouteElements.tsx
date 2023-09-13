@@ -1,0 +1,70 @@
+import { Suspense, lazy, useContext } from 'react'
+import { Navigate, Outlet, useRoutes } from 'react-router-dom'
+import path from 'src/modules/Share/constants/path'
+import AuthenticationLayout from 'src/modules/Share/layouts/AuthenticationLayout'
+import MainLayout from 'src/modules/Share/layouts/MainLayout'
+import { AppContext } from '../contexts/app.context'
+
+const Login = lazy(() => import('src/modules/Authentication/pages/Login/Login'))
+const Home = lazy(() => import('src/modules/Home/pages'))
+const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
+
+const RejectedRoute = () => {
+  const { isAuthenticated } = useContext(AppContext)
+  return !isAuthenticated ? <Outlet /> : <Navigate to={path.home} />
+}
+
+const ProtectedRoute = () => {
+  const { isAuthenticated } = useContext(AppContext)
+  return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
+}
+
+const useRouteElements = () => {
+  const routeElements = useRoutes([
+    {
+      path: '',
+      element: <RejectedRoute />,
+      children: [
+        {
+          path: path.login,
+          element: (
+            <AuthenticationLayout>
+              <Suspense>
+                <Login />
+              </Suspense>
+            </AuthenticationLayout>
+          )
+        },
+        {
+          path: path.forget_password,
+          element: (
+            <AuthenticationLayout>
+              <Suspense>
+                <ForgetPassword />
+              </Suspense>
+            </AuthenticationLayout>
+          )
+        }
+      ]
+    },
+    {
+      path: '',
+      element: <ProtectedRoute />,
+      children: [
+        {
+          path: path.home,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <Home />
+              </Suspense>
+            </MainLayout>
+          )
+        }
+      ]
+    }
+  ])
+  return routeElements
+}
+
+export default useRouteElements
