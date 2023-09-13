@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 
 interface LoginForm {
-  email: string
+  userNameOrEmail: string
   password: string
 }
 
@@ -26,9 +26,9 @@ const LoginForm = ({ register, errors }: Props) => {
         <input
           type='text'
           id='email'
-          placeholder='Email hoặc Mã số sinh viên'
+          placeholder='Email hoặc MSSV'
           className='border-[2px] border-[#26C6DA] rounded-lg py-2 pl-10 pr-4 outline-none'
-          {...register('email')}
+          {...register('userNameOrEmail')}
         />
         <div className='absolute left-[4px] top-[6px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
           <svg
@@ -46,7 +46,9 @@ const LoginForm = ({ register, errors }: Props) => {
             />
           </svg>
         </div>
-        <span className='block min-h-[16px] text-red-700 text-xs mt-1 font-normal'>{errors.email?.message}</span>
+        <span className='block min-h-[16px] text-red-700 text-xs mt-1 font-normal'>
+          {errors.userNameOrEmail?.message}
+        </span>
       </div>
       <div className='flex flex-col relative'>
         <input

@@ -1,11 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Fragment } from 'react'
+import { Fragment, useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { LoginSchema, LoginType } from '../../utils/rules'
 import LoginInput from '../../components/LoginForm'
+import { AppContext } from 'src/modules/Share/contexts/app.context'
+import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import authAPI from '../../services/auth.api'
+import path from 'src/modules/Share/constants/path'
 
 const Login = () => {
+  const { setIsAuthenticated } = useContext(AppContext)
+
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -14,8 +23,25 @@ const Login = () => {
     resolver: yupResolver(LoginSchema)
   })
 
+  const loginMutation = useMutation({
+    mutationFn: (body: LoginType) => {
+      return authAPI.login(body)
+    }
+  })
+
   const handleOnSubmit = handleSubmit((data) => {
-    console.log(data)
+    loginMutation.mutate(data, {
+      onSuccess: () => {
+        setIsAuthenticated(true)
+        navigate(path.home)
+      }
+      // onError: (error) => {
+      //   if (isAxiosNotFound(error)) {
+      //     const loginError = error.response?.data
+      //     toast.error(loginError?.message)
+      //   }
+      // }
+    })
   })
 
   return (
