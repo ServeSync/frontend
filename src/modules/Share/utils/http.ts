@@ -35,7 +35,7 @@ class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
-        if (url === '/auth/login') {
+        if (url === '/auth/sign-in') {
           const data = response.data as AuthResponse
           this.accessToken = data.accessToken
           setAccessTokenToLocalStorage(this.accessToken)
@@ -43,14 +43,12 @@ class Http {
         return response
       },
       (error: AxiosError) => {
-        // Change status code to message error
         if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const data: any | undefined = error.response?.data
-          const message = data?.message || error.message
+          const message = data?.code || error.code
           console.log(message)
         }
-        // Check authorization
         if (error.response?.status === HttpStatusCode.Unauthorized) {
           clearTokenFromLocalStorage()
         }
