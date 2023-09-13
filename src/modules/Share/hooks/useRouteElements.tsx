@@ -8,6 +8,7 @@ import { AppContext } from '../contexts/app.context'
 const Login = lazy(() => import('src/modules/Authentication/pages/Login/Login'))
 const Home = lazy(() => import('src/modules/Home/pages'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
+const Role = lazy(() => import('src/modules/Role/pages/Role'))
 
 const RejectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
@@ -57,6 +58,16 @@ const useRouteElements = () => {
             <MainLayout>
               <Suspense>
                 <Home />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.role,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <Role />
               </Suspense>
             </MainLayout>
           )
