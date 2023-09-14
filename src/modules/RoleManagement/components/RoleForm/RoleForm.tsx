@@ -1,12 +1,26 @@
-const RoleForm = () => {
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
+
+interface RoleForm {
+  name: string
+}
+
+interface Props {
+  register: UseFormRegister<RoleForm>
+  errors: FieldErrors<RoleForm>
+  isEditForm: boolean
+  onCreateRole: () => void
+}
+
+const RoleForm = ({ register, errors, isEditForm, onCreateRole }: Props) => {
   return (
-    <div>
-      <div className='flex flex-col gap-2 relative'>
+    <div className='flex flex-col gap-2'>
+      <div className='relative'>
         <input
           type='text'
           id='name'
           placeholder='Name'
           className='w-full border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none'
+          {...register('name')}
         />
         <div className='absolute left-[4px] top-[6px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
           <svg
@@ -24,11 +38,20 @@ const RoleForm = () => {
             />
           </svg>
         </div>
-        <span className='block min-h-[16px] text-red-700 text-xs mt-1 font-normal'></span>
+        <span className='block min-h-[16px] text-red-700 text-xs mt-1 font-normal'>{errors.name?.message}</span>
       </div>
       <button type='submit' className='w-full py-2 bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-md text-white'>
-        Add role
+        {isEditForm ? 'Edit role' : 'Create Role'}
       </button>
+      {isEditForm && (
+        <button
+          type='button'
+          className='w-full text-[#33b6c7] text-right text-[14px] hover:underline'
+          onClick={onCreateRole}
+        >
+          Create Role ?
+        </button>
+      )}
     </div>
   )
 }

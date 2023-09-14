@@ -31,3 +31,7 @@ export function isUserNotFound(errorCode: string) {
 export function isPermissionNotFound(errorCode: string) {
   return errorCode === error_code.PermissionNotFound
 }
+
+export function isDuplicateRoleName(errorCode: string) {
+  return errorCode === error_code.DuplicateRoleName
+}
