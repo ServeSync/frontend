@@ -3,7 +3,8 @@ const path = {
   login: '/login',
   forget_password: '/forgetPassword',
   role: '/role',
-  role_id: '/role/:id'
+  role_id: '/role/:id',
+  forget_password: '/forgetPassword'
 } as const
 
 export default path
