@@ -10,8 +10,8 @@ export default function Header() {
   }
   return (
     <header className='z-40 relative py-4 bg-white shadow-bottom  transition-all overflow-hidden shadow-[rgba(0,0,0,0.2)_4px_2px_4px_0px]'>
-      <div className='container flex items-center justify-between h-full px-6  text-black  '>
-        <div className='flex justify-center flex-1 text-[#26C6DA] '>
+      <div className='w-full  lg:max-w-full md:max-w-[786px] sm:max-w-[640px] flex items-center justify-between h-full px-6 overflow-hidden text-black  '>
+        <div className='flex justify-center flex-1 text-[#26C6DA]'>
           <div className='relative w-full max-w-xl  '>
             <div className='absolute inset-y-0 flex items-center pl-1  '>
               <svg aria-hidden='true' fill='currentColor' viewBox='0 0 20 20' className='w-6 h-6'>
@@ -23,7 +23,7 @@ export default function Header() {
               </svg>
             </div>
             <input
-              className=' block w-full form-input text-sm focus:outline-none leading-5 focus:border-[#26C6DA] focus:rounded-lg !pl-8 text-gray-700'
+              className=' block w-[200px] sm:w-[400px] lg:w-full appearance-none bg-white border border-gray-300 rounded-md py-2 px-3  text-sm focus:outline-none leading-5 focus:border-[#26C6DA] focus:rounded-lg !pl-8 text-gray-700'
               type='text'
               placeholder='Search'
               aria-label='Search'

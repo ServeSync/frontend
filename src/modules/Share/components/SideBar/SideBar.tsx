@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import logo from 'src/accets/img/logo 2.png'
+import logo from 'src/assets/img/logo 2.png'
 import { Link, NavLink } from 'react-router-dom'
 import path from '../../constants/path'
 import classNames from 'classnames'
@@ -14,7 +14,7 @@ export default function SideBar() {
         boxShadow: expanded ? '4px 0px 8px rgba(0, 0, 0, 0.2)' : '0px 0px 0px rgba(0, 0, 0, 0.2)'
       }}
     >
-      <div className='py-4 text-gray-500 flex-auto justify-center items-center'>
+      <div className='py-4 text-gray-500 flex-auto justify-center items-center '>
         <div className={`flex items-center ${expanded ? 'justify-between' : 'justify-center'}`}>
           <Link to={path.home} className=' text-lg font-bold text-gray-800 flex items-center justify-between'>
             <img src={logo} alt='' className={`overflow-hidden transition-all ${expanded ? 'w-14' : 'w-0'}`} />
