@@ -11,24 +11,22 @@ interface Props {
   placement?: Placement
 }
 
-export default function Popover({
-  children,
-  className,
-  renderPopover,
-  as: Element = 'div',
-  initialOpen,
-  placement
-}: Props) {
+const Popover = ({ children, className, renderPopover, as: Element = 'div', initialOpen, placement }: Props) => {
   const [open, setOpen] = useState(initialOpen || false)
+
+  const id = useId()
+
   const arrowRef = useRef<HTMLElement>(null)
+
   const { x, y, reference, floating, strategy, middlewareData } = useFloating({
     middleware: [offset(6), shift(), arrow({ element: arrowRef })],
     placement: placement
   })
-  const id = useId()
+
   const togglePopover = () => {
     setOpen(!open)
   }
+
   return (
     <Element className={className} ref={reference} onClick={togglePopover}>
       {children}
@@ -66,3 +64,5 @@ export default function Popover({
     </Element>
   )
 }
+
+export default Popover
