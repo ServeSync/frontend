@@ -10,8 +10,9 @@ import { toast } from 'react-toastify'
 import { isAdminRoleAccessDenied, isDuplicateRoleName } from 'src/modules/Share/utils/utils'
 import useQueryRoleConfig from '../../hooks/useQueryRoleConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 import path from 'src/modules/Share/constants/path'
+import { Helmet } from 'react-helmet-async'
 
 const Role = () => {
   const [isEditForm, setIsEditForm] = useState<boolean>(false)
@@ -30,7 +31,8 @@ const Role = () => {
 
   const RoleQuery = useQuery({
     queryKey: ['role', queryRoleConfig],
-    queryFn: () => roleAPI.getRole(queryRoleConfig.id as string)
+    queryFn: () => roleAPI.getRole(queryRoleConfig.id as string),
+    enabled: queryRoleConfig.id !== undefined
   })
   const role = RoleQuery.data?.data
 
@@ -53,8 +55,6 @@ const Role = () => {
       getValues()
     }
   }, [role, setValue, getValues])
-
-  console.log(isEditForm)
 
   const CreateRoleMutation = useMutation({
     mutationFn: (body: RoleType) => {
@@ -117,6 +117,9 @@ const Role = () => {
         },
         {
           onSuccess: () => {
+            navigate(path.role)
+            setIsEditForm(false)
+            setValue('name', '')
             toast.success('Chỉnh sửa Role thành công !')
             queryClient.invalidateQueries({
               queryKey: ['roles']
@@ -163,22 +166,28 @@ const Role = () => {
   }
 
   return (
-    <div className='grid grid-cols-4 gap-8'>
-      <div className='col-span-1 flex flex-col gap-12'>
-        <form onSubmit={handleSubmitForm}>
-          <RoleForm register={register} errors={errors} isEditForm={isEditForm} onCreateRole={onCreateRole} />
-        </form>
-        <RoleTable
-          roles={roles}
-          handleDeleteRole={handleDeleteRole}
-          onEditRole={onEditRole}
-          roleID={role?.id as string}
-        />
+    <Fragment>
+      <Helmet>
+        <title>Home</title>
+        <meta name='description' content='This is role management page of the project' />
+      </Helmet>
+      <div className='grid grid-cols-4 gap-8'>
+        <div className='col-span-1 flex flex-col gap-12'>
+          <form onSubmit={handleSubmitForm}>
+            <RoleForm register={register} errors={errors} isEditForm={isEditForm} onCreateRole={onCreateRole} />
+          </form>
+          <RoleTable
+            roles={roles}
+            handleDeleteRole={handleDeleteRole}
+            onEditRole={onEditRole}
+            roleID={role?.id as string}
+          />
+        </div>
+        <div className='col-span-3'>
+          <Permission />
+        </div>
       </div>
-      <div className='col-span-3'>
-        <Permission />
-      </div>
-    </div>
+    </Fragment>
   )
 }
 
