@@ -41,7 +41,6 @@ const Role = () => {
     handleSubmit,
     setError,
     setValue,
-    getValues,
     reset,
     formState: { errors }
   } = useForm<RoleType>({
@@ -52,9 +51,11 @@ const Role = () => {
     if (role !== undefined) {
       setValue('name', role?.name as string)
       setIsEditForm(true)
-      getValues()
+    } else {
+      reset()
+      setIsEditForm(false)
     }
-  }, [role, setValue, getValues])
+  }, [role, setValue, reset])
 
   const CreateRoleMutation = useMutation({
     mutationFn: (body: RoleType) => {
@@ -72,6 +73,7 @@ const Role = () => {
     const config = {
       id: id
     }
+    setValue('name', role?.name as string)
     navigate({
       search: createSearchParams(config).toString()
     })
@@ -80,7 +82,7 @@ const Role = () => {
   const onCreateRole = () => {
     navigate(path.role)
     setIsEditForm(false)
-    setValue('name', '')
+    reset()
   }
 
   const handleSubmitForm = handleSubmit((data) => {
@@ -151,7 +153,7 @@ const Role = () => {
         toast.success('Xóa Role thành công!')
         navigate(path.role)
         setIsEditForm(false)
-        setValue('name', '')
+        reset()
         queryClient.invalidateQueries({
           queryKey: ['roles']
         })
