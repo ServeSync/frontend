@@ -80,7 +80,7 @@ const Role = () => {
   const onCreateRole = () => {
     navigate(path.role)
     setIsEditForm(false)
-    setValue('name', '')
+    // setValue('name', '')
   }
 
   const handleSubmitForm = handleSubmit((data) => {
@@ -168,7 +168,7 @@ const Role = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Home</title>
+        <title>Roles</title>
         <meta name='description' content='This is role management page of the project' />
       </Helmet>
       <div className='grid grid-cols-4 gap-8'>
