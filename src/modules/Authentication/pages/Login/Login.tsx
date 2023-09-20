@@ -9,7 +9,11 @@ import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import authAPI from '../../services/auth.api'
 import path from 'src/modules/Share/constants/path'
-import { isIncorrectPassword, isAccountLockedOut, isUserNameNotFound } from 'src/modules/Share/utils/utils'
+import {
+  isIncorrectPasswordError,
+  isAccountLockedOutError,
+  isUserNameNotFoundError
+} from 'src/modules/Share/utils/utils'
 import { toast } from 'react-toastify'
 
 const Login = () => {
@@ -40,19 +44,19 @@ const Login = () => {
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onError: (error: any) => {
-        if (isUserNameNotFound(error.response?.data.code)) {
+        if (isUserNameNotFoundError(error.response?.data.code)) {
           setError('userNameOrEmail', {
             message: 'Tài khoản không tồn tại',
             type: 'Server'
           })
         }
-        if (isIncorrectPassword(error.response?.data.code)) {
+        if (isIncorrectPasswordError(error.response?.data.code)) {
           setError('password', {
             message: 'Mật khẩu không chính xác',
             type: 'Server'
           })
         }
-        if (isAccountLockedOut(error.response?.data.code)) {
+        if (isAccountLockedOutError(error.response?.data.code)) {
           toast.error('Tài khoản bị khóa !')
         }
       }

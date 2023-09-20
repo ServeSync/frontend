@@ -4,6 +4,8 @@ import Popover from '../Popover'
 import { clearTokenFromLocalStorage } from 'src/modules/Authentication/utils/auth'
 import { Link, useNavigate } from 'react-router-dom'
 import path from '../../constants/path'
+import { useQuery } from '@tanstack/react-query'
+import profileAPI from '../../services/profile.api'
 export default function Header() {
   const { setIsAuthenticated } = useContext(AppContext)
 
@@ -14,6 +16,13 @@ export default function Header() {
     clearTokenFromLocalStorage()
     navigate(path.login)
   }
+
+  const ProfileQuery = useQuery({
+    queryKey: ['profile'],
+    queryFn: () => profileAPI.getProfile()
+  })
+
+  const profile = ProfileQuery.data?.data
 
   return (
     <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all'>
@@ -41,7 +50,7 @@ export default function Header() {
         </div>
         <div className='flex items-center flex-shrink-0 space-x-6'>
           <div className='relative flex gap-3 items-center'>
-            <span>Admin</span>
+            <span>{profile?.email}</span>
             <button className='rounded-full'>
               <Popover
                 className='rounded-full flex items-center w-8 h-8 align-middle z-500 '
@@ -64,7 +73,7 @@ export default function Header() {
                         >
                           <path d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' />
                         </svg>
-                        <span>Profile</span>
+                        <span>{profile?.email}</span>
                       </Link>
                     </li>
                     <li>

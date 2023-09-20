@@ -7,7 +7,7 @@ import { RoleSchema, RoleType } from '../../utils/rules'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import roleAPI from '../../services/role.api'
 import { toast } from 'react-toastify'
-import { isAdminRoleAccessDenied, isDuplicateRoleName } from 'src/modules/Share/utils/utils'
+import { isAdminRoleAccessDeniedError, isDuplicateRoleNameError } from 'src/modules/Share/utils/utils'
 import useQueryRoleConfig from '../../hooks/useQueryRoleConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState, Fragment } from 'react'
@@ -97,13 +97,13 @@ const Role = () => {
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
-          if (isDuplicateRoleName(error.response?.data.code)) {
+          if (isDuplicateRoleNameError(error.response?.data.code)) {
             setError('name', {
               message: 'Role đã tồn tại !',
               type: 'Server'
             })
           }
-          if (isAdminRoleAccessDenied(error.response?.data.code)) {
+          if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
             setError('name', {
               message: 'Role admin không cho phép thêm mới !',
               type: 'Server'
@@ -129,7 +129,7 @@ const Role = () => {
           },
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onError: (error: any) => {
-            if (isAdminRoleAccessDenied(error.response?.data.code)) {
+            if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
               setError('name', {
                 message: 'Role admin không cho phép chỉnh sửa !',
                 type: 'Server'
@@ -160,7 +160,7 @@ const Role = () => {
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onError: (error: any) => {
-        if (isAdminRoleAccessDenied(error.response?.data.code)) {
+        if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
           toast.error('Role admin không cho phép xóa !')
         }
       }

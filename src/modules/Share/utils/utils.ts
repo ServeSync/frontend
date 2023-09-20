@@ -1,17 +1,37 @@
+import axios, { AxiosError } from 'axios'
 import { error_code } from '../constants/errorCode'
+import HttpStatusCode from '../constants/httpStatusCode.enum'
 
-export function isUserNameNotFound(errorCode: string) {
+// Auth
+export function isUserNameNotFoundError(errorCode: string) {
   return errorCode === error_code.UserNameOrEmailNotFound
 }
 
-export function isAccountLockedOut(errorCode: string) {
+export function isAccountLockedOutError(errorCode: string) {
   return errorCode === error_code.AccountLockedOut
 }
 
-export function isIncorrectPassword(errorCode: string) {
+export function isIncorrectPasswordError(errorCode: string) {
   return errorCode === error_code.IncorrectPassword
 }
 
+export function isExpiredRefreshTokenError(errorCode: string) {
+  return errorCode === error_code.ExpiredRefreshToken
+}
+
+export function isNotExistRefreshTokenError(errorCode: string) {
+  return errorCode === error_code.NotExistRefreshToken
+}
+
+export function isRefreshTokenAddedToUser(errorCode: string) {
+  return errorCode === error_code.RefreshTokenAddedToUser
+}
+
+export function isValidAccessToken(errorCode: string) {
+  return errorCode === error_code.ValidAccessToken
+}
+
+// Role
 export function isPermissionAlreadyGrantedToRole(errorCode: string) {
   return errorCode === error_code.PermissionAlreadyGrantedToRole
 }
@@ -20,18 +40,30 @@ export function isPermissionNotGrantedToRole(errorCode: string) {
   return errorCode === error_code.PermissionNotGrantedToRole
 }
 
-export function isAdminRoleAccessDenied(errorCode: string) {
+export function isAdminRoleAccessDeniedError(errorCode: string) {
   return errorCode === error_code.AdminRoleAccessDenied
 }
 
-export function isUserNotFound(errorCode: string) {
+export function isDuplicateRoleNameError(errorCode: string) {
+  return errorCode === error_code.DuplicateRoleName
+}
+
+// User
+export function isUserNotFoundError(errorCode: string) {
   return errorCode === error_code.UserNotFound
 }
 
-export function isPermissionNotFound(errorCode: string) {
+// Permission
+export function isPermissionNotFoundError(errorCode: string) {
   return errorCode === error_code.PermissionNotFound
 }
 
-export function isDuplicateRoleName(errorCode: string) {
-  return errorCode === error_code.DuplicateRoleName
+// Status code
+export function isAxiosError<T>(error: unknown): error is AxiosError<T> {
+  // eslint-disable-next-line import/no-named-as-default-member
+  return axios.isAxiosError(error)
+}
+
+export function isAxiosUnauthorizedError(error: unknown): error is AxiosError {
+  return isAxiosError(error) && error.response?.status === HttpStatusCode.Unauthorized
 }
