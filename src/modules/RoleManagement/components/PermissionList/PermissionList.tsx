@@ -14,7 +14,6 @@ const PermissionList = ({ permissions, isShowPermissions, onCancel, checkboxValu
       <div className='grid grid-cols-3 gap-6'>
         {permissions &&
           permissions.map((permission) => {
-            const isChecked = checkboxValues[permission.id] || false
             return (
               <div key={permission.id} className='col-span-1'>
                 <div className='flex items-center gap-4'>
@@ -22,8 +21,8 @@ const PermissionList = ({ permissions, isShowPermissions, onCancel, checkboxValu
                     type='checkbox'
                     value={permission.name}
                     id={`checkbox-${permission.id}`}
-                    checked={isChecked}
-                    onChange={() => onChangeCheckbox(permission.id, !isChecked)}
+                    checked={checkboxValues[permission.id] || false}
+                    onChange={() => onChangeCheckbox(permission.id, !checkboxValues[permission.id])}
                     disabled={!isShowPermissions}
                   />
                   <label htmlFor={`checkbox-${permission.id}`} className='flex items-center cursor-pointer'>

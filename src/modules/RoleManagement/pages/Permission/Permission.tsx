@@ -13,7 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect, useState } from 'react'
 
 const Permission = () => {
-  const [checkboxValues, setCheckboxValues] = useState<{ [key: string]: boolean }>({})
+  const [checkboxValues, setCheckboxValues] = useState<{ [id: string]: boolean }>({})
 
   const { handleSubmit } = useForm<PermissionType>({
     resolver: yupResolver(PermissionSchema)
@@ -36,6 +36,7 @@ const Permission = () => {
     queryFn: () => roleAPI.getPermissionsOfRole(queryRoleConfig.id as string),
     enabled: queryRoleConfig.id !== undefined
   })
+
   const permissionsOfRole = PermissionsOfRoleQuery.data?.data
 
   const SavePermissionsOfRole = useMutation({
@@ -55,20 +56,18 @@ const Permission = () => {
   const isEditPermissions = permissionsOfRole !== undefined
 
   useEffect(() => {
-    if (isEditPermissions && permissionsOfRole) {
-      const newCheckboxValues: { [key: string]: boolean } = {}
-      permissions?.forEach((permission) => {
-        const isChecked = permissionsOfRole.some((permissionOfRole) => permissionOfRole.id === permission.id)
-        newCheckboxValues[permission.id] = isChecked
-      })
-      setCheckboxValues(newCheckboxValues)
-    } else {
-      const falseCheckboxValues: { [key: string]: boolean } = {}
-      permissions?.forEach((permission) => {
-        falseCheckboxValues[permission.id] = false
-      })
-      setCheckboxValues(falseCheckboxValues)
-    }
+    const updatedCheckboxValues = { ...checkboxValues }
+    permissions?.forEach((permission) => {
+      if (isEditPermissions) {
+        updatedCheckboxValues[permission.id] = permissionsOfRole.some(
+          (permissionOfRole) => permissionOfRole.id === permission.id
+        )
+      } else {
+        updatedCheckboxValues[permission.id] = false
+      }
+    })
+    setCheckboxValues(updatedCheckboxValues)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEditPermissions, permissionsOfRole, queryRoleConfig.id, permissions])
 
   const onCancel = () => {
