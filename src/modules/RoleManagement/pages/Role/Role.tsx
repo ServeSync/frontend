@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import RoleForm from '../../components/RoleForm'
 import RoleTable from '../../components/RoleTable'
-import Permission from '../Permission'
 import { useForm } from 'react-hook-form'
 import { RoleSchema, RoleType } from '../../utils/rules'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -13,6 +12,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState, Fragment } from 'react'
 import path from 'src/modules/Share/constants/path'
 import { Helmet } from 'react-helmet-async'
+import Permission from '../Permission'
 
 const Role = () => {
   const [isEditForm, setIsEditForm] = useState<boolean>(false)
@@ -170,7 +170,7 @@ const Role = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Home</title>
+        <title>Roles</title>
         <meta name='description' content='This is role management page of the project' />
       </Helmet>
       <div className='grid grid-cols-4 gap-8'>

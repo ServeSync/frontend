@@ -18,7 +18,7 @@ const RoleForm = ({ register, errors, isEditForm, onCreateRole }: Props) => {
         <input
           type='text'
           id='name'
-          placeholder='Name'
+          placeholder='Tên'
           className='w-full border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none'
           {...register('name')}
         />
@@ -41,7 +41,7 @@ const RoleForm = ({ register, errors, isEditForm, onCreateRole }: Props) => {
         <span className='block min-h-[16px] text-red-700 text-xs mt-1 font-normal'>{errors.name?.message}</span>
       </div>
       <button type='submit' className='w-full py-2 bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-md text-white'>
-        {isEditForm ? 'Edit role' : 'Create Role'}
+        {isEditForm ? 'Cập nhật role' : 'Tạo Role'}
       </button>
       {isEditForm && (
         <button
@@ -49,7 +49,7 @@ const RoleForm = ({ register, errors, isEditForm, onCreateRole }: Props) => {
           className='w-full text-[#33b6c7] text-right text-[14px] hover:underline'
           onClick={onCreateRole}
         >
-          Create Role ?
+          Tạo Role ?
         </button>
       )}
     </div>

@@ -129,7 +129,7 @@ const SideBar = () => {
                     'w-0': !expanded
                   })}
                 >
-                  Quản lý truy cập
+                  Quản lý Roles
                 </span>
               </NavLink>
             </li>
