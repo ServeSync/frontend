@@ -8,16 +8,14 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { isAdminRoleAccessDenied } from 'src/modules/Share/utils/utils'
 import roleAPI from '../../services/role.api'
-import { PermissionSchema, PermissionType } from '../../utils/rules'
+import { FormPermissionSchema, FormPermissionType } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect, useState } from 'react'
+import { PermissionType } from '../../interfaces/permission.type'
 
 const Permission = () => {
   const [checkboxValues, setCheckboxValues] = useState<{ [id: string]: boolean }>({})
-
-  const { handleSubmit } = useForm<PermissionType>({
-    resolver: yupResolver(PermissionSchema)
-  })
+  const [isEditPermissions, setIsEditPermissions] = useState<boolean>(false)
 
   const navigate = useNavigate()
 
@@ -29,15 +27,21 @@ const Permission = () => {
     queryKey: ['permission'],
     queryFn: () => permissionAPI.getListPermissions()
   })
-  const permissions = PermissionListQuery.data?.data
+  const permissions = PermissionListQuery.data?.data as PermissionType[]
 
   const PermissionsOfRoleQuery = useQuery({
     queryKey: ['permission', queryRoleConfig],
     queryFn: () => roleAPI.getPermissionsOfRole(queryRoleConfig.id as string),
     enabled: queryRoleConfig.id !== undefined
   })
+  const permissionsOfRole = PermissionsOfRoleQuery.data?.data as PermissionType[]
 
-  const permissionsOfRole = PermissionsOfRoleQuery.data?.data
+  const RoleQuery = useQuery({
+    queryKey: ['role', queryRoleConfig],
+    queryFn: () => roleAPI.getRole(queryRoleConfig.id as string),
+    enabled: queryRoleConfig.id !== undefined
+  })
+  const role = RoleQuery.data?.data
 
   const SavePermissionsOfRole = useMutation({
     mutationFn: (body: { id: string; data: string[] }) => {
@@ -45,41 +49,28 @@ const Permission = () => {
     }
   })
 
-  const RoleQuery = useQuery({
-    queryKey: ['role', queryRoleConfig],
-    queryFn: () => roleAPI.getRole(queryRoleConfig.id as string),
-    enabled: queryRoleConfig.id !== undefined
-  })
-
-  const role = RoleQuery.data?.data
-
-  const isEditPermissions = permissionsOfRole !== undefined
-
   useEffect(() => {
     const updatedCheckboxValues = { ...checkboxValues }
-    permissions?.forEach((permission) => {
-      if (isEditPermissions) {
+    if (permissionsOfRole) {
+      setIsEditPermissions(true)
+      permissions?.forEach((permission) => {
         updatedCheckboxValues[permission.id] = permissionsOfRole.some(
           (permissionOfRole) => permissionOfRole.id === permission.id
         )
-      } else {
+      })
+    } else {
+      setIsEditPermissions(false)
+      permissions?.forEach((permission) => {
         updatedCheckboxValues[permission.id] = false
-      }
-    })
+      })
+    }
     setCheckboxValues(updatedCheckboxValues)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEditPermissions, permissionsOfRole, queryRoleConfig.id, permissions])
+  }, [permissionsOfRole, permissions])
 
-  const onCancel = () => {
-    navigate(path.role)
-  }
-
-  const handleCheckboxChange = (permissionId: string, checked: boolean) => {
-    setCheckboxValues((prevValues) => ({
-      ...prevValues,
-      [permissionId]: checked
-    }))
-  }
+  const { handleSubmit } = useForm<FormPermissionType>({
+    resolver: yupResolver(FormPermissionSchema)
+  })
 
   const handleSubmitForm = handleSubmit(() => {
     const checkedPermissionIds: string[] =
@@ -108,12 +99,23 @@ const Permission = () => {
     )
   })
 
+  const onCancel = () => {
+    navigate(path.role)
+  }
+
+  const handleCheckboxChange = (permissionId: string, checked: boolean) => {
+    setCheckboxValues((prevValues) => ({
+      ...prevValues,
+      [permissionId]: checked
+    }))
+  }
+
   return (
     <form onSubmit={handleSubmitForm}>
       <PermissionList
         onChangeCheckbox={handleCheckboxChange}
         permissions={permissions}
-        isShowPermissions={isEditPermissions}
+        isEditPermissions={isEditPermissions}
         checkboxValues={checkboxValues}
         onCancel={onCancel}
       />

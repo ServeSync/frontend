@@ -1,14 +1,14 @@
-import { Permission } from '../../interfaces/permission.type'
+import { PermissionType } from '../../interfaces/permission.type'
 
 interface Props {
-  permissions: Permission[] | undefined
-  isShowPermissions: boolean
+  permissions: PermissionType[] | undefined
+  isEditPermissions: boolean
   onCancel: () => void
   onChangeCheckbox: (permissionId: string, checked: boolean) => void
   checkboxValues: { [key: string]: boolean }
 }
 
-const PermissionList = ({ permissions, isShowPermissions, onCancel, checkboxValues, onChangeCheckbox }: Props) => {
+const PermissionList = ({ permissions, isEditPermissions, onCancel, checkboxValues, onChangeCheckbox }: Props) => {
   return (
     <div className='flex flex-col'>
       <div className='grid grid-cols-3 gap-6'>
@@ -23,7 +23,7 @@ const PermissionList = ({ permissions, isShowPermissions, onCancel, checkboxValu
                     id={`checkbox-${permission.id}`}
                     checked={checkboxValues[permission.id] || false}
                     onChange={() => onChangeCheckbox(permission.id, !checkboxValues[permission.id])}
-                    disabled={!isShowPermissions}
+                    disabled={!isEditPermissions}
                   />
                   <label htmlFor={`checkbox-${permission.id}`} className='flex items-center cursor-pointer'>
                     <span className='mr-4'>{permission.description}</span>
@@ -33,7 +33,7 @@ const PermissionList = ({ permissions, isShowPermissions, onCancel, checkboxValu
             )
           })}
       </div>
-      {isShowPermissions && (
+      {isEditPermissions && (
         <div className='self-end flex space-x-4  mt-5'>
           <button onClick={onCancel} className='bg-red-600 hover:bg-red-600/80 rounded-lg px-3 py-2 text-white'>
             Hủy
