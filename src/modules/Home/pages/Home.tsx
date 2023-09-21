@@ -8,7 +8,7 @@ const Home = () => {
         <title>Home</title>
         <meta name='description' content='This is home page of the project' />
       </Helmet>
-      <div className='h-[1000px]'>Home</div>
+      <div className=''>Home</div>
     </Fragment>
   )
 }

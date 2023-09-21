@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Fragment, useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
-import { LoginSchema, LoginType } from '../../utils/rules'
+import { FormLoginSchema, FormLoginType } from '../../utils/rules'
 import LoginInput from '../../components/LoginForm'
 import { AppContext } from 'src/modules/Share/contexts/app.context'
 import { useNavigate } from 'react-router-dom'
@@ -26,12 +26,12 @@ const Login = () => {
     handleSubmit,
     setError,
     formState: { errors }
-  } = useForm<LoginType>({
-    resolver: yupResolver(LoginSchema)
+  } = useForm<FormLoginType>({
+    resolver: yupResolver(FormLoginSchema)
   })
 
   const loginMutation = useMutation({
-    mutationFn: (body: LoginType) => {
+    mutationFn: (body: FormLoginType) => {
       return authAPI.login(body)
     }
   })

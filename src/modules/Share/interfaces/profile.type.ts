@@ -1,7 +1,7 @@
-import { Role } from 'src/modules/RoleManagement/interfaces/role.type'
+import { RoleType } from 'src/modules/RoleManagement/interfaces/role.type'
 
-export interface ProfileResponse {
+export interface Profile {
   id: string
   email: string
-  roles: Role[]
+  roles: RoleType[]
 }

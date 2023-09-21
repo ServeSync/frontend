@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
-export const RoleSchema = yup.object({
+export const FormRoleSchema = yup.object({
   name: yup.string().required('Vui lòng tên của Role !')
 })
 
-export type RoleType = yup.InferType<typeof RoleSchema>
+export type FormRoleType = yup.InferType<typeof FormRoleSchema>

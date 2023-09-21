@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance } from 'axios'
-import { AuthResponse } from 'src/modules/Authentication/interfaces/auth.type'
+import { AuthResponse, RefreshResponse } from 'src/modules/Authentication/interfaces/auth.type'
 import {
   clearTokenFromLocalStorage,
   getAccessTokenFromLocalStorage,
@@ -51,7 +51,7 @@ class Http {
       (response) => {
         const { url } = response.config
         if (url === '/auth/sign-in') {
-          const data = response.data as AuthResponse
+          const data = response.data as AuthResponse | RefreshResponse
           this.accessToken = data.accessToken
           this.refreshToken = data.refreshToken
           setAccessTokenToLocalStorage(this.accessToken)
