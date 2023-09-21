@@ -5,3 +5,9 @@ export const FormRoleSchema = yup.object({
 })
 
 export type FormRoleType = yup.InferType<typeof FormRoleSchema>
+
+export const FormPermissionSchema = yup.object({
+  id: yup.string()
+})
+
+export type FormPermissionType = yup.InferType<typeof FormPermissionSchema>
