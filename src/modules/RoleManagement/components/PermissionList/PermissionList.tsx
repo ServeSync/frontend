@@ -34,12 +34,12 @@ const PermissionList = ({ permissions, isShowPermissions, onCancel, checkboxValu
           })}
       </div>
       {isShowPermissions && (
-        <div className='self-end flex space-x-4 mr-[160px] mt-5'>
-          <button onClick={onCancel} className='bg-red-700 hover:bg-red-700/80 rounded-2xl px-3 py-2 text-white'>
-            Cancel
+        <div className='self-end flex space-x-4  mt-5'>
+          <button onClick={onCancel} className='bg-red-600 hover:bg-red-600/80 rounded-lg px-3 py-2 text-white'>
+            Hủy
           </button>
-          <button type='submit' className='bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-2xl px-3 py-2 text-white'>
-            Save
+          <button type='submit' className='bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-lg px-3 py-2 text-white'>
+            Cập nhật
           </button>
         </div>
       )}
