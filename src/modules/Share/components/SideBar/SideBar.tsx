@@ -10,7 +10,7 @@ const SideBar = () => {
   return (
     <aside
       className={classNames(
-        'h-screen sticky top-0 z-30 flex-shrink-0 bg-white lg:block transition-all shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]',
+        'h-screen sticky top-0 z-30 flex-shrink-0 bg-[#171717] lg:block transition-all shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]',
         {
           'w-[280px]': expanded
         }
@@ -18,7 +18,7 @@ const SideBar = () => {
     >
       <div>
         <div
-          className={classNames('h-[72px] flex items-center px-6 text-gray-500  border-b-[1px]', {
+          className={classNames('h-[72px] flex items-center px-6 text-gray-200 border-b-[1px] border-gray-500', {
             'justify-between': expanded,
             'justify-center': !expanded
           })}
@@ -32,6 +32,13 @@ const SideBar = () => {
                 'h-14 w-0': !expanded
               })}
             />
+            <span
+              className={classNames('text-[#12b2b7] ml-4 font-semibold text-[20px]', {
+                hidden: !expanded
+              })}
+            >
+              ServeSync
+            </span>
           </Link>
           <button onClick={() => setExpanded((curr) => !curr)}>
             {expanded ? (
@@ -66,16 +73,15 @@ const SideBar = () => {
           </button>
         </div>
         <div className='p-6'>
-          <ul className='flex flex-col gap-4'>
+          <ul className='flex flex-col gap-2 text-[#9198a5]'>
             <li className='py-2'>
               <NavLink
                 to={path.home}
                 className={({ isActive }) =>
                   classNames(
-                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-[#26C6DA] overflow-hidden transition-all',
+                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
                     {
-                      'text-[#26C6DA]': isActive,
-                      'text-gray-500': !isActive
+                      'text-gray-200': isActive
                     }
                   )
                 }
@@ -86,7 +92,7 @@ const SideBar = () => {
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-6 h-6'
+                  className='w-6 h-6 text-[#26C6DA]'
                 >
                   <path
                     strokeLinecap='round'
@@ -109,15 +115,14 @@ const SideBar = () => {
                 to={path.role}
                 className={({ isActive }) =>
                   classNames(
-                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-[#26C6DA] overflow-hidden transition-all',
+                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
                     {
-                      'text-[#26C6DA]': isActive,
-                      'text-gray-500': !isActive
+                      'text-gray-200': isActive
                     }
                   )
                 }
               >
-                <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6' viewBox='0 0 32 32'>
+                <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6 text-[#26C6DA]' viewBox='0 0 32 32'>
                   <path
                     fill='currentColor'
                     d='M28.07 21L22 15l6.07-6l1.43 1.41L24.86 15l4.64 4.59L28.07 21zM22 30h-2v-5a5 5 0 0 0-5-5H9a5 5 0 0 0-5 5v5H2v-5a7 7 0 0 1 7-7h6a7 7 0 0 1 7 7zM12 4a5 5 0 1 1-5 5a5 5 0 0 1 5-5m0-2a7 7 0 1 0 7 7a7 7 0 0 0-7-7z'
@@ -138,15 +143,14 @@ const SideBar = () => {
                 to={path.student}
                 className={({ isActive }) =>
                   classNames(
-                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-[#26C6DA] overflow-hidden transition-all',
+                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
                     {
-                      'text-[#26C6DA]': isActive,
-                      'text-gray-500': !isActive
+                      'text-gray-200': isActive
                     }
                   )
                 }
               >
-                <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6' viewBox='0 0 256 256'>
+                <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6 text-[#26C6DA]' viewBox='0 0 256 256'>
                   <path
                     fill='currentColor'
                     d='m226.53 56.41l-96-32a8 8 0 0 0-5.06 0l-96 32A8 8 0 0 0 24 64v80a8 8 0 0 0 16 0V75.1l33.59 11.19a64 64 0 0 0 20.65 88.05c-18 7.06-33.56 19.83-44.94 37.29a8 8 0 1 0 13.4 8.74C77.77 197.25 101.57 184 128 184s50.23 13.25 65.3 36.37a8 8 0 0 0 13.4-8.74c-11.38-17.46-27-30.23-44.94-37.29a64 64 0 0 0 20.65-88l44.12-14.7a8 8 0 0 0 0-15.18ZM176 120a48 48 0 1 1-86.65-28.45l36.12 12a8 8 0 0 0 5.06 0l36.12-12A47.89 47.89 0 0 1 176 120Zm-48-32.43L57.3 64L128 40.43L198.7 64Z'
@@ -158,7 +162,7 @@ const SideBar = () => {
                     'w-0': !expanded
                   })}
                 >
-                  Quản ly sinh viên
+                  Quản lý sinh viên
                 </span>
               </NavLink>
             </li>
@@ -167,10 +171,9 @@ const SideBar = () => {
                 to={path.event}
                 className={({ isActive }) =>
                   classNames(
-                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-[#26C6DA] overflow-hidden transition-all',
+                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
                     {
-                      'text-[#26C6DA]': isActive,
-                      'text-gray-500': !isActive
+                      'text-gray-200': isActive
                     }
                   )
                 }
@@ -181,7 +184,7 @@ const SideBar = () => {
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-6 h-6'
+                  className='w-6 h-6 text-[#26C6DA]'
                 >
                   <path
                     strokeLinecap='round'
@@ -204,10 +207,9 @@ const SideBar = () => {
                 to={path.organizer}
                 className={({ isActive }) =>
                   classNames(
-                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-[#26C6DA] overflow-hidden transition-all',
+                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
                     {
-                      'text-[#26C6DA]': isActive,
-                      'text-gray-500': !isActive
+                      'text-gray-200': isActive
                     }
                   )
                 }
@@ -218,7 +220,7 @@ const SideBar = () => {
                   viewBox='0 0 24 24'
                   strokeWidth='1.5'
                   stroke='currentColor'
-                  className='w-6 h-6'
+                  className='w-6 h-6 text-[#26C6DA]'
                 >
                   <path
                     strokeLinecap='round'
@@ -241,10 +243,9 @@ const SideBar = () => {
                 to={path.organizer}
                 className={({ isActive }) =>
                   classNames(
-                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-[#26C6DA] overflow-hidden transition-all',
+                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
                     {
-                      'text-[#26C6DA]': isActive,
-                      'text-gray-500': !isActive
+                      'text-gray-200': isActive
                     }
                   )
                 }
@@ -255,7 +256,7 @@ const SideBar = () => {
                   viewBox='0 0 24 24'
                   strokeWidth='1.5'
                   stroke='currentColor'
-                  className='w-6 h-6'
+                  className='w-6 h-6 text-[#26C6DA]'
                 >
                   <path
                     strokeLinecap='round'
@@ -278,10 +279,9 @@ const SideBar = () => {
                 to={path.complaint}
                 className={({ isActive }) =>
                   classNames(
-                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-[#26C6DA] overflow-hidden transition-all',
+                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
                     {
-                      'text-[#26C6DA]': isActive,
-                      'text-gray-500': !isActive
+                      'text-gray-200': isActive
                     }
                   )
                 }
@@ -292,7 +292,7 @@ const SideBar = () => {
                   viewBox='0 0 24 24'
                   strokeWidth='1.5'
                   stroke='currentColor'
-                  className='w-6 h-6'
+                  className='w-6 h-6 text-[#26C6DA]'
                 >
                   <path
                     strokeLinecap='round'

@@ -10,13 +10,7 @@ import {
 import connect from 'src/modules/Share/constants/connect'
 import HttpStatusCode from '../constants/httpStatusCode.enum'
 import authAPI from 'src/modules/Authentication/services/auth.api'
-import {
-  isAxiosUnauthorizedError,
-  isExpiredRefreshTokenError,
-  isNotExistRefreshTokenError,
-  isValidAccessToken,
-  isRefreshTokenAddedToUser
-} from './utils'
+import { isAxiosUnauthorizedError, isExpiredRefreshTokenError, isNotExistRefreshTokenError } from './utils'
 import { toast } from 'react-toastify'
 
 class Http {
@@ -91,23 +85,14 @@ class Http {
             })
           }
         }
-        if (isExpiredRefreshTokenError(error.response?.data.code as string)) {
+        if (
+          isExpiredRefreshTokenError(error.response?.data.code as string) ||
+          isNotExistRefreshTokenError(error.response?.data.code as string)
+        ) {
           this.accessToken = ''
           this.refreshToken = ''
           clearTokenFromLocalStorage()
-          toast.error('Phiên đăng nhập hết hạn !')
-        }
-        if (isNotExistRefreshTokenError(error.response?.data.code as string)) {
-          this.accessToken = ''
-          this.refreshToken = ''
-          clearTokenFromLocalStorage()
-          toast.error('Không tồn tại refresh token !')
-        }
-        if (isValidAccessToken(error.response?.data.code as string)) {
-          toast.error('Phiên truy cập vẫn hợp lệ !')
-        }
-        if (isRefreshTokenAddedToUser(error.response?.data.code as string)) {
-          toast.error('Refresh token đã được thêm vào người dùng !')
+          toast.error('Phiên đăng nhập đã hết hạn !')
         }
         return Promise.reject(error)
       }
