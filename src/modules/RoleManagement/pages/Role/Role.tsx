@@ -2,11 +2,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import RoleForm from '../../components/RoleForm'
 import RoleTable from '../../components/RoleTable'
 import { useForm } from 'react-hook-form'
-import { RoleSchema, RoleType } from '../../utils/rules'
+import { FormRoleSchema, FormRoleType } from '../../utils/rules'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import roleAPI from '../../services/role.api'
 import { toast } from 'react-toastify'
-import { isAdminRoleAccessDenied, isDuplicateRoleName } from 'src/modules/Share/utils/utils'
+import { isAdminRoleAccessDeniedError, isDuplicateRoleNameError } from 'src/modules/Share/utils/utils'
 import useQueryRoleConfig from '../../hooks/useQueryRoleConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState, Fragment } from 'react'
@@ -43,8 +43,8 @@ const Role = () => {
     setValue,
     reset,
     formState: { errors }
-  } = useForm<RoleType>({
-    resolver: yupResolver(RoleSchema)
+  } = useForm<FormRoleType>({
+    resolver: yupResolver(FormRoleSchema)
   })
 
   useEffect(() => {
@@ -58,13 +58,13 @@ const Role = () => {
   }, [role, setValue, reset])
 
   const CreateRoleMutation = useMutation({
-    mutationFn: (body: RoleType) => {
+    mutationFn: (body: FormRoleType) => {
       return roleAPI.createRole(body)
     }
   })
 
   const EdiRoleMutation = useMutation({
-    mutationFn: (body: { id: string; data: RoleType }) => {
+    mutationFn: (body: { id: string; data: FormRoleType }) => {
       return roleAPI.editRole(body)
     }
   })
@@ -97,13 +97,13 @@ const Role = () => {
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
-          if (isDuplicateRoleName(error.response?.data.code)) {
+          if (isDuplicateRoleNameError(error.response?.data.code)) {
             setError('name', {
               message: 'Role đã tồn tại !',
               type: 'Server'
             })
           }
-          if (isAdminRoleAccessDenied(error.response?.data.code)) {
+          if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
             setError('name', {
               message: 'Role admin không cho phép thêm mới !',
               type: 'Server'
@@ -121,7 +121,7 @@ const Role = () => {
           onSuccess: () => {
             navigate(path.role)
             setIsEditForm(false)
-            setValue('name', '')
+            reset()
             toast.success('Chỉnh sửa Role thành công !')
             queryClient.invalidateQueries({
               queryKey: ['roles']
@@ -129,7 +129,7 @@ const Role = () => {
           },
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onError: (error: any) => {
-            if (isAdminRoleAccessDenied(error.response?.data.code)) {
+            if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
               setError('name', {
                 message: 'Role admin không cho phép chỉnh sửa !',
                 type: 'Server'
@@ -160,7 +160,7 @@ const Role = () => {
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onError: (error: any) => {
-        if (isAdminRoleAccessDenied(error.response?.data.code)) {
+        if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
           toast.error('Role admin không cho phép xóa !')
         }
       }

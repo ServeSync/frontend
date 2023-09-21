@@ -1,8 +1,8 @@
-import { Role } from '../../interfaces/role.type'
+import { RoleType } from '../../interfaces/role.type'
 import classNames from 'classnames'
 
 interface Props {
-  roles: Role[] | undefined
+  roles: RoleType[] | undefined
   handleDeleteRole: (id: string) => void
   onEditRole: (id: string) => void
   roleID: string
@@ -12,7 +12,7 @@ const RoleTable = ({ roles, handleDeleteRole, onEditRole, roleID }: Props) => {
   return (
     <div className='flex flex-col gap-4'>
       {roles &&
-        roles.map((role: Role) => (
+        roles.map((role: RoleType) => (
           <div className='relative' key={role.id}>
             <div>
               <input

@@ -1,18 +1,33 @@
-import axios, { AxiosError, type AxiosInstance } from 'axios'
-import { AuthResponse } from 'src/modules/Authentication/interfaces/auth.type'
+import axios, { type AxiosInstance } from 'axios'
+import { AuthResponse, RefreshResponse } from 'src/modules/Authentication/interfaces/auth.type'
 import {
   clearTokenFromLocalStorage,
   getAccessTokenFromLocalStorage,
-  setAccessTokenToLocalStorage
+  getRefreshTokenFromLocalStorage,
+  setAccessTokenToLocalStorage,
+  setRefreshTokenToLocalStorage
 } from 'src/modules/Authentication/utils/auth'
 import connect from 'src/modules/Share/constants/connect'
 import HttpStatusCode from '../constants/httpStatusCode.enum'
+import authAPI from 'src/modules/Authentication/services/auth.api'
+import {
+  isAxiosUnauthorizedError,
+  isExpiredRefreshTokenError,
+  isNotExistRefreshTokenError,
+  isValidAccessToken,
+  isRefreshTokenAddedToUser
+} from './utils'
+import { toast } from 'react-toastify'
 
 class Http {
   instance: AxiosInstance
   private accessToken: string
+  private refreshToken: string
+  private refreshTokenRequest: Promise<{ access_token: string; refresh_token: string }> | null
   constructor() {
     this.accessToken = getAccessTokenFromLocalStorage()
+    this.refreshToken = getRefreshTokenFromLocalStorage()
+    this.refreshTokenRequest = null
     this.instance = axios.create({
       baseURL: connect.baseUrl,
       timeout: 10000,
@@ -36,25 +51,88 @@ class Http {
       (response) => {
         const { url } = response.config
         if (url === '/auth/sign-in') {
-          const data = response.data as AuthResponse
+          const data = response.data as AuthResponse | RefreshResponse
           this.accessToken = data.accessToken
+          this.refreshToken = data.refreshToken
           setAccessTokenToLocalStorage(this.accessToken)
+          setRefreshTokenToLocalStorage(this.refreshToken)
         }
         return response
       },
-      (error: AxiosError) => {
-        if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (error: any) => {
+        if (
+          ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(error.response?.status as number)
+        ) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const data: any | undefined = error.response?.data
           const message = data?.code || error.code
           console.log(message)
         }
-        if (error.response?.status === HttpStatusCode.Unauthorized) {
+        if (isAxiosUnauthorizedError(error)) {
+          const config = error.response?.config
+          const url = config?.url
+          if (url !== '/refresh-token') {
+            this.refreshTokenRequest = this.refreshTokenRequest
+              ? this.refreshTokenRequest
+              : this.handleRefreshToken().finally(() => {
+                  setTimeout(() => {
+                    this.refreshTokenRequest = null
+                  }, 10000)
+                })
+            return this.refreshTokenRequest.then((res) => {
+              if (config) {
+                config.headers.authorization = res.access_token
+                return this.instance({
+                  ...config,
+                  headers: { ...config.headers, Authorization: `Bearer ${res.access_token}` }
+                })
+              }
+            })
+          }
+        }
+        if (isExpiredRefreshTokenError(error.response?.data.code as string)) {
+          this.accessToken = ''
+          this.refreshToken = ''
           clearTokenFromLocalStorage()
+          toast.error('Phiên đăng nhập hết hạn !')
+        }
+        if (isNotExistRefreshTokenError(error.response?.data.code as string)) {
+          this.accessToken = ''
+          this.refreshToken = ''
+          clearTokenFromLocalStorage()
+          toast.error('Không tồn tại refresh token !')
+        }
+        if (isValidAccessToken(error.response?.data.code as string)) {
+          toast.error('Phiên truy cập vẫn hợp lệ !')
+        }
+        if (isRefreshTokenAddedToUser(error.response?.data.code as string)) {
+          toast.error('Refresh token đã được thêm vào người dùng !')
         }
         return Promise.reject(error)
       }
     )
+  }
+  private handleRefreshToken() {
+    return authAPI
+      .refreshToken({
+        accessToken: this.accessToken,
+        refreshToken: this.refreshToken
+      })
+      .then((res) => {
+        const { accessToken, refreshToken } = res.data
+        setAccessTokenToLocalStorage(accessToken)
+        setRefreshTokenToLocalStorage(refreshToken)
+        this.accessToken = accessToken
+        this.refreshToken = refreshToken
+        return { access_token: accessToken, refresh_token: refreshToken }
+      })
+      .catch((error) => {
+        this.accessToken = ''
+        this.refreshToken = ''
+        clearTokenFromLocalStorage()
+        throw error
+      })
   }
 }
 
