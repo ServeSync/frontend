@@ -8,7 +8,13 @@ import { AppContext } from '../contexts/app.context'
 const Login = lazy(() => import('src/modules/Authentication/pages/Login/Login'))
 const Home = lazy(() => import('src/modules/Home/pages'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
+const NotFound = lazy(() => import('../components/NotFound'))
+
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
+
+const Student = lazy(() => import('src/modules/StudentManagement/pages/Student'))
+const CreateStudent = lazy(() => import('src/modules/StudentManagement/pages/CreateStudent'))
+const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditStudent'))
 
 const RejectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
@@ -71,8 +77,46 @@ const useRouteElements = () => {
               </Suspense>
             </MainLayout>
           )
+        },
+        {
+          path: path.student,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <Student />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.create_student,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <CreateStudent />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.edit_student,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <EditStudent />
+              </Suspense>
+            </MainLayout>
+          )
         }
       ]
+    },
+    {
+      path: '*',
+      element: (
+        <Suspense>
+          <NotFound />
+        </Suspense>
+      )
     }
   ])
   return routeElements
