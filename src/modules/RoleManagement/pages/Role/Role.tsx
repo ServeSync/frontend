@@ -21,6 +21,8 @@ const Role = () => {
 
   const queryRoleConfig = useQueryRoleConfig()
 
+  console.log(queryRoleConfig)
+
   const navigate = useNavigate()
 
   const RolesListQuery = useQuery({
