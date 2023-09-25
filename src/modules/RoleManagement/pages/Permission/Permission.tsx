@@ -12,6 +12,7 @@ import { FormPermissionSchema, FormPermissionType } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect, useState } from 'react'
 import { PermissionType } from '../../interfaces/permission.type'
+import { RoleType } from '../../interfaces/role.type'
 
 const Permission = () => {
   const [checkboxValues, setCheckboxValues] = useState<{ [id: string]: boolean }>({})
@@ -41,7 +42,7 @@ const Permission = () => {
     queryFn: () => roleAPI.getRole(queryRoleConfig.id as string),
     enabled: queryRoleConfig.id !== undefined
   })
-  const role = RoleQuery.data?.data
+  const role = RoleQuery.data?.data as RoleType
 
   const EditPermissionsOfRole = useMutation({
     mutationFn: (body: { id: string; data: string[] }) => {

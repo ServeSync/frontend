@@ -2,11 +2,42 @@ import { Fragment } from 'react'
 import StudentTable from '../../components/StudentTable'
 import { Helmet } from 'react-helmet-async'
 import path from 'src/modules/Share/constants/path'
-import { Link } from 'react-router-dom'
+import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import InputSearch from 'src/modules/Share/components/InputSearch'
 import Pagination from 'src/modules/Share/components/Pagination/Pagination'
+import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
+import studentAPI from '../../services/student.api'
+import { StudentListConfig, StudentType } from '../../interfaces/student.type'
+import { useQuery } from '@tanstack/react-query'
+import useSorting from 'src/modules/Share/hooks/useSorting'
+import useSearch from 'src/modules/Share/hooks/useSearch'
 
 const Student = () => {
+  const queryStudentConfig = useQueryStudentConfig()
+
+  const navigate = useNavigate()
+
+  const StudentsListQuery = useQuery({
+    queryKey: ['students', queryStudentConfig],
+    queryFn: () => studentAPI.getListStudents(queryStudentConfig as StudentListConfig),
+    keepPreviousData: true,
+    staleTime: 3 * 60 * 1000
+  })
+  const students = StudentsListQuery.data?.data.data as StudentType[]
+
+  const onEditStudent = (id: string) => {
+    navigate({
+      pathname: path.edit_student,
+      search: createSearchParams({
+        id: id
+      }).toString()
+    })
+  }
+
+  const useSortStudent = useSorting({ queryConfig: queryStudentConfig, pathname: path.student })
+
+  const useSearchStudent = useSearch({ queryConfig: queryStudentConfig, pathname: path.student })
+
   return (
     <Fragment>
       <Helmet>
@@ -14,12 +45,14 @@ const Student = () => {
         <meta name='description' content='This is student management page of the project' />
       </Helmet>
       <div>
-        <div className='flex justify-between items-center pt-[16px] pb-[40px] rou'>
-          <form>
+        <div className='flex justify-between items-center pt-[16px] pb-[40px]'>
+          <form onSubmit={useSearchStudent.handleSubmitSearch}>
             <InputSearch
               classNameInput={
                 'bg-white border-[1px] border-gray-200 rounded h-[40px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm'
               }
+              name='search'
+              register={useSearchStudent.register}
             />
           </form>
           <div className='flex gap-4'>
@@ -65,15 +98,20 @@ const Student = () => {
             </button>
             <Link
               to={path.create_student}
+              state={queryStudentConfig}
               className='flex items-center text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
             >
               Thêm sinh viên
             </Link>
           </div>
         </div>
-        <StudentTable />
+        <StudentTable students={students} onEditStudent={onEditStudent} onSort={useSortStudent.handleSort} />
         <div className='flex justify-end'>
-          <Pagination pageSize={5} />
+          <Pagination
+            queryConfig={queryStudentConfig}
+            pageSize={StudentsListQuery.data?.data.totalPages as number}
+            pathname={path.student}
+          />
         </div>
       </div>
     </Fragment>

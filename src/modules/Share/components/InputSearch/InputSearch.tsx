@@ -1,11 +1,16 @@
+import { UseFormRegister } from 'react-hook-form'
+
 interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  register: UseFormRegister<any>
   classNameInput: string
+  name: string
 }
 
-const InputSearch = ({ classNameInput }: Props) => {
+const InputSearch = ({ classNameInput, name, register }: Props) => {
   return (
     <div className='relative'>
-      <input type='text' placeholder='Search' className={classNameInput} />
+      <input type='text' placeholder='Search' className={classNameInput} {...register(name)} />
       <svg
         xmlns='http://www.w3.org/2000/svg'
         fill='none'

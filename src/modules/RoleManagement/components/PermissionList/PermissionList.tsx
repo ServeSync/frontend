@@ -1,7 +1,7 @@
 import { PermissionType } from '../../interfaces/permission.type'
 
 interface Props {
-  permissions: PermissionType[] | undefined
+  permissions: PermissionType[]
   isEditPermissions: boolean
   onCancel: () => void
   onChangeCheckbox: (permissionId: string, checked: boolean) => void
@@ -35,7 +35,11 @@ const PermissionList = ({ permissions, isEditPermissions, onCancel, checkboxValu
       </div>
       {isEditPermissions && (
         <div className='self-end flex space-x-4  mt-5'>
-          <button onClick={onCancel} className='bg-red-600 hover:bg-red-600/80 rounded-lg px-3 py-2 text-white'>
+          <button
+            type='button'
+            onClick={onCancel}
+            className='bg-red-600 hover:bg-red-600/80 rounded-lg px-3 py-2 text-white'
+          >
             Hủy
           </button>
           <button type='submit' className='bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-lg px-3 py-2 text-white'>

@@ -1,13 +1,17 @@
 import classNames from 'classnames'
-import { Link } from 'react-router-dom'
+import { Link, createSearchParams } from 'react-router-dom'
 
 interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  queryConfig: any
   pageSize: number
+  pathname: string
 }
+
 const RANGE = 2
 
-const Pagination = ({ pageSize }: Props) => {
-  const page = 1
+const Pagination = ({ queryConfig, pageSize, pathname }: Props) => {
+  const page = Number(queryConfig.page)
 
   const renderPagination = () => {
     let dotBefore = false
@@ -57,7 +61,13 @@ const Pagination = ({ pageSize }: Props) => {
         }
         return (
           <Link
-            to={''}
+            to={{
+              pathname: pathname,
+              search: createSearchParams({
+                ...queryConfig,
+                page: pageNumber.toString()
+              }).toString()
+            }}
             key={index}
             className={classNames(
               'mx-1 flex h-8 w-8 cursor-pointer items-center justify-center text-center text-gray-600 shadow-sm rounded border-[1px]',
@@ -76,7 +86,7 @@ const Pagination = ({ pageSize }: Props) => {
   return (
     <div className='mt-6 flex flex-wrap justify-center'>
       {page === 1 ? (
-        <span className='mx-1 border-[1px] border-gray-200 rounded flex h-8 w-8 cursor-not-allowed items-center justify-center text-gray-600 shadow-sm '>
+        <span className='mx-1 border-[1px] border-gray-200 rounded flex h-8 w-8 cursor-not-allowed items-center justify-center text-gray-600 shadow-sm bg-gray-100'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -90,7 +100,13 @@ const Pagination = ({ pageSize }: Props) => {
         </span>
       ) : (
         <Link
-          to={''}
+          to={{
+            pathname: pathname,
+            search: createSearchParams({
+              ...queryConfig,
+              page: (page - 1).toString()
+            }).toString()
+          }}
           className='mx-1 border-[1px] border-gray-200 rounded flex h-8 w-8 cursor-pointer items-center justify-center text-gray-600 shadow-sm hover:bg-gray-100'
         >
           <svg
@@ -109,7 +125,7 @@ const Pagination = ({ pageSize }: Props) => {
       {renderPagination()}
 
       {page === pageSize ? (
-        <span className='mx-1 border-[1px] border-gray-200 rounded flex h-8 w-8 cursor-not-allowed items-center justify-center  text-gray-600 shadow-sm'>
+        <span className='mx-1 border-[1px] border-gray-200 rounded flex h-8 w-8 cursor-not-allowed items-center justify-center  text-gray-600 shadow-sm bg-gray-100'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -123,7 +139,13 @@ const Pagination = ({ pageSize }: Props) => {
         </span>
       ) : (
         <Link
-          to={''}
+          to={{
+            pathname: pathname,
+            search: createSearchParams({
+              ...queryConfig,
+              page: (page + 1).toString()
+            }).toString()
+          }}
           className='mx-1 border-[1px] border-gray-200 rounded flex h-8 w-8 cursor-pointer items-center justify-center  text-gray-600 shadow-sm'
         >
           <svg

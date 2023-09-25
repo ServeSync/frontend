@@ -27,9 +27,13 @@ const Popover = ({ children, className, renderPopover, as: Element = 'div', init
     setOpen(!open)
   }
 
+  const handleChildrenClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+  }
+
   return (
-    <Element className={className} ref={reference} onClick={togglePopover}>
-      {children}
+    <Element className={className} ref={reference} onClick={handleChildrenClick}>
+      <Element onClick={togglePopover}>{children}</Element>
       <FloatingPortal id={id}>
         <AnimatePresence>
           {open && (

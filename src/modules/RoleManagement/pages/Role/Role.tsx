@@ -13,6 +13,7 @@ import { useEffect, useState, Fragment } from 'react'
 import path from 'src/modules/Share/constants/path'
 import { Helmet } from 'react-helmet-async'
 import Permission from '../Permission'
+import { RoleType } from '../../interfaces/role.type'
 
 const Role = () => {
   const [isEditForm, setIsEditForm] = useState<boolean>(false)
@@ -21,20 +22,24 @@ const Role = () => {
 
   const queryRoleConfig = useQueryRoleConfig()
 
+  console.log(queryRoleConfig)
+
   const navigate = useNavigate()
 
   const RolesListQuery = useQuery({
     queryKey: ['roles'],
-    queryFn: () => roleAPI.getListRoles()
+    queryFn: () => roleAPI.getListRoles(),
+    keepPreviousData: true,
+    staleTime: 3 * 60 * 1000
   })
-  const roles = RolesListQuery.data?.data.data
+  const roles = RolesListQuery.data?.data.data as RoleType[]
 
   const RoleQuery = useQuery({
     queryKey: ['role', queryRoleConfig],
     queryFn: () => roleAPI.getRole(queryRoleConfig.id as string),
     enabled: queryRoleConfig.id !== undefined
   })
-  const role = RoleQuery.data?.data
+  const role = RoleQuery.data?.data as RoleType
 
   const {
     register,

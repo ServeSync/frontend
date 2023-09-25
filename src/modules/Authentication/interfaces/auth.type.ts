@@ -7,3 +7,7 @@ export interface RefreshResponse {
   accessToken: string
   refreshToken: string
 }
+
+export interface ResetTokenConfig {
+  token?: string
+}

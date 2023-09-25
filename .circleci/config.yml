@@ -33,6 +33,15 @@ jobs:
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker push $DOCKER_USER/servesync_web:latest
             docker push $DOCKER_USER/servesync_web:$TAG
+  deploy:
+    machine:
+      image: ubuntu-2204:2022.10.2
+    steps:
+      - run:
+          name: Deploy over ssh
+          command: |
+            ssh $SSH_USER@$SSH_HOST "cd /usr/src/servesync && sudo ./deploy-web.sh"
+
 workflows:
   deploy-web:
     jobs:
@@ -44,3 +53,11 @@ workflows:
             branches:
               only:
                 - main
+      - deploy:
+          requires:
+            - build-and-deploy-web-image
+          filters:
+            branches:
+              only:
+                - main
+                - dev
