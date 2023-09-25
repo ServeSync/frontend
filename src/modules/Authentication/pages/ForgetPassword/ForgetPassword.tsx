@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import authAPI from '../../services/auth.api'
 import { toast } from 'react-toastify'
 import { isAccountLockedOutError, isUserNameNotFoundError } from 'src/modules/Share/utils/utils'
+import path from 'src/modules/Share/constants/path'
 
 const ForgetPassword = () => {
   const {
@@ -27,7 +28,10 @@ const ForgetPassword = () => {
 
   const handlOnSubmit = handleSubmit((formData) => {
     forgetPasswordMutaion.mutate(
-      { userNameorEmail: formData.userNameOrEmail as string, callBackUrl: `http://localhost:4000/resetPassword` },
+      {
+        userNameorEmail: formData.userNameOrEmail as string,
+        callBackUrl: `http://localhost:4000${path.reset_password}`
+      },
       {
         onSuccess: () => {
           toast.success('Vui lòng kiểm tra email để lấy lại mật khẩu !')
