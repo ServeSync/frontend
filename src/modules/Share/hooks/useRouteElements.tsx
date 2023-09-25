@@ -8,6 +8,7 @@ import { AppContext } from '../contexts/app.context'
 const Login = lazy(() => import('src/modules/Authentication/pages/Login/Login'))
 const Home = lazy(() => import('src/modules/Home/pages'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
+const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
 const NotFound = lazy(() => import('../components/NotFound'))
 
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
@@ -48,6 +49,16 @@ const useRouteElements = () => {
             <AuthenticationLayout>
               <Suspense>
                 <ForgetPassword />
+              </Suspense>
+            </AuthenticationLayout>
+          )
+        },
+        {
+          path: path.reset_password,
+          element: (
+            <AuthenticationLayout>
+              <Suspense>
+                <ResetPassword />
               </Suspense>
             </AuthenticationLayout>
           )
