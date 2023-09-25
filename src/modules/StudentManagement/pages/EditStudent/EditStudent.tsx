@@ -68,19 +68,32 @@ const EditStudent = () => {
               <div className='col-span-1'>
                 <Doughnut data={data} />
               </div>
-              <div className='col-span-2 flex flex-col px-8'>
-                <div className=''>
-                  Hệ đào tạo: <span>Cử nhân</span>
+              <div className='col-span-2 flex flex-col pl-6 text-[16px]'>
+                <div className=' flex justify-between'>
+                  Hệ đào tạo
+                  <div className='w-[80px]'>
+                    <span className='mr-2'>:</span>Cử nhân
+                  </div>
                 </div>
-                <div className=''>
-                  Số điểm tích lũy yêu cầu: <span>{data.datasets[0].data[1]}</span>
+                <div className=' flex justify-between'>
+                  Số điểm tích lũy yêu cầu
+                  <div className='w-[80px]'>
+                    <span className='mr-2'>:</span>
+                    {data.datasets[0].data[1]}
+                  </div>
                 </div>
-                <div className=''>
-                  Số điểm đã tích lũy: <span>{data.datasets[0].data[0]}</span>
+                <div className=' flex justify-between'>
+                  Số điểm đã tích lũy
+                  <div className='w-[80px]'>
+                    <span className='mr-2'>:</span>
+                    {data.datasets[0].data[0]}
+                  </div>
                 </div>
-                <div className=''>
-                  Số hoạt động đã tham gia:
-                  <span>123</span>
+                <div className=' flex justify-between'>
+                  Số hoạt động đã tham gia
+                  <div className='w-[80px]'>
+                    <span className='mr-2'>:</span>123
+                  </div>
                 </div>
               </div>
             </div>
