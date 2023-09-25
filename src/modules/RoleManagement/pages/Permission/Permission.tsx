@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { isAdminRoleAccessDenied } from 'src/modules/Share/utils/utils'
+import { isAdminRoleAccessDeniedError } from 'src/modules/Share/utils/utils'
 import roleAPI from '../../services/role.api'
 import { FormPermissionSchema, FormPermissionType } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -43,7 +43,7 @@ const Permission = () => {
   })
   const role = RoleQuery.data?.data
 
-  const SavePermissionsOfRole = useMutation({
+  const EditPermissionsOfRole = useMutation({
     mutationFn: (body: { id: string; data: string[] }) => {
       return roleAPI.editPermissionsOfRole(body)
     }
@@ -76,7 +76,7 @@ const Permission = () => {
     const checkedPermissionIds: string[] =
       permissions?.filter((permission) => checkboxValues[permission.id]).map((permission) => permission.id) || []
 
-    SavePermissionsOfRole.mutate(
+    EditPermissionsOfRole.mutate(
       {
         id: queryRoleConfig.id as string,
         data: checkedPermissionIds
@@ -91,7 +91,7 @@ const Permission = () => {
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
-          if (isAdminRoleAccessDenied(error.response?.data.code)) {
+          if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
             toast.error('Role admin không cho phép cập nhật!')
           }
         }

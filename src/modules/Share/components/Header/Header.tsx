@@ -33,7 +33,7 @@ export default function Header() {
               <input
                 type='text'
                 placeholder='Search'
-                className=' block w-[200px] sm:w-[400px] lg:w-full appearance-none bg-white border-[1px] border-gray-500 rounded-md py-2 px-3 text-sm outline-none leading-5 pl-10'
+                className=' block w-[400px] appearance-none bg-white border-[1px] border-gray-500 rounded-md py-2 px-3 text-sm outline-none leading-5 pl-10'
                 aria-label='Search'
               />
               <div className='absolute top-2 left-2'>
