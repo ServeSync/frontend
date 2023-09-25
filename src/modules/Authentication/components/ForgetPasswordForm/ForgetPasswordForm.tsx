@@ -25,10 +25,9 @@ const ForgetPasswordForm = ({ register, errors }: Props) => {
         <button
           type='submit'
           className={classNames(
-            ' flex justify-center items-center bg-[#195E8E] w-[60px] min-h-[50px] text-white p-2 rounded-2xl font-semibold relative transition-all duration-300',
+            ' flex justify-center items-center bg-[#195E8E] w-[60px] min-h-[50px] text-white p-2 rounded-2xl font-semibold transition-all duration-300',
             {
-              'hover:bg-[#195E8E]/90': !isHovered,
-              'hover:bg-[#195E8E]': isHovered,
+              'hover:bg-[#195E8E]/90': isHovered,
               'hover:w-[80px]': isHovered
             }
           )}
@@ -42,7 +41,7 @@ const ForgetPasswordForm = ({ register, errors }: Props) => {
               viewBox='0 0 24 24'
               strokeWidth={1.5}
               stroke='currentColor'
-              className='w-6 h-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+              className='w-6 h-6'
             >
               <path
                 strokeLinecap='round'
