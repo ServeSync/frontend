@@ -27,7 +27,7 @@ const ForgetPasswordForm = ({ register, errors }: Props) => {
           className={classNames(
             ' flex justify-center items-center bg-[#195E8E] w-[60px] min-h-[50px] text-white p-2 rounded-2xl font-semibold transition-all duration-300',
             {
-              'hover:bg-[#195E8E]/90,hover:w-[80px]': isHovered
+              'hover:bg-[#195E8E]/90 hover:w-[80px]': isHovered
             }
           )}
           onMouseEnter={() => setIsHovered(true)}
