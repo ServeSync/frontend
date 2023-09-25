@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import { error_code } from '../constants/errorCode'
 import HttpStatusCode from '../constants/httpStatusCode.enum'
+import { format, parseISO } from 'date-fns'
 
 // Auth
 export function isUserNameNotFoundError(errorCode: string) {
@@ -66,4 +67,9 @@ export function isAxiosError<T>(error: unknown): error is AxiosError<T> {
 
 export function isAxiosUnauthorizedError(error: unknown): error is AxiosError {
   return isAxiosError(error) && error.response?.status === HttpStatusCode.Unauthorized
+}
+
+// Format
+export function formatDateTime(date: string) {
+  return format(parseISO(date), 'dd/MM/yyyy')
 }

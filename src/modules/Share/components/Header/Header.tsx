@@ -28,7 +28,7 @@ export default function Header() {
   const profile = ProfileQuery.data?.data
 
   return (
-    <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all'>
+    <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all z-50'>
       <div className='w-full lg:max-w-full md:max-w-[786px] sm:max-w-[640px] flex items-center justify-between h-full px-6 overflow-hidden text-black'>
         <div className='font-semibold text-[18px] capitalize flex'>
           {location[0] !== 'home' && (

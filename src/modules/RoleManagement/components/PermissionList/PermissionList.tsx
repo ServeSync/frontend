@@ -1,7 +1,7 @@
 import { PermissionType } from '../../interfaces/permission.type'
 
 interface Props {
-  permissions: PermissionType[] | undefined
+  permissions: PermissionType[]
   isEditPermissions: boolean
   onCancel: () => void
   onChangeCheckbox: (permissionId: string, checked: boolean) => void
