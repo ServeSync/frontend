@@ -2,7 +2,7 @@ import { RoleType } from '../../interfaces/role.type'
 import classNames from 'classnames'
 
 interface Props {
-  roles: RoleType[] | undefined
+  roles: RoleType[]
   handleDeleteRole: (id: string) => void
   onEditRole: (id: string) => void
   roleID: string

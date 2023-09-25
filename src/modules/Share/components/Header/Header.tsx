@@ -1,15 +1,18 @@
-import { useContext } from 'react'
+import { useContext, Fragment } from 'react'
 import { AppContext } from '../../contexts/app.context'
 import Popover from '../Popover'
 import { clearTokenFromLocalStorage } from 'src/modules/Authentication/utils/auth'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import path from '../../constants/path'
 import { useQuery } from '@tanstack/react-query'
 import profileAPI from '../../services/profile.api'
+
 export default function Header() {
   const { setIsAuthenticated } = useContext(AppContext)
 
   const navigate = useNavigate()
+
+  const location = useLocation().pathname.split('/').slice(1)
 
   const handleLogout = () => {
     setIsAuthenticated(false)
@@ -25,28 +28,16 @@ export default function Header() {
   const profile = ProfileQuery.data?.data
 
   return (
-    <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all'>
+    <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all z-50'>
       <div className='w-full lg:max-w-full md:max-w-[786px] sm:max-w-[640px] flex items-center justify-between h-full px-6 overflow-hidden text-black'>
-        <div className='flex justify-center flex-1 text-gray-500 py-4'>
-          <form>
-            <div className='relative w-full w-xl'>
-              <input
-                type='text'
-                placeholder='Search'
-                className=' block w-[400px] appearance-none bg-white border-[1px] border-gray-500 rounded-md py-2 px-3 text-sm outline-none leading-5 pl-10'
-                aria-label='Search'
-              />
-              <div className='absolute top-2 left-2'>
-                <svg aria-hidden='true' fill='currentColor' viewBox='0 0 20 20' className='w-5 h-5'>
-                  <path
-                    fillRule='evenodd'
-                    d='M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z'
-                    clipRule='evenodd'
-                  />
-                </svg>
-              </div>
-            </div>
-          </form>
+        <div className='font-semibold text-[18px] capitalize flex'>
+          {location[0] !== 'home' && (
+            <Fragment>
+              <span>{location[0]}</span>
+              <div className='h-6 mx-4 border-r border-gray-300 -skew-x-12'></div>
+              <span>List</span>
+            </Fragment>
+          )}
         </div>
         <div className='flex items-center flex-shrink-0 space-x-6'>
           <div className='relative flex gap-3 items-center'>
@@ -58,7 +49,7 @@ export default function Header() {
                   <ul className='flex flex-col gap-2 absolute right-[-16px] w-56 p-2 text-gray-700 bg-white rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] '>
                     <li>
                       <Link
-                        to={'/!'}
+                        to={'/profile'}
                         className='flex items-center cursor-pointer w-full px-2 py-1 text-sm font-medium rounded-md hover:bg-gray-100 hover:text-gray-800 '
                       >
                         <svg
@@ -78,7 +69,7 @@ export default function Header() {
                     </li>
                     <li>
                       <Link
-                        to={'/!'}
+                        to={'/settings'}
                         className='flex items-center cursor-pointer w-full px-2 py-1 text-sm font-medium rounded-md hover:bg-gray-100 hover:text-gray-800  '
                       >
                         <svg

@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
 interface RoleForm {
@@ -40,13 +41,18 @@ const RoleForm = ({ register, errors, isEditForm, onCreateRole }: Props) => {
         </div>
         <span className='block min-h-[16px] text-red-700 text-xs mt-1 font-normal'>{errors.name?.message}</span>
       </div>
-      <button type='submit' className='w-full py-2 bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-md text-white'>
+      <button
+        type='submit'
+        className={classNames('w-full py-2 bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-md text-white', {
+          'mb-[30px]': !isEditForm
+        })}
+      >
         {isEditForm ? 'Cập nhật role' : 'Tạo Role'}
       </button>
       {isEditForm && (
         <button
           type='button'
-          className='w-full text-[#33b6c7] text-right text-[14px] hover:underline'
+          className='w-full text-[#33b6c7] text-right text-[14px] hover:underline h-[22px]'
           onClick={onCreateRole}
         >
           Tạo Role ?
