@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Deploy over ssh
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd /usr/src/servesync && sudo ./deploy-api.sh"
+            ssh $SSH_USER@$SSH_HOST "cd /usr/src/servesync && sudo ./deploy-web.sh"
 
 workflows:
   deploy-web:
