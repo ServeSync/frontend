@@ -1,15 +1,40 @@
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import EditStudentForm from '../../components/EditStudentForm'
 import InputFile from 'src/modules/Share/components/InputFile'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 import EventsOfStudentTable from '../../components/EventsOfStudentTable'
+import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import studentAPI from '../../services/student.api'
+import { toast } from 'react-toastify'
+
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 const EditStudent = () => {
+  const queryStudentConfig = useQueryStudentConfig()
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
+
+  const DeleteRoleMutation = useMutation({
+    mutationFn: (id: string) => {
+      return studentAPI.deleteStudent(id)
+    }
+  })
+  const handleDeleteStudent = (id: string) => {
+    DeleteRoleMutation.mutate(id, {
+      onSuccess: () => {
+        toast.success('Xóa sinh viên thành công')
+        navigate(path.student)
+        queryClient.invalidateQueries({
+          queryKey: ['students']
+        })
+      }
+    })
+  }
   const data = {
     labels: ['Tích lũy'],
     datasets: [
@@ -52,7 +77,7 @@ const EditStudent = () => {
           </div>
           <div className='col-span-5 '>
             <form action=''>
-              <EditStudentForm />
+              <EditStudentForm handleDeleteStudent={handleDeleteStudent} studentId={queryStudentConfig.id as string} />
             </form>
           </div>
         </div>
