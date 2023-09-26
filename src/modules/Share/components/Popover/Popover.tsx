@@ -27,12 +27,8 @@ const Popover = ({ children, className, renderPopover, as: Element = 'div', init
     setOpen(!open)
   }
 
-  const handleChildrenClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation()
-  }
-
   return (
-    <Element className={className} ref={reference} onClick={handleChildrenClick}>
+    <Element className={className} ref={reference}>
       <Element onClick={togglePopover}>{children}</Element>
       <FloatingPortal id={id}>
         <AnimatePresence>
@@ -52,14 +48,6 @@ const Popover = ({ children, className, renderPopover, as: Element = 'div', init
               exit={{ opacity: 0, transform: 'scale(0)' }}
               transition={{ duration: 0.1 }}
             >
-              <span
-                ref={arrowRef}
-                className='border-x-transparent border-t-transparent border-b-white border-[11px] absolute translate-y-[-70%] z-10'
-                style={{
-                  left: middlewareData.arrow?.x,
-                  top: middlewareData.arrow?.y
-                }}
-              />
               {renderPopover}
             </motion.div>
           )}

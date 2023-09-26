@@ -3,7 +3,9 @@ import { StudentListConfig, StudentType } from '../interfaces/student.type'
 
 const studentAPI = {
   getListStudents: (params: StudentListConfig) =>
-    http.get<{ total: number; totalPages: number; data: StudentType[] }>('/students', { params })
+    http.get<{ total: number; totalPages: number; data: StudentType[] }>('/students', { params }),
+
+  getStudent: (id: string) => http.get<StudentType>(`/students/${id}`)
 }
 
 export default studentAPI

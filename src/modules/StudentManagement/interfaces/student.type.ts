@@ -29,4 +29,5 @@ export interface StudentListConfig {
   sorting?: string
   page?: number
   size?: number
+  id?: string
 }
