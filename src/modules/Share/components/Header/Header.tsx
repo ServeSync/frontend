@@ -6,9 +6,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import path from '../../constants/path'
 import { useQuery } from '@tanstack/react-query'
 import profileAPI from '../../services/profile.api'
+import studentAPI from 'src/modules/StudentManagement/services/student.api'
+import useQueryStudentConfig from 'src/modules/StudentManagement/hooks/useQueryStudentConfig'
 
 export default function Header() {
   const { setIsAuthenticated } = useContext(AppContext)
+
+  const queryStudentConfig = useQueryStudentConfig()
 
   const navigate = useNavigate()
 
@@ -24,8 +28,14 @@ export default function Header() {
     queryKey: ['profile'],
     queryFn: () => profileAPI.getProfile()
   })
-
   const profile = ProfileQuery.data?.data
+
+  const StudentQuery = useQuery({
+    queryKey: ['student', queryStudentConfig],
+    queryFn: () => studentAPI.getStudent(queryStudentConfig.id as string),
+    enabled: queryStudentConfig.id !== undefined && location[0] === 'students'
+  })
+  const student = StudentQuery.data?.data
 
   return (
     <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all z-50'>
@@ -35,7 +45,15 @@ export default function Header() {
             <Fragment>
               <span>{location[0]}</span>
               <div className='h-6 mx-4 border-r border-gray-300 -skew-x-12'></div>
-              <span>List</span>
+              {student ? (
+                <Fragment>
+                  <span className='text-gray-500'>{student.fullName}</span>
+                  <div className='h-6 mx-4 border-r border-gray-300 -skew-x-12'></div>
+                  <span className='text-gray-500'>Edit</span>
+                </Fragment>
+              ) : (
+                <span className='text-gray-500'>List</span>
+              )}
             </Fragment>
           )}
         </div>
@@ -44,7 +62,7 @@ export default function Header() {
             <span>{profile?.email}</span>
             <button className='rounded-full'>
               <Popover
-                className='rounded-full flex items-center w-8 h-8 align-middle z-500 '
+                className='rounded-full flex items-center w-8 h-8 align-middle z-50'
                 renderPopover={
                   <ul className='flex flex-col gap-2 absolute right-[-16px] w-56 p-2 text-gray-700 bg-white rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] '>
                     <li>

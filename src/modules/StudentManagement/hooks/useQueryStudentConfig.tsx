@@ -17,7 +17,8 @@ const useQueryStudentConfig = () => {
       search: queryStudentParams.search,
       sorting: queryStudentParams.sorting,
       page: queryStudentParams.page || 1,
-      size: queryStudentParams.size || 10
+      size: queryStudentParams.size || 10,
+      id: queryStudentParams.id
     },
     isUndefined
   )

@@ -15,7 +15,6 @@ const StudentTable = ({ students, onEditStudent, onSort }: Props) => {
   const handleSort = (column: string) => {
     onSort(column)
     setIsSorting(column)
-    console.log(isSorting)
   }
 
   return (
@@ -57,13 +56,13 @@ const StudentTable = ({ students, onEditStudent, onSort }: Props) => {
               key={student.id}
               onClick={() => onEditStudent(student.id)}
             >
-              <th className='px-2 py-4 font-medium w-[90px]'>{student.code}</th>
-              <th className='px-2 py-4 font-medium w-[160px]'>{student.fullName}</th>
-              <th className='px-2 py-4 font-medium w-[100px]'>{student.gender ? 'Nam' : 'Nữ'}</th>
-              <th className='px-2 py-4 font-medium w-[120px]'>{formatDateTime(student.dateOfBirth)}</th>
-              <th className='px-2 py-4 font-medium w-[240px]'>{student.homeRoom.name}</th>
-              <th className='px-2 py-4 font-medium w-[300px]'>{student.faculty.name}</th>
-              <th className='px-2 py-4 font-medium w-[110px]'>{student.educationProgram.name}</th>
+              <th className='px-2 py-4 font-medium w-[8%]'>{student.code}</th>
+              <th className='px-2 py-4 font-medium w-[14%]'>{student.fullName}</th>
+              <th className='px-2 py-4 font-medium w-[8%]'>{student.gender ? 'Nam' : 'Nữ'}</th>
+              <th className='px-2 py-4 font-medium w-[9%]'>{formatDateTime(student.dateOfBirth)}</th>
+              <th className='px-2 py-4 font-medium w-[20%]'>{student.homeRoom.name}</th>
+              <th className='px-2 py-4 font-medium w-[25%]'>{student.faculty.name}</th>
+              <th className='px-2 py-4 font-medium w-[9.2%]'>{student.educationProgram.name}</th>
               <th className='px-2 py-4 font-medium'>0</th>
             </tr>
           ))}
