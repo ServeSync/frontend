@@ -16,10 +16,6 @@ interface Props {
 const LoginForm = ({ register, errors }: Props) => {
   const [isHiddenPassword, setIsHiddenPassword] = useState<boolean>(true)
 
-  const toggleIsHiddenPassword = () => {
-    setIsHiddenPassword((prev) => !prev)
-  }
-
   return (
     <div className='flex flex-col gap-2'>
       <div className='flex flex-col relative'>
@@ -78,7 +74,7 @@ const LoginForm = ({ register, errors }: Props) => {
         {isHiddenPassword ? (
           <button
             type='button'
-            onClick={toggleIsHiddenPassword}
+            onClick={() => setIsHiddenPassword(!isHiddenPassword)}
             className='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
           >
             <svg
@@ -99,7 +95,7 @@ const LoginForm = ({ register, errors }: Props) => {
         ) : (
           <button
             type='button'
-            onClick={toggleIsHiddenPassword}
+            onClick={() => setIsHiddenPassword(!isHiddenPassword)}
             className='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
           >
             <svg

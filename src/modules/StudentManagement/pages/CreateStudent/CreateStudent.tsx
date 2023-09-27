@@ -2,13 +2,38 @@ import { Helmet } from 'react-helmet-async'
 import CreateStudentForm from '../../components/CreateStudentForm'
 import { Fragment } from 'react'
 import InputFile from 'src/modules/Share/components/InputFile'
+import educationProgramAPI from '../../services/education_program.api'
+import { EducationProgramType } from '../../interfaces/education_program.type'
+import facultyAPI from '../../services/faculty.api'
+import { FacultyType } from '../../interfaces/faculty.type'
+import { HomeRoomType } from '../../interfaces/home_room.type'
+import homeroomAPI from '../../services/home_room.api'
+import { useQuery } from '@tanstack/react-query'
 
 const CreateStudent = () => {
+  const EducationProgramsListQuery = useQuery({
+    queryKey: ['education_programs'],
+    queryFn: () => educationProgramAPI.getListEducationPrograms()
+  })
+  const educationPrograms = EducationProgramsListQuery.data?.data as EducationProgramType[]
+
+  const FacultiesListQuery = useQuery({
+    queryKey: ['faculties'],
+    queryFn: () => facultyAPI.getListFaculties()
+  })
+  const faculties = FacultiesListQuery.data?.data as FacultyType[]
+
+  const HomeRoomsListQuery = useQuery({
+    queryKey: ['home_rooms'],
+    queryFn: () => homeroomAPI.getListHomeRooms()
+  })
+  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
+
   return (
     <Fragment>
       <Helmet>
-        <title>Create Account</title>
-        <meta name='description' content='This is create account page of the project' />
+        <title>Create Student</title>
+        <meta name='description' content='This is create student page of the project' />
       </Helmet>
       <div>
         <div className='flex justify-between items-center pb-[36px]'>
@@ -23,7 +48,7 @@ const CreateStudent = () => {
           </div>
           <div className='col-span-2'>
             <form>
-              <CreateStudentForm />
+              <CreateStudentForm educationPrograms={educationPrograms} faculties={faculties} homeRooms={homeRooms} />
             </form>
           </div>
         </div>

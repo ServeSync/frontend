@@ -9,6 +9,7 @@ const Login = lazy(() => import('src/modules/Authentication/pages/Login/Login'))
 const Home = lazy(() => import('src/modules/Home/pages'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
+
 const NotFound = lazy(() => import('../components/NotFound'))
 
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))

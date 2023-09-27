@@ -30,7 +30,7 @@ export default function ResetPassword() {
     }
   })
 
-  const handleOnSubmit = handleSubmit((data) => {
+  const handleSubmitForm = handleSubmit((data) => {
     resetPasswordMutation.mutate(
       { token: TokenQuery.token as string, newPassword: data.newPassword },
       {
@@ -46,6 +46,7 @@ export default function ResetPassword() {
       }
     )
   })
+
   return (
     <Fragment>
       <Helmet>
@@ -55,7 +56,7 @@ export default function ResetPassword() {
       <div className='flex items-center bg-[#bdeef4] rounded-3xl w-[500px] overflow-hidden shadow-[rgba(25,_94,_142,_0.36)_2px_9px_20px]'>
         <div className='max-w-[500px] w-full p-10'>
           <h1 className='text-center text-[40px] font-bold mb-[40px]'>Tạo mới mật khẩu</h1>
-          <form onSubmit={handleOnSubmit}>
+          <form onSubmit={handleSubmitForm}>
             <ResetPasswordForm register={register} errors={errors} />
           </form>
         </div>

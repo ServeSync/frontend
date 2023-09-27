@@ -20,23 +20,23 @@ interface Props {
 }
 
 const Filter = ({ register, onResetForm }: Props) => {
-  const EducationProgramListQuery = useQuery({
+  const EducationProgramsListQuery = useQuery({
     queryKey: ['education_programs'],
     queryFn: () => educationProgramAPI.getListEducationPrograms()
   })
-  const educationPrograms = EducationProgramListQuery.data?.data as EducationProgramType[]
+  const educationPrograms = EducationProgramsListQuery.data?.data as EducationProgramType[]
 
-  const FacultyListQuery = useQuery({
+  const FacultiesListQuery = useQuery({
     queryKey: ['faculties'],
     queryFn: () => facultyAPI.getListFaculties()
   })
-  const faculties = FacultyListQuery.data?.data as FacultyType[]
+  const faculties = FacultiesListQuery.data?.data as FacultyType[]
 
-  const HomeRoomListQuery = useQuery({
+  const HomeRoomsListQuery = useQuery({
     queryKey: ['home_rooms'],
     queryFn: () => homeroomAPI.getListHomeRooms()
   })
-  const homeRooms = HomeRoomListQuery.data?.data as HomeRoomType[]
+  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
 
   return (
     <div className='w-[360px] bg-white border-[1px] border-gray-300 rounded-lg p-6 shadow-md text-gray-600'>
@@ -56,20 +56,6 @@ const Filter = ({ register, onResetForm }: Props) => {
         <span className='text-[18px] font-semibold'>Bộ lọc</span>
       </div>
       <div className='flex flex-col text-[15px] mb-3'>
-        <label htmlFor='class' className='mb-2'>
-          Lớp
-        </label>
-        <select id='class' className='border-[1px] border-gray-200 px-1 py-2 rounded-md' {...register('homeRoomId')}>
-          <option value='0'>Chọn lớp sinh hoạt</option>
-          {homeRooms &&
-            homeRooms.map((item) => (
-              <option value={item.id} key={item.id}>
-                {item.name}
-              </option>
-            ))}
-        </select>
-      </div>
-      <div className='flex flex-col text-[15px] mb-3'>
         <label htmlFor='faculty' className='mb-2'>
           Khoa
         </label>
@@ -77,6 +63,20 @@ const Filter = ({ register, onResetForm }: Props) => {
           <option value='0'>Chọn khoa</option>
           {faculties &&
             faculties.map((item) => (
+              <option value={item.id} key={item.id}>
+                {item.name}
+              </option>
+            ))}
+        </select>
+      </div>
+      <div className='flex flex-col text-[15px] mb-3'>
+        <label htmlFor='class' className='mb-2'>
+          Lớp
+        </label>
+        <select id='class' className='border-[1px] border-gray-200 px-1 py-2 rounded-md' {...register('homeRoomId')}>
+          <option value='0'>Chọn lớp sinh hoạt</option>
+          {homeRooms &&
+            homeRooms.map((item) => (
               <option value={item.id} key={item.id}>
                 {item.name}
               </option>
