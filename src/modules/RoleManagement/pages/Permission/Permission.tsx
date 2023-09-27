@@ -24,11 +24,11 @@ const Permission = () => {
 
   const queryRoleConfig = useQueryRoleConfig()
 
-  const PermissionListQuery = useQuery({
+  const PermissionsListQuery = useQuery({
     queryKey: ['permission'],
     queryFn: () => permissionAPI.getListPermissions()
   })
-  const permissions = PermissionListQuery.data?.data as PermissionType[]
+  const permissions = PermissionsListQuery.data?.data as PermissionType[]
 
   const PermissionsOfRoleQuery = useQuery({
     queryKey: ['permission', queryRoleConfig],

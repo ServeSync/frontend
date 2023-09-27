@@ -36,7 +36,7 @@ const Login = () => {
     }
   })
 
-  const handleOnSubmit = handleSubmit((data) => {
+  const handleSubmitForm = handleSubmit((data) => {
     loginMutation.mutate(data, {
       onSuccess: () => {
         setIsAuthenticated(true)
@@ -80,7 +80,7 @@ const Login = () => {
         </div>
         <div className='max-w-[500px] w-[50%] p-10'>
           <h1 className='text-center text-[48px] font-bold mb-[80px]'>Đăng nhập</h1>
-          <form onSubmit={handleOnSubmit}>
+          <form onSubmit={handleSubmitForm}>
             <LoginInput register={register} errors={errors} />
           </form>
         </div>

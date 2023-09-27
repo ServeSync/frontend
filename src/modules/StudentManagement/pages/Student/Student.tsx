@@ -48,7 +48,6 @@ const Student = () => {
   })
 
   const onSubmitFormFilter = FormFilter.handleSubmit((data) => {
-    console.log(123)
     console.log(data)
   })
 

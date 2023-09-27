@@ -15,10 +15,7 @@ const RoleTable = ({ roles, handleDeleteRole, onEditRole, roleID }: Props) => {
         roles.map((role: RoleType) => (
           <div className='relative' key={role.id}>
             <div>
-              <input
-                type='text'
-                value={role.name}
-                disabled
+              <div
                 className={classNames(
                   'w-full border-[1px] border-[#65cad7] px-4 py-2 rounded-md outline-none capitalize font-medium',
                   {
@@ -26,7 +23,9 @@ const RoleTable = ({ roles, handleDeleteRole, onEditRole, roleID }: Props) => {
                     'bg-[#65cad7]': role.id === roleID
                   }
                 )}
-              />
+              >
+                {role.name}
+              </div>
             </div>
             <div className='absolute top-2 right-2 flex items-center'>
               <button
