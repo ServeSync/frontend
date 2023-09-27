@@ -7,7 +7,7 @@ const authAPI = {
   refreshToken: (body: { accessToken: string; refreshToken: string }) =>
     http.post<RefreshResponse>('auth/refresh-token', body),
 
-  forgetPassword: (body: { userNameorEmail: string; callBackUrl: string }) => http.post('auth/forget-password', body),
+  forgetPassword: (body: { userNameOrEmail: string; callBackUrl: string }) => http.post('auth/forget-password', body),
 
   resetPassword: (body: { token: string; newPassword: string }) => http.post('auth/forget-password/callback', body)
 }

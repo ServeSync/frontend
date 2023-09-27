@@ -8,6 +8,7 @@ export const FormLoginSchema = yup.object({
 export type FormLoginType = yup.InferType<typeof FormLoginSchema>
 
 export const FormForgetPasswordSchema = FormLoginSchema.omit(['password'])
+
 export type FormForgetPasswordType = yup.InferType<typeof FormForgetPasswordSchema>
 
 export const FormResetPasswordSchema = yup.object({

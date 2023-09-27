@@ -2,6 +2,7 @@ import { formatDateTime } from 'src/modules/Share/utils/utils'
 import { StudentType } from '../../interfaces/student.type'
 import { studentTableHeader } from 'src/modules/Share/constants/student_table_header'
 import { useState } from 'react'
+import classNames from 'classnames'
 
 interface Props {
   students: StudentType[]
@@ -27,7 +28,7 @@ const StudentTable = ({ students, onEditStudent, onSort }: Props) => {
               onClick={() => handleSort(item.sort)}
               key={item.id}
             >
-              <span>{item.name}</span>
+              <span className={classNames({ 'text-[#46cbdd]': item.sort === isSorting })}>{item.name}</span>
               {item.sort === isSorting && (
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -35,7 +36,7 @@ const StudentTable = ({ students, onEditStudent, onSort }: Props) => {
                   viewBox='0 0 24 24'
                   strokeWidth='1.5'
                   stroke='currentColor'
-                  className='w-4 h-4 mb-[3px] mr-[2px] inline-block'
+                  className='w-4 h-4 mb-[3px] mr-[2px] inline-block text-[#46cbdd]'
                 >
                   <path
                     strokeLinecap='round'

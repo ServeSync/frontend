@@ -1,6 +1,6 @@
 const EventsOfStudentTable = () => {
   return (
-    <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2 '>
+    <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
       <thead className='bg-[#f7f8f9] border-[1px] border-gray-200'>
         <tr className='text-[14px] text-gray-600'>
           <th className='px-4 py-2 font-medium cursor-pointer'>

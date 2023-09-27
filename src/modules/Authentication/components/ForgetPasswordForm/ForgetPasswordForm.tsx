@@ -5,10 +5,12 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form'
 interface ForgetPasswordForm {
   userNameOrEmail: string
 }
+
 interface Props {
   register: UseFormRegister<ForgetPasswordForm>
   errors: FieldErrors<ForgetPasswordForm>
 }
+
 const ForgetPasswordForm = ({ register, errors }: Props) => {
   const [isHovered, setIsHovered] = useState<boolean>(false)
 
@@ -17,7 +19,7 @@ const ForgetPasswordForm = ({ register, errors }: Props) => {
       <div className='flex justify-between items-center gap-6 relative'>
         <input
           id='email'
-          placeholder='Nhập Username hoặc Email '
+          placeholder='Nhập Username hoặc Email'
           className='border-[2px] w-full border-[#26C6DA] rounded-lg py-2 pl-4 pr-4 outline-none'
           autoComplete='on'
           {...register('userNameOrEmail')}

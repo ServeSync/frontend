@@ -8,11 +8,14 @@ import { useQuery } from '@tanstack/react-query'
 import profileAPI from '../../services/profile.api'
 import studentAPI from 'src/modules/StudentManagement/services/student.api'
 import useQueryStudentConfig from 'src/modules/StudentManagement/hooks/useQueryStudentConfig'
+import useQueryRoleConfig from 'src/modules/RoleManagement/hooks/useQueryRoleConfig'
+import roleAPI from 'src/modules/RoleManagement/services/role.api'
 
 export default function Header() {
   const { setIsAuthenticated } = useContext(AppContext)
 
   const queryStudentConfig = useQueryStudentConfig()
+  const queryRoleConfig = useQueryRoleConfig()
 
   const navigate = useNavigate()
 
@@ -30,6 +33,13 @@ export default function Header() {
   })
   const profile = ProfileQuery.data?.data
 
+  const RoleQuery = useQuery({
+    queryKey: ['role', queryRoleConfig],
+    queryFn: () => roleAPI.getRole(queryRoleConfig.id as string),
+    enabled: queryRoleConfig.id !== undefined && location[0] === 'roles'
+  })
+  const role = RoleQuery.data?.data
+
   const StudentQuery = useQuery({
     queryKey: ['student', queryStudentConfig],
     queryFn: () => studentAPI.getStudent(queryStudentConfig.id as string),
@@ -37,17 +47,25 @@ export default function Header() {
   })
   const student = StudentQuery.data?.data
 
+  const handleHeader = () => {
+    if (role) {
+      return role.name
+    } else if (student) {
+      return student.fullName
+    } else return ''
+  }
+
   return (
     <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all z-50'>
       <div className='w-full lg:max-w-full md:max-w-[786px] sm:max-w-[640px] flex items-center justify-between h-full px-6 overflow-hidden text-black'>
         <div className='font-semibold text-[18px] capitalize flex'>
           {location[0] !== 'home' && (
             <Fragment>
-              <span>{location[0]}</span>
+              <Link to={`/${location[0]}`}>{location[0]}</Link>
               <div className='h-6 mx-4 border-r border-gray-300 -skew-x-12'></div>
-              {student ? (
+              {handleHeader() !== '' ? (
                 <Fragment>
-                  <span className='text-gray-500'>{student.fullName}</span>
+                  <span className='text-gray-500'>{handleHeader()}</span>
                   <div className='h-6 mx-4 border-r border-gray-300 -skew-x-12'></div>
                   <span className='text-gray-500'>Edit</span>
                 </Fragment>

@@ -21,15 +21,15 @@ const ForgetPassword = () => {
   })
 
   const forgetPasswordMutation = useMutation({
-    mutationFn: (body: { userNameorEmail: string; callBackUrl: string }) => {
+    mutationFn: (body: { userNameOrEmail: string; callBackUrl: string }) => {
       return authAPI.forgetPassword(body)
     }
   })
 
-  const handleOnSubmit = handleSubmit((formData) => {
+  const handleSubmitForm = handleSubmit((formData) => {
     forgetPasswordMutation.mutate(
       {
-        userNameorEmail: formData.userNameOrEmail as string,
+        userNameOrEmail: formData.userNameOrEmail as string,
         callBackUrl: `http://localhost:4000${path.reset_password}`
       },
       {
@@ -61,7 +61,7 @@ const ForgetPassword = () => {
       <div className='flex items-center bg-[#bdeef4] rounded-3xl w-[500px] overflow-hidden shadow-[rgba(25,_94,_142,_0.36)_2px_9px_20px]'>
         <div className='max-w-[500px] w-full p-10'>
           <h1 className='text-center text-[40px] font-bold mb-[40px]'>Quên mật khẩu</h1>
-          <form onSubmit={handleOnSubmit}>
+          <form onSubmit={handleSubmitForm}>
             <ForgetPasswordForm register={register} errors={errors} />
           </form>
         </div>
