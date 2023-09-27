@@ -9,9 +9,10 @@ interface Props {
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
   homeRooms: HomeRoomType[]
+  handleDeleteStudent: (id: string) => void
 }
 
-const EditStudentForm = ({ educationPrograms, faculties, homeRooms }: Props) => {
+const EditStudentForm = ({student, educationPrograms, faculties, homeRooms, handleDeleteStudent }: Props) => {
   return (
     <Fragment>
       <div className='grid grid-cols-3 gap-x-6 gap-y-1 text-[14px]'>
@@ -169,7 +170,11 @@ const EditStudentForm = ({ educationPrograms, faculties, homeRooms }: Props) => 
         </div>
       </div>
       <div className='flex justify-end gap-6'>
-        <button type='button' className='bg-red-500 py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6'>
+        <button
+          type='button'
+          onClick={() => handleDeleteStudent(student.id)}
+          className='bg-red-500 py-2 px-4 rounded-lg text-[16px] text-white font-semibold mt-6'
+        >
           Xóa
         </button>
         <button type='submit' className='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6'>
