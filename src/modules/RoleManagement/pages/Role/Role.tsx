@@ -186,6 +186,7 @@ const Role = () => {
             handleDeleteRole={handleDeleteRole}
             onEditRole={onEditRole}
             roleID={role?.id as string}
+            isLoading={RolesListQuery.isLoading}
           />
         </div>
         <div className='col-span-3'>

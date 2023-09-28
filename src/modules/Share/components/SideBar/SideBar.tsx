@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import logo from '../../assets/images/logo.png'
 import { Link, NavLink } from 'react-router-dom'
 import path from '../../constants/path'
 import classNames from 'classnames'
@@ -25,7 +24,7 @@ const SideBar = () => {
         >
           <Link to={path.home} className='text-lg font-bold text-gray-800 flex items-center justify-between'>
             <img
-              src={logo}
+              src='https://res.cloudinary.com/dboijruhe/image/upload/v1695882589/ServeSync/otodujgypsfzvckrjxbs.png?fbclid=IwAR1kfuOQs4sJ47uIw3RZddFsFkzJYcWvYNdEdHEfwcp6BAFqDTIhdkpw72A'
               alt='logo'
               className={classNames('overflow-hidden transition-all', {
                 'w-14 h-14': expanded,

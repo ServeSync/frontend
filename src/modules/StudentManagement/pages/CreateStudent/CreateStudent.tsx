@@ -39,14 +39,14 @@ const CreateStudent = () => {
         <div className='flex justify-between items-center pb-[36px]'>
           <h2 className='text-[24px] text-gray-700 font-bold'>Thêm sinh viên</h2>
         </div>
-        <div className='grid grid-cols-3 gap-6'>
+        <div className='grid grid-cols-4 gap-4'>
           <div className='col-span-1'>
             <div className='flex flex-col items-center justify-center px-10'>
               <InputFile />
               <span className='text-[14px] text-gray-500'></span>
             </div>
           </div>
-          <div className='col-span-2'>
+          <div className='col-span-3'>
             <form>
               <CreateStudentForm educationPrograms={educationPrograms} faculties={faculties} homeRooms={homeRooms} />
             </form>

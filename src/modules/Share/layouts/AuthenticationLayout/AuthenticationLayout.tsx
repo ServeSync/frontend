@@ -3,9 +3,7 @@ interface Props {
 }
 
 const AuthenticationLayout = ({ children }: Props) => {
-  return (
-    <div className='flex justify-center items-center h-screen bg-authentication bg-contain bg-center'>{children}</div>
-  )
+  return <div className='flex justify-center items-center h-screen bg-login bg-contain bg-center'>{children}</div>
 }
 
 export default AuthenticationLayout

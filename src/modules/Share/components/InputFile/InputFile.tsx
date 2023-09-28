@@ -1,6 +1,5 @@
 import { Fragment, useRef } from 'react'
 import { toast } from 'react-toastify'
-import upload from '../../assets/images/upload.png'
 
 interface Props {
   onChange?: (file?: File) => void
@@ -38,7 +37,11 @@ const InputFile = ({ onChange }: Props) => {
         onClick={handleUploadFile}
         className='px-10 py-16 bg-slate-300 rounded-lg mt-4 outline-none'
       >
-        <img src={upload} alt='avatar' className='h-20 w-20' />
+        <img
+          src='https://res.cloudinary.com/dboijruhe/image/upload/v1695882589/ServeSync/fu47apujqu1uxj4gkveu.png?fbclid=IwAR2Zj49J7PNjMwjmE8dt9AWKtsYdBnp6ipBfMs2XZ9XK2yObvBtNvjzgDA4'
+          alt='avatar'
+          className='h-20 w-20'
+        />
         <span className='text-[14px] text-gray-500'>Chọn ảnh</span>
       </button>
     </Fragment>

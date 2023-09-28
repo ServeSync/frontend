@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        authentication: 'url(../../src/modules/Share/assets/images/background.png)'
+        login:
+          'url(https://res.cloudinary.com/dboijruhe/image/upload/v1695882591/ServeSync/ta4io2ixqdmnh8f7zml0.png?fbclid=IwAR3EbHcT0dVTCiprdMyx1Nrt8cznEtZPauM2g3bIAh3npjHuTHiTKMaBK7g)'
       }
     }
   },

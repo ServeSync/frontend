@@ -119,6 +119,7 @@ const Permission = () => {
         isEditPermissions={isEditPermissions}
         checkboxValues={checkboxValues}
         onCancel={onCancel}
+        isLoading={PermissionsListQuery.isLoading}
       />
     </form>
   )
