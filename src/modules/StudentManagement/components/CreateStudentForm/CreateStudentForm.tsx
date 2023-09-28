@@ -94,7 +94,7 @@ const CreateStudentForm = ({ educationPrograms, faculties, homeRooms }: Props) =
             type='text'
             id='date_of_birth'
             placeholder='Chọn ngày sinh'
-            className='border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] font-normal'
+            className='border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] font-normal h-[40px]'
             onFocus={(e) => (e.target.type = 'date')}
             onBlur={(e) => (e.target.type = 'text')}
           />

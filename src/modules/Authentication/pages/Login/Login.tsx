@@ -71,12 +71,20 @@ const Login = () => {
       </Helmet>
       <div className='flex items-center bg-[#bdeef4] rounded-3xl w-[1000px] overflow-hidden shadow-[rgba(25,_94,_142,_0.36)_2px_9px_20px]'>
         <div className='max-w-[500] w-[50%] px-10 pt-10 bg-white'>
-          <img src='src/modules/Share/assets/images/logo.png' alt='logo' className='w-[120px] h-[120px]' />
+          <img
+            src='https://res.cloudinary.com/dboijruhe/image/upload/v1695882589/ServeSync/otodujgypsfzvckrjxbs.png?fbclid=IwAR1kfuOQs4sJ47uIw3RZddFsFkzJYcWvYNdEdHEfwcp6BAFqDTIhdkpw72A'
+            alt='logo'
+            className='w-[120px] h-[120px]'
+          />
           <div className='text-3xl font-normal text-[#195E8E] my-14'>
             <p>Chào bạn !</p>
             <p>Tham gia hoạt động cộng đồng cùng mình nhé ?</p>
           </div>
-          <img src='src/modules/Share/assets/images/login_image.png' alt='image_login' className='mx-auto' />
+          <img
+            src='https://res.cloudinary.com/dboijruhe/image/upload/v1695882591/ServeSync/awcvffsmydaaiaxiptp2.png?fbclid=IwAR1GTlJhCsXaNCDrTq_fqdNzRNnKgPz5RZllTXgy4twurq3xLiVcBEhwanE'
+            alt='image_login'
+            className='mx-auto'
+          />
         </div>
         <div className='max-w-[500px] w-[50%] p-10'>
           <h1 className='text-center text-[48px] font-bold mb-[80px]'>Đăng nhập</h1>

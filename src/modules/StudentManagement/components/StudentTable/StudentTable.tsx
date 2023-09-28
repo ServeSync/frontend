@@ -1,16 +1,18 @@
 import { formatDateTime } from 'src/modules/Share/utils/utils'
-import { StudentType } from '../../interfaces/student.type'
+import { StudentsListType } from '../../interfaces/student.type'
 import { studentTableHeader } from 'src/modules/Share/constants/student_table_header'
 import { useState } from 'react'
 import classNames from 'classnames'
+import Skeleton from 'react-loading-skeleton'
 
 interface Props {
-  students: StudentType[]
+  students: StudentsListType
   onEditStudent: (id: string) => void
   onSort: (column: string) => void
+  isLoading: boolean
 }
 
-const StudentTable = ({ students, onEditStudent, onSort }: Props) => {
+const StudentTable = ({ students, onEditStudent, onSort, isLoading }: Props) => {
   const [isSorting, setIsSorting] = useState<string>('')
 
   const handleSort = (column: string) => {
@@ -50,23 +52,57 @@ const StudentTable = ({ students, onEditStudent, onSort }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {students &&
-          students.map((student) => (
-            <tr
-              className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
-              key={student.id}
-              onClick={() => onEditStudent(student.id)}
-            >
-              <th className='px-2 py-4 font-medium w-[8%]'>{student.code}</th>
-              <th className='px-2 py-4 font-medium w-[14%]'>{student.fullName}</th>
-              <th className='px-2 py-4 font-medium w-[8%]'>{student.gender ? 'Nam' : 'Nữ'}</th>
-              <th className='px-2 py-4 font-medium w-[9%]'>{formatDateTime(student.dateOfBirth)}</th>
-              <th className='px-2 py-4 font-medium w-[20%]'>{student.homeRoom.name}</th>
-              <th className='px-2 py-4 font-medium w-[25%]'>{student.faculty.name}</th>
-              <th className='px-2 py-4 font-medium w-[9.2%]'>{student.educationProgram.name}</th>
-              <th className='px-2 py-4 font-medium'>0</th>
-            </tr>
-          ))}
+        {isLoading
+          ? Array(10)
+              .fill(0)
+              .map((_, index) => (
+                <tr
+                  className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
+                  key={index}
+                >
+                  <th className='px-2 py-4 font-medium w-[8%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium w-[14%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium w-[8%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium w-[9%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium w-[20%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium w-[25%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium w-[9.2%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                </tr>
+              ))
+          : students &&
+            students.data.map((student) => (
+              <tr
+                className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
+                key={student.id}
+                onClick={() => onEditStudent(student.id)}
+              >
+                <th className='px-2 py-4 font-medium w-[8%]'>{student.code}</th>
+                <th className='px-2 py-4 font-medium w-[14%]'>{student.fullName}</th>
+                <th className='px-2 py-4 font-medium w-[8%]'>{student.gender ? 'Nam' : 'Nữ'}</th>
+                <th className='px-2 py-4 font-medium w-[9%]'>{formatDateTime(student.dateOfBirth)}</th>
+                <th className='px-2 py-4 font-medium w-[20%]'>{student.homeRoom.name}</th>
+                <th className='px-2 py-4 font-medium w-[25%]'>{student.faculty.name}</th>
+                <th className='px-2 py-4 font-medium w-[9.2%]'>{student.educationProgram.name}</th>
+                <th className='px-2 py-4 font-medium'>0</th>
+              </tr>
+            ))}
       </tbody>
     </table>
   )

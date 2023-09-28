@@ -1,9 +1,8 @@
 import http from 'src/modules/Share/utils/http'
-import { StudentListConfig, StudentType } from '../interfaces/student.type'
+import { StudentListConfig, StudentType, StudentsListType } from '../interfaces/student.type'
 
 const studentAPI = {
-  getListStudents: (params: StudentListConfig) =>
-    http.get<{ total: number; totalPages: number; data: StudentType[] }>('/students', { params }),
+  getListStudents: (params: StudentListConfig) => http.get<StudentsListType>('/students', { params }),
 
   getStudent: (id: string) => http.get<StudentType>(`/students/${id}`),
 

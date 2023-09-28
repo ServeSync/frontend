@@ -1,15 +1,14 @@
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import EditStudentForm from '../../components/EditStudentForm'
 import InputFile from 'src/modules/Share/components/InputFile'
 import EventsOfStudentTable from '../../components/EventsOfStudentTable'
 import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import CircleChart from '../../components/CircleChart'
-import { useQuery } from '@tanstack/react-query'
 import educationProgramAPI from '../../services/education_program.api'
 import { EducationProgramType } from '../../interfaces/education_program.type'
 import facultyAPI from '../../services/faculty.api'
@@ -18,12 +17,15 @@ import homeroomAPI from '../../services/home_room.api'
 import { HomeRoomType } from '../../interfaces/home_room.type'
 import studentAPI from '../../services/student.api'
 import { StudentType } from '../../interfaces/student.type'
+import { FormStudentSchema, FormStudentType } from '../../utils/rules'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
 
 const EditStudent = () => {
   const queryStudentConfig = useQueryStudentConfig()
-  
+
   const navigate = useNavigate()
-  
+
   const queryClient = useQueryClient()
 
   const StudentQuery = useQuery({
@@ -50,13 +52,21 @@ const EditStudent = () => {
     queryFn: () => homeroomAPI.getListHomeRooms()
   })
   const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
-  
+
+  const {
+    register,
+    setValue,
+    formState: { errors }
+  } = useForm<FormStudentType>({
+    resolver: yupResolver(FormStudentSchema)
+  })
+
   const DeleteRoleMutation = useMutation({
     mutationFn: (id: string) => {
       return studentAPI.deleteStudent(id)
     }
   })
-    
+
   const handleDeleteStudent = (id: string) => {
     DeleteRoleMutation.mutate(id, {
       onSuccess: () => {
@@ -68,7 +78,7 @@ const EditStudent = () => {
       }
     })
   }
-  
+
   return (
     <Fragment>
       <Helmet>
@@ -85,11 +95,15 @@ const EditStudent = () => {
           <div className='col-span-5'>
             <form>
               <EditStudentForm
+                register={register}
+                errors={errors}
+                setValue={setValue}
                 student={student}
                 educationPrograms={educationPrograms}
                 faculties={faculties}
                 homeRooms={homeRooms}
                 handleDeleteStudent={handleDeleteStudent}
+                isLoading={StudentQuery.isLoading}
               />
             </form>
           </div>

@@ -7,7 +7,7 @@ export const studentTableHeader = [
   {
     id: '2',
     name: 'Họ tên',
-    sort: 'Fullname'
+    sort: 'FullName'
   },
   {
     id: '3',

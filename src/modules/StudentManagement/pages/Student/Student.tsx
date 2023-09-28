@@ -7,7 +7,7 @@ import InputSearch from 'src/modules/Share/components/InputSearch'
 import Pagination from 'src/modules/Share/components/Pagination/Pagination'
 import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
 import studentAPI from '../../services/student.api'
-import { StudentListConfig, StudentType } from '../../interfaces/student.type'
+import { StudentListConfig, StudentsListType } from '../../interfaces/student.type'
 import { useQuery } from '@tanstack/react-query'
 import useSorting from 'src/modules/Share/hooks/useSorting'
 import useSearch from 'src/modules/Share/hooks/useSearch'
@@ -32,7 +32,7 @@ const Student = () => {
     keepPreviousData: true,
     staleTime: 3 * 60 * 1000
   })
-  const students = StudentsListQuery.data?.data.data as StudentType[]
+  const students = StudentsListQuery.data?.data as StudentsListType
 
   const onEditStudent = (id: string) => {
     navigate({
@@ -127,7 +127,12 @@ const Student = () => {
             </Link>
           </div>
         </div>
-        <StudentTable students={students} onEditStudent={onEditStudent} onSort={useSortStudent.handleSort} />
+        <StudentTable
+          students={students}
+          onEditStudent={onEditStudent}
+          onSort={useSortStudent.handleSort}
+          isLoading={StudentsListQuery.isLoading}
+        />
         <div className='flex justify-end'>
           <Pagination
             queryConfig={queryStudentConfig}

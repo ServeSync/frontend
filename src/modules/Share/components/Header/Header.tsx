@@ -10,6 +10,7 @@ import studentAPI from 'src/modules/StudentManagement/services/student.api'
 import useQueryStudentConfig from 'src/modules/StudentManagement/hooks/useQueryStudentConfig'
 import useQueryRoleConfig from 'src/modules/RoleManagement/hooks/useQueryRoleConfig'
 import roleAPI from 'src/modules/RoleManagement/services/role.api'
+import Skeleton from 'react-loading-skeleton'
 
 export default function Header() {
   const { setIsAuthenticated } = useContext(AppContext)
@@ -76,8 +77,8 @@ export default function Header() {
           )}
         </div>
         <div className='flex items-center flex-shrink-0 space-x-6'>
-          <div className='relative flex gap-3 items-center'>
-            <span>{profile?.email}</span>
+          <div className='relative flex items-center gap-3'>
+            {ProfileQuery.isLoading ? <Skeleton className='min-w-[120px] h-[20px]' /> : <span>{profile?.email}</span>}
             <button className='rounded-full'>
               <Popover
                 className='rounded-full flex items-center w-8 h-8 align-middle z-50'
