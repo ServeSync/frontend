@@ -26,7 +26,7 @@ const PermissionList = ({
           <SkeletonTheme baseColor='#e7e7e7'>
             {Array(3)
               .fill(0)
-              .map((index) => (
+              .map((_, index) => (
                 <Skeleton count={5} className='h-[20px] mb-6' key={index} borderRadius={10} />
               ))}
           </SkeletonTheme>
