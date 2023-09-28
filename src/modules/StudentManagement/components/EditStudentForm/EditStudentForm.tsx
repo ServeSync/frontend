@@ -45,7 +45,7 @@ const EditStudentForm = ({
       setValue('homeRoomId', student.homeRoomId)
       setValue('educationProgramId', student.educationProgramId)
     }
-  }, [student, setValue])
+  }, [student, faculties, homeRooms, educationPrograms, setValue])
 
   return (
     <Fragment>

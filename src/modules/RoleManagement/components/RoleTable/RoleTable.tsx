@@ -12,8 +12,6 @@ interface Props {
 }
 
 const RoleTable = ({ roles, handleDeleteRole, onEditRole, roleID, isLoading }: Props) => {
-  console.log(isLoading)
-
   return (
     <Fragment>
       {isLoading ? (
