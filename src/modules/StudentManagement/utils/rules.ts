@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
 export const FormStudentSchema = yup.object({
- code: yup.string().required('Vui lòng nhập mã số sinh viên !').length(9, 'Mã số sinh viên không hợp lệ!'),
+  code: yup.string().required('Vui lòng nhập mã số sinh viên !').length(9, 'Mã số sinh viên không hợp lệ!'),
   fullName: yup.string().required('Vui lòng nhập tên !'),
   email: yup.string().required('Vui lòng nhập email !').email('Email không hợp lệ !'),
   gender: yup.boolean(),

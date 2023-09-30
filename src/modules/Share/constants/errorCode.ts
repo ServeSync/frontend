@@ -16,5 +16,10 @@ export const error_code = {
   // User error
   UserNotFound: 'User:000001',
   // Permission error
-  PermissionNotFound: 'Permission:000001'
+  PermissionNotFound: 'Permission:000001',
+  // Student error
+  CodeStudentAlreadyExists: 'Student:000001',
+  CitizenIdStudentAlreadyExists: 'Student:000002',
+  StudentNotFound: 'Student:000003',
+  EmailStudentAlreadyExists: 'Student:000004'
 } as const

@@ -31,14 +31,14 @@ const CreateStudent = () => {
   const EducationProgramsListQuery = useQuery({
     queryKey: ['education_programs'],
     queryFn: () => educationProgramAPI.getListEducationPrograms(),
-    staleTime: 3 * 60 * 1000
+    staleTime: 5 * 60 * 1000
   })
   const educationPrograms = EducationProgramsListQuery.data?.data as EducationProgramType[]
 
   const FacultiesListQuery = useQuery({
     queryKey: ['faculties'],
     queryFn: () => facultyAPI.getListFaculties(),
-    staleTime: 3 * 60 * 1000
+    staleTime: 5 * 60 * 1000
   })
   const faculties = FacultiesListQuery.data?.data as FacultyType[]
 
@@ -55,18 +55,20 @@ const CreateStudent = () => {
   })
 
   const UploadImageMutation = useMutation(imageAPI.uploadImage)
+
   const handleCreateStudent = handleSubmit((data) => {
     const form = new FormData()
     form.append('file', file as File)
+
     UploadImageMutation.mutate(form, {
       onSuccess: () => {
-        const uploadImageResponse = UploadImageMutation.data?.data
-        const body = { ..._.omit(data, 'facultyId'), imageUrl: uploadImageResponse?.url as string }
+        const body = { ..._.omit(data, 'facultyId'), imageUrl: UploadImageMutation.data?.data.url as string }
+
         CreateStudentMutation.mutate(body, {
           onSuccess: () => {
             toast.success('Thêm sinh viên thành công !')
             queryClient.invalidateQueries({
-              queryKey: ['accounts']
+              queryKey: ['students']
             })
             navigate({
               pathname: path.student

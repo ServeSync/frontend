@@ -18,7 +18,6 @@ interface Props {
   student: StudentType
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
-  homeRooms: HomeRoomType[]
   handleDeleteStudent: (id: string) => void
   isLoading: boolean
   onChange: (file?: File) => void
@@ -37,6 +36,15 @@ const EditStudentForm = ({
   onChange,
   previewImage
 }: Props) => {
+  const [facultyId, setFacultyId] = useState<string>(student && student.facultyId)
+
+  const HomeRoomsListQuery = useQuery({
+    queryKey: ['home_rooms', facultyId],
+    queryFn: () => homeroomAPI.getListHomeRooms(facultyId as string),
+    staleTime: 5 * 60 * 1000
+  })
+  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
+
   useEffect(() => {
     if (student && faculties && educationPrograms) {
       setValue('code', student.code)
@@ -49,24 +57,16 @@ const EditStudentForm = ({
       setValue('address', student.address)
       setValue('citizenId', student.citizenId)
       setValue('homeRoomId', student.homeRoomId)
-      setValue('educationProgramId', student.educationProgramId)
       setValue('facultyId', student.facultyId)
+      setValue('educationProgramId', student.educationProgramId)
       setValue('imageUrl', student.imageUrl)
+      setFacultyId(student.facultyId)
     }
-  }, [student, faculties, educationPrograms, setValue])
-
-  const [facultyId, setFacultyId] = useState<string>(student && (student.facultyId as string))
+  }, [student, faculties, educationPrograms, homeRooms, setValue])
 
   const handleChangeFaculty = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFacultyId(event.target.value)
   }
-
-  const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms', facultyId],
-    queryFn: () => homeroomAPI.getListHomeRooms(facultyId as string),
-    staleTime: 3 * 60 * 1000
-  })
-  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
 
   return (
     <Fragment>

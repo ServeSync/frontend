@@ -26,7 +26,8 @@ const Permission = () => {
 
   const PermissionsListQuery = useQuery({
     queryKey: ['permission'],
-    queryFn: () => permissionAPI.getListPermissions()
+    queryFn: () => permissionAPI.getListPermissions(),
+    staleTime: 5 * 60 * 1000
   })
   const permissions = PermissionsListQuery.data?.data as PermissionType[]
 
@@ -45,9 +46,7 @@ const Permission = () => {
   const role = RoleQuery.data?.data as RoleType
 
   const EditPermissionsOfRole = useMutation({
-    mutationFn: (body: { id: string; data: string[] }) => {
-      return roleAPI.editPermissionsOfRole(body)
-    }
+    mutationFn: (body: { id: string; data: string[] }) => roleAPI.editPermissionsOfRole(body)
   })
 
   useEffect(() => {
@@ -85,7 +84,7 @@ const Permission = () => {
       {
         onSuccess: () => {
           navigate(path.role)
-          toast.success(`Cập nhật permission ${role?.name} thành công !`)
+          toast.success(`Cập nhật quyền cho ${role?.name} thành công !`)
           queryClient.invalidateQueries({
             queryKey: ['permission']
           })

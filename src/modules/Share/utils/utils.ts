@@ -59,6 +59,23 @@ export function isPermissionNotFoundError(errorCode: string) {
   return errorCode === error_code.PermissionNotFound
 }
 
+// Student
+export function isCodeStudentAlreadyExistsError(errorCode: string) {
+  return errorCode === error_code.CodeStudentAlreadyExists
+}
+
+export function isCitizenIdStudentAlreadyExistsError(errorCode: string) {
+  return errorCode === error_code.CitizenIdStudentAlreadyExists
+}
+
+export function isEmailStudentAlreadyExistsExistsError(errorCode: string) {
+  return errorCode === error_code.EmailStudentAlreadyExists
+}
+
+export function isStudentNotFound(errorCode: string) {
+  return errorCode === error_code.StudentNotFound
+}
+
 // Status code
 export function isAxiosError<T>(error: unknown): error is AxiosError<T> {
   // eslint-disable-next-line import/no-named-as-default-member

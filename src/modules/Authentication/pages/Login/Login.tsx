@@ -31,9 +31,7 @@ const Login = () => {
   })
 
   const loginMutation = useMutation({
-    mutationFn: (body: FormLoginType) => {
-      return authAPI.login(body)
-    }
+    mutationFn: (body: FormLoginType) => authAPI.login(body)
   })
 
   const handleSubmitForm = handleSubmit((data) => {

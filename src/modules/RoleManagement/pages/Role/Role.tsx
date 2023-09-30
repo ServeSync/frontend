@@ -28,7 +28,7 @@ const Role = () => {
     queryKey: ['roles'],
     queryFn: () => roleAPI.getListRoles(),
     keepPreviousData: true,
-    staleTime: 3 * 60 * 1000
+    staleTime: 5 * 60 * 1000
   })
   const roles = RolesListQuery.data?.data.data as RoleType[]
 
@@ -51,7 +51,7 @@ const Role = () => {
   })
 
   useEffect(() => {
-    if (role !== undefined) {
+    if (role) {
       setValue('name', role?.name as string)
       setIsEditForm(true)
     } else {
@@ -61,24 +61,19 @@ const Role = () => {
   }, [role, setValue, reset])
 
   const CreateRoleMutation = useMutation({
-    mutationFn: (body: FormRoleType) => {
-      return roleAPI.createRole(body)
-    }
+    mutationFn: (body: FormRoleType) => roleAPI.createRole(body)
   })
 
   const EdiRoleMutation = useMutation({
-    mutationFn: (body: { id: string; data: FormRoleType }) => {
-      return roleAPI.editRole(body)
-    }
+    mutationFn: (body: { id: string; data: FormRoleType }) => roleAPI.editRole(body)
   })
 
   const onEditRole = (id: string) => {
-    const config = {
-      id: id
-    }
     setValue('name', role?.name as string)
     navigate({
-      search: createSearchParams(config).toString()
+      search: createSearchParams({
+        id: id
+      }).toString()
     })
   }
 
@@ -145,9 +140,7 @@ const Role = () => {
   })
 
   const DeleteRoleMutation = useMutation({
-    mutationFn: (id: string) => {
-      return roleAPI.deleteRole(id)
-    }
+    mutationFn: (id: string) => roleAPI.deleteRole(id)
   })
 
   const handleDeleteRole = (id: string) => {

@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async'
 import ResetPasswordForm from '../../components/ResetPasswordForm/ResetPasswordForm'
 import { useForm } from 'react-hook-form'
 import { FormResetPasswordSchema, FormResetPasswordType } from '../../utils/rules'
-import useQueryTokenConfig from 'src/modules/RoleManagement/hooks/useQueryTokenConfig'
+import useQueryTokenConfig from 'src/modules/Authentication/hooks/useQueryTokenConfig'
 import { useMutation } from '@tanstack/react-query'
 import authAPI from '../../services/auth.api'
 import { useNavigate } from 'react-router-dom'
@@ -12,6 +12,10 @@ import { toast } from 'react-toastify'
 import path from 'src/modules/Share/constants/path'
 
 export default function ResetPassword() {
+  const TokenQuery = useQueryTokenConfig()
+
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -20,14 +24,8 @@ export default function ResetPassword() {
     resolver: yupResolver(FormResetPasswordSchema)
   })
 
-  const TokenQuery = useQueryTokenConfig()
-
-  const navigate = useNavigate()
-
   const resetPasswordMutation = useMutation({
-    mutationFn: (body: { token: string; newPassword: string }) => {
-      return authAPI.resetPassword(body)
-    }
+    mutationFn: (body: { token: string; newPassword: string }) => authAPI.resetPassword(body)
   })
 
   const handleSubmitForm = handleSubmit((data) => {
@@ -40,7 +38,7 @@ export default function ResetPassword() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
           if (error.response?.data.code === 'InvalidToken') {
-            toast.error('Token hết hạn !')
+            toast.error('Đổi mật khẩu thất bại !')
           }
         }
       }

@@ -38,6 +38,7 @@ export interface StudentType {
   imageUrl: string
   homeTown: string
   citizenId: string
+  identityId: string
   homeRoomId: string
   educationProgramId: string
   facultyId: string
