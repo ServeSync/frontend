@@ -4,7 +4,6 @@ import { EducationProgramType } from '../../interfaces/education_program.type'
 import { FacultyType } from '../../interfaces/faculty.type'
 import { HomeRoomType } from '../../interfaces/home_room.type'
 import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form'
-import { formatDateTime } from 'src/modules/Share/utils/utils'
 import Skeleton from 'react-loading-skeleton'
 import InputFile from 'src/modules/Share/components/InputFile'
 import { FormStudentType } from '../../utils/rules'
@@ -38,7 +37,7 @@ const EditStudentForm = ({
   previewImage
 }: Props) => {
   useEffect(() => {
-    if (student) {
+    if (student && faculties && homeRooms && educationPrograms) {
       setValue('code', student.code)
       setValue('fullName', student.fullName)
       setValue('email', student.email)
@@ -48,9 +47,10 @@ const EditStudentForm = ({
       setValue('homeTown', student.homeTown)
       setValue('address', student.address)
       setValue('citizenId', student.citizenId)
-      setValue('facultyId', student.facultyId)
       setValue('homeRoomId', student.homeRoomId)
       setValue('educationProgramId', student.educationProgramId)
+      setValue('facultyId', student.facultyId)
+      setValue('imageUrl', student.imageUrl)
     }
   }, [student, faculties, educationPrograms, setValue])
 
@@ -66,6 +66,7 @@ const EditStudentForm = ({
     staleTime: 3 * 60 * 1000
   })
   const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
+
 
   return (
     <Fragment>
@@ -237,7 +238,6 @@ const EditStudentForm = ({
               {errors.citizenId?.message}
             </span>
           </div>
-
           <div className='col-span-1 flex flex-col'>
             <label htmlFor='faculty' className='mb-2'>
               Khoa
