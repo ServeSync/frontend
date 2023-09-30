@@ -21,16 +21,14 @@ const ForgetPassword = () => {
   })
 
   const forgetPasswordMutation = useMutation({
-    mutationFn: (body: { userNameOrEmail: string; callBackUrl: string }) => {
-      return authAPI.forgetPassword(body)
-    }
+    mutationFn: (body: { userNameOrEmail: string; callBackUrl: string }) => authAPI.forgetPassword(body)
   })
 
   const handleSubmitForm = handleSubmit((formData) => {
     forgetPasswordMutation.mutate(
       {
         userNameOrEmail: formData.userNameOrEmail as string,
-        callBackUrl: `http://localhost:4000${path.reset_password}`
+        callBackUrl: `http://20.42.93.128${path.reset_password}`
       },
       {
         onSuccess: () => {

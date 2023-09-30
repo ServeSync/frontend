@@ -12,6 +12,7 @@ interface Props {
 
 const InputFile = ({ onChange, register, previewImage, student }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
+
   const OnFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileFormLocal = event.target.files?.[0]
     onChange && onChange(fileFormLocal)

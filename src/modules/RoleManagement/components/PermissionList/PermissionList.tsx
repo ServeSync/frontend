@@ -27,7 +27,7 @@ const PermissionList = ({
             {Array(3)
               .fill(0)
               .map((_, index) => (
-                <Skeleton count={5} className='h-[20px] mb-6' key={index} borderRadius={10} />
+                <Skeleton count={6} className='h-[20px] mb-6' key={index} borderRadius={10} />
               ))}
           </SkeletonTheme>
         </div>
@@ -48,7 +48,7 @@ const PermissionList = ({
                         disabled={!isEditPermissions}
                       />
                       <label htmlFor={`checkbox-${permission.id}`} className='flex items-center cursor-pointer'>
-                        <span className='mr-4'>{permission.description}</span>
+                        <span>{permission.description}</span>
                       </label>
                     </div>
                   </div>
@@ -56,7 +56,7 @@ const PermissionList = ({
               })}
           </div>
           {isEditPermissions && (
-            <div className='self-end flex space-x-4  mt-5'>
+            <div className='self-end flex space-x-4 mt-5'>
               <button
                 type='button'
                 onClick={onCancel}

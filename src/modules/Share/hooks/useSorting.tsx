@@ -12,7 +12,9 @@ const useSorting = ({ queryConfig, pathname }: Props) => {
 
   const handleSort = (column: string) => {
     const sort = queryConfig.sorting
+
     let config = {}
+
     if (sort === column && column !== 'score') {
       config = {
         ...queryConfig,
@@ -28,6 +30,7 @@ const useSorting = ({ queryConfig, pathname }: Props) => {
         ..._.omit(queryConfig, 'sorting')
       }
     }
+
     navigate({
       pathname: pathname,
       search: createSearchParams(config).toString()
