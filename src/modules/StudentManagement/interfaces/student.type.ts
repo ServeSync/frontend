@@ -60,8 +60,8 @@ export interface StudentForm {
   code: string
   fullName: string
   email: string
-  gender: NonNullable<boolean | undefined>
-  dateOfBirth: string
+  gender?: boolean | undefined
+  birth: string
   phone: string
   homeTown: string
   address: string
@@ -69,4 +69,5 @@ export interface StudentForm {
   facultyId: string
   homeRoomId: string
   educationProgramId: string
+  imageUrl: string
 }
