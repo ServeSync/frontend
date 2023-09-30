@@ -59,13 +59,14 @@ export interface StudentForm {
   code: string
   fullName: string
   email: string
-  phone: string
+  gender?: boolean | undefined
   birth: string
-  gender: NonNullable<boolean | undefined>
+  phone: string
   address: string
   homeTown: string
   imageUrl: string
   citizenId: string
   homeRoomId: string
   educationProgramId: string
+  imageUrl: string
 }

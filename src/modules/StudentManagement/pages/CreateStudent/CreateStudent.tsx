@@ -1,33 +1,86 @@
 import { Helmet } from 'react-helmet-async'
 import CreateStudentForm from '../../components/CreateStudentForm'
-import { Fragment } from 'react'
-import InputFile from 'src/modules/Share/components/InputFile'
+import { Fragment, useState, useMemo } from 'react'
 import educationProgramAPI from '../../services/education_program.api'
 import { EducationProgramType } from '../../interfaces/education_program.type'
 import facultyAPI from '../../services/faculty.api'
 import { FacultyType } from '../../interfaces/faculty.type'
-import { HomeRoomType } from '../../interfaces/home_room.type'
-import homeroomAPI from '../../services/home_room.api'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
+import { FormStudentSchema, FormStudentType } from '../../utils/rules'
+import { yupResolver } from '@hookform/resolvers/yup'
+import studentAPI from '../../services/student.api'
+import { StudentForm } from '../../interfaces/student.type'
+import _ from 'lodash'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+import path from 'src/modules/Share/constants/path'
+import imageAPI from '../../services/image.api'
 
 const CreateStudent = () => {
+  const [file, setFile] = useState<File>()
+
+  const previewImage = useMemo(() => {
+    return file ? URL.createObjectURL(file) : ''
+  }, [file])
+
+  const queryClient = useQueryClient()
+
+  const navigate = useNavigate()
+
   const EducationProgramsListQuery = useQuery({
     queryKey: ['education_programs'],
-    queryFn: () => educationProgramAPI.getListEducationPrograms()
+    queryFn: () => educationProgramAPI.getListEducationPrograms(),
+    staleTime: 3 * 60 * 1000
   })
   const educationPrograms = EducationProgramsListQuery.data?.data as EducationProgramType[]
 
   const FacultiesListQuery = useQuery({
     queryKey: ['faculties'],
-    queryFn: () => facultyAPI.getListFaculties()
+    queryFn: () => facultyAPI.getListFaculties(),
+    staleTime: 3 * 60 * 1000
   })
   const faculties = FacultiesListQuery.data?.data as FacultyType[]
 
-  const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms'],
-    queryFn: () => homeroomAPI.getListHomeRooms()
+  const {
+    register,
+    formState: { errors },
+    handleSubmit
+  } = useForm<FormStudentType>({
+    resolver: yupResolver(FormStudentSchema)
   })
-  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
+
+  const CreateStudentMutation = useMutation({
+    mutationFn: (body: Omit<StudentForm, 'facultyId'>) => studentAPI.createStudent(body)
+  })
+
+  const UploadImageMutation = useMutation(imageAPI.uploadImage)
+  const handleCreateStudent = handleSubmit((data) => {
+    const form = new FormData()
+    form.append('file', file as File)
+    UploadImageMutation.mutate(form, {
+      onSuccess: () => {
+        const uploadImageResponse = UploadImageMutation.data?.data
+        const body = { ..._.omit(data, 'facultyId'), imageUrl: uploadImageResponse?.url as string }
+        CreateStudentMutation.mutate(body, {
+          onSuccess: () => {
+            toast.success('Thêm sinh viên thành công !')
+            queryClient.invalidateQueries({
+              queryKey: ['accounts']
+            })
+            navigate({
+              pathname: path.student
+              // search: createSearchParams(prevAccountConfig).toString()
+            })
+          }
+        })
+      }
+    })
+  })
+
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+  }
 
   return (
     <Fragment>
@@ -39,19 +92,16 @@ const CreateStudent = () => {
         <div className='flex justify-between items-center pb-[36px]'>
           <h2 className='text-[24px] text-gray-700 font-bold'>Thêm sinh viên</h2>
         </div>
-        <div className='grid grid-cols-4 gap-4'>
-          <div className='col-span-1'>
-            <div className='flex flex-col items-center justify-center px-10'>
-              <InputFile />
-              <span className='text-[14px] text-gray-500'></span>
-            </div>
-          </div>
-          <div className='col-span-3'>
-            <form>
-              <CreateStudentForm educationPrograms={educationPrograms} faculties={faculties} homeRooms={homeRooms} />
-            </form>
-          </div>
-        </div>
+        <form onSubmit={handleCreateStudent}>
+          <CreateStudentForm
+            register={register}
+            errors={errors}
+            educationPrograms={educationPrograms}
+            faculties={faculties}
+            onChange={handleChangeFile}
+            previewImage={previewImage}
+          />
+        </form>
       </div>
     </Fragment>
   )

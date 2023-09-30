@@ -1,9 +1,8 @@
-import { Fragment } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import EditStudentForm from '../../components/EditStudentForm'
-import InputFile from 'src/modules/Share/components/InputFile'
 import EventsOfStudentTable from '../../components/EventsOfStudentTable'
 import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query'
@@ -24,6 +23,12 @@ import Swal from 'sweetalert2'
 import { isAxiosError } from 'src/modules/Share/utils/utils'
 
 const EditStudent = () => {
+  const [file, setFile] = useState<File>()
+
+  const previewImage = useMemo(() => {
+    return file ? URL.createObjectURL(file) : ''
+  }, [file])
+
   const queryStudentConfig = useQueryStudentConfig()
 
   const navigate = useNavigate()
@@ -92,7 +97,7 @@ const EditStudent = () => {
       }
     })
   }
-
+  
   const EditStudentMutation = useMutation({
     mutationFn: (body: { id: string; data: StudentForm }) => {
       return studentAPI.editStudent(body)
@@ -100,7 +105,7 @@ const EditStudent = () => {
   })
 
   const handleEditStudent = handleSubmit((data) => {
-    const newData = { ...data, imageUrl: student.imageUrl, birth: student.dateOfBirth }
+    const newData = { ...data, imageUrl: student.imageUrl }
 
     EditStudentMutation.mutate(
       {
@@ -123,6 +128,10 @@ const EditStudent = () => {
       }
     )
   })
+  
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+  }
 
   return (
     <Fragment>
@@ -131,28 +140,21 @@ const EditStudent = () => {
         <meta name='description' content='This is edit student page of the project' />
       </Helmet>
       <div>
-        <div className='grid grid-cols-6 gap-6 pb-4 border-b-2'>
-          <div className='col-span-1'>
-            <div className='flex flex-col items-center justify-center '>
-              <InputFile />
-            </div>
-          </div>
-          <div className='col-span-5'>
-            <form onSubmit={handleEditStudent}>
-              <EditStudentForm
-                register={register}
-                errors={errors}
-                setValue={setValue}
-                student={student}
-                educationPrograms={educationPrograms}
-                faculties={faculties}
-                homeRooms={homeRooms}
-                handleDeleteStudent={handleDeleteStudent}
-                isLoading={StudentQuery.isLoading}
-              />
-            </form>
-          </div>
-        </div>
+        <form>
+          <EditStudentForm
+            register={register}
+            errors={errors}
+            setValue={setValue}
+            student={student}
+            educationPrograms={educationPrograms}
+            faculties={faculties}
+            homeRooms={homeRooms}
+            handleDeleteStudent={handleDeleteStudent}
+            isLoading={StudentQuery.isLoading}
+            onChange={handleChangeFile}
+            previewImage={previewImage}
+          />
+        </form>
         <div className='grid grid-cols-6 pt-6'>
           <div className='border-r-2 px-4 col-span-2'>
             <div className=''>
