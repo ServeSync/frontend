@@ -64,9 +64,9 @@ export interface StudentForm {
   phone: string
   address: string
   homeTown: string
-  imageUrl: string
   citizenId: string
   homeRoomId: string
   educationProgramId: string
+  facultyId: string
   imageUrl: string
 }

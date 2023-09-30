@@ -10,7 +10,8 @@ const studentAPI = {
 
   createStudent: (body: Omit<StudentForm, 'facultyId'>) => http.post('/students', body),
 
-  editStudent: (body: { id: string; data: StudentForm }) => http.put(`/students/${body.id}`, body.data)
+  editStudent: (body: { id: string; data: Omit<StudentForm, 'facultyId'> }) =>
+    http.put(`/students/${body.id}`, body.data)
 }
 
 export default studentAPI
