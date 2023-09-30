@@ -1,16 +1,15 @@
 import { Fragment, useEffect } from 'react'
-import { StudentForm, StudentType } from '../../interfaces/student.type'
+import { StudentType } from '../../interfaces/student.type'
 import { EducationProgramType } from '../../interfaces/education_program.type'
 import { FacultyType } from '../../interfaces/faculty.type'
 import { HomeRoomType } from '../../interfaces/home_room.type'
 import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form'
-import { formatDateTime } from 'src/modules/Share/utils/utils'
 import Skeleton from 'react-loading-skeleton'
 
 interface Props {
-  register: UseFormRegister<StudentForm>
-  errors: FieldErrors<StudentForm>
-  setValue: UseFormSetValue<StudentForm>
+  register: UseFormRegister<Omit<StudentType, 'id'>>
+  errors: FieldErrors<Omit<StudentType, 'id'>>
+  setValue: UseFormSetValue<Omit<StudentType, 'id'>>
   student: StudentType
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
@@ -31,21 +30,22 @@ const EditStudentForm = ({
   isLoading
 }: Props) => {
   useEffect(() => {
-    if (student) {
+    if (student && faculties && homeRooms && educationPrograms) {
       setValue('code', student.code)
       setValue('fullName', student.fullName)
       setValue('email', student.email)
       setValue('gender', student.gender)
-      setValue('dateOfBirth', formatDateTime(student.dateOfBirth))
+      setValue('dateOfBirth', student.dateOfBirth)
       setValue('phone', student.phone)
       setValue('homeTown', student.homeTown)
       setValue('address', student.address)
       setValue('citizenId', student.citizenId)
-      setValue('facultyId', student.facultyId)
       setValue('homeRoomId', student.homeRoomId)
       setValue('educationProgramId', student.educationProgramId)
+      setValue('facultyId', student.facultyId)
+      setValue('imageUrl', student.imageUrl)
     }
-  }, [student, setValue])
+  }, [student, faculties, homeRooms, educationPrograms, setValue])
 
   return (
     <Fragment>
@@ -233,7 +233,7 @@ const EditStudentForm = ({
                 ))}
             </select>
           )}
-          <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.facultyId?.message}</span>
+          <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'></span>
         </div>
 
         <div className='col-span-1 flex flex-col'>

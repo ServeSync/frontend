@@ -30,15 +30,14 @@ export interface StudentType {
   id: string
   code: string
   fullName: string
-  gender: boolean
-  dateOfBirth: string
-  homeTown: string
-  address: string
-  imageUrl: string
-  citizenId: string
   email: string
   phone: string
-  identityId: string
+  dateOfBirth: string
+  gender: NonNullable<boolean | undefined>
+  address: string
+  imageUrl: string
+  homeTown: string
+  citizenId: string
   homeRoomId: string
   educationProgramId: string
   facultyId: string
@@ -60,13 +59,13 @@ export interface StudentForm {
   code: string
   fullName: string
   email: string
-  gender: NonNullable<boolean | undefined>
-  dateOfBirth: string
   phone: string
-  homeTown: string
+  birth: string
+  gender: NonNullable<boolean | undefined>
   address: string
+  homeTown: string
+  imageUrl: string
   citizenId: string
-  facultyId: string
   homeRoomId: string
   educationProgramId: string
 }

@@ -16,10 +16,12 @@ import { FacultyType } from '../../interfaces/faculty.type'
 import homeroomAPI from '../../services/home_room.api'
 import { HomeRoomType } from '../../interfaces/home_room.type'
 import studentAPI from '../../services/student.api'
-import { StudentType } from '../../interfaces/student.type'
+import { StudentForm, StudentType } from '../../interfaces/student.type'
 import { FormStudentSchema, FormStudentType } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
+import Swal from 'sweetalert2'
+import { isAxiosError } from 'src/modules/Share/utils/utils'
 
 const EditStudent = () => {
   const queryStudentConfig = useQueryStudentConfig()
@@ -54,6 +56,7 @@ const EditStudent = () => {
   const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
 
   const {
+    handleSubmit,
     register,
     setValue,
     formState: { errors }
@@ -61,23 +64,65 @@ const EditStudent = () => {
     resolver: yupResolver(FormStudentSchema)
   })
 
-  const DeleteRoleMutation = useMutation({
-    mutationFn: (id: string) => {
-      return studentAPI.deleteStudent(id)
-    }
+  const DeleteStudentMutation = useMutation({
+    mutationFn: (id: string) => studentAPI.deleteStudent(id)
   })
 
   const handleDeleteStudent = (id: string) => {
-    DeleteRoleMutation.mutate(id, {
-      onSuccess: () => {
-        toast.success('Xóa sinh viên thành công')
-        navigate(path.student)
-        queryClient.invalidateQueries({
-          queryKey: ['students']
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
+        DeleteStudentMutation.mutate(id, {
+          onSuccess: () => {
+            toast.success('Xóa sinh viên thành công')
+            navigate(path.student)
+            queryClient.invalidateQueries({
+              queryKey: ['students']
+            })
+          }
         })
       }
     })
   }
+
+  const EditStudentMutation = useMutation({
+    mutationFn: (body: { id: string; data: StudentForm }) => {
+      return studentAPI.editStudent(body)
+    }
+  })
+
+  const handleEditStudent = handleSubmit((data) => {
+    const newData = { ...data, imageUrl: student.imageUrl, birth: student.dateOfBirth }
+
+    EditStudentMutation.mutate(
+      {
+        id: queryStudentConfig.id as string,
+        data: newData
+      },
+      {
+        onSuccess: () => {
+          toast.success('Cập nhật sinh viên thành công !')
+          queryClient.invalidateQueries({
+            queryKey: ['students']
+          })
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          if (isAxiosError(error)) {
+            toast.error('Sửa viên thất bại')
+          }
+        }
+      }
+    )
+  })
 
   return (
     <Fragment>
@@ -93,7 +138,7 @@ const EditStudent = () => {
             </div>
           </div>
           <div className='col-span-5'>
-            <form>
+            <form onSubmit={handleEditStudent}>
               <EditStudentForm
                 register={register}
                 errors={errors}
