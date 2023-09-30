@@ -97,7 +97,7 @@ const EditStudent = () => {
       }
     })
   }
-  
+
   const EditStudentMutation = useMutation({
     mutationFn: (body: { id: string; data: StudentForm }) => {
       return studentAPI.editStudent(body)
@@ -106,6 +106,7 @@ const EditStudent = () => {
 
   const handleEditStudent = handleSubmit((data) => {
     const newData = { ...data, imageUrl: student.imageUrl }
+    console.log(newData)
 
     EditStudentMutation.mutate(
       {
@@ -128,7 +129,7 @@ const EditStudent = () => {
       }
     )
   })
-  
+
   const handleChangeFile = (file?: File) => {
     setFile(file)
   }
@@ -140,7 +141,7 @@ const EditStudent = () => {
         <meta name='description' content='This is edit student page of the project' />
       </Helmet>
       <div>
-        <form>
+        <form onSubmit={handleEditStudent}>
           <EditStudentForm
             register={register}
             errors={errors}

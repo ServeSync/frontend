@@ -9,6 +9,7 @@ import InputFile from 'src/modules/Share/components/InputFile'
 import { FormStudentType } from '../../utils/rules'
 import { useQuery } from '@tanstack/react-query'
 import homeroomAPI from '../../services/home_room.api'
+import { formatDateTime } from 'src/modules/Share/utils/utils'
 
 interface Props {
   register: UseFormRegister<FormStudentType>
@@ -37,7 +38,7 @@ const EditStudentForm = ({
   previewImage
 }: Props) => {
   useEffect(() => {
-    if (student && faculties && homeRooms && educationPrograms) {
+    if (student && faculties && educationPrograms) {
       setValue('code', student.code)
       setValue('fullName', student.fullName)
       setValue('email', student.email)
@@ -66,7 +67,6 @@ const EditStudentForm = ({
     staleTime: 3 * 60 * 1000
   })
   const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
-
 
   return (
     <Fragment>
