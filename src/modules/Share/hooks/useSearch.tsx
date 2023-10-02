@@ -23,7 +23,8 @@ const useSearch = ({ queryConfig, pathname }: Props) => {
         pathname: pathname,
         search: createSearchParams({
           ...queryConfig,
-          search: data.search as string
+          search: data.search as string,
+          page: 1
         }).toString()
       })
     } else {

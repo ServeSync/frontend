@@ -16,22 +16,30 @@ interface Props {
   faculties: FacultyType[]
   onChange: (file?: File) => void
   previewImage: string
+  onPreviousPage: () => void
 }
 
-const CreateStudentForm = ({ register, errors, educationPrograms, faculties, onChange, previewImage }: Props) => {
+const CreateStudentForm = ({
+  register,
+  errors,
+  educationPrograms,
+  faculties,
+  onChange,
+  previewImage,
+  onPreviousPage
+}: Props) => {
   const [facultyId, setFacultyId] = useState<string>('')
+
+  const HomeRoomsListQuery = useQuery({
+    queryKey: ['home_rooms', facultyId],
+    queryFn: () => homeroomAPI.getListHomeRooms(facultyId),
+    enabled: facultyId !== ''
+  })
+  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
 
   const handleChangeFaculty = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFacultyId(event.target.value)
   }
-
-  const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms', facultyId],
-    queryFn: () => homeroomAPI.getListHomeRooms(facultyId as string),
-    enabled: facultyId !== '',
-    staleTime: 3 * 60 * 1000
-  })
-  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
 
   return (
     <Fragment>
@@ -258,7 +266,11 @@ const CreateStudentForm = ({ register, errors, educationPrograms, faculties, onC
         </div>
       </div>
       <div className='flex justify-end gap-6'>
-        <button type='button' className='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-gray-800 font-semibold mt-6'>
+        <button
+          type='button'
+          className='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-gray-800 font-semibold mt-6'
+          onClick={onPreviousPage}
+        >
           Hủy
         </button>
         <button type='submit' className='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6'>

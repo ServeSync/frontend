@@ -40,7 +40,7 @@ const EditStudentForm = ({
 
   const HomeRoomsListQuery = useQuery({
     queryKey: ['home_rooms', facultyId],
-    queryFn: () => homeroomAPI.getListHomeRooms(facultyId as string),
+    queryFn: async () => await homeroomAPI.getListHomeRooms(facultyId as string),
     staleTime: 5 * 60 * 1000
   })
   const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
@@ -60,9 +60,8 @@ const EditStudentForm = ({
       setValue('facultyId', student.facultyId)
       setValue('educationProgramId', student.educationProgramId)
       setValue('imageUrl', student.imageUrl)
-      setFacultyId(student.facultyId)
     }
-  }, [student, faculties, educationPrograms, homeRooms, setValue])
+  }, [student, faculties, educationPrograms, setValue])
 
   const handleChangeFaculty = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFacultyId(event.target.value)
@@ -141,7 +140,6 @@ const EditStudentForm = ({
                 className='border-[1px] border-gray-200 px-2 py-2 rounded-md'
                 {...register('gender')}
               >
-                <option value='0'>Chọn giới tính</option>
                 <option value={'true'}>Nam</option>
                 <option value={'false'}>Nữ</option>
               </select>
@@ -157,13 +155,11 @@ const EditStudentForm = ({
               <Skeleton className='h-[34px]' />
             ) : (
               <input
-                type='text'
+                type='date'
                 id='date_of_birth'
                 placeholder='Chọn ngày sinh'
                 className='border-[1px] border-gray-200 rounded-md py-2 px-2 outline-[#26C6DA] font-normal h-[40px]'
                 {...register('birth')}
-                onFocus={(e) => (e.target.type = 'date')}
-                onBlur={(e) => (e.target.type = 'text')}
               />
             )}
             <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.birth?.message}</span>
@@ -251,7 +247,6 @@ const EditStudentForm = ({
                 {...register('facultyId')}
                 onChange={handleChangeFaculty}
               >
-                <option value='0'>Chọn khoa</option>
                 {faculties &&
                   faculties.map((item) => (
                     <option value={item.id} key={item.id}>

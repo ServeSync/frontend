@@ -10,14 +10,14 @@ interface Props {
 const InputSearch = ({ classNameInput, name, register }: Props) => {
   return (
     <div className='relative'>
-      <input type='text' placeholder='Search' className={classNameInput} {...register(name)} />
+      <input type='text' placeholder='Tìm kiếm' className={classNameInput} {...register(name)} />
       <svg
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
         viewBox='0 0 24 24'
         strokeWidth='1.5'
         stroke='currentColor'
-        className='w-5 h-5 absolute top-[11px] left-[6px] text-gray-500'
+        className='w-4 h-4 absolute top-[13px] left-[12px] text-gray-600'
       >
         <path
           strokeLinecap='round'
