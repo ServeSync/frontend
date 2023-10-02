@@ -108,8 +108,7 @@ const EditStudent = () => {
       }
     } else {
       const body = {
-        ..._.omit(data, 'facultyId'),
-        imageAPI: student.imageUrl as string
+        ..._.omit(data, 'facultyId')
       }
       EditStudentMutation.mutate(
         {
