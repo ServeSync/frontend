@@ -3,38 +3,26 @@ import { FacultyType } from 'src/modules/StudentManagement/interfaces/faculty.ty
 import { HomeRoomType } from 'src/modules/StudentManagement/interfaces/home_room.type'
 import { UseFormRegister } from 'react-hook-form'
 import { useQuery } from '@tanstack/react-query'
-import educationProgramAPI from '../../services/education_program.api'
-import facultyAPI from '../../services/faculty.api'
 import homeroomAPI from '../../services/home_room.api'
-import { useState } from 'react'
 
 interface FilterConfig {
   homeRoomId?: string | undefined
   facultyId?: string | undefined
   educationProgramId?: string | undefined
   gender?: string | undefined
+  search?: string | undefined
 }
 
 interface Props {
   register: UseFormRegister<FilterConfig>
   onResetForm: () => void
+  facultyId: string
+  setFacultyId: React.Dispatch<React.SetStateAction<string>>
+  educationPrograms: EducationProgramType[]
+  faculties: FacultyType[]
 }
 
-const Filter = ({ register, onResetForm }: Props) => {
-  const [facultyId, setFacultyId] = useState<string>('')
-
-  const EducationProgramsListQuery = useQuery({
-    queryKey: ['education_programs'],
-    queryFn: () => educationProgramAPI.getListEducationPrograms()
-  })
-  const educationPrograms = EducationProgramsListQuery.data?.data as EducationProgramType[]
-
-  const FacultiesListQuery = useQuery({
-    queryKey: ['faculties'],
-    queryFn: () => facultyAPI.getListFaculties()
-  })
-  const faculties = FacultiesListQuery.data?.data as FacultyType[]
-
+const Filter = ({ register, onResetForm, facultyId, setFacultyId, educationPrograms, faculties }: Props) => {
   const HomeRoomsListQuery = useQuery({
     queryKey: ['home_rooms', facultyId],
     queryFn: () => homeroomAPI.getListHomeRooms(facultyId),

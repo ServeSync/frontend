@@ -22,7 +22,8 @@ export const FormFilterStudentSchema = yup.object({
   homeRoomId: yup.string(),
   facultyId: yup.string(),
   educationProgramId: yup.string(),
-  gender: yup.string()
+  gender: yup.string(),
+  search: yup.string()
 })
 
 export type FormFilterStudentType = yup.InferType<typeof FormFilterStudentSchema>
