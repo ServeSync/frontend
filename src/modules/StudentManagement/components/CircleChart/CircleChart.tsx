@@ -1,11 +1,24 @@
 import { Fragment } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+// import { EducationProgramType } from '../../interfaces/education_program.type'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-import { chartData } from 'src/modules/Share/constants/chart_data'
+interface Props {
+  requiredActivityScore: number
+}
+const CircleChart = ({ requiredActivityScore }: Props) => {
+  const chartData = {
+    datasets: [
+      {
+        data: [45, requiredActivityScore - 45],
+        backgroundColor: ['red', 'rgba(228,228,228,1)'],
+        borderColor: ['red', 'rgba(228,228,228,1)'],
+        borderWidth: 1
+      }
+    ]
+  }
 
-const CircleChart = () => {
   return (
     <Fragment>
       <div className='col-span-1'>
@@ -22,7 +35,7 @@ const CircleChart = () => {
           Số điểm yêu cầu
           <div className='w-[70px]'>
             <span className='mr-2'>:</span>
-            {chartData.datasets[0].data[1]}
+            {requiredActivityScore}
           </div>
         </div>
         <div className=' flex justify-between'>
