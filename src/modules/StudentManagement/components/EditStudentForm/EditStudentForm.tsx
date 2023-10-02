@@ -162,8 +162,6 @@ const EditStudentForm = ({
                 placeholder='Chọn ngày sinh'
                 className='border-[1px] border-gray-200 rounded-md py-2 px-2 outline-[#26C6DA] font-normal h-[40px]'
                 {...register('birth')}
-                onFocus={(e) => (e.target.type = 'date')}
-                onBlur={(e) => (e.target.type = 'text')}
               />
             )}
             <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.birth?.message}</span>

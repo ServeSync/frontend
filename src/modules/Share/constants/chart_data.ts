@@ -1,5 +1,4 @@
 export const chartData = {
-  labels: ['Tích lũy'],
   datasets: [
     {
       data: [45, 100],
