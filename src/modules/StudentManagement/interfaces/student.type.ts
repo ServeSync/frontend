@@ -69,5 +69,5 @@ export interface StudentForm {
   homeRoomId: string
   educationProgramId: string
   facultyId: string
-  imageUrl: string
+  imageUrl?: string
 }

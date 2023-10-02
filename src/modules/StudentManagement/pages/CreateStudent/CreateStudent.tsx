@@ -56,27 +56,27 @@ const CreateStudent = () => {
 
   const UploadImageMutation = useMutation(imageAPI.uploadImage)
 
-  const handleCreateStudent = handleSubmit((data) => {
+  const handleCreateStudent = handleSubmit(async (data) => {
     const form = new FormData()
     form.append('file', file as File)
 
-    UploadImageMutation.mutate(form, {
-      onSuccess: () => {
-        const body = { ..._.omit(data, 'facultyId'), imageUrl: UploadImageMutation.data?.data.url as string }
-
-        CreateStudentMutation.mutate(body, {
-          onSuccess: () => {
-            toast.success('Thêm sinh viên thành công !')
-            queryClient.invalidateQueries({
-              queryKey: ['students']
-            })
-            navigate({
-              pathname: path.student
-            })
-          }
-        })
-      }
-    })
+    try {
+      const uploadImageResponse = await UploadImageMutation.mutateAsync(form)
+      const body = { ..._.omit(data, 'facultyId'), imageUrl: uploadImageResponse.data.url as string }
+      CreateStudentMutation.mutate(body, {
+        onSuccess: () => {
+          toast.success('Thêm sinh viên thành công !')
+          queryClient.invalidateQueries({
+            queryKey: ['students']
+          })
+          navigate({
+            pathname: path.student
+          })
+        }
+      })
+    } catch (error) {
+      console.error('Error uploading image:', error)
+    }
   })
 
   const handleChangeFile = (file?: File) => {

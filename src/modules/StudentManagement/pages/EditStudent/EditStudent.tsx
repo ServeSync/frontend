@@ -40,7 +40,6 @@ const EditStudent = () => {
     queryFn: async () => studentAPI.getStudent(queryStudentConfig.id as string),
     enabled: queryStudentConfig.id !== undefined
   })
-
   const student = StudentQuery.data?.data as StudentType
 
   const EducationProgramsListQuery = useQuery({
@@ -63,6 +62,7 @@ const EditStudent = () => {
   } = useForm<FormStudentType>({
     resolver: yupResolver(FormStudentSchema)
   })
+
   useEffect(() => {
     const educationId = StudentQuery.data?.data.educationProgramId
     const program = educationPrograms?.find((program) => program.id === educationId)
@@ -70,6 +70,69 @@ const EditStudent = () => {
       setRequiredActivityScore(program.requiredActivityScore)
     }
   }, [StudentQuery.data?.data.educationProgramId, educationPrograms])
+
+  const EditStudentMutation = useMutation({
+    mutationFn: (body: { id: string; data: Omit<StudentForm, 'facultyId'> }) => studentAPI.editStudent(body)
+  })
+
+  const UploadImageMutation = useMutation(imageAPI.uploadImage)
+
+  const handleEditStudent = handleSubmit(async (data) => {
+    if (file) {
+      const form = new FormData()
+      form.append('file', file)
+
+      try {
+        const uploadedImageData = await UploadImageMutation.mutateAsync(form)
+        const body = {
+          ..._.omit(data, 'facultyId'),
+          imageUrl: uploadedImageData.data.url as string
+        }
+        EditStudentMutation.mutate(
+          {
+            id: queryStudentConfig.id as string,
+            data: body
+          },
+          {
+            onSuccess: () => {
+              toast.success('Cập nhật sinh viên thành công !')
+              queryClient.invalidateQueries({
+                queryKey: ['students']
+              })
+              navigate(path.student)
+            }
+          }
+        )
+      } catch (error) {
+        console.error('Error uploading image:', error)
+      }
+    } else {
+      const body = {
+        ..._.omit(data, 'facultyId')
+      }
+      EditStudentMutation.mutate(
+        {
+          id: queryStudentConfig.id as string,
+          data: body
+        },
+        {
+          onSuccess: () => {
+            toast.success('Cập nhật sinh viên thành công !')
+            queryClient.invalidateQueries({
+              queryKey: ['students']
+            })
+            navigate(path.student)
+          }
+        }
+      )
+      console.log(body)
+    }
+  })
+
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+  }
+
   const DeleteStudentMutation = useMutation({
     mutationFn: (id: string) => studentAPI.deleteStudent(id)
   })
@@ -97,55 +160,6 @@ const EditStudent = () => {
         })
       }
     })
-  }
-
-  const EditStudentMutation = useMutation({
-    mutationFn: (body: { id: string; data: Omit<StudentForm, 'facultyId'> }) => studentAPI.editStudent(body)
-  })
-
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const runEditStudentMutation = (data: any) => {
-    EditStudentMutation.mutate(
-      {
-        id: queryStudentConfig.id as string,
-        data: data
-      },
-      {
-        onSuccess: () => {
-          toast.success('Cập nhật sinh viên thành công !')
-          navigate(`${path.edit_student}?id=${queryStudentConfig.id}`)
-          queryClient.invalidateQueries({
-            queryKey: ['students']
-          })
-        }
-      }
-    )
-  }
-
-  const UploadImageMutation = useMutation(imageAPI.uploadImage)
-
-  const handleEditStudent = handleSubmit(async (data) => {
-    if (file) {
-      const form = new FormData()
-      form.append('file', file)
-
-      try {
-        const uploadedImageData = await UploadImageMutation.mutateAsync(form)
-        const updatedData = {
-          ..._.omit(data, 'facultyId'),
-          imageUrl: uploadedImageData.data.url as string
-        }
-        runEditStudentMutation(updatedData)
-      } catch (error) {
-        console.error('Error uploading image:', error)
-      }
-    } else {
-      runEditStudentMutation(data)
-    }
-  })
-
-  const handleChangeFile = (file?: File) => {
-    setFile(file)
   }
 
   return (
