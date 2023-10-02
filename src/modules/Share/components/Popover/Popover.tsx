@@ -1,4 +1,4 @@
-import { useState, useRef, useId, ElementType } from 'react'
+import { useRef, useId, ElementType } from 'react'
 import { useFloating, FloatingPortal, arrow, shift, offset, type Placement } from '@floating-ui/react-dom-interactions'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -7,13 +7,20 @@ interface Props {
   renderPopover: React.ReactNode
   className?: string
   as?: ElementType
-  initialOpen?: boolean
   placement?: Placement
+  isOpenPopover: boolean
+  setIsOpenPopover: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Popover = ({ children, className, renderPopover, as: Element = 'div', initialOpen, placement }: Props) => {
-  const [open, setOpen] = useState(initialOpen || false)
-
+const Popover = ({
+  children,
+  className,
+  renderPopover,
+  as: Element = 'div',
+  placement,
+  isOpenPopover,
+  setIsOpenPopover
+}: Props) => {
   const id = useId()
 
   const arrowRef = useRef<HTMLElement>(null)
@@ -24,7 +31,7 @@ const Popover = ({ children, className, renderPopover, as: Element = 'div', init
   })
 
   const togglePopover = () => {
-    setOpen(!open)
+    setIsOpenPopover(!isOpenPopover)
   }
 
   return (
@@ -32,7 +39,7 @@ const Popover = ({ children, className, renderPopover, as: Element = 'div', init
       <Element onClick={togglePopover}>{children}</Element>
       <FloatingPortal id={id}>
         <AnimatePresence>
-          {open && (
+          {isOpenPopover && (
             <motion.div
               className='relative z-50'
               ref={floating}

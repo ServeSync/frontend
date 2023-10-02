@@ -36,7 +36,7 @@ const EditStudent = () => {
 
   const StudentQuery = useQuery({
     queryKey: ['student', queryStudentConfig],
-    queryFn: () => studentAPI.getStudent(queryStudentConfig.id as string),
+    queryFn: async () => studentAPI.getStudent(queryStudentConfig.id as string),
     enabled: queryStudentConfig.id !== undefined
   })
   const student = StudentQuery.data?.data as StudentType

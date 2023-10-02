@@ -88,5 +88,5 @@ export function isAxiosUnauthorizedError(error: unknown): error is AxiosError {
 
 // Format
 export function formatDateTime(date: string) {
-  return format(parseISO(date), 'dd/MM/yyyy')
+  return format(parseISO(date), 'yyyy-MM-dd')
 }

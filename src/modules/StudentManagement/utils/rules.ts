@@ -10,10 +10,10 @@ export const FormStudentSchema = yup.object({
   homeTown: yup.string().required('Vui lòng nhập nơi sinh !'),
   address: yup.string().required('Vui lòng nhập địa chỉ !'),
   citizenId: yup.string().required('Vui lòng nhập căn cước công dân !'),
-  facultyId: yup.string().required('Vui lòng chọn khoa !'),
+  facultyId: yup.string(),
   homeRoomId: yup.string().required('Vui lòng chọn lớp sinh hoạt !'),
   educationProgramId: yup.string().required('Vui lòng chọn hệ đào tạo !'),
-  imageUrl: yup.object()
+  imageUrl: yup.string()
 })
 
 export type FormStudentType = yup.InferType<typeof FormStudentSchema>
@@ -22,7 +22,7 @@ export const FormFilterStudentSchema = yup.object({
   homeRoomId: yup.string(),
   facultyId: yup.string(),
   educationProgramId: yup.string(),
-  gender: yup.boolean()
+  gender: yup.string()
 })
 
 export type FormFilterStudentType = yup.InferType<typeof FormFilterStudentSchema>

@@ -6,12 +6,13 @@ import { useQuery } from '@tanstack/react-query'
 import educationProgramAPI from '../../services/education_program.api'
 import facultyAPI from '../../services/faculty.api'
 import homeroomAPI from '../../services/home_room.api'
+import { useState } from 'react'
 
 interface FilterConfig {
   homeRoomId?: string | undefined
   facultyId?: string | undefined
   educationProgramId?: string | undefined
-  gender?: boolean | undefined
+  gender?: string | undefined
 }
 
 interface Props {
@@ -20,6 +21,8 @@ interface Props {
 }
 
 const Filter = ({ register, onResetForm }: Props) => {
+  const [facultyId, setFacultyId] = useState<string>('')
+
   const EducationProgramsListQuery = useQuery({
     queryKey: ['education_programs'],
     queryFn: () => educationProgramAPI.getListEducationPrograms()
@@ -33,10 +36,15 @@ const Filter = ({ register, onResetForm }: Props) => {
   const faculties = FacultiesListQuery.data?.data as FacultyType[]
 
   const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms'],
-    queryFn: () => homeroomAPI.getListHomeRooms()
+    queryKey: ['home_rooms', facultyId],
+    queryFn: () => homeroomAPI.getListHomeRooms(facultyId),
+    enabled: facultyId !== ''
   })
   const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
+
+  const handleChangeFaculty = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFacultyId(event.target.value)
+  }
 
   return (
     <div className='w-[360px] bg-white border-[1px] border-gray-300 rounded-lg p-6 shadow-md text-gray-600'>
@@ -59,8 +67,13 @@ const Filter = ({ register, onResetForm }: Props) => {
         <label htmlFor='faculty' className='mb-2'>
           Khoa
         </label>
-        <select id='faculty' className='border-[1px] border-gray-200 px-1 py-2 rounded-md' {...register('facultyId')}>
-          <option value='0'>Chọn khoa</option>
+        <select
+          id='faculty'
+          className='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+          {...register('facultyId')}
+          onChange={handleChangeFaculty}
+        >
+          <option value=''>Chọn khoa</option>
           {faculties &&
             faculties.map((item) => (
               <option value={item.id} key={item.id}>
@@ -74,7 +87,7 @@ const Filter = ({ register, onResetForm }: Props) => {
           Lớp
         </label>
         <select id='class' className='border-[1px] border-gray-200 px-1 py-2 rounded-md' {...register('homeRoomId')}>
-          <option value='0'>Chọn lớp sinh hoạt</option>
+          <option value=''>Chọn lớp sinh hoạt</option>
           {homeRooms &&
             homeRooms.map((item) => (
               <option value={item.id} key={item.id}>
@@ -92,7 +105,7 @@ const Filter = ({ register, onResetForm }: Props) => {
           className='border-[1px] border-gray-200 px-1 py-2 rounded-md'
           {...register('educationProgramId')}
         >
-          <option value='0'>Chọn hệ đào tạo</option>
+          <option value=''>Chọn hệ đào tạo</option>
           {educationPrograms &&
             educationPrograms.map((item) => (
               <option value={item.id} key={item.id}>
@@ -101,24 +114,15 @@ const Filter = ({ register, onResetForm }: Props) => {
             ))}
         </select>
       </div>
-      <div className='flex flex-col text-[15px] mb-2'>
-        <label htmlFor='gender' className='mb-2'>
+      <div className='flex flex-col text-[15px] mb-3'>
+        <label htmlFor='education_program' className='mb-2'>
           Giới tính
         </label>
-        <div className='mb-2 grid grid-cols-2'>
-          <div className='col-span-1 flex items-center'>
-            <input type='radio' id='male' {...register('gender')} />
-            <label htmlFor='male' className='ml-2'>
-              Nam
-            </label>
-          </div>
-          <div className='col-span-1 flex items-center'>
-            <input type='radio' id='female' {...register('gender')} />
-            <label htmlFor='female' className='ml-2'>
-              Nữ
-            </label>
-          </div>
-        </div>
+        <select id='gender' className='border-[1px] border-gray-200 px-1 py-2 rounded-md' {...register('gender')}>
+          <option value=''>Chọn giới tính</option>
+          <option value='true'>Nam</option>
+          <option value='false'>Nữ</option>
+        </select>
       </div>
       <div className='flex justify-between'>
         <button

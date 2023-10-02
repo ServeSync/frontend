@@ -1,4 +1,4 @@
-import { useContext, Fragment } from 'react'
+import { useContext, Fragment, useState } from 'react'
 import { AppContext } from '../../contexts/app.context'
 import Popover from '../Popover'
 import { clearTokenFromLocalStorage } from 'src/modules/Authentication/utils/auth'
@@ -13,6 +13,8 @@ import roleAPI from 'src/modules/RoleManagement/services/role.api'
 import Skeleton from 'react-loading-skeleton'
 
 export default function Header() {
+  const [isOpenPopover, setIsOpenPopover] = useState(false)
+
   const { setIsAuthenticated } = useContext(AppContext)
 
   const queryStudentConfig = useQueryStudentConfig()
@@ -147,6 +149,8 @@ export default function Header() {
                     </li>
                   </ul>
                 }
+                isOpenPopover={isOpenPopover}
+                setIsOpenPopover={setIsOpenPopover}
               >
                 <div className='relative'>
                   <img

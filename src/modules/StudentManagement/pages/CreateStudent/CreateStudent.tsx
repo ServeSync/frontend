@@ -72,7 +72,6 @@ const CreateStudent = () => {
             })
             navigate({
               pathname: path.student
-              // search: createSearchParams(prevAccountConfig).toString()
             })
           }
         })
@@ -82,6 +81,12 @@ const CreateStudent = () => {
 
   const handleChangeFile = (file?: File) => {
     setFile(file)
+  }
+
+  const handlePreviousPage = () => {
+    navigate({
+      pathname: path.student
+    })
   }
 
   return (
@@ -102,6 +107,7 @@ const CreateStudent = () => {
             faculties={faculties}
             onChange={handleChangeFile}
             previewImage={previewImage}
+            onPreviousPage={handlePreviousPage}
           />
         </form>
       </div>

@@ -17,7 +17,7 @@ const StudentTable = ({ students, onEditStudent, onSort, isLoading }: Props) => 
 
   const handleSort = (column: string) => {
     onSort(column)
-    setIsSorting(column)
+    column === isSorting ? setIsSorting(`${column} desc`) : setIsSorting(column)
   }
 
   return (
@@ -30,21 +30,35 @@ const StudentTable = ({ students, onEditStudent, onSort, isLoading }: Props) => 
               onClick={() => handleSort(item.sort)}
               key={item.id}
             >
-              <span className={classNames({ 'text-[#46cbdd]': item.sort === isSorting })}>{item.name}</span>
+              <span
+                className={classNames({
+                  'text-[#46cbdd]': isSorting === item.sort || isSorting === `${item.sort} desc`
+                })}
+              >
+                {item.name}
+              </span>
               {item.sort === isSorting && (
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
                   viewBox='0 0 24 24'
-                  strokeWidth='1.5'
+                  strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-4 h-4 mb-[3px] mr-[2px] inline-block text-[#46cbdd]'
+                  className='w-4 h-4 ml-[4px] inline-block text-[#46cbdd]'
                 >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9'
-                  />
+                  <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' />
+                </svg>
+              )}
+              {isSorting === `${item.sort} desc` && (
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-4 h-4 ml-[4px] inline-block text-[#46cbdd]'
+                >
+                  <path strokeLinecap='round' strokeLinejoin='round' d='M4.5 15.75l7.5-7.5 7.5 7.5' />
                 </svg>
               )}
             </th>
@@ -60,10 +74,10 @@ const StudentTable = ({ students, onEditStudent, onSort, isLoading }: Props) => 
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                   key={index}
                 >
-                  <th className='px-2 py-4 font-medium w-[8%]'>
+                  <th className='px-2 py-4 font-medium w-[9%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[14%]'>
+                  <th className='px-2 py-4 font-medium w-[20%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
                   <th className='px-2 py-4 font-medium w-[8%]'>
@@ -72,13 +86,13 @@ const StudentTable = ({ students, onEditStudent, onSort, isLoading }: Props) => 
                   <th className='px-2 py-4 font-medium w-[9%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[20%]'>
+                  <th className='px-2 py-4 font-medium w-[12%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
                   <th className='px-2 py-4 font-medium w-[25%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[9.2%]'>
+                  <th className='px-2 py-4 font-medium w-[10%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
                   <th className='px-2 py-4 font-medium'>
@@ -94,12 +108,12 @@ const StudentTable = ({ students, onEditStudent, onSort, isLoading }: Props) => 
                 onClick={() => onEditStudent(student.id)}
               >
                 <th className='px-2 py-4 font-medium w-[8%]'>{student.code}</th>
-                <th className='px-2 py-4 font-medium w-[14%]'>{student.fullName}</th>
-                <th className='px-2 py-4 font-medium w-[8%]'>{student.gender ? 'Nam' : 'Nữ'}</th>
+                <th className='px-2 py-4 font-medium w-[20%]'>{student.fullName}</th>
+                <th className='px-2 py-4 font-medium w-[9%]'>{student.gender ? 'Nam' : 'Nữ'}</th>
                 <th className='px-2 py-4 font-medium w-[9%]'>{formatDateTime(student.dateOfBirth)}</th>
-                <th className='px-2 py-4 font-medium w-[20%]'>{student.homeRoom.name}</th>
+                <th className='px-2 py-4 font-medium w-[12%]'>{student.homeRoom.name}</th>
                 <th className='px-2 py-4 font-medium w-[25%]'>{student.faculty.name}</th>
-                <th className='px-2 py-4 font-medium w-[9.2%]'>{student.educationProgram.name}</th>
+                <th className='px-2 py-4 font-medium w-[10%]'>{student.educationProgram.name}</th>
                 <th className='px-2 py-4 font-medium'>0</th>
               </tr>
             ))}

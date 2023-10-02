@@ -1,8 +1,9 @@
-import { Fragment } from 'react'
+// eslint-disable-next-line import/named
+import { Link, URLSearchParamsInit, createSearchParams, useNavigate } from 'react-router-dom'
+import { Fragment, useState } from 'react'
 import StudentTable from '../../components/StudentTable'
 import { Helmet } from 'react-helmet-async'
 import path from 'src/modules/Share/constants/path'
-import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import InputSearch from 'src/modules/Share/components/InputSearch'
 import Pagination from 'src/modules/Share/components/Pagination/Pagination'
 import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
@@ -16,8 +17,11 @@ import Filter from 'src/modules/StudentManagement/components/Filter'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { FormFilterStudentSchema, FormFilterStudentType } from '../../utils/rules'
+import { isEmpty, omitBy } from 'lodash'
 
 const Student = () => {
+  const [isOpenPopover, setIsOpenPopover] = useState(false)
+
   const queryStudentConfig = useQueryStudentConfig()
 
   const navigate = useNavigate()
@@ -47,8 +51,21 @@ const Student = () => {
     resolver: yupResolver(FormFilterStudentSchema)
   })
 
-  const onSubmitFormFilter = FormFilter.handleSubmit((data) => {
-    console.log(data)
+  const handleSubmitFormFilter = FormFilter.handleSubmit((data) => {
+    const config = {
+      ...queryStudentConfig,
+      page: 1,
+      facultyId: data.facultyId,
+      homeRoomId: data.homeRoomId,
+      educationProgramId: data.educationProgramId,
+      gender: data.gender
+    }
+    navigate({
+      pathname: path.student,
+      search: createSearchParams(omitBy(config, isEmpty) as URLSearchParamsInit).toString()
+    })
+    FormFilter.reset()
+    setIsOpenPopover(false)
   })
 
   const onResetFormFilter = () => {
@@ -62,11 +79,11 @@ const Student = () => {
         <meta name='description' content='This is student management page of the project' />
       </Helmet>
       <div>
-        <div className='flex justify-between items-center pt-[16px] pb-[40px]'>
+        <div className='flex justify-between items-center pt-[16px] pb-[40px] font-normal'>
           <form onSubmit={useSearchStudent.handleSubmitSearch}>
             <InputSearch
               classNameInput={
-                'bg-white border-[1px] border-gray-200 rounded h-[40px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm'
+                'bg-white border-[1px] border-gray-200 rounded-lg h-[40px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600'
               }
               name='search'
               register={useSearchStudent.register}
@@ -75,12 +92,14 @@ const Student = () => {
           <div className='flex gap-4'>
             <Popover
               renderPopover={
-                <form onSubmit={onSubmitFormFilter}>
+                <form onSubmit={handleSubmitFormFilter}>
                   <Filter register={FormFilter.register} onResetForm={onResetFormFilter} />
                 </form>
               }
+              isOpenPopover={isOpenPopover}
+              setIsOpenPopover={setIsOpenPopover}
             >
-              <div className='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'>
+              <div className='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
