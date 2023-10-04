@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
@@ -100,7 +100,10 @@ const EditStudent = () => {
           navigate(`${path.edit_student}?id=${queryStudentConfig.id}`)
           queryClient.invalidateQueries({
             queryKey: ['students']
-          })
+          }),
+            queryClient.invalidateQueries({
+              queryKey: ['student']
+            })
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
@@ -148,12 +151,6 @@ const EditStudent = () => {
       onEditStudent(body)
     }
   })
-
-  useEffect(() => {
-    if (EditStudentMutation.isSuccess) {
-      queryClient.invalidateQueries(['student', queryStudentConfig])
-    }
-  }, [EditStudentMutation.isSuccess, queryClient, queryStudentConfig])
 
   const handleChangeFile = (file?: File) => {
     setFile(file)
