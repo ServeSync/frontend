@@ -69,7 +69,7 @@ const EditStudentForm = ({
 
   return (
     <Fragment>
-      <div className='grid grid-cols-6 gap-6 pb-4 border-b-2'>
+      <div className='grid grid-cols-6 gap-6 '>
         <div className='col-span-1'>
           <div className='flex flex-col items-center justify-center '>
             <InputFile register={register} onChange={onChange} previewImage={previewImage} student={student} />
@@ -314,7 +314,7 @@ const EditStudentForm = ({
         </div>
       </div>
 
-      <div className='flex justify-end gap-6'>
+      <div className='flex justify-end gap-6 border-b-2 pb-4'>
         <button
           type='button'
           onClick={() => handleDeleteStudent(student.id)}

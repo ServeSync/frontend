@@ -20,11 +20,16 @@ import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import imageAPI from '../../services/image.api'
 import _ from 'lodash'
-import { isStudentNotFound } from 'src/modules/Share/utils/utils'
+import {
+  isCitizenIdStudentAlreadyExistsError,
+  isCodeStudentAlreadyExistsError,
+  isEmailStudentAlreadyExistsExistsError,
+  isStudentNotFound
+} from 'src/modules/Share/utils/utils'
+
 
 const EditStudent = () => {
   const [file, setFile] = useState<File>()
-  const [requiredActivityScore, setRequiredActivityScore] = useState(0)
 
   const previewImage = useMemo(() => {
     return file ? URL.createObjectURL(file) : ''
@@ -65,19 +70,17 @@ const EditStudent = () => {
   const {
     handleSubmit,
     register,
+    setError,
     setValue,
     formState: { errors }
   } = useForm<FormStudentType>({
     resolver: yupResolver(FormStudentSchema)
   })
 
-  useEffect(() => {
-    const educationId = StudentQuery.data?.data.educationProgramId
-    const program = educationPrograms?.find((program) => program.id === educationId)
-    if (program) {
-      setRequiredActivityScore(program.requiredActivityScore)
-    }
-  }, [StudentQuery.data?.data.educationProgramId, educationPrograms])
+  const educationIdOfStudent = StudentQuery.data?.data.educationProgramId
+  const programOfStudent = educationPrograms?.find((program) => program.id === educationIdOfStudent)
+  const programScoreOfStudent = programOfStudent?.requiredActivityScore || 0
+  const programNameOfStudent = programOfStudent?.name || ''
 
   const EditStudentMutation = useMutation({
     mutationFn: (body: { id: string; data: Omit<StudentForm, 'facultyId'> }) => studentAPI.editStudent(body)
@@ -85,32 +88,57 @@ const EditStudent = () => {
 
   const UploadImageMutation = useMutation(imageAPI.uploadImage)
 
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onEditStudent = (data: any) => {
+    EditStudentMutation.mutate(
+      {
+        id: queryStudentConfig.id as string,
+        data: data
+      },
+      {
+        onSuccess: () => {
+          toast.success('Cập nhật sinh viên thành công !')
+          navigate(`${path.edit_student}?id=${queryStudentConfig.id}`)
+          queryClient.invalidateQueries({
+            queryKey: ['students']
+          })
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          if (isCodeStudentAlreadyExistsError(error.response?.data.code)) {
+            setError('code', {
+              message: 'Mã sinh viên đã tồn tại !',
+              type: 'Server'
+            })
+          }
+          if (isCitizenIdStudentAlreadyExistsError(error.response?.data.code)) {
+            setError('citizenId', {
+              message: 'Số CMND đã tồn tại !',
+              type: 'Server'
+            })
+          }
+          if (isEmailStudentAlreadyExistsExistsError(error.response?.data.code)) {
+            setError('email', {
+              message: 'Email đã tồn tại !',
+              type: 'Server'
+            })
+          }
+        }
+      }
+    )
+  }
+
   const handleEditStudent = handleSubmit(async (data) => {
     if (file) {
       const form = new FormData()
       form.append('file', file)
-
       try {
         const uploadedImageData = await UploadImageMutation.mutateAsync(form)
         const body = {
           ..._.omit(data, 'facultyId'),
           imageUrl: uploadedImageData.data.url as string
         }
-        EditStudentMutation.mutate(
-          {
-            id: queryStudentConfig.id as string,
-            data: body
-          },
-          {
-            onSuccess: () => {
-              toast.success('Cập nhật sinh viên thành công !')
-              queryClient.invalidateQueries({
-                queryKey: ['students']
-              })
-              navigate(path.student)
-            }
-          }
-        )
+        onEditStudent(body)
       } catch (error) {
         console.error('Error uploading image:', error)
       }
@@ -118,24 +146,15 @@ const EditStudent = () => {
       const body = {
         ..._.omit(data, 'facultyId')
       }
-      EditStudentMutation.mutate(
-        {
-          id: queryStudentConfig.id as string,
-          data: body
-        },
-        {
-          onSuccess: () => {
-            toast.success('Cập nhật sinh viên thành công !')
-            queryClient.invalidateQueries({
-              queryKey: ['students']
-            })
-            navigate(path.student)
-          }
-        }
-      )
-      console.log(body)
+      onEditStudent(body)
     }
   })
+
+  useEffect(() => {
+    if (EditStudentMutation.isSuccess) {
+      queryClient.invalidateQueries(['student', queryStudentConfig])
+    }
+  }, [EditStudentMutation.isSuccess, queryClient, queryStudentConfig])
 
   const handleChangeFile = (file?: File) => {
     setFile(file)
@@ -160,7 +179,6 @@ const EditStudent = () => {
         DeleteStudentMutation.mutate(id, {
           onSuccess: () => {
             Swal.fire('Đã xóa!', 'Sinh viên đã được xóa thành công', 'success')
-
             navigate(path.student)
             queryClient.invalidateQueries({
               queryKey: ['students']
@@ -198,7 +216,11 @@ const EditStudent = () => {
               <p className='font-semibold'>Kết quả tham gia hoạt động phục vụ cộng đồng</p>
             </div>
             <div className='grid grid-cols-4 mt-4'>
-              <CircleChart requiredActivityScore={requiredActivityScore} />
+              <CircleChart
+                programScoreOfStudent={Number(programScoreOfStudent)}
+                programNameOfStudent={programNameOfStudent}
+                isLoading={StudentQuery.isLoading}
+              />
             </div>
           </div>
           <div className='px-6 font-semibold col-span-4'>

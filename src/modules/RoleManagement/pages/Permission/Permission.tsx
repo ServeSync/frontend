@@ -33,6 +33,7 @@ const Permission = ({ onDeleteRole }: Props) => {
     staleTime: 5 * 60 * 1000
   })
   const permissions = PermissionsListQuery.data?.data as PermissionType[]
+  console.log(permissions)
 
   const PermissionsOfRoleQuery = useQuery({
     queryKey: ['permission', queryRoleConfig],

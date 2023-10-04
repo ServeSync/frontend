@@ -7,7 +7,7 @@ import { FormForgetPasswordSchema, FormForgetPasswordType } from '../../utils/ru
 import { useMutation } from '@tanstack/react-query'
 import authAPI from '../../services/auth.api'
 import { toast } from 'react-toastify'
-import { isAccountLockedOutError, isUserNameNotFoundError } from 'src/modules/Share/utils/utils'
+import { isUserNameNotFoundError } from 'src/modules/Share/utils/utils'
 import path from 'src/modules/Share/constants/path'
 
 const ForgetPassword = () => {
@@ -41,9 +41,6 @@ const ForgetPassword = () => {
               message: 'Tài khoản không tồn tại',
               type: 'Server'
             })
-          }
-          if (isAccountLockedOutError(error.response?.data.code)) {
-            toast.error('Tài khoản bị khóa !')
           }
         }
       }
