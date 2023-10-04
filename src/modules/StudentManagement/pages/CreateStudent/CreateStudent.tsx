@@ -11,11 +11,15 @@ import { FormStudentSchema, FormStudentType } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import studentAPI from '../../services/student.api'
 import { StudentForm } from '../../interfaces/student.type'
-import _ from 'lodash'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import imageAPI from '../../services/image.api'
+import {
+  isCitizenIdStudentAlreadyExistsError,
+  isCodeStudentAlreadyExistsError,
+  isEmailStudentAlreadyExistsExistsError
+} from 'src/modules/Share/utils/utils'
 
 const CreateStudent = () => {
   const [file, setFile] = useState<File>()
@@ -45,13 +49,14 @@ const CreateStudent = () => {
   const {
     register,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
+    setError
   } = useForm<FormStudentType>({
     resolver: yupResolver(FormStudentSchema)
   })
 
   const CreateStudentMutation = useMutation({
-    mutationFn: (body: Omit<StudentForm, 'facultyId'>) => studentAPI.createStudent(body)
+    mutationFn: (body: StudentForm) => studentAPI.createStudent(body)
   })
 
   const UploadImageMutation = useMutation(imageAPI.uploadImage)
@@ -61,8 +66,14 @@ const CreateStudent = () => {
     form.append('file', file as File)
 
     try {
-      const uploadImageResponse = await UploadImageMutation.mutateAsync(form)
-      const body = { ..._.omit(data, 'facultyId'), imageUrl: uploadImageResponse.data.url as string }
+      const uploadImageResponse = await UploadImageMutation.mutateAsync(form, {
+        onError: () => {
+          setError('imageUrl', {
+            message: 'Vui lòng chọn ảnh !'
+          })
+        }
+      })
+      const body = { ...data, imageUrl: uploadImageResponse.data.url as string }
       CreateStudentMutation.mutate(body, {
         onSuccess: () => {
           toast.success('Thêm sinh viên thành công !')
@@ -72,6 +83,27 @@ const CreateStudent = () => {
           navigate({
             pathname: path.student
           })
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          if (isCodeStudentAlreadyExistsError(error.response?.data.code)) {
+            setError('code', {
+              message: 'Mã số sinh viên đã tồn tại!',
+              type: 'Server'
+            })
+          }
+          if (isEmailStudentAlreadyExistsExistsError(error.response?.data.code)) {
+            setError('email', {
+              message: 'Email đã tồn tại!',
+              type: 'Server'
+            })
+          }
+          if (isCitizenIdStudentAlreadyExistsError(error.response?.data.code)) {
+            setError('citizenId', {
+              message: 'Căn cước công dân đã tồn tại!',
+              type: 'Server'
+            })
+          }
         }
       })
     } catch (error) {
@@ -103,6 +135,7 @@ const CreateStudent = () => {
           <CreateStudentForm
             register={register}
             errors={errors}
+            setError={setError}
             educationPrograms={educationPrograms}
             faculties={faculties}
             onChange={handleChangeFile}

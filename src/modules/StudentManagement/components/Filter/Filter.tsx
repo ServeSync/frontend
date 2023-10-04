@@ -3,38 +3,28 @@ import { FacultyType } from 'src/modules/StudentManagement/interfaces/faculty.ty
 import { HomeRoomType } from 'src/modules/StudentManagement/interfaces/home_room.type'
 import { UseFormRegister } from 'react-hook-form'
 import { useQuery } from '@tanstack/react-query'
-import educationProgramAPI from '../../services/education_program.api'
-import facultyAPI from '../../services/faculty.api'
 import homeroomAPI from '../../services/home_room.api'
-import { useState } from 'react'
+import Select from 'src/modules/Share/components/Select'
+import { gender } from '../../constants/gender_options'
 
 interface FilterConfig {
   homeRoomId?: string | undefined
   facultyId?: string | undefined
   educationProgramId?: string | undefined
   gender?: string | undefined
+  search?: string | undefined
 }
 
 interface Props {
   register: UseFormRegister<FilterConfig>
   onResetForm: () => void
+  facultyId: string
+  setFacultyId: React.Dispatch<React.SetStateAction<string>>
+  educationPrograms: EducationProgramType[]
+  faculties: FacultyType[]
 }
 
-const Filter = ({ register, onResetForm }: Props) => {
-  const [facultyId, setFacultyId] = useState<string>('')
-
-  const EducationProgramsListQuery = useQuery({
-    queryKey: ['education_programs'],
-    queryFn: () => educationProgramAPI.getListEducationPrograms()
-  })
-  const educationPrograms = EducationProgramsListQuery.data?.data as EducationProgramType[]
-
-  const FacultiesListQuery = useQuery({
-    queryKey: ['faculties'],
-    queryFn: () => facultyAPI.getListFaculties()
-  })
-  const faculties = FacultiesListQuery.data?.data as FacultyType[]
-
+const Filter = ({ register, onResetForm, facultyId, setFacultyId, educationPrograms, faculties }: Props) => {
   const HomeRoomsListQuery = useQuery({
     queryKey: ['home_rooms', facultyId],
     queryFn: () => homeroomAPI.getListHomeRooms(facultyId),
@@ -63,67 +53,47 @@ const Filter = ({ register, onResetForm }: Props) => {
         </svg>
         <span className='text-[18px] font-semibold'>Bộ lọc</span>
       </div>
-      <div className='flex flex-col text-[15px] mb-3'>
-        <label htmlFor='faculty' className='mb-2'>
-          Khoa
-        </label>
-        <select
-          id='faculty'
-          className='border-[1px] border-gray-200 px-1 py-2 rounded-md'
-          {...register('facultyId')}
-          onChange={handleChangeFaculty}
-        >
-          <option value=''>Chọn khoa</option>
-          {faculties &&
-            faculties.map((item) => (
-              <option value={item.id} key={item.id}>
-                {item.name}
-              </option>
-            ))}
-        </select>
-      </div>
-      <div className='flex flex-col text-[15px] mb-3'>
-        <label htmlFor='class' className='mb-2'>
-          Lớp
-        </label>
-        <select id='class' className='border-[1px] border-gray-200 px-1 py-2 rounded-md' {...register('homeRoomId')}>
-          <option value=''>Chọn lớp sinh hoạt</option>
-          {homeRooms &&
-            homeRooms.map((item) => (
-              <option value={item.id} key={item.id}>
-                {item.name}
-              </option>
-            ))}
-        </select>
-      </div>
-      <div className='flex flex-col text-[15px] mb-3'>
-        <label htmlFor='education_program' className='mb-2'>
-          Hệ đào tạo
-        </label>
-        <select
-          id='education_program'
-          className='border-[1px] border-gray-200 px-1 py-2 rounded-md'
-          {...register('educationProgramId')}
-        >
-          <option value=''>Chọn hệ đào tạo</option>
-          {educationPrograms &&
-            educationPrograms.map((item) => (
-              <option value={item.id} key={item.id}>
-                {item.name}
-              </option>
-            ))}
-        </select>
-      </div>
-      <div className='flex flex-col text-[15px] mb-3'>
-        <label htmlFor='education_program' className='mb-2'>
-          Giới tính
-        </label>
-        <select id='gender' className='border-[1px] border-gray-200 px-1 py-2 rounded-md' {...register('gender')}>
-          <option value=''>Chọn giới tính</option>
-          <option value='true'>Nam</option>
-          <option value='false'>Nữ</option>
-        </select>
-      </div>
+      <Select
+        register={register}
+        id='faculty'
+        name='facultyId'
+        label='Khoa'
+        className='flex flex-col text-[15px] mb-3'
+        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+        defaultOptions='Chọn khoa'
+        options={faculties}
+        onChange={handleChangeFaculty}
+      />
+      <Select
+        register={register}
+        id='homeRoom'
+        name='homeRoomId'
+        label='Lớp'
+        className='flex flex-col text-[15px] mb-3'
+        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+        defaultOptions='Chọn lớp sinh hoạt'
+        options={homeRooms}
+      />
+      <Select
+        register={register}
+        id='education_program'
+        name='educationProgramId'
+        label='Hệ đào tạo'
+        className='flex flex-col text-[15px] mb-3'
+        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+        defaultOptions='Chọn hệ đào tạo'
+        options={educationPrograms}
+      />
+      <Select
+        register={register}
+        id='gender'
+        name='gender'
+        label='Giới tính'
+        className='flex flex-col text-[15px] mb-3'
+        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+        defaultOptions='Chọn giới tính'
+        options={gender}
+      />
       <div className='flex justify-between'>
         <button
           type='button'

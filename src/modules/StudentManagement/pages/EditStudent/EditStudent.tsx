@@ -23,8 +23,10 @@ import _ from 'lodash'
 import {
   isCitizenIdStudentAlreadyExistsError,
   isCodeStudentAlreadyExistsError,
-  isEmailStudentAlreadyExistsExistsError
+  isEmailStudentAlreadyExistsExistsError,
+  isStudentNotFound
 } from 'src/modules/Share/utils/utils'
+
 
 const EditStudent = () => {
   const [file, setFile] = useState<File>()
@@ -42,7 +44,14 @@ const EditStudent = () => {
   const StudentQuery = useQuery({
     queryKey: ['student', queryStudentConfig],
     queryFn: async () => studentAPI.getStudent(queryStudentConfig.id as string),
-    enabled: queryStudentConfig.id !== undefined
+    enabled: queryStudentConfig.id !== undefined,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      if (isStudentNotFound(error.response?.data.code)) {
+        toast.error('Sinh viên không tồn tại !')
+        navigate(path.student)
+      }
+    }
   })
   const student = StudentQuery.data?.data as StudentType
 
@@ -157,20 +166,19 @@ const EditStudent = () => {
 
   const handleDeleteStudent = (id: string) => {
     Swal.fire({
-      title: 'Bạn đã chắc chắn xóa chưa ?',
-      text: 'Hành động không thể hoàn tác',
-      icon: 'warning',
+      title: 'Xác nhận xóa?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'info',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Có, xác nhận xóa!',
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
       cancelButtonText: 'Hủy'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('Deleted!', 'Xóa thành công.', 'success')
         DeleteStudentMutation.mutate(id, {
           onSuccess: () => {
-            toast.success('Xóa sinh viên thành công')
+            Swal.fire('Đã xóa!', 'Sinh viên đã được xóa thành công', 'success')
             navigate(path.student)
             queryClient.invalidateQueries({
               queryKey: ['students']

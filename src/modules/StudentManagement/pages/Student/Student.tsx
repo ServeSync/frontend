@@ -11,13 +11,16 @@ import studentAPI from '../../services/student.api'
 import { StudentListConfig, StudentsListType } from '../../interfaces/student.type'
 import { useQuery } from '@tanstack/react-query'
 import useSorting from 'src/modules/Share/hooks/useSorting'
-import useSearch from 'src/modules/Share/hooks/useSearch'
 import Popover from 'src/modules/Share/components/Popover'
 import Filter from 'src/modules/StudentManagement/components/Filter'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { FormFilterStudentSchema, FormFilterStudentType } from '../../utils/rules'
 import { isEmpty, omitBy } from 'lodash'
+import educationProgramAPI from '../../services/education_program.api'
+import { EducationProgramType } from '../../interfaces/education_program.type'
+import facultyAPI from '../../services/faculty.api'
+import { FacultyType } from '../../interfaces/faculty.type'
 
 const Student = () => {
   const [isOpenPopover, setIsOpenPopover] = useState(false)
@@ -28,8 +31,6 @@ const Student = () => {
 
   const useSortStudent = useSorting({ queryConfig: queryStudentConfig, pathname: path.student })
 
-  const useSearchStudent = useSearch({ queryConfig: queryStudentConfig, pathname: path.student })
-
   const StudentsListQuery = useQuery({
     queryKey: ['students', queryStudentConfig],
     queryFn: () => studentAPI.getListStudents(queryStudentConfig as StudentListConfig),
@@ -37,6 +38,20 @@ const Student = () => {
     staleTime: 3 * 60 * 1000
   })
   const students = StudentsListQuery.data?.data as StudentsListType
+
+  const [facultyId, setFacultyId] = useState<string>('')
+
+  const EducationProgramsListQuery = useQuery({
+    queryKey: ['education_programs'],
+    queryFn: () => educationProgramAPI.getListEducationPrograms()
+  })
+  const educationPrograms = EducationProgramsListQuery.data?.data as EducationProgramType[]
+
+  const FacultiesListQuery = useQuery({
+    queryKey: ['faculties'],
+    queryFn: () => facultyAPI.getListFaculties()
+  })
+  const faculties = FacultiesListQuery.data?.data as FacultyType[]
 
   const onEditStudent = (id: string) => {
     navigate({
@@ -47,29 +62,33 @@ const Student = () => {
     })
   }
 
-  const FormFilter = useForm<FormFilterStudentType>({
+  const { register, handleSubmit, resetField } = useForm<FormFilterStudentType>({
     resolver: yupResolver(FormFilterStudentSchema)
   })
 
-  const handleSubmitFormFilter = FormFilter.handleSubmit((data) => {
+  const handleSubmitFormFilter = handleSubmit((data) => {
     const config = {
       ...queryStudentConfig,
       page: 1,
       facultyId: data.facultyId,
       homeRoomId: data.homeRoomId,
       educationProgramId: data.educationProgramId,
-      gender: data.gender
+      gender: data.gender,
+      search: data.search
     }
     navigate({
       pathname: path.student,
       search: createSearchParams(omitBy(config, isEmpty) as URLSearchParamsInit).toString()
     })
-    FormFilter.reset()
     setIsOpenPopover(false)
   })
 
   const onResetFormFilter = () => {
-    FormFilter.reset()
+    resetField('educationProgramId')
+    resetField('facultyId')
+    resetField('homeRoomId')
+    resetField('gender')
+    resetField('search')
   }
 
   return (
@@ -80,20 +99,27 @@ const Student = () => {
       </Helmet>
       <div>
         <div className='flex justify-between items-center pt-[16px] pb-[40px] font-normal'>
-          <form onSubmit={useSearchStudent.handleSubmitSearch}>
+          <form onSubmit={handleSubmitFormFilter}>
             <InputSearch
               classNameInput={
                 'bg-white border-[1px] border-gray-200 rounded-lg h-[40px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600'
               }
               name='search'
-              register={useSearchStudent.register}
+              register={register}
             />
           </form>
           <div className='flex gap-4'>
             <Popover
               renderPopover={
                 <form onSubmit={handleSubmitFormFilter}>
-                  <Filter register={FormFilter.register} onResetForm={onResetFormFilter} />
+                  <Filter
+                    register={register}
+                    onResetForm={onResetFormFilter}
+                    educationPrograms={educationPrograms}
+                    faculties={faculties}
+                    facultyId={facultyId}
+                    setFacultyId={setFacultyId}
+                  />
                 </form>
               }
               isOpenPopover={isOpenPopover}
