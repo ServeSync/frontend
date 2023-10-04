@@ -6,6 +6,8 @@ interface Props {
   permissions: PermissionType[]
   isEditPermissions: boolean
   onCancel: () => void
+  onDeleteRole: (id: string) => void
+  id: string
   onChangeCheckbox: (permissionId: string, checked: boolean) => void
   checkboxValues: { [key: string]: boolean }
   isLoading: boolean
@@ -15,6 +17,8 @@ const PermissionList = ({
   permissions,
   isEditPermissions,
   onCancel,
+  onDeleteRole,
+  id,
   checkboxValues,
   onChangeCheckbox,
   isLoading
@@ -60,9 +64,16 @@ const PermissionList = ({
               <button
                 type='button'
                 onClick={onCancel}
-                className='bg-red-600 hover:bg-red-600/80 rounded-lg px-3 py-2 text-white'
+                className='bg-gray-400 hover:bg-gray-400/80 rounded-lg px-3 py-2 text-white'
               >
                 Hủy
+              </button>
+              <button
+                type='button'
+                onClick={() => onDeleteRole(id)}
+                className='bg-red-600 hover:bg-red-600/80 rounded-lg px-3 py-2 text-white'
+              >
+                Xóa
               </button>
               <button type='submit' className='bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-lg px-3 py-2 text-white'>
                 Cập nhật

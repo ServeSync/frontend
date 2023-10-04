@@ -3,15 +3,19 @@ import { Fragment, useState } from 'react'
 import { EducationProgramType } from '../../interfaces/education_program.type'
 import { FacultyType } from '../../interfaces/faculty.type'
 import { HomeRoomType } from '../../interfaces/home_room.type'
-import { UseFormRegister, FieldErrors } from 'react-hook-form'
+import { UseFormRegister, FieldErrors, UseFormSetError } from 'react-hook-form'
 import InputFile from 'src/modules/Share/components/InputFile'
 import { FormStudentType } from '../../utils/rules'
 import { useQuery } from '@tanstack/react-query'
 import homeroomAPI from '../../services/home_room.api'
+import Input from 'src/modules/Share/components/Input'
+import Select from 'src/modules/Share/components/Select'
+import { gender } from '../../constants/gender_options'
 
 interface Props {
   register: UseFormRegister<FormStudentType>
   errors: FieldErrors<FormStudentType>
+  setError: UseFormSetError<FormStudentType>
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
   onChange: (file?: File) => void
@@ -22,6 +26,7 @@ interface Props {
 const CreateStudentForm = ({
   register,
   errors,
+  setError,
   educationPrograms,
   faculties,
   onChange,
@@ -37,232 +42,172 @@ const CreateStudentForm = ({
   })
   const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
 
-  const handleChangeFaculty = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFacultyId(event.target.value)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChangeSelection = (event: React.ChangeEvent<HTMLSelectElement>, name: any) => {
+    if (name == 'facultyId') {
+      setFacultyId(event.target.value)
+      event.target.value && setError(name, { message: '' })
+    } else {
+      event.target.value && setError(name, { message: '' })
+    }
   }
 
   return (
     <Fragment>
       <div className='grid grid-cols-4 gap-4'>
-        <div className='col-span-1 flex flex-col items-center'>
+        <div className='col-span-1 flex flex-col items-center mx-6'>
           <InputFile register={register} onChange={onChange} previewImage={previewImage} />
           <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.imageUrl?.message}</span>
         </div>
-        <div className='col-span-3 grid grid-cols-2 gap-x-6 gap-y-2 text-[14px] font-semibold text-gray-600'>
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='studentId' className='mb-2'>
-              Mã số sinh viên
-            </label>
-            <input
-              type='text'
-              id='studentId'
-              className={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.code
-              })}
-              {...register('code')}
-            />
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.code?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='fullname' className='mb-2'>
-              Họ tên
-            </label>
-            <input
-              type='text'
-              id='fullname'
-              className={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.fullName
-              })}
-              {...register('fullName')}
-            />
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.fullName?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='gender' className='mb-2'>
-              Giới tính
-            </label>
-            <select
-              id='gender'
-              className={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.gender
-              })}
-              {...register('gender')}
-            >
-              <option value='true'>Nam</option>
-              <option value='false'>Nữ</option>
-            </select>
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.gender?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='email' className='mb-2'>
-              Email
-            </label>
-            <input
-              type='text'
-              id='email'
-              className={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.email
-              })}
-              {...register('email')}
-            />
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.email?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='homeTown' className='mb-2'>
-              Quê quán
-            </label>
-            <input
-              type='text'
-              id='homeTown'
-              className={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.homeTown
-              })}
-              {...register('homeTown')}
-            />
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.homeTown?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='phone' className='mb-2'>
-              Số điện thoại
-            </label>
-            <input
-              type='text'
-              id='phone'
-              className={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.phone
-              })}
-              {...register('phone')}
-            />
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.phone?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='date_of_birth' className='mb-2'>
-              Ngày sinh
-            </label>
-            <input
-              type='text'
-              id='date_of_birth'
-              placeholder='Chọn ngày sinh'
-              className={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.birth
-              })}
-              {...register('birth')}
-              onFocus={(e) => (e.target.type = 'date')}
-              onBlur={(e) => (e.target.type = 'text')}
-            />
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.birth?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='citizenId' className='mb-2'>
-              Căn cước công dân
-            </label>
-            <input
-              type='text'
-              id='citizenId'
-              className={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.citizenId
-              })}
-              {...register('citizenId')}
-            />
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-              {errors.citizenId?.message}
-            </span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='address' className='mb-2'>
-              Địa chỉ cư trú
-            </label>
-            <input
-              type='text'
-              id='address'
-              className={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.address
-              })}
-              {...register('address')}
-            />
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.address?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='faculty' className='mb-2'>
-              Khoa
-            </label>
-            <select
-              id='faculty'
-              className={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.facultyId
-              })}
-              {...register('facultyId')}
-              onChange={handleChangeFaculty}
-            >
-              <option value=''>Chọn khoa</option>
-              {faculties &&
-                faculties.map((item) => (
-                  <option value={item.id} key={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-            </select>
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-              {errors.facultyId?.message}
-            </span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='homeroom' className='mb-2'>
-              Lớp
-            </label>
-            <select
-              id='homeroom'
-              className={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.homeRoomId
-              })}
-              {...register('homeRoomId')}
-            >
-              <option value=''>Chọn lớp sinh hoạt</option>
-              {homeRooms &&
-                homeRooms.map((item) => (
-                  <option value={item.id} key={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-            </select>
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-              {errors.homeRoomId?.message}
-            </span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='education_program' className='mb-2'>
-              Hệ đào tạo
-            </label>
-            <select
-              id='education_program'
-              className={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
-                'border-red-600 outline-red-600': errors.educationProgramId
-              })}
-              {...register('educationProgramId')}
-            >
-              <option value=''>Chọn hệ đào tạo</option>
-              {educationPrograms &&
-                educationPrograms.map((item) => (
-                  <option value={item.id} key={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-            </select>
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-              {errors.educationProgramId?.message}
-            </span>
-          </div>
+        <div className='col-span-3 grid grid-cols-2 gap-x-6 gap-y-2 text-[14px] font-semibold text-gray-600 placeholder:text-black'>
+          <Input
+            register={register}
+            id='studentId'
+            name='code'
+            label='Mã số sinh viên'
+            placeholder='Nhập mã số sinh viên'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.code
+            })}
+            error={errors.code?.message}
+          />
+          <Input
+            register={register}
+            id='fullname'
+            name='fullName'
+            label='Họ và tên'
+            placeholder='Nhập họ và tên'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.fullName
+            })}
+            error={errors.fullName?.message}
+          />
+          <Select
+            register={register}
+            id='gender'
+            name='gender'
+            label='Giới tính'
+            className='col-span-1 flex flex-col'
+            classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+            options={gender}
+          />
+          <Input
+            register={register}
+            id='email'
+            name='email'
+            label='Email'
+            placeholder='Nhập Email'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.email
+            })}
+            error={errors.email?.message}
+          />
+          <Input
+            register={register}
+            id='homeTown'
+            name='homeTown'
+            label='Nơi sinh'
+            placeholder='Nhập nơi sinh'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.homeTown
+            })}
+            error={errors.homeTown?.message}
+          />
+          <Input
+            register={register}
+            id='phone'
+            name='phone'
+            label='Số điện thoại'
+            placeholder='Nhập số điện thoại'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.phone
+            })}
+            error={errors.phone?.message}
+          />
+          <Input
+            register={register}
+            id='birth'
+            name='birth'
+            type='date'
+            label='Ngày sinh'
+            placeholder='Nhập ngày sinh'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.birth
+            })}
+            error={errors.birth?.message}
+          />
+          <Input
+            register={register}
+            id='citizenId'
+            name='citizenId'
+            label='Căn cước công dân'
+            placeholder='Nhập căn cước công dân'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.citizenId
+            })}
+            error={errors.citizenId?.message}
+          />
+          <Input
+            register={register}
+            id='address'
+            name='address'
+            label='Địa chỉ cư trú'
+            placeholder='Nhập địa chỉ cư trú'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.address
+            })}
+            error={errors.address?.message}
+          />
+          <Select
+            register={register}
+            id='faculty'
+            name='facultyId'
+            label='Khoa'
+            className='col-span-1 flex flex-col'
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.facultyId?.message !== '' && errors.facultyId
+            })}
+            defaultOptions='Chọn khoa'
+            options={faculties}
+            error={errors.facultyId?.message}
+            onChange={(e) => handleChangeSelection(e, 'facultyId')}
+          />
+          <Select
+            register={register}
+            id='homeroom'
+            name='homeRoomId'
+            label='Lớp sinh hoạt'
+            className='col-span-1 flex flex-col'
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.homeRoomId?.message !== '' && errors.homeRoomId
+            })}
+            defaultOptions='Chọn lớp sinh hoạt'
+            options={homeRooms}
+            error={errors.homeRoomId?.message}
+            onChange={(e) => handleChangeSelection(e, 'homeRoomId')}
+          />
+          <Select
+            register={register}
+            id='education_program'
+            name='educationProgramId'
+            label='Hệ đào tạo'
+            className='col-span-1 flex flex-col'
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.educationProgramId?.message !== '' && errors.educationProgramId
+            })}
+            defaultOptions='Chọn hệ đào tạo'
+            options={educationPrograms}
+            error={errors.educationProgramId?.message}
+            onChange={(e) => handleChangeSelection(e, 'educationProgramId')}
+          />
         </div>
       </div>
       <div className='flex justify-end gap-6'>

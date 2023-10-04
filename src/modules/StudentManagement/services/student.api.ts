@@ -8,7 +8,7 @@ const studentAPI = {
 
   deleteStudent: (id: string) => http.delete<StudentType>(`/students/${id}`),
 
-  createStudent: (body: Omit<StudentForm, 'facultyId'>) => http.post('/students', body),
+  createStudent: (body: StudentForm) => http.post('/students', body),
 
   editStudent: (body: { id: string; data: Omit<StudentForm, 'facultyId'> }) =>
     http.put(`/students/${body.id}`, body.data)
