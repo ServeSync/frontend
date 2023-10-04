@@ -14,6 +14,7 @@ import path from 'src/modules/Share/constants/path'
 import { Helmet } from 'react-helmet-async'
 import Permission from '../Permission'
 import { RoleType } from '../../interfaces/role.type'
+import Swal from 'sweetalert2'
 
 const Role = () => {
   const [isEditForm, setIsEditForm] = useState<boolean>(false)
@@ -144,21 +145,34 @@ const Role = () => {
   })
 
   const handleDeleteRole = (id: string) => {
-    DeleteRoleMutation.mutate(id, {
-      onSuccess: () => {
-        toast.success('Xóa Role thành công!')
-        navigate(path.role)
-        setIsEditForm(false)
-        reset()
-        queryClient.invalidateQueries({
-          queryKey: ['roles']
+    Swal.fire({
+      title: 'Xác nhận xóa?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        DeleteRoleMutation.mutate(id, {
+          onSuccess: () => {
+            navigate(path.role)
+            setIsEditForm(false)
+            reset()
+            queryClient.invalidateQueries({
+              queryKey: ['roles']
+            })
+            Swal.fire('Đã xóa!', 'Role đã được xóa thành công', 'success')
+          },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onError: (error: any) => {
+            if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
+              toast.error('Role admin không cho phép xóa !')
+            }
+          }
         })
-      },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      onError: (error: any) => {
-        if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
-          toast.error('Role admin không cho phép xóa !')
-        }
       }
     })
   }
@@ -176,14 +190,13 @@ const Role = () => {
           </form>
           <RoleTable
             roles={roles}
-            handleDeleteRole={handleDeleteRole}
             onEditRole={onEditRole}
             roleID={role?.id as string}
             isLoading={RolesListQuery.isLoading}
           />
         </div>
         <div className='col-span-3'>
-          <Permission />
+          <Permission onDeleteRole={handleDeleteRole} />
         </div>
       </div>
     </Fragment>

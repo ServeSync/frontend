@@ -20,6 +20,7 @@ import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import imageAPI from '../../services/image.api'
 import _ from 'lodash'
+import { isStudentNotFound } from 'src/modules/Share/utils/utils'
 
 const EditStudent = () => {
   const [file, setFile] = useState<File>()
@@ -38,7 +39,14 @@ const EditStudent = () => {
   const StudentQuery = useQuery({
     queryKey: ['student', queryStudentConfig],
     queryFn: async () => studentAPI.getStudent(queryStudentConfig.id as string),
-    enabled: queryStudentConfig.id !== undefined
+    enabled: queryStudentConfig.id !== undefined,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      if (isStudentNotFound(error.response?.data.code)) {
+        toast.error('Sinh viên không tồn tại !')
+        navigate(path.student)
+      }
+    }
   })
   const student = StudentQuery.data?.data as StudentType
 
@@ -139,19 +147,20 @@ const EditStudent = () => {
 
   const handleDeleteStudent = (id: string) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
+      title: 'Xác nhận xóa?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'info',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
         DeleteStudentMutation.mutate(id, {
           onSuccess: () => {
-            toast.success('Xóa sinh viên thành công')
+            Swal.fire('Đã xóa!', 'Sinh viên đã được xóa thành công', 'success')
+
             navigate(path.student)
             queryClient.invalidateQueries({
               queryKey: ['students']

@@ -13,8 +13,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect, useState } from 'react'
 import { PermissionType } from '../../interfaces/permission.type'
 import { RoleType } from '../../interfaces/role.type'
+interface Props {
+  onDeleteRole: (id: string) => void
+}
 
-const Permission = () => {
+const Permission = ({ onDeleteRole }: Props) => {
   const [checkboxValues, setCheckboxValues] = useState<{ [id: string]: boolean }>({})
   const [isEditPermissions, setIsEditPermissions] = useState<boolean>(false)
 
@@ -115,6 +118,8 @@ const Permission = () => {
       <PermissionList
         onChangeCheckbox={handleCheckboxChange}
         permissions={permissions}
+        onDeleteRole={onDeleteRole}
+        id={queryRoleConfig.id as string}
         isEditPermissions={isEditPermissions}
         checkboxValues={checkboxValues}
         onCancel={onCancel}
