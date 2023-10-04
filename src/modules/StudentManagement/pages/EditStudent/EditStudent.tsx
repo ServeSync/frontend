@@ -27,7 +27,6 @@ import {
   isStudentNotFound
 } from 'src/modules/Share/utils/utils'
 
-
 const EditStudent = () => {
   const [file, setFile] = useState<File>()
 
@@ -107,13 +106,13 @@ const EditStudent = () => {
         onError: (error: any) => {
           if (isCodeStudentAlreadyExistsError(error.response?.data.code)) {
             setError('code', {
-              message: 'Mã sinh viên đã tồn tại !',
+              message: 'Mã số sinh viên đã tồn tại !',
               type: 'Server'
             })
           }
           if (isCitizenIdStudentAlreadyExistsError(error.response?.data.code)) {
             setError('citizenId', {
-              message: 'Số CMND đã tồn tại !',
+              message: 'Căn cước công dân đã tồn tại !',
               type: 'Server'
             })
           }

@@ -59,7 +59,7 @@ export default function Header() {
   }
 
   return (
-    <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all z-[100]'>
+    <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all z-40'>
       <div className='w-full lg:max-w-full md:max-w-[786px] sm:max-w-[640px] flex items-center justify-between h-full px-6 overflow-hidden text-black'>
         <div className='font-semibold text-[18px] capitalize flex'>
           {location[0] !== 'home' && (
@@ -86,18 +86,19 @@ export default function Header() {
                   <path d='M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z' />
                 </svg>
               </div>
-              <span className='absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full '></span>
+              <span className='absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full'></span>
             </button>
             {ProfileQuery.isLoading ? <Skeleton className='min-w-[120px] h-[20px]' /> : <span>{profile?.email}</span>}
             <button className='rounded-full'>
               <Popover
-                className='rounded-full flex items-center w-8 h-8 align-middle z-50'
+                className='rounded-full flex items-center w-8 h-8 align-middle z-[80]'
+                classNamePopover='z-[60]'
                 renderPopover={
-                  <ul className='flex flex-col gap-2 absolute right-[-16px] w-56 p-2 text-gray-700 bg-white rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] '>
+                  <ul className='flex flex-col gap-2 absolute right-[-16px] w-56 p-2 text-gray-700 bg-white rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]'>
                     <li>
                       <Link
                         to={'/profile'}
-                        className='flex items-center cursor-pointer w-full px-2 py-1 text-sm font-medium rounded-md hover:bg-gray-100 hover:text-gray-800 '
+                        className='flex items-center cursor-pointer w-full px-2 py-1 text-sm font-medium rounded-md hover:bg-gray-100 hover:text-gray-800'
                       >
                         <svg
                           fill='none'
@@ -160,8 +161,12 @@ export default function Header() {
                 isOpenPopover={isOpenPopover}
                 setIsOpenPopover={setIsOpenPopover}
               >
-                <div className='relative'>
-                  <img src={profile?.avatarUrl} alt='avatar' className='object-cover w-[40px] h-[40px] rounded-full' />
+                <div className='relative bg-slate-300 rounded-full outline-none w-[40px] pt-[100%]'>
+                  <img
+                    src={profile?.avatarUrl}
+                    alt='avatar'
+                    className='rounded-full top-0 h-full w-full object-cover object-top absolute'
+                  />
                 </div>
               </Popover>
             </button>

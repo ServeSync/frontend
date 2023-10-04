@@ -6,6 +6,7 @@ interface Props {
   children: React.ReactNode
   renderPopover: React.ReactNode
   className?: string
+  classNamePopover?: string
   as?: ElementType
   placement?: Placement
   isOpenPopover: boolean
@@ -15,6 +16,7 @@ interface Props {
 const Popover = ({
   children,
   className,
+  classNamePopover,
   renderPopover,
   as: Element = 'div',
   placement,
@@ -41,7 +43,7 @@ const Popover = ({
         <AnimatePresence>
           {isOpenPopover && (
             <motion.div
-              className='relative z-50'
+              className={'relative ' + classNamePopover}
               ref={floating}
               style={{
                 position: strategy,
