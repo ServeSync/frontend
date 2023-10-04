@@ -10,6 +10,7 @@ interface Props {
   programNameOfStudent: Pick<EducationProgramType, 'name'>['name']
   isLoading: boolean
 }
+
 const CircleChart = ({ programScoreOfStudent, programNameOfStudent, isLoading }: Props) => {
   const chartData = {
     datasets: [
@@ -29,43 +30,32 @@ const CircleChart = ({ programScoreOfStudent, programNameOfStudent, isLoading }:
       </div>
       <div className='col-span-3 flex flex-col pl-6 text-[13px]'>
         <div className='flex justify-between'>
-          Hệ đào tạo
-          {isLoading ? (
-            <Skeleton className='w-[10px]' />
-          ) : (
-            <div className='w-[70px] h-[10px]'>
-              <span className='mr-2'>:</span>
-              {programNameOfStudent}
-            </div>
-          )}
-        </div>
-        <div className=' flex justify-between'>
-          Số điểm yêu cầu
-          {isLoading ? (
-            <Skeleton className='w-[10px]' />
-          ) : (
-            <div className='w-[70px] h-[10px]'>
-              <span className='mr-2'>:</span>
-              {programScoreOfStudent}
-            </div>
-          )}
-        </div>
-        <div className=' flex justify-between'>
-          Số điểm đã tích lũy
-          {isLoading ? (
-            <Skeleton className='w-[10px]' />
-          ) : (
-            <div className='w-[70px] h-[10px]'>
-              <span className='mr-2'>:</span>
-              {chartData.datasets[0].data[0]}
-            </div>
-          )}
-        </div>
-        <div className=' flex justify-between'>
-          Số hoạt động đã tham gia
-          <div className='w-[70px]'>
-            <span className='mr-2'>:</span>123
+          <div className='w-full flex justify-between'>
+            <span>Hệ đào tạo</span>
+            <span>:</span>
           </div>
+          <div className='w-[100px] h-[10px] ml-2'>{isLoading ? <Skeleton /> : programNameOfStudent}</div>
+        </div>
+        <div className='flex justify-between'>
+          <div className='w-full flex justify-between'>
+            <span>Số điểm yêu cầu</span>
+            <span>:</span>
+          </div>
+          <div className='w-[100px] h-[10px] ml-2'>{isLoading ? <Skeleton /> : programScoreOfStudent}</div>
+        </div>
+        <div className='flex justify-between'>
+          <div className='w-full flex justify-between'>
+            <span>Số điểm đã tích lũy</span>
+            <span>:</span>
+          </div>
+          <div className='w-[100px] h-[10px] ml-2'>{isLoading ? <Skeleton /> : chartData.datasets[0].data[0]}</div>
+        </div>
+        <div className='flex justify-between'>
+          <div className='w-full flex justify-between'>
+            <span>Số hoạt động đã tham gia</span>
+            <span>:</span>
+          </div>
+          <div className='w-[100px] h-[10px] ml-2'></div>
         </div>
       </div>
     </Fragment>
