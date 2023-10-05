@@ -73,7 +73,6 @@ const EditStudent = () => {
   const HomeRoomsListQuery = useQuery({
     queryKey: ['home_rooms', facultyId],
     queryFn: async () => await homeroomAPI.getListHomeRooms(facultyId as string)
-    // enabled: facultyId === ''
   })
   const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
 
@@ -227,6 +226,7 @@ const EditStudent = () => {
             onChangeSelection={handleChangeSelection}
             previewImage={previewImage}
             isLoading={StudentQuery.isLoading}
+            isLoadingEdit={EditStudentMutation.isLoading}
           />
         </form>
         <div className='grid grid-cols-6 pt-6'>

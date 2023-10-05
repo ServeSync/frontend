@@ -27,6 +27,7 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeSelection: (event: React.ChangeEvent<HTMLSelectElement>, name: any) => void
   previewImage: string
+  isLoadingEdit: boolean
 }
 
 const EditStudentForm = ({
@@ -41,7 +42,8 @@ const EditStudentForm = ({
   isLoading,
   onChange,
   onChangeSelection,
-  previewImage
+  previewImage,
+  isLoadingEdit
 }: Props) => {
   useEffect(() => {
     if (student && faculties && educationPrograms) {
@@ -240,7 +242,10 @@ const EditStudentForm = ({
         >
           Xóa
         </Button>
-        <Button classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6'>
+        <Button
+          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6 w-[90px]'
+          isLoading={isLoadingEdit}
+        >
           Lưu
         </Button>
       </div>
