@@ -21,6 +21,7 @@ interface Props {
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
   homeRooms: HomeRoomType[]
+  homeRoomsShow: HomeRoomType[]
   handleDeleteStudent: (id: string) => void
   isLoading: boolean
   onChange: (file?: File) => void
@@ -38,6 +39,7 @@ const EditStudentForm = ({
   educationPrograms,
   faculties,
   homeRooms,
+  homeRoomsShow,
   handleDeleteStudent,
   isLoading,
   onChange,
@@ -46,7 +48,7 @@ const EditStudentForm = ({
   isLoadingEdit
 }: Props) => {
   useEffect(() => {
-    if (student && faculties && educationPrograms) {
+    if (faculties && educationPrograms && student && homeRoomsShow) {
       setValue('code', student.code)
       setValue('fullName', student.fullName)
       setValue('email', student.email)
@@ -61,7 +63,7 @@ const EditStudentForm = ({
       setValue('educationProgramId', student.educationProgramId)
       setValue('imageUrl', student.imageUrl)
     }
-  }, [student, faculties, educationPrograms, setValue])
+  }, [student, faculties, educationPrograms, homeRoomsShow, setValue])
 
   return (
     <Fragment>
@@ -117,7 +119,7 @@ const EditStudentForm = ({
             name='gender'
             label='Giới tính'
             className='col-span-1 flex flex-col'
-            classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+            classNameSelect='border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]'
             options={gender}
             isLoading={isLoading}
           />
@@ -196,7 +198,6 @@ const EditStudentForm = ({
             classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
               'border-red-600 outline-red-600': errors.facultyId?.message !== '' && errors.facultyId
             })}
-            defaultOptions='Chọn khoa'
             options={faculties}
             error={errors.facultyId?.message}
             onChange={(e) => onChangeSelection(e, 'facultyId')}
@@ -211,7 +212,6 @@ const EditStudentForm = ({
             classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
               'border-red-600 outline-red-600': errors.homeRoomId?.message !== '' && errors.homeRoomId
             })}
-            defaultOptions='Chọn lớp sinh hoạt'
             options={homeRooms}
             error={errors.homeRoomId?.message}
             onChange={(e) => onChangeSelection(e, 'homeRoomId')}
@@ -226,7 +226,6 @@ const EditStudentForm = ({
             classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
               'border-red-600 outline-red-600': errors.educationProgramId?.message !== '' && errors.educationProgramId
             })}
-            defaultOptions='Chọn hệ đào tạo'
             options={educationPrograms}
             error={errors.educationProgramId?.message}
             onChange={(e) => onChangeSelection(e, 'educationProgramId')}

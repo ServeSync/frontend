@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
@@ -44,7 +44,7 @@ const EditStudent = () => {
 
   const StudentQuery = useQuery({
     queryKey: ['student', queryStudentConfig],
-    queryFn: async () => studentAPI.getStudent(queryStudentConfig.id as string),
+    queryFn: async () => await studentAPI.getStudent(queryStudentConfig.id as string),
     enabled: queryStudentConfig.id !== undefined,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
@@ -55,6 +55,22 @@ const EditStudent = () => {
     }
   })
   const student = StudentQuery.data?.data as StudentType
+
+  const [facultyId, setFacultyId] = useState<string>(student && student.facultyId)
+
+  useEffect(() => {
+    if (student !== undefined) {
+      setFacultyId(student.facultyId)
+    }
+  }, [student, setFacultyId])
+
+  const HomeRoomsListQuery = useQuery({
+    queryKey: ['home_rooms', facultyId],
+    queryFn: () => homeroomAPI.getListHomeRooms(facultyId as string),
+    enabled: facultyId !== undefined && student !== undefined
+  })
+  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
+  const homeRoomsShow = homeRooms
 
   const EducationProgramsListQuery = useQuery({
     queryKey: ['education_programs'],
@@ -67,14 +83,6 @@ const EditStudent = () => {
     queryFn: () => facultyAPI.getListFaculties()
   })
   const faculties = FacultiesListQuery.data?.data as FacultyType[]
-
-  const [facultyId, setFacultyId] = useState<string>(student && student.facultyId)
-
-  const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms', facultyId],
-    queryFn: async () => await homeroomAPI.getListHomeRooms(facultyId as string)
-  })
-  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
 
   const {
     handleSubmit,
@@ -221,12 +229,13 @@ const EditStudent = () => {
             educationPrograms={educationPrograms}
             faculties={faculties}
             homeRooms={homeRooms}
+            homeRoomsShow={homeRoomsShow}
             handleDeleteStudent={handleDeleteStudent}
             onChange={handleChangeFile}
             onChangeSelection={handleChangeSelection}
             previewImage={previewImage}
             isLoading={StudentQuery.isLoading}
-            isLoadingEdit={EditStudentMutation.isLoading}
+            isLoadingEdit={EditStudentMutation.isLoading || UploadImageMutation.isLoading}
           />
         </form>
         <div className='grid grid-cols-6 pt-6'>

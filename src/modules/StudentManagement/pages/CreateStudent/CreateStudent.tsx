@@ -128,9 +128,6 @@ const CreateStudent = () => {
         <meta name='description' content='This is create student page of the project' />
       </Helmet>
       <div>
-        <div className='flex justify-between items-center pb-[36px]'>
-          <h2 className='text-[24px] text-gray-700 font-bold'>Thêm sinh viên</h2>
-        </div>
         <form onSubmit={handleCreateStudent}>
           <CreateStudentForm
             register={register}
@@ -141,7 +138,7 @@ const CreateStudent = () => {
             onChange={handleChangeFile}
             previewImage={previewImage}
             onPreviousPage={handlePreviousPage}
-            isLoading={CreateStudentMutation.isLoading}
+            isLoading={CreateStudentMutation.isLoading || UploadImageMutation.isLoading}
           />
         </form>
       </div>

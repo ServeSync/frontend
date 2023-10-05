@@ -67,8 +67,12 @@ export default function Header() {
             <Fragment>
               <Link to={`/${location[0]}`}>{location[0]}</Link>
               <div className='h-6 mx-4 border-r border-gray-300 -skew-x-12'></div>
-              {handleHeader() !== '' ? (
-                <span className='text-gray-500'>{handleHeader()}</span>
+              {location[1] ? (
+                location[1] !== 'create' ? (
+                  <span className='text-gray-500'>{handleHeader()}</span>
+                ) : (
+                  <span className='text-gray-500'>Create</span>
+                )
               ) : (
                 <span className='text-gray-500'>List</span>
               )}
