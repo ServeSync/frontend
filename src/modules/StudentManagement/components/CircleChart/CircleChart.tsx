@@ -55,7 +55,7 @@ const CircleChart = ({ programScoreOfStudent, programNameOfStudent, isLoading }:
             <span>Số hoạt động đã tham gia</span>
             <span>:</span>
           </div>
-          <div className='w-[100px] h-[10px] ml-2'></div>
+          <div className='w-[100px] h-[10px] ml-2'>10</div>
         </div>
       </div>
     </Fragment>

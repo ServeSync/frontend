@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { RoleType } from '../../interfaces/role.type'
 import classNames from 'classnames'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import Button from 'src/modules/Share/components/Button'
 
 interface Props {
   roles: RoleType[]
@@ -21,8 +22,9 @@ const RoleTable = ({ roles, onEditRole, roleID, isLoading }: Props) => {
         <div className='flex flex-col gap-4'>
           {roles &&
             roles.map((role: RoleType) => (
-              <button
-                className={classNames(
+              <Button
+                type='button'
+                classNameButton={classNames(
                   'w-full border-[1px] border-[#65cad7] px-4 py-2 rounded-md outline-none capitalize font-medium text-left',
                   {
                     'bg-[#d4faff]': role.id !== roleID,
@@ -33,7 +35,7 @@ const RoleTable = ({ roles, onEditRole, roleID, isLoading }: Props) => {
                 onClick={() => onEditRole(role.id)}
               >
                 {role.name}
-              </button>
+              </Button>
             ))}
         </div>
       )}

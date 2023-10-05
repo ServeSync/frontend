@@ -1,7 +1,8 @@
-import classNames from 'classnames'
 import { useState } from 'react'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { Link } from 'react-router-dom'
+import Button from 'src/modules/Share/components/Button'
+import Input from 'src/modules/Share/components/Input'
 import path from 'src/modules/Share/constants/path'
 
 interface ResetPasswordForm {
@@ -12,25 +13,27 @@ interface ResetPasswordForm {
 interface Props {
   register: UseFormRegister<ResetPasswordForm>
   errors: FieldErrors<ResetPasswordForm>
+  isLoading: boolean
 }
 
-const ResetPasswordForm = ({ register, errors }: Props) => {
-  const [isHovered, setIsHovered] = useState<boolean>(false)
+const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
   const [isHiddenPassword, setIsHiddenPassword] = useState<boolean>(true)
 
   return (
     <div className='flex flex-col w-full'>
       <div className='flex flex-col gap-4'>
         <div className='flex flex-col gap-4 flex-1'>
-          <div className='flex flex-col relative'>
-            <input
-              id='new_password'
-              type={isHiddenPassword ? 'password' : 'text'}
-              placeholder='Nhập mật khẩu mới'
-              className='border-[2px] border-[#26C6DA] rounded-lg py-2 pl-10 pr-4 outline-none'
-              autoComplete='on'
-              {...register('newPassword')}
-            />
+          <Input
+            register={register}
+            id='new_password'
+            name='newPassword'
+            placeholder='Nhập mật khẩu mới'
+            type={isHiddenPassword ? 'password' : 'text'}
+            autoComplete='on'
+            className='flex flex-col relative'
+            classNameInput='border-[2px] border-[#26C6DA] rounded-lg py-2 pl-10 pr-4 outline-none'
+            error={errors.newPassword?.message}
+          >
             <div className='absolute left-[4px] top-[6px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -48,10 +51,10 @@ const ResetPasswordForm = ({ register, errors }: Props) => {
               </svg>
             </div>
             {isHiddenPassword ? (
-              <button
+              <Button
                 type='button'
+                classNameButton='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
                 onClick={() => setIsHiddenPassword(!isHiddenPassword)}
-                className='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -67,12 +70,12 @@ const ResetPasswordForm = ({ register, errors }: Props) => {
                     d='M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88'
                   />
                 </svg>
-              </button>
+              </Button>
             ) : (
-              <button
+              <Button
                 type='button'
+                classNameButton='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
                 onClick={() => setIsHiddenPassword(!isHiddenPassword)}
-                className='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -89,19 +92,20 @@ const ResetPasswordForm = ({ register, errors }: Props) => {
                   />
                   <path strokeLinecap='round' strokeLinejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' />
                 </svg>
-              </button>
+              </Button>
             )}
-            <span className='block text-red-700 text-xs mt-1 pl-2 font-normal'>{errors.newPassword?.message}</span>
-          </div>
-          <div className='flex flex-col relative'>
-            <input
-              id='confirm_password'
-              type={isHiddenPassword ? 'password' : 'text'}
-              placeholder='Nhập mật khẩu mới'
-              className='border-[2px] border-[#26C6DA] rounded-lg py-2 pl-10 pr-4 outline-none'
-              autoComplete='on'
-              {...register('confirmPassword')}
-            />
+          </Input>
+          <Input
+            register={register}
+            id='confirm_password'
+            name='confirmPassword'
+            placeholder='Xác nhận mật khẩu mới'
+            type={isHiddenPassword ? 'password' : 'text'}
+            autoComplete='on'
+            className='flex flex-col relative'
+            classNameInput='border-[2px] border-[#26C6DA] rounded-lg py-2 pl-10 pr-4 outline-none'
+            error={errors.confirmPassword?.message}
+          >
             <div className='absolute left-[4px] top-[6px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -119,10 +123,10 @@ const ResetPasswordForm = ({ register, errors }: Props) => {
               </svg>
             </div>
             {isHiddenPassword ? (
-              <button
+              <Button
                 type='button'
+                classNameButton='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
                 onClick={() => setIsHiddenPassword(!isHiddenPassword)}
-                className='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -138,12 +142,12 @@ const ResetPasswordForm = ({ register, errors }: Props) => {
                     d='M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88'
                   />
                 </svg>
-              </button>
+              </Button>
             ) : (
-              <button
+              <Button
                 type='button'
+                classNameButton='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
                 onClick={() => setIsHiddenPassword(!isHiddenPassword)}
-                className='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -160,15 +164,14 @@ const ResetPasswordForm = ({ register, errors }: Props) => {
                   />
                   <path strokeLinecap='round' strokeLinejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' />
                 </svg>
-              </button>
+              </Button>
             )}
-            <span className='block text-red-700 text-xs mt-1 pl-2 font-normal'>{errors.confirmPassword?.message}</span>
-          </div>
+          </Input>
         </div>
         <div className='flex justify-end gap-2'>
           <Link
             to={path.login}
-            className='flex justify-center items-center bg-[#195E8E] w-[60px] min-h-[50px] text-white p-2 rounded-2xl font-semibold hover:w-[70px] hover:bg-red-600 transition-all duration-300'
+            className='flex justify-center items-center bg-[#195E8E] w-[60px] h-[50px] text-white p-2 rounded-2xl font-semibold hover:w-[70px] hover:bg-[#d64545] transition-all duration-300'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -185,36 +188,25 @@ const ResetPasswordForm = ({ register, errors }: Props) => {
               />
             </svg>
           </Link>
-          <button
-            type='submit'
-            className={classNames(
-              ' flex justify-center items-center bg-[#195E8E] w-[60px] min-h-[50px] text-white p-2 rounded-2xl font-semibold transition-all duration-300',
-              {
-                'hover:bg-[#195E8E]/90 hover:w-[80px]': isHovered
-              }
-            )}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+          <Button
+            classNameButton='flex justify-center items-center bg-[#195E8E] w-[72px] h-[50px] text-white p-2 rounded-2xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90'
+            isLoading={isLoading}
           >
-            {isHovered ? (
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-6 h-6'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'
-                />
-              </svg>
-            ) : (
-              'Gửi'
-            )}
-          </button>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-6 h-6'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'
+              />
+            </svg>
+          </Button>
         </div>
       </div>
     </div>

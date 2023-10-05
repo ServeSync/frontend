@@ -121,13 +121,19 @@ const Role = () => {
             navigate(path.role)
             setIsEditForm(false)
             reset()
-            toast.success('Chỉnh sửa Role thành công !')
+            toast.success('Cập nhật thành công !')
             queryClient.invalidateQueries({
               queryKey: ['roles']
             })
           },
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onError: (error: any) => {
+            if (isDuplicateRoleNameError(error.response?.data.code)) {
+              setError('name', {
+                message: 'Role đã tồn tại !',
+                type: 'Server'
+              })
+            }
             if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
               setError('name', {
                 message: 'Role admin không cho phép chỉnh sửa !',
@@ -186,7 +192,13 @@ const Role = () => {
       <div className='grid grid-cols-4 gap-8'>
         <div className='col-span-1 flex flex-col gap-12'>
           <form onSubmit={handleSubmitForm}>
-            <RoleForm register={register} errors={errors} isEditForm={isEditForm} onCreateRole={onCreateRole} />
+            <RoleForm
+              register={register}
+              errors={errors}
+              isEditForm={isEditForm}
+              onCreateRole={onCreateRole}
+              isLoading={CreateRoleMutation.isLoading || EdiRoleMutation.isLoading}
+            />
           </form>
           <RoleTable
             roles={roles}

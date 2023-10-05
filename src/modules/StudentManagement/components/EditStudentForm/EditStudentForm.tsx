@@ -1,15 +1,17 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect } from 'react'
 import { StudentType } from '../../interfaces/student.type'
 import { EducationProgramType } from '../../interfaces/education_program.type'
 import { FacultyType } from '../../interfaces/faculty.type'
 import { HomeRoomType } from '../../interfaces/home_room.type'
 import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form'
-import Skeleton from 'react-loading-skeleton'
 import InputFile from 'src/modules/Share/components/InputFile'
 import { FormStudentType } from '../../utils/rules'
-import { useQuery } from '@tanstack/react-query'
-import homeroomAPI from '../../services/home_room.api'
 import { formatDateTime } from 'src/modules/Share/utils/utils'
+import Input from 'src/modules/Share/components/Input'
+import classNames from 'classnames'
+import Select from 'src/modules/Share/components/Select'
+import { gender } from '../../constants/gender_options'
+import Button from 'src/modules/Share/components/Button'
 
 interface Props {
   register: UseFormRegister<FormStudentType>
@@ -18,9 +20,12 @@ interface Props {
   student: StudentType
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
+  homeRooms: HomeRoomType[]
   handleDeleteStudent: (id: string) => void
   isLoading: boolean
   onChange: (file?: File) => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChangeSelection: (event: React.ChangeEvent<HTMLSelectElement>, name: any) => void
   previewImage: string
 }
 
@@ -31,20 +36,13 @@ const EditStudentForm = ({
   student,
   educationPrograms,
   faculties,
+  homeRooms,
   handleDeleteStudent,
   isLoading,
   onChange,
+  onChangeSelection,
   previewImage
 }: Props) => {
-  const [facultyId, setFacultyId] = useState<string>(student && student.facultyId)
-
-  const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms', facultyId],
-    queryFn: async () => await homeroomAPI.getListHomeRooms(facultyId as string),
-    staleTime: 5 * 60 * 1000
-  })
-  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
-
   useEffect(() => {
     if (student && faculties && educationPrograms) {
       setValue('code', student.code)
@@ -63,10 +61,6 @@ const EditStudentForm = ({
     }
   }, [student, faculties, educationPrograms, setValue])
 
-  const handleChangeFaculty = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFacultyId(event.target.value)
-  }
-
   return (
     <Fragment>
       <div className='grid grid-cols-6 gap-6 '>
@@ -76,255 +70,179 @@ const EditStudentForm = ({
           </div>
         </div>
         <div className='col-span-5 grid grid-cols-3 gap-x-6 gap-y-1 text-[14px]'>
-          <div className='col-span-1 flex flex-col mb-2'>
-            <label htmlFor='studentId' className='mb-2'>
-              Mã số sinh viên
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <input
-                type='text'
-                id='studentId'
-                className='border-[1px] border-gray-200 rounded-md py-2 px-2 outline-[#26C6DA]'
-                {...register('code')}
-              />
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.code?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col mb-2'>
-            <label htmlFor='fullName' className='mb-2'>
-              Họ tên
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <input
-                type='text'
-                id='fullName'
-                className='border-[1px] border-gray-200 rounded-md py-2 px-2 outline-[#26C6DA]'
-                {...register('fullName')}
-              />
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.fullName?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col mb-2'>
-            <label htmlFor='email' className='mb-2'>
-              Email
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <input
-                type='text'
-                id='email'
-                className='border-[1px] border-gray-200 rounded-md py-2 px-2 outline-[#26C6DA]'
-                {...register('email')}
-              />
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.email?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col mb-2'>
-            <label htmlFor='gender' className='mb-2'>
-              Giới tính
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <select
-                defaultValue='male'
-                id='gender'
-                className='border-[1px] border-gray-200 px-2 py-2 rounded-md'
-                {...register('gender')}
-              >
-                <option value={'true'}>Nam</option>
-                <option value={'false'}>Nữ</option>
-              </select>
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.gender?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col mb-2'>
-            <label htmlFor='date_of_birth' className='mb-2'>
-              Ngày sinh
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <input
-                type='date'
-                id='date_of_birth'
-                placeholder='Chọn ngày sinh'
-                className='border-[1px] border-gray-200 rounded-md py-2 px-2 outline-[#26C6DA] font-normal h-[40px]'
-                {...register('birth')}
-              />
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.birth?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col mb-2'>
-            <label htmlFor='phone' className='mb-2'>
-              Số điện thoại
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <input
-                type='text'
-                id='phone'
-                className='border-[1px] border-gray-200 rounded-md py-2 px-2 outline-[#26C6DA]'
-                {...register('phone')}
-              />
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.phone?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col mb-2'>
-            <label htmlFor='homeTown' className='mb-2'>
-              Quê quán
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <input
-                type='text'
-                id='homeTown'
-                className='border-[1px] border-gray-200 rounded-md py-2 px-2 outline-[#26C6DA]'
-                {...register('homeTown')}
-              />
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.homeTown?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col mb-2'>
-            <label htmlFor='address' className='mb-2'>
-              Địa chỉ cư trú
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <input
-                type='text'
-                id='address'
-                className='border-[1px] border-gray-200 rounded-md py-2 px-2 outline-[#26C6DA]'
-                {...register('address')}
-              />
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>{errors.address?.message}</span>
-          </div>
-
-          <div className='col-span-1 flex flex-col mb-2'>
-            <label htmlFor='citizenId' className='mb-2'>
-              Căn cước công dân
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <input
-                type='text'
-                id='citizenId'
-                className='border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA]'
-                {...register('citizenId')}
-              />
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>
-              {errors.citizenId?.message}
-            </span>
-          </div>
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='faculty' className='mb-2'>
-              Khoa
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <select
-                id='faculty'
-                className='border-[1px] border-gray-200 px-2 py-2 rounded-md'
-                {...register('facultyId')}
-                onChange={handleChangeFaculty}
-              >
-                {faculties &&
-                  faculties.map((item) => (
-                    <option value={item.id} key={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-              </select>
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>
-              {errors.facultyId?.message}
-            </span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='class' className='mb-2'>
-              Lớp
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <select
-                id='class'
-                className='border-[1px] border-gray-200 px-2 py-2 rounded-md'
-                {...register('homeRoomId')}
-              >
-                <option value='0'>Chọn lớp sinh hoạt</option>
-                {homeRooms &&
-                  homeRooms.map((item) => (
-                    <option value={item.id} key={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-              </select>
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>
-              {errors.homeRoomId?.message}
-            </span>
-          </div>
-
-          <div className='col-span-1 flex flex-col'>
-            <label htmlFor='education_program' className='mb-2'>
-              Hệ đào tạo
-            </label>
-            {isLoading ? (
-              <Skeleton className='h-[34px]' />
-            ) : (
-              <select
-                id='education_program'
-                className='border-[1px] border-gray-200 px-2 py-2 rounded-md'
-                {...register('educationProgramId')}
-              >
-                <option value='0'>Chọn hệ đào tạo</option>
-                {educationPrograms &&
-                  educationPrograms.map((item) => (
-                    <option value={item.id} key={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-              </select>
-            )}
-            <span className='block min-h-[14px] text-red-600 text-xs mt-1 font-medium'>
-              {errors.educationProgramId?.message}
-            </span>
-          </div>
+          <Input
+            register={register}
+            id='studentId'
+            name='code'
+            label='Mã số sinh viên'
+            placeholder='Nhập mã số sinh viên'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.code
+            })}
+            error={errors.code?.message}
+            isLoading={isLoading}
+          />
+          <Input
+            register={register}
+            id='fullname'
+            name='fullName'
+            label='Họ và tên'
+            placeholder='Nhập họ và tên'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.fullName
+            })}
+            error={errors.fullName?.message}
+            isLoading={isLoading}
+          />
+          <Input
+            register={register}
+            id='email'
+            name='email'
+            label='Email'
+            placeholder='Nhập Email'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.email
+            })}
+            error={errors.email?.message}
+            isLoading={isLoading}
+          />
+          <Select
+            register={register}
+            id='gender'
+            name='gender'
+            label='Giới tính'
+            className='col-span-1 flex flex-col'
+            classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+            options={gender}
+            isLoading={isLoading}
+          />
+          <Input
+            register={register}
+            id='birth'
+            name='birth'
+            type='date'
+            label='Ngày sinh'
+            placeholder='Nhập ngày sinh'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.birth
+            })}
+            error={errors.birth?.message}
+            isLoading={isLoading}
+          />
+          <Input
+            register={register}
+            id='phone'
+            name='phone'
+            label='Số điện thoại'
+            placeholder='Nhập số điện thoại'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.phone
+            })}
+            error={errors.phone?.message}
+            isLoading={isLoading}
+          />
+          <Input
+            register={register}
+            id='homeTown'
+            name='homeTown'
+            label='Nơi sinh'
+            placeholder='Nhập nơi sinh'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.homeTown
+            })}
+            error={errors.homeTown?.message}
+            isLoading={isLoading}
+          />
+          <Input
+            register={register}
+            id='address'
+            name='address'
+            label='Địa chỉ cư trú'
+            placeholder='Nhập địa chỉ cư trú'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.address
+            })}
+            error={errors.address?.message}
+            isLoading={isLoading}
+          />
+          <Input
+            register={register}
+            id='citizenId'
+            name='citizenId'
+            label='Căn cước công dân'
+            placeholder='Nhập căn cước công dân'
+            className='col-span-1 flex flex-col'
+            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.citizenId
+            })}
+            error={errors.citizenId?.message}
+            isLoading={isLoading}
+          />
+          <Select
+            register={register}
+            id='faculty'
+            name='facultyId'
+            label='Khoa'
+            className='col-span-1 flex flex-col'
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.facultyId?.message !== '' && errors.facultyId
+            })}
+            defaultOptions='Chọn khoa'
+            options={faculties}
+            error={errors.facultyId?.message}
+            onChange={(e) => onChangeSelection(e, 'facultyId')}
+            isLoading={isLoading}
+          />
+          <Select
+            register={register}
+            id='homeroom'
+            name='homeRoomId'
+            label='Lớp sinh hoạt'
+            className='col-span-1 flex flex-col'
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.homeRoomId?.message !== '' && errors.homeRoomId
+            })}
+            defaultOptions='Chọn lớp sinh hoạt'
+            options={homeRooms}
+            error={errors.homeRoomId?.message}
+            onChange={(e) => onChangeSelection(e, 'homeRoomId')}
+            isLoading={isLoading}
+          />
+          <Select
+            register={register}
+            id='education_program'
+            name='educationProgramId'
+            label='Hệ đào tạo'
+            className='col-span-1 flex flex-col'
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+              'border-red-600 outline-red-600': errors.educationProgramId?.message !== '' && errors.educationProgramId
+            })}
+            defaultOptions='Chọn hệ đào tạo'
+            options={educationPrograms}
+            error={errors.educationProgramId?.message}
+            onChange={(e) => onChangeSelection(e, 'educationProgramId')}
+            isLoading={isLoading}
+          />
         </div>
       </div>
-
       <div className='flex justify-end gap-6 border-b-2 pb-4'>
-        <button
+        <Button
           type='button'
+          classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[16px] text-white font-semibold mt-6'
           onClick={() => handleDeleteStudent(student.id)}
-          className='bg-red-500 py-2 px-4 rounded-lg text-[16px] text-white font-semibold mt-6'
         >
           Xóa
-        </button>
-        <button type='submit' className='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6'>
+        </Button>
+        <Button classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6'>
           Lưu
-        </button>
+        </Button>
       </div>
     </Fragment>
   )
