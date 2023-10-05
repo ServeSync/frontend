@@ -26,6 +26,8 @@ import {
   isEmailStudentAlreadyExistsExistsError,
   isStudentNotFound
 } from 'src/modules/Share/utils/utils'
+import homeroomAPI from '../../services/home_room.api'
+import { HomeRoomType } from '../../interfaces/home_room.type'
 
 const EditStudent = () => {
   const [file, setFile] = useState<File>()
@@ -65,6 +67,15 @@ const EditStudent = () => {
     queryFn: () => facultyAPI.getListFaculties()
   })
   const faculties = FacultiesListQuery.data?.data as FacultyType[]
+
+  const [facultyId, setFacultyId] = useState<string>(student && student.facultyId)
+
+  const HomeRoomsListQuery = useQuery({
+    queryKey: ['home_rooms', facultyId],
+    queryFn: async () => await homeroomAPI.getListHomeRooms(facultyId as string)
+    // enabled: facultyId === ''
+  })
+  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
 
   const {
     handleSubmit,
@@ -185,6 +196,16 @@ const EditStudent = () => {
     })
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChangeSelection = (event: React.ChangeEvent<HTMLSelectElement>, name: any) => {
+    if (name == 'facultyId') {
+      setFacultyId(event.target.value)
+      event.target.value && setError(name, { message: '' })
+    } else {
+      event.target.value && setError(name, { message: '' })
+    }
+  }
+
   return (
     <Fragment>
       <Helmet>
@@ -200,8 +221,10 @@ const EditStudent = () => {
             student={student}
             educationPrograms={educationPrograms}
             faculties={faculties}
+            homeRooms={homeRooms}
             handleDeleteStudent={handleDeleteStudent}
             onChange={handleChangeFile}
+            onChangeSelection={handleChangeSelection}
             previewImage={previewImage}
             isLoading={StudentQuery.isLoading}
           />
@@ -223,7 +246,7 @@ const EditStudent = () => {
             <div className='mb-4'>
               <div className='flex justify-between items-center'>
                 <p className='font-semibold'> Danh sách hoạt động phục vụ cộng đồng sinh viên đã tham gia gần đây.</p>
-                <button>Xem tất cả</button>
+                <div>Xem tất cả</div>
               </div>
             </div>
             <EventsOfStudentTable />

@@ -2,10 +2,9 @@ import { EducationProgramType } from 'src/modules/StudentManagement/interfaces/e
 import { FacultyType } from 'src/modules/StudentManagement/interfaces/faculty.type'
 import { HomeRoomType } from 'src/modules/StudentManagement/interfaces/home_room.type'
 import { UseFormRegister } from 'react-hook-form'
-import { useQuery } from '@tanstack/react-query'
-import homeroomAPI from '../../services/home_room.api'
 import Select from 'src/modules/Share/components/Select'
 import { gender } from '../../constants/gender_options'
+import Button from 'src/modules/Share/components/Button'
 
 interface FilterConfig {
   homeRoomId?: string | undefined
@@ -18,24 +17,13 @@ interface FilterConfig {
 interface Props {
   register: UseFormRegister<FilterConfig>
   onResetForm: () => void
-  facultyId: string
-  setFacultyId: React.Dispatch<React.SetStateAction<string>>
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
+  homeRooms: HomeRoomType[]
+  onChangeFaculty: (event: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
-const Filter = ({ register, onResetForm, facultyId, setFacultyId, educationPrograms, faculties }: Props) => {
-  const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms', facultyId],
-    queryFn: () => homeroomAPI.getListHomeRooms(facultyId),
-    enabled: facultyId !== ''
-  })
-  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
-
-  const handleChangeFaculty = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFacultyId(event.target.value)
-  }
-
+const Filter = ({ register, onResetForm, onChangeFaculty, educationPrograms, faculties, homeRooms }: Props) => {
   return (
     <div className='w-[360px] bg-white border-[1px] border-gray-300 rounded-lg p-6 shadow-md text-gray-600'>
       <div className='flex items-center justify-center mb-4'>
@@ -58,18 +46,18 @@ const Filter = ({ register, onResetForm, facultyId, setFacultyId, educationProgr
         id='faculty'
         name='facultyId'
         label='Khoa'
-        className='flex flex-col text-[15px] mb-3'
+        className='flex flex-col text-[15px]'
         classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
         defaultOptions='Chọn khoa'
         options={faculties}
-        onChange={handleChangeFaculty}
+        onChange={onChangeFaculty}
       />
       <Select
         register={register}
         id='homeRoom'
         name='homeRoomId'
         label='Lớp'
-        className='flex flex-col text-[15px] mb-3'
+        className='flex flex-col text-[15px]'
         classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
         defaultOptions='Chọn lớp sinh hoạt'
         options={homeRooms}
@@ -79,7 +67,7 @@ const Filter = ({ register, onResetForm, facultyId, setFacultyId, educationProgr
         id='education_program'
         name='educationProgramId'
         label='Hệ đào tạo'
-        className='flex flex-col text-[15px] mb-3'
+        className='flex flex-col text-[15px]'
         classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
         defaultOptions='Chọn hệ đào tạo'
         options={educationPrograms}
@@ -89,25 +77,22 @@ const Filter = ({ register, onResetForm, facultyId, setFacultyId, educationProgr
         id='gender'
         name='gender'
         label='Giới tính'
-        className='flex flex-col text-[15px] mb-3'
+        className='flex flex-col text-[15px]'
         classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
         defaultOptions='Chọn giới tính'
         options={gender}
       />
       <div className='flex justify-between'>
-        <button
+        <Button
           type='button'
-          className='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#da2626] px-4 py-2 rounded-lg'
+          classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#da2626] px-4 py-2 rounded-lg'
           onClick={onResetForm}
         >
           Làm mới
-        </button>
-        <button
-          type='submit'
-          className='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
-        >
+        </Button>
+        <Button classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'>
           Lưu
-        </button>
+        </Button>
       </div>
     </div>
   )

@@ -11,6 +11,7 @@ import homeroomAPI from '../../services/home_room.api'
 import Input from 'src/modules/Share/components/Input'
 import Select from 'src/modules/Share/components/Select'
 import { gender } from '../../constants/gender_options'
+import Button from 'src/modules/Share/components/Button'
 
 interface Props {
   register: UseFormRegister<FormStudentType>
@@ -211,16 +212,16 @@ const CreateStudentForm = ({
         </div>
       </div>
       <div className='flex justify-end gap-6'>
-        <button
+        <Button
           type='button'
-          className='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-gray-800 font-semibold mt-6'
+          classNameButton='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-gray-800 font-semibold mt-6'
           onClick={onPreviousPage}
         >
           Hủy
-        </button>
-        <button type='submit' className='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6'>
+        </Button>
+        <Button classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6'>
           Tạo
-        </button>
+        </Button>
       </div>
     </Fragment>
   )

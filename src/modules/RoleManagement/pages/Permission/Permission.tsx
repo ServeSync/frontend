@@ -28,14 +28,14 @@ const Permission = ({ onDeleteRole }: Props) => {
   const queryRoleConfig = useQueryRoleConfig()
 
   const PermissionsListQuery = useQuery({
-    queryKey: ['permission'],
+    queryKey: ['permissions'],
     queryFn: () => permissionAPI.getListPermissions(),
     staleTime: 5 * 60 * 1000
   })
   const permissions = PermissionsListQuery.data?.data as PermissionType[]
 
   const PermissionsOfRoleQuery = useQuery({
-    queryKey: ['permission', queryRoleConfig],
+    queryKey: ['permissions', queryRoleConfig],
     queryFn: () => roleAPI.getPermissionsOfRole(queryRoleConfig.id as string),
     enabled: queryRoleConfig.id !== undefined
   })
@@ -48,8 +48,8 @@ const Permission = ({ onDeleteRole }: Props) => {
   })
   const role = RoleQuery.data?.data as RoleType
 
-  const EditPermissionsOfRole = useMutation({
-    mutationFn: (body: { id: string; data: string[] }) => roleAPI.editPermissionsOfRole(body)
+  const { handleSubmit } = useForm<FormPermissionType>({
+    resolver: yupResolver(FormPermissionSchema)
   })
 
   useEffect(() => {
@@ -71,15 +71,15 @@ const Permission = ({ onDeleteRole }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [permissionsOfRole, permissions])
 
-  const { handleSubmit } = useForm<FormPermissionType>({
-    resolver: yupResolver(FormPermissionSchema)
+  const EditPermissionsOfRoleMutation = useMutation({
+    mutationFn: (body: { id: string; data: string[] }) => roleAPI.editPermissionsOfRole(body)
   })
 
   const handleSubmitForm = handleSubmit(() => {
     const checkedPermissionIds: string[] =
       permissions?.filter((permission) => checkboxValues[permission.id]).map((permission) => permission.id) || []
 
-    EditPermissionsOfRole.mutate(
+    EditPermissionsOfRoleMutation.mutate(
       {
         id: queryRoleConfig.id as string,
         data: checkedPermissionIds
@@ -89,7 +89,7 @@ const Permission = ({ onDeleteRole }: Props) => {
           navigate(path.role)
           toast.success(`Cập nhật quyền cho ${role?.name} thành công !`)
           queryClient.invalidateQueries({
-            queryKey: ['permission']
+            queryKey: ['permissions']
           })
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -124,6 +124,7 @@ const Permission = ({ onDeleteRole }: Props) => {
         checkboxValues={checkboxValues}
         onCancel={onCancel}
         isLoading={PermissionsListQuery.isLoading}
+        isLoadingEdit={EditPermissionsOfRoleMutation.isLoading}
       />
     </form>
   )

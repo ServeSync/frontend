@@ -24,12 +24,12 @@ export default function ResetPassword() {
     resolver: yupResolver(FormResetPasswordSchema)
   })
 
-  const resetPasswordMutation = useMutation({
+  const ResetPasswordMutation = useMutation({
     mutationFn: (body: { token: string; newPassword: string }) => authAPI.resetPassword(body)
   })
 
   const handleSubmitForm = handleSubmit((data) => {
-    resetPasswordMutation.mutate(
+    ResetPasswordMutation.mutate(
       { token: TokenQuery.token as string, newPassword: data.newPassword },
       {
         onSuccess: () => {
@@ -55,7 +55,7 @@ export default function ResetPassword() {
         <div className='max-w-[500px] w-full p-10'>
           <h1 className='text-center text-[40px] font-bold mb-[40px]'>Tạo mới mật khẩu</h1>
           <form onSubmit={handleSubmitForm}>
-            <ResetPasswordForm register={register} errors={errors} />
+            <ResetPasswordForm register={register} errors={errors} isLoading={ResetPasswordMutation.isLoading} />
           </form>
         </div>
       </div>

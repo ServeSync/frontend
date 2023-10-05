@@ -6,9 +6,9 @@ import { useForm } from 'react-hook-form'
 import { FormForgetPasswordSchema, FormForgetPasswordType } from '../../utils/rules'
 import { useMutation } from '@tanstack/react-query'
 import authAPI from '../../services/auth.api'
-import { toast } from 'react-toastify'
 import { isUserNameNotFoundError } from 'src/modules/Share/utils/utils'
 import path from 'src/modules/Share/constants/path'
+import Swal from 'sweetalert2'
 
 const ForgetPassword = () => {
   const {
@@ -20,19 +20,19 @@ const ForgetPassword = () => {
     resolver: yupResolver(FormForgetPasswordSchema)
   })
 
-  const forgetPasswordMutation = useMutation({
+  const ForgetPasswordMutation = useMutation({
     mutationFn: (body: { userNameOrEmail: string; callBackUrl: string }) => authAPI.forgetPassword(body)
   })
 
-  const handleSubmitForm = handleSubmit((formData) => {
-    forgetPasswordMutation.mutate(
+  const handleSubmitForm = handleSubmit((data) => {
+    ForgetPasswordMutation.mutate(
       {
-        userNameOrEmail: formData.userNameOrEmail as string,
+        userNameOrEmail: data.userNameOrEmail,
         callBackUrl: `http://20.42.93.128${path.reset_password}`
       },
       {
         onSuccess: () => {
-          toast.success('Vui lòng kiểm tra email để lấy lại mật khẩu !')
+          Swal.fire('Thành công !', 'Vui lòng kiểm tra email để lấy lại mật khẩu !', 'success')
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
@@ -57,7 +57,7 @@ const ForgetPassword = () => {
         <div className='max-w-[500px] w-full p-10'>
           <h1 className='text-center text-[40px] font-bold mb-[40px]'>Quên mật khẩu</h1>
           <form onSubmit={handleSubmitForm}>
-            <ForgetPasswordForm register={register} errors={errors} />
+            <ForgetPasswordForm register={register} errors={errors} isLoading={ForgetPasswordMutation.isLoading} />
           </form>
         </div>
       </div>

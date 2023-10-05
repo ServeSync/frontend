@@ -1,5 +1,7 @@
 import classNames from 'classnames'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import Button from 'src/modules/Share/components/Button'
+import Input from 'src/modules/Share/components/Input'
 
 interface RoleForm {
   name: string
@@ -10,19 +12,21 @@ interface Props {
   errors: FieldErrors<RoleForm>
   isEditForm: boolean
   onCreateRole: () => void
+  isLoading: boolean
 }
 
-const RoleForm = ({ register, errors, isEditForm, onCreateRole }: Props) => {
+const RoleForm = ({ register, errors, isEditForm, onCreateRole, isLoading }: Props) => {
   return (
     <div className='flex flex-col gap-2'>
-      <div className='relative'>
-        <input
-          type='text'
-          id='name'
-          placeholder='Tên'
-          className='w-full border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none'
-          {...register('name')}
-        />
+      <Input
+        register={register}
+        id='name'
+        name='name'
+        placeholder='Nhập tên'
+        className='relative'
+        classNameInput='w-full border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none'
+        error={errors.name?.message}
+      >
         <div className='absolute left-[4px] top-[6px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -39,24 +43,23 @@ const RoleForm = ({ register, errors, isEditForm, onCreateRole }: Props) => {
             />
           </svg>
         </div>
-        <span className='block min-h-[16px] text-red-700 text-xs mt-1 font-normal'>{errors.name?.message}</span>
-      </div>
-      <button
-        type='submit'
-        className={classNames('w-full py-2 bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-md text-white', {
+      </Input>
+      <Button
+        classNameButton={classNames('w-full py-2 bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-md text-white', {
           'mb-[30px]': !isEditForm
         })}
+        isLoading={isLoading}
       >
         {isEditForm ? 'Cập nhật role' : 'Tạo Role'}
-      </button>
+      </Button>
       {isEditForm && (
-        <button
+        <Button
           type='button'
-          className='w-full text-[#33b6c7] text-right text-[14px] hover:underline h-[22px]'
+          classNameButton='w-full text-[#33b6c7] text-right text-[14px] hover:underline h-[22px]'
           onClick={onCreateRole}
         >
           Tạo Role ?
-        </button>
+        </Button>
       )}
     </div>
   )

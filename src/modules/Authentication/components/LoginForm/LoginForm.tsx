@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { Link } from 'react-router-dom'
+import Button from 'src/modules/Share/components/Button'
+import Input from 'src/modules/Share/components/Input'
 import path from 'src/modules/Share/constants/path'
 
 interface LoginForm {
@@ -11,21 +13,23 @@ interface LoginForm {
 interface Props {
   register: UseFormRegister<LoginForm>
   errors: FieldErrors<LoginForm>
+  isLoading: boolean
 }
 
-const LoginForm = ({ register, errors }: Props) => {
+const LoginForm = ({ register, errors, isLoading }: Props) => {
   const [isHiddenPassword, setIsHiddenPassword] = useState<boolean>(true)
 
   return (
     <div className='flex flex-col gap-2'>
-      <div className='flex flex-col relative'>
-        <input
-          type='text'
-          id='email'
-          placeholder='Email hoặc MSSV'
-          className='border-[2px] border-[#26C6DA] rounded-lg py-2 pl-10 pr-4 outline-none'
-          {...register('userNameOrEmail')}
-        />
+      <Input
+        register={register}
+        id='userNameOrEmail'
+        name='userNameOrEmail'
+        placeholder='Nhập Email hoặc MSSV'
+        className='flex flex-col relative'
+        classNameInput='border-[2px] border-[#26C6DA] rounded-lg py-2 pl-10 pr-4 outline-none'
+        error={errors.userNameOrEmail?.message}
+      >
         <div className='absolute left-[4px] top-[6px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -42,19 +46,18 @@ const LoginForm = ({ register, errors }: Props) => {
             />
           </svg>
         </div>
-        <span className='block min-h-[16px] text-red-700 text-xs mt-1 font-normal'>
-          {errors.userNameOrEmail?.message}
-        </span>
-      </div>
-      <div className='flex flex-col relative'>
-        <input
-          type={isHiddenPassword ? 'password' : 'text'}
-          id='password'
-          placeholder='Mật khẩu'
-          className='border-[2px] border-[#26C6DA] rounded-lg py-2 pl-10 pr-4 outline-none'
-          autoComplete='on'
-          {...register('password')}
-        />
+      </Input>
+      <Input
+        register={register}
+        id='password'
+        name='password'
+        placeholder='Nhập mật khẩu'
+        autoComplete='on'
+        type={isHiddenPassword ? 'password' : 'text'}
+        className='flex flex-col relative'
+        classNameInput='border-[2px] border-[#26C6DA] rounded-lg py-2 pl-10 pr-4 outline-none'
+        error={errors.password?.message}
+      >
         <div className='absolute left-[4px] top-[6px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -72,10 +75,10 @@ const LoginForm = ({ register, errors }: Props) => {
           </svg>
         </div>
         {isHiddenPassword ? (
-          <button
+          <Button
             type='button'
+            classNameButton='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
             onClick={() => setIsHiddenPassword(!isHiddenPassword)}
-            className='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -91,12 +94,12 @@ const LoginForm = ({ register, errors }: Props) => {
                 d='M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88'
               />
             </svg>
-          </button>
+          </Button>
         ) : (
-          <button
+          <Button
             type='button'
+            classNameButton='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
             onClick={() => setIsHiddenPassword(!isHiddenPassword)}
-            className='absolute right-[4px] top-[5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -113,22 +116,21 @@ const LoginForm = ({ register, errors }: Props) => {
               />
               <path strokeLinecap='round' strokeLinejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' />
             </svg>
-          </button>
+          </Button>
         )}
-        <span className='block min-h-[16px] text-red-700 text-xs mt-1 font-normal'>{errors.password?.message}</span>
-      </div>
+      </Input>
       <Link
         to={path.forget_password}
         className='text-[16px] text-right text-[#195E8E] font-semibold mb-4 hover:text-[#195E8E]/70'
       >
         Quên mật khẩu ?
       </Link>
-      <button
-        type='submit'
-        className='w-full bg-[#195E8E] hover:bg-[#195E8E]/90 p-2 rounded-2xl text-[20px] text-white font-semibold'
+      <Button
+        isLoading={isLoading}
+        classNameButton='w-full bg-[#195E8E] hover:bg-[#195E8E]/90 p-2 rounded-2xl text-[20px] text-white font-semibold'
       >
         Đăng nhập
-      </button>
+      </Button>
     </div>
   )
 }

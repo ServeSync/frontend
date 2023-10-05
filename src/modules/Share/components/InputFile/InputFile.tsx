@@ -2,6 +2,7 @@ import { Fragment, useRef } from 'react'
 import { UseFormRegister } from 'react-hook-form'
 import { StudentType } from 'src/modules/StudentManagement/interfaces/student.type'
 import { FormStudentType } from 'src/modules/StudentManagement/utils/rules'
+import Button from '../Button'
 
 interface Props {
   onChange?: (file?: File) => void
@@ -36,10 +37,10 @@ const InputFile = ({ onChange, register, previewImage, student }: Props) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onClick={(event) => ((event.target as any).value = null)}
       />
-      <button
+      <Button
         type='button'
+        classNameButton='relative bg-slate-300 rounded-full mt-4 outline-none w-full pt-[100%]'
         onClick={handleUploadFile}
-        className='relative bg-slate-300 rounded-full mt-4 outline-none w-full pt-[100%]'
       >
         <img
           src={
@@ -50,7 +51,7 @@ const InputFile = ({ onChange, register, previewImage, student }: Props) => {
           alt='avatar'
           className='rounded-full top-0 h-full w-full object-cover object-top absolute'
         />
-      </button>
+      </Button>
     </Fragment>
   )
 }

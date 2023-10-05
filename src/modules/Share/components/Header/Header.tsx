@@ -11,6 +11,7 @@ import useQueryStudentConfig from 'src/modules/StudentManagement/hooks/useQueryS
 import useQueryRoleConfig from 'src/modules/RoleManagement/hooks/useQueryRoleConfig'
 import roleAPI from 'src/modules/RoleManagement/services/role.api'
 import Skeleton from 'react-loading-skeleton'
+import Button from '../Button'
 
 export default function Header() {
   const [isOpenPopover, setIsOpenPopover] = useState(false)
@@ -23,12 +24,6 @@ export default function Header() {
   const navigate = useNavigate()
 
   const location = useLocation().pathname.split('/').slice(1)
-
-  const handleLogout = () => {
-    setIsAuthenticated(false)
-    clearTokenFromLocalStorage()
-    navigate(path.login)
-  }
 
   const ProfileQuery = useQuery({
     queryKey: ['profile'],
@@ -58,6 +53,12 @@ export default function Header() {
     } else return ''
   }
 
+  const handleLogout = () => {
+    setIsAuthenticated(false)
+    clearTokenFromLocalStorage()
+    navigate(path.login)
+  }
+
   return (
     <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all z-40'>
       <div className='w-full lg:max-w-full md:max-w-[786px] sm:max-w-[640px] flex items-center justify-between h-full px-6 overflow-hidden text-black'>
@@ -67,29 +68,25 @@ export default function Header() {
               <Link to={`/${location[0]}`}>{location[0]}</Link>
               <div className='h-6 mx-4 border-r border-gray-300 -skew-x-12'></div>
               {handleHeader() !== '' ? (
-                <Fragment>
-                  <span className='text-gray-500'>{handleHeader()}</span>
-                  <div className='h-6 mx-4 border-r border-gray-300 -skew-x-12'></div>
-                  <span className='text-gray-500'>Edit</span>
-                </Fragment>
+                <span className='text-gray-500'>{handleHeader()}</span>
               ) : (
                 <span className='text-gray-500'>List</span>
               )}
             </Fragment>
           )}
         </div>
-        <div className='flex items-center flex-shrink-0 space-x-6'>
+        <div className='flex items-center flex-shrink-0 gap-x-6'>
           <div className='relative flex items-center gap-3'>
-            <button className='relative'>
+            <Button classNameButton='relative'>
               <div className='rounded-md flex items-center'>
                 <svg fill='currentColor' viewBox='0 0 20 20' className='w-5 h-5' aria-hidden='true'>
                   <path d='M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z' />
                 </svg>
               </div>
               <span className='absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full'></span>
-            </button>
+            </Button>
             {ProfileQuery.isLoading ? <Skeleton className='min-w-[120px] h-[20px]' /> : <span>{profile?.email}</span>}
-            <button className='rounded-full'>
+            <Button classNameButton='rounded-full'>
               <Popover
                 className='rounded-full flex items-center w-8 h-8 align-middle z-[80]'
                 classNamePopover='z-[60]'
@@ -169,7 +166,7 @@ export default function Header() {
                   />
                 </div>
               </Popover>
-            </button>
+            </Button>
           </div>
         </div>
       </div>

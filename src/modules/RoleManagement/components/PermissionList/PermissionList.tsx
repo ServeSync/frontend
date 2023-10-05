@@ -1,27 +1,30 @@
 import { Fragment } from 'react'
 import { PermissionType } from '../../interfaces/permission.type'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import Button from 'src/modules/Share/components/Button'
 
 interface Props {
+  id: string
   permissions: PermissionType[]
+  checkboxValues: { [key: string]: boolean }
   isEditPermissions: boolean
+  isLoading: boolean
+  isLoadingEdit: boolean
   onCancel: () => void
   onDeleteRole: (id: string) => void
-  id: string
   onChangeCheckbox: (permissionId: string, checked: boolean) => void
-  checkboxValues: { [key: string]: boolean }
-  isLoading: boolean
 }
 
 const PermissionList = ({
+  id,
   permissions,
+  checkboxValues,
   isEditPermissions,
+  isLoading,
+  isLoadingEdit,
   onCancel,
   onDeleteRole,
-  id,
-  checkboxValues,
-  onChangeCheckbox,
-  isLoading
+  onChangeCheckbox
 }: Props) => {
   return (
     <Fragment>
@@ -44,9 +47,9 @@ const PermissionList = ({
                   <div key={permission.id} className='col-span-1'>
                     <div className='flex items-center gap-3'>
                       <input
+                        id={`checkbox-${permission.id}`}
                         type='checkbox'
                         value={permission.name}
-                        id={`checkbox-${permission.id}`}
                         checked={checkboxValues[permission.id] || false}
                         onChange={() => onChangeCheckbox(permission.id, !checkboxValues[permission.id])}
                         disabled={!isEditPermissions}
@@ -60,24 +63,27 @@ const PermissionList = ({
               })}
           </div>
           {isEditPermissions && (
-            <div className='self-end flex space-x-4 mt-5'>
-              <button
+            <div className='flex justify-end gap-4 mt-5'>
+              <Button
                 type='button'
+                classNameButton='bg-gray-400 hover:bg-gray-400/80 rounded-lg px-3 py-2 text-white'
                 onClick={onCancel}
-                className='bg-gray-400 hover:bg-gray-400/80 rounded-lg px-3 py-2 text-white'
               >
                 Hủy
-              </button>
-              <button
+              </Button>
+              <Button
                 type='button'
+                classNameButton='bg-red-600 hover:bg-red-600/80 rounded-lg px-3 py-2 text-white'
                 onClick={() => onDeleteRole(id)}
-                className='bg-red-600 hover:bg-red-600/80 rounded-lg px-3 py-2 text-white'
               >
                 Xóa
-              </button>
-              <button type='submit' className='bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-lg px-3 py-2 text-white'>
+              </Button>
+              <Button
+                classNameButton='bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-lg px-3 py-2 text-white w-[120px]'
+                isLoading={isLoadingEdit}
+              >
                 Cập nhật
-              </button>
+              </Button>
             </div>
           )}
         </div>

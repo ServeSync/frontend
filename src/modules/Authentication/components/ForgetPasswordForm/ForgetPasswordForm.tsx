@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import classNames from 'classnames'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import Input from 'src/modules/Share/components/Input'
+import Button from 'src/modules/Share/components/Button'
 
 interface ForgetPasswordForm {
   userNameOrEmail: string
@@ -9,53 +9,58 @@ interface ForgetPasswordForm {
 interface Props {
   register: UseFormRegister<ForgetPasswordForm>
   errors: FieldErrors<ForgetPasswordForm>
+  isLoading: boolean
 }
 
-const ForgetPasswordForm = ({ register, errors }: Props) => {
-  const [isHovered, setIsHovered] = useState<boolean>(false)
-
+const ForgetPasswordForm = ({ register, errors, isLoading }: Props) => {
   return (
-    <div className='flex flex-col w-full'>
-      <div className='flex justify-between items-center gap-6 relative'>
-        <input
-          id='email'
-          placeholder='Nhập Username hoặc Email'
-          className='border-[2px] w-full border-[#26C6DA] rounded-lg py-2 pl-4 pr-4 outline-none'
-          autoComplete='on'
-          {...register('userNameOrEmail')}
-        />
-        <button
-          type='submit'
-          className={classNames(
-            ' flex justify-center items-center bg-[#195E8E] w-[60px] min-h-[50px] text-white p-2 rounded-2xl font-semibold transition-all duration-300',
-            {
-              'hover:bg-[#195E8E]/90 hover:w-[80px]': isHovered
-            }
-          )}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+    <div className='flex items-center justify-between gap-6 w-full'>
+      <Input
+        register={register}
+        id='userNameOrEmail'
+        name='userNameOrEmail'
+        placeholder='Nhập Email hoặc Mã số sinh viên'
+        autoComplete='on'
+        className='flex-1 relative'
+        classNameInput='border-[2px] border-[#26C6DA] rounded-lg py-2 pl-10 pr-4 outline-none w-full'
+        error={errors.userNameOrEmail?.message}
+      >
+        <div className='absolute left-[4px] top-[6px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth='1.5'
+            stroke='currentColor'
+            className='w-6 h-6'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75'
+            />
+          </svg>
+        </div>
+      </Input>
+      <Button
+        classNameButton='flex justify-center items-center bg-[#195E8E] w-[72px] h-[50px] text-white p-2 rounded-2xl font-semibold transition-all duration-300 mb-5 hover:bg-[#195E8E]/90'
+        isLoading={isLoading}
+      >
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          strokeWidth={1.5}
+          stroke='currentColor'
+          className='w-6 h-6'
         >
-          {isHovered ? (
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth={1.5}
-              stroke='currentColor'
-              className='w-6 h-6'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'
-              />
-            </svg>
-          ) : (
-            'Gửi'
-          )}
-        </button>
-      </div>
-      <span className='block text-red-700 text-xs mt-1 pl-2 font-normal'>{errors.userNameOrEmail?.message}</span>
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5'
+          />
+        </svg>
+      </Button>
     </div>
   )
 }
