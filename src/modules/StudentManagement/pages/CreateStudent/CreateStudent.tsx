@@ -141,6 +141,7 @@ const CreateStudent = () => {
             onChange={handleChangeFile}
             previewImage={previewImage}
             onPreviousPage={handlePreviousPage}
+            isLoading={CreateStudentMutation.isLoading}
           />
         </form>
       </div>

@@ -22,6 +22,7 @@ interface Props {
   onChange: (file?: File) => void
   previewImage: string
   onPreviousPage: () => void
+  isLoading: boolean
 }
 
 const CreateStudentForm = ({
@@ -32,7 +33,8 @@ const CreateStudentForm = ({
   faculties,
   onChange,
   previewImage,
-  onPreviousPage
+  onPreviousPage,
+  isLoading
 }: Props) => {
   const [facultyId, setFacultyId] = useState<string>('')
 
@@ -219,7 +221,10 @@ const CreateStudentForm = ({
         >
           Hủy
         </Button>
-        <Button classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6'>
+        <Button
+          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6 w-[90px]'
+          isLoading={isLoading}
+        >
           Tạo
         </Button>
       </div>
