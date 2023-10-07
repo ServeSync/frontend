@@ -53,11 +53,11 @@ workflows:
             branches:
               only:
                 - main
-      - deploy:
-          requires:
-            - build-and-deploy-web-image
-          filters:
-            branches:
-              only:
-                - main
-                - dev
+      # - deploy:
+      #     requires:
+      #       - build-and-deploy-web-image
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #           - dev
