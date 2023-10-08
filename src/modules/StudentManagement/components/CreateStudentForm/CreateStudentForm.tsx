@@ -12,6 +12,7 @@ import Input from 'src/modules/Share/components/Input'
 import Select from 'src/modules/Share/components/Select'
 import { gender } from '../../constants/gender_options'
 import Button from 'src/modules/Share/components/Button'
+import { GetAllHomeRoomByFacultyIdQuery } from '../../services/homeRooms/homeRoom.query'
 
 interface Props {
   register: UseFormRegister<FormStudentType>
@@ -38,12 +39,8 @@ const CreateStudentForm = ({
 }: Props) => {
   const [facultyId, setFacultyId] = useState<string>('')
 
-  const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms', facultyId],
-    queryFn: () => homeroomAPI.getListHomeRooms(facultyId),
-    enabled: facultyId !== ''
-  })
-  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
+  const homeRoomByFacultyIdQuery = new GetAllHomeRoomByFacultyIdQuery(facultyId);
+  const homeRooms = homeRoomByFacultyIdQuery.fetch();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeSelection = (event: React.ChangeEvent<HTMLSelectElement>, name: any) => {
