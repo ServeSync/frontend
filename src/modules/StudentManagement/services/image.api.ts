@@ -1,5 +1,5 @@
 import http from 'src/modules/Share/utils/http'
-import { Image } from '../../interfaces/image.type'
+import { Image } from '../interfaces/image.type'
 
 const imageAPI = {
   uploadImage: (body: FormData) =>

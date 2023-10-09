@@ -1,5 +1,5 @@
 import http from 'src/modules/Share/utils/http'
-import { StudentForm, StudentListConfig, StudentType, StudentsListType } from '../../interfaces/student.type'
+import { StudentForm, StudentListConfig, StudentType, StudentsListType } from '../interfaces/student.type'
 
 const studentAPI = {
   getListStudents: (params: StudentListConfig) => http.get<StudentsListType>('/students', { params }),
@@ -10,14 +10,8 @@ const studentAPI = {
 
   createStudent: (body: StudentForm) => http.post('/students', body),
 
-  editStudent: (body: { id: string; data: StudentForm }) => http.put(`/students/${body.id}`, body.data),
-
-  importFileStudents: (body: FormData) =>
-    http.post('/students/import', body, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+  editStudent: (body: { id: string; data: Omit<StudentForm, 'facultyId'> }) =>
+    http.put(`/students/${body.id}`, body.data)
 }
 
 export default studentAPI

@@ -15,7 +15,6 @@ interface Props {
   error?: string
   children?: React.ReactNode
   isLoading?: boolean
-  disabled?: boolean
 }
 
 const Input = ({
@@ -30,8 +29,7 @@ const Input = ({
   classNameInput,
   error,
   children,
-  isLoading,
-  disabled
+  isLoading
 }: Props) => {
   return (
     <div className={className}>
@@ -50,7 +48,6 @@ const Input = ({
           id={id}
           className={classNameInput + ' placeholder:font-normal'}
           {...register(name)}
-          disabled={disabled}
         />
       )}
       {children && children}

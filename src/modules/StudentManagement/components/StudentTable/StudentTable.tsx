@@ -1,9 +1,9 @@
+import { formatDateTime } from 'src/modules/Share/utils/utils'
+import { StudentsListType } from '../../interfaces/student.type'
+import { studentTableHeader } from 'src/modules/StudentManagement/constants/student_table_header'
 import { useState } from 'react'
 import classNames from 'classnames'
 import Skeleton from 'react-loading-skeleton'
-import { StudentsListType } from '../../interfaces'
-import { studentTableHeader } from '../../constants'
-import { formatDateTime } from 'src/modules/Share/utils'
 
 interface Props {
   students: StudentsListType

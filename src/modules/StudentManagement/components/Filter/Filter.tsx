@@ -1,8 +1,10 @@
+import { EducationProgramType } from 'src/modules/StudentManagement/interfaces/education_program.type'
+import { FacultyType } from 'src/modules/StudentManagement/interfaces/faculty.type'
+import { HomeRoomType } from 'src/modules/StudentManagement/interfaces/home_room.type'
 import { UseFormRegister } from 'react-hook-form'
-import { EducationProgramType, FacultyType, HomeRoomType } from '../../interfaces'
 import Select from 'src/modules/Share/components/Select'
+import { gender } from '../../constants/gender_options'
 import Button from 'src/modules/Share/components/Button'
-import { gender } from '../../constants'
 
 interface FilterConfig {
   homeRoomId?: string | undefined
@@ -88,10 +90,7 @@ const Filter = ({ register, onResetForm, onChangeFaculty, educationPrograms, fac
         >
           Làm mới
         </Button>
-        <Button
-          type='submit'
-          classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
-        >
+        <Button classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'>
           Lưu
         </Button>
       </div>

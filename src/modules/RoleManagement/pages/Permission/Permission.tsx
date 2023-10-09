@@ -1,22 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query'
+import permissionAPI from '../../services/permission.api'
+import PermissionList from '../../components/PermissionList'
+import useQueryRoleConfig from '../../hooks/useQueryRoleConfig'
 import { useNavigate } from 'react-router-dom'
+import path from 'src/modules/Share/constants/path'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { isAdminRoleAccessDeniedError } from 'src/modules/Share/utils/utils'
+import roleAPI from '../../services/role.api'
+import { FormPermissionSchema, FormPermissionType } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect, useState } from 'react'
-import useQueryRoleConfig from '../../hooks/useQueryRoleConfig'
-import {
-  EditPermissionsByRoleIdCommandHandler,
-  GetAllPermissionByRoleIdQuery,
-  GetAllPermissionQuery,
-  GetRoleQuery
-} from '../../services'
-import { FormPermissionSchema, FormPermissionType, FormRoleType } from '../../utils'
-import path from 'src/modules/Share/constants/path'
-import { handleError } from 'src/modules/Share/utils'
-import PermissionList from '../../components/PermissionList'
-
+import { PermissionType } from '../../interfaces/permission.type'
+import { RoleType } from '../../interfaces/role.type'
 interface Props {
   onDeleteRole: (id: string) => void
 }
@@ -27,16 +23,34 @@ const Permission = ({ onDeleteRole }: Props) => {
 
   const navigate = useNavigate()
 
+  const queryClient = useQueryClient()
+
   const queryRoleConfig = useQueryRoleConfig()
 
-  const getAllPermissionQuery = new GetAllPermissionQuery()
-  const permissions = getAllPermissionQuery.fetch()
+  const PermissionsListQuery = useQuery({
+    queryKey: ['permissions'],
+    queryFn: () => permissionAPI.getListPermissions(),
+    staleTime: 5 * 60 * 1000
+  })
+  const permissions = PermissionsListQuery.data?.data as PermissionType[]
 
-  const getAllPermissionByRoleIdQuery = new GetAllPermissionByRoleIdQuery()
-  const permissionsOfRole = getAllPermissionByRoleIdQuery.fetch()
+  const PermissionsOfRoleQuery = useQuery({
+    queryKey: ['permissions', queryRoleConfig],
+    queryFn: () => roleAPI.getPermissionsOfRole(queryRoleConfig.id as string),
+    enabled: queryRoleConfig.id !== undefined
+  })
+  const permissionsOfRole = PermissionsOfRoleQuery.data?.data as PermissionType[]
 
-  const getRoleQuery = new GetRoleQuery()
-  const role = getRoleQuery.fetch()
+  const RoleQuery = useQuery({
+    queryKey: ['role', queryRoleConfig],
+    queryFn: () => roleAPI.getRole(queryRoleConfig.id as string),
+    enabled: queryRoleConfig.id !== undefined
+  })
+  const role = RoleQuery.data?.data as RoleType
+
+  const { handleSubmit } = useForm<FormPermissionType>({
+    resolver: yupResolver(FormPermissionSchema)
+  })
 
   useEffect(() => {
     const updatedCheckboxValues = { ...checkboxValues }
@@ -54,32 +68,43 @@ const Permission = ({ onDeleteRole }: Props) => {
       })
     }
     setCheckboxValues(updatedCheckboxValues)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [permissionsOfRole, permissions])
 
-  const { handleSubmit } = useForm<FormPermissionType>({
-    resolver: yupResolver(FormPermissionSchema)
+  const EditPermissionsOfRoleMutation = useMutation({
+    mutationFn: (body: { id: string; data: string[] }) => roleAPI.editPermissionsOfRole(body)
   })
-
-  const editPermissionsByRoleIdCommandHandler = new EditPermissionsByRoleIdCommandHandler()
 
   const handleSubmitForm = handleSubmit(() => {
     const checkedPermissionIds: string[] =
       permissions?.filter((permission) => checkboxValues[permission.id]).map((permission) => permission.id) || []
 
-    editPermissionsByRoleIdCommandHandler.handle(
+    EditPermissionsOfRoleMutation.mutate(
       {
         id: queryRoleConfig.id as string,
         data: checkedPermissionIds
       },
-      () => {
-        navigate(path.role)
-        toast.success(`Cập nhật quyền cho ${role?.name} thành công !`)
-      },
-      (error: any) => {
-        handleError<FormRoleType>(error)
+      {
+        onSuccess: () => {
+          navigate(path.role)
+          toast.success(`Cập nhật quyền cho ${role?.name} thành công !`)
+          queryClient.invalidateQueries({
+            queryKey: ['permissions']
+          })
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
+            toast.error('Role admin không cho phép cập nhật!')
+          }
+        }
       }
     )
   })
+
+  const onCancel = () => {
+    navigate(path.role)
+  }
 
   const handleCheckboxChange = (permissionId: string, checked: boolean) => {
     setCheckboxValues((prevValues) => ({
@@ -88,22 +113,18 @@ const Permission = ({ onDeleteRole }: Props) => {
     }))
   }
 
-  const handleCancel = () => {
-    navigate(path.role)
-  }
-
   return (
     <form onSubmit={handleSubmitForm}>
       <PermissionList
-        id={queryRoleConfig.id as string}
-        checkboxValues={checkboxValues}
-        permissions={permissions}
-        isEditPermissions={isEditPermissions}
-        isLoading={getAllPermissionQuery.isLoading()}
-        isLoadingEdit={editPermissionsByRoleIdCommandHandler.isLoading()}
         onChangeCheckbox={handleCheckboxChange}
-        onCancel={handleCancel}
+        permissions={permissions}
         onDeleteRole={onDeleteRole}
+        id={queryRoleConfig.id as string}
+        isEditPermissions={isEditPermissions}
+        checkboxValues={checkboxValues}
+        onCancel={onCancel}
+        isLoading={PermissionsListQuery.isLoading}
+        isLoadingEdit={EditPermissionsOfRoleMutation.isLoading}
       />
     </form>
   )

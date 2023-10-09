@@ -189,7 +189,6 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
             </svg>
           </Link>
           <Button
-            type='submit'
             classNameButton='flex justify-center items-center bg-[#195E8E] w-[72px] h-[50px] text-white p-2 rounded-2xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90'
             isLoading={isLoading}
           >

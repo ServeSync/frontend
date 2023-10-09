@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { type AxiosInstance } from 'axios'
 import { AuthResponse, RefreshResponse } from 'src/modules/Authentication/interfaces/auth.type'
 import {
@@ -10,8 +9,9 @@ import {
 } from 'src/modules/Authentication/utils/auth'
 import connect from 'src/modules/Share/constants/connect'
 import HttpStatusCode from '../constants/httpStatusCode.enum'
-import authAPI from 'src/modules/Authentication/services/Auth/auth.api'
-import { handleError, isAxiosUnauthorizedError } from './utils'
+import authAPI from 'src/modules/Authentication/services/auth.api'
+import { isAxiosUnauthorizedError, isExpiredRefreshTokenError, isNotExistRefreshTokenError } from './utils'
+import { toast } from 'react-toastify'
 
 class Http {
   instance: AxiosInstance
@@ -53,10 +53,12 @@ class Http {
         }
         return response
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (error: any) => {
         if (
           ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(error.response?.status as number)
         ) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const data: any | undefined = error.response?.data
           const message = data?.code || error.code
           console.log(message)
@@ -82,11 +84,15 @@ class Http {
               }
             })
           }
-        } else {
-          handleError(error)
-          // this.accessToken = ''
-          // this.refreshToken = ''
-          // clearTokenFromLocalStorage()
+        }
+        if (
+          isExpiredRefreshTokenError(error.response?.data.code as string) ||
+          isNotExistRefreshTokenError(error.response?.data.code as string)
+        ) {
+          this.accessToken = ''
+          this.refreshToken = ''
+          clearTokenFromLocalStorage()
+          toast.error('Phiên đăng nhập đã hết hạn !')
         }
         return Promise.reject(error)
       }

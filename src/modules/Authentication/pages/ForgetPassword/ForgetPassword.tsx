@@ -1,14 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useForm } from 'react-hook-form'
-import Swal from 'sweetalert2'
-import { FormForgetPasswordSchema, FormForgetPasswordType } from '../../utils'
-import { handleError } from 'src/modules/Share/utils'
-import { ForgetPasswordCommandHandler } from '../../services'
-import connect from 'src/modules/Share/constants/connect'
 import ForgetPasswordForm from '../../components/ForgetPasswordForm'
+import { useForm } from 'react-hook-form'
+import { FormForgetPasswordSchema, FormForgetPasswordType } from '../../utils/rules'
+import { useMutation } from '@tanstack/react-query'
+import authAPI from '../../services/auth.api'
+import { isUserNameNotFoundError } from 'src/modules/Share/utils/utils'
+import path from 'src/modules/Share/constants/path'
+import Swal from 'sweetalert2'
 
 const ForgetPassword = () => {
   const {
@@ -20,19 +20,29 @@ const ForgetPassword = () => {
     resolver: yupResolver(FormForgetPasswordSchema)
   })
 
-  const forgetPasswordCommandHandler = new ForgetPasswordCommandHandler()
+  const ForgetPasswordMutation = useMutation({
+    mutationFn: (body: { userNameOrEmail: string; callBackUrl: string }) => authAPI.forgetPassword(body)
+  })
 
   const handleSubmitForm = handleSubmit((data) => {
-    forgetPasswordCommandHandler.handle(
+    ForgetPasswordMutation.mutate(
       {
         userNameOrEmail: data.userNameOrEmail,
-        callBackUrl: connect.callBackUrl
+        callBackUrl: `http://20.42.93.128${path.reset_password}`
       },
-      () => {
-        Swal.fire('Thành công !', 'Vui lòng kiểm tra email để lấy lại mật khẩu !', 'success')
-      },
-      (error: any) => {
-        handleError<FormForgetPasswordType>(error, setError)
+      {
+        onSuccess: () => {
+          Swal.fire('Thành công !', 'Vui lòng kiểm tra email để lấy lại mật khẩu !', 'success')
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          if (isUserNameNotFoundError(error.response?.data.code)) {
+            setError('userNameOrEmail', {
+              message: 'Tài khoản không tồn tại',
+              type: 'Server'
+            })
+          }
+        }
       }
     )
   })
@@ -47,11 +57,7 @@ const ForgetPassword = () => {
         <div className='max-w-[500px] w-full p-10'>
           <h1 className='text-center text-[40px] font-bold mb-[40px]'>Quên mật khẩu</h1>
           <form onSubmit={handleSubmitForm}>
-            <ForgetPasswordForm
-              register={register}
-              errors={errors}
-              isLoading={forgetPasswordCommandHandler.isLoading()}
-            />
+            <ForgetPasswordForm register={register} errors={errors} isLoading={ForgetPasswordMutation.isLoading} />
           </form>
         </div>
       </div>

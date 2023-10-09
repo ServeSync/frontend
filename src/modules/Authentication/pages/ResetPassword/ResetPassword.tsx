@@ -1,19 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
+import ResetPasswordForm from '../../components/ResetPasswordForm/ResetPasswordForm'
 import { useForm } from 'react-hook-form'
+import { FormResetPasswordSchema, FormResetPasswordType } from '../../utils/rules'
+import useQueryTokenConfig from 'src/modules/Authentication/hooks/useQueryTokenConfig'
+import { useMutation } from '@tanstack/react-query'
+import authAPI from '../../services/auth.api'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import useQueryTokenConfig from '../../hooks/useQueryTokenConfig'
-import { FormResetPasswordSchema, FormResetPasswordType } from '../../utils'
-import { ResetPasswordCommandHandler } from '../../services'
 import path from 'src/modules/Share/constants/path'
-import { handleError } from 'src/modules/Share/utils'
-import ResetPasswordForm from '../../components/ResetPasswordForm'
 
 export default function ResetPassword() {
-  const queryTokenConfig = useQueryTokenConfig()
+  const TokenQuery = useQueryTokenConfig()
 
   const navigate = useNavigate()
 
@@ -25,16 +24,23 @@ export default function ResetPassword() {
     resolver: yupResolver(FormResetPasswordSchema)
   })
 
-  const resetPasswordCommandHandler = new ResetPasswordCommandHandler()
+  const ResetPasswordMutation = useMutation({
+    mutationFn: (body: { token: string; newPassword: string }) => authAPI.resetPassword(body)
+  })
 
   const handleSubmitForm = handleSubmit((data) => {
-    resetPasswordCommandHandler.handle(
-      { token: queryTokenConfig.token as string, newPassword: data.newPassword },
-      () => {
-        toast.success('Đổi mật khẩu thành công !'), navigate(path.login)
-      },
-      (error: any) => {
-        handleError<FormResetPasswordType>(error)
+    ResetPasswordMutation.mutate(
+      { token: TokenQuery.token as string, newPassword: data.newPassword },
+      {
+        onSuccess: () => {
+          navigate(path.login), toast.success('Đổi mật khẩu thành công !')
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          if (error.response?.data.code === 'InvalidToken') {
+            toast.error('Đổi mật khẩu thất bại !')
+          }
+        }
       }
     )
   })
@@ -42,18 +48,14 @@ export default function ResetPassword() {
   return (
     <Fragment>
       <Helmet>
-        <title>Reset Password</title>
-        <meta name='description' content='This is reset password page of the project' />
+        <title>Forget Password</title>
+        <meta name='description' content='This is forget password page of the project' />
       </Helmet>
       <div className='flex items-center bg-[#bdeef4] rounded-3xl w-[500px] overflow-hidden shadow-[rgba(25,_94,_142,_0.36)_2px_9px_20px]'>
         <div className='max-w-[500px] w-full p-10'>
           <h1 className='text-center text-[40px] font-bold mb-[40px]'>Tạo mới mật khẩu</h1>
           <form onSubmit={handleSubmitForm}>
-            <ResetPasswordForm
-              register={register}
-              errors={errors}
-              isLoading={resetPasswordCommandHandler.isLoading()}
-            />
+            <ResetPasswordForm register={register} errors={errors} isLoading={ResetPasswordMutation.isLoading} />
           </form>
         </div>
       </div>

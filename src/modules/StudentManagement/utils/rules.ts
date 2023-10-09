@@ -15,6 +15,7 @@ export const FormStudentSchema = yup.object({
     .required('Vui lòng chọn ngày sinh !')
     .test('is-before-today', 'Ngày sinh phải bé hơn ngày hiện tại !', function (value) {
       if (!value) {
+        // Return true if the value is empty (no date of birth provided)
         return true
       }
       const dob = new Date(value)

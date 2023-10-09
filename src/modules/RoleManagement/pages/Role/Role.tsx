@@ -1,35 +1,44 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
-import { createSearchParams, useNavigate } from 'react-router-dom'
-import { useEffect, useState, Fragment } from 'react'
-import { Helmet } from 'react-helmet-async'
-import Swal from 'sweetalert2'
-import {
-  CreateRoleCommandHandler,
-  DeleteRoleCommandHandler,
-  EditRoleCommandHandler,
-  GetAllRoleQuery,
-  GetRoleQuery
-} from '../../services'
-import { FormRoleSchema, FormRoleType } from '../../utils'
-import path from 'src/modules/Share/constants/path'
-import { handleError } from 'src/modules/Share/utils'
 import RoleForm from '../../components/RoleForm'
 import RoleTable from '../../components/RoleTable'
+import { useForm } from 'react-hook-form'
+import { FormRoleSchema, FormRoleType } from '../../utils/rules'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import roleAPI from '../../services/role.api'
+import { toast } from 'react-toastify'
+import { isAdminRoleAccessDeniedError, isDuplicateRoleNameError } from 'src/modules/Share/utils/utils'
+import useQueryRoleConfig from '../../hooks/useQueryRoleConfig'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState, Fragment } from 'react'
+import path from 'src/modules/Share/constants/path'
+import { Helmet } from 'react-helmet-async'
 import Permission from '../Permission'
+import { RoleType } from '../../interfaces/role.type'
+import Swal from 'sweetalert2'
 
 const Role = () => {
   const [isEditForm, setIsEditForm] = useState<boolean>(false)
 
+  const queryClient = useQueryClient()
+
+  const queryRoleConfig = useQueryRoleConfig()
+
   const navigate = useNavigate()
 
-  const getAllRoleQuery = new GetAllRoleQuery()
-  const roles = getAllRoleQuery.fetch()
+  const RolesListQuery = useQuery({
+    queryKey: ['roles'],
+    queryFn: () => roleAPI.getListRoles(),
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000
+  })
+  const roles = RolesListQuery.data?.data.data as RoleType[]
 
-  const getRoleQuery = new GetRoleQuery()
-  const role = getRoleQuery.fetch()
+  const RoleQuery = useQuery({
+    queryKey: ['role', queryRoleConfig],
+    queryFn: () => roleAPI.getRole(queryRoleConfig.id as string),
+    enabled: queryRoleConfig.id !== undefined
+  })
+  const role = RoleQuery.data?.data as RoleType
 
   const {
     register,
@@ -52,9 +61,13 @@ const Role = () => {
     }
   }, [role, setValue, reset])
 
-  const createRoleCommandHandler = new CreateRoleCommandHandler()
-  const editRoleCommandHandler = new EditRoleCommandHandler()
-  const deleteRoleCommandHandler = new DeleteRoleCommandHandler()
+  const CreateRoleMutation = useMutation({
+    mutationFn: (body: FormRoleType) => roleAPI.createRole(body)
+  })
+
+  const EdiRoleMutation = useMutation({
+    mutationFn: (body: { id: string; data: FormRoleType }) => roleAPI.editRole(body)
+  })
 
   const onEditRole = (id: string) => {
     setValue('name', role?.name as string)
@@ -66,40 +79,75 @@ const Role = () => {
   }
 
   const onCreateRole = () => {
-    reset()
     navigate(path.role)
     setIsEditForm(false)
+    reset()
   }
 
   const handleSubmitForm = handleSubmit((data) => {
     if (!isEditForm) {
-      createRoleCommandHandler.handle(
-        data,
-        () => {
+      CreateRoleMutation.mutate(data, {
+        onSuccess: () => {
           reset()
           toast.success('Thêm Role thành công !')
+          queryClient.invalidateQueries({
+            queryKey: ['roles']
+          })
         },
-        (error: any) => {
-          handleError<FormRoleType>(error, setError)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          if (isDuplicateRoleNameError(error.response?.data.code)) {
+            setError('name', {
+              message: 'Role đã tồn tại !',
+              type: 'Server'
+            })
+          }
+          if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
+            setError('name', {
+              message: 'Role admin không cho phép thêm mới !',
+              type: 'Server'
+            })
+          }
         }
-      )
+      })
     } else {
-      editRoleCommandHandler.handle(
+      EdiRoleMutation.mutate(
         {
           id: role?.id as string,
           data: data
         },
-        () => {
-          reset()
-          setIsEditForm(false)
-          navigate(path.role)
-          toast.success('Cập nhật thành công !')
-        },
-        (error: any) => {
-          handleError<FormRoleType>(error, setError)
+        {
+          onSuccess: () => {
+            navigate(path.role)
+            setIsEditForm(false)
+            reset()
+            toast.success('Cập nhật thành công !')
+            queryClient.invalidateQueries({
+              queryKey: ['roles']
+            })
+          },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onError: (error: any) => {
+            if (isDuplicateRoleNameError(error.response?.data.code)) {
+              setError('name', {
+                message: 'Role đã tồn tại !',
+                type: 'Server'
+              })
+            }
+            if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
+              setError('name', {
+                message: 'Role admin không cho phép chỉnh sửa !',
+                type: 'Server'
+              })
+            }
+          }
         }
       )
     }
+  })
+
+  const DeleteRoleMutation = useMutation({
+    mutationFn: (id: string) => roleAPI.deleteRole(id)
   })
 
   const handleDeleteRole = (id: string) => {
@@ -114,18 +162,23 @@ const Role = () => {
       cancelButtonText: 'Hủy'
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteRoleCommandHandler.handle(
-          id,
-          () => {
-            reset()
-            setIsEditForm(false)
+        DeleteRoleMutation.mutate(id, {
+          onSuccess: () => {
             navigate(path.role)
+            setIsEditForm(false)
+            reset()
+            queryClient.invalidateQueries({
+              queryKey: ['roles']
+            })
             Swal.fire('Đã xóa!', 'Role đã được xóa thành công', 'success')
           },
-          (error: any) => {
-            handleError<FormRoleType>(error, setError)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onError: (error: any) => {
+            if (isAdminRoleAccessDeniedError(error.response?.data.code)) {
+              toast.error('Role admin không cho phép xóa !')
+            }
           }
-        )
+        })
       }
     })
   }
@@ -144,14 +197,14 @@ const Role = () => {
               errors={errors}
               isEditForm={isEditForm}
               onCreateRole={onCreateRole}
-              isLoading={createRoleCommandHandler.isLoading() || editRoleCommandHandler.isLoading()}
+              isLoading={CreateRoleMutation.isLoading || EdiRoleMutation.isLoading}
             />
           </form>
           <RoleTable
             roles={roles}
             onEditRole={onEditRole}
             roleID={role?.id as string}
-            isLoading={getAllRoleQuery.isLoading()}
+            isLoading={RolesListQuery.isLoading}
           />
         </div>
         <div className='col-span-3'>

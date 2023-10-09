@@ -1,8 +1,8 @@
 import { Fragment } from 'react'
 import { Doughnut } from 'react-chartjs-2'
-import Skeleton from 'react-loading-skeleton'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
-import { EducationProgramType } from '../../interfaces'
+import Skeleton from 'react-loading-skeleton'
+import { EducationProgramType } from '../../interfaces/education_program.type'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 interface Props {
