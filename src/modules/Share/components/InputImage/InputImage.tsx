@@ -1,8 +1,8 @@
 import { Fragment, useRef } from 'react'
 import { UseFormRegister } from 'react-hook-form'
-import { StudentType } from 'src/modules/StudentManagement/interfaces/student.type'
-import { FormStudentType } from 'src/modules/StudentManagement/utils/rules'
 import Button from '../Button'
+import { FormStudentType } from 'src/modules/StudentManagement/utils'
+import { StudentType } from 'src/modules/StudentManagement/interfaces'
 
 interface Props {
   onChange?: (file?: File) => void
@@ -11,7 +11,7 @@ interface Props {
   student?: StudentType
 }
 
-const InputFile = ({ onChange, register, previewImage, student }: Props) => {
+const InputImage = ({ onChange, register, previewImage, student }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const OnFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,4 +56,4 @@ const InputFile = ({ onChange, register, previewImage, student }: Props) => {
   )
 }
 
-export default InputFile
+export default InputImage

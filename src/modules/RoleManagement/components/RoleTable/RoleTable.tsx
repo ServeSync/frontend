@@ -1,14 +1,14 @@
 import { Fragment } from 'react'
-import { RoleType } from '../../interfaces/role.type'
 import classNames from 'classnames'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import Button from 'src/modules/Share/components/Button'
+import { RoleType } from '../../interfaces'
 
 interface Props {
   roles: RoleType[]
-  onEditRole: (id: string) => void
   roleID: string
   isLoading: boolean
+  onEditRole: (id: string) => void
 }
 
 const RoleTable = ({ roles, onEditRole, roleID, isLoading }: Props) => {

@@ -1,20 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Fragment, useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
-import { FormLoginSchema, FormLoginType } from '../../utils/rules'
-import LoginForm from '../../components/LoginForm'
-import { AppContext } from 'src/modules/Share/contexts/app.context'
 import { useNavigate } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
-import authAPI from '../../services/auth.api'
+import { AppContext } from 'src/modules/Share/contexts'
+import { FormLoginSchema, FormLoginType } from '../../utils'
+import { LoginCommandHandler } from '../../services'
 import path from 'src/modules/Share/constants/path'
-import {
-  isIncorrectPasswordError,
-  isAccountLockedOutError,
-  isUserNameNotFoundError
-} from 'src/modules/Share/utils/utils'
-import { toast } from 'react-toastify'
+import { handleError } from 'src/modules/Share/utils'
+import LoginForm from '../../components/LoginForm'
 
 const Login = () => {
   const { setIsAuthenticated } = useContext(AppContext)
@@ -30,35 +25,19 @@ const Login = () => {
     resolver: yupResolver(FormLoginSchema)
   })
 
-  const LoginMutation = useMutation({
-    mutationFn: (body: FormLoginType) => authAPI.login(body)
-  })
+  const loginCommandHandler = new LoginCommandHandler()
 
   const handleSubmitForm = handleSubmit((data) => {
-    LoginMutation.mutate(data, {
-      onSuccess: () => {
+    loginCommandHandler.handle(
+      data,
+      () => {
         setIsAuthenticated(true)
         navigate(path.home)
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      onError: (error: any) => {
-        if (isUserNameNotFoundError(error.response?.data.code)) {
-          setError('userNameOrEmail', {
-            message: 'Tài khoản không tồn tại',
-            type: 'Server'
-          })
-        }
-        if (isIncorrectPasswordError(error.response?.data.code)) {
-          setError('password', {
-            message: 'Mật khẩu không chính xác',
-            type: 'Server'
-          })
-        }
-        if (isAccountLockedOutError(error.response?.data.code)) {
-          toast.error('Tài khoản bị khóa !')
-        }
+      (error: any) => {
+        handleError<FormLoginType>(error, setError)
       }
-    })
+    )
   })
 
   return (
@@ -87,7 +66,7 @@ const Login = () => {
         <div className='max-w-[500px] w-[50%] p-10'>
           <h1 className='text-center text-[48px] font-bold mb-[80px]'>Đăng nhập</h1>
           <form onSubmit={handleSubmitForm}>
-            <LoginForm register={register} errors={errors} isLoading={LoginMutation.isLoading} />
+            <LoginForm register={register} errors={errors} isLoading={loginCommandHandler.isLoading()} />
           </form>
         </div>
       </div>
