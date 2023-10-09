@@ -1,4 +1,5 @@
 const path = {
+  landingpage: '/',
   home: '/home',
   login: '/login',
   forget_password: '/forgetPassword',

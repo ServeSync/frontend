@@ -4,6 +4,7 @@ import path from 'src/modules/Share/constants/path'
 import AuthenticationLayout from 'src/modules/Share/layouts/AuthenticationLayout'
 import MainLayout from 'src/modules/Share/layouts/MainLayout'
 import { AppContext } from '../contexts/app.context'
+import LandingpageLayout from '../layouts/LandingpageLayout'
 
 const Login = lazy(() => import('src/modules/Authentication/pages/Login/Login'))
 const Home = lazy(() => import('src/modules/Home/pages'))
@@ -25,7 +26,7 @@ const RejectedRoute = () => {
 
 const ProtectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
-  return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
+  return isAuthenticated ? <Outlet /> : <Navigate to={path.landingpage} />
 }
 
 const useRouteElements = () => {
@@ -63,6 +64,10 @@ const useRouteElements = () => {
               </Suspense>
             </AuthenticationLayout>
           )
+        },
+        {
+          path: path.landingpage,
+          element: <LandingpageLayout></LandingpageLayout>
         }
       ]
     },
