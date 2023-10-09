@@ -11,8 +11,8 @@ interface Props {
   register: UseFormRegister<RoleForm>
   errors: FieldErrors<RoleForm>
   isEditForm: boolean
-  onCreateRole: () => void
   isLoading: boolean
+  onCreateRole: () => void
 }
 
 const RoleForm = ({ register, errors, isEditForm, onCreateRole, isLoading }: Props) => {

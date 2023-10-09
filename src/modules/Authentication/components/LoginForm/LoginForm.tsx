@@ -126,6 +126,7 @@ const LoginForm = ({ register, errors, isLoading }: Props) => {
         Quên mật khẩu ?
       </Link>
       <Button
+        type='submit'
         isLoading={isLoading}
         classNameButton='w-full bg-[#195E8E] hover:bg-[#195E8E]/90 p-2 rounded-2xl text-[20px] text-white font-semibold'
       >

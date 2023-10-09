@@ -1,6 +1,5 @@
 import http from 'src/modules/Share/utils/http'
-import { RoleType } from '../interfaces/role.type'
-import { PermissionType } from '../interfaces/permission.type'
+import { PermissionType, RoleType } from '../../interfaces'
 
 const roleAPI = {
   getListRoles: () => http.get<{ total: number; totalPages: number; data: RoleType[] }>('/roles'),
@@ -13,9 +12,9 @@ const roleAPI = {
 
   deleteRole: (id: string) => http.delete(`/roles/${id}`),
 
-  getPermissionsOfRole: (id: string) => http.get<PermissionType[]>(`/roles/${id}/permissions`),
+  getListPermissionsByRoleId: (id: string) => http.get<PermissionType[]>(`/roles/${id}/permissions`),
 
-  editPermissionsOfRole: (body: { id: string; data: string[] }) =>
+  editPermissionsByRoleId: (body: { id: string; data: string[] }) =>
     http.put<PermissionType>(`/roles/${body.id}/permissions`, body.data)
 }
 

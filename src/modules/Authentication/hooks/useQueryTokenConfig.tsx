@@ -1,6 +1,6 @@
-import { ResetTokenConfig } from 'src/modules/Authentication/interfaces/auth.type'
-import { useQueryParams } from 'src/modules/Share/hooks/useQueryParam'
 import { isUndefined, omitBy } from 'lodash'
+import { ResetTokenConfig } from '../interfaces'
+import { useQueryParams } from 'src/modules/Share/hooks'
 
 export type QueryTokenConfig = {
   [key in keyof ResetTokenConfig]: string
