@@ -5,16 +5,16 @@ import { FormLoginType } from '../../utils/rules'
 import authAPI from './auth.api'
 
 class LoginCommandHandler {
-  private LoginMutation
+  private _loginMutation
 
   constructor() {
-    this.LoginMutation = useMutation({
+    this._loginMutation = useMutation({
       mutationFn: (body: FormLoginType) => authAPI.login(body)
     })
   }
 
   handle = (data: FormLoginType, handleSuccess: any, handleError: any) => {
-    return this.LoginMutation.mutate(data, {
+    return this._loginMutation.mutate(data, {
       onSuccess: () => {
         handleSuccess()
       },
@@ -25,7 +25,7 @@ class LoginCommandHandler {
   }
 
   isLoading() {
-    return this.LoginMutation.isLoading
+    return this._loginMutation.isLoading
   }
 }
 

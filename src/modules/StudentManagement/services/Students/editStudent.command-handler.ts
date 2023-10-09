@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { StudentForm } from '../../interfaces/student.type'
 import studentAPI from './student.api'
 import imageAPI from './image.api'
 import { FormStudentType } from '../../utils/rules'
+import { StudentForm } from '../../interfaces'
 
 class EditStudentCommandHandler {
-  private queryClient
-  private UploadImageMutation
-  private EditStudentMutation
+  private _queryClient
+  private _uploadImageMutation
+  private _editStudentMutation
 
   constructor() {
-    this.queryClient = useQueryClient()
-    this.UploadImageMutation = useMutation(imageAPI.uploadImage)
-    this.EditStudentMutation = useMutation({
+    this._queryClient = useQueryClient()
+    this._uploadImageMutation = useMutation(imageAPI.uploadImage)
+    this._editStudentMutation = useMutation({
       mutationFn: (body: { id: string; data: StudentForm }) => studentAPI.editStudent(body)
     })
   }
@@ -23,16 +23,16 @@ class EditStudentCommandHandler {
     if (file != undefined) {
       const form = new FormData()
       form.append('file', file)
-      const uploadImageResponse = await this.UploadImageMutation.mutateAsync(form)
+      const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
       body.data.imageUrl = uploadImageResponse.data.url
     }
 
-    return this.EditStudentMutation.mutate(body, {
+    return this._editStudentMutation.mutate(body, {
       onSuccess: () => {
-        this.queryClient.invalidateQueries({
+        this._queryClient.invalidateQueries({
           queryKey: ['students']
         })
-        this.queryClient.invalidateQueries({
+        this._queryClient.invalidateQueries({
           queryKey: ['student']
         })
         handleSuccess()
@@ -44,7 +44,7 @@ class EditStudentCommandHandler {
   }
 
   isLoading() {
-    return this.UploadImageMutation.isLoading || this.EditStudentMutation.isLoading
+    return this._uploadImageMutation.isLoading || this._editStudentMutation.isLoading
   }
 }
 

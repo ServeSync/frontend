@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query'
 import permissionAPI from './permission.api'
 import { PermissionType } from '../../interfaces'
 
-class GetAllPermissionQuery {
-  private query
+class GetAllPermissionsQuery {
+  private _query
 
   constructor() {
-    this.query = useQuery({
+    this._query = useQuery({
       queryKey: ['permissions'],
       queryFn: () => permissionAPI.getListPermissions(),
       staleTime: 5 * 60 * 1000
@@ -15,16 +15,12 @@ class GetAllPermissionQuery {
   }
 
   fetch() {
-    return this.query.data?.data as PermissionType[]
-  }
-
-  getQuery() {
-    return this.query
+    return this._query.data?.data as PermissionType[]
   }
 
   isLoading() {
-    return this.query.isLoading
+    return this._query.isLoading
   }
 }
 
-export { GetAllPermissionQuery }
+export { GetAllPermissionsQuery }

@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
-import { HomeRoomType } from '../../interfaces/home_room.type'
 import homeroomAPI from './homeRoom.api'
+import { HomeRoomType } from '../../interfaces'
 
-class GetAllHomeRoomByFacultyIdQuery {
-  private query
+class GetAllHomeRoomsByFacultyIdQuery {
+  private _query
 
   constructor(facultyId: string) {
-    this.query = useQuery({
+    this._query = useQuery({
       queryKey: ['home_rooms', facultyId],
       queryFn: () => homeroomAPI.getListHomeRooms(facultyId),
       enabled: facultyId !== ''
@@ -15,12 +15,8 @@ class GetAllHomeRoomByFacultyIdQuery {
   }
 
   fetch() {
-    return this.query.data?.data as HomeRoomType[]
-  }
-
-  getQuery() {
-    return this.query
+    return this._query.data?.data as HomeRoomType[]
   }
 }
 
-export { GetAllHomeRoomByFacultyIdQuery }
+export { GetAllHomeRoomsByFacultyIdQuery }

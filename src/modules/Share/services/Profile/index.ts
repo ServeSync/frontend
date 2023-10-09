@@ -1,1 +1,1 @@
-export * from './profile.query'
+export * from './getProfile.query'

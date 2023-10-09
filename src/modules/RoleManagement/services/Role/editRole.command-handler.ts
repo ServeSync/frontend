@@ -5,20 +5,20 @@ import { FormRoleType } from '../../utils/rules'
 import roleAPI from './role.api'
 
 class EditRoleCommandHandler {
-  private queryClient
-  private EditRoleMutation
+  private _queryClient
+  private _editRoleMutation
 
   constructor() {
-    this.queryClient = useQueryClient()
-    this.EditRoleMutation = useMutation({
+    this._queryClient = useQueryClient()
+    this._editRoleMutation = useMutation({
       mutationFn: (body: { id: string; data: FormRoleType }) => roleAPI.editRole(body)
     })
   }
 
   handle = (body: { id: string; data: FormRoleType }, handleSuccess: any, handleError: any) => {
-    return this.EditRoleMutation.mutate(body, {
+    return this._editRoleMutation.mutate(body, {
       onSuccess: () => {
-        this.queryClient.invalidateQueries({
+        this._queryClient.invalidateQueries({
           queryKey: ['roles']
         })
         handleSuccess()
@@ -30,7 +30,7 @@ class EditRoleCommandHandler {
   }
 
   isLoading() {
-    return this.EditRoleMutation.isLoading
+    return this._editRoleMutation.isLoading
   }
 }
 

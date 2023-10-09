@@ -43,7 +43,7 @@ const EditStudentForm = ({
   isLoadingEdit
 }: Props) => {
   useEffect(() => {
-    if (homeRooms) {
+    if (homeRooms && student) {
       setValue('homeRoomId', student.homeRoomId)
     }
   }, [homeRooms, student, setValue])
@@ -58,7 +58,6 @@ const EditStudentForm = ({
       setValue('homeTown', student.homeTown)
       setValue('address', student.address)
       setValue('citizenId', student.citizenId)
-
       setValue('facultyId', student.facultyId)
       setValue('educationProgramId', student.educationProgramId)
       setValue('imageUrl', student.imageUrl)

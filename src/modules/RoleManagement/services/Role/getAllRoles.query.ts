@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query'
 import roleAPI from './role.api'
 import { RoleType } from '../../interfaces'
 
-class GetAllRoleQuery {
-  private query
+class GetAllRolesQuery {
+  private _query
 
   constructor() {
-    this.query = useQuery({
+    this._query = useQuery({
       queryKey: ['roles'],
       queryFn: () => roleAPI.getListRoles(),
       keepPreviousData: true,
@@ -16,16 +16,12 @@ class GetAllRoleQuery {
   }
 
   fetch() {
-    return this.query.data?.data.data as RoleType[]
-  }
-
-  getQuery() {
-    return this.query
+    return this._query.data?.data.data as RoleType[]
   }
 
   isLoading() {
-    return this.query.isLoading
+    return this._query.isLoading
   }
 }
 
-export { GetAllRoleQuery }
+export { GetAllRolesQuery }

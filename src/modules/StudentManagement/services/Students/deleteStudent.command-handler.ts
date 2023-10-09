@@ -4,23 +4,26 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import studentAPI from './student.api'
 
 class DeleteStudentCommandHandler {
-  private queryClient
-  private DeleteStudentMutation
+  private _queryClient
+  private _deleteStudentMutation
 
   constructor() {
-    this.queryClient = useQueryClient()
-    this.DeleteStudentMutation = useMutation({
+    this._queryClient = useQueryClient()
+    this._deleteStudentMutation = useMutation({
       mutationFn: (id: string) => studentAPI.deleteStudent(id)
     })
   }
 
-  handle = async (id: string, handleSuccess: any) => {
-    return this.DeleteStudentMutation.mutate(id, {
+  handle = async (id: string, handleSuccess: any, handleError: any) => {
+    return this._deleteStudentMutation.mutate(id, {
       onSuccess: () => {
-        this.queryClient.invalidateQueries({
+        this._queryClient.invalidateQueries({
           queryKey: ['students']
         })
         handleSuccess()
+      },
+      onError: (error: any) => {
+        handleError(error)
       }
     })
   }

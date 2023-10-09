@@ -4,20 +4,20 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import roleAPI from './role.api'
 
 class EditPermissionsByRoleIdCommandHandler {
-  private queryClient
-  private EditPermissionsOfRoleMutation
+  private _queryClient
+  private _editPermissionsByRoleIdMutation
 
   constructor() {
-    this.queryClient = useQueryClient()
-    this.EditPermissionsOfRoleMutation = useMutation({
+    this._queryClient = useQueryClient()
+    this._editPermissionsByRoleIdMutation = useMutation({
       mutationFn: (body: { id: string; data: string[] }) => roleAPI.editPermissionsByRoleId(body)
     })
   }
 
   handle = (body: { id: string; data: string[] }, handleSuccess: any, handleError: any) => {
-    return this.EditPermissionsOfRoleMutation.mutate(body, {
+    return this._editPermissionsByRoleIdMutation.mutate(body, {
       onSuccess: () => {
-        this.queryClient.invalidateQueries({
+        this._queryClient.invalidateQueries({
           queryKey: ['permissions']
         })
         handleSuccess()
@@ -29,7 +29,7 @@ class EditPermissionsByRoleIdCommandHandler {
   }
 
   isLoading() {
-    return this.EditPermissionsOfRoleMutation.isLoading
+    return this._editPermissionsByRoleIdMutation.isLoading
   }
 }
 

@@ -4,21 +4,21 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import studentAPI from './student.api'
 
 class ImportFileCommandHandler {
-  private queryClient
-  private ImportFileMutation
+  private _queryClient
+  private _importFileMutation
 
   constructor() {
-    this.queryClient = useQueryClient()
-    this.ImportFileMutation = useMutation(studentAPI.importFileStudents)
+    this._queryClient = useQueryClient()
+    this._importFileMutation = useMutation(studentAPI.importFileStudents)
   }
 
   handle = (file: File, handleSuccess: any, handleError: any) => {
     const form = new FormData()
     form.append('file', file)
 
-    return this.ImportFileMutation.mutate(form, {
+    return this._importFileMutation.mutate(form, {
       onSuccess: () => {
-        this.queryClient.invalidateQueries({
+        this._queryClient.invalidateQueries({
           queryKey: ['students']
         })
         handleSuccess()

@@ -1,1 +1,1 @@
-export * from './homeRooms.query'
+export * from './getAllHomeRoomsByFacultyId.query'

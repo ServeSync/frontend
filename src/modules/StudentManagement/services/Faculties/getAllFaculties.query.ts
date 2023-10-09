@@ -1,25 +1,21 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
-import { FacultyType } from '../../interfaces/faculty.type'
 import facultyAPI from './faculty.api'
+import { FacultyType } from '../../interfaces'
 
-class GetAllFacultyQuery {
-  private query
+class GetAllFacultiesQuery {
+  private _query
 
   constructor() {
-    this.query = useQuery({
+    this._query = useQuery({
       queryKey: ['faculties'],
       queryFn: () => facultyAPI.getListFaculties()
     })
   }
 
   fetch() {
-    return this.query.data?.data as FacultyType[]
-  }
-
-  getQuery() {
-    return this.query
+    return this._query.data?.data as FacultyType[]
   }
 }
 
-export { GetAllFacultyQuery }
+export { GetAllFacultiesQuery }

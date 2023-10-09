@@ -66,11 +66,6 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server',
       field: 'email'
     },
-    DuplicateEmail: {
-      message: 'Email đã tồn tại!',
-      type: 'Server',
-      field: 'email'
-    },
     InvalidImage: {
       message: 'Vui lòng điền ảnh!',
       type: 'Server',

@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { StudentForm } from '../../interfaces/student.type'
 import studentAPI from './student.api'
 import imageAPI from './image.api'
+import { StudentForm } from '../../interfaces'
 
 class CreateStudentCommandHandler {
-  private queryClient
-  private UploadImageMutation
-  private CreateStudentMutation
+  private _queryClient
+  private _uploadImageMutation
+  private _createStudentMutation
 
   constructor() {
-    this.queryClient = useQueryClient()
-    this.UploadImageMutation = useMutation(imageAPI.uploadImage)
-    this.CreateStudentMutation = useMutation({
+    this._queryClient = useQueryClient()
+    this._uploadImageMutation = useMutation(imageAPI.uploadImage)
+    this._createStudentMutation = useMutation({
       mutationFn: (body: StudentForm) => studentAPI.createStudent(body)
     })
   }
@@ -22,7 +22,7 @@ class CreateStudentCommandHandler {
     const form = new FormData()
     form.append('file', file)
 
-    const uploadImageResponse = await this.UploadImageMutation.mutateAsync(form, {
+    const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form, {
       onError: () => {
         setError('imageUrl', {
           message: 'Vui lòng chọn ảnh !'
@@ -32,9 +32,9 @@ class CreateStudentCommandHandler {
 
     student.imageUrl = uploadImageResponse.data.url
 
-    return this.CreateStudentMutation.mutate(student, {
+    return this._createStudentMutation.mutate(student, {
       onSuccess: () => {
-        this.queryClient.invalidateQueries({
+        this._queryClient.invalidateQueries({
           queryKey: ['students']
         })
         handleSuccess()
@@ -46,7 +46,7 @@ class CreateStudentCommandHandler {
   }
 
   isLoading() {
-    return this.UploadImageMutation.isLoading || this.CreateStudentMutation.isLoading
+    return this._uploadImageMutation.isLoading || this._createStudentMutation.isLoading
   }
 }
 

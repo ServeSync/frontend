@@ -4,25 +4,21 @@ import profileAPI from './profile.api'
 import { Profile } from '../../interfaces'
 
 class GetProfileQuery {
-  private query
+  private _query
 
   constructor() {
-    this.query = useQuery({
+    this._query = useQuery({
       queryKey: ['profile'],
       queryFn: () => profileAPI.getProfile()
     })
   }
 
   fetch() {
-    return this.query.data?.data as Profile
-  }
-
-  getQuery() {
-    return this.query
+    return this._query.data?.data as Profile
   }
 
   isLoading() {
-    return this.query.isLoading
+    return this._query.isLoading
   }
 }
 

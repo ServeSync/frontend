@@ -1,25 +1,21 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
-import { EducationProgramType } from '../../interfaces/education_program.type'
 import educationProgramAPI from './educationProgram.api'
+import { EducationProgramType } from '../../interfaces'
 
-class GetAllEducationProgramQuery {
-  private query
+class GetAllEducationProgramsQuery {
+  private _query
 
   constructor() {
-    this.query = useQuery({
+    this._query = useQuery({
       queryKey: ['education_programs'],
       queryFn: () => educationProgramAPI.getListEducationPrograms()
     })
   }
 
   fetch() {
-    return this.query.data?.data as EducationProgramType[]
-  }
-
-  getQuery() {
-    return this.query
+    return this._query.data?.data as EducationProgramType[]
   }
 }
 
-export { GetAllEducationProgramQuery }
+export { GetAllEducationProgramsQuery }
