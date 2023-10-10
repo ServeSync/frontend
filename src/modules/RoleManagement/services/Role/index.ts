@@ -1,0 +1,7 @@
+export * from './getAllRoles.query'
+export * from './getRole.query'
+export * from './getAllPermissionsByRoleId.query'
+export * from './createRole.command-handler'
+export * from './editRole.command-handler'
+export * from './deleteRole.command-handler'
+export * from './editPermissionsByRoleId.command-handler'

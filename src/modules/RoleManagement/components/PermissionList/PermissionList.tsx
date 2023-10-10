@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
-import { PermissionType } from '../../interfaces/permission.type'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import { PermissionType } from '../../interfaces'
 import Button from 'src/modules/Share/components/Button'
 
 interface Props {
@@ -79,6 +79,7 @@ const PermissionList = ({
                 Xóa
               </Button>
               <Button
+                type='submit'
                 classNameButton='bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-lg px-3 py-2 text-white w-[120px]'
                 isLoading={isLoadingEdit}
               >

@@ -1,33 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useNavigate } from 'react-router-dom'
-import path from 'src/modules/Share/constants/path'
-import EditStudentForm from '../../components/EditStudentForm'
-import EventsOfStudentTable from '../../components/EventsOfStudentTable'
-import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
-import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query'
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import CircleChart from '../../components/CircleChart'
-import educationProgramAPI from '../../services/education_program.api'
-import { EducationProgramType } from '../../interfaces/education_program.type'
-import facultyAPI from '../../services/faculty.api'
-import { FacultyType } from '../../interfaces/faculty.type'
-import studentAPI from '../../services/student.api'
-import { StudentForm, StudentType } from '../../interfaces/student.type'
-import { FormStudentSchema, FormStudentType } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
-import imageAPI from '../../services/image.api'
-import _ from 'lodash'
+import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
 import {
-  isCitizenIdStudentAlreadyExistsError,
-  isCodeStudentAlreadyExistsError,
-  isEmailStudentAlreadyExistsExistsError,
-  isStudentNotFound
-} from 'src/modules/Share/utils/utils'
-import homeroomAPI from '../../services/home_room.api'
-import { HomeRoomType } from '../../interfaces/home_room.type'
+  DeleteStudentCommandHandler,
+  EditStudentCommandHandler,
+  GetAllEducationProgramsQuery,
+  GetAllFacultiesQuery,
+  GetAllHomeRoomsByFacultyIdQuery,
+  GetStudentQuery
+} from '../../services'
+import { handleError } from 'src/modules/Share/utils'
+import path from 'src/modules/Share/constants/path'
+import EditStudentForm from '../../components/EditStudentForm'
+import CircleChart from '../../components/CircleChart'
+import EventsOfStudentTable from '../../components/EventsOfStudentTable'
+import { FormStudentSchema, FormStudentType } from '../../utils'
 
 const EditStudent = () => {
   const [file, setFile] = useState<File>()
@@ -36,57 +29,41 @@ const EditStudent = () => {
     return file ? URL.createObjectURL(file) : ''
   }, [file])
 
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+  }
+
   const navigate = useNavigate()
 
-  const queryClient = useQueryClient()
+  const location = useLocation()
+
+  const prevAccountConfig = location.state
 
   const queryStudentConfig = useQueryStudentConfig()
 
-  const StudentQuery = useQuery({
-    queryKey: ['student', queryStudentConfig],
-    queryFn: async () => await studentAPI.getStudent(queryStudentConfig.id as string),
-    enabled: queryStudentConfig.id !== undefined,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: (error: any) => {
-      if (isStudentNotFound(error.response?.data.code)) {
-        toast.error('Sinh viên không tồn tại !')
-        navigate(path.student)
-      }
-    }
-  })
-  const student = StudentQuery.data?.data as StudentType
+  const getStudentQuery = new GetStudentQuery(queryStudentConfig.id as string)
+  const student = getStudentQuery.fetch()
 
   const [facultyId, setFacultyId] = useState<string>(student && student.facultyId)
 
   useEffect(() => {
-    if (student !== undefined) {
+    if (student) {
       setFacultyId(student.facultyId)
     }
   }, [student, setFacultyId])
 
-  const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms', facultyId],
-    queryFn: () => homeroomAPI.getListHomeRooms(facultyId as string),
-    enabled: facultyId !== undefined && student !== undefined
-  })
-  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
-  const homeRoomsShow = homeRooms
+  const getAllEducationProgramsQuery = new GetAllEducationProgramsQuery()
+  const educationPrograms = getAllEducationProgramsQuery.fetch()
 
-  const EducationProgramsListQuery = useQuery({
-    queryKey: ['education_programs'],
-    queryFn: () => educationProgramAPI.getListEducationPrograms()
-  })
-  const educationPrograms = EducationProgramsListQuery.data?.data as EducationProgramType[]
+  const getAllFacultiesQuery = new GetAllFacultiesQuery()
+  const faculties = getAllFacultiesQuery.fetch()
 
-  const FacultiesListQuery = useQuery({
-    queryKey: ['faculties'],
-    queryFn: () => facultyAPI.getListFaculties()
-  })
-  const faculties = FacultiesListQuery.data?.data as FacultyType[]
+  const getAllHomeRoomsByFacultyIdQuery = new GetAllHomeRoomsByFacultyIdQuery(facultyId)
+  const homeRooms = getAllHomeRoomsByFacultyIdQuery.fetch()
 
   const {
-    handleSubmit,
     register,
+    handleSubmit,
     setError,
     setValue,
     formState: { errors }
@@ -94,89 +71,30 @@ const EditStudent = () => {
     resolver: yupResolver(FormStudentSchema)
   })
 
-  const educationIdOfStudent = StudentQuery.data?.data.educationProgramId
+  const educationIdOfStudent = getStudentQuery.getEducationIdByStudentId()
   const programOfStudent = educationPrograms?.find((program) => program.id === educationIdOfStudent)
   const programScoreOfStudent = programOfStudent?.requiredActivityScore || 0
   const programNameOfStudent = programOfStudent?.name || ''
 
-  const EditStudentMutation = useMutation({
-    mutationFn: (body: { id: string; data: Omit<StudentForm, 'facultyId'> }) => studentAPI.editStudent(body)
-  })
+  const editStudentCommandHandler = new EditStudentCommandHandler()
 
-  const UploadImageMutation = useMutation(imageAPI.uploadImage)
-
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onEditStudent = (data: any) => {
-    EditStudentMutation.mutate(
+  const handleSubmitForm = handleSubmit(async (data) => {
+    editStudentCommandHandler.handle(
       {
         id: queryStudentConfig.id as string,
         data: data
       },
-      {
-        onSuccess: () => {
-          toast.success('Cập nhật sinh viên thành công !')
-          navigate(`${path.edit_student}?id=${queryStudentConfig.id}`)
-          queryClient.invalidateQueries({
-            queryKey: ['students']
-          }),
-            queryClient.invalidateQueries({
-              queryKey: ['student']
-            })
-        },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onError: (error: any) => {
-          if (isCodeStudentAlreadyExistsError(error.response?.data.code)) {
-            setError('code', {
-              message: 'Mã số sinh viên đã tồn tại !',
-              type: 'Server'
-            })
-          }
-          if (isCitizenIdStudentAlreadyExistsError(error.response?.data.code)) {
-            setError('citizenId', {
-              message: 'Căn cước công dân đã tồn tại !',
-              type: 'Server'
-            })
-          }
-          if (isEmailStudentAlreadyExistsExistsError(error.response?.data.code)) {
-            setError('email', {
-              message: 'Email đã tồn tại !',
-              type: 'Server'
-            })
-          }
-        }
+      file as File,
+      () => {
+        toast.success('Cập nhật sinh viên thành công !')
+      },
+      (error: any) => {
+        handleError<FormStudentType>(error, setError)
       }
     )
-  }
-
-  const handleEditStudent = handleSubmit(async (data) => {
-    if (file) {
-      const form = new FormData()
-      form.append('file', file)
-      try {
-        const uploadedImageData = await UploadImageMutation.mutateAsync(form)
-        const body = {
-          ..._.omit(data, 'facultyId'),
-          imageUrl: uploadedImageData.data.url as string
-        }
-        onEditStudent(body)
-      } catch (error) {
-        console.error('Error uploading image:', error)
-      }
-    } else {
-      const body = {
-        ..._.omit(data, 'facultyId')
-      }
-      onEditStudent(body)
-    }
   })
 
-  const handleChangeFile = (file?: File) => {
-    setFile(file)
-  }
-
-  const DeleteStudentMutation = useMutation({
-    mutationFn: (id: string) => studentAPI.deleteStudent(id)
-  })
+  const deleteStudentCommandHandler = new DeleteStudentCommandHandler()
 
   const handleDeleteStudent = (id: string) => {
     Swal.fire({
@@ -190,20 +108,23 @@ const EditStudent = () => {
       cancelButtonText: 'Hủy'
     }).then((result) => {
       if (result.isConfirmed) {
-        DeleteStudentMutation.mutate(id, {
-          onSuccess: () => {
+        deleteStudentCommandHandler.handle(
+          id,
+          () => {
             Swal.fire('Đã xóa!', 'Sinh viên đã được xóa thành công', 'success')
-            navigate(path.student)
-            queryClient.invalidateQueries({
-              queryKey: ['students']
+            navigate({
+              pathname: path.student,
+              search: createSearchParams(prevAccountConfig).toString()
             })
+          },
+          (error: any) => {
+            handleError<FormStudentType>(error, setError)
           }
-        })
+        )
       }
     })
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeSelection = (event: React.ChangeEvent<HTMLSelectElement>, name: any) => {
     if (name == 'facultyId') {
       setFacultyId(event.target.value)
@@ -220,7 +141,7 @@ const EditStudent = () => {
         <meta name='description' content='This is edit student page of the project' />
       </Helmet>
       <div>
-        <form onSubmit={handleEditStudent}>
+        <form onSubmit={handleSubmitForm}>
           <EditStudentForm
             register={register}
             errors={errors}
@@ -229,13 +150,12 @@ const EditStudent = () => {
             educationPrograms={educationPrograms}
             faculties={faculties}
             homeRooms={homeRooms}
-            homeRoomsShow={homeRoomsShow}
             handleDeleteStudent={handleDeleteStudent}
             onChange={handleChangeFile}
             onChangeSelection={handleChangeSelection}
             previewImage={previewImage}
-            isLoading={StudentQuery.isLoading}
-            isLoadingEdit={EditStudentMutation.isLoading || UploadImageMutation.isLoading}
+            isLoading={getStudentQuery.isLoading()}
+            isLoadingEdit={editStudentCommandHandler.isLoading()}
           />
         </form>
         <div className='grid grid-cols-6 pt-6'>
@@ -247,14 +167,14 @@ const EditStudent = () => {
               <CircleChart
                 programScoreOfStudent={Number(programScoreOfStudent)}
                 programNameOfStudent={programNameOfStudent}
-                isLoading={StudentQuery.isLoading}
+                isLoading={getStudentQuery.isLoading()}
               />
             </div>
           </div>
           <div className='px-6 font-semibold col-span-4'>
             <div className='mb-4'>
               <div className='flex justify-between items-center'>
-                <p className='font-semibold'> Danh sách hoạt động phục vụ cộng đồng sinh viên đã tham gia gần đây.</p>
+                <p className='font-semibold'>Danh sách hoạt động phục vụ cộng đồng sinh viên đã tham gia gần đây.</p>
                 <div>Xem tất cả</div>
               </div>
             </div>

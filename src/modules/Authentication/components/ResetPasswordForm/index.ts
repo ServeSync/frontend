@@ -1,3 +1,3 @@
-import ResetPassword from '../../pages/ResetPassword'
+import ResetPasswordForm from './ResetPasswordForm'
 
-export default ResetPassword
+export default ResetPasswordForm

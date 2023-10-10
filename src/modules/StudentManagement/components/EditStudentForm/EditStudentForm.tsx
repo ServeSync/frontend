@@ -1,17 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useEffect } from 'react'
-import { StudentType } from '../../interfaces/student.type'
-import { EducationProgramType } from '../../interfaces/education_program.type'
-import { FacultyType } from '../../interfaces/faculty.type'
-import { HomeRoomType } from '../../interfaces/home_room.type'
 import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form'
-import InputFile from 'src/modules/Share/components/InputFile'
-import { FormStudentType } from '../../utils/rules'
-import { formatDateTime } from 'src/modules/Share/utils/utils'
-import Input from 'src/modules/Share/components/Input'
 import classNames from 'classnames'
+import { FormStudentType } from '../../utils/rules'
+import { EducationProgramType, FacultyType, HomeRoomType, StudentType } from '../../interfaces'
+import { formatDateTime } from 'src/modules/Share/utils'
+import InputImage from 'src/modules/Share/components/InputImage'
+import Input from 'src/modules/Share/components/Input'
 import Select from 'src/modules/Share/components/Select'
-import { gender } from '../../constants/gender_options'
 import Button from 'src/modules/Share/components/Button'
+import { gender } from '../../constants'
 
 interface Props {
   register: UseFormRegister<FormStudentType>
@@ -21,11 +19,9 @@ interface Props {
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
   homeRooms: HomeRoomType[]
-  homeRoomsShow: HomeRoomType[]
   handleDeleteStudent: (id: string) => void
   isLoading: boolean
   onChange: (file?: File) => void
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeSelection: (event: React.ChangeEvent<HTMLSelectElement>, name: any) => void
   previewImage: string
   isLoadingEdit: boolean
@@ -39,7 +35,6 @@ const EditStudentForm = ({
   educationPrograms,
   faculties,
   homeRooms,
-  homeRoomsShow,
   handleDeleteStudent,
   isLoading,
   onChange,
@@ -48,7 +43,12 @@ const EditStudentForm = ({
   isLoadingEdit
 }: Props) => {
   useEffect(() => {
-    if (faculties && educationPrograms && student && homeRoomsShow) {
+    if (homeRooms && student) {
+      setValue('homeRoomId', student.homeRoomId)
+    }
+  }, [homeRooms, student, setValue])
+  useEffect(() => {
+    if (faculties && educationPrograms && student) {
       setValue('code', student.code)
       setValue('fullName', student.fullName)
       setValue('email', student.email)
@@ -58,19 +58,18 @@ const EditStudentForm = ({
       setValue('homeTown', student.homeTown)
       setValue('address', student.address)
       setValue('citizenId', student.citizenId)
-      setValue('homeRoomId', student.homeRoomId)
       setValue('facultyId', student.facultyId)
       setValue('educationProgramId', student.educationProgramId)
       setValue('imageUrl', student.imageUrl)
     }
-  }, [student, faculties, educationPrograms, homeRoomsShow, setValue])
+  }, [student, faculties, educationPrograms, setValue])
 
   return (
     <Fragment>
       <div className='grid grid-cols-6 gap-6 '>
         <div className='col-span-1'>
           <div className='flex flex-col items-center justify-center '>
-            <InputFile register={register} onChange={onChange} previewImage={previewImage} student={student} />
+            <InputImage register={register} onChange={onChange} previewImage={previewImage} student={student} />
           </div>
         </div>
         <div className='col-span-5 grid grid-cols-3 gap-x-6 gap-y-1 text-[14px]'>
@@ -89,7 +88,7 @@ const EditStudentForm = ({
           />
           <Input
             register={register}
-            id='fullname'
+            id='fullName'
             name='fullName'
             label='Họ và tên'
             placeholder='Nhập họ và tên'
@@ -212,6 +211,7 @@ const EditStudentForm = ({
             classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
               'border-red-600 outline-red-600': errors.homeRoomId?.message !== '' && errors.homeRoomId
             })}
+            defaultOptions='Chọn lớp sinh hoạt'
             options={homeRooms}
             error={errors.homeRoomId?.message}
             onChange={(e) => onChangeSelection(e, 'homeRoomId')}
