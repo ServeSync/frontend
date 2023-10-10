@@ -14,7 +14,7 @@ class DeleteStudentCommandHandler {
     })
   }
 
-  handle = async (id: string, handleSuccess: any, handleError: any) => {
+  handle = (id: string, handleSuccess: any, handleError: any) => {
     return this._deleteStudentMutation.mutate(id, {
       onSuccess: () => {
         this._queryClient.invalidateQueries({
