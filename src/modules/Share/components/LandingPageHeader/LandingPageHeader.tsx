@@ -61,6 +61,12 @@ const LandingPageHeader = () => {
         <div className='lg:hidden fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center'>
           <div className='bg-white w-[50%] max-md:w-[35%]  h-full transform translate-x-full transition-transform duration-300 flex flex-col'>
             <div className=' mt-4 ml-3 flex items-center gap-12'>
+              <Link
+                to={path.login}
+                className='text-white cursor-pointer transition-all duration-300 no-underline px-4 py-4 bg-[#5D50C6] rounded-lg '
+              >
+                Đăng nhập
+              </Link>
               <button
                 className='text-[2.8rem] transition-all hover:text-[#26C6DA] lg:hidden space-y-4'
                 onClick={handleMenuToggle}
@@ -78,12 +84,6 @@ const LandingPageHeader = () => {
                   <path d='M4 18l16 0'></path>
                 </svg>
               </button>
-              <Link
-                to={path.login}
-                className='text-white cursor-pointer transition-all duration-300 no-underline px-4 py-4 bg-[#5D50C6] rounded-lg '
-              >
-                Đăng nhập
-              </Link>
             </div>
 
             <ul className='flex flex-col font-medium mt-4 rounded-lg bg-gray-50  text-[#191825]/50'>
@@ -93,7 +93,7 @@ const LandingPageHeader = () => {
                   classNames(
                     'cursor-pointer transition-all duration-300 hover:text-[#26C6DA] py-4 pl-3 pr-4 flex items-center gap-2',
                     {
-                      'text-[#26C6DA] bg-slate-500': isActive
+                      'text-[#26C6DA] bg-slate-300': isActive
                     }
                   )
                 }

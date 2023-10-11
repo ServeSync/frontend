@@ -15,7 +15,7 @@ export default function EventRating({
   }
 
   return (
-    <div className='flex items-center text-[#FF5722] justify-center gap-1'>
+    <div className='flex items-center text-[#FF5722] justify-center gap-1 text-[14px]'>
       {rating}
       <div className='relative'>
         <div className='absolute top-0 left-0 h-full overflow-hidden' style={{ width: handleWidth(rating) }}>

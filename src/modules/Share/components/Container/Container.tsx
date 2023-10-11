@@ -1,35 +1,43 @@
+/* eslint-disable import/no-unresolved */
 import { Link } from 'react-router-dom'
 import path from '../../constants/path'
 import {} from '@material-tailwind/react'
-import EventRating from '../EventRating/EventRating'
-import { useState } from 'react'
-const Container = () => {
-  const [slider1Position, setSlider1Position] = useState(0)
-  const [slider2Position, setSlider2Position] = useState(0)
-  const [numberOfItems] = useState(3)
+import CardEvent from '../CardEvent'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import SwiperCore from 'swiper'
+import { Navigation, Pagination } from 'swiper/modules'
 
-  const handleSlide1 = (direction: string) => {
-    if (direction === 'left') {
-      if (slider1Position > 0) {
-        setSlider1Position(slider1Position - 1)
-      }
-    } else if (direction === 'right') {
-      if (slider1Position < numberOfItems - 1) {
-        setSlider1Position(slider1Position + 1)
-      }
-    }
-  }
-  const handleSlide2 = (direction: string) => {
-    if (direction === 'left') {
-      if (slider2Position > 0) {
-        setSlider2Position(slider2Position - 1)
-      }
-    } else if (direction === 'right') {
-      if (slider2Position < numberOfItems - 1) {
-        setSlider2Position(slider2Position + 1)
-      }
-    }
-  }
+SwiperCore.use([Navigation, Pagination])
+const Container = () => {
+  // const [slider1Position, setSlider1Position] = useState(0)
+  // const [slider2Position, setSlider2Position] = useState(0)
+  // const [numberOfItems] = useState(3)
+
+  // const handleSlide1 = (direction: string) => {
+  //   if (direction === 'left') {
+  //     if (slider1Position > 0) {
+  //       setSlider1Position(slider1Position - 1)
+  //     }
+  //   } else if (direction === 'right') {
+  //     if (slider1Position < numberOfItems) {
+  //       setSlider1Position(slider1Position + 1)
+  //     }
+  //   }
+  // }
+  // const handleSlide2 = (direction: string) => {
+  //   if (direction === 'left') {
+  //     if (slider2Position > 0) {
+  //       setSlider2Position(slider2Position - 1)
+  //     }
+  //   } else if (direction === 'right') {
+  //     if (slider2Position < numberOfItems) {
+  //       setSlider2Position(slider2Position + 1)
+  //     }
+  //   }
+  // }
+
   return (
     <div className='flex flex-col mb-[200px] '>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center max-w-screen-xl w-full py-8 px-4 m-auto '>
@@ -198,718 +206,196 @@ const Container = () => {
           </div>
         </div>
       </div>
-      <div className='flex flex-col gap-20 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
-        <div className='flex max-md:flex-col gap-10 justify-between items-center'>
-          <div className='flex flex-col gap-4'>
-            <div className='text-[#F85E9F] uppercase text-[44px] font-normal leading-10 tracking-[8px] break-words'>
-              Sự kiện thành công
-            </div>
-            <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện được đánh giá cao nhất</div>
+      <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
+        <div className='flex flex-col gap-4'>
+          <div className='text-[#F85E9F] uppercase text-[44px] font-normal tracking-[8px] break-words'>
+            Sự kiện thành công
           </div>
-          <div className='flex gap-5'>
-            <button className='p-8 rounded-full border border-[#1918251a]' onClick={() => handleSlide1('left')}>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-6 h-6'
-              >
-                <path strokeLinecap='round' strokeLinejoin='round' d='M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18' />
-              </svg>
-            </button>
-            <button className='p-8 rounded-full bg-[#26C6DA] text-white' onClick={() => handleSlide1('right')}>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-6 h-6'
-              >
-                <path strokeLinecap='round' strokeLinejoin='round' d='M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3' />
-              </svg>
-            </button>
-          </div>
+          <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện được đánh giá cao nhất</div>
         </div>
-        <div className='overflow-hidden py-4 w-full'>
-          <div
-            id='slider'
-            className='flex gap-16 items-center flex-nowrap transition-all transform '
-            style={{ transform: `translateX(-${slider1Position * 35}%)` }}
+        <div className='overflow-hidden py-10 w-full '>
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            navigation={true}
+            pagination={{ clickable: true }}
+            modules={[Pagination, Navigation]}
+            className=' px-6 !overflow-visible flex'
           >
-            <div className='min-w-[30%] shadow-lg rounded-3xl'>
-              <div className='px-4 py-6'>
-                <img
-                  src='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                  alt='ui/ux review check'
-                  className='rounded-2xl border'
-                />
-              </div>
-              <div className='px-6 pb-8'>
-                <div className='mb-3 flex items-center justify-between'>
-                  <div className='font-normal text-[23px] leading-7 break-words'>Mùa hè xanh</div>
-                  <div className='flex items-center justify-center gap-1.5 font-normal'>
-                    <span className='text-[#26C6DA] text-[23px] font-normal leading-7 break-words'>100</span>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z'
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div className=''>Đại học bách khoa Đà Nẵng</div>
-                <div className='mt-8 flex flex-col gap-4'>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z' />
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>Thừa Thiên Huế</span>
-                  </div>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>
-                      22/09/2023 - 23/09/2023
-                    </span>
-                  </div>
-                </div>
-                <div className='flex justify-between mt-6'>
-                  <EventRating rating={4.8} />
-                  <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
-                    <span className='text-[#F93232] text-[12px] font-normal leading-5 break-words'>Đã kết thúc</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='min-w-[30%] shadow-lg rounded-3xl'>
-              <div className='px-4 py-6'>
-                <img
-                  src='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                  alt='ui/ux review check'
-                  className='rounded-2xl border'
-                />
-              </div>
-              <div className='px-6 pb-8'>
-                <div className='mb-3 flex items-center justify-between'>
-                  <div className='font-normal text-[23px] leading-7 break-words'>Mùa hè xanh</div>
-                  <div className='flex items-center justify-center gap-1.5 font-normal'>
-                    <span className='text-[#26C6DA] text-[23px] font-normal leading-7 break-words'>100</span>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z'
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div className=''>Đại học bách khoa Đà Nẵng</div>
-                <div className='mt-8 flex flex-col gap-4'>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z' />
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>Thừa Thiên Huế</span>
-                  </div>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>
-                      22/09/2023 - 23/09/2023
-                    </span>
-                  </div>
-                </div>
-                <div className='flex justify-between mt-6'>
-                  <EventRating rating={4.8} />
-                  <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
-                    <span className='text-[#F93232] text-[12px] font-normal leading-5 break-words'>Đã kết thúc</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='min-w-[30%] shadow-lg rounded-3xl'>
-              <div className='px-4 py-6'>
-                <img
-                  src='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                  alt='ui/ux review check'
-                  className='rounded-2xl border'
-                />
-              </div>
-              <div className='px-6 pb-8'>
-                <div className='mb-3 flex items-center justify-between'>
-                  <div className='font-normal text-[23px] leading-7 break-words'>Mùa hè xanh</div>
-                  <div className='flex items-center justify-center gap-1.5 font-normal'>
-                    <span className='text-[#26C6DA] text-[23px] font-normal leading-7 break-words'>100</span>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z'
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div className=''>Đại học bách khoa Đà Nẵng</div>
-                <div className='mt-8 flex flex-col gap-4'>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z' />
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>Thừa Thiên Huế</span>
-                  </div>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>
-                      22/09/2023 - 23/09/2023
-                    </span>
-                  </div>
-                </div>
-                <div className='flex justify-between mt-6'>
-                  <EventRating rating={4.8} />
-                  <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
-                    <span className='text-[#F93232] text-[12px] font-normal leading-5 break-words'>Đã kết thúc</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='min-w-[30%] shadow-lg rounded-3xl'>
-              <div className='px-4 py-6'>
-                <img
-                  src='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                  alt='ui/ux review check'
-                  className='rounded-2xl border'
-                />
-              </div>
-              <div className='px-6 pb-8'>
-                <div className='mb-3 flex items-center justify-between'>
-                  <div className='font-normal text-[23px] leading-7 break-words'>Mùa hè xanh</div>
-                  <div className='flex items-center justify-center gap-1.5 font-normal'>
-                    <span className='text-[#26C6DA] text-[23px] font-normal leading-7 break-words'>100</span>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z'
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div className=''>Đại học bách khoa Đà Nẵng</div>
-                <div className='mt-8 flex flex-col gap-4'>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z' />
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>Thừa Thiên Huế</span>
-                  </div>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>
-                      22/09/2023 - 23/09/2023
-                    </span>
-                  </div>
-                </div>
-                <div className='flex justify-between mt-6'>
-                  <EventRating rating={4.8} />
-                  <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
-                    <span className='text-[#F93232] text-[12px] font-normal leading-5 break-words'>Đã kết thúc</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <SwiperSlide>
+              <CardEvent
+                rating={4.8}
+                imgUrl='https://tphcm.cdnchinhphu.vn/Uploads/images/2017/Novaland.jpg'
+                isEnded={true}
+                location='Huế'
+                member={100}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/09/2023 - 23/09/2023'
+                title='Mùa hè xanh'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CardEvent
+                rating={4.8}
+                imgUrl='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                isEnded={true}
+                location='Huế'
+                member={100}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/09/2023 - 23/09/2023'
+                title='Gặp em trên bản'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CardEvent
+                rating={4.8}
+                imgUrl='https://tphcm.cdnchinhphu.vn/Uploads/images/2017/Novaland.jpg'
+                isEnded={true}
+                location='Huế'
+                member={100}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/09/2023 - 23/09/2023'
+                title='Mùa hè xanh'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CardEvent
+                rating={3.2}
+                imgUrl='https://img.dantocmiennui.vn/t620/uploaded/usizh/2022_03_28/sl1.jpg'
+                isEnded={true}
+                location='Đà Nẵng'
+                member={200}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/10/2023 - 23/10/2023'
+                title='Hỗ trợ trẻ em '
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CardEvent
+                rating={4.2}
+                imgUrl='https://nld.mediacdn.vn/291774122806476800/2022/2/10/hud-16444803531531434048709.jpg'
+                isEnded={true}
+                location='Đà Nẵng'
+                member={200}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/10/2023 - 23/10/2023'
+                title='Làm sạch bãi biển'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CardEvent
+                rating={4.2}
+                imgUrl='https://nld.mediacdn.vn/291774122806476800/2022/2/10/hud-16444803531531434048709.jpg'
+                isEnded={true}
+                location='Đà Nẵng'
+                member={200}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/10/2023 - 23/10/2023'
+                title='Làm sạch bãi biển'
+              />
+            </SwiperSlide>
+          </Swiper>
         </div>
         <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>
       </div>
-      <div className='flex flex-col gap-20 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
-        <div className='flex max-md:flex-col gap-10 justify-between items-center'>
-          <div className='flex flex-col gap-4'>
-            <div className='text-[#F85E9F] uppercase text-[44px] font-normal leading-10 tracking-[8px] break-words'>
-              Sự kiện gần đây
-            </div>
-            <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện diễn ra gần đây</div>
+      <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
+        <div className='flex flex-col gap-4'>
+          <div className='text-[#F85E9F] uppercase text-[44px] font-normal tracking-[8px] break-words'>
+            Sự kiện gần đây
           </div>
-          <div className='flex gap-5'>
-            <button className='p-8 rounded-full border border-[#1918251a]' onClick={() => handleSlide2('left')}>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-6 h-6'
-              >
-                <path strokeLinecap='round' strokeLinejoin='round' d='M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18' />
-              </svg>
-            </button>
-            <button className='p-8 rounded-full bg-[#26C6DA] text-white' onClick={() => handleSlide2('right')}>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-6 h-6'
-              >
-                <path strokeLinecap='round' strokeLinejoin='round' d='M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3' />
-              </svg>
-            </button>
-          </div>
+          <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện diễn ra gần đây</div>
         </div>
-        <div className='overflow-hidden py-4 w-full'>
-          <div
-            id='slider'
-            className='flex gap-16 items-center flex-nowrap transition-all transform '
-            style={{ transform: `translateX(-${slider2Position * 35}%)` }}
+        <div className='overflow-hidden py-10 w-full '>
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            navigation={true}
+            pagination={{ clickable: true }}
+            modules={[Pagination, Navigation]}
+            className=' px-6 !overflow-visible flex'
           >
-            <div className='min-w-[30%] shadow-lg rounded-3xl'>
-              <div className='px-4 py-6'>
-                <img
-                  src='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                  alt='ui/ux review check'
-                  className='rounded-2xl border'
-                />
-              </div>
-              <div className='px-6 pb-8'>
-                <div className='mb-3 flex items-center justify-between'>
-                  <div className='font-normal text-[23px] leading-7 break-words'>Mùa hè xanh</div>
-                  <div className='flex items-center justify-center gap-1.5 font-normal'>
-                    <span className='text-[#26C6DA] text-[23px] font-normal leading-7 break-words'>100</span>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z'
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div className=''>Đại học bách khoa Đà Nẵng</div>
-                <div className='mt-8 flex flex-col gap-4'>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z' />
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>Thừa Thiên Huế</span>
-                  </div>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>
-                      22/09/2023 - 23/09/2023
-                    </span>
-                  </div>
-                </div>
-                <div className='flex justify-between mt-6'>
-                  <EventRating rating={4.8} />
-                  <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
-                    <span className='text-[#F93232] text-[12px] font-normal leading-5 break-words'>Đã kết thúc</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='min-w-[30%] shadow-lg rounded-3xl'>
-              <div className='px-4 py-6'>
-                <img
-                  src='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                  alt='ui/ux review check'
-                  className='rounded-2xl border'
-                />
-              </div>
-              <div className='px-6 pb-8'>
-                <div className='mb-3 flex items-center justify-between'>
-                  <div className='font-normal text-[23px] leading-7 break-words'>Mùa hè xanh</div>
-                  <div className='flex items-center justify-center gap-1.5 font-normal'>
-                    <span className='text-[#26C6DA] text-[23px] font-normal leading-7 break-words'>100</span>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z'
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div className=''>Đại học bách khoa Đà Nẵng</div>
-                <div className='mt-8 flex flex-col gap-4'>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z' />
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>Thừa Thiên Huế</span>
-                  </div>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>
-                      22/09/2023 - 23/09/2023
-                    </span>
-                  </div>
-                </div>
-                <div className='flex justify-between mt-6'>
-                  <EventRating rating={4.8} />
-                  <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
-                    <span className='text-[#F93232] text-[12px] font-normal leading-5 break-words'>Đã kết thúc</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='min-w-[30%] shadow-lg rounded-3xl'>
-              <div className='px-4 py-6'>
-                <img
-                  src='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                  alt='ui/ux review check'
-                  className='rounded-2xl border'
-                />
-              </div>
-              <div className='px-6 pb-8'>
-                <div className='mb-3 flex items-center justify-between'>
-                  <div className='font-normal text-[23px] leading-7 break-words'>Mùa hè xanh</div>
-                  <div className='flex items-center justify-center gap-1.5 font-normal'>
-                    <span className='text-[#26C6DA] text-[23px] font-normal leading-7 break-words'>100</span>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z'
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div className=''>Đại học bách khoa Đà Nẵng</div>
-                <div className='mt-8 flex flex-col gap-4'>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z' />
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>Thừa Thiên Huế</span>
-                  </div>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>
-                      22/09/2023 - 23/09/2023
-                    </span>
-                  </div>
-                </div>
-                <div className='flex justify-between mt-6'>
-                  <EventRating rating={4.8} />
-                  <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
-                    <span className='text-[#F93232] text-[12px] font-normal leading-5 break-words'>Đã kết thúc</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='min-w-[30%] shadow-lg rounded-3xl'>
-              <div className='px-4 py-6'>
-                <img
-                  src='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                  alt='ui/ux review check'
-                  className='rounded-2xl border'
-                />
-              </div>
-              <div className='px-6 pb-8'>
-                <div className='mb-3 flex items-center justify-between'>
-                  <div className='font-normal text-[23px] leading-7 break-words'>Mùa hè xanh</div>
-                  <div className='flex items-center justify-center gap-1.5 font-normal'>
-                    <span className='text-[#26C6DA] text-[23px] font-normal leading-7 break-words'>100</span>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z'
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div className=''>Đại học bách khoa Đà Nẵng</div>
-                <div className='mt-8 flex flex-col gap-4'>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z' />
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>Thừa Thiên Huế</span>
-                  </div>
-                  <div className='flex items-center gap-1'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
-                      />
-                    </svg>
-                    <span className='text-[15px] text-[#A0A2A4] font-normal leading-4 break-words'>
-                      22/09/2023 - 23/09/2023
-                    </span>
-                  </div>
-                </div>
-                <div className='flex justify-between mt-6'>
-                  <EventRating rating={4.8} />
-                  <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
-                    <span className='text-[#F93232] text-[12px] font-normal leading-5 break-words'>Đã kết thúc</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <SwiperSlide>
+              <CardEvent
+                rating={4.8}
+                imgUrl='https://tphcm.cdnchinhphu.vn/Uploads/images/2017/Novaland.jpg'
+                isEnded={true}
+                location='Huế'
+                member={100}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/09/2023 - 23/09/2023'
+                title='Mùa hè xanh'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CardEvent
+                rating={4.8}
+                imgUrl='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                isEnded={true}
+                location='Huế'
+                member={100}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/09/2023 - 23/09/2023'
+                title='Gặp em trên bản'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CardEvent
+                rating={4.8}
+                imgUrl='https://tphcm.cdnchinhphu.vn/Uploads/images/2017/Novaland.jpg'
+                isEnded={true}
+                location='Huế'
+                member={100}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/09/2023 - 23/09/2023'
+                title='Mùa hè xanh'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CardEvent
+                rating={3.2}
+                imgUrl='https://img.dantocmiennui.vn/t620/uploaded/usizh/2022_03_28/sl1.jpg'
+                isEnded={true}
+                location='Đà Nẵng'
+                member={200}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/10/2023 - 23/10/2023'
+                title='Hỗ trợ trẻ em '
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CardEvent
+                rating={4.2}
+                imgUrl='https://nld.mediacdn.vn/291774122806476800/2022/2/10/hud-16444803531531434048709.jpg'
+                isEnded={true}
+                location='Đà Nẵng'
+                member={200}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/10/2023 - 23/10/2023'
+                title='Làm sạch bãi biển'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CardEvent
+                rating={4.2}
+                imgUrl='https://nld.mediacdn.vn/291774122806476800/2022/2/10/hud-16444803531531434048709.jpg'
+                isEnded={true}
+                location='Đà Nẵng'
+                member={200}
+                organizational='Đại học bách khoa Đà Nẵng'
+                time='22/10/2023 - 23/10/2023'
+                title='Làm sạch bãi biển'
+              />
+            </SwiperSlide>
+          </Swiper>
         </div>
         <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>
       </div>
       <div className='flex flex-col justify-center items-center py-8 px-4 m-auto max-w-screen-xl mt-20'>
-        <div className='w-full h-full px-40 py-12 inline-flex justify-center items-center relative'>
+        <div className='w-full h-full lg:px-40 py-12 inline-flex justify-center items-center relative'>
           <div className='text-center text-[44px] font-normal leading-[52px] break-words'>
             Tham gia cùng chúng mình để cùng tay tạo nên các khoảnh khắc đáng nhớ nhé!
           </div>
-          <div className='w-[50%] h-[50%] bg-[#26C6DA]/50 shadow-xl blur-[200px] absolute top-20'></div>
+          <div className='w-[50%] h-[50%] bg-[#26C6DA]/80 shadow-xl blur-[150px] absolute top-20'></div>
         </div>
         <div className=' mx-auto px-5 py-2 lg:px-32 lg:pt-24'>
           <div className='-m-1 flex flex-wrap md:-m-2'>
