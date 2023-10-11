@@ -1,1 +1,1 @@
-export * from './educationPrograms.query'
+export * from './getAllEducationPrograms.query'

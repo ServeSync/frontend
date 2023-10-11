@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import { CreateStudentCommandHandler, GetAllEducationProgramQuery, GetAllFacultyQuery } from '../../services'
+import { CreateStudentCommandHandler, GetAllEducationProgramsQuery, GetAllFacultiesQuery } from '../../services'
 import path from 'src/modules/Share/constants/path'
 import { handleError } from 'src/modules/Share/utils'
 import CreateStudentForm from '../../components/CreateStudentForm'
@@ -24,11 +24,11 @@ const CreateStudent = () => {
 
   const navigate = useNavigate()
 
-  const getAllFacultyQuery = new GetAllFacultyQuery()
-  const faculties = getAllFacultyQuery.fetch()
+  const getAllFacultiesQuery = new GetAllFacultiesQuery()
+  const faculties = getAllFacultiesQuery.fetch()
 
-  const getAllEducationProgramQuery = new GetAllEducationProgramQuery()
-  const educationPrograms = getAllEducationProgramQuery.fetch()
+  const getAllEducationProgramsQuery = new GetAllEducationProgramsQuery()
+  const educationPrograms = getAllEducationProgramsQuery.fetch()
 
   const {
     register,

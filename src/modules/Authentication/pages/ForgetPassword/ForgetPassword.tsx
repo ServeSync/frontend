@@ -7,7 +7,6 @@ import Swal from 'sweetalert2'
 import { FormForgetPasswordSchema, FormForgetPasswordType } from '../../utils'
 import { handleError } from 'src/modules/Share/utils'
 import { ForgetPasswordCommandHandler } from '../../services'
-import connect from 'src/modules/Share/constants/connect'
 import ForgetPasswordForm from '../../components/ForgetPasswordForm'
 
 const ForgetPassword = () => {
@@ -24,10 +23,7 @@ const ForgetPassword = () => {
 
   const handleSubmitForm = handleSubmit((data) => {
     forgetPasswordCommandHandler.handle(
-      {
-        userNameOrEmail: data.userNameOrEmail,
-        callBackUrl: connect.callBackUrl
-      },
+      data,
       () => {
         Swal.fire('Thành công !', 'Vui lòng kiểm tra email để lấy lại mật khẩu !', 'success')
       },

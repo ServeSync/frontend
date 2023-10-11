@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react'
 import useQueryRoleConfig from '../../hooks/useQueryRoleConfig'
 import {
   EditPermissionsByRoleIdCommandHandler,
-  GetAllPermissionByRoleIdQuery,
-  GetAllPermissionQuery,
+  GetAllPermissionsByRoleIdQuery,
+  GetAllPermissionsQuery,
   GetRoleQuery
 } from '../../services'
 import { FormPermissionSchema, FormPermissionType, FormRoleType } from '../../utils'
@@ -29,13 +29,13 @@ const Permission = ({ onDeleteRole }: Props) => {
 
   const queryRoleConfig = useQueryRoleConfig()
 
-  const getAllPermissionQuery = new GetAllPermissionQuery()
-  const permissions = getAllPermissionQuery.fetch()
+  const getAllPermissionsQuery = new GetAllPermissionsQuery()
+  const permissions = getAllPermissionsQuery.fetch()
 
-  const getAllPermissionByRoleIdQuery = new GetAllPermissionByRoleIdQuery()
-  const permissionsOfRole = getAllPermissionByRoleIdQuery.fetch()
+  const getAllPermissionsByRoleIdQuery = new GetAllPermissionsByRoleIdQuery(queryRoleConfig.id as string)
+  const permissionsOfRole = getAllPermissionsByRoleIdQuery.fetch()
 
-  const getRoleQuery = new GetRoleQuery()
+  const getRoleQuery = new GetRoleQuery(queryRoleConfig.id as string)
   const role = getRoleQuery.fetch()
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const Permission = ({ onDeleteRole }: Props) => {
         checkboxValues={checkboxValues}
         permissions={permissions}
         isEditPermissions={isEditPermissions}
-        isLoading={getAllPermissionQuery.isLoading()}
+        isLoading={getAllPermissionsQuery.isLoading()}
         isLoadingEdit={editPermissionsByRoleIdCommandHandler.isLoading()}
         onChangeCheckbox={handleCheckboxChange}
         onCancel={handleCancel}

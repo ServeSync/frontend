@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from 'classnames'
 import { Fragment, useState } from 'react'
 import { UseFormRegister, FieldErrors, UseFormSetError } from 'react-hook-form'
 import { FormStudentType } from '../../utils/rules'
 import { EducationProgramType, FacultyType } from '../../interfaces'
-import { GetAllHomeRoomByFacultyIdQuery } from '../../services'
+import { GetAllHomeRoomsByFacultyIdQuery } from '../../services'
 import InputImage from 'src/modules/Share/components/InputImage'
 import Input from 'src/modules/Share/components/Input'
 import Select from 'src/modules/Share/components/Select'
@@ -35,10 +36,9 @@ const CreateStudentForm = ({
 }: Props) => {
   const [facultyId, setFacultyId] = useState<string>('')
 
-  const homeRoomByFacultyIdQuery = new GetAllHomeRoomByFacultyIdQuery(facultyId)
-  const homeRooms = homeRoomByFacultyIdQuery.fetch()
+  const getAllHomeRoomsByFacultyIdQuery = new GetAllHomeRoomsByFacultyIdQuery(facultyId)
+  const homeRooms = getAllHomeRoomsByFacultyIdQuery.fetch()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeSelection = (event: React.ChangeEvent<HTMLSelectElement>, name: any) => {
     if (name == 'facultyId') {
       setFacultyId(event.target.value)
@@ -70,7 +70,7 @@ const CreateStudentForm = ({
           />
           <Input
             register={register}
-            id='fullname'
+            id='fullName'
             name='fullName'
             label='Họ và tên'
             placeholder='Nhập họ và tên'

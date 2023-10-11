@@ -9,6 +9,8 @@ import path from '../../constants/path'
 import Button from '../Button'
 import Popover from '../Popover'
 import { GetStudentQuery } from 'src/modules/StudentManagement/services'
+import useQueryRoleConfig from 'src/modules/RoleManagement/hooks/useQueryRoleConfig'
+import useQueryStudentConfig from 'src/modules/StudentManagement/hooks/useQueryStudentConfig'
 
 export default function Header() {
   const [isOpenPopover, setIsOpenPopover] = useState(false)
@@ -17,15 +19,18 @@ export default function Header() {
 
   const navigate = useNavigate()
 
+  const queryRoleConfig = useQueryRoleConfig()
+  const queryStudentConfig = useQueryStudentConfig()
+
   const location = useLocation().pathname.split('/').slice(1)
 
   const getProfileQuery = new GetProfileQuery()
   const profile = getProfileQuery.fetch()
 
-  const getRoleQuery = new GetRoleQuery(location[0])
+  const getRoleQuery = new GetRoleQuery(queryRoleConfig.id as string, location[0])
   const role = getRoleQuery.fetch()
 
-  const getStudentQuery = new GetStudentQuery(location[0])
+  const getStudentQuery = new GetStudentQuery(queryStudentConfig.id as string, location[0])
   const student = getStudentQuery.fetch()
 
   const handleHeader = () => {

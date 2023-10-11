@@ -1,1 +1,1 @@
-export * from './permissions.query'
+export * from './getAllPermissions.query'

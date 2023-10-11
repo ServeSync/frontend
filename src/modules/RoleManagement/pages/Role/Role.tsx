@@ -10,7 +10,7 @@ import {
   CreateRoleCommandHandler,
   DeleteRoleCommandHandler,
   EditRoleCommandHandler,
-  GetAllRoleQuery,
+  GetAllRolesQuery,
   GetRoleQuery
 } from '../../services'
 import { FormRoleSchema, FormRoleType } from '../../utils'
@@ -19,16 +19,19 @@ import { handleError } from 'src/modules/Share/utils'
 import RoleForm from '../../components/RoleForm'
 import RoleTable from '../../components/RoleTable'
 import Permission from '../Permission'
+import useQueryRoleConfig from '../../hooks/useQueryRoleConfig'
 
 const Role = () => {
   const [isEditForm, setIsEditForm] = useState<boolean>(false)
 
   const navigate = useNavigate()
 
-  const getAllRoleQuery = new GetAllRoleQuery()
-  const roles = getAllRoleQuery.fetch()
+  const queryRoleConfig = useQueryRoleConfig()
 
-  const getRoleQuery = new GetRoleQuery()
+  const getAllRolesQuery = new GetAllRolesQuery()
+  const roles = getAllRolesQuery.fetch()
+
+  const getRoleQuery = new GetRoleQuery(queryRoleConfig.id as string)
   const role = getRoleQuery.fetch()
 
   const {
@@ -151,7 +154,7 @@ const Role = () => {
             roles={roles}
             onEditRole={onEditRole}
             roleID={role?.id as string}
-            isLoading={getAllRoleQuery.isLoading()}
+            isLoading={getAllRolesQuery.isLoading()}
           />
         </div>
         <div className='col-span-3'>

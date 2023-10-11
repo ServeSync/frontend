@@ -10,9 +10,9 @@ import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
 import {
   DeleteStudentCommandHandler,
   EditStudentCommandHandler,
-  GetAllEducationProgramQuery,
-  GetAllFacultyQuery,
-  GetAllHomeRoomByFacultyIdQuery,
+  GetAllEducationProgramsQuery,
+  GetAllFacultiesQuery,
+  GetAllHomeRoomsByFacultyIdQuery,
   GetStudentQuery
 } from '../../services'
 import { handleError } from 'src/modules/Share/utils'
@@ -41,7 +41,7 @@ const EditStudent = () => {
 
   const queryStudentConfig = useQueryStudentConfig()
 
-  const getStudentQuery = new GetStudentQuery()
+  const getStudentQuery = new GetStudentQuery(queryStudentConfig.id as string)
   const student = getStudentQuery.fetch()
 
   const [facultyId, setFacultyId] = useState<string>(student && student.facultyId)
@@ -52,14 +52,14 @@ const EditStudent = () => {
     }
   }, [student, setFacultyId])
 
-  const getAllEducationProgramQuery = new GetAllEducationProgramQuery()
-  const educationPrograms = getAllEducationProgramQuery.fetch()
+  const getAllEducationProgramsQuery = new GetAllEducationProgramsQuery()
+  const educationPrograms = getAllEducationProgramsQuery.fetch()
 
-  const getAllFacultyQuery = new GetAllFacultyQuery()
-  const faculties = getAllFacultyQuery.fetch()
+  const getAllFacultiesQuery = new GetAllFacultiesQuery()
+  const faculties = getAllFacultiesQuery.fetch()
 
-  const getAllHomeRoomByFacultyIdQuery = new GetAllHomeRoomByFacultyIdQuery(facultyId)
-  const homeRooms = getAllHomeRoomByFacultyIdQuery.fetch()
+  const getAllHomeRoomsByFacultyIdQuery = new GetAllHomeRoomsByFacultyIdQuery(facultyId)
+  const homeRooms = getAllHomeRoomsByFacultyIdQuery.fetch()
 
   const {
     register,
@@ -108,13 +108,19 @@ const EditStudent = () => {
       cancelButtonText: 'Hủy'
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteStudentCommandHandler.handle(id, () => {
-          Swal.fire('Đã xóa!', 'Sinh viên đã được xóa thành công', 'success')
-          navigate({
-            pathname: path.student,
-            search: createSearchParams(prevAccountConfig).toString()
-          })
-        })
+        deleteStudentCommandHandler.handle(
+          id,
+          () => {
+            Swal.fire('Đã xóa!', 'Sinh viên đã được xóa thành công', 'success')
+            navigate({
+              pathname: path.student,
+              search: createSearchParams(prevAccountConfig).toString()
+            })
+          },
+          (error: any) => {
+            handleError<FormStudentType>(error, setError)
+          }
+        )
       }
     })
   }

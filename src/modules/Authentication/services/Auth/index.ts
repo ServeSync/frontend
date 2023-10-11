@@ -1,3 +1,3 @@
-export * from './login.commandHandler'
-export * from './forgetPassword.commandHandler'
-export * from './resetPassword.commandHandler'
+export * from './login.command-handler'
+export * from './forgetPassword.command-handler'
+export * from './resetPassword.command-handler'

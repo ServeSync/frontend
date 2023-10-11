@@ -8,10 +8,10 @@ import { isEmpty, omitBy } from 'lodash'
 import { toast } from 'react-toastify'
 import Swal from 'sweetalert2'
 import {
-  GetAllEducationProgramQuery,
-  GetAllFacultyQuery,
-  GetAllHomeRoomByFacultyIdQuery,
-  GetAllStudentQuery,
+  GetAllEducationProgramsQuery,
+  GetAllFacultiesQuery,
+  GetAllHomeRoomsByFacultyIdQuery,
+  GetAllStudentsQuery,
   ImportFileCommandHandler
 } from '../../services'
 import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
@@ -48,17 +48,17 @@ const Student = () => {
 
   const SortStudent = useSorting({ queryConfig: queryStudentConfig, pathname: path.student })
 
-  const getAllStudentQuery = new GetAllStudentQuery()
-  const students = getAllStudentQuery.fetch()
+  const getAllStudentsQuery = new GetAllStudentsQuery()
+  const students = getAllStudentsQuery.fetch()
 
-  const getAllEducationProgramQuery = new GetAllEducationProgramQuery()
-  const educationPrograms = getAllEducationProgramQuery.fetch()
+  const getAllEducationProgramsQuery = new GetAllEducationProgramsQuery()
+  const educationPrograms = getAllEducationProgramsQuery.fetch()
 
-  const getAllFacultyQuery = new GetAllFacultyQuery()
-  const faculties = getAllFacultyQuery.fetch()
+  const getAllFacultiesQuery = new GetAllFacultiesQuery()
+  const faculties = getAllFacultiesQuery.fetch()
 
-  const getAllHomeRoomByFacultyIdQuery = new GetAllHomeRoomByFacultyIdQuery(facultyId)
-  const homeRooms = getAllHomeRoomByFacultyIdQuery.fetch()
+  const getAllHomeRoomsByFacultyIdQuery = new GetAllHomeRoomsByFacultyIdQuery(facultyId)
+  const homeRooms = getAllHomeRoomsByFacultyIdQuery.fetch()
 
   const onEditStudent = (id: string) => {
     navigate(
@@ -227,12 +227,12 @@ const Student = () => {
           students={students}
           onEditStudent={onEditStudent}
           onSort={SortStudent.handleSort}
-          isLoading={getAllStudentQuery.isLoading()}
+          isLoading={getAllStudentsQuery.isLoading()}
         />
         <div className='flex justify-end'>
           <Pagination
             queryConfig={queryStudentConfig}
-            pageSize={getAllStudentQuery.getTotalPages()}
+            pageSize={getAllStudentsQuery.getTotalPages()}
             pathname={path.student}
           />
         </div>

@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import useQueryTokenConfig from '../../hooks/useQueryTokenConfig'
 import { FormResetPasswordSchema, FormResetPasswordType } from '../../utils'
 import { ResetPasswordCommandHandler } from '../../services'
 import path from 'src/modules/Share/constants/path'
@@ -13,8 +12,6 @@ import { handleError } from 'src/modules/Share/utils'
 import ResetPasswordForm from '../../components/ResetPasswordForm'
 
 export default function ResetPassword() {
-  const queryTokenConfig = useQueryTokenConfig()
-
   const navigate = useNavigate()
 
   const {
@@ -29,7 +26,7 @@ export default function ResetPassword() {
 
   const handleSubmitForm = handleSubmit((data) => {
     resetPasswordCommandHandler.handle(
-      { token: queryTokenConfig.token as string, newPassword: data.newPassword },
+      data.newPassword,
       () => {
         toast.success('Đổi mật khẩu thành công !'), navigate(path.login)
       },

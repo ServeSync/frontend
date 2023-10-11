@@ -1,1 +1,1 @@
-export * from './faculties.query'
+export * from './getAllFaculties.query'
