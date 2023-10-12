@@ -44,7 +44,7 @@ export default function Header() {
   const handleLogout = () => {
     setIsAuthenticated(false)
     clearTokenFromLocalStorage()
-    navigate(path.login)
+    navigate(path.landingpage)
   }
 
   return (

@@ -1,4 +1,5 @@
 const connect = {
-  baseUrl: 'http://20.42.93.128/api/'
+  baseUrl: 'http://localhost:5000/api/',
+  callBackUrl: 'http://localhost:4000/resetPassword'
 } as const
 export default connect
