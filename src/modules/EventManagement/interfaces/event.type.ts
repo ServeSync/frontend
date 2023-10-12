@@ -5,3 +5,11 @@ export interface EventsListType {
 }
 
 export interface EventType {}
+
+export interface EventsListConfig {
+  id?: string
+  search?: string
+  sorting?: string
+  page?: number
+  size?: number
+}

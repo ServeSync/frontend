@@ -45,7 +45,7 @@ const Filter = ({ register, onResetForm, onChangeFaculty, educationPrograms, fac
         name='facultyId'
         label='Khoa'
         className='flex flex-col text-[15px]'
-        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded h-[48px]'
         defaultOptions='Chọn khoa'
         options={faculties}
         onChange={onChangeFaculty}
@@ -56,7 +56,7 @@ const Filter = ({ register, onResetForm, onChangeFaculty, educationPrograms, fac
         name='homeRoomId'
         label='Lớp'
         className='flex flex-col text-[15px]'
-        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded h-[48px]'
         defaultOptions='Chọn lớp sinh hoạt'
         options={homeRooms}
       />
@@ -66,7 +66,7 @@ const Filter = ({ register, onResetForm, onChangeFaculty, educationPrograms, fac
         name='educationProgramId'
         label='Hệ đào tạo'
         className='flex flex-col text-[15px]'
-        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded h-[48px]'
         defaultOptions='Chọn hệ đào tạo'
         options={educationPrograms}
       />
@@ -76,7 +76,7 @@ const Filter = ({ register, onResetForm, onChangeFaculty, educationPrograms, fac
         name='gender'
         label='Giới tính'
         className='flex flex-col text-[15px]'
-        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded h-[48px]'
         defaultOptions='Chọn giới tính'
         options={gender}
       />

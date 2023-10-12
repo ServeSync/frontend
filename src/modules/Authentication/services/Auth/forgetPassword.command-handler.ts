@@ -3,6 +3,7 @@
 import { useMutation } from '@tanstack/react-query'
 import authAPI from './auth.api'
 import connect from 'src/modules/Share/constants/connect'
+import { FormForgetPasswordType } from '../../utils'
 
 class ForgetPasswordCommandHandler {
   private _forgetPasswordMutation
@@ -13,7 +14,7 @@ class ForgetPasswordCommandHandler {
     })
   }
 
-  handle = (data: { userNameOrEmail: string }, handleSuccess: any, handleError: any) => {
+  handle = (data: FormForgetPasswordType, handleSuccess: any, handleError: any) => {
     return this._forgetPasswordMutation.mutate(
       {
         userNameOrEmail: data.userNameOrEmail,
