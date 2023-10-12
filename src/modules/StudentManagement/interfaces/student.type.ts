@@ -1,6 +1,4 @@
-import { EducationProgramType } from './education_program.type'
-import { FacultyType } from './faculty.type'
-import { HomeRoomType } from './home_room.type'
+import { EducationProgramType, FacultyType, HomeRoomType } from '.'
 
 export interface StudentsListType {
   total: number
@@ -44,7 +42,7 @@ export interface StudentType {
   facultyId: string
 }
 
-export interface StudentListConfig {
+export interface StudentsListConfig {
   homeRoomId?: string
   facultyId?: string
   educationProgramId?: string

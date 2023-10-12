@@ -1,15 +1,42 @@
-import { Fragment } from 'react'
-import { Helmet } from 'react-helmet-async'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import CreateEventForm from '../../components/CreateEventForm'
+import { FormEventSchema, FormEventType } from '../../utils'
+// import moment from 'moment-timezone'
 
-const CreateEvent = () => {
+interface Props {
+  page: number
+  index: number
+}
+
+const CreateEvent = ({ page, index }: Props) => {
+  const FormCreateEvent = useForm<FormEventType>({
+    resolver: yupResolver(FormEventSchema)
+  })
+
+  const handleSubmitFormCreateEvent = FormCreateEvent.handleSubmit((data) => {
+    console.log(data)
+    // const vietnamTime = moment(data.startTime).tz('Asia/Ho_Chi_Minh').format('HH:mm')
+    // const vietnamDate = moment(data.startDate).tz('Asia/Ho_Chi_Minh').format('DD/MM/YYYY')
+  })
+
+  const handleResetFormCreateEvent = () => {
+    FormCreateEvent.reset()
+  }
+
   return (
-    <Fragment>
-      <Helmet>
-        <title>Create Event</title>
-        <meta name='description' content='This is create event page of the project' />
-      </Helmet>
-      <div>Create Event</div>
-    </Fragment>
+    <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
+      {page === index && (
+        <form onSubmit={handleSubmitFormCreateEvent}>
+          <CreateEventForm
+            register={FormCreateEvent.register}
+            errors={FormCreateEvent.formState.errors}
+            control={FormCreateEvent.control}
+            handleResetForm={handleResetFormCreateEvent}
+          />
+        </form>
+      )}
+    </div>
   )
 }
 

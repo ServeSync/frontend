@@ -24,10 +24,10 @@ const RoleForm = ({ register, errors, isEditForm, onCreateRole, isLoading }: Pro
         name='name'
         placeholder='Nhập tên'
         className='relative'
-        classNameInput='w-full border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none'
+        classNameInput='w-full border-[2px] border-[#26C6DA] rounded py-2 pl-10 pr-4 outline-none h-[52px]'
         error={errors.name?.message}
       >
-        <div className='absolute left-[4px] top-[6px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
+        <div className='absolute left-[4px] top-[12px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'

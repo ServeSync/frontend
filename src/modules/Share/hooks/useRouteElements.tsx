@@ -19,7 +19,7 @@ const CreateStudent = lazy(() => import('src/modules/StudentManagement/pages/Cre
 const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditStudent'))
 
 const Event = lazy(() => import('src/modules/EventManagement/pages/Event'))
-const CreateEvent = lazy(() => import('src/modules/EventManagement/pages/CreateEvent'))
+const CreateEvent = lazy(() => import('src/modules/EventManagement/pages/CreateEventPage'))
 const EditEvent = lazy(() => import('src/modules/EventManagement/pages/EditEvent'))
 
 const RejectedRoute = () => {

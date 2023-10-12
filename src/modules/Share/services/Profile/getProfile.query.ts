@@ -9,7 +9,8 @@ class GetProfileQuery {
   constructor() {
     this._query = useQuery({
       queryKey: ['profile'],
-      queryFn: () => profileAPI.getProfile()
+      queryFn: () => profileAPI.getProfile(),
+      staleTime: 5 * 60 * 1000
     })
   }
 

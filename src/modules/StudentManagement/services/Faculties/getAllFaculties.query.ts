@@ -9,7 +9,8 @@ class GetAllFacultiesQuery {
   constructor() {
     this._query = useQuery({
       queryKey: ['faculties'],
-      queryFn: () => facultyAPI.getListFaculties()
+      queryFn: () => facultyAPI.getListFaculties(),
+      staleTime: 5 * 60 * 1000
     })
   }
 

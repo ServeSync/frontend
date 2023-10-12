@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import path from '../../constants/path'
 import classNames from 'classnames'
+import path from '../../constants/path'
 
 const SideBar = () => {
   const [expanded, setExpanded] = useState(true)

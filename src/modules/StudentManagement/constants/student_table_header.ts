@@ -1,4 +1,4 @@
-export const studentTableHeader = [
+export const StudentTableHeader = [
   {
     id: '1',
     name: 'MSSV',
