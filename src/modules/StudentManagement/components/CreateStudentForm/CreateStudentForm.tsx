@@ -63,7 +63,7 @@ const CreateStudentForm = ({
             label='Mã số sinh viên'
             placeholder='Nhập mã số sinh viên'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.code
             })}
             error={errors.code?.message}
@@ -75,7 +75,7 @@ const CreateStudentForm = ({
             label='Họ và tên'
             placeholder='Nhập họ và tên'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.fullName
             })}
             error={errors.fullName?.message}
@@ -86,7 +86,7 @@ const CreateStudentForm = ({
             name='gender'
             label='Giới tính'
             className='col-span-1 flex flex-col'
-            classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded-md'
+            classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded h-[48px]'
             options={gender}
           />
           <Input
@@ -96,7 +96,7 @@ const CreateStudentForm = ({
             label='Email'
             placeholder='Nhập Email'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.email
             })}
             error={errors.email?.message}
@@ -108,7 +108,7 @@ const CreateStudentForm = ({
             label='Nơi sinh'
             placeholder='Nhập nơi sinh'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.homeTown
             })}
             error={errors.homeTown?.message}
@@ -120,7 +120,7 @@ const CreateStudentForm = ({
             label='Số điện thoại'
             placeholder='Nhập số điện thoại'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.phone
             })}
             error={errors.phone?.message}
@@ -133,7 +133,7 @@ const CreateStudentForm = ({
             label='Ngày sinh'
             placeholder='Nhập ngày sinh'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.birth
             })}
             error={errors.birth?.message}
@@ -145,7 +145,7 @@ const CreateStudentForm = ({
             label='Căn cước công dân'
             placeholder='Nhập căn cước công dân'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.citizenId
             })}
             error={errors.citizenId?.message}
@@ -157,7 +157,7 @@ const CreateStudentForm = ({
             label='Địa chỉ cư trú'
             placeholder='Nhập địa chỉ cư trú'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.address
             })}
             error={errors.address?.message}
@@ -168,7 +168,7 @@ const CreateStudentForm = ({
             name='facultyId'
             label='Khoa'
             className='col-span-1 flex flex-col'
-            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.facultyId?.message !== '' && errors.facultyId
             })}
             defaultOptions='Chọn khoa'
@@ -182,7 +182,7 @@ const CreateStudentForm = ({
             name='homeRoomId'
             label='Lớp sinh hoạt'
             className='col-span-1 flex flex-col'
-            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.homeRoomId?.message !== '' && errors.homeRoomId
             })}
             defaultOptions='Chọn lớp sinh hoạt'
@@ -196,7 +196,7 @@ const CreateStudentForm = ({
             name='educationProgramId'
             label='Hệ đào tạo'
             className='col-span-1 flex flex-col'
-            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.educationProgramId?.message !== '' && errors.educationProgramId
             })}
             defaultOptions='Chọn hệ đào tạo'

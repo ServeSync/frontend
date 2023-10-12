@@ -9,7 +9,8 @@ class GetAllEducationProgramsQuery {
   constructor() {
     this._query = useQuery({
       queryKey: ['education_programs'],
-      queryFn: () => educationProgramAPI.getListEducationPrograms()
+      queryFn: () => educationProgramAPI.getListEducationPrograms(),
+      staleTime: 5 * 60 * 1000
     })
   }
 

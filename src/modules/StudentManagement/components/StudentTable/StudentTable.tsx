@@ -2,7 +2,7 @@ import { useState } from 'react'
 import classNames from 'classnames'
 import Skeleton from 'react-loading-skeleton'
 import { StudentsListType } from '../../interfaces'
-import { studentTableHeader } from '../../constants'
+import { StudentTableHeader } from '../../constants'
 import { formatDateTime } from 'src/modules/Share/utils'
 
 interface Props {
@@ -24,7 +24,7 @@ const StudentTable = ({ students, onEditStudent, onSort, isLoading }: Props) => 
     <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
       <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
         <tr className='text-[14px] text-gray-600'>
-          {studentTableHeader.map((item) => (
+          {StudentTableHeader.map((item) => (
             <th
               className='px-2 py-2 font-medium cursor-pointer hover:text-black hover:font-semibold'
               onClick={() => handleSort(item.sort)}

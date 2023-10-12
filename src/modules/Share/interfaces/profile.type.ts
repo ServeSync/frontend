@@ -1,4 +1,4 @@
-import { RoleType } from 'src/modules/RoleManagement/interfaces/role.type'
+import { RoleType } from 'src/modules/RoleManagement/interfaces'
 
 export interface Profile {
   id: string

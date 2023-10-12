@@ -1,9 +1,9 @@
 import { useQueryParams } from 'src/modules/Share/hooks/useQueryParam'
-import { StudentListConfig } from '../interfaces/student.type'
 import { isUndefined, omitBy } from 'lodash'
+import { StudentsListConfig } from '../interfaces'
 
 export type QueryStudentConfig = {
-  [key in keyof StudentListConfig]: string
+  [key in keyof StudentsListConfig]: string
 }
 
 const useQueryStudentConfig = () => {

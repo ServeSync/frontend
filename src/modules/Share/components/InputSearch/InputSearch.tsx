@@ -5,19 +5,20 @@ interface Props {
   register: UseFormRegister<any>
   classNameInput: string
   name: string
+  placeholder?: string
 }
 
-const InputSearch = ({ classNameInput, name, register }: Props) => {
+const InputSearch = ({ classNameInput, name, register, placeholder }: Props) => {
   return (
     <div className='relative'>
-      <input type='text' placeholder='Tìm kiếm' className={classNameInput} {...register(name)} />
+      <input type='text' placeholder={placeholder} className={classNameInput} {...register(name)} />
       <svg
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
         viewBox='0 0 24 24'
         strokeWidth='1.5'
         stroke='currentColor'
-        className='w-4 h-4 absolute top-[13px] left-[12px] text-gray-600'
+        className='w-4 h-4 absolute top-[14px] left-[12px] text-gray-600'
       >
         <path
           strokeLinecap='round'

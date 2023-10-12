@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { type AxiosInstance } from 'axios'
-import { AuthResponse, RefreshResponse } from 'src/modules/Authentication/interfaces/auth.type'
 import {
   clearTokenFromLocalStorage,
   getAccessTokenFromLocalStorage,
@@ -12,6 +11,7 @@ import connect from 'src/modules/Share/constants/connect'
 import HttpStatusCode from '../constants/httpStatusCode.enum'
 import authAPI from 'src/modules/Authentication/services/Auth/auth.api'
 import { handleError, isAxiosUnauthorizedError } from './utils'
+import { AuthResponse, RefreshResponse } from 'src/modules/Authentication/interfaces'
 
 class Http {
   instance: AxiosInstance
