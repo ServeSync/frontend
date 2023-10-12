@@ -125,6 +125,13 @@ const EditStudent = () => {
     })
   }
 
+  const handlePreviousPage = () => {
+    navigate({
+      pathname: path.student,
+      search: createSearchParams(prevAccountConfig).toString()
+    })
+  }
+
   const handleChangeSelection = (event: React.ChangeEvent<HTMLSelectElement>, name: any) => {
     if (name == 'facultyId') {
       setFacultyId(event.target.value)
@@ -151,6 +158,7 @@ const EditStudent = () => {
             faculties={faculties}
             homeRooms={homeRooms}
             handleDeleteStudent={handleDeleteStudent}
+            onPreviousPage={handlePreviousPage}
             onChange={handleChangeFile}
             onChangeSelection={handleChangeSelection}
             previewImage={previewImage}

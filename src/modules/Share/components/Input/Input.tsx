@@ -48,7 +48,7 @@ const Input = ({
           placeholder={placeholder}
           autoComplete={autoComplete}
           id={id}
-          className={classNameInput + ' placeholder:font-normal'}
+          className={classNameInput + ' placeholder:font-normal placeholder:text-gray-500'}
           {...register(name)}
           disabled={disabled}
         />

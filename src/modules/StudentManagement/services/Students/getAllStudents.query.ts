@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/react-query'
 import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
 import studentAPI from './student.api'
-import { StudentListConfig, StudentsListType } from '../../interfaces/student.type'
+import { StudentsListConfig, StudentsListType } from '../../interfaces'
 
 class GetAllStudentsQuery {
   private _query
@@ -12,9 +12,9 @@ class GetAllStudentsQuery {
     this._queryStudentConfig = useQueryStudentConfig()
     this._query = useQuery({
       queryKey: ['students', this._queryStudentConfig],
-      queryFn: () => studentAPI.getListStudents(this._queryStudentConfig as StudentListConfig),
+      queryFn: () => studentAPI.getListStudents(this._queryStudentConfig as StudentsListConfig),
       keepPreviousData: true,
-      staleTime: 3 * 60 * 1000
+      staleTime: 5 * 60 * 1000
     })
   }
 

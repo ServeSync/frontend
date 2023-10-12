@@ -25,6 +25,7 @@ interface Props {
   onChangeSelection: (event: React.ChangeEvent<HTMLSelectElement>, name: any) => void
   previewImage: string
   isLoadingEdit: boolean
+  onPreviousPage: () => void
 }
 
 const EditStudentForm = ({
@@ -36,6 +37,7 @@ const EditStudentForm = ({
   faculties,
   homeRooms,
   handleDeleteStudent,
+  onPreviousPage,
   isLoading,
   onChange,
   onChangeSelection,
@@ -80,7 +82,7 @@ const EditStudentForm = ({
             label='Mã số sinh viên'
             placeholder='Nhập mã số sinh viên'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.code
             })}
             error={errors.code?.message}
@@ -93,7 +95,7 @@ const EditStudentForm = ({
             label='Họ và tên'
             placeholder='Nhập họ và tên'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.fullName
             })}
             error={errors.fullName?.message}
@@ -106,7 +108,7 @@ const EditStudentForm = ({
             label='Email'
             placeholder='Nhập Email'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.email
             })}
             error={errors.email?.message}
@@ -118,7 +120,7 @@ const EditStudentForm = ({
             name='gender'
             label='Giới tính'
             className='col-span-1 flex flex-col'
-            classNameSelect='border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]'
+            classNameSelect='border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]'
             options={gender}
             isLoading={isLoading}
           />
@@ -130,7 +132,7 @@ const EditStudentForm = ({
             label='Ngày sinh'
             placeholder='Nhập ngày sinh'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.birth
             })}
             error={errors.birth?.message}
@@ -143,7 +145,7 @@ const EditStudentForm = ({
             label='Số điện thoại'
             placeholder='Nhập số điện thoại'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.phone
             })}
             error={errors.phone?.message}
@@ -156,7 +158,7 @@ const EditStudentForm = ({
             label='Nơi sinh'
             placeholder='Nhập nơi sinh'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.homeTown
             })}
             error={errors.homeTown?.message}
@@ -169,7 +171,7 @@ const EditStudentForm = ({
             label='Địa chỉ cư trú'
             placeholder='Nhập địa chỉ cư trú'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.address
             })}
             error={errors.address?.message}
@@ -182,7 +184,7 @@ const EditStudentForm = ({
             label='Căn cước công dân'
             placeholder='Nhập căn cước công dân'
             className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded-md py-2 px-4 outline-[#26C6DA] h-[40px]', {
+            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.citizenId
             })}
             error={errors.citizenId?.message}
@@ -194,7 +196,7 @@ const EditStudentForm = ({
             name='facultyId'
             label='Khoa'
             className='col-span-1 flex flex-col'
-            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.facultyId?.message !== '' && errors.facultyId
             })}
             options={faculties}
@@ -208,7 +210,7 @@ const EditStudentForm = ({
             name='homeRoomId'
             label='Lớp sinh hoạt'
             className='col-span-1 flex flex-col'
-            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.homeRoomId?.message !== '' && errors.homeRoomId
             })}
             defaultOptions='Chọn lớp sinh hoạt'
@@ -223,7 +225,7 @@ const EditStudentForm = ({
             name='educationProgramId'
             label='Hệ đào tạo'
             className='col-span-1 flex flex-col'
-            classNameSelect={classNames('border-[1px] border-gray-200 rounded-md px-4 outline-[#26C6DA] h-[40px]', {
+            classNameSelect={classNames('border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]', {
               'border-red-600 outline-red-600': errors.educationProgramId?.message !== '' && errors.educationProgramId
             })}
             options={educationPrograms}
@@ -234,6 +236,13 @@ const EditStudentForm = ({
         </div>
       </div>
       <div className='flex justify-end gap-6 border-b-2 pb-4'>
+        <Button
+          type='button'
+          classNameButton='bg-[#9a9a9a] py-2 px-4 rounded-lg text-[16px] text-white font-semibold mt-6'
+          onClick={onPreviousPage}
+        >
+          Hủy
+        </Button>
         <Button
           type='button'
           classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[16px] text-white font-semibold mt-6'
