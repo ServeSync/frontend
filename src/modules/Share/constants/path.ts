@@ -9,7 +9,10 @@ const path = {
   create_student: '/students/create',
   edit_student: '/students/edit',
   event: '/events',
-  organizer: '/organizers',
+  create_event: '/events/create',
+  edit_event: '/events/edit',
+  event_organizer: '/organizers',
+  standard: '/standards',
   complaint: '/complaints'
 } as const
 

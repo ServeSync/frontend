@@ -1,7 +1,6 @@
-import { useQueryParams } from '../../Share/hooks/useQueryParam'
-import omitBy from 'lodash/omitBy'
-import { isUndefined } from 'lodash'
-import { RoleConfig } from '../interfaces/role.type'
+import { isUndefined, omitBy } from 'lodash'
+import { useQueryParams } from 'src/modules/Share/hooks'
+import { RoleConfig } from '../interfaces'
 
 export type QueryRoleConfig = {
   [key in keyof RoleConfig]: string

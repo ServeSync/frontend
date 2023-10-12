@@ -13,9 +13,11 @@
     "prettier:fix": "prettier --write \"src/**/(*.tsx|*ts|*.css|*.scss)\""
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@hookform/resolvers": "^3.3.1",
-    "@material-tailwind/react": "^2.1.2",
+    "@mui/material": "^5.14.12",
     "@tanstack/react-query": "^4.33.0",
     "@types/lodash": "^4.14.198",
     "axios": "^1.5.0",

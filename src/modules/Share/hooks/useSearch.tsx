@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -5,7 +6,6 @@ import { InputSearchSchema, InputSearchType } from '../utils/rules'
 import _ from 'lodash'
 
 interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queryConfig: any
   pathname: string
 }

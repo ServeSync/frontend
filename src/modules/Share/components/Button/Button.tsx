@@ -3,10 +3,10 @@ interface Props {
   classNameButton: string
   children?: React.ReactNode
   isLoading?: boolean
-  classNameLoading?: string
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined
 }
-const Button = ({ type = 'submit', classNameButton, children, isLoading, onClick }: Props) => {
+
+const Button = ({ type, classNameButton, children, isLoading, onClick }: Props) => {
   return (
     <button type={type} className={classNameButton} onClick={onClick}>
       {isLoading && (

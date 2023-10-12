@@ -1,17 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from 'classnames'
 import { Fragment, useState } from 'react'
-import { EducationProgramType } from '../../interfaces/education_program.type'
-import { FacultyType } from '../../interfaces/faculty.type'
-import { HomeRoomType } from '../../interfaces/home_room.type'
 import { UseFormRegister, FieldErrors, UseFormSetError } from 'react-hook-form'
-import InputFile from 'src/modules/Share/components/InputFile'
 import { FormStudentType } from '../../utils/rules'
-import { useQuery } from '@tanstack/react-query'
-import homeroomAPI from '../../services/home_room.api'
+import { EducationProgramType, FacultyType } from '../../interfaces'
+import { GetAllHomeRoomsByFacultyIdQuery } from '../../services'
+import InputImage from 'src/modules/Share/components/InputImage'
 import Input from 'src/modules/Share/components/Input'
 import Select from 'src/modules/Share/components/Select'
-import { gender } from '../../constants/gender_options'
 import Button from 'src/modules/Share/components/Button'
+import { gender } from '../../constants'
 
 interface Props {
   register: UseFormRegister<FormStudentType>
@@ -38,14 +36,9 @@ const CreateStudentForm = ({
 }: Props) => {
   const [facultyId, setFacultyId] = useState<string>('')
 
-  const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms', facultyId],
-    queryFn: () => homeroomAPI.getListHomeRooms(facultyId),
-    enabled: facultyId !== ''
-  })
-  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
+  const getAllHomeRoomsByFacultyIdQuery = new GetAllHomeRoomsByFacultyIdQuery(facultyId)
+  const homeRooms = getAllHomeRoomsByFacultyIdQuery.fetch()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangeSelection = (event: React.ChangeEvent<HTMLSelectElement>, name: any) => {
     if (name == 'facultyId') {
       setFacultyId(event.target.value)
@@ -59,7 +52,7 @@ const CreateStudentForm = ({
     <Fragment>
       <div className='grid grid-cols-4 gap-4'>
         <div className='col-span-1 flex flex-col items-center mx-6'>
-          <InputFile register={register} onChange={onChange} previewImage={previewImage} />
+          <InputImage register={register} onChange={onChange} previewImage={previewImage} />
           <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.imageUrl?.message}</span>
         </div>
         <div className='col-span-3 grid grid-cols-2 gap-x-6 gap-y-2 text-[14px] font-semibold text-gray-600 placeholder:text-black'>
@@ -77,7 +70,7 @@ const CreateStudentForm = ({
           />
           <Input
             register={register}
-            id='fullname'
+            id='fullName'
             name='fullName'
             label='Họ và tên'
             placeholder='Nhập họ và tên'

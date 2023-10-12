@@ -4,20 +4,20 @@ import path from 'src/modules/Share/constants/path'
 import AuthenticationLayout from 'src/modules/Share/layouts/AuthenticationLayout'
 import MainLayout from 'src/modules/Share/layouts/MainLayout'
 import { AppContext } from '../contexts/app.context'
-import LandingpageLayout from '../layouts/LandingpageLayout'
 
-const Login = lazy(() => import('src/modules/Authentication/pages/Login/Login'))
-const Home = lazy(() => import('src/modules/Home/pages'))
+const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
-
-const NotFound = lazy(() => import('../components/NotFound'))
 
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
 
 const Student = lazy(() => import('src/modules/StudentManagement/pages/Student'))
 const CreateStudent = lazy(() => import('src/modules/StudentManagement/pages/CreateStudent'))
 const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditStudent'))
+
+const Event = lazy(() => import('src/modules/EventManagement/pages/Event'))
+const CreateEvent = lazy(() => import('src/modules/EventManagement/pages/CreateEvent'))
+const EditEvent = lazy(() => import('src/modules/EventManagement/pages/EditEvent'))
 
 const RejectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
@@ -121,6 +121,36 @@ const useRouteElements = () => {
             <MainLayout>
               <Suspense>
                 <EditStudent />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.event,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <Event />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.create_event,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <CreateEvent />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.edit_event,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <EditEvent />
               </Suspense>
             </MainLayout>
           )

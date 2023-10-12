@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
+import { AppContext } from './modules/Share/contexts'
+import { LocalStorageEventTarget } from './modules/Authentication/utils'
 import useRouteElements from './modules/Share/hooks/useRouteElements'
-import { AppContext } from './modules/Share/contexts/app.context'
-import { LocalStorageEventTarget } from './modules/Authentication/utils/auth'
 
 const App = () => {
   const RouteElements = useRouteElements()

@@ -1,6 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
-import Input from 'src/modules/Share/components/Input'
 import Button from 'src/modules/Share/components/Button'
+import Input from 'src/modules/Share/components/Input'
 
 interface ForgetPasswordForm {
   userNameOrEmail: string
@@ -43,6 +43,7 @@ const ForgetPasswordForm = ({ register, errors, isLoading }: Props) => {
         </div>
       </Input>
       <Button
+        type='submit'
         classNameButton='flex justify-center items-center bg-[#195E8E] w-[72px] h-[50px] text-white p-2 rounded-2xl font-semibold transition-all duration-300 mb-5 hover:bg-[#195E8E]/90'
         isLoading={isLoading}
       >

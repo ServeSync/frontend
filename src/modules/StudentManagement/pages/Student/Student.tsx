@@ -1,82 +1,84 @@
 // eslint-disable-next-line import/named
 import { Link, URLSearchParamsInit, createSearchParams, useNavigate } from 'react-router-dom'
-import { Fragment, useState } from 'react'
-import StudentTable from '../../components/StudentTable'
+import { Fragment, useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
-import path from 'src/modules/Share/constants/path'
-import InputSearch from 'src/modules/Share/components/InputSearch'
-import Pagination from 'src/modules/Share/components/Pagination/Pagination'
-import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
-import studentAPI from '../../services/student.api'
-import { StudentListConfig, StudentsListType } from '../../interfaces/student.type'
-import { useQuery } from '@tanstack/react-query'
-import useSorting from 'src/modules/Share/hooks/useSorting'
-import Popover from 'src/modules/Share/components/Popover'
-import Filter from 'src/modules/StudentManagement/components/Filter'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { FormFilterStudentSchema, FormFilterStudentType } from '../../utils/rules'
 import { isEmpty, omitBy } from 'lodash'
-import educationProgramAPI from '../../services/education_program.api'
-import { EducationProgramType } from '../../interfaces/education_program.type'
-import facultyAPI from '../../services/faculty.api'
-import { FacultyType } from '../../interfaces/faculty.type'
-import homeroomAPI from '../../services/home_room.api'
-import { HomeRoomType } from '../../interfaces/home_room.type'
+import { toast } from 'react-toastify'
+import Swal from 'sweetalert2'
+import {
+  GetAllEducationProgramsQuery,
+  GetAllFacultiesQuery,
+  GetAllHomeRoomsByFacultyIdQuery,
+  GetAllStudentsQuery,
+  ImportFileCommandHandler
+} from '../../services'
+import useQueryStudentConfig from '../../hooks/useQueryStudentConfig'
+import useSorting from 'src/modules/Share/hooks/useSorting'
+import path from 'src/modules/Share/constants/path'
+import { FormFilterStudentSchema, FormFilterStudentType } from '../../utils'
+import InputSearch from 'src/modules/Share/components/InputSearch'
+import Popover from 'src/modules/Share/components/Popover'
+import Filter from '../../components/Filter'
 import Button from 'src/modules/Share/components/Button'
+import ModalCustom from 'src/modules/Share/components/Modal'
+import StudentTable from '../../components/StudentTable'
+import Pagination from 'src/modules/Share/components/Pagination'
 
 const Student = () => {
   const [isOpenPopover, setIsOpenPopover] = useState(false)
-
-  const queryStudentConfig = useQueryStudentConfig()
-
-  const navigate = useNavigate()
-
-  const SortStudent = useSorting({ queryConfig: queryStudentConfig, pathname: path.student })
-
-  const StudentsListQuery = useQuery({
-    queryKey: ['students', queryStudentConfig],
-    queryFn: () => studentAPI.getListStudents(queryStudentConfig as StudentListConfig),
-    keepPreviousData: true,
-    staleTime: 3 * 60 * 1000
-  })
-  const students = StudentsListQuery.data?.data as StudentsListType
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
   const [facultyId, setFacultyId] = useState<string>('')
 
-  const EducationProgramsListQuery = useQuery({
-    queryKey: ['education_programs'],
-    queryFn: () => educationProgramAPI.getListEducationPrograms()
-  })
-  const educationPrograms = EducationProgramsListQuery.data?.data as EducationProgramType[]
+  const [file, setFile] = useState<File>()
 
-  const FacultiesListQuery = useQuery({
-    queryKey: ['faculties'],
-    queryFn: () => facultyAPI.getListFaculties()
-  })
-  const faculties = FacultiesListQuery.data?.data as FacultyType[]
+  const previewNameFile = useMemo(() => {
+    return file ? file.name : ''
+  }, [file])
 
-  const HomeRoomsListQuery = useQuery({
-    queryKey: ['home_rooms', facultyId],
-    queryFn: () => homeroomAPI.getListHomeRooms(facultyId),
-    enabled: facultyId !== ''
-  })
-  const homeRooms = HomeRoomsListQuery.data?.data as HomeRoomType[]
-
-  const onEditStudent = (id: string) => {
-    navigate({
-      pathname: path.edit_student,
-      search: createSearchParams({
-        id: id
-      }).toString()
-    })
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
   }
 
-  const { register, handleSubmit, resetField } = useForm<FormFilterStudentType>({
+  const navigate = useNavigate()
+
+  const queryStudentConfig = useQueryStudentConfig()
+
+  const SortStudent = useSorting({ queryConfig: queryStudentConfig, pathname: path.student })
+
+  const getAllStudentsQuery = new GetAllStudentsQuery()
+  const students = getAllStudentsQuery.fetch()
+
+  const getAllEducationProgramsQuery = new GetAllEducationProgramsQuery()
+  const educationPrograms = getAllEducationProgramsQuery.fetch()
+
+  const getAllFacultiesQuery = new GetAllFacultiesQuery()
+  const faculties = getAllFacultiesQuery.fetch()
+
+  const getAllHomeRoomsByFacultyIdQuery = new GetAllHomeRoomsByFacultyIdQuery(facultyId)
+  const homeRooms = getAllHomeRoomsByFacultyIdQuery.fetch()
+
+  const onEditStudent = (id: string) => {
+    navigate(
+      {
+        pathname: path.edit_student,
+        search: createSearchParams({
+          id: id
+        }).toString()
+      },
+      {
+        state: queryStudentConfig
+      }
+    )
+  }
+
+  const FilterStudentForm = useForm<FormFilterStudentType>({
     resolver: yupResolver(FormFilterStudentSchema)
   })
 
-  const handleSubmitFormFilter = handleSubmit((data) => {
+  const handleSubmitFormFilter = FilterStudentForm.handleSubmit((data) => {
     const config = {
       ...queryStudentConfig,
       page: 1,
@@ -93,16 +95,43 @@ const Student = () => {
     setIsOpenPopover(false)
   })
 
+  const handleResetFormFilter = () => {
+    FilterStudentForm.resetField('educationProgramId')
+    FilterStudentForm.resetField('facultyId')
+    FilterStudentForm.resetField('homeRoomId')
+    FilterStudentForm.resetField('gender')
+    FilterStudentForm.resetField('search')
+  }
+
+  const ImportStudentForm = useForm()
+
+  const importFileCommandHandler = new ImportFileCommandHandler()
+
+  const handleSubmitImport = ImportStudentForm.handleSubmit(() => {
+    if (file) {
+      importFileCommandHandler.handle(
+        file as File,
+        () => {
+          setIsOpenModal(false)
+          Swal.fire('Nhập file Thành công !', 'Vui lòng đợi xử lý  !', 'success')
+        },
+        () => {
+          toast.error('File không đúng định dạng')
+        }
+      )
+    }
+  })
+
   const handleChangeFaculty = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFacultyId(event.target.value)
   }
 
-  const handleResetFormFilter = () => {
-    resetField('educationProgramId')
-    resetField('facultyId')
-    resetField('homeRoomId')
-    resetField('gender')
-    resetField('search')
+  const handleOpenModal = () => {
+    setIsOpenModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false)
   }
 
   return (
@@ -119,7 +148,7 @@ const Student = () => {
                 'bg-white border-[1px] border-gray-200 rounded-lg h-[40px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600'
               }
               name='search'
-              register={register}
+              register={FilterStudentForm.register}
             />
           </form>
           <div className='flex gap-4'>
@@ -127,7 +156,7 @@ const Student = () => {
               renderPopover={
                 <form onSubmit={handleSubmitFormFilter}>
                   <Filter
-                    register={register}
+                    register={FilterStudentForm.register}
                     onResetForm={handleResetFormFilter}
                     onChangeFaculty={handleChangeFaculty}
                     educationPrograms={educationPrograms}
@@ -160,6 +189,7 @@ const Student = () => {
             <Button
               type='button'
               classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
+              onClick={handleOpenModal}
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -177,6 +207,13 @@ const Student = () => {
               </svg>
               <span>Nhập file</span>
             </Button>
+            <ModalCustom
+              isOpenModal={isOpenModal}
+              handleClose={handleCloseModal}
+              onChangeFile={handleChangeFile}
+              onSubmitFile={handleSubmitImport}
+              previewNameFile={previewNameFile}
+            />
             <Link
               to={path.create_student}
               state={queryStudentConfig}
@@ -190,12 +227,12 @@ const Student = () => {
           students={students}
           onEditStudent={onEditStudent}
           onSort={SortStudent.handleSort}
-          isLoading={StudentsListQuery.isLoading}
+          isLoading={getAllStudentsQuery.isLoading()}
         />
         <div className='flex justify-end'>
           <Pagination
             queryConfig={queryStudentConfig}
-            pageSize={StudentsListQuery.data?.data.totalPages as number}
+            pageSize={getAllStudentsQuery.getTotalPages()}
             pathname={path.student}
           />
         </div>
