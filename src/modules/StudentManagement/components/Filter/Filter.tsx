@@ -1,30 +1,25 @@
-import { UseFormRegister } from 'react-hook-form'
+import { Controller, Control } from 'react-hook-form'
 import { EducationProgramType, FacultyType, HomeRoomType } from '../../interfaces'
-import Select from 'src/modules/Share/components/Select'
 import Button from 'src/modules/Share/components/Button'
 import { gender } from '../../constants'
-
-interface FilterConfig {
-  homeRoomId?: string | undefined
-  facultyId?: string | undefined
-  educationProgramId?: string | undefined
-  gender?: string | undefined
-  search?: string | undefined
-}
+import { FormFilterStudentType } from '../../utils'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { Autocomplete, TextField } from '@mui/material'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 interface Props {
-  register: UseFormRegister<FilterConfig>
+  control: Control<FormFilterStudentType>
   onResetForm: () => void
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
   homeRooms: HomeRoomType[]
-  onChangeFaculty: (event: React.ChangeEvent<HTMLSelectElement>) => void
+  onChangeFaculty: (id: string) => void
 }
 
-const Filter = ({ register, onResetForm, onChangeFaculty, educationPrograms, faculties, homeRooms }: Props) => {
+const Filter = ({ control, onResetForm, onChangeFaculty, educationPrograms, faculties, homeRooms }: Props) => {
   return (
-    <div className='w-[360px] bg-white border-[1px] border-gray-300 rounded-lg p-6 shadow-md text-gray-600'>
-      <div className='flex items-center justify-center mb-4'>
+    <div className='w-[360px] bg-white border-[1px] border-gray-300 rounded-lg p-6 shadow-md text-gray-600 flex flex-col gap-y-6'>
+      <div className='flex items-center justify-center'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 24 24'
@@ -39,47 +34,80 @@ const Filter = ({ register, onResetForm, onChangeFaculty, educationPrograms, fac
         </svg>
         <span className='text-[18px] font-semibold'>Bộ lọc</span>
       </div>
-      <Select
-        register={register}
-        id='faculty'
-        name='facultyId'
-        label='Khoa'
-        className='flex flex-col text-[15px]'
-        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded h-[48px]'
-        defaultOptions='Chọn khoa'
-        options={faculties}
-        onChange={onChangeFaculty}
-      />
-      <Select
-        register={register}
-        id='homeRoom'
-        name='homeRoomId'
-        label='Lớp'
-        className='flex flex-col text-[15px]'
-        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded h-[48px]'
-        defaultOptions='Chọn lớp sinh hoạt'
-        options={homeRooms}
-      />
-      <Select
-        register={register}
-        id='education_program'
-        name='educationProgramId'
-        label='Hệ đào tạo'
-        className='flex flex-col text-[15px]'
-        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded h-[48px]'
-        defaultOptions='Chọn hệ đào tạo'
-        options={educationPrograms}
-      />
-      <Select
-        register={register}
-        id='gender'
-        name='gender'
-        label='Giới tính'
-        className='flex flex-col text-[15px]'
-        classNameSelect='border-[1px] border-gray-200 px-1 py-2 rounded h-[48px]'
-        defaultOptions='Chọn giới tính'
-        options={gender}
-      />
+      <div className='flex flex-col gap-y-6'>
+        <Controller
+          name='facultyId'
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Autocomplete
+                disablePortal
+                id='faculty'
+                options={faculties ? faculties : []}
+                value={(faculties && faculties.find((option) => option.id === value)) || null}
+                getOptionLabel={(option) => option.name}
+                renderInput={(params) => <TextField {...params} label='Chọn khoa' />}
+                onChange={(_, option) => {
+                  onChange(option?.id)
+                  onChangeFaculty(option?.id as string)
+                }}
+              />
+            </LocalizationProvider>
+          )}
+        />
+        <Controller
+          name='homeRoomId'
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Autocomplete
+                disablePortal
+                id='homeroom'
+                options={homeRooms ? homeRooms : []}
+                value={(homeRooms && homeRooms.find((option) => option.id === value)) || null}
+                getOptionLabel={(option) => option.name}
+                noOptionsText='Không có lựa chọn'
+                renderInput={(params) => <TextField {...params} label='Chọn lớp' />}
+                onChange={(_, option) => onChange(option?.id)}
+              />
+            </LocalizationProvider>
+          )}
+        />
+        <Controller
+          name='educationProgramId'
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Autocomplete
+                disablePortal
+                id='education_program'
+                options={educationPrograms ? educationPrograms : []}
+                value={(educationPrograms && educationPrograms.find((option) => option.id === value)) || null}
+                getOptionLabel={(option) => option.name}
+                renderInput={(params) => <TextField {...params} label='Chọn hệ đào tạo' />}
+                onChange={(_, option) => onChange(option?.id)}
+              />
+            </LocalizationProvider>
+          )}
+        />
+        <Controller
+          name='gender'
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Autocomplete
+                disablePortal
+                id='gender'
+                options={gender}
+                value={gender.find((option) => option.id === value) || null}
+                getOptionLabel={(option) => option.name}
+                renderInput={(params) => <TextField {...params} label='Chọn giới tính' />}
+                onChange={(_, option) => onChange(option?.id)}
+              />
+            </LocalizationProvider>
+          )}
+        />
+      </div>
       <div className='flex justify-between'>
         <Button
           type='button'

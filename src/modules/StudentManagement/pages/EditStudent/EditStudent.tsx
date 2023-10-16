@@ -15,7 +15,7 @@ import {
   GetAllHomeRoomsByFacultyIdQuery,
   GetStudentQuery
 } from '../../services'
-import { handleError } from 'src/modules/Share/utils'
+import { formatVNDateTime, handleError } from 'src/modules/Share/utils'
 import path from 'src/modules/Share/constants/path'
 import EditStudentForm from '../../components/EditStudentForm'
 import CircleChart from '../../components/CircleChart'
@@ -64,6 +64,7 @@ const EditStudent = () => {
   const {
     register,
     handleSubmit,
+    control,
     setError,
     setValue,
     formState: { errors }
@@ -82,7 +83,10 @@ const EditStudent = () => {
     editStudentCommandHandler.handle(
       {
         id: queryStudentConfig.id as string,
-        data: data
+        data: {
+          ...data,
+          birth: formatVNDateTime(data.birth)
+        }
       },
       file as File,
       () => {
@@ -132,13 +136,8 @@ const EditStudent = () => {
     })
   }
 
-  const handleChangeSelection = (event: React.ChangeEvent<HTMLSelectElement>, name: any) => {
-    if (name == 'facultyId') {
-      setFacultyId(event.target.value)
-      event.target.value && setError(name, { message: '' })
-    } else {
-      event.target.value && setError(name, { message: '' })
-    }
+  const handleChangeFaculty = (id: string) => {
+    setFacultyId(id)
   }
 
   return (
@@ -153,6 +152,7 @@ const EditStudent = () => {
             register={register}
             errors={errors}
             setValue={setValue}
+            control={control}
             student={student}
             educationPrograms={educationPrograms}
             faculties={faculties}
@@ -160,7 +160,7 @@ const EditStudent = () => {
             handleDeleteStudent={handleDeleteStudent}
             onPreviousPage={handlePreviousPage}
             onChange={handleChangeFile}
-            onChangeSelection={handleChangeSelection}
+            onChangeFaculty={handleChangeFaculty}
             previewImage={previewImage}
             isLoading={getStudentQuery.isLoading()}
             isLoadingEdit={editStudentCommandHandler.isLoading()}

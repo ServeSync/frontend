@@ -1,1 +1,5 @@
 export * from './event.type'
+export * from './representativeOrganization.type'
+export * from './address.type'
+export * from './event_category.type'
+export * from './activity.type'

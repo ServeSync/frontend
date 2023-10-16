@@ -1,6 +1,18 @@
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import { Control, Controller } from 'react-hook-form'
 import Button from 'src/modules/Share/components/Button'
+import { eventStatus, eventType } from '../../constants'
+import { Autocomplete, TextField } from '@mui/material'
+import { FormFilterEventType } from '../../utils'
 
-const Filter = () => {
+interface Props {
+  control: Control<FormFilterEventType>
+  onResetForm: () => void
+}
+
+const Filter = ({ control, onResetForm }: Props) => {
   return (
     <div className='w-[360px] bg-white border-[1px] border-gray-300 rounded-lg p-6 shadow-md text-gray-600'>
       <div className='flex items-center justify-center mb-4'>
@@ -18,11 +30,87 @@ const Filter = () => {
         </svg>
         <span className='text-[18px] font-semibold'>Bộ lọc</span>
       </div>
-
-      <div className='flex justify-between'>
+      <div className='flex flex-col gap-y-6'>
+        <Controller
+          name='startAt'
+          control={control}
+          render={({ field: { onChange, value = null } }) => (
+            <div className='mt-[-8px]'>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DateTimeField']}>
+                  <DateTimePicker
+                    label='Thời gian bắt đầu'
+                    format='DD/MM/YYYY'
+                    onChange={onChange}
+                    value={value}
+                    className='bg-white'
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
+          )}
+        />
+        <Controller
+          name='endAt'
+          control={control}
+          render={({ field: { onChange, value = null } }) => (
+            <div className='mt-[-8px]'>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DateTimeField']}>
+                  <DateTimePicker
+                    label='Thời gian kết thúc'
+                    format='DD/MM/YYYY'
+                    onChange={onChange}
+                    value={value}
+                    className='bg-white'
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
+          )}
+        />
+        <Controller
+          name='type'
+          control={control}
+          defaultValue=''
+          render={({ field: { onChange, value } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Autocomplete
+                disablePortal
+                id='eventType'
+                options={eventType}
+                value={eventType.find((option) => option.name === value) || null}
+                getOptionLabel={(option) => option.name}
+                renderInput={(params) => <TextField {...params} label='Chọn loại sự kiện' />}
+                onChange={(_, option) => onChange(option?.name)}
+              />
+            </LocalizationProvider>
+          )}
+        />
+        <Controller
+          name='status'
+          control={control}
+          defaultValue=''
+          render={({ field: { onChange, value = null } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Autocomplete
+                disablePortal
+                id='eventStatus'
+                options={eventStatus}
+                getOptionLabel={(option) => option.name}
+                value={eventStatus.find((option) => option.name === value) || null}
+                renderInput={(params) => <TextField {...params} label='Chọn trạng thái sự kiện' />}
+                onChange={(_, option) => onChange(option?.name)}
+              />
+            </LocalizationProvider>
+          )}
+        />
+      </div>
+      <div className='flex justify-between mt-6'>
         <Button
           type='button'
           classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#da2626] px-4 py-2 rounded-lg'
+          onClick={onResetForm}
         >
           Làm mới
         </Button>

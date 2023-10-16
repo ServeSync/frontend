@@ -9,7 +9,7 @@ export const FormStudentSchema = yup.object({
   code: yup.string().required('Vui lòng nhập mã số sinh viên !').length(9, 'Mã số sinh viên không hợp lệ!'),
   fullName: yup.string().required('Vui lòng nhập tên !').min(5, 'Họ và tên tối thiểu 5 kí tự'),
   email: yup.string().required('Vui lòng nhập email !').email('Email không hợp lệ !'),
-  gender: yup.boolean(),
+  gender: yup.string().required('Vui lòng chọn giới tính !'),
   birth: yup
     .string()
     .required('Vui lòng chọn ngày sinh !')

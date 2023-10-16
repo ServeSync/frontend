@@ -1,66 +1,19 @@
 import Skeleton from 'react-loading-skeleton'
 import { EventTableHeader } from '../../constants'
-import classNames from 'classnames'
 import { EventsListType } from '../../interfaces'
-import { useState } from 'react'
+import { formatDateTime } from 'src/modules/Share/utils'
+import HeaderTable from 'src/modules/Share/components/HeaderTable'
 
 interface Props {
-  events?: EventsListType
+  events: EventsListType
   isLoading: boolean
+  onSort: (column: string) => void
 }
 
-const EventTable = ({ events, isLoading }: Props) => {
-  const [isSorting, setIsSorting] = useState<string>('')
-
-  const handleSort = (column: string) => {
-    column === isSorting ? setIsSorting(`${column} desc`) : setIsSorting(column)
-  }
-
+const EventTable = ({ events, isLoading, onSort }: Props) => {
   return (
     <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
-      <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
-        <tr className='text-[14px] text-gray-600'>
-          {EventTableHeader.map((item) => (
-            <th
-              className='px-2 py-2 font-medium cursor-pointer hover:text-black hover:font-semibold'
-              onClick={() => handleSort(item.sort)}
-              key={item.id}
-            >
-              <span
-                className={classNames({
-                  'text-[#46cbdd]': isSorting === item.sort || isSorting === `${item.sort} desc`
-                })}
-              >
-                {item.name}
-              </span>
-              {item.sort === isSorting && (
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-4 h-4 ml-[4px] inline-block text-[#46cbdd]'
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' />
-                </svg>
-              )}
-              {isSorting === `${item.sort} desc` && (
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-4 h-4 ml-[4px] inline-block text-[#46cbdd]'
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M4.5 15.75l7.5-7.5 7.5 7.5' />
-                </svg>
-              )}
-            </th>
-          ))}
-        </tr>
-      </thead>
+      <HeaderTable header={EventTableHeader} onSort={onSort} />
       <tbody>
         {isLoading
           ? Array(10)
@@ -70,28 +23,28 @@ const EventTable = ({ events, isLoading }: Props) => {
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                   key={index}
                 >
-                  <th className='px-2 py-4 font-medium w-[20%]'>
+                  <th className='px-2 py-4 font-medium w-[12%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium w-[22%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium w-w-[8%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
                   <th className='px-2 py-4 font-medium w-[10%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-w-[10%]'>
+                  <th className='px-2 py-4 font-medium w-[16%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[10%]'>
+                  <th className='px-2 py-4 font-medium w-[11%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[10%]'>
+                  <th className='px-2 py-4 font-medium w-[11%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[10%]'>
-                    <Skeleton className='h-[16px]' borderRadius={20} />
-                  </th>
-                  <th className='px-2 py-4 font-medium w-[10%]'>
-                    <Skeleton className='h-[16px]' borderRadius={20} />
-                  </th>
-                  <th className='px-2 py-4 font-medium w-[10%]'>
+                  <th className='px-2 py-4 font-medium'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
                 </tr>
@@ -102,14 +55,16 @@ const EventTable = ({ events, isLoading }: Props) => {
                 className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                 key={index}
               >
-                <th className='px-2 py-4 font-medium w-[20%]'></th>
-                <th className='px-2 py-4 font-medium w-[10%]'></th>
-                <th className='px-2 py-4 font-medium w-[10%]'></th>
-                <th className='px-2 py-4 font-medium w-[10%]'></th>
-                <th className='px-2 py-4 font-medium w-[10%]'></th>
-                <th className='px-2 py-4 font-medium w-[10%]'></th>
-                <th className='px-2 py-4 font-medium w-[10%]'></th>
-                <th className='px-2 py-4 font-medium'>0</th>
+                <th className='px-2 py-4 font-medium w-[12%]'>{event.name}</th>
+                <th className='px-2 py-4 font-medium w-[22%] overflow-hidden'>
+                  <span className='line-clamp-1'> {event.address.fullAddress}</span>
+                </th>
+                <th className='px-2 py-4 font-medium w-[8%]'>{event.capacity}</th>
+                <th className='px-2 py-4 font-medium w-[10%]'>{event.registered}</th>
+                <th className='px-2 py-4 font-medium w-[16%]'>{event.representativeOrganization.name}</th>
+                <th className='px-2 py-4 font-medium w-[11%]'>{formatDateTime(event.startAt)}</th>
+                <th className='px-2 py-4 font-medium w-[11%]'>{formatDateTime(event.endAt)}</th>
+                <th className='px-2 py-4 font-medium'>{event.status}</th>
               </tr>
             ))}
       </tbody>

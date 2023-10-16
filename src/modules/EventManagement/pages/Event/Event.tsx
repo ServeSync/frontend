@@ -1,6 +1,7 @@
+/* eslint-disable import/named */
 import { Fragment, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
+import { Link, URLSearchParamsInit, createSearchParams, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import InputSearch from 'src/modules/Share/components/InputSearch'
 import Popover from 'src/modules/Share/components/Popover'
@@ -11,15 +12,51 @@ import { FormFilterEventSchema, FormFilterEventType } from '../../utils'
 import { yupResolver } from '@hookform/resolvers/yup'
 import useQueryEventConfig from '../../hooks/useQueryEventConfig'
 import Filter from '../../components/Filter'
+import { GetAllEventsQuery } from '../../services'
+import { isEmpty, omitBy } from 'lodash'
+import useSorting from 'src/modules/Share/hooks/useSorting'
+import { formatDate } from 'src/modules/Share/utils'
 
 const Event = () => {
   const [isOpenPopover, setIsOpenPopover] = useState(false)
 
+  const navigate = useNavigate()
+
   const queryEventConfig = useQueryEventConfig()
+
+  const SortEvent = useSorting({ queryConfig: queryEventConfig, pathname: path.event })
+
+  const getAllEventsQuery = new GetAllEventsQuery()
+  const events = getAllEventsQuery.fetch()
 
   const FilterEventForm = useForm<FormFilterEventType>({
     resolver: yupResolver(FormFilterEventSchema)
   })
+
+  const handleSubmitFormFilter = FilterEventForm.handleSubmit((data) => {
+    const config = {
+      ...queryEventConfig,
+      page: 1,
+      startDate: formatDate(data.startAt as string),
+      endDate: formatDate(data.endAt as string),
+      eventType: data.type,
+      eventStatus: data.status,
+      search: data.search
+    }
+    navigate({
+      pathname: path.event,
+      search: createSearchParams(omitBy(config, isEmpty) as URLSearchParamsInit).toString()
+    })
+    setIsOpenPopover(false)
+  })
+
+  const handleResetFormFilter = () => {
+    FilterEventForm.resetField('search')
+    FilterEventForm.resetField('startAt')
+    FilterEventForm.resetField('endAt')
+    FilterEventForm.setValue('type', '')
+    FilterEventForm.setValue('status', '')
+  }
 
   return (
     <Fragment>
@@ -29,7 +66,7 @@ const Event = () => {
       </Helmet>
       <div>
         <div className='flex justify-between items-center pt-[16px] pb-[40px] font-normal'>
-          <form>
+          <form onSubmit={handleSubmitFormFilter}>
             <InputSearch
               classNameInput='bg-white border-[1px] border-gray-200 rounded h-[44px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
               placeholder='Tìm kiếm sự kiện'
@@ -40,8 +77,8 @@ const Event = () => {
           <div className='flex gap-4'>
             <Popover
               renderPopover={
-                <form>
-                  <Filter />
+                <form onSubmit={handleSubmitFormFilter}>
+                  <Filter control={FilterEventForm.control} onResetForm={handleResetFormFilter} />
                 </form>
               }
               isOpenPopover={isOpenPopover}
@@ -73,9 +110,13 @@ const Event = () => {
             </Link>
           </div>
         </div>
-        <EventTable isLoading={true} />
+        <EventTable events={events} isLoading={getAllEventsQuery.isLoading()} onSort={SortEvent.handleSort} />
         <div className='flex justify-end'>
-          <Pagination queryConfig={queryEventConfig} pageSize={5} pathname={path.event} />
+          <Pagination
+            queryConfig={queryEventConfig}
+            pageSize={getAllEventsQuery.getTotalPages()}
+            pathname={path.event}
+          />
         </div>
       </div>
     </Fragment>
