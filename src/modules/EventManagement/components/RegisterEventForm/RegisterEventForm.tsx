@@ -30,7 +30,7 @@ const RegisterEventForm = ({ errors, control, handleResetForm }: Props) => {
       <div className='grid grid-cols-4 gap-x-6'>
         <h2 className='text-[16px] col-span-4 mb-2'>Khung giờ đăng kí</h2>
         <Controller
-          name='startTime'
+          name='registerStartAt'
           control={control}
           render={({ field: { onChange } }) => (
             <div className='col-span-2'>
@@ -40,13 +40,13 @@ const RegisterEventForm = ({ errors, control, handleResetForm }: Props) => {
                 </DemoContainer>
               </LocalizationProvider>
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.startDate?.message as string}
+                {errors.registerStartAt?.message as string}
               </span>
             </div>
           )}
         />
         <Controller
-          name='endDate'
+          name='registerEndAt'
           control={control}
           render={({ field: { onChange } }) => (
             <div className='col-span-2'>
@@ -56,7 +56,7 @@ const RegisterEventForm = ({ errors, control, handleResetForm }: Props) => {
                 </DemoContainer>
               </LocalizationProvider>
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.endDate?.message as string}
+                {errors.registerEndAt?.message as string}
               </span>
             </div>
           )}

@@ -38,7 +38,7 @@ const RegisterEvent = ({ page, index }: Props) => {
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-2' aria-controls='simple-tabpanel-2'>
       {page === index && (
-        <div className='max-w-[800px] mx-auto flex flex-col'>
+        <div className='flex flex-col'>
           <form onSubmit={handleSubmitFormRegisterEvent}>
             <RegisterEventForm
               register={FormRegisterEvent.register}

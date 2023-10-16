@@ -96,11 +96,11 @@ const Student = () => {
   })
 
   const handleResetFormFilter = () => {
-    FilterStudentForm.resetField('educationProgramId')
-    FilterStudentForm.resetField('facultyId')
-    FilterStudentForm.resetField('homeRoomId')
-    FilterStudentForm.resetField('gender')
-    FilterStudentForm.resetField('search')
+    FilterStudentForm.setValue('search', '')
+    FilterStudentForm.setValue('facultyId', '')
+    FilterStudentForm.setValue('homeRoomId', '')
+    FilterStudentForm.setValue('educationProgramId', '')
+    FilterStudentForm.setValue('gender', '')
   }
 
   const ImportStudentForm = useForm()
@@ -122,8 +122,8 @@ const Student = () => {
     }
   })
 
-  const handleChangeFaculty = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFacultyId(event.target.value)
+  const handleChangeFaculty = (id: string) => {
+    setFacultyId(id)
   }
 
   const handleOpenModal = () => {
@@ -155,7 +155,7 @@ const Student = () => {
               renderPopover={
                 <form onSubmit={handleSubmitFormFilter}>
                   <Filter
-                    register={FilterStudentForm.register}
+                    control={FilterStudentForm.control}
                     onResetForm={handleResetFormFilter}
                     onChangeFaculty={handleChangeFaculty}
                     educationPrograms={educationPrograms}
