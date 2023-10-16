@@ -3,13 +3,14 @@ import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import AuthenticationLayout from 'src/modules/Share/layouts/AuthenticationLayout'
 import MainLayout from 'src/modules/Share/layouts/MainLayout'
-import { AppContext } from '../contexts/app.context'
 import LandingpageLayout from '../layouts/LandingpageLayout'
+import { AppContext } from '../contexts/app.context'
 
 const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
 const Home = lazy(() => import('src/modules/Home/pages/Home'))
+const Landingpage = lazy(() => import('src/modules/Landingpage/pages/Landingpage'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
 
@@ -69,7 +70,13 @@ const useRouteElements = () => {
         },
         {
           path: path.landingpage,
-          element: <LandingpageLayout></LandingpageLayout>
+          element: (
+            <LandingpageLayout>
+              <Suspense>
+                <Landingpage />
+              </Suspense>
+            </LandingpageLayout>
+          )
         }
       ]
     },

@@ -1,43 +1,16 @@
 /* eslint-disable import/no-unresolved */
 import { Link } from 'react-router-dom'
-import path from '../../constants/path'
 import {} from '@material-tailwind/react'
-import CardEvent from '../CardEvent'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import SwiperCore from 'swiper'
 import { Navigation, Pagination } from 'swiper/modules'
+import path from 'src/modules/Share/constants/path'
+import CardEvent from '../CardEvent'
 
 SwiperCore.use([Navigation, Pagination])
 const Container = () => {
-  // const [slider1Position, setSlider1Position] = useState(0)
-  // const [slider2Position, setSlider2Position] = useState(0)
-  // const [numberOfItems] = useState(3)
-
-  // const handleSlide1 = (direction: string) => {
-  //   if (direction === 'left') {
-  //     if (slider1Position > 0) {
-  //       setSlider1Position(slider1Position - 1)
-  //     }
-  //   } else if (direction === 'right') {
-  //     if (slider1Position < numberOfItems) {
-  //       setSlider1Position(slider1Position + 1)
-  //     }
-  //   }
-  // }
-  // const handleSlide2 = (direction: string) => {
-  //   if (direction === 'left') {
-  //     if (slider2Position > 0) {
-  //       setSlider2Position(slider2Position - 1)
-  //     }
-  //   } else if (direction === 'right') {
-  //     if (slider2Position < numberOfItems) {
-  //       setSlider2Position(slider2Position + 1)
-  //     }
-  //   }
-  // }
-
   return (
     <div className='flex flex-col mb-[200px] '>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center max-w-screen-xl w-full py-8 px-4 m-auto '>

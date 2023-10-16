@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom'
-import path from '../../constants/path'
 import classNames from 'classnames'
 import { useState } from 'react'
+import path from 'src/modules/Share/constants/path'
 
 const LandingPageHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
