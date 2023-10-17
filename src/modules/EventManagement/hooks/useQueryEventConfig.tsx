@@ -10,6 +10,10 @@ const useQueryEventConfig = () => {
   const queryEventParams: QueryEventConfig = useQueryParams()
   const queryStudentConfig: QueryEventConfig = omitBy(
     {
+      startDate: queryEventParams.startDate,
+      endDate: queryEventParams.endDate,
+      eventType: queryEventParams.eventType,
+      eventStatus: queryEventParams.eventStatus,
       search: queryEventParams.search,
       sorting: queryEventParams.sorting,
       page: queryEventParams.page || 1,

@@ -3,8 +3,12 @@ import { Helmet } from 'react-helmet-async'
 import LandingPageHeader from '../../components/LandingPageHeader'
 import Footer from '../../components/Footer'
 import Container from '../../components/Container'
+import { GetAllEventsQuery } from 'src/modules/EventManagement/services'
 
 const Landingpage = () => {
+  const getAllEventsQuery = new GetAllEventsQuery()
+  const events = getAllEventsQuery.fetch()
+
   return (
     <Fragment>
       <Helmet>
@@ -13,7 +17,7 @@ const Landingpage = () => {
       </Helmet>
       <div className=''>
         <LandingPageHeader />
-        <Container />
+        <Container events={events} />
         <Footer />
       </div>
     </Fragment>

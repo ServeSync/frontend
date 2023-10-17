@@ -15,7 +15,7 @@ interface Props {
 const TimeFrame = ({ errors, control }: Props) => {
   return (
     <Fragment>
-      <Controller
+      {/* <Controller
         name='startTime'
         control={control}
         render={({ field: { onChange, value = null } }) => (
@@ -58,7 +58,7 @@ const TimeFrame = ({ errors, control }: Props) => {
             </span>
           </div>
         )}
-      />
+      /> */}
     </Fragment>
   )
 }

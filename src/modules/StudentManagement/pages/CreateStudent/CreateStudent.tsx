@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { CreateStudentCommandHandler, GetAllEducationProgramsQuery, GetAllFacultiesQuery } from '../../services'
 import path from 'src/modules/Share/constants/path'
-import { handleError } from 'src/modules/Share/utils'
+import { formatVNDateTime, handleError } from 'src/modules/Share/utils'
 import CreateStudentForm from '../../components/CreateStudentForm'
 import { FormStudentSchema, FormStudentType } from '../../utils'
 
@@ -32,6 +32,7 @@ const CreateStudent = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     setError,
     formState: { errors }
@@ -43,7 +44,10 @@ const CreateStudent = () => {
 
   const handleCreateStudent = handleSubmit(async (data) => {
     createStudentCommandHandler.handle(
-      data,
+      {
+        ...data,
+        birth: formatVNDateTime(data.birth)
+      },
       file as File,
       () => {
         toast.success('Thêm sinh viên thành công !')
@@ -74,8 +78,8 @@ const CreateStudent = () => {
         <form onSubmit={handleCreateStudent}>
           <CreateStudentForm
             register={register}
+            control={control}
             errors={errors}
-            setError={setError}
             educationPrograms={educationPrograms}
             faculties={faculties}
             onChange={handleChangeFile}

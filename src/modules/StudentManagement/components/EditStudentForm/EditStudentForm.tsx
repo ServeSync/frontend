@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useEffect } from 'react'
-import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form'
-import classNames from 'classnames'
+import { UseFormRegister, FieldErrors, UseFormSetValue, Controller, Control } from 'react-hook-form'
+import { Autocomplete, TextField } from '@mui/material'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import dayjs from 'dayjs'
 import { FormStudentType } from '../../utils/rules'
 import { EducationProgramType, FacultyType, HomeRoomType, StudentType } from '../../interfaces'
-import { formatDateTime } from 'src/modules/Share/utils'
 import InputImage from 'src/modules/Share/components/InputImage'
-import Input from 'src/modules/Share/components/Input'
-import Select from 'src/modules/Share/components/Select'
 import Button from 'src/modules/Share/components/Button'
 import { gender } from '../../constants'
 
@@ -15,6 +16,7 @@ interface Props {
   register: UseFormRegister<FormStudentType>
   errors: FieldErrors<FormStudentType>
   setValue: UseFormSetValue<FormStudentType>
+  control: Control<FormStudentType>
   student: StudentType
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
@@ -22,7 +24,7 @@ interface Props {
   handleDeleteStudent: (id: string) => void
   isLoading: boolean
   onChange: (file?: File) => void
-  onChangeSelection: (event: React.ChangeEvent<HTMLSelectElement>, name: any) => void
+  onChangeFaculty: (id: string) => void
   previewImage: string
   isLoadingEdit: boolean
   onPreviousPage: () => void
@@ -32,15 +34,15 @@ const EditStudentForm = ({
   register,
   errors,
   setValue,
+  control,
   student,
   educationPrograms,
   faculties,
   homeRooms,
   handleDeleteStudent,
   onPreviousPage,
-  isLoading,
   onChange,
-  onChangeSelection,
+  onChangeFaculty,
   previewImage,
   isLoadingEdit
 }: Props) => {
@@ -54,8 +56,8 @@ const EditStudentForm = ({
       setValue('code', student.code)
       setValue('fullName', student.fullName)
       setValue('email', student.email)
-      setValue('gender', student.gender)
-      setValue('birth', formatDateTime(student.dateOfBirth))
+      setValue('gender', student.gender.toString())
+      setValue('birth', student.dateOfBirth)
       setValue('phone', student.phone)
       setValue('homeTown', student.homeTown)
       setValue('address', student.address)
@@ -68,170 +70,285 @@ const EditStudentForm = ({
 
   return (
     <Fragment>
-      <div className='grid grid-cols-6 gap-6 '>
+      <div className='grid grid-cols-6 gap-6'>
         <div className='col-span-1'>
           <div className='flex flex-col items-center justify-center '>
             <InputImage register={register} onChange={onChange} previewImage={previewImage} student={student} />
           </div>
         </div>
-        <div className='col-span-5 grid grid-cols-3 gap-x-6 gap-y-1 text-[14px]'>
-          <Input
-            register={register}
-            id='studentId'
+        <div className='col-span-5 grid grid-cols-3 gap-x-6 gap-y-4 text-[14px]'>
+          <Controller
             name='code'
-            label='Mã số sinh viên'
-            placeholder='Nhập mã số sinh viên'
-            className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.code
-            })}
-            error={errors.code?.message}
-            isLoading={isLoading}
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value = (student && student.code) || null } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <TextField
+                    id='code'
+                    label='Mã số sinh viên'
+                    value={value}
+                    placeholder='Nhập mã số sinh viên'
+                    className='w-full bg-white'
+                    onChange={onChange}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.code?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
-          <Input
-            register={register}
-            id='fullName'
+          <Controller
             name='fullName'
-            label='Họ và tên'
-            placeholder='Nhập họ và tên'
-            className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.fullName
-            })}
-            error={errors.fullName?.message}
-            isLoading={isLoading}
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value = student && student.fullName } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <TextField
+                    id='fullName'
+                    label='Họ và tên'
+                    value={value}
+                    placeholder='Nhập họ và tên'
+                    className='w-full bg-white'
+                    onChange={onChange}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.fullName?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
-          <Input
-            register={register}
-            id='email'
+          <Controller
             name='email'
-            label='Email'
-            placeholder='Nhập Email'
-            className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.email
-            })}
-            error={errors.email?.message}
-            isLoading={isLoading}
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value = student && student.email } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <TextField
+                    id='email'
+                    label='Email'
+                    value={value}
+                    placeholder='Nhập Email'
+                    className='w-full bg-white'
+                    onChange={onChange}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.email?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
-          <Select
-            register={register}
-            id='gender'
+          <Controller
             name='gender'
-            label='Giới tính'
-            className='col-span-1 flex flex-col'
-            classNameSelect='border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]'
-            options={gender}
-            isLoading={isLoading}
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <Autocomplete
+                    disablePortal
+                    id='gender'
+                    options={gender}
+                    value={gender.find((option) => option.id === value) || null}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => <TextField {...params} label='Giới tính' />}
+                    onChange={(_, option) => onChange(option?.id)}
+                    className='bg-white'
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.gender?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
-          <Input
-            register={register}
-            id='birth'
+          <Controller
             name='birth'
-            type='date'
-            label='Ngày sinh'
-            placeholder='Nhập ngày sinh'
-            className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.birth
-            })}
-            error={errors.birth?.message}
-            isLoading={isLoading}
+            control={control}
+            render={({ field: { onChange, value = student && student.dateOfBirth } }) => (
+              <div className='mt-[-8px]'>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DateTimeField']}>
+                    <DateTimePicker
+                      label='Ngày sinh'
+                      format='DD/MM/YYYY'
+                      onChange={onChange}
+                      value={dayjs(value)}
+                      className='bg-white'
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                  {errors.birth?.message}
+                </span>
+              </div>
+            )}
           />
-          <Input
-            register={register}
-            id='phone'
+          <Controller
             name='phone'
-            label='Số điện thoại'
-            placeholder='Nhập số điện thoại'
-            className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.phone
-            })}
-            error={errors.phone?.message}
-            isLoading={isLoading}
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value = student && student.phone } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <TextField
+                    id='phone'
+                    label='Số điện thoại'
+                    value={value}
+                    placeholder='Nhập số điện thoại'
+                    className='w-full bg-white'
+                    onChange={onChange}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.phone?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
-          <Input
-            register={register}
-            id='homeTown'
+          <Controller
             name='homeTown'
-            label='Nơi sinh'
-            placeholder='Nhập nơi sinh'
-            className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.homeTown
-            })}
-            error={errors.homeTown?.message}
-            isLoading={isLoading}
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value = student && student.homeTown } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <TextField
+                    id='homeTown'
+                    label='Nơi sinh'
+                    value={value}
+                    placeholder='Nhập nơi sinh'
+                    className='w-full bg-white'
+                    onChange={onChange}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.homeTown?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
-          <Input
-            register={register}
-            id='address'
+          <Controller
             name='address'
-            label='Địa chỉ cư trú'
-            placeholder='Nhập địa chỉ cư trú'
-            className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.address
-            })}
-            error={errors.address?.message}
-            isLoading={isLoading}
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value = student && student.address } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <TextField
+                    id='address'
+                    label='Địa địa chỉ cư trú'
+                    value={value}
+                    placeholder='Nhập địa chỉ cư trú'
+                    className='w-full bg-white'
+                    onChange={onChange}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.address?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
-          <Input
-            register={register}
-            id='citizenId'
+          <Controller
             name='citizenId'
-            label='Căn cước công dân'
-            placeholder='Nhập căn cước công dân'
-            className='col-span-1 flex flex-col'
-            classNameInput={classNames('border-[1px] border-gray-200 rounded py-2 px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.citizenId
-            })}
-            error={errors.citizenId?.message}
-            isLoading={isLoading}
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value = student && student.citizenId } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <TextField
+                    id='citizenId'
+                    label='Căn cước công dân'
+                    value={value}
+                    placeholder='Nhập căn cước công dân'
+                    className='w-full bg-white'
+                    onChange={onChange}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.citizenId?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
-          <Select
-            register={register}
-            id='faculty'
+          <Controller
             name='facultyId'
-            label='Khoa'
-            className='col-span-1 flex flex-col'
-            classNameSelect={classNames('border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.facultyId?.message !== '' && errors.facultyId
-            })}
-            options={faculties}
-            error={errors.facultyId?.message}
-            onChange={(e) => onChangeSelection(e, 'facultyId')}
-            isLoading={isLoading}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <Autocomplete
+                    disablePortal
+                    id='faculty'
+                    options={faculties ? faculties : []}
+                    value={(faculties && faculties.find((option) => option.id === value)) || null}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => <TextField {...params} label='Khoa' />}
+                    onChange={(_, option) => {
+                      onChange(option?.id)
+                      onChangeFaculty(option?.id as string)
+                    }}
+                    className='bg-white'
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.facultyId?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
-          <Select
-            register={register}
-            id='homeroom'
+          <Controller
             name='homeRoomId'
-            label='Lớp sinh hoạt'
-            className='col-span-1 flex flex-col'
-            classNameSelect={classNames('border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.homeRoomId?.message !== '' && errors.homeRoomId
-            })}
-            defaultOptions='Chọn lớp sinh hoạt'
-            options={homeRooms}
-            error={errors.homeRoomId?.message}
-            onChange={(e) => onChangeSelection(e, 'homeRoomId')}
-            isLoading={isLoading}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <Autocomplete
+                    disablePortal
+                    id='homeroom'
+                    options={homeRooms ? homeRooms : []}
+                    value={(homeRooms && homeRooms.find((option) => option.id === value)) || null}
+                    getOptionLabel={(option) => option.name}
+                    noOptionsText='Không có lựa chọn'
+                    renderInput={(params) => <TextField {...params} label='Lớp sinh hoạt' />}
+                    onChange={(_, option) => onChange(option?.id)}
+                    className='bg-white'
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.homeRoomId?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
-          <Select
-            register={register}
-            id='education_program'
+          <Controller
             name='educationProgramId'
-            label='Hệ đào tạo'
-            className='col-span-1 flex flex-col'
-            classNameSelect={classNames('border-[1px] border-gray-200 rounded px-4 outline-[#26C6DA] h-[48px]', {
-              'border-red-600 outline-red-600': errors.educationProgramId?.message !== '' && errors.educationProgramId
-            })}
-            options={educationPrograms}
-            error={errors.educationProgramId?.message}
-            onChange={(e) => onChangeSelection(e, 'educationProgramId')}
-            isLoading={isLoading}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <Autocomplete
+                    disablePortal
+                    id='education_program'
+                    options={educationPrograms ? educationPrograms : []}
+                    value={(educationPrograms && educationPrograms.find((option) => option.id === value)) || null}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => <TextField {...params} label='Hệ đào tạo' />}
+                    onChange={(_, option) => onChange(option?.id)}
+                    className='bg-white'
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.educationProgramId?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
           />
         </div>
       </div>

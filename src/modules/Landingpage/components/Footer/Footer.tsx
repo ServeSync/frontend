@@ -1,15 +1,12 @@
 import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs'
+import { logo } from 'src/modules/Share/constants'
 
 const Footer = () => {
   return (
     <footer className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-[#010103] max-w-screen-xl w-full h-auto justify-center items-center text-left py-8 px-4 gap-[100px] mx-auto '>
       <ul className='list-none space-y-10'>
         <li className='flex items-center gap-4 font-normal text-[16px] leading-10 break-words font-serif'>
-          <img
-            src='https://res.cloudinary.com/dboijruhe/image/upload/v1695882589/ServeSync/otodujgypsfzvckrjxbs.png?fbclid=IwAR1kfuOQs4sJ47uIw3RZddFsFkzJYcWvYNdEdHEfwcp6BAFqDTIhdkpw72A'
-            alt='logo-img'
-            className='w-10 h-10'
-          />
+          <img src={logo} alt='logo-img' className='w-10 h-10' />
           ServeSync
         </li>
         <li className='text-[#8C8B92] text-[14px] font-normal leading-9 break-words'>

@@ -8,9 +8,20 @@ import SwiperCore from 'swiper'
 import { Navigation, Pagination } from 'swiper/modules'
 import path from 'src/modules/Share/constants/path'
 import CardEvent from '../CardEvent'
+import { EventsListType } from 'src/modules/EventManagement/interfaces'
+
+interface Props {
+  events: EventsListType
+}
 
 SwiperCore.use([Navigation, Pagination])
-const Container = () => {
+const Container = ({ events }: Props) => {
+  console.log(events)
+
+  const listUpcomingEvents = events?.data.filter((event) => event.status === 'Upcoming')
+  const listHappeningEvents = events?.data.filter((event) => event.status === 'Happening')
+  const listDoneEvents = events?.data.filter((event) => event.status === 'Done')
+
   return (
     <div className='flex flex-col mb-[200px] '>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center max-w-screen-xl w-full py-8 px-4 m-auto '>
@@ -21,16 +32,21 @@ const Container = () => {
           <div className='text-[#19182580] text-[18px] font-normal leading-7 break-words'>
             Chúng tôi mở đường cho bạn tìm đến các hoạt động phù hợp với bản thân.
           </div>
-          <Link
-            to={path.login}
-            className='px-8 py-4 bg-[#26c6da] justify-center items-start inline-flex gap-2 rounded-[100px] text-[#eeeeee] text-[16px] w-[150px]'
-          >
-            Bắt đầu
-          </Link>
+          <div className='flex flex-col gap-4'>
+            <Link
+              to={path.login}
+              className='px-8 py-4 bg-[#26c6da] justify-center items-start inline-flex gap-2 rounded-[100px] text-[#eeeeee] text-[16px] w-[150px]'
+            >
+              Bắt đầu
+            </Link>
+            <Link to='/' className='items-start inline-flex gap-2 text-[14px] hover:underline pl-4'>
+              Tham gia với tư cách nhà tổ chức sự kiện
+            </Link>
+          </div>
         </div>
         <div className=''>
           <img
-            src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1697414400&Signature=BdPiGe9KFXWyHLx3~XA0fjWfyRAwxGvsW2y9NUA4NgMp4HZmHZI4S-9WvVoAJ~cZXYeOMGyLdMzwHrk~Z9F48sI4VgH0QEt2PaL00FktBoUDpTS8joVzxBUNhsuEmlXxDeXmXafyM~k79InzLnJ~BxZ7vNWBalgnN428z~pUXjjjA~tnegNAqXeSz4pxSQi2XxkGVQUj-tcnsjyORmZJpWGZL6OlLzuP4wYqOUbEdrrL9PMJ7ZGxUIKq-BM3GRcb8A3QZ7k3X1cBkxfYYn1tfOEYUFR32-qIS6ev~jJz9io2zVcZijbfL-OrX17UzXUpdL7orZlAdu8JEOOAAWD6cA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+            src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1698624000&Signature=ltw6vplHGB7GWLlv-ktkGa6oJe3upmWZYuXjUUlK31dpLTi-16JYluKFEXHI2om0WP8doa0Ufk9yIH9FsutvDMXiueJfKFP02vPiI-7DeJ4~IwOLMugkg4ISB4HCD1kTYY4PtXT8pgK6ICCFdGDy4y3av7nLslTrB2w3zipoX4ALgGLSNkurh9AuMCLNK~RWMkuQRnA9ZSLekjvqGeEAzi~9WwxiDZd53JBWYNbjnJ5jUhPzsCl81JSfuwefOooHf7IfdFEHJFbTcxlZlUDK2~1xZf2SG44FoHRZDbgAirgoZcC0OEeDXPNDgZZ6J2PSxXPYluozhppGqAc4ZlGvww__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
             alt=''
             className='rounded-[30px]'
           />
@@ -39,7 +55,7 @@ const Container = () => {
       <div className='flex justify-between max-lg:flex-col items-center gap-20 max-w-screen-xl w-full py-8 px-4 m-auto'>
         <div className='lg:max-w-[50%] relative'>
           <img
-            src='https://s3-alpha-sig.figma.com/img/009c/540d/95f73101eb52a8e05f8d6932d3340bcb?Expires=1697414400&Signature=EUG61WI8gxYLFoZClmJJm9ZdNneKhScOk~2ekCwkIrQ9WlFapJpwaKBVW6OKR4bD4MZyt9CJywU5X3iIOtWicC~5~ox0AHpfYM91dVnkVOymW9Srgf44BgLxTqwnPZgW0lKyp3ULTTlFT8NzyOWW4DP4gFR-11qtX~i-TLDNlVVyZXJ2u-8cu-8A4MTWT2ESwR6k1pYVYiO5U5xBlPuiQVfDcaIrw2QY7vSpAfilHiztCWEQeWC8f4Nt4F~tgGlJ8NFxwqsG44dIyct9x6mugGJjP-qccuH-psZMjSIauFg86vdBeoHB~enR~4b1msru~ktzFNheJIG87tpDXDn8AA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+            src='https://s3-alpha-sig.figma.com/img/009c/540d/95f73101eb52a8e05f8d6932d3340bcb?Expires=1698624000&Signature=A~vZn7wHfk9yqo8d02DT5jGTrK6oo-UyOkdJvMwRcFG8m6QL4mfLtwv0NoJM3sApF4W1A3CbV-VaPdIxdginwo3KTnAvnkuZMW~kRPZ0P6x92IZ1eY1To6NNwCWQ~IsSbzbGrd23hbNIPoyZ8CCZqfrt8hZoJ07qtvGERAemN-ssL63kdZ~DBViih0aROJOc9IMisk~Rkdk1wYB-00HfkmbguyZatnUfHwdUvP77TvoD74M42grrrBrg15ynArUSTOjlilpXB1PEVbTnFhLQCiOYuqIAYrtKIhvT62UXV4idTt~UKeHwA9CDhJJAQK5dloSJ1YDhfdLBW1hLI84DqQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
             alt=''
             className='rounded-[30px] z-20 relative'
           />
@@ -165,13 +181,13 @@ const Container = () => {
         <div className='max-w-[45%]'>
           <div className='relative'>
             <img
-              src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1697414400&Signature=qt8dHK7aK1OQM4ORhBOREGbPV5RfXyXbvzZsjePrvDwvtPWaI2qbnq-etD~ryA5hBiZ02k7ZPfnsdWBBhuJZCigvZ~5W1luQpHuXbsbWkoRLB04QG4pbOMTNtlDsfcfZv-xa6~3R014o0bDLh7V3OFt-htIuFSomx4Imor1OY2aKjMWDh2JMawrlNzIKLeE22fLnIZ7rfjCdwO5l6XGNwAJuEP0tp9wCFROenbnQ7PP2zA~v2hbhp6kKvP0nLOBspVb2J7c6wVWT4jFPelnt~HinclvkD-cDG3Hik9mmWMnuxR0ycOLYt7oA0Jhqc~WQVjyGgigtO5vJlYBEqoEnyQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+              src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1698624000&Signature=dbrogaOmzyYsShCPMPqGrMqXM~ABWE-myC-1EKKfzmZ3iz1w9ThIft9ej6Ux4hY4Fk1a2cnb4Ewk9kGIMcBkZOSFzdh2bKPcF6DgZBbtM9eMLa7CcLnQZcUy~X5X1ZAbaMCSwcUYzINn9e0JoB1coab~HQX0PVk9vnc-c7RXMwiYVkjiH2RdGOVzaZ4em5aeJ4II8NMIhz1qw9x8L6uj1vA8k3u-Jqz1JVvP1lBtd7hCh-Weqp0M2DyMjWArwgqUSzXoy~4ebmhIPb2nnPTWiQQiIOlb0Lg0nGVVFnta~-fT5P9sVi2mIHBp2zaCpa7xDrEN1Bkn8PLvyUHIYCka8Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
               alt=''
               className='rounded-full '
             />
             <div className='absolute top-[300px] left-60 bg-white rounded-full max-md:top-[150px] max-md:left-20'>
               <img
-                src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1697414400&Signature=BdPiGe9KFXWyHLx3~XA0fjWfyRAwxGvsW2y9NUA4NgMp4HZmHZI4S-9WvVoAJ~cZXYeOMGyLdMzwHrk~Z9F48sI4VgH0QEt2PaL00FktBoUDpTS8joVzxBUNhsuEmlXxDeXmXafyM~k79InzLnJ~BxZ7vNWBalgnN428z~pUXjjjA~tnegNAqXeSz4pxSQi2XxkGVQUj-tcnsjyORmZJpWGZL6OlLzuP4wYqOUbEdrrL9PMJ7ZGxUIKq-BM3GRcb8A3QZ7k3X1cBkxfYYn1tfOEYUFR32-qIS6ev~jJz9io2zVcZijbfL-OrX17UzXUpdL7orZlAdu8JEOOAAWD6cA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1698624000&Signature=ltw6vplHGB7GWLlv-ktkGa6oJe3upmWZYuXjUUlK31dpLTi-16JYluKFEXHI2om0WP8doa0Ufk9yIH9FsutvDMXiueJfKFP02vPiI-7DeJ4~IwOLMugkg4ISB4HCD1kTYY4PtXT8pgK6ICCFdGDy4y3av7nLslTrB2w3zipoX4ALgGLSNkurh9AuMCLNK~RWMkuQRnA9ZSLekjvqGeEAzi~9WwxiDZd53JBWYNbjnJ5jUhPzsCl81JSfuwefOooHf7IfdFEHJFbTcxlZlUDK2~1xZf2SG44FoHRZDbgAirgoZcC0OEeDXPNDgZZ6J2PSxXPYluozhppGqAc4ZlGvww__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
                 alt=''
                 className='rounded-full p-4'
               />
@@ -182,9 +198,9 @@ const Container = () => {
       <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
         <div className='flex flex-col gap-4'>
           <div className='text-[#F85E9F] uppercase text-[44px] font-normal tracking-[8px] break-words'>
-            Sự kiện thành công
+            Sự kiện sắp diễn ra
           </div>
-          <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện được đánh giá cao nhất</div>
+          <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện sắp tổ chức tới đây</div>
         </div>
         <div className='overflow-hidden py-10 w-full '>
           <Swiper
@@ -195,78 +211,21 @@ const Container = () => {
             modules={[Pagination, Navigation]}
             className=' px-6 !overflow-visible flex'
           >
-            <SwiperSlide>
-              <CardEvent
-                rating={4.8}
-                imgUrl='https://tphcm.cdnchinhphu.vn/Uploads/images/2017/Novaland.jpg'
-                isEnded={true}
-                location='Huế'
-                member={100}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/09/2023 - 23/09/2023'
-                title='Mùa hè xanh'
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardEvent
-                rating={4.8}
-                imgUrl='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                isEnded={true}
-                location='Huế'
-                member={100}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/09/2023 - 23/09/2023'
-                title='Gặp em trên bản'
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardEvent
-                rating={4.8}
-                imgUrl='https://tphcm.cdnchinhphu.vn/Uploads/images/2017/Novaland.jpg'
-                isEnded={true}
-                location='Huế'
-                member={100}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/09/2023 - 23/09/2023'
-                title='Mùa hè xanh'
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardEvent
-                rating={3.2}
-                imgUrl='https://img.dantocmiennui.vn/t620/uploaded/usizh/2022_03_28/sl1.jpg'
-                isEnded={true}
-                location='Đà Nẵng'
-                member={200}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/10/2023 - 23/10/2023'
-                title='Hỗ trợ trẻ em '
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardEvent
-                rating={4.2}
-                imgUrl='https://nld.mediacdn.vn/291774122806476800/2022/2/10/hud-16444803531531434048709.jpg'
-                isEnded={true}
-                location='Đà Nẵng'
-                member={200}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/10/2023 - 23/10/2023'
-                title='Làm sạch bãi biển'
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardEvent
-                rating={4.2}
-                imgUrl='https://nld.mediacdn.vn/291774122806476800/2022/2/10/hud-16444803531531434048709.jpg'
-                isEnded={true}
-                location='Đà Nẵng'
-                member={200}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/10/2023 - 23/10/2023'
-                title='Làm sạch bãi biển'
-              />
-            </SwiperSlide>
+            {listUpcomingEvents &&
+              listUpcomingEvents.map((event, index) => (
+                <SwiperSlide key={index}>
+                  <CardEvent
+                    rating={event.rating}
+                    imgUrl={event.imageUrl}
+                    location={event.address.fullAddress}
+                    member={event.capacity}
+                    organizational={event.representativeOrganization.name}
+                    time={event.startAt + '-' + event.endAt}
+                    title={event.name}
+                    status='Sắp diễn ra'
+                  />
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
         <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>
@@ -274,9 +233,9 @@ const Container = () => {
       <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
         <div className='flex flex-col gap-4'>
           <div className='text-[#F85E9F] uppercase text-[44px] font-normal tracking-[8px] break-words'>
-            Sự kiện gần đây
+            Sự kiện đang diễn ra
           </div>
-          <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện diễn ra gần đây</div>
+          <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện đang được tổ chức </div>
         </div>
         <div className='overflow-hidden py-10 w-full '>
           <Swiper
@@ -287,82 +246,61 @@ const Container = () => {
             modules={[Pagination, Navigation]}
             className=' px-6 !overflow-visible flex'
           >
-            <SwiperSlide>
-              <CardEvent
-                rating={4.8}
-                imgUrl='https://tphcm.cdnchinhphu.vn/Uploads/images/2017/Novaland.jpg'
-                isEnded={true}
-                location='Huế'
-                member={100}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/09/2023 - 23/09/2023'
-                title='Mùa hè xanh'
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardEvent
-                rating={4.8}
-                imgUrl='https://s3-alpha-sig.figma.com/img/cd40/7e6c/67698080a1183f1ff5c123cde51bbe35?Expires=1697414400&Signature=AK1AIUHadA~92nFgfXckdtE5NTex1GtuBDcjWZMK348QnWEpNfSRmCtaon0lGSoNIwRI-4gmQYHt-EBe3cDW4Z5JelaXkEc3C57kPe4p7~qYoHdL47rsJtJen0h9eR5jxd18mHC9w5jEGW1IVYqK7eWufvZ6znmaWZ~LltE9j3y~Lcj5cY2v40QJjzsdT4WYNQeeIbokLnxdU34JdT8zbjgIvQq2fc3npHI5MsAYY9GNHW6WGg8Elxn-DQw1o5vzkxl34ktxSwzhrWbfJ0Yia4C3lcD1CPrm37b6sFLm2blUsi5FzyM93MDMG-32hGGnZbL-4xSzBu5m78vriof00Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                isEnded={true}
-                location='Huế'
-                member={100}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/09/2023 - 23/09/2023'
-                title='Gặp em trên bản'
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardEvent
-                rating={4.8}
-                imgUrl='https://tphcm.cdnchinhphu.vn/Uploads/images/2017/Novaland.jpg'
-                isEnded={true}
-                location='Huế'
-                member={100}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/09/2023 - 23/09/2023'
-                title='Mùa hè xanh'
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardEvent
-                rating={3.2}
-                imgUrl='https://img.dantocmiennui.vn/t620/uploaded/usizh/2022_03_28/sl1.jpg'
-                isEnded={true}
-                location='Đà Nẵng'
-                member={200}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/10/2023 - 23/10/2023'
-                title='Hỗ trợ trẻ em '
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardEvent
-                rating={4.2}
-                imgUrl='https://nld.mediacdn.vn/291774122806476800/2022/2/10/hud-16444803531531434048709.jpg'
-                isEnded={true}
-                location='Đà Nẵng'
-                member={200}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/10/2023 - 23/10/2023'
-                title='Làm sạch bãi biển'
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <CardEvent
-                rating={4.2}
-                imgUrl='https://nld.mediacdn.vn/291774122806476800/2022/2/10/hud-16444803531531434048709.jpg'
-                isEnded={true}
-                location='Đà Nẵng'
-                member={200}
-                organizational='Đại học bách khoa Đà Nẵng'
-                time='22/10/2023 - 23/10/2023'
-                title='Làm sạch bãi biển'
-              />
-            </SwiperSlide>
+            {listHappeningEvents &&
+              listHappeningEvents.map((event, index) => (
+                <SwiperSlide key={index}>
+                  <CardEvent
+                    rating={event.rating}
+                    member={event.capacity}
+                    time={event.startAt + ' - ' + event.endAt}
+                    organizational={event.representativeOrganization.name}
+                    title={event.name}
+                    imgUrl={event.imageUrl}
+                    location={event.address.fullAddress}
+                    status='Sự kiện đang diễn ra'
+                  />
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
         <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>
       </div>
+      <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
+        <div className='flex flex-col gap-4'>
+          <div className='text-[#F85E9F] uppercase text-[44px] font-normal tracking-[8px] break-words'>
+            Sự kiện đã kết thúc
+          </div>
+          <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện đã hoàn thành tổ chức </div>
+        </div>
+        <div className='overflow-hidden py-10 w-full '>
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            navigation={true}
+            pagination={{ clickable: true }}
+            modules={[Pagination, Navigation]}
+            className=' px-6 !overflow-visible flex'
+          >
+            {listDoneEvents &&
+              listDoneEvents.map((event, index) => (
+                <SwiperSlide key={index}>
+                  <CardEvent
+                    rating={event.rating}
+                    member={event.capacity}
+                    time={event.startAt + ' - ' + event.endAt}
+                    organizational={event.representativeOrganization.name}
+                    title={event.name}
+                    imgUrl={event.imageUrl}
+                    location={event.address.fullAddress}
+                    status='Sự kiện đã kết thúc'
+                  />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </div>
+        <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>
+      </div>
+
       <div className='flex flex-col justify-center items-center py-8 px-4 m-auto max-w-screen-xl mt-20'>
         <div className='w-full h-full lg:px-40 py-12 inline-flex justify-center items-center relative'>
           <div className='text-center text-[44px] font-normal leading-[52px] break-words'>

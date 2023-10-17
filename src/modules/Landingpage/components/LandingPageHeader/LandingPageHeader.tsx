@@ -2,6 +2,7 @@ import { Link, NavLink } from 'react-router-dom'
 import classNames from 'classnames'
 import { useState } from 'react'
 import path from 'src/modules/Share/constants/path'
+import { logo } from 'src/modules/Share/constants'
 
 const LandingPageHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -12,11 +13,7 @@ const LandingPageHeader = () => {
     <div className=''>
       <header className='relative max-w-screen-xl w-full h-auto flex justify-between items-center py-8 px-4 top-0 left-0 right-0 bg-transparent z-50 mx-auto'>
         <div className='flex w-56 items-center font-normal text-[24px] gap-4 leading-10 font-serif'>
-          <img
-            src='https://res.cloudinary.com/dboijruhe/image/upload/v1695882589/ServeSync/otodujgypsfzvckrjxbs.png?fbclid=IwAR1kfuOQs4sJ47uIw3RZddFsFkzJYcWvYNdEdHEfwcp6BAFqDTIhdkpw72A'
-            alt='logo-img'
-            className='w-20 h-20'
-          />
+          <img src={logo} alt='logo-img' className='w-20 h-20' />
           ServeSync
         </div>
         <ul className='lg:flex gap-8 list-none font-medium text-[#191825]/50 hidden text-[14px]'>

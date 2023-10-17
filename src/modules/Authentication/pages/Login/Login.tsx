@@ -10,6 +10,7 @@ import { LoginCommandHandler } from '../../services'
 import path from 'src/modules/Share/constants/path'
 import { handleError } from 'src/modules/Share/utils'
 import LoginForm from '../../components/LoginForm'
+import { logo } from 'src/modules/Share/constants'
 
 const Login = () => {
   const { setIsAuthenticated } = useContext(AppContext)
@@ -48,11 +49,7 @@ const Login = () => {
       </Helmet>
       <div className='flex items-center bg-[#bdeef4] rounded-3xl w-[1000px] overflow-hidden shadow-[rgba(25,_94,_142,_0.36)_2px_9px_20px]'>
         <div className='max-w-[500] w-[50%] px-10 pt-10 bg-white'>
-          <img
-            src='https://res.cloudinary.com/dboijruhe/image/upload/v1695882589/ServeSync/otodujgypsfzvckrjxbs.png?fbclid=IwAR1kfuOQs4sJ47uIw3RZddFsFkzJYcWvYNdEdHEfwcp6BAFqDTIhdkpw72A'
-            alt='logo'
-            className='w-[120px] h-[120px]'
-          />
+          <img src={logo} alt='logo' className='w-[120px] h-[120px]' />
           <div className='text-3xl font-normal text-[#195E8E] my-14'>
             <p>Chào bạn !</p>
             <p>Tham gia hoạt động cộng đồng cùng mình nhé ?</p>

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import classNames from 'classnames'
 import path from '../../constants/path'
+import { logo } from '../../constants'
 
 const SideBar = () => {
   const [expanded, setExpanded] = useState(true)
@@ -24,7 +25,7 @@ const SideBar = () => {
         >
           <Link to={path.home} className='text-lg font-bold text-gray-800 flex items-center justify-between'>
             <img
-              src='https://res.cloudinary.com/dboijruhe/image/upload/v1695882589/ServeSync/otodujgypsfzvckrjxbs.png?fbclid=IwAR1kfuOQs4sJ47uIw3RZddFsFkzJYcWvYNdEdHEfwcp6BAFqDTIhdkpw72A'
+              src={logo}
               alt='logo'
               className={classNames('overflow-hidden transition-all', {
                 'w-14 h-14': expanded,
@@ -32,7 +33,7 @@ const SideBar = () => {
               })}
             />
             <span
-              className={classNames('text-[#12b2b7] ml-4 font-semibold text-[20px]', {
+              className={classNames('text-[#62d9e8] ml-4 font-semibold text-[20px]', {
                 hidden: !expanded
               })}
             >

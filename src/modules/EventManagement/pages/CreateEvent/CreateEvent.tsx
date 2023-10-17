@@ -2,7 +2,8 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import CreateEventForm from '../../components/CreateEventForm'
 import { FormEventSchema, FormEventType } from '../../utils'
-// import moment from 'moment-timezone'
+import { EventCategoriesListType } from '../../interfaces'
+import { GetAllEventCategoriesQuery } from '../../services/EventCategory'
 
 interface Props {
   page: number
@@ -10,14 +11,15 @@ interface Props {
 }
 
 const CreateEvent = ({ page, index }: Props) => {
+  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery()
+  const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoriesListType
+
   const FormCreateEvent = useForm<FormEventType>({
     resolver: yupResolver(FormEventSchema)
   })
 
   const handleSubmitFormCreateEvent = FormCreateEvent.handleSubmit((data) => {
     console.log(data)
-    // const vietnamTime = moment(data.startTime).tz('Asia/Ho_Chi_Minh').format('HH:mm')
-    // const vietnamDate = moment(data.startDate).tz('Asia/Ho_Chi_Minh').format('DD/MM/YYYY')
   })
 
   const handleResetFormCreateEvent = () => {
@@ -30,9 +32,10 @@ const CreateEvent = ({ page, index }: Props) => {
         <form onSubmit={handleSubmitFormCreateEvent}>
           <CreateEventForm
             register={FormCreateEvent.register}
-            errors={FormCreateEvent.formState.errors}
             control={FormCreateEvent.control}
+            errors={FormCreateEvent.formState.errors}
             handleResetForm={handleResetFormCreateEvent}
+            eventCategories={eventCategories && eventCategories.data}
           />
         </form>
       )}

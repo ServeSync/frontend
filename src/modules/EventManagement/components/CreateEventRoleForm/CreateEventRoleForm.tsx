@@ -13,7 +13,7 @@ interface Props {
 const CreateEventRoleForm = ({ register, errors, handleResetForm }: Props) => {
   return (
     <div className='border-[1px] border-gray-300 p-4'>
-      <div className='grid grid-cols-4 grid-rows-3  gap-x-6 gap-y-2'>
+      <div className='grid grid-cols-4 grid-rows-3 gap-x-6 gap-y-2'>
         <div className='col-span-2'>
           <TextField id='name' {...register('name')} label='Địa điểm' placeholder='Nhập địa điểm' className='w-full' />
           <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.name?.message}</span>
@@ -45,8 +45,8 @@ const CreateEventRoleForm = ({ register, errors, handleResetForm }: Props) => {
         </div>
 
         <div className='col-span-1'>
-          <TextField id='point' {...register('point')} label='Điểm' placeholder='Nhập điểm' className='w-full ' />
-          <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.point?.message}</span>
+          <TextField id='point' {...register('score')} label='Điểm' placeholder='Nhập điểm' className='w-full ' />
+          <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.score?.message}</span>
         </div>
         <div className='col-span-1'>
           <FormControl fullWidth>

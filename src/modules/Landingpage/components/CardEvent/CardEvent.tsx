@@ -8,9 +8,9 @@ interface Props {
   location?: string
   time?: string
   rating: number
-  isEnded?: boolean
+  status?: string
 }
-const CardEvent = ({ imgUrl, isEnded, location, member, organizational, rating, time, title }: Props) => {
+const CardEvent = ({ imgUrl, status, location, member, organizational, rating, time, title }: Props) => {
   return (
     <div className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] shadow-lg rounded-3xl '>
       <div className='px-4 py-6 flex justify-center items-center '>
@@ -88,17 +88,11 @@ const CardEvent = ({ imgUrl, isEnded, location, member, organizational, rating, 
           </div>
           <div className='flex justify-between mt-6 max-md:flex-col'>
             <EventRating rating={rating} />
-            {isEnded ? (
-              <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
-                <span className='text-[#F93232] font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[12px]'>
-                  Đã kết thúc
-                </span>
-              </div>
-            ) : (
-              <div className='px-6 rounded-xl bg-[#FF5722]/20 flex justify-center items-center cursor-pointer'>
-                <span className='text-[#FF5722] text-[12px] font-normal leading-5 break-words'>Đang diễn ra</span>
-              </div>
-            )}
+            <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
+              <span className='text-[#F93232] font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[12px]'>
+                {status}
+              </span>
+            </div>
           </div>
         </div>
       </div>

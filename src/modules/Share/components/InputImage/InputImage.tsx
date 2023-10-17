@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useRef } from 'react'
 import { UseFormRegister } from 'react-hook-form'
 import Button from '../Button'
-import { FormStudentType } from 'src/modules/StudentManagement/utils'
 import { StudentType } from 'src/modules/StudentManagement/interfaces'
 
 interface Props {
   onChange?: (file?: File) => void
-  register: UseFormRegister<FormStudentType>
-  previewImage: string
+  register: UseFormRegister<any>
+  previewImage?: string
   student?: StudentType
 }
 
@@ -39,7 +39,7 @@ const InputImage = ({ onChange, register, previewImage, student }: Props) => {
       />
       <Button
         type='button'
-        classNameButton='relative bg-slate-300 rounded-full mt-4 outline-none w-full pt-[100%]'
+        classNameButton='relative bg-slate-300 rounded-full outline-none w-full pt-[100%]'
         onClick={handleUploadFile}
       >
         <img
