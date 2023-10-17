@@ -41,3 +41,24 @@ export const FormFilterEventSchema = yup.object({
 })
 
 export type FormFilterEventType = yup.InferType<typeof FormFilterEventSchema>
+export const FormEventOrganizerSchema = yup.object({
+  imageEventUrl: yup.string().required('Vui lòng nhập ảnh đại diện !'),
+  name: yup.string().required('Vui lòng nhập tên tổ chức !'),
+  phonenumber: yup.string().required('Vui lòng nhập số điện thoại !').length(10, 'Số điện thoại không hợp lệ!'),
+  email: yup.string().required('Vui lòng nhập email !'),
+  address: yup.string().required('Vui lòng nhập địa chỉ !'),
+  unitcode: yup.string().required('Vui lòng nhập mã đơn vị !'),
+  imagePresentativeUrl: yup.string(),
+  namerepresentative: yup.string().required('Vui lòng nhập tên người đại diện !'),
+  phonenumberrepresentative: yup
+    .string()
+    .required('Vui lòng nhập số điện thoại !')
+    .length(10, 'Số điện thoại không hợp lệ!'),
+  emailrepresentative: yup.string().required('Vui lòng nhập email !'),
+  addressrepresentative: yup.string().required('Vui lòng nhập địa chỉ !'),
+  birthday: yup.string().required('Vui lòng nhập ngày sinh !'),
+  // gender: yup.boolean().required('Vui lòng chọn giới tính !'),
+  personalposition: yup.string().required('Vui lòng nhập chức vụ !')
+})
+
+export type FormEventOrganizerType = yup.InferType<typeof FormEventOrganizerSchema>

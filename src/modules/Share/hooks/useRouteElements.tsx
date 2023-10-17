@@ -21,6 +21,7 @@ const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditS
 const Event = lazy(() => import('src/modules/EventManagement/pages/Event'))
 const CreateEvent = lazy(() => import('src/modules/EventManagement/pages/CreateEventPage'))
 const EditEvent = lazy(() => import('src/modules/EventManagement/pages/EditEvent'))
+const RequestEvent = lazy(() => import('src/modules/Landingpage/pages/RequestEventPage'))
 
 const RejectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
@@ -77,6 +78,10 @@ const useRouteElements = () => {
               </Suspense>
             </LandingpageLayout>
           )
+        },
+        {
+          path: path.request_event,
+          element: <RequestEvent />
         }
       ]
     },
@@ -154,6 +159,7 @@ const useRouteElements = () => {
             </MainLayout>
           )
         },
+
         {
           path: path.edit_event,
           element: (

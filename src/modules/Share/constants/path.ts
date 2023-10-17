@@ -10,6 +10,7 @@ const path = {
   edit_student: '/students/edit',
   event: '/events',
   create_event: '/events/create',
+  request_event: '/events/request',
   edit_event: '/events/edit',
   event_organizer: '/organizers',
   standard: '/standards',

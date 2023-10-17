@@ -39,7 +39,7 @@ const Container = ({ events }: Props) => {
             >
               Bắt đầu
             </Link>
-            <Link to='/' className='items-start inline-flex gap-2 text-[14px] hover:underline pl-4'>
+            <Link to={path.request_event} className='items-start inline-flex gap-2 text-[14px] hover:underline pl-4'>
               Tham gia với tư cách nhà tổ chức sự kiện
             </Link>
           </div>

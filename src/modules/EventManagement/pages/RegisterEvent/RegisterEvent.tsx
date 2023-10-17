@@ -34,7 +34,6 @@ const RegisterEvent = ({ page, index }: Props) => {
   const handleResetFormEventRole = () => {
     FormCreateEventRole.reset()
   }
-
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-2' aria-controls='simple-tabpanel-2'>
       {page === index && (

@@ -64,6 +64,11 @@ export default function Header() {
               ) : (
                 <span className='text-gray-500'>List</span>
               )}
+              {location[1] !== 'request' ? (
+                <span className='text-gray-500'>{handleHeader()}</span>
+              ) : (
+                <span className='text-gray-500'>Request</span>
+              )}
             </Fragment>
           )}
           {location[0] === 'roles' && (
