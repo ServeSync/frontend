@@ -1,1 +1,5 @@
-export const eventType = [{ name: 'Internal' }, { name: 'External' }, { name: 'Collaboration' }]
+export const eventType = [
+  { id: 'Internal', name: 'Trong trường' },
+  { id: 'External', name: 'Ngoài trường' },
+  { id: 'Collaboration', name: 'Tổng hợp' }
+]

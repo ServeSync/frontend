@@ -1,34 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react'
 import { UseFormRegister, FieldErrors, Controller, Control } from 'react-hook-form'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Autocomplete, TextField } from '@mui/material'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { FormEventType } from '../../utils'
-import { EventCategoryType } from '../../interfaces'
+import { ActivityType, EventCategoryType } from '../../interfaces'
 import { eventType } from '../../constants'
-import { GetAllActivitiesByCategoryIdQuery } from '../../services/EventCategory'
 import Button from 'src/modules/Share/components/Button'
 
 interface Props {
   register: UseFormRegister<FormEventType>
   control: Control<FormEventType>
   errors: FieldErrors<FormEventType>
-  handleResetForm: () => void
   eventCategories: EventCategoryType[]
+  activities: ActivityType[]
+  handleChangeCategory: (id: string) => void
 }
 
-const CreateEventForm = ({ register, control, errors, handleResetForm, eventCategories }: Props) => {
-  const [categoryId, setCategoryId] = useState<string>('')
-
-  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)
-  const activities = getAllActivitiesByCategoryIdQuery.fetch()
-
-  const handleChangeCategory = (id: string) => {
-    setCategoryId(id)
-  }
-
+const CreateEventForm = ({ register, control, errors, eventCategories, activities, handleChangeCategory }: Props) => {
   return (
     <div>
       <div className='flex flex-col gap-y-2'>
@@ -92,7 +82,7 @@ const CreateEventForm = ({ register, control, errors, handleResetForm, eventCate
                     value={eventType.find((option) => option.name === value) || null}
                     getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label='Chọn loại sự kiện' />}
-                    onChange={(_, option) => onChange(option?.name)}
+                    onChange={(_, option) => onChange(option ? option.name : '')}
                     className='bg-white'
                   />
                 </div>
@@ -115,7 +105,7 @@ const CreateEventForm = ({ register, control, errors, handleResetForm, eventCate
                     renderInput={(params) => <TextField {...params} label='Danh mục sự kiện' />}
                     onChange={(_, option) => {
                       handleChangeCategory(option?.id as string)
-                      onChange(option?.id)
+                      onChange(option ? option.id : '')
                     }}
                     className='bg-white'
                   />
@@ -136,12 +126,12 @@ const CreateEventForm = ({ register, control, errors, handleResetForm, eventCate
                   <Autocomplete
                     disablePortal
                     id='education_program'
-                    options={activities ? activities.data : []}
-                    value={(activities && activities.data.find((option) => option.id === value)) || null}
+                    options={activities ? activities : []}
+                    value={(activities && activities.find((option) => option.id === value)) || null}
                     getOptionLabel={(option) => option.name}
                     noOptionsText='Không có lựa chọn'
                     renderInput={(params) => <TextField {...params} label='Hoạt động sự kiện' />}
-                    onChange={(_, option) => onChange(option?.id)}
+                    onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
@@ -154,12 +144,26 @@ const CreateEventForm = ({ register, control, errors, handleResetForm, eventCate
           <div className='col-span-12'>
             <TextField
               id='address'
-              {...register('address')}
+              {...register('address.fullAddress')}
               label='Địa điểm'
               placeholder='Nhập địa điểm'
               className='w-full bg-white'
             />
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.address?.message}</span>
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+              {errors.address?.fullAddress?.message}
+            </span>
+          </div>
+          <div className='col-span-6'>
+            <TextField id='address_longitude' {...register('address.longitude')} className='w-full bg-white' />
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+              {errors.address?.longitude?.message}
+            </span>
+          </div>
+          <div className='col-span-6'>
+            <TextField id='address_latitude' {...register('address.latitude')} className='w-full bg-white' />
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+              {errors.address?.latitude?.message}
+            </span>
           </div>
           <div className='col-span-12'>
             <TextField
@@ -177,16 +181,8 @@ const CreateEventForm = ({ register, control, errors, handleResetForm, eventCate
           </div>
           <div className='col-span-12 flex justify-end gap-x-6'>
             <Button
-              type='button'
-              classNameButton='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-gray-800 font-semibold'
-              onClick={handleResetForm}
-            >
-              Làm mới
-            </Button>
-            <Button
               type='submit'
               classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
-              isLoading={false}
             >
               Tạo
             </Button>

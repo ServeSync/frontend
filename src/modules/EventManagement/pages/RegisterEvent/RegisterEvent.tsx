@@ -1,61 +1,66 @@
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { FormEventRoleSchema, FormEventRoleType, FormRegisterEventSchema, FormRegisterEventType } from '../../utils'
-import RegisterEventForm from '../../components/RegisterEventForm'
-import EventRoleTable from '../../components/EventRoleTable'
-import EventRoleForm from '../../components/CreateEventRoleForm'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  UseFieldArrayReturn,
+  UseFormRegister,
+  Control,
+  FieldErrors,
+  UseFormGetValues,
+  UseFormResetField
+} from 'react-hook-form'
+import { FormEventType } from '../../utils'
+import RegisterEventRoleTable from '../../components/RegisterEventRoleTable'
+import RegisterEventTimeForm from '../../components/RegisterEventTimeForm'
+import RegisterEventRoleForm from '../../components/RegisterEventRoleForm'
+import { EventRole } from '../../interfaces'
 
 interface Props {
   page: number
   index: number
+  register: UseFormRegister<FormEventType>
+  control: Control<FormEventType>
+  errors: FieldErrors<FormEventType>
+  getValues: UseFormGetValues<FormEventType>
+  resetField: UseFormResetField<FormEventType>
+  FieldRegistration: UseFieldArrayReturn<FormEventType, 'registrationInfos'>
+  FieldAttendance: UseFieldArrayReturn<FormEventType, 'attendanceInfos'>
+  dataEventRole: EventRole[]
+  handleDataEventRole: (data: EventRole) => void
+  handleRemoveEventRole: (id: number) => void
 }
 
-const RegisterEvent = ({ page, index }: Props) => {
-  const FormRegisterEvent = useForm<FormRegisterEventType>({
-    resolver: yupResolver(FormRegisterEventSchema)
-  })
-
-  const handleSubmitFormRegisterEvent = FormRegisterEvent.handleSubmit((data) => {
-    console.log(data)
-  })
-
-  const handleResetFormRegisterEvent = () => {
-    FormRegisterEvent.reset()
-  }
-
-  const FormCreateEventRole = useForm<FormEventRoleType>({
-    resolver: yupResolver(FormEventRoleSchema)
-  })
-
-  const handleSubmitFormEventRole = FormCreateEventRole.handleSubmit((data) => {
-    console.log(data)
-  })
-
-  const handleResetFormEventRole = () => {
-    FormCreateEventRole.reset()
-  }
-
+const RegisterEvent = ({
+  page,
+  index,
+  register,
+  control,
+  errors,
+  getValues,
+  resetField,
+  FieldRegistration,
+  FieldAttendance,
+  dataEventRole,
+  handleDataEventRole,
+  handleRemoveEventRole
+}: Props) => {
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-2' aria-controls='simple-tabpanel-2'>
       {page === index && (
         <div className='flex flex-col'>
-          <form onSubmit={handleSubmitFormRegisterEvent}>
-            <RegisterEventForm
-              register={FormRegisterEvent.register}
-              errors={FormRegisterEvent.formState.errors}
-              control={FormRegisterEvent.control}
-              handleResetForm={handleResetFormRegisterEvent}
-            />
-          </form>
-          <EventRoleTable />
-          <form onSubmit={handleSubmitFormEventRole}>
-            <EventRoleForm
-              register={FormCreateEventRole.register}
-              errors={FormCreateEventRole.formState.errors}
-              control={FormCreateEventRole.control}
-              handleResetForm={handleResetFormEventRole}
-            />
-          </form>
+          <RegisterEventTimeForm
+            errors={errors}
+            control={control}
+            FieldRegistration={FieldRegistration}
+            FieldAttendance={FieldAttendance}
+          />
+          <RegisterEventRoleTable dataEventRole={dataEventRole} handleRemoveEventRole={handleRemoveEventRole} />
+          <RegisterEventRoleForm
+            register={register}
+            errors={errors}
+            control={control}
+            getValues={getValues}
+            resetField={resetField}
+            handleDataEventRole={handleDataEventRole}
+          />
         </div>
       )}
     </div>

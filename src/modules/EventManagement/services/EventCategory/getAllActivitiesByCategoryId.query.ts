@@ -10,7 +10,8 @@ class GetAllActivitiesByCategoryIdQuery {
     this._query = useQuery({
       queryKey: ['activities', categoryId],
       queryFn: () => eventCategoryAPI.getListActivitiesByCategoryId(categoryId),
-      enabled: categoryId !== ''
+      enabled: categoryId !== '',
+      staleTime: 5 * 60 * 1000
     })
   }
 
