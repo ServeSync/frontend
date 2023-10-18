@@ -7,7 +7,6 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import InputImage from 'src/modules/Share/components/InputImage'
 interface Props {
   register: UseFormRegister<FormEventOrganizerType>
   errors: FieldErrors<FormEventOrganizerType>
@@ -19,28 +18,13 @@ interface Props {
   previewImage2: string
 }
 
-const RequestEventOrganizerForm = ({
-  register,
-  control,
-  onChange1,
-  onChange2,
-  errors,
-  previewImage1,
-  previewImage2,
-  handleResetForm
-}: Props) => {
+const RequestEventOrganizerForm = ({ register, control, errors, handleResetForm }: Props) => {
   return (
     <Fragment>
       <div className='flex flex-col gap-y-2 max-w-[800px] mx-auto'>
         <h2 className='text-[17px] col-span-4 mb-2'>Thông tin ban tổ chức</h2>
         <div className='grid grid-cols-4 gap-4'>
           <div className='col-span-1 flex flex-col items-center mx-6'>
-            <InputImage
-              nameregister='imageEventUrl'
-              register={register}
-              onChange={onChange1}
-              previewImage={previewImage1}
-            />
             <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'></span>
           </div>
           <div className='col-span-3'>
@@ -53,6 +37,18 @@ const RequestEventOrganizerForm = ({
                 className='w-full'
               />
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.name?.message}</span>
+            </div>
+            <div className='my-2'>
+              <TextField
+                id='outlined-textarea'
+                {...register('description')}
+                label='Mô tả tổ chức'
+                placeholder='Mô tả tổ chức'
+                className='w-full'
+              />
+              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                {errors.description?.message}
+              </span>
             </div>
             <div className='my-2'>
               <TextField
@@ -88,29 +84,11 @@ const RequestEventOrganizerForm = ({
                 {errors.address?.message}
               </span>
             </div>
-            <div className='my-2'>
-              <TextField
-                id='outlined-textarea'
-                {...register('unitcode')}
-                label='Mã đơn vị'
-                placeholder='Mã đơn vị'
-                className='w-full'
-              />
-              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.unitcode?.message}
-              </span>
-            </div>
           </div>
         </div>
         <h2 className='text-[17px] col-span-4 mb-2'>Người đại diện</h2>
         <div className='grid grid-cols-4 gap-4'>
           <div className='col-span-1 flex flex-col items-center mx-6'>
-            <InputImage
-              nameregister='imagePresentativeUrl'
-              register={register}
-              onChange={onChange2}
-              previewImage={previewImage2}
-            />
             <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'></span>
           </div>
           <div className='col-span-3'>
@@ -162,7 +140,7 @@ const RequestEventOrganizerForm = ({
                 {errors.addressrepresentative?.message}
               </span>
             </div>
-            <div className='my-2 flex   gap-10'>
+            <div className='my-2 flex gap-10'>
               <Controller
                 name='birthday'
                 control={control}

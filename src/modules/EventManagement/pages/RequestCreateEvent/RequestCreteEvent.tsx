@@ -1,15 +1,15 @@
 import { useForm } from 'react-hook-form'
-import CreateEventForm from '../../components/CreateEventForm'
-import { FormEventSchema, FormEventType } from '../../utils'
+import { FormRequestEventSchema, FormRequestEventType } from '../../utils'
 import { yupResolver } from '@hookform/resolvers/yup'
+import RequestCreateEventForm from '../../components/RequestCreateEventForm'
 
 interface Props {
   page: number
   index: number
 }
 const RequestCreteEvent = ({ page, index }: Props) => {
-  const FormCreateEvent = useForm<FormEventType>({
-    resolver: yupResolver(FormEventSchema)
+  const FormCreateEvent = useForm<FormRequestEventType>({
+    resolver: yupResolver(FormRequestEventSchema)
   })
 
   const handleResetFormCreateEvent = () => {
@@ -23,7 +23,7 @@ const RequestCreteEvent = ({ page, index }: Props) => {
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
       {page === index && (
         <form onSubmit={handleSubmitFormCreateEvent}>
-          <CreateEventForm
+          <RequestCreateEventForm
             eventCategories={[]}
             register={FormCreateEvent.register}
             errors={FormCreateEvent.formState.errors}

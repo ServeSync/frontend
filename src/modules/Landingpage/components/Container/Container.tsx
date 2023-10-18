@@ -16,8 +16,6 @@ interface Props {
 
 SwiperCore.use([Navigation, Pagination])
 const Container = ({ events }: Props) => {
-  console.log(events)
-
   const listUpcomingEvents = events?.data.filter((event) => event.status === 'Upcoming')
   const listHappeningEvents = events?.data.filter((event) => event.status === 'Happening')
   const listDoneEvents = events?.data.filter((event) => event.status === 'Done')

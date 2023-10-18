@@ -41,13 +41,33 @@ export const FormFilterEventSchema = yup.object({
 })
 
 export type FormFilterEventType = yup.InferType<typeof FormFilterEventSchema>
+
+// Phan cua Ngoc Nguyen
+
+export const FormRequestEventSchema = yup.object({
+  name: yup.string().required('Vui lòng nhập tên sự kiện !'),
+  introduction: yup.string().required('Vui lòng nhập giới thiệu sự kiện !'),
+  imageUrl: yup.string().required('Vui lòng chọn ảnh !'),
+  startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu !'),
+  endAt: yup.string().required('Vui lòng nhập thời gian kết thúc !'),
+  type: yup.string().required('Vui lòng chọn loại sự kiện !'),
+  categoryId: yup.string().required('Vui lòng chọn danh mục sự kiện !'),
+  activityId: yup.string().required('Vui lòng chọn hoạt động của sự kiện !'),
+  capacity: yup.number().required('Vui lòng nhập số lượng !'),
+  description: yup.string().required('Vui lòng nhập mô tả sự kiện !'),
+  address: yup.string().required('Vui lòng nhập địa điểm !')
+})
+
+export type FormRequestEventType = yup.InferType<typeof FormRequestEventSchema>
+
 export const FormEventOrganizerSchema = yup.object({
-  imageEventUrl: yup.string().required('Vui lòng nhập ảnh đại diện !'),
+  imageUrl: yup.string().required('Vui lòng nhập ảnh đại diện !'),
   name: yup.string().required('Vui lòng nhập tên tổ chức !'),
   phonenumber: yup.string().required('Vui lòng nhập số điện thoại !').length(10, 'Số điện thoại không hợp lệ!'),
   email: yup.string().required('Vui lòng nhập email !'),
   address: yup.string().required('Vui lòng nhập địa chỉ !'),
-  unitcode: yup.string().required('Vui lòng nhập mã đơn vị !'),
+  description: yup.string().required('Vui lòng nhập mô tả tổ chức'),
+
   imagePresentativeUrl: yup.string(),
   namerepresentative: yup.string().required('Vui lòng nhập tên người đại diện !'),
   phonenumberrepresentative: yup
@@ -57,7 +77,6 @@ export const FormEventOrganizerSchema = yup.object({
   emailrepresentative: yup.string().required('Vui lòng nhập email !'),
   addressrepresentative: yup.string().required('Vui lòng nhập địa chỉ !'),
   birthday: yup.string().required('Vui lòng nhập ngày sinh !'),
-  // gender: yup.boolean().required('Vui lòng chọn giới tính !'),
   personalposition: yup.string().required('Vui lòng nhập chức vụ !')
 })
 

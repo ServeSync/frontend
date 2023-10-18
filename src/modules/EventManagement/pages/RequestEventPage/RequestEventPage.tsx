@@ -28,7 +28,7 @@ const RequestEventPage = () => {
       </Helmet>
       <div>
         <div className='bg-[#1C2A3A] h-[200px]'>
-          <form className='h-full'>
+          <div className='h-full'>
             <div className='flex justify-between items-center max-w-[800px] mx-auto h-full'>
               <div className='flex flex-col '>
                 <input
@@ -67,9 +67,9 @@ const RequestEventPage = () => {
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
-        <div className='max-w-[800px] mx-auto'>
+        <div className='max-w-[800px] mx-auto pb-4'>
           <Box>
             <Box>
               <Tabs
