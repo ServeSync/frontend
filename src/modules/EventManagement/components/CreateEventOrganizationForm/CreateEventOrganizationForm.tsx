@@ -4,7 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
 import Button from 'src/modules/Share/components/Button'
-import { ContactType, EventOrganization, EventOrganizationType } from '../../interfaces'
+import { ContactType, EventOrganization, EventOrganizationRep, EventOrganizationType } from '../../interfaces'
 
 interface Props {
   errors: FieldErrors<FormEventType>
@@ -12,24 +12,20 @@ interface Props {
   getValues: UseFormGetValues<FormEventType>
   eventOrganizations: EventOrganizationType[]
   contacts: ContactType[]
-  handleChangeOrganization: (id: string) => void
-  handleDataEventOrganization: (data: EventOrganization) => void
+  handleChangeEventOrganization: (id: string) => void
+  handleAddEventOrganization: () => void
+  setDataEventOrganization: React.Dispatch<React.SetStateAction<EventOrganization[]>>
+  dataEventOrganizationRep: EventOrganizationRep[]
+  setDataEventOrganizationRep: React.Dispatch<React.SetStateAction<EventOrganizationRep[]>>
 }
 
-const CreateEventOrganizerForm = ({
+const CreateEventOrganizationForm = ({
   errors,
   control,
-  getValues,
   eventOrganizations,
-  // contacts,
-  handleChangeOrganization // handleDataEventOrganization
+  handleChangeEventOrganization,
+  handleAddEventOrganization
 }: Props) => {
-  const handleAddEventOrganization = () => {
-    const data = getValues('organizations')
-    // handleDataEventOrganization(data)
-    console.log(data)
-  }
-
   return (
     <div>
       <div className='col-span-4 flex justify-between items-center mb-2'>
@@ -52,7 +48,7 @@ const CreateEventOrganizerForm = ({
                   renderInput={(params) => <TextField {...params} label='Chọn tổ chức' />}
                   onChange={(_, option) => {
                     onChange(option ? option.id : '')
-                    handleChangeOrganization(option?.id as string)
+                    handleChangeEventOrganization(option?.id as string)
                   }}
                   className='bg-white'
                 />
@@ -96,4 +92,4 @@ const CreateEventOrganizerForm = ({
   )
 }
 
-export default CreateEventOrganizerForm
+export default CreateEventOrganizationForm

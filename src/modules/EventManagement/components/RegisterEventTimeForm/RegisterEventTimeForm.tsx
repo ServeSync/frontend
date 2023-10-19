@@ -3,9 +3,9 @@ import { FieldErrors, Controller, Control, UseFieldArrayReturn } from 'react-hoo
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { FormEventType } from '../../utils'
 import Button from 'src/modules/Share/components/Button'
+import { DateTimePicker } from '@mui/x-date-pickers'
 
 interface Props {
   errors: FieldErrors<FormEventType>
@@ -26,11 +26,17 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
             <Controller
               name={`registrationInfos.${index}.startAt`}
               control={control}
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value = null } }) => (
                 <div className='col-span-4'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DatePicker']}>
-                      <DatePicker label='Chọn ngày bắt đầu' className='w-full' onChange={onChange} />
+                    <DemoContainer components={['DateTimeField']}>
+                      <DateTimePicker
+                        label='Thời gian bắt đầu'
+                        format='DD/MM/YYYY HH:mm'
+                        onChange={onChange}
+                        value={value}
+                        className='bg-white'
+                      />
                     </DemoContainer>
                   </LocalizationProvider>
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
@@ -42,11 +48,17 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
             <Controller
               name={`registrationInfos.${index}.endAt`}
               control={control}
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value = null } }) => (
                 <div className='col-span-4'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DatePicker']}>
-                      <DatePicker label='Chọn ngày kết thúc' className='w-full' onChange={onChange} />
+                    <DemoContainer components={['DateTimeField']}>
+                      <DateTimePicker
+                        label='Thời gian kết thúc'
+                        format='DD/MM/YYYY HH:mm'
+                        onChange={onChange}
+                        value={value}
+                        className='bg-white'
+                      />
                     </DemoContainer>
                   </LocalizationProvider>
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
@@ -104,11 +116,17 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
             <Controller
               name={`attendanceInfos.${index}.startAt`}
               control={control}
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value = null } }) => (
                 <div className='col-span-4'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DatePicker']}>
-                      <DatePicker label='Chọn ngày bắt đầu' className='w-full' onChange={onChange} />
+                    <DemoContainer components={['DateTimeField']}>
+                      <DateTimePicker
+                        label='Thời gian bắt đầu'
+                        format='DD/MM/YYYY HH:mm'
+                        onChange={onChange}
+                        value={value}
+                        className='bg-white'
+                      />
                     </DemoContainer>
                   </LocalizationProvider>
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
@@ -120,11 +138,17 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
             <Controller
               name={`attendanceInfos.${index}.endAt`}
               control={control}
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value = null } }) => (
                 <div className='col-span-4'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DatePicker']}>
-                      <DatePicker label='Chọn ngày kết thúc' className='w-full' onChange={onChange} />
+                    <DemoContainer components={['DateTimeField']}>
+                      <DateTimePicker
+                        label='Thời gian kết thúc'
+                        format='DD/MM/YYYY HH:mm'
+                        onChange={onChange}
+                        value={value}
+                        className='bg-white'
+                      />
                     </DemoContainer>
                   </LocalizationProvider>
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>

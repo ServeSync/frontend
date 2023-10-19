@@ -2,23 +2,21 @@ import { FieldErrors, Control } from 'react-hook-form'
 import { FormEventType } from '../../utils'
 import { OrganizerTableHeader } from '../../constants'
 import Skeleton from 'react-loading-skeleton'
+import { EventOrganizationType } from '../../interfaces'
 
 interface Props {
   errors: FieldErrors<FormEventType>
   control: Control<FormEventType>
+  eventOrganization: EventOrganizationType
 }
 
-const EventOrganizerForm = ({ control, errors }: Props) => {
+const EventOrganizerForm = ({ eventOrganization }: Props) => {
   return (
     <div className='border-[1px] border-gray-300 p-6 rounded-xl'>
       <h2 className='text-[20px] mb-4'>Thông tin ban tổ chức 1</h2>
       <div className='grid grid-cols-5 gap-6'>
         <div className='col-span-1'>
-          <img
-            src='https://s3-alpha-sig.figma.com/img/51be/917f/f5c83179ef33f1b0910793a6bc3e939a?Expires=1698624000&Signature=eD45xAt881aPEvNwUSl8Uo-A4Soe5FwR5jqKqH46Jbv7S9dOzh7vnGrHNbj5V2rJly6Wky7Th-3sxgkJ2hhtrhTX0F42nmUe6cjHe7uGQTnKIVJZwZFIZi8XapH8AZzccBen5a~YBGaVTjTfJiIXE2ITUGbXlVlZ9Dy~KTMpH2JiWAbf9i69ssdhFdRoPEvGx4IhMUNzSGNYxBuXhLajgbpvnNRVI8QVSkP7EcnXc0kxucCpuF320nsop2fdMO5XMREyN6n~xykmT3wLuyWwpitfz28LxuBUAuocYI~HkY-of0vntb0womlfsNdgILz53NCjC7gKHbXdAI7DN06RFw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-            alt='avatar_organizer'
-            className=''
-          />
+          <img src={eventOrganization.imageUrl} alt='avatar_organizer' className='' />
         </div>
         <div className='col-span-4'>
           <ul>
@@ -27,35 +25,35 @@ const EventOrganizerForm = ({ control, errors }: Props) => {
                 <span>Tên tổ chức</span>
                 <span>:</span>
               </div>
-              <span>Enlab Software</span>
+              <span>{eventOrganization.name}</span>
             </li>
             <li className='flex gap-4'>
               <div className='w-[100px] flex justify-between'>
                 <span>Email</span>
                 <span>:</span>
               </div>
-              <span>enlab@software.com </span>
+              <span>{eventOrganization.email}</span>
             </li>
             <li className='flex gap-4'>
               <div className='w-[100px] flex justify-between'>
                 <span>Phone</span>
                 <span>:</span>
               </div>
-              <span>0776974310</span>
+              <span>{eventOrganization.phoneNumber}</span>
             </li>
             <li className='flex gap-4'>
               <div className='w-[100px] flex justify-between'>
                 <span>Địa chỉ</span>
                 <span>:</span>
               </div>
-              <span>Hội An</span>
+              <span>{eventOrganization.address}</span>
             </li>
             <li className='flex gap-4'>
               <div className='w-[100px] flex justify-between'>
                 <span>Vai trò</span>
                 <span>:</span>
               </div>
-              <span>Nhà tổ chức</span>
+              <span>{eventOrganization.role}</span>
             </li>
           </ul>
         </div>

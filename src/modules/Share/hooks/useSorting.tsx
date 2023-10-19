@@ -15,12 +15,12 @@ const useSorting = ({ queryConfig, pathname }: Props) => {
 
     let config = {}
 
-    if (sort === column && column !== 'score') {
+    if (sort === column) {
       config = {
         ...queryConfig,
         sorting: `${column} desc`
       }
-    } else if (sort !== column && column !== 'score') {
+    } else if (sort !== column) {
       config = {
         ...queryConfig,
         sorting: column

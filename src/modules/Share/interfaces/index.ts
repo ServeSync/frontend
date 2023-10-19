@@ -1,1 +1,2 @@
-export * from './profile.type'
+export * from './Profile'
+export * from './Image'

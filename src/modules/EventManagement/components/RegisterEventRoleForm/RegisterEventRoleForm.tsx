@@ -13,13 +13,22 @@ interface Props {
   control: Control<FormEventType>
   getValues: UseFormGetValues<FormEventType>
   resetField: UseFormResetField<FormEventType>
-  handleDataEventRole: (data: EventRole) => void
+  dataEventRole: EventRole[]
+  setDataEventRole: React.Dispatch<React.SetStateAction<EventRole[]>>
 }
 
-const RegisterEventRoleForm = ({ register, errors, control, getValues, resetField, handleDataEventRole }: Props) => {
+const RegisterEventRoleForm = ({
+  register,
+  errors,
+  control,
+  getValues,
+  resetField,
+  dataEventRole,
+  setDataEventRole
+}: Props) => {
   const handleAddEventRole = () => {
     const data = { ...getValues('roles') }
-    handleDataEventRole(data)
+    setDataEventRole([...dataEventRole, data])
     resetField('roles.name')
     resetField('roles.description')
     resetField('roles.quantity')

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import profileAPI from './profile.api'
-import { Profile } from '../../interfaces'
+import { Profile } from '../../interfaces/Profile'
 
 class GetProfileQuery {
   private _query

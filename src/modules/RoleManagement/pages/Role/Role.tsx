@@ -47,7 +47,7 @@ const Role = () => {
 
   useEffect(() => {
     if (role) {
-      setValue('name', role?.name as string)
+      setValue('name', role.name)
       setIsEditForm(true)
     } else {
       reset()
@@ -57,21 +57,20 @@ const Role = () => {
 
   const createRoleCommandHandler = new CreateRoleCommandHandler()
   const editRoleCommandHandler = new EditRoleCommandHandler()
-  const deleteRoleCommandHandler = new DeleteRoleCommandHandler()
 
   const onEditRole = (id: string) => {
-    setValue('name', role?.name as string)
     navigate({
       search: createSearchParams({
         id: id
       }).toString()
     })
+    setValue('name', role?.name as string)
   }
 
   const onCreateRole = () => {
     reset()
-    navigate(path.role)
     setIsEditForm(false)
+    navigate(path.role)
   }
 
   const handleSubmitForm = handleSubmit((data) => {
@@ -89,7 +88,7 @@ const Role = () => {
     } else {
       editRoleCommandHandler.handle(
         {
-          id: role?.id as string,
+          id: role?.id,
           data: data
         },
         () => {
@@ -104,6 +103,8 @@ const Role = () => {
       )
     }
   })
+
+  const deleteRoleCommandHandler = new DeleteRoleCommandHandler()
 
   const handleDeleteRole = (id: string) => {
     Swal.fire({

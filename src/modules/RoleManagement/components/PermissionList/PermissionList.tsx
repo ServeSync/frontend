@@ -34,7 +34,7 @@ const PermissionList = ({
             {Array(3)
               .fill(0)
               .map((_, index) => (
-                <Skeleton count={6} className='h-[20px] mb-6' key={index} borderRadius={10} />
+                <Skeleton count={7} className='h-[20px] mb-6' key={index} borderRadius={10} />
               ))}
           </SkeletonTheme>
         </div>

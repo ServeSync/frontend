@@ -8,6 +8,9 @@ import { FormEventType } from '../../utils'
 import { ActivityType, EventCategoryType } from '../../interfaces'
 import { eventType } from '../../constants'
 import Button from 'src/modules/Share/components/Button'
+import { useState } from 'react'
+import ModalCustom from 'src/modules/Share/components/Modal'
+import Map from '../Map'
 
 interface Props {
   register: UseFormRegister<FormEventType>
@@ -19,6 +22,16 @@ interface Props {
 }
 
 const CreateEventForm = ({ register, control, errors, eventCategories, activities, handleChangeCategory }: Props) => {
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  const handleOpenModal = () => {
+    setIsOpenModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false)
+  }
+
   return (
     <div>
       <div className='flex flex-col gap-y-2'>
@@ -79,10 +92,10 @@ const CreateEventForm = ({ register, control, errors, eventCategories, activitie
                     disablePortal
                     id='eventType'
                     options={eventType}
-                    value={eventType.find((option) => option.name === value) || null}
+                    value={eventType.find((option) => option.id === value) || null}
                     getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label='Chọn loại sự kiện' />}
-                    onChange={(_, option) => onChange(option ? option.name : '')}
+                    onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
                 </div>
@@ -153,17 +166,43 @@ const CreateEventForm = ({ register, control, errors, eventCategories, activitie
               {errors.address?.fullAddress?.message}
             </span>
           </div>
-          <div className='col-span-6'>
+          <div className='col-span-5'>
             <TextField id='address_longitude' {...register('address.longitude')} className='w-full bg-white' />
             <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
               {errors.address?.longitude?.message}
             </span>
           </div>
-          <div className='col-span-6'>
+          <div className='col-span-5'>
             <TextField id='address_latitude' {...register('address.latitude')} className='w-full bg-white' />
             <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
               {errors.address?.latitude?.message}
             </span>
+          </div>
+          <div className='col-span-2  flex items-center justify-end'>
+            <Button
+              type='button'
+              classNameButton='border-[1px] border-[#39a4b2] p-2 rounded-lg text-[#39a4b2]'
+              onClick={handleOpenModal}
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='w-6 h-6'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M20.893 13.393l-1.135-1.135a2.252 2.252 0 01-.421-.585l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 01-1.383-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.411-2.353a2.25 2.25 0 00.286-.76m11.928 9.869A9 9 0 008.965 3.525m11.928 9.868A9 9 0 118.965 3.525'
+                />
+              </svg>
+            </Button>
+
+            <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModal}>
+              <Map></Map>
+            </ModalCustom>
           </div>
           <div className='col-span-12'>
             <TextField

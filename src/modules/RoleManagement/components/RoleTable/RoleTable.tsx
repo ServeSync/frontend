@@ -11,12 +11,12 @@ interface Props {
   onEditRole: (id: string) => void
 }
 
-const RoleTable = ({ roles, onEditRole, roleID, isLoading }: Props) => {
+const RoleTable = ({ roles, roleID, isLoading, onEditRole }: Props) => {
   return (
     <Fragment>
       {isLoading ? (
         <SkeletonTheme baseColor='#e7e7e7'>
-          <Skeleton count={2} className='h-[40px] mb-3' />
+          <Skeleton count={3} className='h-[40px] mb-3' />
         </SkeletonTheme>
       ) : (
         <div className='flex flex-col gap-4'>

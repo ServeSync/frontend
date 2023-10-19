@@ -1,4 +1,4 @@
 export interface EventOrganizationRep {
-  organizationRepId: string
-  role: string
+  organizationRepId?: string
+  role?: string
 }

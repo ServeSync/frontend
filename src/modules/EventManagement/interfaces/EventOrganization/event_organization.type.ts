@@ -11,4 +11,5 @@ export interface EventOrganizationType {
   phoneNumber: string
   address: string
   imageUrl: string
+  role?: string
 }
