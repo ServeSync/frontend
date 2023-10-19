@@ -6,9 +6,9 @@ const phoneRegExp =
 const today = new Date()
 
 export const FormStudentSchema = yup.object({
-  code: yup.string().required('Vui lòng nhập mã số sinh viên !').length(9, 'Mã số sinh viên không hợp lệ!'),
-  fullName: yup.string().required('Vui lòng nhập tên !').min(5, 'Họ và tên tối thiểu 5 kí tự'),
-  email: yup.string().required('Vui lòng nhập email !').email('Email không hợp lệ !'),
+  code: yup.string().trim().required('Vui lòng nhập mã số sinh viên !').length(9, 'Mã số sinh viên không hợp lệ!'),
+  fullName: yup.string().trim().required('Vui lòng nhập tên !').min(5, 'Họ và tên tối thiểu 5 kí tự'),
+  email: yup.string().trim().required('Vui lòng nhập email !').email('Email không hợp lệ !'),
   gender: yup.string().required('Vui lòng chọn giới tính !'),
   birth: yup
     .string()
@@ -22,12 +22,13 @@ export const FormStudentSchema = yup.object({
     }),
   phone: yup
     .string()
+    .trim()
     .required('Vui lòng nhập số điện thoại !')
     .length(10, 'Số điện thoại không hợp lệ!')
     .matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
-  homeTown: yup.string().required('Vui lòng nhập nơi sinh !'),
-  address: yup.string().required('Vui lòng nhập địa chỉ !'),
-  citizenId: yup.string().required('Vui lòng nhập căn cước công dân !'),
+  homeTown: yup.string().trim().required('Vui lòng nhập nơi sinh !'),
+  address: yup.string().trim().required('Vui lòng nhập địa chỉ !'),
+  citizenId: yup.string().trim().required('Vui lòng nhập căn cước công dân !'),
   facultyId: yup.string().required('Vui lòng chọn khoa !'),
   homeRoomId: yup.string().required('Vui lòng chọn lớp sinh hoạt !'),
   educationProgramId: yup.string().required('Vui lòng chọn hệ đào tạo !'),
@@ -41,7 +42,7 @@ export const FormFilterStudentSchema = yup.object({
   facultyId: yup.string(),
   educationProgramId: yup.string(),
   gender: yup.string(),
-  search: yup.string()
+  search: yup.string().trim()
 })
 
 export type FormFilterStudentType = yup.InferType<typeof FormFilterStudentSchema>

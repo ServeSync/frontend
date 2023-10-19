@@ -4,15 +4,11 @@ import { Link } from 'react-router-dom'
 import Button from 'src/modules/Share/components/Button'
 import Input from 'src/modules/Share/components/Input'
 import path from 'src/modules/Share/constants/path'
-
-interface ResetPasswordForm {
-  newPassword: string
-  confirmPassword: string
-}
+import { FormResetPasswordType } from '../../utils'
 
 interface Props {
-  register: UseFormRegister<ResetPasswordForm>
-  errors: FieldErrors<ResetPasswordForm>
+  register: UseFormRegister<FormResetPasswordType>
+  errors: FieldErrors<FormResetPasswordType>
   isLoading: boolean
 }
 
@@ -99,7 +95,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
             register={register}
             id='confirm_password'
             name='confirmPassword'
-            placeholder='Xác nhận mật khẩu mới'
+            placeholder='Xác nhận mật khẩu'
             type={isHiddenPassword ? 'password' : 'text'}
             autoComplete='on'
             className='flex flex-col relative'

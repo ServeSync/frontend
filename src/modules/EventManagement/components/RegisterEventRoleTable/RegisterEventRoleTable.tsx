@@ -1,13 +1,20 @@
 import Button from 'src/modules/Share/components/Button'
 import { RoleTableHeader } from '../../constants'
 import { EventRole } from '../../interfaces'
+import Skeleton from 'react-loading-skeleton'
 
 interface Props {
   dataEventRole: EventRole[]
-  handleRemoveEventRole: (id: number) => void
+  setDataEventRole: React.Dispatch<React.SetStateAction<EventRole[]>>
 }
 
-const RegisterEventRoleTable = ({ dataEventRole, handleRemoveEventRole }: Props) => {
+const RegisterEventRoleTable = ({ dataEventRole, setDataEventRole }: Props) => {
+  const handleRemoveEventRole = (id: number) => {
+    const data = [...dataEventRole]
+    data.splice(id, 1)
+    setDataEventRole(data)
+  }
+
   return (
     <div>
       <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'>
@@ -21,7 +28,7 @@ const RegisterEventRoleTable = ({ dataEventRole, handleRemoveEventRole }: Props)
           </tr>
         </thead>
         <tbody>
-          {dataEventRole &&
+          {dataEventRole && dataEventRole.length !== 0 ? (
             dataEventRole.map((item, index) => (
               <tr
                 className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
@@ -29,9 +36,11 @@ const RegisterEventRoleTable = ({ dataEventRole, handleRemoveEventRole }: Props)
               >
                 <th className='px-2 py-4 font-medium w-[20%]'>{item.name}</th>
                 <th className='px-2 py-4 font-medium'>{item.description}</th>
-                <th className='px-2 py-4 font-medium w-[10%]'>{item.score}</th>
-                <th className='px-2 py-4 font-medium w-[20%]'>{item.isNeedApprove}</th>
-                <th className='px-2 py-4 font-medium w-[15%]'>
+                <th className='px-2 py-4 font-medium w-[7%] text-center'>{item.score}</th>
+                <th className='px-2 py-4 font-medium w-[15%] text-center'>
+                  <input type='checkbox' name='' id='' checked={item.isNeedApprove === 'true'} />
+                </th>
+                <th className='px-2 py-4 font-medium w-[13%]'>
                   <div>
                     <Button type='button' classNameButton='py-2 px-2 rounded-lg text-[14px] hover:bg-gray-200'>
                       <svg
@@ -73,7 +82,26 @@ const RegisterEventRoleTable = ({ dataEventRole, handleRemoveEventRole }: Props)
                   </div>
                 </th>
               </tr>
-            ))}
+            ))
+          ) : (
+            <tr className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'>
+              <th className='px-2 py-4 font-medium w-[20%]'>
+                <Skeleton className='h-[16px]' borderRadius={20} />
+              </th>
+              <th className='px-2 py-4 font-medium '>
+                <Skeleton className='h-[16px]' borderRadius={20} />
+              </th>
+              <th className='px-2 py-4 font-medium w-[10%]'>
+                <Skeleton className='h-[16px]' borderRadius={20} />
+              </th>
+              <th className='px-2 py-4 font-medium w-[20%]'>
+                <Skeleton className='h-[16px]' borderRadius={20} />
+              </th>
+              <th className='px-2 py-4 font-medium w-[13%]'>
+                <Skeleton className='h-[16px]' borderRadius={20} />
+              </th>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

@@ -7,7 +7,7 @@ import { StudentType } from 'src/modules/StudentManagement/interfaces'
 interface Props {
   onChange?: (file?: File) => void
   register: UseFormRegister<any>
-  previewImage?: string
+  previewImage: string
   student?: StudentType
 }
 

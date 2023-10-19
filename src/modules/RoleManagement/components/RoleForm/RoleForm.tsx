@@ -2,14 +2,11 @@ import classNames from 'classnames'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import Button from 'src/modules/Share/components/Button'
 import Input from 'src/modules/Share/components/Input'
-
-interface RoleForm {
-  name: string
-}
+import { FormRoleType } from '../../utils'
 
 interface Props {
-  register: UseFormRegister<RoleForm>
-  errors: FieldErrors<RoleForm>
+  register: UseFormRegister<FormRoleType>
+  errors: FieldErrors<FormRoleType>
   isEditForm: boolean
   isLoading: boolean
   onCreateRole: () => void
@@ -22,7 +19,7 @@ const RoleForm = ({ register, errors, isEditForm, onCreateRole, isLoading }: Pro
         register={register}
         id='name'
         name='name'
-        placeholder='Nhập tên'
+        placeholder='Nhập tên Role'
         className='relative'
         classNameInput='w-full border-[2px] border-[#26C6DA] rounded py-2 pl-10 pr-4 outline-none h-[52px]'
         error={errors.name?.message}

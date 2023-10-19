@@ -10,7 +10,7 @@ class GetAllContactsByOrganizationIdQuery {
     this._query = useQuery({
       queryKey: ['contacts', organizationId],
       queryFn: () => eventOrganizationAPI.getListContactsByOrganizationId(organizationId),
-      enabled: organizationId !== '',
+      enabled: organizationId !== '' && organizationId !== undefined,
       staleTime: 5 * 60 * 1000
     })
   }

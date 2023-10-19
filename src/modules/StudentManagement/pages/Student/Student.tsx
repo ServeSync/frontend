@@ -25,6 +25,7 @@ import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import StudentTable from '../../components/StudentTable'
 import Pagination from 'src/modules/Share/components/Pagination'
+import ImportFile from '../../components/ImportFile'
 
 const Student = () => {
   const [isOpenPopover, setIsOpenPopover] = useState(false)
@@ -206,13 +207,13 @@ const Student = () => {
               </svg>
               <span>Nhập file</span>
             </Button>
-            <ModalCustom
-              isOpenModal={isOpenModal}
-              handleClose={handleCloseModal}
-              onChangeFile={handleChangeFile}
-              onSubmitFile={handleSubmitImport}
-              previewNameFile={previewNameFile}
-            />
+            <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModal}>
+              <ImportFile
+                onChangeFile={handleChangeFile}
+                onSubmitFile={handleSubmitImport}
+                previewNameFile={previewNameFile}
+              />
+            </ModalCustom>
             <Link
               to={path.create_student}
               state={queryStudentConfig}

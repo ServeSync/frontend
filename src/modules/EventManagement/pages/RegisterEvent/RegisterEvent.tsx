@@ -24,8 +24,7 @@ interface Props {
   FieldRegistration: UseFieldArrayReturn<FormEventType, 'registrationInfos'>
   FieldAttendance: UseFieldArrayReturn<FormEventType, 'attendanceInfos'>
   dataEventRole: EventRole[]
-  handleDataEventRole: (data: EventRole) => void
-  handleRemoveEventRole: (id: number) => void
+  setDataEventRole: React.Dispatch<React.SetStateAction<EventRole[]>>
 }
 
 const RegisterEvent = ({
@@ -39,8 +38,7 @@ const RegisterEvent = ({
   FieldRegistration,
   FieldAttendance,
   dataEventRole,
-  handleDataEventRole,
-  handleRemoveEventRole
+  setDataEventRole
 }: Props) => {
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-2' aria-controls='simple-tabpanel-2'>
@@ -52,14 +50,15 @@ const RegisterEvent = ({
             FieldRegistration={FieldRegistration}
             FieldAttendance={FieldAttendance}
           />
-          <RegisterEventRoleTable dataEventRole={dataEventRole} handleRemoveEventRole={handleRemoveEventRole} />
+          <RegisterEventRoleTable dataEventRole={dataEventRole} setDataEventRole={setDataEventRole} />
           <RegisterEventRoleForm
             register={register}
             errors={errors}
             control={control}
             getValues={getValues}
             resetField={resetField}
-            handleDataEventRole={handleDataEventRole}
+            dataEventRole={dataEventRole}
+            setDataEventRole={setDataEventRole}
           />
         </div>
       )}

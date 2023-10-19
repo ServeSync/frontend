@@ -1,8 +1,8 @@
 import http from 'src/modules/Share/utils/http'
-import { PermissionType, RoleType } from '../../interfaces'
+import { PermissionType, RoleType, RolesListType } from '../../interfaces'
 
 const roleAPI = {
-  getListRoles: () => http.get<{ total: number; totalPages: number; data: RoleType[] }>('/roles'),
+  getListRoles: () => http.get<RolesListType>('/roles'),
 
   createRole: (body: Omit<RoleType, 'id'>) => http.post<RoleType>('/roles', body),
 

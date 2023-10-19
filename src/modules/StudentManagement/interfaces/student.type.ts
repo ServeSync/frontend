@@ -5,21 +5,21 @@ export interface StudentsListType {
   totalPages: number
   data: [
     {
-      faculty: FacultyType
-      homeRoom: HomeRoomType
-      educationProgram: EducationProgramType
       id: string
       code: string
       fullName: string
-      gender: boolean
-      dateOfBirth: string
-      homeTown: string
-      address: string
-      imageUrl: string
-      citizenId: string
       email: string
       phone: string
+      dateOfBirth: string
+      gender: boolean
+      address: string
+      faculty: FacultyType
+      imageUrl: string
       identityId: string
+      citizenId: string
+      homeTown: string
+      homeRoom: HomeRoomType
+      educationProgram: EducationProgramType
     }
   ]
 }
@@ -34,12 +34,12 @@ export interface StudentType {
   gender: string
   address: string
   imageUrl: string
-  homeTown: string
   citizenId: string
   identityId: string
+  homeTown: string
+  facultyId: string
   homeRoomId: string
   educationProgramId: string
-  facultyId: string
 }
 
 export interface StudentsListConfig {

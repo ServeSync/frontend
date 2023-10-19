@@ -2,9 +2,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import studentAPI from './student.api'
-import imageAPI from './image.api'
 import { FormStudentType } from '../../utils/rules'
 import { StudentForm } from '../../interfaces'
+import imageAPI from 'src/modules/Share/services/Image/image.api'
 
 class EditStudentCommandHandler {
   private _queryClient
@@ -20,7 +20,7 @@ class EditStudentCommandHandler {
   }
 
   handle = async (body: { id: string; data: FormStudentType }, file: File, handleSuccess: any, handleError: any) => {
-    if (file != undefined) {
+    if (file !== undefined) {
       const form = new FormData()
       form.append('file', file)
       const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)

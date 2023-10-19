@@ -1,14 +1,11 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import Button from 'src/modules/Share/components/Button'
 import Input from 'src/modules/Share/components/Input'
-
-interface ForgetPasswordForm {
-  userNameOrEmail: string
-}
+import { FormForgetPasswordType } from '../../utils'
 
 interface Props {
-  register: UseFormRegister<ForgetPasswordForm>
-  errors: FieldErrors<ForgetPasswordForm>
+  register: UseFormRegister<FormForgetPasswordType>
+  errors: FieldErrors<FormForgetPasswordType>
   isLoading: boolean
 }
 

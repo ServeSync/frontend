@@ -138,7 +138,7 @@ const CreateStudentForm = ({
                       format='DD/MM/YYYY'
                       onChange={onChange}
                       value={value}
-                      className='bg-white '
+                      className='bg-white'
                     />
                   </DemoContainer>
                 </LocalizationProvider>
