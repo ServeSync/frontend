@@ -1,33 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react'
 import { UseFormRegister, FieldErrors, Controller, Control } from 'react-hook-form'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Autocomplete, TextField } from '@mui/material'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { FormRequestEventType } from '../../utils'
-import { EventCategoryType } from '../../interfaces'
 import { eventType } from '../../constants'
-import { GetAllActivitiesByCategoryIdQuery } from '../../services/EventCategory'
 import Button from 'src/modules/Share/components/Button'
+import { ActivitiesListType, ActivityType, EventCategoriesListType } from '../../interfaces'
+import { GetAllActivitiesByCategoryIdQuery } from '../../services'
 
 interface Props {
   register: UseFormRegister<FormRequestEventType>
   control: Control<FormRequestEventType>
   errors: FieldErrors<FormRequestEventType>
   handleResetForm: () => void
-  eventCategories: EventCategoryType[]
+  eventCategories: EventCategoriesListType
 }
 
-const RequestCreateEventForm = ({ register, control, errors, handleResetForm, eventCategories }: Props) => {
-  const [categoryId, setCategoryId] = useState<string>('')
+const RequestCreateEventForm = ({ register, control, errors, eventCategories, handleResetForm }: Props) => {
+  const activityEvents: ActivityType[] = []
 
-  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)
-  const activities = getAllActivitiesByCategoryIdQuery.fetch()
-
-  const handleChangeCategory = (id: string) => {
-    setCategoryId(id)
-  }
+  eventCategories?.data.map((item) => {
+    const getAllActivityEventsQuery = new GetAllActivitiesByCategoryIdQuery(item.id)
+    const activityList = getAllActivityEventsQuery.fetch() as ActivitiesListType
+    activityList?.data.map((activity) => {
+      activityEvents.push(activity)
+    })
+  })
 
   return (
     <div>
@@ -79,7 +79,7 @@ const RequestCreateEventForm = ({ register, control, errors, handleResetForm, ev
             )}
           />
           <Controller
-            name='type'
+            name='eventType'
             control={control}
             defaultValue=''
             render={({ field: { onChange, value } }) => (
@@ -100,33 +100,6 @@ const RequestCreateEventForm = ({ register, control, errors, handleResetForm, ev
             )}
           />
           <Controller
-            name='categoryId'
-            control={control}
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-4'>
-                  <Autocomplete
-                    disablePortal
-                    id='education_program'
-                    options={eventCategories ? eventCategories : []}
-                    value={(eventCategories && eventCategories.find((option) => option.id === value)) || null}
-                    getOptionLabel={(option) => option.name}
-                    renderInput={(params) => <TextField {...params} label='Danh mục sự kiện' />}
-                    onChange={(_, option) => {
-                      handleChangeCategory(option?.id as string)
-                      onChange(option?.id)
-                    }}
-                    className='bg-white'
-                  />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.categoryId?.message}
-                  </span>
-                </div>
-              </LocalizationProvider>
-            )}
-          />
-          <Controller
             name='activityId'
             control={control}
             defaultValue=''
@@ -136,8 +109,8 @@ const RequestCreateEventForm = ({ register, control, errors, handleResetForm, ev
                   <Autocomplete
                     disablePortal
                     id='education_program'
-                    options={activities ? activities.data : []}
-                    value={(activities && activities.data.find((option) => option.id === value)) || null}
+                    options={activityEvents ? activityEvents : []}
+                    value={(activityEvents && activityEvents.find((option) => option.id === value)) || null}
                     getOptionLabel={(option) => option.name}
                     noOptionsText='Không có lựa chọn'
                     renderInput={(params) => <TextField {...params} label='Hoạt động sự kiện' />}
@@ -145,38 +118,59 @@ const RequestCreateEventForm = ({ register, control, errors, handleResetForm, ev
                     className='bg-white'
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.categoryId?.message}
+                    {errors.activityId?.message}
                   </span>
                 </div>
               </LocalizationProvider>
             )}
           />
-          <div className='col-span-12 grid grid-cols-3 gap-2'>
-            <div className='col-span-1'>
-              <TextField
-                id='address'
-                {...register('address')}
-                label='Số lượng'
-                placeholder='Nhập số lượng tham gia'
-                className='w-full bg-white'
-              />
-              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.capacity?.message}
-              </span>
-            </div>
-            <div className='col-span-2'>
-              <TextField
-                id='address'
-                {...register('address')}
-                label='Địa điểm'
-                placeholder='Nhập địa điểm'
-                className='w-full bg-white'
-              />
-              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.address?.message}
-              </span>
-            </div>
+          <div className='col-span-4'>
+            <TextField
+              id='address'
+              {...register('capacity')}
+              label='Số lượng'
+              placeholder='Nhập số lượng tham gia'
+              className='w-full bg-white'
+            />
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.capacity?.message}</span>
           </div>
+          <div className='col-span-12 '>
+            <TextField
+              id='address'
+              {...register('address.fullAddress')}
+              label='Địa điểm'
+              placeholder='Nhập địa điểm'
+              className='w-full bg-white'
+            />
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+              {errors.address?.fullAddress?.message}
+            </span>
+          </div>
+          <div className='col-span-6'>
+            <TextField
+              label='Latitude'
+              placeholder='x:'
+              id='address_latitude'
+              {...register('address.latitude')}
+              className='w-full bg-white'
+            />
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+              {errors.address?.latitude?.message}
+            </span>
+          </div>
+          <div className='col-span-6'>
+            <TextField
+              label='Longtitude'
+              placeholder='y:'
+              id='address_longitude'
+              {...register('address.longitude')}
+              className='w-full bg-white'
+            />
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+              {errors.address?.longitude?.message}
+            </span>
+          </div>
+
           <div className='col-span-12'>
             <TextField
               id='description'

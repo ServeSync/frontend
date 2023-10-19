@@ -46,9 +46,10 @@ const Filter = ({ control, onResetForm, onChangeFaculty, educationPrograms, facu
                 options={faculties ? faculties : []}
                 value={(faculties && faculties.find((option) => option.id === value)) || null}
                 getOptionLabel={(option) => option.name}
+                noOptionsText='Không có lựa chọn'
                 renderInput={(params) => <TextField {...params} label='Chọn khoa' />}
                 onChange={(_, option) => {
-                  onChange(option?.id)
+                  onChange(option ? option.id : '')
                   onChangeFaculty(option?.id as string)
                 }}
               />
@@ -68,7 +69,7 @@ const Filter = ({ control, onResetForm, onChangeFaculty, educationPrograms, facu
                 getOptionLabel={(option) => option.name}
                 noOptionsText='Không có lựa chọn'
                 renderInput={(params) => <TextField {...params} label='Chọn lớp' />}
-                onChange={(_, option) => onChange(option?.id)}
+                onChange={(_, option) => onChange(option ? option.id : '')}
               />
             </LocalizationProvider>
           )}
@@ -84,8 +85,9 @@ const Filter = ({ control, onResetForm, onChangeFaculty, educationPrograms, facu
                 options={educationPrograms ? educationPrograms : []}
                 value={(educationPrograms && educationPrograms.find((option) => option.id === value)) || null}
                 getOptionLabel={(option) => option.name}
+                noOptionsText='Không có lựa chọn'
                 renderInput={(params) => <TextField {...params} label='Chọn hệ đào tạo' />}
-                onChange={(_, option) => onChange(option?.id)}
+                onChange={(_, option) => onChange(option ? option.id : '')}
               />
             </LocalizationProvider>
           )}
@@ -101,8 +103,9 @@ const Filter = ({ control, onResetForm, onChangeFaculty, educationPrograms, facu
                 options={gender}
                 value={gender.find((option) => option.id === value) || null}
                 getOptionLabel={(option) => option.name}
+                noOptionsText='Không có lựa chọn'
                 renderInput={(params) => <TextField {...params} label='Chọn giới tính' />}
-                onChange={(_, option) => onChange(option?.id)}
+                onChange={(_, option) => onChange(option ? option.id : '')}
               />
             </LocalizationProvider>
           )}

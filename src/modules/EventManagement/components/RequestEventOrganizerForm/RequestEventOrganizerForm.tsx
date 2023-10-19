@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment } from 'react'
-import { FormEventOrganizerType } from '../../utils'
+import { FormRequestEventType } from '../../utils'
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form'
 import Button from 'src/modules/Share/components/Button'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
@@ -8,14 +8,10 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 interface Props {
-  register: UseFormRegister<FormEventOrganizerType>
-  errors: FieldErrors<FormEventOrganizerType>
+  register: UseFormRegister<FormRequestEventType>
+  errors: FieldErrors<FormRequestEventType>
   handleResetForm: () => void
-  control: Control<FormEventOrganizerType>
-  onChange1: (file?: File) => void
-  onChange2: (file?: File) => void
-  previewImage1: string
-  previewImage2: string
+  control: Control<FormRequestEventType>
 }
 
 const RequestEventOrganizerForm = ({ register, control, errors, handleResetForm }: Props) => {
@@ -31,57 +27,61 @@ const RequestEventOrganizerForm = ({ register, control, errors, handleResetForm 
             <div className='my-2'>
               <TextField
                 id='outlined-textarea'
-                {...register('name')}
+                {...register('eventOrganizationInfo.name')}
                 label='Tên tổ chức'
                 placeholder='Nhập tên tổ chức'
                 className='w-full'
               />
-              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.name?.message}</span>
+              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                {errors.eventOrganizationInfo?.name?.message}
+              </span>
             </div>
             <div className='my-2'>
               <TextField
                 id='outlined-textarea'
-                {...register('description')}
+                {...register('eventOrganizationInfo.description')}
                 label='Mô tả tổ chức'
                 placeholder='Mô tả tổ chức'
                 className='w-full'
               />
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.description?.message}
+                {errors.eventOrganizationInfo?.description?.message}
               </span>
             </div>
             <div className='my-2'>
               <TextField
                 id='outlined-textarea'
-                {...register('phonenumber')}
+                {...register('eventOrganizationInfo.phoneNumber')}
                 label='Số điện thoại'
                 placeholder='Số điện thoại'
                 className='w-full'
               />
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.phonenumber?.message}
+                {errors.eventOrganizationInfo?.phoneNumber?.message}
               </span>
             </div>
             <div className='my-2'>
               <TextField
                 id='outlined-textarea'
-                {...register('email')}
+                {...register('eventOrganizationInfo.email')}
                 label='Địa chỉ email'
                 placeholder='Địa chỉ email'
                 className='w-full'
               />
-              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.email?.message}</span>
+              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                {errors.eventOrganizationInfo?.email?.message}
+              </span>
             </div>
             <div className='my-2'>
               <TextField
                 id='outlined-textarea'
-                {...register('address')}
+                {...register('eventOrganizationInfo.address')}
                 label='Địa chỉ '
                 placeholder='Địa chỉ '
                 className='w-full'
               />
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.address?.message}
+                {errors.eventOrganizationInfo?.address?.message}
               </span>
             </div>
           </div>
@@ -95,54 +95,54 @@ const RequestEventOrganizerForm = ({ register, control, errors, handleResetForm 
             <div className='my-2'>
               <TextField
                 id='outlined-textarea'
-                {...register('namerepresentative')}
+                {...register('eventOrganizationContactInfo.name')}
                 label='Họ và tên'
                 placeholder='Họ và tên'
                 className='w-full'
               />
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.namerepresentative?.message}
+                {errors.eventOrganizationContactInfo?.name?.message}
               </span>
             </div>
             <div className='my-2'>
               <TextField
                 id='outlined-textarea'
-                {...register('phonenumberrepresentative')}
+                {...register('eventOrganizationContactInfo.phoneNumber')}
                 label='Số điện thoại'
                 placeholder='Số điện thoại'
                 className='w-full'
               />
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.phonenumberrepresentative?.message}
+                {errors.eventOrganizationContactInfo?.phoneNumber?.message}
               </span>
             </div>
             <div className='my-2'>
               <TextField
                 id='outlined-textarea'
-                {...register('emailrepresentative')}
+                {...register('eventOrganizationContactInfo.email')}
                 label='Địa chỉ email'
                 placeholder='Địa chỉ email'
                 className='w-full'
               />
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.emailrepresentative?.message}
+                {errors.eventOrganizationContactInfo?.email?.message}
               </span>
             </div>
             <div className='my-2'>
               <TextField
                 id='outlined-textarea'
-                {...register('addressrepresentative')}
+                {...register('eventOrganizationContactInfo.address')}
                 label='Địa chỉ '
                 placeholder='Địa chỉ '
                 className='w-full'
               />
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors.addressrepresentative?.message}
+                {errors.eventOrganizationContactInfo?.address?.message}
               </span>
             </div>
             <div className='my-2 flex gap-10'>
               <Controller
-                name='birthday'
+                name='eventOrganizationContactInfo.birth'
                 control={control}
                 render={({ field: { onChange } }) => (
                   <div className='col-span-2'>
@@ -152,7 +152,7 @@ const RequestEventOrganizerForm = ({ register, control, errors, handleResetForm 
                       </DemoContainer>
                     </LocalizationProvider>
                     <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                      {errors.birthday?.message as string}
+                      {errors.eventOrganizationContactInfo?.birth?.message as string}
                     </span>
                   </div>
                 )}
@@ -170,13 +170,13 @@ const RequestEventOrganizerForm = ({ register, control, errors, handleResetForm 
             </div>
             <TextField
               id='outlined-textarea'
-              {...register('personalposition')}
+              {...register('eventOrganizationContactInfo.position')}
               label='Vị trí nhân sự '
               placeholder='Vị trí nhân sự'
               className='w-full'
             />
             <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-              {errors.personalposition?.message}
+              {errors.eventOrganizationContactInfo?.position?.message}
             </span>
           </div>
         </div>

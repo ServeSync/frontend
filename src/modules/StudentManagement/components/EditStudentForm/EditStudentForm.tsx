@@ -156,8 +156,9 @@ const EditStudentForm = ({
                     options={gender}
                     value={gender.find((option) => option.id === value) || null}
                     getOptionLabel={(option) => option.name}
+                    noOptionsText='Không có lựa chọn'
                     renderInput={(params) => <TextField {...params} label='Giới tính' />}
-                    onChange={(_, option) => onChange(option?.id)}
+                    onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
@@ -289,9 +290,10 @@ const EditStudentForm = ({
                     options={faculties ? faculties : []}
                     value={(faculties && faculties.find((option) => option.id === value)) || null}
                     getOptionLabel={(option) => option.name}
+                    noOptionsText='Không có lựa chọn'
                     renderInput={(params) => <TextField {...params} label='Khoa' />}
                     onChange={(_, option) => {
-                      onChange(option?.id)
+                      onChange(option ? option.id : '')
                       onChangeFaculty(option?.id as string)
                     }}
                     className='bg-white'
@@ -317,7 +319,7 @@ const EditStudentForm = ({
                     getOptionLabel={(option) => option.name}
                     noOptionsText='Không có lựa chọn'
                     renderInput={(params) => <TextField {...params} label='Lớp sinh hoạt' />}
-                    onChange={(_, option) => onChange(option?.id)}
+                    onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
@@ -339,8 +341,9 @@ const EditStudentForm = ({
                     options={educationPrograms ? educationPrograms : []}
                     value={(educationPrograms && educationPrograms.find((option) => option.id === value)) || null}
                     getOptionLabel={(option) => option.name}
+                    noOptionsText='Không có lựa chọn'
                     renderInput={(params) => <TextField {...params} label='Hệ đào tạo' />}
-                    onChange={(_, option) => onChange(option?.id)}
+                    onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>

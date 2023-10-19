@@ -1,43 +1,42 @@
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { UseFormRegister, Control, FieldErrors } from 'react-hook-form'
 import CreateEventForm from '../../components/CreateEventForm'
-import { FormEventSchema, FormEventType } from '../../utils'
+import { FormEventType } from '../../utils'
 import { EventCategoriesListType } from '../../interfaces'
-import { GetAllEventCategoriesQuery } from '../../services/EventCategory'
+import { useState } from 'react'
+import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../services'
 
 interface Props {
   page: number
   index: number
+  register: UseFormRegister<FormEventType>
+  control: Control<FormEventType>
+  errors: FieldErrors<FormEventType>
 }
 
-const CreateEvent = ({ page, index }: Props) => {
+const CreateEvent = ({ page, index, register, control, errors }: Props) => {
+  const [categoryId, setCategoryId] = useState<string>('')
+
   const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery()
   const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoriesListType
 
-  const FormCreateEvent = useForm<FormEventType>({
-    resolver: yupResolver(FormEventSchema)
-  })
+  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)
+  const activities = getAllActivitiesByCategoryIdQuery.fetch()
 
-  const handleSubmitFormCreateEvent = FormCreateEvent.handleSubmit((data) => {
-    console.log(data)
-  })
-
-  const handleResetFormCreateEvent = () => {
-    FormCreateEvent.reset()
+  const handleChangeCategory = (id: string) => {
+    setCategoryId(id)
   }
 
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
       {page === index && (
-        <form onSubmit={handleSubmitFormCreateEvent}>
-          <CreateEventForm
-            register={FormCreateEvent.register}
-            control={FormCreateEvent.control}
-            errors={FormCreateEvent.formState.errors}
-            handleResetForm={handleResetFormCreateEvent}
-            eventCategories={eventCategories && eventCategories.data}
-          />
-        </form>
+        <CreateEventForm
+          register={register}
+          control={control}
+          errors={errors}
+          eventCategories={eventCategories && eventCategories.data}
+          activities={activities && activities.data}
+          handleChangeCategory={handleChangeCategory}
+        />
       )}
     </div>
   )

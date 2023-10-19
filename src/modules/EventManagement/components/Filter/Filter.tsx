@@ -73,16 +73,17 @@ const Filter = ({ control, onResetForm }: Props) => {
           name='type'
           control={control}
           defaultValue=''
-          render={({ field: { onChange, value } }) => (
+          render={({ field: { onChange, value = null } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Autocomplete
                 disablePortal
                 id='eventType'
                 options={eventType}
-                value={eventType.find((option) => option.name === value) || null}
+                value={eventType.find((option) => option.id === value) || null}
                 getOptionLabel={(option) => option.name}
+                noOptionsText='Không có lựa chọn'
                 renderInput={(params) => <TextField {...params} label='Chọn loại sự kiện' />}
-                onChange={(_, option) => onChange(option?.name)}
+                onChange={(_, option) => onChange(option ? option.id : '')}
               />
             </LocalizationProvider>
           )}
@@ -98,9 +99,10 @@ const Filter = ({ control, onResetForm }: Props) => {
                 id='eventStatus'
                 options={eventStatus}
                 getOptionLabel={(option) => option.name}
-                value={eventStatus.find((option) => option.name === value) || null}
+                noOptionsText='Không có lựa chọn'
+                value={eventStatus.find((option) => option.id === value) || null}
                 renderInput={(params) => <TextField {...params} label='Chọn trạng thái sự kiện' />}
-                onChange={(_, option) => onChange(option?.name)}
+                onChange={(_, option) => onChange(option ? option.id : '')}
               />
             </LocalizationProvider>
           )}
