@@ -1,103 +1,115 @@
-import { GoogleMap, Marker, DirectionsRenderer, Autocomplete, LoadScript } from '@react-google-maps/api'
-import { Fragment, useRef, useState, useEffect } from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from 'react'
+import { GoogleMap, Marker, DirectionsRenderer, Autocomplete, useJsApiLoader } from '@react-google-maps/api'
+import { UseFormRegister, UseFormHandleSubmit, UseFormSetValue, UseFormReset } from 'react-hook-form'
+import { Input, Box, ButtonGroup, Flex, HStack } from '@chakra-ui/react'
+import Button from 'src/modules/Share/components/Button'
 import { LocationType, MarkerType } from '../../interfaces'
-import { Box, Button, ButtonGroup, Input } from '@mui/material'
+import { FormEventType, FormSearchMapType } from '../../utils'
 
-function Map() {
-  // const { isLoaded } = useJsApiLoader({
-  //   googleMapsApiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
-  //   libraries: ['places']
-  // })
-
-  const [center, setCenter] = useState<LocationType>({
-    latitude: 16.074160300547344,
-    longitude: 108.15078258893459
+interface Props {
+  register: UseFormRegister<FormSearchMapType>
+  handleSubmit: UseFormHandleSubmit<FormSearchMapType>
+  setValue: UseFormSetValue<FormEventType>
+  reset: UseFormReset<FormSearchMapType>
+  center: LocationType
+  setCenter: React.Dispatch<React.SetStateAction<LocationType>>
+  markers: MarkerType[]
+  setMarkers: React.Dispatch<React.SetStateAction<MarkerType[]>>
+}
+const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, setMarkers, reset }: Props) => {
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
+    libraries: ['places']
   })
 
-  const [map, setMap] = useState<google.maps.Map>()
+  const [_, setMap] = useState<google.maps.Map>()
   const [directionsResponse, setDirectionsResponse] = useState(null)
-  const [locationInfo, setLocationInfo] = useState<LocationType | null>({ latitude: 0, longitude: 0 })
-  const [markers, setMarkers] = useState<MarkerType[]>([])
 
-  const originRef = useRef<HTMLInputElement>(null)
+  if (!isLoaded) {
+    return null
+  }
 
-  useEffect(() => {
-    if (map) {
-      const bounds = new window.google.maps.LatLngBounds({
-        lat: center.latitude,
-        lng: center.longitude
-      })
-      map.fitBounds(bounds)
-    }
-  }, [center, map])
-
-  async function Search() {
-    if (originRef.current?.value === '') {
+  const handleSearchAddress = handleSubmit((data) => {
+    const address = data.address
+    if (address === '') {
       return
     }
-    const geocoder = new window.google.maps.Geocoder()
-    geocoder.geocode({ address: originRef.current?.value }, (results, status) => {
+    const geocoder = new google.maps.Geocoder()
+    geocoder.geocode({ address: address }, (results, status) => {
       if (status === 'OK' && results) {
         const location = results[0].geometry.location
         const locationCurrent = { latitude: location.lat(), longitude: location.lng() }
-        setLocationInfo(locationCurrent)
         const marker = { position: locationCurrent }
         setMarkers([marker])
         setCenter(locationCurrent)
+        setValue('address.longitude', locationCurrent?.longitude.toString())
+        setValue('address.latitude', locationCurrent?.latitude.toString())
+        setValue('address.fullAddress', address)
       } else {
         console.error('Geocode was not successful for the following reason: ' + status)
       }
     })
-  }
+  })
 
   const clearRoute = () => {
     setDirectionsResponse(null)
-    // originRef.current?.value = ''
-    setLocationInfo(null)
     setMarkers([])
+    reset()
   }
 
   return (
-    <Fragment>
-      <Box>
-        <LoadScript googleMapsApiKey={import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY} libraries={['places']}>
-          <GoogleMap
-            center={{ lat: center.latitude, lng: center.longitude }}
-            zoom={10}
-            mapContainerStyle={{ width: '100%', height: '100%' }}
-            options={{
-              zoomControl: false,
-              streetViewControl: false,
-              mapTypeControl: false,
-              fullscreenControl: false
-            }}
-            onLoad={(map) => setMap(map)}
-          >
-            {markers.map((marker, index) => (
-              <Marker key={index} position={{ lat: marker.position.latitude, lng: marker.position.longitude }} />
-            ))}
-            {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
-          </GoogleMap>
-        </LoadScript>
-      </Box>
-      <Box>
-        <Box flexGrow={1}>
-          <Autocomplete>
-            <Input type='text' placeholder='Origin' ref={originRef} />
-          </Autocomplete>
+    <Flex>
+      <Box className='relative h-full w-full'>
+        <GoogleMap
+          center={{ lat: center.latitude, lng: center.longitude }}
+          zoom={15}
+          mapContainerStyle={{ width: '80vw', height: '80vh' }}
+          options={{
+            zoomControl: false,
+            streetViewControl: false,
+            mapTypeControl: false,
+            fullscreenControl: false
+          }}
+          onLoad={(map) => setMap(map)}
+        >
+          {markers.map((marker, index) => (
+            <Marker key={index} position={{ lat: marker.position.latitude, lng: marker.position.longitude }} />
+          ))}
+          {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
+        </GoogleMap>
+        <Box className='mt-2 bg-white/70 absolute bottom-0 left-[50%] translate-x-[-50%] rounded-lg outline-none p-4 w-[70%]'>
+          <form onSubmit={handleSearchAddress} className='flex justify-between gap-6'>
+            <HStack className='flex-1'>
+              <Autocomplete className='z-[1511]'>
+                <Input
+                  type='text'
+                  placeholder='Địa điểm'
+                  {...register('address')}
+                  className='z-[1511] w-full border-[1px] border-gray-200 rounded-lg px-4 py-2 outline-none'
+                />
+              </Autocomplete>
+            </HStack>
+            <ButtonGroup>
+              <Button
+                type='submit'
+                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'
+              >
+                Tìm kiếm
+              </Button>
+              <Button
+                type='button'
+                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'
+                onClick={clearRoute}
+              >
+                Làm mới
+              </Button>
+            </ButtonGroup>
+          </form>
         </Box>
-        <ButtonGroup>
-          <Button type='submit' onClick={Search}>
-            Search
-          </Button>
-          <Button type='button' onClick={clearRoute}>
-            Clear
-          </Button>
-        </ButtonGroup>
-        <Input value={locationInfo ? locationInfo.longitude : ''} />
-        <Input value={locationInfo ? locationInfo.latitude : ''} />
       </Box>
-    </Fragment>
+    </Flex>
   )
 }
 

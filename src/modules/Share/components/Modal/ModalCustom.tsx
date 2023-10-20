@@ -14,7 +14,7 @@ const ModalCustom = ({ isOpenModal, handleClose, children }: Props) => {
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
     >
-      <Box>{children}</Box>
+      <Box className='flex items-center justify-center'>{children}</Box>
     </Modal>
   )
 }

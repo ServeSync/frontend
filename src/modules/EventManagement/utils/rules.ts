@@ -107,3 +107,9 @@ export const FormFilterEventSchema = yup.object({
 })
 
 export type FormFilterEventType = yup.InferType<typeof FormFilterEventSchema>
+
+export const FormSearchMapSchema = yup.object({
+  address: yup.string().required('Vui lòng nhập địa điểm !')
+})
+
+export type FormSearchMapType = yup.InferType<typeof FormSearchMapSchema>

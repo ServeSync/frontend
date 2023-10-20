@@ -1,4 +1,4 @@
-import { UseFormRegister, Control, FieldErrors } from 'react-hook-form'
+import { UseFormRegister, Control, FieldErrors, UseFormSetValue } from 'react-hook-form'
 import CreateEventForm from '../../components/CreateEventForm'
 import { FormEventType } from '../../utils'
 import { EventCategoriesListType } from '../../interfaces'
@@ -11,9 +11,10 @@ interface Props {
   register: UseFormRegister<FormEventType>
   control: Control<FormEventType>
   errors: FieldErrors<FormEventType>
+  setValue: UseFormSetValue<FormEventType>
 }
 
-const CreateEvent = ({ page, index, register, control, errors }: Props) => {
+const CreateEvent = ({ page, index, register, control, errors, setValue }: Props) => {
   const [categoryId, setCategoryId] = useState<string>('')
 
   const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery()
@@ -33,6 +34,7 @@ const CreateEvent = ({ page, index, register, control, errors }: Props) => {
           register={register}
           control={control}
           errors={errors}
+          setValue={setValue}
           eventCategories={eventCategories && eventCategories.data}
           activities={activities && activities.data}
           handleChangeCategory={handleChangeCategory}
