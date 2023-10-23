@@ -8,7 +8,7 @@ export type QueryEventConfig = {
 
 const useQueryEventConfig = () => {
   const queryEventParams: QueryEventConfig = useQueryParams()
-  const queryStudentConfig: QueryEventConfig = omitBy(
+  const queryEventConfig: QueryEventConfig = omitBy(
     {
       startDate: queryEventParams.startDate,
       endDate: queryEventParams.endDate,
@@ -22,7 +22,7 @@ const useQueryEventConfig = () => {
     },
     isUndefined
   )
-  return queryStudentConfig
+  return queryEventConfig
 }
 
 export default useQueryEventConfig

@@ -1,10 +1,9 @@
 /* eslint-disable import/named */
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link, URLSearchParamsInit, createSearchParams, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import InputSearch from 'src/modules/Share/components/InputSearch'
-import Popover from 'src/modules/Share/components/Popover'
 import path from 'src/modules/Share/constants/path'
 import EventTable from '../../components/EventTable'
 import Pagination from 'src/modules/Share/components/Pagination'
@@ -16,10 +15,11 @@ import { GetAllEventsQuery } from '../../services'
 import { isEmpty, omitBy } from 'lodash'
 import useSorting from 'src/modules/Share/hooks/useSorting'
 import { formatDate } from 'src/modules/Share/utils'
+import Popover from '@mui/material/Popover'
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
+import Button from 'src/modules/Share/components/Button'
 
 const Event = () => {
-  const [isOpenPopover, setIsOpenPopover] = useState(false)
-
   const navigate = useNavigate()
 
   const queryEventConfig = useQueryEventConfig()
@@ -47,7 +47,6 @@ const Event = () => {
       pathname: path.event,
       search: createSearchParams(omitBy(config, isEmpty) as URLSearchParamsInit).toString()
     })
-    setIsOpenPopover(false)
   })
 
   const handleResetFormFilter = () => {
@@ -75,33 +74,50 @@ const Event = () => {
             />
           </form>
           <div className='flex gap-4'>
-            <Popover
-              renderPopover={
-                <form onSubmit={handleSubmitFormFilter}>
-                  <Filter control={FilterEventForm.control} onResetForm={handleResetFormFilter} />
-                </form>
-              }
-              isOpenPopover={isOpenPopover}
-              setIsOpenPopover={setIsOpenPopover}
-            >
-              <div className='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-6 h-6'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z'
-                  />
-                </svg>
-                <span>Lọc</span>
-              </div>
-            </Popover>
+            <PopupState variant='popover' popupId='filter_event'>
+              {(popupState) => (
+                <div>
+                  <Button
+                    classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'
+                    {...bindTrigger(popupState)}
+                  >
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='w-6 h-6'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z'
+                      />
+                    </svg>
+                    <span>Lọc</span>
+                  </Button>
+                  <Popover
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center'
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center'
+                    }}
+                    style={{
+                      top: '8px'
+                    }}
+                    {...bindPopover(popupState)}
+                  >
+                    <form onSubmit={handleSubmitFormFilter}>
+                      <Filter control={FilterEventForm.control} onResetForm={handleResetFormFilter} />
+                    </form>
+                  </Popover>
+                </div>
+              )}
+            </PopupState>
             <Link
               to={path.create_event}
               className='flex items-center text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'

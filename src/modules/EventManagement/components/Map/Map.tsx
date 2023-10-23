@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { GoogleMap, Marker, DirectionsRenderer, Autocomplete, useJsApiLoader } from '@react-google-maps/api'
 import { UseFormRegister, UseFormHandleSubmit, UseFormSetValue, UseFormReset } from 'react-hook-form'
-import { Input, Box, ButtonGroup, Flex, HStack } from '@chakra-ui/react'
+import { Input, Box, ButtonGroup, Flex } from '@chakra-ui/react'
 import Button from 'src/modules/Share/components/Button'
 import { LocationType, MarkerType } from '../../interfaces'
 import { FormEventType, FormSearchMapType } from '../../utils'
@@ -65,7 +65,7 @@ const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, set
         <GoogleMap
           center={{ lat: center.latitude, lng: center.longitude }}
           zoom={15}
-          mapContainerStyle={{ width: '80vw', height: '80vh' }}
+          mapContainerStyle={{ width: '80vw', height: '80vh', borderRadius: '6px' }}
           options={{
             zoomControl: false,
             streetViewControl: false,
@@ -79,18 +79,18 @@ const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, set
           ))}
           {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
         </GoogleMap>
-        <Box className='mt-2 bg-white/70 absolute bottom-0 left-[50%] translate-x-[-50%] rounded-lg outline-none p-4 w-[70%]'>
+        <Box className='mt-2 bg-white/70 absolute top-0 left-[50%] translate-x-[-50%] rounded-lg outline-none p-4 w-[70%]'>
           <form onSubmit={handleSearchAddress} className='flex justify-between gap-6'>
-            <HStack className='flex-1'>
-              <Autocomplete className='z-[1511]'>
+            <Box className='flex-1'>
+              <Autocomplete>
                 <Input
                   type='text'
                   placeholder='Địa điểm'
                   {...register('address')}
-                  className='z-[1511] w-full border-[1px] border-gray-200 rounded-lg px-4 py-2 outline-none'
+                  className='z-[60] w-full border-[1px] border-gray-200 rounded-lg px-4 py-2 outline-none'
                 />
               </Autocomplete>
-            </HStack>
+            </Box>
             <ButtonGroup>
               <Button
                 type='submit'

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useRef } from 'react'
 import Button from '../Button'
 
@@ -26,7 +27,6 @@ const InputCSV = ({ onChange, previewNameFile }: Props) => {
         accept='.csv'
         ref={fileInputRef}
         onChange={OnFileChange}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onClick={(event) => ((event.target as any).value = null)}
       />
       <Button

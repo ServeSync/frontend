@@ -29,6 +29,7 @@
     "dayjs": "^1.11.10",
     "framer-motion": "^10.16.4",
     "lodash": "^4.17.21",
+    "material-ui-popup-state": "^5.0.9",
     "moment-timezone": "^0.5.43",
     "prettier-plugin-tailwindcss": "^0.5.3",
     "react": "^18.2.0",
