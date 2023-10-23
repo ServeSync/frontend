@@ -10,11 +10,10 @@ import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/mater
 interface Props {
   register: UseFormRegister<FormRequestEventType>
   errors: FieldErrors<FormRequestEventType>
-  handleResetForm: () => void
   control: Control<FormRequestEventType>
 }
 
-const RequestEventOrganizerForm = ({ register, control, errors, handleResetForm }: Props) => {
+const RequestEventOrganizerForm = ({ register, control, errors }: Props) => {
   return (
     <Fragment>
       <div className='flex flex-col gap-y-2 max-w-[800px] mx-auto'>
@@ -185,7 +184,6 @@ const RequestEventOrganizerForm = ({ register, control, errors, handleResetForm 
           <Button
             type='button'
             classNameButton='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-gray-800 font-semibold'
-            onClick={handleResetForm}
           >
             Làm mới
           </Button>

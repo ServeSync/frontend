@@ -1,6 +1,5 @@
-import { Control, FieldErrors, UseFormRegister, useForm } from 'react-hook-form'
-import { FormRequestEventSchema, FormRequestEventType } from '../../utils'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { Control, FieldErrors, UseFormRegister, UseFormReset, UseFormSetValue } from 'react-hook-form'
+import { FormRequestEventType } from '../../utils'
 import RequestCreateEventForm from '../../components/RequestCreateEventForm'
 import { GetAllEventCategoriesQuery } from '../../services'
 import { EventCategoriesListType } from '../../interfaces'
@@ -11,17 +10,11 @@ interface Props {
   register: UseFormRegister<FormRequestEventType>
   control: Control<FormRequestEventType>
   errors: FieldErrors<FormRequestEventType>
+  setValue: UseFormSetValue<FormRequestEventType>
+  reset: UseFormReset<FormRequestEventType>
 }
 
-const RequestCreteEvent = ({ page, index }: Props) => {
-  const FormCreateEvent = useForm<FormRequestEventType>({
-    resolver: yupResolver(FormRequestEventSchema)
-  })
-
-  const handleResetFormCreateEvent = () => {
-    FormCreateEvent.reset()
-  }
-
+const RequestCreteEvent = ({ page, index, setValue, errors, register, reset, control }: Props) => {
   const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery()
   const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoriesListType
 
@@ -29,11 +22,12 @@ const RequestCreteEvent = ({ page, index }: Props) => {
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
       {page === index && (
         <RequestCreateEventForm
+          reset={reset}
+          setValue={setValue}
           eventCategories={eventCategories}
-          register={FormCreateEvent.register}
-          errors={FormCreateEvent.formState.errors}
-          control={FormCreateEvent.control}
-          handleResetForm={handleResetFormCreateEvent}
+          register={register}
+          errors={errors}
+          control={control}
         />
       )}
     </div>

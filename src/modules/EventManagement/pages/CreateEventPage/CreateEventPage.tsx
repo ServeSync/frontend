@@ -135,7 +135,14 @@ const CreateEventPage = () => {
               </Tabs>
             </Box>
             <Box className='mt-6'>
-              <CreateEvent page={page} index={0} register={register} control={control} errors={errors} />
+              <CreateEvent
+                page={page}
+                index={0}
+                register={register}
+                control={control}
+                errors={errors}
+                setValue={setValue}
+              />
               <RegisterEvent
                 page={page}
                 index={1}

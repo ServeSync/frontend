@@ -1,7 +1,6 @@
 import RequestEventOrganizerForm from '../../components/RequestEventOrganizerForm'
-import { Control, FieldErrors, UseFormRegister, useForm } from 'react-hook-form'
-import { FormRequestEventSchema, FormRequestEventType } from '../../utils'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { Control, FieldErrors, UseFormRegister } from 'react-hook-form'
+import { FormRequestEventType } from '../../utils'
 
 interface Props {
   page: number
@@ -11,23 +10,11 @@ interface Props {
   errors: FieldErrors<FormRequestEventType>
 }
 const RequestEventOrganizer = ({ page, index, register, control, errors }: Props) => {
-  const FormRequestEvent = useForm<FormRequestEventType>({
-    resolver: yupResolver(FormRequestEventSchema)
-  })
-  const handleResetFormCreateEvent = () => {
-    FormRequestEvent.reset()
-  }
-
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-3' aria-controls='simple-tabpanel-3'>
       {page === index && (
         <div>
-          <RequestEventOrganizerForm
-            control={control}
-            errors={errors}
-            register={register}
-            handleResetForm={handleResetFormCreateEvent}
-          />
+          <RequestEventOrganizerForm control={control} errors={errors} register={register} />
         </div>
       )}
     </div>

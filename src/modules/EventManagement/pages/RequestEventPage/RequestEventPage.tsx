@@ -1,13 +1,13 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
-import InputImage from 'src/modules/Share/components/InputImage'
 import RequestCreteEvent from 'src/modules/EventManagement/pages/RequestCreateEvent'
 import RequestEventOrganizer from 'src/modules/EventManagement/pages/RequestEventOrganizer'
 import Input from 'src/modules/Share/components/Input'
 import { FormRequestEventSchema, FormRequestEventType } from '../../utils'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import InputImage from 'src/modules/Share/components/InputImage'
 
 const RequestEventPage = () => {
   const [page, setPage] = useState<number>(0)
@@ -20,6 +20,8 @@ const RequestEventPage = () => {
     register,
     handleSubmit,
     control,
+    setValue,
+    reset,
     formState: { errors }
   } = useForm<FormRequestEventType>({
     resolver: yupResolver(FormRequestEventSchema)
@@ -28,6 +30,13 @@ const RequestEventPage = () => {
   const handleSubmitForm = handleSubmit((data) => {
     console.log(data)
   })
+  const [file, setFile] = useState<File>()
+  const previewImage = useMemo(() => {
+    return file ? URL.createObjectURL(file) : ''
+  }, [file])
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+  }
   return (
     <Fragment>
       <Helmet>
@@ -58,24 +67,8 @@ const RequestEventPage = () => {
               />
             </div>
             <div className='flex items-center mt-20'>
-              <button type='button'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-6 h-6 text-[#ff4848]'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0'
-                  />
-                </svg>
-              </button>
               <div className='mx-6 h-[80px] w-[80px]'>
-                <InputImage register={register} />
+                <InputImage register={register} onChange={handleChangeFile} previewImage={previewImage} />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
                   {errors.imageUrl?.message}
                 </span>
@@ -111,11 +104,20 @@ const RequestEventPage = () => {
               </Tabs>
             </Box>
             <Box className='mt-6'>
-              <RequestCreteEvent register={register} control={control} errors={errors} page={page} index={0} />
+              <RequestCreteEvent
+                reset={reset}
+                setValue={setValue}
+                register={register}
+                control={control}
+                errors={errors}
+                page={page}
+                index={0}
+              />
               <RequestEventOrganizer register={register} control={control} errors={errors} page={page} index={1} />
             </Box>
           </Box>
         </div>
+        
       </form>
     </Fragment>
   )

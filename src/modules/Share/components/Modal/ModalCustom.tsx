@@ -8,13 +8,13 @@ interface Props {
 const ModalCustom = ({ isOpenModal, handleClose, children }: Props) => {
   return (
     <Modal
-      className='z-50 h-screen flex items-center justify-center'
+      className='!z-50 h-screen flex items-center justify-center'
       open={isOpenModal}
       onClose={handleClose}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
     >
-      <Box>{children}</Box>
+      <Box className='flex items-center justify-center'>{children}</Box>
     </Modal>
   )
 }

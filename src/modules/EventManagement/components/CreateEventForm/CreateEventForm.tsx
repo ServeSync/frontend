@@ -1,32 +1,55 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UseFormRegister, FieldErrors, Controller, Control } from 'react-hook-form'
+import { UseFormRegister, FieldErrors, Controller, Control, useForm, UseFormSetValue } from 'react-hook-form'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Autocomplete, TextField } from '@mui/material'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { FormEventType } from '../../utils'
-import { ActivityType, EventCategoryType } from '../../interfaces'
+import { FormEventType, FormSearchMapSchema, FormSearchMapType } from '../../utils'
+import { ActivityType, EventCategoryType, LocationType, MarkerType } from '../../interfaces'
 import { eventType } from '../../constants'
 import Button from 'src/modules/Share/components/Button'
-import Map from '../Map'
 import { useState } from 'react'
-import { ChakraProvider, theme } from '@chakra-ui/react'
+import ModalCustom from 'src/modules/Share/components/Modal'
+import Map from '../Map'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 interface Props {
   register: UseFormRegister<FormEventType>
   control: Control<FormEventType>
   errors: FieldErrors<FormEventType>
+  setValue: UseFormSetValue<FormEventType>
   eventCategories: EventCategoryType[]
   activities: ActivityType[]
   handleChangeCategory: (id: string) => void
 }
 
-const CreateEventForm = ({ register, control, errors, eventCategories, activities, handleChangeCategory }: Props) => {
+const CreateEventForm = ({
+  register,
+  control,
+  errors,
+  setValue,
+  eventCategories,
+  activities,
+  handleChangeCategory
+}: Props) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
+  const [center, setCenter] = useState<LocationType>({
+    latitude: 16.074160300547344,
+    longitude: 108.15078258893459
+  })
+  const [markers, setMarkers] = useState<MarkerType[]>([])
 
   const handleOpenModal = () => {
-    setIsOpenModal(!isOpenModal)
+    setIsOpenModal(true)
   }
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false)
+  }
+
+  const FormSearchMap = useForm<FormSearchMapType>({
+    resolver: yupResolver(FormSearchMapSchema)
+  })
 
   return (
     <div>
@@ -150,19 +173,30 @@ const CreateEventForm = ({ register, control, errors, eventCategories, activitie
               </LocalizationProvider>
             )}
           />
+          <Controller
+            name='address.fullAddress'
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div className='col-span-12'>
+                  <TextField
+                    id='address'
+                    {...register('address.fullAddress')}
+                    label='Địa điểm'
+                    placeholder='Nhập địa điểm'
+                    className='w-full bg-white'
+                    onChange={onChange}
+                    value={value}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.address?.fullAddress?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
+          />
 
-          <div className='col-span-12 '>
-            <TextField
-              id='address'
-              {...register('address.fullAddress')}
-              label='Địa điểm'
-              placeholder='Nhập địa điểm'
-              className='w-full bg-white'
-            />
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-              {errors.address?.fullAddress?.message}
-            </span>
-          </div>
           <div className='col-span-5'>
             <TextField id='address_longitude' {...register('address.longitude')} className='w-full bg-white' />
             <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
@@ -175,7 +209,7 @@ const CreateEventForm = ({ register, control, errors, eventCategories, activitie
               {errors.address?.latitude?.message}
             </span>
           </div>
-          <div className='col-span-2 w-full flex items-center justify-end'>
+          <div className='col-span-2  flex items-center justify-end'>
             <Button
               type='button'
               classNameButton='border-[1px] border-[#39a4b2] p-2 rounded-lg text-[#39a4b2]'
@@ -196,13 +230,18 @@ const CreateEventForm = ({ register, control, errors, eventCategories, activitie
                 />
               </svg>
             </Button>
-          </div>
-          <div className='col-span-12'>
-            {isOpenModal && (
-              <ChakraProvider theme={theme}>
-                <Map />
-              </ChakraProvider>
-            )}
+            <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModal}>
+              <Map
+                register={FormSearchMap.register}
+                handleSubmit={FormSearchMap.handleSubmit}
+                setValue={setValue}
+                reset={FormSearchMap.reset}
+                center={center}
+                setCenter={setCenter}
+                markers={markers}
+                setMarkers={setMarkers}
+              />
+            </ModalCustom>
           </div>
           <div className='col-span-12'>
             <TextField
