@@ -45,15 +45,14 @@ export interface FormEvent {
   activityId: string
   address: {
     fullAddress: string
-    longitude: number
-    latitude: number
+    longitude: string
+    latitude: string
   }
   description: string
   registrationInfos: {
     startAt: string
     endAt: string
   }[]
-
   attendanceInfos: {
     startAt: string
     endAt: string

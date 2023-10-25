@@ -7,7 +7,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { RoleTableHeader, isNeedApprove } from '../../constants'
 import { EventRole } from '../../interfaces'
 import { Fragment, useState } from 'react'
-import Skeleton from 'react-loading-skeleton'
 
 interface Props {
   control: Control<FormEventType>
@@ -48,6 +47,8 @@ const RegisterEventRoleForm = ({
         setDataEventRole([...dataEventRole, data])
         setErrors('')
         reset()
+      } else if (data.description && data.description.length <= 10) {
+        setErrors('Mô tả vài trò ít nhất 10 kí tự !')
       } else {
         setErrors('Vui lòng nhập đầy đủ dữ liệu !')
       }
@@ -55,11 +56,11 @@ const RegisterEventRoleForm = ({
       const data = [...dataEventRole]
       data[index] = { ...getValues('roles') }
       if (
-        data[index].description !== '' &&
-        data[index].isNeedApprove !== '' &&
-        data[index].name !== '' &&
-        data[index].quantity !== '' &&
-        data[index].score !== ''
+        data[index].description &&
+        data[index].isNeedApprove &&
+        data[index].name &&
+        data[index].quantity &&
+        data[index].score
       ) {
         setDataEventRole(data)
         setErrors('')
@@ -113,7 +114,8 @@ const RegisterEventRoleForm = ({
             </tr>
           </thead>
           <tbody>
-            {dataEventRole && dataEventRole.length !== 0 ? (
+            {dataEventRole &&
+              dataEventRole.length !== 0 &&
               dataEventRole.map((item, index) => (
                 <tr
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
@@ -175,26 +177,7 @@ const RegisterEventRoleForm = ({
                     </div>
                   </th>
                 </tr>
-              ))
-            ) : (
-              <tr className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'>
-                <th className='px-2 py-4 font-medium w-[20%]'>
-                  <Skeleton className='h-[16px]' borderRadius={20} />
-                </th>
-                <th className='px-2 py-4 font-medium '>
-                  <Skeleton className='h-[16px]' borderRadius={20} />
-                </th>
-                <th className='px-2 py-4 font-medium w-[7%]'>
-                  <Skeleton className='h-[16px]' borderRadius={20} />
-                </th>
-                <th className='px-2 py-4 font-medium w-[15%]'>
-                  <Skeleton className='h-[16px]' borderRadius={20} />
-                </th>
-                <th className='px-2 py-4 font-medium w-[13%]'>
-                  <Skeleton className='h-[16px]' borderRadius={20} />
-                </th>
-              </tr>
-            )}
+              ))}
           </tbody>
         </table>
       </div>

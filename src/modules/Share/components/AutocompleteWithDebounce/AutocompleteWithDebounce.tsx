@@ -30,7 +30,7 @@ function AutocompleteWithDebounce<T extends OptionType>({
     setTextSearch(value)
   }, 1000)
 
-  const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newValue: string) => {
+  const handleInputChange = (_: any, newValue: string) => {
     handleDebouncedSearch(newValue)
   }
 

@@ -44,8 +44,8 @@ const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, set
         const marker = { position: locationCurrent }
         setMarkers([marker])
         setCenter(locationCurrent)
-        setValue('address.longitude', locationCurrent?.longitude)
-        setValue('address.latitude', locationCurrent?.latitude)
+        setValue('address.longitude', locationCurrent?.longitude.toString())
+        setValue('address.latitude', locationCurrent?.latitude.toString())
         setValue('address.fullAddress', address)
       } else {
         console.error('Geocode was not successful for the following reason: ' + status)
