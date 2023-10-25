@@ -57,11 +57,13 @@ const EventTable = ({ events, isLoading, onSort }: Props) => {
               >
                 <th className='px-2 py-4 font-medium w-[12%]'>{event.name}</th>
                 <th className='px-2 py-4 font-medium w-[22%] overflow-hidden'>
-                  <span className='line-clamp-1'> {event.address.fullAddress}</span>
+                  <span className='line-clamp-1'>{event.address.fullAddress}</span>
                 </th>
                 <th className='px-2 py-4 font-medium w-[8%]'>{event.capacity}</th>
                 <th className='px-2 py-4 font-medium w-[10%]'>{event.registered}</th>
-                <th className='px-2 py-4 font-medium w-[16%]'>{event.representativeOrganization.name}</th>
+                <th className='px-2 py-4 font-medium w-[16%] overflow-hidden'>
+                  <span className='line-clamp-1'>{event.representativeOrganization.name}</span>
+                </th>
                 <th className='px-2 py-4 font-medium w-[11%]'>{formatDateTime(event.startAt)}</th>
                 <th className='px-2 py-4 font-medium w-[11%]'>{formatDateTime(event.endAt)}</th>
                 <th className='px-2 py-4 font-medium'>{event.status}</th>

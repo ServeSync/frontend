@@ -164,7 +164,7 @@ const CreateEventForm = ({
           <Controller
             name='address.fullAddress'
             control={control}
-            defaultValue=''
+            defaultValue='Danang University of Technology, Nguyễn Lương Bằng, Hòa Khánh Bắc, Liên Chiểu, Da Nang, Vietnam'
             render={({ field: { onChange, value = null }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-12'>
@@ -184,7 +184,7 @@ const CreateEventForm = ({
           <Controller
             name='address.longitude'
             control={control}
-            defaultValue=''
+            defaultValue='108.15078258893459'
             render={({ field: { value = null }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-5'>
@@ -203,7 +203,7 @@ const CreateEventForm = ({
           <Controller
             name='address.latitude'
             control={control}
-            defaultValue=''
+            defaultValue='16.074160300547344'
             render={({ field: { value = null }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-5'>
