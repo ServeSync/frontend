@@ -44,8 +44,8 @@ const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, set
         const marker = { position: locationCurrent }
         setMarkers([marker])
         setCenter(locationCurrent)
-        setValue('address.longitude', locationCurrent?.longitude.toString())
-        setValue('address.latitude', locationCurrent?.latitude.toString())
+        setValue('address.longitude', locationCurrent?.longitude)
+        setValue('address.latitude', locationCurrent?.latitude)
         setValue('address.fullAddress', address)
       } else {
         console.error('Geocode was not successful for the following reason: ' + status)
@@ -80,7 +80,7 @@ const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, set
           {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
         </GoogleMap>
         <Box className='mt-2 bg-white/70 absolute top-0 left-[50%] translate-x-[-50%] rounded-lg outline-none p-4 w-[70%]'>
-          <form onSubmit={handleSearchAddress} className='flex justify-between gap-6'>
+          <form className='flex justify-between gap-6'>
             <Box className='flex-1'>
               <Autocomplete>
                 <Input
@@ -93,8 +93,9 @@ const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, set
             </Box>
             <ButtonGroup>
               <Button
-                type='submit'
+                type='button'
                 classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'
+                onClick={handleSearchAddress}
               >
                 Tìm kiếm
               </Button>

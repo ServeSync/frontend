@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FieldErrors, Controller, Control, UseFieldArrayReturn } from 'react-hook-form'
+import { Controller, Control, UseFieldArrayReturn } from 'react-hook-form'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -8,13 +8,12 @@ import Button from 'src/modules/Share/components/Button'
 import { DateTimePicker } from '@mui/x-date-pickers'
 
 interface Props {
-  errors: FieldErrors<FormEventType>
   control: Control<FormEventType>
   FieldRegistration: UseFieldArrayReturn<FormEventType, 'registrationInfos'>
   FieldAttendance: UseFieldArrayReturn<FormEventType, 'attendanceInfos'>
 }
 
-const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttendance }: Props) => {
+const RegisterEventTimeForm = ({ control, FieldRegistration, FieldAttendance }: Props) => {
   return (
     <div>
       <div>
@@ -26,7 +25,7 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
             <Controller
               name={`registrationInfos.${index}.startAt`}
               control={control}
-              render={({ field: { onChange, value = null } }) => (
+              render={({ field: { onChange, value = null }, fieldState: { error } }) => (
                 <div className='col-span-4'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateTimeField']}>
@@ -40,7 +39,7 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
                     </DemoContainer>
                   </LocalizationProvider>
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.registrationInfos && errors.registrationInfos[index]?.startAt?.message}
+                    {error && error.message}
                   </span>
                 </div>
               )}
@@ -48,7 +47,7 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
             <Controller
               name={`registrationInfos.${index}.endAt`}
               control={control}
-              render={({ field: { onChange, value = null } }) => (
+              render={({ field: { onChange, value = null }, fieldState: { error } }) => (
                 <div className='col-span-4'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateTimeField']}>
@@ -62,7 +61,7 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
                     </DemoContainer>
                   </LocalizationProvider>
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.registrationInfos && errors.registrationInfos[index]?.endAt?.message}
+                    {error && error.message}
                   </span>
                 </div>
               )}
@@ -72,7 +71,7 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
                 <Button
                   type='button'
                   classNameButton='flex items-center justify-center mb-4 border-[1px] border-gray-300 hover:bg-slate-200 h-[36px] w-[36px] rounded-lg'
-                  onClick={() => FieldRegistration.append({})}
+                  onClick={() => FieldRegistration.append({ startAt: '', endAt: '' })}
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -116,7 +115,7 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
             <Controller
               name={`attendanceInfos.${index}.startAt`}
               control={control}
-              render={({ field: { onChange, value = null } }) => (
+              render={({ field: { onChange, value = null }, fieldState: { error } }) => (
                 <div className='col-span-4'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateTimeField']}>
@@ -130,7 +129,7 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
                     </DemoContainer>
                   </LocalizationProvider>
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.attendanceInfos && errors.attendanceInfos[index]?.startAt?.message}
+                    {error && error.message}
                   </span>
                 </div>
               )}
@@ -138,7 +137,7 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
             <Controller
               name={`attendanceInfos.${index}.endAt`}
               control={control}
-              render={({ field: { onChange, value = null } }) => (
+              render={({ field: { onChange, value = null }, fieldState: { error } }) => (
                 <div className='col-span-4'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateTimeField']}>
@@ -152,7 +151,7 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
                     </DemoContainer>
                   </LocalizationProvider>
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.attendanceInfos && errors.attendanceInfos[index]?.endAt?.message}
+                    {error && error.message}
                   </span>
                 </div>
               )}
@@ -162,7 +161,7 @@ const RegisterEventTimeForm = ({ errors, control, FieldRegistration, FieldAttend
                 <Button
                   type='button'
                   classNameButton='flex items-center justify-center mb-4 border-[1px] border-gray-300 hover:bg-slate-200 h-[36px] w-[36px] rounded-lg'
-                  onClick={() => FieldAttendance.append({})}
+                  onClick={() => FieldAttendance.append({ startAt: '', endAt: '' })}
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'

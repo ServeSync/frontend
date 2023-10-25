@@ -1,4 +1,5 @@
 import { Address, RepresentativeOrganization } from '.'
+import { EventOrganizationFormType, EventRole } from '..'
 
 export interface EventsListType {
   total: number
@@ -32,4 +33,32 @@ export interface EventsListConfig {
   sorting?: string
   page?: number
   size?: number
+}
+
+export interface FormEvent {
+  name: string
+  introduction: string
+  imageUrl?: string | undefined
+  startAt: string
+  endAt: string
+  type: string
+  activityId: string
+  address: {
+    fullAddress: string
+    longitude: number
+    latitude: number
+  }
+  description: string
+  registrationInfos: {
+    startAt: string
+    endAt: string
+  }[]
+
+  attendanceInfos: {
+    startAt: string
+    endAt: string
+  }[]
+  roles: EventRole[]
+  organizations: EventOrganizationFormType[]
+  representativeOrganizationId: string
 }

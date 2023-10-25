@@ -1,16 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useState, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 import CreateEvent from '../CreateEvent'
 import RegisterEvent from '../RegisterEvent'
-import EventOrganizer from '../EventOrganizer'
 import InputImage from 'src/modules/Share/components/InputImage'
 import { FormEventSchema, FormEventType } from '../../utils'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useFieldArray } from 'react-hook-form'
 import Input from 'src/modules/Share/components/Input'
-import { EventRole } from '../../interfaces'
-import { EventOrganization, EventOrganizationRep } from '../../interfaces/EventForm'
+import { EventRole, FormEvent } from '../../interfaces'
+import { EventOrganizationFormType } from '../../interfaces/EventForm'
+import EventOrganization from '../EventOrganization'
+import { CreateEventCommandHandler } from '../../services'
+import { handleError } from 'src/modules/Share/utils'
+import path from 'src/modules/Share/constants/path'
+import _ from 'lodash'
 
 const CreateEventPage = () => {
   const [page, setPage] = useState<number>(0)
@@ -30,9 +37,10 @@ const CreateEventPage = () => {
     setFile(file)
   }
 
+  const navigate = useNavigate()
+
   const [dataEventRole, setDataEventRole] = useState<EventRole[]>([])
-  const [dataEventOrganization, setDataEventOrganization] = useState<EventOrganization[]>([])
-  const [dataEventOrganizationRep, setDataEventOrganizationRep] = useState<EventOrganizationRep[]>([])
+  const [dataEventOrganization, setDataEventOrganization] = useState<EventOrganizationFormType[]>([])
 
   const {
     register,
@@ -41,6 +49,7 @@ const CreateEventPage = () => {
     getValues,
     resetField,
     setValue,
+    setError,
     formState: { errors }
   } = useForm<FormEventType>({
     resolver: yupResolver(FormEventSchema),
@@ -60,13 +69,30 @@ const CreateEventPage = () => {
     name: 'attendanceInfos'
   })
 
+  const createEventCommandHandler = new CreateEventCommandHandler()
+
   const handleSubmitForm = handleSubmit((data) => {
     const body = {
       ...data,
+      ..._.omit(data, 'categoryId'),
       roles: dataEventRole,
       organizations: dataEventOrganization
-    }
-    console.log(body)
+    } as FormEvent
+    createEventCommandHandler.handle(
+      body,
+      file as File,
+      () => {
+        toast.success('Thêm sự kiện thành công !')
+        navigate({
+          pathname: path.event
+        })
+      },
+
+      (error: any) => {
+        handleError<FormEventType>(error, setError)
+      },
+      setError
+    )
   })
 
   return (
@@ -135,38 +161,26 @@ const CreateEventPage = () => {
               </Tabs>
             </Box>
             <Box className='mt-6'>
-              <CreateEvent
-                page={page}
-                index={0}
-                register={register}
-                control={control}
-                errors={errors}
-                setValue={setValue}
-              />
+              <CreateEvent page={page} index={0} control={control} setValue={setValue} />
               <RegisterEvent
                 page={page}
                 index={1}
-                register={register}
                 control={control}
-                errors={errors}
                 getValues={getValues}
+                setValue={setValue}
                 resetField={resetField}
                 FieldRegistration={FieldRegistration}
                 FieldAttendance={FieldAttendance}
                 dataEventRole={dataEventRole}
                 setDataEventRole={setDataEventRole}
               />
-              <EventOrganizer
+              <EventOrganization
                 page={page}
                 index={2}
                 control={control}
-                errors={errors}
                 getValues={getValues}
                 setValue={setValue}
-                dataEventOrganization={dataEventOrganization}
                 setDataEventOrganization={setDataEventOrganization}
-                dataEventOrganizationRep={dataEventOrganizationRep}
-                setDataEventOrganizationRep={setDataEventOrganizationRep}
               />
             </Box>
           </Box>

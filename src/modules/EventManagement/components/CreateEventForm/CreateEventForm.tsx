@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UseFormRegister, FieldErrors, Controller, Control, useForm, UseFormSetValue } from 'react-hook-form'
+import { Controller, Control, useForm, UseFormSetValue } from 'react-hook-form'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Autocomplete, TextField } from '@mui/material'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
@@ -15,9 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import AutocompleteWithDebounce from 'src/modules/Share/components/AutocompleteWithDebounce'
 
 interface Props {
-  register: UseFormRegister<FormEventType>
   control: Control<FormEventType>
-  errors: FieldErrors<FormEventType>
   setValue: UseFormSetValue<FormEventType>
   eventCategories: EventCategoryType[]
   activities: ActivityType[]
@@ -27,7 +25,6 @@ interface Props {
 }
 
 const CreateEventForm = ({
-  register,
   control,
   setValue,
   eventCategories,
@@ -38,12 +35,6 @@ const CreateEventForm = ({
 }: Props) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
-  const [center, setCenter] = useState<LocationType>({
-    latitude: 16.074160300547344,
-    longitude: 108.15078258893459
-  })
-  const [markers, setMarkers] = useState<MarkerType[]>([])
-
   const handleOpenModal = () => {
     setIsOpenModal(true)
   }
@@ -51,6 +42,12 @@ const CreateEventForm = ({
   const handleCloseModal = () => {
     setIsOpenModal(false)
   }
+
+  const [center, setCenter] = useState<LocationType>({
+    latitude: 16.074160300547344,
+    longitude: 108.15078258893459
+  })
+  const [markers, setMarkers] = useState<MarkerType[]>([])
 
   const FormSearchMap = useForm<FormSearchMapType>({
     resolver: yupResolver(FormSearchMapSchema)
@@ -130,19 +127,6 @@ const CreateEventForm = ({
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-4'>
-                  {/* <Autocomplete
-                    disablePortal
-                    id='education_program'
-                    options={eventCategories ? eventCategories : []}
-                    value={(eventCategories && eventCategories.find((option) => option.id === value)) || null}
-                    getOptionLabel={(option) => option.name}
-                    renderInput={(params) => <TextField {...params} label='Danh mục sự kiện' />}
-                    onChange={(_, option) => {
-                      handleChangeCategory(option?.id as string)
-                      onChange(option ? option.id : '')
-                    }}
-                    className='bg-white'
-                  /> */}
                   <AutocompleteWithDebounce<EventCategoryType>
                     id='education_program'
                     options={eventCategories}
@@ -164,17 +148,6 @@ const CreateEventForm = ({
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-4'>
-                  {/* <Autocomplete
-                    disablePortal
-                    id='education_program'
-                    options={activities ? activities : []}
-                    value={(activities && activities.find((option) => option.id === value)) || null}
-                    getOptionLabel={(option) => option.name}
-                    noOptionsText='Không có lựa chọn'
-                    renderInput={(params) => <TextField {...params} label='Hoạt động sự kiện' />}
-                    onChange={(_, option) => onChange(option ? option.id : '')}
-                    className='bg-white'
-                  /> */}
                   <AutocompleteWithDebounce
                     id='education_program'
                     options={activities}
@@ -192,17 +165,16 @@ const CreateEventForm = ({
             name='address.fullAddress'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
+            render={({ field: { onChange, value = null }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-12'>
                   <TextField
                     id='address'
-                    {...register('address.fullAddress')}
                     label='Địa điểm'
                     placeholder='Nhập địa điểm'
                     className='w-full bg-white'
-                    onChange={onChange}
                     value={value}
+                    onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
@@ -212,10 +184,17 @@ const CreateEventForm = ({
           <Controller
             name='address.longitude'
             control={control}
-            render={({ field: { value }, fieldState: { error } }) => (
+            defaultValue=''
+            render={({ field: { value = null }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-5'>
-                  <TextField id='address_longitude' className='w-full bg-gray-100' value={value} disabled />
+                  <TextField
+                    id='address_longitude'
+                    label='Kinh độ'
+                    className='w-full bg-gray-100'
+                    value={value}
+                    disabled
+                  />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
@@ -224,10 +203,17 @@ const CreateEventForm = ({
           <Controller
             name='address.latitude'
             control={control}
-            render={({ field: { value }, fieldState: { error } }) => (
+            defaultValue=''
+            render={({ field: { value = null }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-5'>
-                  <TextField id='address_latitude' className='w-full bg-gray-100' value={value} disabled />
+                  <TextField
+                    id='address_latitude'
+                    label='Vĩ độ'
+                    className='w-full bg-gray-100'
+                    value={value}
+                    disabled
+                  />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
@@ -270,7 +256,7 @@ const CreateEventForm = ({
           <Controller
             name='description'
             control={control}
-            render={({ field: { value }, fieldState: { error } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-12'>
                   <TextField
@@ -281,20 +267,13 @@ const CreateEventForm = ({
                     rows={8}
                     className='w-full bg-white'
                     value={value}
+                    onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
           />
-          <div className='col-span-12 flex justify-end gap-x-6'>
-            <Button
-              type='submit'
-              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
-            >
-              Tạo
-            </Button>
-          </div>
         </div>
       </div>
     </div>

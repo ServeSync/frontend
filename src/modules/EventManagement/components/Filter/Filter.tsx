@@ -1,4 +1,4 @@
-import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Control, Controller } from 'react-hook-form'
@@ -14,7 +14,7 @@ interface Props {
 
 const Filter = ({ control, onResetForm }: Props) => {
   return (
-    <div className='w-[360px] p-6 shadow-md text-gray-600'>
+    <div className='w-[360px] px-6 py-10 shadow-md text-gray-600'>
       <div className='flex items-center justify-center mb-4'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -32,41 +32,22 @@ const Filter = ({ control, onResetForm }: Props) => {
       </div>
       <div className='flex flex-col gap-y-6'>
         <Controller
-          name='startAt'
+          name='status'
           control={control}
+          defaultValue=''
           render={({ field: { onChange, value = null } }) => (
-            <div className='mt-[-8px]'>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DateTimeField']}>
-                  <DateTimePicker
-                    label='Thời gian bắt đầu'
-                    format='DD/MM/YYYY'
-                    onChange={onChange}
-                    value={value}
-                    className='bg-white'
-                  />
-                </DemoContainer>
-              </LocalizationProvider>
-            </div>
-          )}
-        />
-        <Controller
-          name='endAt'
-          control={control}
-          render={({ field: { onChange, value = null } }) => (
-            <div className='mt-[-8px]'>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DateTimeField']}>
-                  <DateTimePicker
-                    label='Thời gian kết thúc'
-                    format='DD/MM/YYYY'
-                    onChange={onChange}
-                    value={value}
-                    className='bg-white'
-                  />
-                </DemoContainer>
-              </LocalizationProvider>
-            </div>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Autocomplete
+                disablePortal
+                id='eventStatus'
+                options={eventStatus}
+                getOptionLabel={(option) => option.name}
+                noOptionsText='Không có lựa chọn'
+                value={eventStatus.find((option) => option.id === value) || null}
+                renderInput={(params) => <TextField {...params} label='Chọn trạng thái sự kiện' />}
+                onChange={(_, option) => onChange(option ? option.id : '')}
+              />
+            </LocalizationProvider>
           )}
         />
         <Controller
@@ -89,22 +70,41 @@ const Filter = ({ control, onResetForm }: Props) => {
           )}
         />
         <Controller
-          name='status'
+          name='startAt'
           control={control}
-          defaultValue=''
           render={({ field: { onChange, value = null } }) => (
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Autocomplete
-                disablePortal
-                id='eventStatus'
-                options={eventStatus}
-                getOptionLabel={(option) => option.name}
-                noOptionsText='Không có lựa chọn'
-                value={eventStatus.find((option) => option.id === value) || null}
-                renderInput={(params) => <TextField {...params} label='Chọn trạng thái sự kiện' />}
-                onChange={(_, option) => onChange(option ? option.id : '')}
-              />
-            </LocalizationProvider>
+            <div className='mt-[-8px]'>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DateTimeField']}>
+                  <DatePicker
+                    label='Thời gian bắt đầu'
+                    format='DD/MM/YYYY'
+                    onChange={onChange}
+                    value={value}
+                    className='bg-white'
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
+          )}
+        />
+        <Controller
+          name='endAt'
+          control={control}
+          render={({ field: { onChange, value = null } }) => (
+            <div className='mt-[-8px]'>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DateTimeField']}>
+                  <DatePicker
+                    label='Thời gian kết thúc'
+                    format='DD/MM/YYYY'
+                    onChange={onChange}
+                    value={value}
+                    className='bg-white'
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
           )}
         />
       </div>
