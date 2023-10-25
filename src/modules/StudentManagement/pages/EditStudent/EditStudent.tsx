@@ -15,7 +15,7 @@ import {
   GetAllHomeRoomsByFacultyIdQuery,
   GetStudentQuery
 } from '../../services'
-import { handleError } from 'src/modules/Share/utils'
+import { formatVNDateTime, handleError } from 'src/modules/Share/utils'
 import path from 'src/modules/Share/constants/path'
 import EditStudentForm from '../../components/EditStudentForm'
 import CircleChart from '../../components/CircleChart'
@@ -61,13 +61,7 @@ const EditStudent = () => {
   const getAllHomeRoomsByFacultyIdQuery = new GetAllHomeRoomsByFacultyIdQuery(facultyId)
   const homeRooms = getAllHomeRoomsByFacultyIdQuery.fetch()
 
-  const {
-    register,
-    handleSubmit,
-    setError,
-    setValue,
-    formState: { errors }
-  } = useForm<FormStudentType>({
+  const { register, handleSubmit, control, setError, setValue } = useForm<FormStudentType>({
     resolver: yupResolver(FormStudentSchema)
   })
 
@@ -82,7 +76,10 @@ const EditStudent = () => {
     editStudentCommandHandler.handle(
       {
         id: queryStudentConfig.id as string,
-        data: data
+        data: {
+          ...data,
+          birth: formatVNDateTime(data.birth)
+        }
       },
       file as File,
       () => {
@@ -132,13 +129,8 @@ const EditStudent = () => {
     })
   }
 
-  const handleChangeSelection = (event: React.ChangeEvent<HTMLSelectElement>, name: any) => {
-    if (name == 'facultyId') {
-      setFacultyId(event.target.value)
-      event.target.value && setError(name, { message: '' })
-    } else {
-      event.target.value && setError(name, { message: '' })
-    }
+  const handleChangeFaculty = (id: string) => {
+    setFacultyId(id)
   }
 
   return (
@@ -151,8 +143,8 @@ const EditStudent = () => {
         <form onSubmit={handleSubmitForm}>
           <EditStudentForm
             register={register}
-            errors={errors}
             setValue={setValue}
+            control={control}
             student={student}
             educationPrograms={educationPrograms}
             faculties={faculties}
@@ -160,9 +152,8 @@ const EditStudent = () => {
             handleDeleteStudent={handleDeleteStudent}
             onPreviousPage={handlePreviousPage}
             onChange={handleChangeFile}
-            onChangeSelection={handleChangeSelection}
+            onChangeFaculty={handleChangeFaculty}
             previewImage={previewImage}
-            isLoading={getStudentQuery.isLoading()}
             isLoadingEdit={editStudentCommandHandler.isLoading()}
           />
         </form>

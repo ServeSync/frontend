@@ -1,1 +1,5 @@
-export * from './event.type'
+export * from './Event'
+export * from './EventCategory'
+export * from './EventOrganization'
+export * from './EventForm'
+export * from './Map'

@@ -5,6 +5,7 @@ import { UseFormSetError } from 'react-hook-form'
 import { ErrorCodeToMessage } from '../constants/errorCode'
 import HttpStatusCode from '../constants/httpStatusCode.enum'
 import { format, parseISO } from 'date-fns'
+import moment from 'moment-timezone'
 import { toast } from 'react-toastify'
 
 export function handleError<T>(error: any, setError?: UseFormSetError<any>) {
@@ -28,6 +29,14 @@ export function isAxiosUnauthorizedError(error: unknown): error is AxiosError {
   return isAxiosError(error) && error.response?.status === HttpStatusCode.Unauthorized
 }
 
-export function formatDateTime(date: string) {
-  return format(parseISO(date), 'yyyy-MM-dd')
+export function formatDateTime(dateTime: string) {
+  return format(parseISO(dateTime), 'yyyy-MM-dd')
+}
+
+export function formatDate(date: string) {
+  return date && moment(date).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD')
+}
+
+export function formatVNDateTime(date: string) {
+  return moment(date).tz('Asia/Ho_Chi_Minh').format('ddd, DD MMM YYYY HH:mm:ss [GMT]')
 }

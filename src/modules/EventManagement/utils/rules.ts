@@ -1,39 +1,85 @@
 import * as yup from 'yup'
 
-export const FormFilterEventSchema = yup.object({
-  search: yup.string()
-})
-
-export type FormFilterEventType = yup.InferType<typeof FormFilterEventSchema>
-
-export const FormEventSchema = yup.object({
-  startTime: yup.string().required('Vui lòng nhập thời gian bắt đầu !'),
-  startDate: yup.string().required('Vui lòng nhập ngày bắt đầu !'),
-  endTime: yup.string().required('Vui lòng nhập thời gian kết thúc !'),
-  endDate: yup.string().required('Vui lòng nhập ngày kết thúc !'),
-  typeId: yup.string().required('Vui lòng nhập ngày kết thúc !'),
-  categoryId: yup.string(),
-  activityId: yup.string(),
-  position: yup.string().required('Vui lòng nhập địa điểm !'),
-  description: yup.string()
+export const FormEventSchema = yup.object().shape({
+  name: yup.string().required('Vui lòng nhập tên sự kiện !').min(10, 'Tên sự kiện ít nhất 10 kí tự !'),
+  introduction: yup.string().required('Vui lòng nhập giới thiệu sự kiện !'),
+  imageUrl: yup.string(),
+  startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu sự kiện !'),
+  endAt: yup.string().required('Vui lòng nhập thời gian kết thúc sự kiện !'),
+  type: yup.string().required('Vui lòng chọn loại sự kiện !'),
+  categoryId: yup.string().required('Vui lòng chọn danh mục sự kiện !'),
+  activityId: yup.string().required('Vui lòng chọn hoạt động của sự kiện !'),
+  address: yup
+    .object()
+    .shape({
+      fullAddress: yup.string().required('Vui lòng nhập tên địa điểm sự kiện!'),
+      longitude: yup.number().required('Vui lòng nhập kinh độ diễn ra sự kiện!'),
+      latitude: yup.number().required('Vui lòng nhập vĩ độ diễn ra sự kiện!')
+    })
+    .required('Vui lòng chọn địa điểm sự kiện'),
+  description: yup
+    .string()
+    .required('Vui lòng nhập mô tả sự kiện !')
+    .min(256, 'Giới thiệu sự kiện ít nhất 256 kí tự !'),
+  registrationInfos: yup
+    .array()
+    .of(
+      yup
+        .object()
+        .shape({
+          startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu thời gian đăng kí !'),
+          endAt: yup.string().required('Vui lòng nhập thời gian kêt thúc thời gian đăng kí !')
+        })
+        .required('Vui lòng nhập thời gian đăng kí')
+    )
+    .required('Vui lòng nhập thời gian đăng kí'),
+  attendanceInfos: yup
+    .array()
+    .of(
+      yup.object().shape({
+        startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu tham gia !'),
+        endAt: yup.string().required('Vui lòng nhập thời gian kết thúc tham gia !')
+      })
+    )
+    .required('Vui lòng nhập thời gian tham gia'),
+  roles: yup
+    .object()
+    .shape({
+      name: yup.string(),
+      description: yup.string().min(10, 'Mô tả vai trò ít nhất 10 kí tự !'),
+      isNeedApprove: yup.boolean(),
+      score: yup.number(),
+      quantity: yup.number()
+    })
+    .required('Vui lòng nhập vai trò sự kiện'),
+  organizations: yup
+    .object()
+    .shape({
+      organizationId: yup.string(),
+      role: yup.string(),
+      organizationReps: yup.object().shape({
+        organizationRepId: yup.string(),
+        role: yup.string()
+      })
+    })
+    .required('Vui lòng nhập nhà tổ chức sự kiện'),
+  representativeOrganizationId: yup.string().required('Vui lòng chọn đơn vị đại diện !')
 })
 
 export type FormEventType = yup.InferType<typeof FormEventSchema>
 
-export const FormRegisterEventSchema = yup.object({
-  startTime: yup.string().required('Vui lòng nhập thời gian bắt đầu !'),
-  startDate: yup.string().required('Vui lòng nhập ngày bắt đầu !'),
-  endTime: yup.string().required('Vui lòng nhập thời gian kết thúc !'),
-  endDate: yup.string().required('Vui lòng nhập ngày kết thúc !')
+export const FormFilterEventSchema = yup.object({
+  startAt: yup.string(),
+  endAt: yup.string(),
+  type: yup.string(),
+  status: yup.string(),
+  search: yup.string().trim()
 })
 
-export type FormRegisterEventType = yup.InferType<typeof FormRegisterEventSchema>
+export type FormFilterEventType = yup.InferType<typeof FormFilterEventSchema>
 
-export const FormEventRoleSchema = yup.object({
-  name: yup.string().required('Vui lòng nhập tên vai trò của sự kiện !'),
-  description: yup.string().required('Vui lòng nhập mô tả vai trò của sự kiện !'),
-  quantity: yup.string().required('Vui lòng nhập số lượng tham gia !'),
-  point: yup.string().required('Vui lòng nhập điểm !')
+export const FormSearchMapSchema = yup.object({
+  address: yup.string().required('Vui lòng nhập địa điểm !')
 })
 
-export type FormEventRoleType = yup.InferType<typeof FormEventRoleSchema>
+export type FormSearchMapType = yup.InferType<typeof FormSearchMapSchema>

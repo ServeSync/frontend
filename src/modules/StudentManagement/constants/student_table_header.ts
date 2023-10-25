@@ -37,6 +37,6 @@ export const StudentTableHeader = [
   {
     id: '8',
     name: 'Điểm',
-    sort: 'score'
+    sort: ''
   }
 ]

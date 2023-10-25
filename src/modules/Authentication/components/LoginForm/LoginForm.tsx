@@ -4,15 +4,11 @@ import { Link } from 'react-router-dom'
 import Button from 'src/modules/Share/components/Button'
 import Input from 'src/modules/Share/components/Input'
 import path from 'src/modules/Share/constants/path'
-
-interface LoginForm {
-  userNameOrEmail: string
-  password: string
-}
+import { FormLoginType } from '../../utils'
 
 interface Props {
-  register: UseFormRegister<LoginForm>
-  errors: FieldErrors<LoginForm>
+  register: UseFormRegister<FormLoginType>
+  errors: FieldErrors<FormLoginType>
   isLoading: boolean
 }
 
