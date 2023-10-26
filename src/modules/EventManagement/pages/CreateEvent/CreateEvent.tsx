@@ -16,6 +16,11 @@ interface Props {
 
 const CreateEvent = ({ page, index, control, setValue }: Props) => {
   const [categoryId, setCategoryId] = useState<string>('')
+
+  const handleChangeCategory = (id: string) => {
+    setCategoryId(id)
+  }
+
   const [eventCategoriesSearch, setEventCategoriesSearch] = useState<string>('')
   const [activitiesSearch, setActivitiesSearch] = useState<string>('')
 
@@ -28,10 +33,6 @@ const CreateEvent = ({ page, index, control, setValue }: Props) => {
   const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId, queryActivityConfig)
   const activities = getAllActivitiesByCategoryIdQuery.fetch() as ActivitiesListType
 
-  const handleChangeCategory = (id: string) => {
-    setCategoryId(id)
-  }
-
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
       {page === index && (
@@ -39,8 +40,8 @@ const CreateEvent = ({ page, index, control, setValue }: Props) => {
           control={control}
           setValue={setValue}
           eventCategories={eventCategories && eventCategories.data}
-          activities={activities && activities?.data}
-          handleChangeCategory={handleChangeCategory}
+          activities={activities && activities.data}
+          onChangeCategory={handleChangeCategory}
           setEventCategoriesSearch={setEventCategoriesSearch}
           setActivitiesSearch={setActivitiesSearch}
         />

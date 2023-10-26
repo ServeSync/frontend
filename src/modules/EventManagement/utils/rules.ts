@@ -37,7 +37,19 @@ export const FormEventSchema = yup.object().shape({
       .object()
       .shape({
         startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu thời gian đăng kí !'),
-        endAt: yup.string().required('Vui lòng nhập thời gian kêt thúc thời gian đăng kí !')
+        endAt: yup
+          .string()
+          .required('Vui lòng nhập thời gian kêt thúc thời gian đăng kí !')
+          .test('uniqueTimes', 'Thời gian đăng kí ít nhất 15 phút', function (endAt) {
+            const startAt = this.parent.startAt
+            if (!startAt || !endAt) {
+              return true
+            }
+            const startAtDate = new Date(startAt)
+            const endAtDate = new Date(endAt)
+            const minimumEndAtDate = addMinutes(startAtDate, 15)
+            return endAtDate > minimumEndAtDate
+          })
       })
       .required('Vui lòng nhập thời gian đăng kí')
   ),
@@ -47,7 +59,7 @@ export const FormEventSchema = yup.object().shape({
       endAt: yup
         .string()
         .required('Vui lòng nhập thời gian kết thúc tham gia !')
-        .test('uniqueTimes', 'Thời gian không được trùng nhau và phải cách nhau ít nhất 15 phút.', function (endAt) {
+        .test('uniqueTimes', 'Thời gian tham gia ít nhất 15 phút.', function (endAt) {
           const startAt = this.parent.startAt
           if (!startAt || !endAt) {
             return true

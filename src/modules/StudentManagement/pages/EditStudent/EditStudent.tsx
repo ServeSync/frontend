@@ -46,6 +46,10 @@ const EditStudent = () => {
 
   const [facultyId, setFacultyId] = useState<string>(student && student.facultyId)
 
+  const handleChangeFaculty = (id: string) => {
+    setFacultyId(id)
+  }
+
   useEffect(() => {
     if (student) {
       setFacultyId(student.facultyId)
@@ -127,10 +131,6 @@ const EditStudent = () => {
       pathname: path.student,
       search: createSearchParams(prevAccountConfig).toString()
     })
-  }
-
-  const handleChangeFaculty = (id: string) => {
-    setFacultyId(id)
   }
 
   return (

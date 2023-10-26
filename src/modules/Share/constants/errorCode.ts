@@ -65,6 +65,46 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Email đã tồn tại!',
       type: 'Server',
       field: 'email'
+    },
+    'Event:000002': {
+      message: 'Không phải thời điểm đăng ký !',
+      type: 'Server'
+    },
+    'Event:000003': {
+      message: 'Sự kiện không tồn tại !',
+      type: 'Server'
+    },
+    'Event:000004': {
+      message: 'Không phải thời gian điểm danh !',
+      type: 'Server'
+    },
+    'EventAttendanceInfo:000001': {
+      message: 'Thời gian điểm danh bị trùng nhau !',
+      type: 'Server',
+      field: 'attendanceInfos'
+    },
+    'EventAttendanceInfo:000003': {
+      message: 'Thời gian điểm danh không nằm trong thời gian diễn ra sự kiện !',
+      type: 'Server',
+      field: 'attendanceInfos'
+    },
+    'EventRegistration:000002': {
+      message: 'Khung giờ đăng ký bị trùng với thời gian diễn ra sự kiện !',
+      type: 'Server',
+      field: 'registrationInfos'
+    },
+    'EventRegistration:000004': {
+      message: 'Khung giờ đăng ký bị trùng nhau !',
+      type: 'Server',
+      field: 'registrationInfos'
+    },
+    'EventRole:000002': {
+      message: 'Vai trò không tồn tại !',
+      type: 'Server'
+    },
+    'EventRole:000003': {
+      message: 'Vai trò đã được đăng ký đủ số lượng !',
+      type: 'Server'
     }
   }
 

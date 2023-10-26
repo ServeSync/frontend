@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UseFieldArrayReturn, Control, UseFormGetValues, UseFormResetField, UseFormSetValue } from 'react-hook-form'
+import {
+  UseFieldArrayReturn,
+  Control,
+  UseFormGetValues,
+  UseFormResetField,
+  UseFormSetValue,
+  FieldErrors
+} from 'react-hook-form'
 import { FormEventType } from '../../utils'
 import RegisterEventTimeForm from '../../components/RegisterEventTimeForm'
 import RegisterEventRoleForm from '../../components/RegisterEventRoleForm'
@@ -10,6 +17,7 @@ interface Props {
   index: number
   control: Control<FormEventType>
   getValues: UseFormGetValues<FormEventType>
+  errors: FieldErrors<FormEventType>
   resetField: UseFormResetField<FormEventType>
   setValue: UseFormSetValue<FormEventType>
   FieldRegistration: UseFieldArrayReturn<FormEventType, 'registrationInfos'>
@@ -23,6 +31,7 @@ const RegisterEvent = ({
   index,
   control,
   getValues,
+  errors,
   setValue,
   resetField,
   FieldRegistration,
@@ -36,6 +45,7 @@ const RegisterEvent = ({
         <div className='flex flex-col'>
           <RegisterEventTimeForm
             control={control}
+            errors={errors}
             FieldRegistration={FieldRegistration}
             FieldAttendance={FieldAttendance}
           />

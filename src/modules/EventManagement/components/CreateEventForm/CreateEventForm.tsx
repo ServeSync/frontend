@@ -19,7 +19,7 @@ interface Props {
   setValue: UseFormSetValue<FormEventType>
   eventCategories: EventCategoryType[]
   activities: ActivityType[]
-  handleChangeCategory: (id: string) => void
+  onChangeCategory: (id: string) => void
   setEventCategoriesSearch: React.Dispatch<React.SetStateAction<string>>
   setActivitiesSearch: React.Dispatch<React.SetStateAction<string>>
 }
@@ -29,7 +29,7 @@ const CreateEventForm = ({
   setValue,
   eventCategories,
   activities,
-  handleChangeCategory,
+  onChangeCategory,
   setEventCategoriesSearch,
   setActivitiesSearch
 }: Props) => {
@@ -47,6 +47,7 @@ const CreateEventForm = ({
     latitude: 16.074160300547344,
     longitude: 108.15078258893459
   })
+
   const [markers, setMarkers] = useState<MarkerType[]>([])
 
   const FormSearchMap = useForm<FormSearchMapType>({
@@ -129,11 +130,11 @@ const CreateEventForm = ({
                 <div className='col-span-4'>
                   <AutocompleteWithDebounce<EventCategoryType>
                     id='education_program'
-                    options={eventCategories}
-                    handleChangeId={handleChangeCategory}
-                    onChange={onChange}
                     label='Danh mục sự kiện'
+                    options={eventCategories}
                     value={value as string}
+                    onChange={onChange}
+                    onChangeId={onChangeCategory}
                     setTextSearch={setEventCategoriesSearch}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -150,10 +151,10 @@ const CreateEventForm = ({
                 <div className='col-span-4'>
                   <AutocompleteWithDebounce
                     id='education_program'
-                    options={activities}
-                    onChange={onChange}
                     label='Hoạt động sự kiện'
+                    options={activities}
                     value={value as string}
+                    onChange={onChange}
                     setTextSearch={setActivitiesSearch}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -219,10 +220,10 @@ const CreateEventForm = ({
               </LocalizationProvider>
             )}
           />
-          <div className='col-span-2 flex items-center justify-end'>
+          <div className='col-span-2 flex justify-end'>
             <Button
               type='button'
-              classNameButton='border-[1px] border-[#39a4b2] p-2 rounded-lg text-[#39a4b2]'
+              classNameButton='border-[1px] border-[#39a4b2] w-[56px] h-[56px] rounded-lg text-[#39a4b2] flex items-center justify-center'
               onClick={handleOpenModal}
             >
               <svg

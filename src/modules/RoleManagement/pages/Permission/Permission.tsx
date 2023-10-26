@@ -23,6 +23,14 @@ interface Props {
 
 const Permission = ({ onDeleteRole }: Props) => {
   const [checkboxValues, setCheckboxValues] = useState<{ [id: string]: boolean }>({})
+
+  const handleCheckboxChange = (permissionId: string, checked: boolean) => {
+    setCheckboxValues((prevValues) => ({
+      ...prevValues,
+      [permissionId]: checked
+    }))
+  }
+
   const [isEditPermissions, setIsEditPermissions] = useState<boolean>(false)
 
   const navigate = useNavigate()
@@ -80,13 +88,6 @@ const Permission = ({ onDeleteRole }: Props) => {
       }
     )
   })
-
-  const handleCheckboxChange = (permissionId: string, checked: boolean) => {
-    setCheckboxValues((prevValues) => ({
-      ...prevValues,
-      [permissionId]: checked
-    }))
-  }
 
   const handleCancel = () => {
     navigate(path.role)

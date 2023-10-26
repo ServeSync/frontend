@@ -8,7 +8,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { FormStudentType } from '../../utils/rules'
 import { EducationProgramType, FacultyType } from '../../interfaces'
 import { GetAllHomeRoomsByFacultyIdQuery } from '../../services'
-import InputImage from 'src/modules/Share/components/InputImage'
+import InputAvatar from 'src/modules/Share/components/InputAvatar'
 import Button from 'src/modules/Share/components/Button'
 import { gender } from '../../constants'
 
@@ -48,7 +48,7 @@ const CreateStudentForm = ({
     <Fragment>
       <div className='grid grid-cols-4 gap-4'>
         <div className='col-span-1 flex flex-col items-center mx-6'>
-          <InputImage register={register} onChange={onChange} previewImage={previewImage} />
+          <InputAvatar register={register} onChange={onChange} previewImage={previewImage} />
           <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.imageUrl?.message}</span>
         </div>
         <div className='col-span-3 grid grid-cols-2 gap-x-6 gap-y-4 text-[14px] font-semibold text-gray-600 placeholder:text-black'>
