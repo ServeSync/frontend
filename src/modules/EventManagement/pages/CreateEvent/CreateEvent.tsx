@@ -1,9 +1,11 @@
 import { UseFormRegister, Control, FieldErrors, UseFormSetValue } from 'react-hook-form'
 import CreateEventForm from '../../components/CreateEventForm'
 import { FormEventType } from '../../utils'
-import { EventCategoriesListType } from '../../interfaces'
+import { ActivitiesListType, EventCategoriesListType } from '../../interfaces'
 import { useState } from 'react'
 import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../services'
+import useQueryActivityConfig from '../../hooks/useQueryActivityConfig'
+import useQueryEventCategoryConfig from '../../hooks/useQueryEventCategoryConfig'
 
 interface Props {
   page: number
@@ -16,12 +18,17 @@ interface Props {
 
 const CreateEvent = ({ page, index, register, control, errors, setValue }: Props) => {
   const [categoryId, setCategoryId] = useState<string>('')
+  const [activitiesSearch, setActivitiesSearch] = useState<string>('')
+  const [eventCategoriesSearch, setEventCategoriesSearch] = useState<string>('')
 
-  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery()
+  const queryActivityConfig = useQueryActivityConfig(activitiesSearch)
+  const queryEventCategoryConfig = useQueryEventCategoryConfig(eventCategoriesSearch)
+
+  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery(queryEventCategoryConfig)
   const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoriesListType
 
-  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)
-  const activities = getAllActivitiesByCategoryIdQuery.fetch()
+  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId, queryActivityConfig)
+  const activities = getAllActivitiesByCategoryIdQuery.fetch() as ActivitiesListType
 
   const handleChangeCategory = (id: string) => {
     setCategoryId(id)
@@ -36,8 +43,10 @@ const CreateEvent = ({ page, index, register, control, errors, setValue }: Props
           errors={errors}
           setValue={setValue}
           eventCategories={eventCategories && eventCategories.data}
-          activities={activities && activities.data}
+          activities={activities && activities?.data}
           handleChangeCategory={handleChangeCategory}
+          setEventCategoriesSearch={setEventCategoriesSearch}
+          setActivitiesSearch={setActivitiesSearch}
         />
       )}
     </div>

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useEffect } from 'react'
-import { UseFormRegister, FieldErrors, UseFormSetValue, Controller, Control } from 'react-hook-form'
+import { UseFormRegister, UseFormSetValue, Controller, Control } from 'react-hook-form'
 import { Autocomplete, TextField } from '@mui/material'
-import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import dayjs from 'dayjs'
@@ -14,7 +14,6 @@ import { gender } from '../../constants'
 
 interface Props {
   register: UseFormRegister<FormStudentType>
-  errors: FieldErrors<FormStudentType>
   setValue: UseFormSetValue<FormStudentType>
   control: Control<FormStudentType>
   student: StudentType
@@ -22,17 +21,15 @@ interface Props {
   faculties: FacultyType[]
   homeRooms: HomeRoomType[]
   handleDeleteStudent: (id: string) => void
-  isLoading: boolean
   onChange: (file?: File) => void
   onChangeFaculty: (id: string) => void
+  onPreviousPage: () => void
   previewImage: string
   isLoadingEdit: boolean
-  onPreviousPage: () => void
 }
 
 const EditStudentForm = ({
   register,
-  errors,
   setValue,
   control,
   student,
@@ -81,7 +78,7 @@ const EditStudentForm = ({
             name='code'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value = (student && student.code) || null } }) => (
+            render={({ field: { onChange, value = (student && student.code) || null }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <TextField
@@ -92,9 +89,7 @@ const EditStudentForm = ({
                     className='w-full bg-white'
                     onChange={onChange}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.code?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -103,7 +98,7 @@ const EditStudentForm = ({
             name='fullName'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value = student && student.fullName } }) => (
+            render={({ field: { onChange, value = student && student.fullName }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <TextField
@@ -114,9 +109,7 @@ const EditStudentForm = ({
                     className='w-full bg-white'
                     onChange={onChange}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.fullName?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -125,7 +118,7 @@ const EditStudentForm = ({
             name='email'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value = student && student.email } }) => (
+            render={({ field: { onChange, value = student && student.email }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <TextField
@@ -136,9 +129,7 @@ const EditStudentForm = ({
                     className='w-full bg-white'
                     onChange={onChange}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.email?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -147,7 +138,7 @@ const EditStudentForm = ({
             name='gender'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <Autocomplete
@@ -161,9 +152,7 @@ const EditStudentForm = ({
                     onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.gender?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -171,22 +160,20 @@ const EditStudentForm = ({
           <Controller
             name='birth'
             control={control}
-            render={({ field: { onChange, value = student && student.dateOfBirth } }) => (
+            render={({ field: { onChange, value = student && student.dateOfBirth }, fieldState: { error } }) => (
               <div className='mt-[-8px]'>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={['DateTimeField']}>
-                    <DateTimePicker
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
                       label='Ngày sinh'
                       format='DD/MM/YYYY'
                       onChange={onChange}
                       value={dayjs(value)}
-                      className='bg-white'
+                      className='bg-white w-full'
                     />
                   </DemoContainer>
                 </LocalizationProvider>
-                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                  {errors.birth?.message}
-                </span>
+                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
             )}
           />
@@ -194,7 +181,7 @@ const EditStudentForm = ({
             name='phone'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value = student && student.phone } }) => (
+            render={({ field: { onChange, value = student && student.phone }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <TextField
@@ -205,9 +192,7 @@ const EditStudentForm = ({
                     className='w-full bg-white'
                     onChange={onChange}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.phone?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -216,7 +201,7 @@ const EditStudentForm = ({
             name='homeTown'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value = student && student.homeTown } }) => (
+            render={({ field: { onChange, value = student && student.homeTown }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <TextField
@@ -227,9 +212,7 @@ const EditStudentForm = ({
                     className='w-full bg-white'
                     onChange={onChange}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.homeTown?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -238,7 +221,7 @@ const EditStudentForm = ({
             name='address'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value = student && student.address } }) => (
+            render={({ field: { onChange, value = student && student.address }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <TextField
@@ -249,9 +232,7 @@ const EditStudentForm = ({
                     className='w-full bg-white'
                     onChange={onChange}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.address?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -260,7 +241,7 @@ const EditStudentForm = ({
             name='citizenId'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value = student && student.citizenId } }) => (
+            render={({ field: { onChange, value = student && student.citizenId }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <TextField
@@ -271,9 +252,7 @@ const EditStudentForm = ({
                     className='w-full bg-white'
                     onChange={onChange}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.citizenId?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -281,7 +260,7 @@ const EditStudentForm = ({
           <Controller
             name='facultyId'
             control={control}
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <Autocomplete
@@ -298,9 +277,7 @@ const EditStudentForm = ({
                     }}
                     className='bg-white'
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.facultyId?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -308,7 +285,7 @@ const EditStudentForm = ({
           <Controller
             name='homeRoomId'
             control={control}
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <Autocomplete
@@ -322,9 +299,7 @@ const EditStudentForm = ({
                     onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.homeRoomId?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -332,7 +307,7 @@ const EditStudentForm = ({
           <Controller
             name='educationProgramId'
             control={control}
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <Autocomplete
@@ -346,9 +321,7 @@ const EditStudentForm = ({
                     onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.educationProgramId?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}

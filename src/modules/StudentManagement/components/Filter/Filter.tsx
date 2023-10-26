@@ -18,7 +18,7 @@ interface Props {
 
 const Filter = ({ control, onResetForm, onChangeFaculty, educationPrograms, faculties, homeRooms }: Props) => {
   return (
-    <div className='w-[360px] bg-white border-[1px] border-gray-300 rounded-lg p-6 shadow-md text-gray-600 flex flex-col gap-y-6'>
+    <div className='w-[360px] bg-white p-6 shadow-md text-gray-600 flex flex-col gap-y-6'>
       <div className='flex items-center justify-center'>
         <svg
           xmlns='http://www.w3.org/2000/svg'

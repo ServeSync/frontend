@@ -11,15 +11,13 @@ import CardEvent from '../CardEvent'
 import { EventsListType } from 'src/modules/EventManagement/interfaces'
 
 interface Props {
-  events: EventsListType
+  eventsDone: EventsListType
+  eventsHappending: EventsListType
+  eventsUpcoming: EventsListType
 }
 
 SwiperCore.use([Navigation, Pagination])
-const Container = ({ events }: Props) => {
-  const listUpcomingEvents = events?.data.filter((event) => event.status === 'Upcoming')
-  const listHappeningEvents = events?.data.filter((event) => event.status === 'Happening')
-  const listDoneEvents = events?.data.filter((event) => event.status === 'Done')
-
+const Container = ({ eventsDone, eventsHappending, eventsUpcoming }: Props) => {
   return (
     <div className='flex flex-col mb-[200px] '>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center max-w-screen-xl w-full py-8 px-4 m-auto '>
@@ -37,7 +35,10 @@ const Container = ({ events }: Props) => {
             >
               Bắt đầu
             </Link>
-            <Link to={path.request_event} className='items-start inline-flex gap-2 text-[14px] hover:underline pl-4'>
+            <Link
+              to={path.request_event}
+              className='px-4 justify-start items-start inline-flex gap-2 text-black text-[12px] rounded-full w-full hover:underline'
+            >
               Tham gia với tư cách nhà tổ chức sự kiện
             </Link>
           </div>
@@ -209,8 +210,8 @@ const Container = ({ events }: Props) => {
             modules={[Pagination, Navigation]}
             className=' px-6 !overflow-visible flex'
           >
-            {listUpcomingEvents &&
-              listUpcomingEvents.map((event, index) => (
+            {eventsUpcoming.data.length > 0 &&
+              eventsUpcoming.data.map((event, index) => (
                 <SwiperSlide key={index}>
                   <CardEvent
                     rating={event.rating}
@@ -244,8 +245,8 @@ const Container = ({ events }: Props) => {
             modules={[Pagination, Navigation]}
             className=' px-6 !overflow-visible flex'
           >
-            {listHappeningEvents &&
-              listHappeningEvents.map((event, index) => (
+            {eventsHappending.data.length > 0 &&
+              eventsHappending.data.map((event, index) => (
                 <SwiperSlide key={index}>
                   <CardEvent
                     rating={event.rating}
@@ -279,8 +280,8 @@ const Container = ({ events }: Props) => {
             modules={[Pagination, Navigation]}
             className=' px-6 !overflow-visible flex'
           >
-            {listDoneEvents &&
-              listDoneEvents.map((event, index) => (
+            {eventsDone.data.length > 0 &&
+              eventsDone.data.map((event, index) => (
                 <SwiperSlide key={index}>
                   <CardEvent
                     rating={event.rating}
@@ -313,21 +314,21 @@ const Container = ({ events }: Props) => {
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1697414400&Signature=qt8dHK7aK1OQM4ORhBOREGbPV5RfXyXbvzZsjePrvDwvtPWaI2qbnq-etD~ryA5hBiZ02k7ZPfnsdWBBhuJZCigvZ~5W1luQpHuXbsbWkoRLB04QG4pbOMTNtlDsfcfZv-xa6~3R014o0bDLh7V3OFt-htIuFSomx4Imor1OY2aKjMWDh2JMawrlNzIKLeE22fLnIZ7rfjCdwO5l6XGNwAJuEP0tp9wCFROenbnQ7PP2zA~v2hbhp6kKvP0nLOBspVb2J7c6wVWT4jFPelnt~HinclvkD-cDG3Hik9mmWMnuxR0ycOLYt7oA0Jhqc~WQVjyGgigtO5vJlYBEqoEnyQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1699228800&Signature=Irn7kP7enF9PUJTJ-P6shE79PGWHjqOwI29BLnNvPUh6Ju7Jut23Gpi79k~cliPqHI6POeAcnnJGt-Qx1BpqXNRG8KZuy-BYTUN6RMvci2~KhiNlnU0rlziPVqtZZ9pK8uUtDVWuQjQt-uO7XpgU4mHDcAJegY-R31lFKHpfZZtQAIiSdMqlBA4Kf1C3fTs2Om4ziBaNW~KuMGeKgeS9o1O3gKI3b19qkN4cbXDOlemz1r8~7B2r5DD6rpg-474IQUVsfKYiL65yJw0l5xDd0CV8xTRAN41Te1fwTR49ICPnTBBzEnhnvA0yRsBBgDHFZQVPotLjBShuqEFR8JX78A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1697414400&Signature=qt8dHK7aK1OQM4ORhBOREGbPV5RfXyXbvzZsjePrvDwvtPWaI2qbnq-etD~ryA5hBiZ02k7ZPfnsdWBBhuJZCigvZ~5W1luQpHuXbsbWkoRLB04QG4pbOMTNtlDsfcfZv-xa6~3R014o0bDLh7V3OFt-htIuFSomx4Imor1OY2aKjMWDh2JMawrlNzIKLeE22fLnIZ7rfjCdwO5l6XGNwAJuEP0tp9wCFROenbnQ7PP2zA~v2hbhp6kKvP0nLOBspVb2J7c6wVWT4jFPelnt~HinclvkD-cDG3Hik9mmWMnuxR0ycOLYt7oA0Jhqc~WQVjyGgigtO5vJlYBEqoEnyQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1699228800&Signature=Irn7kP7enF9PUJTJ-P6shE79PGWHjqOwI29BLnNvPUh6Ju7Jut23Gpi79k~cliPqHI6POeAcnnJGt-Qx1BpqXNRG8KZuy-BYTUN6RMvci2~KhiNlnU0rlziPVqtZZ9pK8uUtDVWuQjQt-uO7XpgU4mHDcAJegY-R31lFKHpfZZtQAIiSdMqlBA4Kf1C3fTs2Om4ziBaNW~KuMGeKgeS9o1O3gKI3b19qkN4cbXDOlemz1r8~7B2r5DD6rpg-474IQUVsfKYiL65yJw0l5xDd0CV8xTRAN41Te1fwTR49ICPnTBBzEnhnvA0yRsBBgDHFZQVPotLjBShuqEFR8JX78A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
                 />
               </div>
               <div className='w-full p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1697414400&Signature=BdPiGe9KFXWyHLx3~XA0fjWfyRAwxGvsW2y9NUA4NgMp4HZmHZI4S-9WvVoAJ~cZXYeOMGyLdMzwHrk~Z9F48sI4VgH0QEt2PaL00FktBoUDpTS8joVzxBUNhsuEmlXxDeXmXafyM~k79InzLnJ~BxZ7vNWBalgnN428z~pUXjjjA~tnegNAqXeSz4pxSQi2XxkGVQUj-tcnsjyORmZJpWGZL6OlLzuP4wYqOUbEdrrL9PMJ7ZGxUIKq-BM3GRcb8A3QZ7k3X1cBkxfYYn1tfOEYUFR32-qIS6ev~jJz9io2zVcZijbfL-OrX17UzXUpdL7orZlAdu8JEOOAAWD6cA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1699228800&Signature=Irn7kP7enF9PUJTJ-P6shE79PGWHjqOwI29BLnNvPUh6Ju7Jut23Gpi79k~cliPqHI6POeAcnnJGt-Qx1BpqXNRG8KZuy-BYTUN6RMvci2~KhiNlnU0rlziPVqtZZ9pK8uUtDVWuQjQt-uO7XpgU4mHDcAJegY-R31lFKHpfZZtQAIiSdMqlBA4Kf1C3fTs2Om4ziBaNW~KuMGeKgeS9o1O3gKI3b19qkN4cbXDOlemz1r8~7B2r5DD6rpg-474IQUVsfKYiL65yJw0l5xDd0CV8xTRAN41Te1fwTR49ICPnTBBzEnhnvA0yRsBBgDHFZQVPotLjBShuqEFR8JX78A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
                 />
               </div>
             </div>
@@ -336,21 +337,21 @@ const Container = ({ events }: Props) => {
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1697414400&Signature=qt8dHK7aK1OQM4ORhBOREGbPV5RfXyXbvzZsjePrvDwvtPWaI2qbnq-etD~ryA5hBiZ02k7ZPfnsdWBBhuJZCigvZ~5W1luQpHuXbsbWkoRLB04QG4pbOMTNtlDsfcfZv-xa6~3R014o0bDLh7V3OFt-htIuFSomx4Imor1OY2aKjMWDh2JMawrlNzIKLeE22fLnIZ7rfjCdwO5l6XGNwAJuEP0tp9wCFROenbnQ7PP2zA~v2hbhp6kKvP0nLOBspVb2J7c6wVWT4jFPelnt~HinclvkD-cDG3Hik9mmWMnuxR0ycOLYt7oA0Jhqc~WQVjyGgigtO5vJlYBEqoEnyQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699228800&Signature=lAXe1LY7TIoqQsQFZ449oMxLAax~vH1jgj05umunVrwcG0YuF0vwCRXoGmfVeF1d0UMhatepyE8pAu1KBErhXoV7Qw5qYWOzcR9YQKvVPiTHPfgi6JA-dupbe~HTDmxf8SjA3qsmCI6lBuM6ihdkWzDPP9Hb0Rqw651IhYjyzRyH7hcAvQwwvjlMrb0WWCKjOiOiNsgJNY2VvyxTEdZk5ng0HHmurdMiCwePzmieafI0Sa1IDIhH0IxEiHAX3PNBA5MEQmcAiWNF99mBxjuLrAJeisof37BZT5l7hbmjpGIswyU25Ir463lmmxC4j8BnCuBaDL4ovfN6eS3fs7blVQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1697414400&Signature=BdPiGe9KFXWyHLx3~XA0fjWfyRAwxGvsW2y9NUA4NgMp4HZmHZI4S-9WvVoAJ~cZXYeOMGyLdMzwHrk~Z9F48sI4VgH0QEt2PaL00FktBoUDpTS8joVzxBUNhsuEmlXxDeXmXafyM~k79InzLnJ~BxZ7vNWBalgnN428z~pUXjjjA~tnegNAqXeSz4pxSQi2XxkGVQUj-tcnsjyORmZJpWGZL6OlLzuP4wYqOUbEdrrL9PMJ7ZGxUIKq-BM3GRcb8A3QZ7k3X1cBkxfYYn1tfOEYUFR32-qIS6ev~jJz9io2zVcZijbfL-OrX17UzXUpdL7orZlAdu8JEOOAAWD6cA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699228800&Signature=lAXe1LY7TIoqQsQFZ449oMxLAax~vH1jgj05umunVrwcG0YuF0vwCRXoGmfVeF1d0UMhatepyE8pAu1KBErhXoV7Qw5qYWOzcR9YQKvVPiTHPfgi6JA-dupbe~HTDmxf8SjA3qsmCI6lBuM6ihdkWzDPP9Hb0Rqw651IhYjyzRyH7hcAvQwwvjlMrb0WWCKjOiOiNsgJNY2VvyxTEdZk5ng0HHmurdMiCwePzmieafI0Sa1IDIhH0IxEiHAX3PNBA5MEQmcAiWNF99mBxjuLrAJeisof37BZT5l7hbmjpGIswyU25Ir463lmmxC4j8BnCuBaDL4ovfN6eS3fs7blVQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1697414400&Signature=BdPiGe9KFXWyHLx3~XA0fjWfyRAwxGvsW2y9NUA4NgMp4HZmHZI4S-9WvVoAJ~cZXYeOMGyLdMzwHrk~Z9F48sI4VgH0QEt2PaL00FktBoUDpTS8joVzxBUNhsuEmlXxDeXmXafyM~k79InzLnJ~BxZ7vNWBalgnN428z~pUXjjjA~tnegNAqXeSz4pxSQi2XxkGVQUj-tcnsjyORmZJpWGZL6OlLzuP4wYqOUbEdrrL9PMJ7ZGxUIKq-BM3GRcb8A3QZ7k3X1cBkxfYYn1tfOEYUFR32-qIS6ev~jJz9io2zVcZijbfL-OrX17UzXUpdL7orZlAdu8JEOOAAWD6cA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699228800&Signature=lAXe1LY7TIoqQsQFZ449oMxLAax~vH1jgj05umunVrwcG0YuF0vwCRXoGmfVeF1d0UMhatepyE8pAu1KBErhXoV7Qw5qYWOzcR9YQKvVPiTHPfgi6JA-dupbe~HTDmxf8SjA3qsmCI6lBuM6ihdkWzDPP9Hb0Rqw651IhYjyzRyH7hcAvQwwvjlMrb0WWCKjOiOiNsgJNY2VvyxTEdZk5ng0HHmurdMiCwePzmieafI0Sa1IDIhH0IxEiHAX3PNBA5MEQmcAiWNF99mBxjuLrAJeisof37BZT5l7hbmjpGIswyU25Ir463lmmxC4j8BnCuBaDL4ovfN6eS3fs7blVQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
                 />
               </div>
             </div>

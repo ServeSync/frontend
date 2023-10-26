@@ -3,33 +3,32 @@ import { Fragment } from 'react'
 import { FormRequestEventType } from '../../utils'
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form'
 import InputImage from 'src/modules/Share/components/InputImage'
-import { TextField } from '@mui/material'
-// import Button from 'src/modules/Share/components/Button'
-// import { CreateOrganizationInfoCommandHandler } from '../../services/RequestEvent'
-// import { handleError } from 'src/modules/Share/utils'
-import { LocalizationProvider } from '@mui/x-date-pickers'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { Autocomplete, TextField } from '@mui/material'
+import { gender } from 'src/modules/StudentManagement/constants'
 interface Props {
   register: UseFormRegister<FormRequestEventType>
   errors: FieldErrors<FormRequestEventType>
   control: Control<FormRequestEventType>
-  handleChangeFileOrganizer: (file?: File) => void
-  previewImageOrganizer: string
+  handleChangeFileOrganizerContact: (file?: File) => void
+  previewImageOrganizerContact: string
 }
 
-const RequestEventOrganizerForm = ({
+const RequestEventOrganizerContactForm = ({
   register,
   errors,
   control,
-  handleChangeFileOrganizer,
-  previewImageOrganizer
+  handleChangeFileOrganizerContact,
+  previewImageOrganizerContact
 }: Props) => {
   return (
     <Fragment>
-      <h2 className='text-[17px] col-span-4 mb-2'>Thông tin ban tổ chức</h2>
+      <h2 className='text-[17px] col-span-4 mb-2'>Người đại diện</h2>
       <div className='grid grid-cols-6 gap-4'>
         <Controller
-          name='eventOrganizationInfo.imageUrl'
+          name='eventOrganizationContactInfo.imageUrl'
           control={control}
           defaultValue=''
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,20 +37,19 @@ const RequestEventOrganizerForm = ({
               <div className='col-span-2 flex flex-col items-center mx-6'>
                 <InputImage
                   register={register}
-                  onChange={handleChangeFileOrganizer}
-                  previewImage={previewImageOrganizer}
+                  onChange={handleChangeFileOrganizerContact}
+                  previewImage={previewImageOrganizerContact}
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                  {errors.eventOrganizationInfo?.imageUrl?.message}
+                  {errors.eventOrganizationContactInfo?.imageUrl?.message}
                 </span>
               </div>
             </LocalizationProvider>
           )}
         />
-
         <div className='col-span-4'>
           <Controller
-            name='eventOrganizationInfo.name'
+            name='eventOrganizationContactInfo.name'
             control={control}
             defaultValue=''
             render={({ field: { onChange, value } }) => (
@@ -59,22 +57,22 @@ const RequestEventOrganizerForm = ({
                 <div className='my-2'>
                   <TextField
                     id='address'
-                    {...register('eventOrganizationInfo.name')}
-                    label='Tên tổ chức'
-                    placeholder='Nhập tên tổ chức'
+                    {...register('eventOrganizationContactInfo.name')}
+                    label='Họ và tên'
+                    placeholder='Họ và tên'
                     className='w-full bg-white'
                     onChange={onChange}
                     value={value}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.eventOrganizationInfo?.name?.message}
+                    {errors.eventOrganizationContactInfo?.name?.message}
                   </span>
                 </div>
               </LocalizationProvider>
             )}
           />
           <Controller
-            name='eventOrganizationInfo.description'
+            name='eventOrganizationContactInfo.phoneNumber'
             control={control}
             defaultValue=''
             render={({ field: { onChange, value } }) => (
@@ -82,30 +80,7 @@ const RequestEventOrganizerForm = ({
                 <div className='my-2'>
                   <TextField
                     id='address'
-                    {...register('eventOrganizationInfo.description')}
-                    label='Mô tả tổ chức'
-                    placeholder='Mô tả tổ chức'
-                    className='w-full bg-white'
-                    onChange={onChange}
-                    value={value}
-                  />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.eventOrganizationInfo?.description?.message}
-                  </span>
-                </div>
-              </LocalizationProvider>
-            )}
-          />
-          <Controller
-            name='eventOrganizationInfo.phoneNumber'
-            control={control}
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='my-2'>
-                  <TextField
-                    id='address'
-                    {...register('eventOrganizationInfo.phoneNumber')}
+                    {...register('eventOrganizationContactInfo.phoneNumber')}
                     label='Số điện thoại'
                     placeholder='Số điện thoại'
                     className='w-full bg-white'
@@ -113,14 +88,14 @@ const RequestEventOrganizerForm = ({
                     value={value}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.eventOrganizationInfo?.phoneNumber?.message}
+                    {errors.eventOrganizationContactInfo?.phoneNumber?.message}
                   </span>
                 </div>
               </LocalizationProvider>
             )}
           />
           <Controller
-            name='eventOrganizationInfo.email'
+            name='eventOrganizationContactInfo.email'
             control={control}
             defaultValue=''
             render={({ field: { onChange, value } }) => (
@@ -128,7 +103,7 @@ const RequestEventOrganizerForm = ({
                 <div className='my-2'>
                   <TextField
                     id='address'
-                    {...register('eventOrganizationInfo.email')}
+                    {...register('eventOrganizationContactInfo.email')}
                     label='Địa chỉ email'
                     placeholder='Địa chỉ email'
                     className='w-full bg-white'
@@ -136,14 +111,14 @@ const RequestEventOrganizerForm = ({
                     value={value}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.eventOrganizationInfo?.email?.message}
+                    {errors.eventOrganizationContactInfo?.email?.message}
                   </span>
                 </div>
               </LocalizationProvider>
             )}
           />
           <Controller
-            name='eventOrganizationInfo.address'
+            name='eventOrganizationContactInfo.address'
             control={control}
             defaultValue=''
             render={({ field: { onChange, value } }) => (
@@ -151,15 +126,84 @@ const RequestEventOrganizerForm = ({
                 <div className='my-2'>
                   <TextField
                     id='address'
-                    {...register('eventOrganizationInfo.address')}
-                    label='Địa chỉ'
-                    placeholder='Địa chỉ'
+                    {...register('eventOrganizationContactInfo.address')}
+                    label='Địa chỉ '
+                    placeholder='Địa chỉ '
                     className='w-full bg-white'
                     onChange={onChange}
                     value={value}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.eventOrganizationInfo?.address?.message}
+                    {errors.eventOrganizationContactInfo?.address?.message}
+                  </span>
+                </div>
+              </LocalizationProvider>
+            )}
+          />
+          <div className='my-2 flex gap-10'>
+            <Controller
+              name='eventOrganizationContactInfo.birth'
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <div>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer components={['DatePicker']}>
+                      <DatePicker
+                        {...register('eventOrganizationContactInfo.birth')}
+                        label='Chọn ngày sinh'
+                        className='w-full'
+                        onChange={onChange}
+                        value={value}
+                      />
+                    </DemoContainer>
+                  </LocalizationProvider>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.eventOrganizationContactInfo?.birth?.message as string}
+                  </span>
+                </div>
+              )}
+            />
+            <Controller
+              name='eventOrganizationContactInfo.gender'
+              control={control}
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <div className=' !pt-[8px] w-full'>
+                    <Autocomplete
+                      disablePortal
+                      id='gender'
+                      options={gender}
+                      value={gender.find((option) => option.id === value) || null}
+                      getOptionLabel={(option) => option.name}
+                      noOptionsText='Không có lựa chọn'
+                      renderInput={(params) => <TextField {...params} label='Giới tính' />}
+                      onChange={(_, option) => onChange(option ? option.id : '')}
+                      className='bg-white'
+                    />
+                    <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
+                  </div>
+                </LocalizationProvider>
+              )}
+            />
+          </div>
+          <Controller
+            name='eventOrganizationContactInfo.position'
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <TextField
+                    id='address'
+                    {...register('eventOrganizationContactInfo.position')}
+                    label='Vị trí nhân sự '
+                    placeholder='Vị trí nhân sự '
+                    className='w-full bg-white'
+                    onChange={onChange}
+                    value={value}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors.eventOrganizationContactInfo?.position?.message}
                   </span>
                 </div>
               </LocalizationProvider>
@@ -177,7 +221,7 @@ const RequestEventOrganizerForm = ({
         <Button
           type='button'
           classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[40px]'
-          onClick={handleAddEventOrganizer}
+          onClick={handleAddEventOrganizerContact}
         >
           Thêm nhà tổ chức
         </Button>
@@ -186,4 +230,4 @@ const RequestEventOrganizerForm = ({
   )
 }
 
-export default RequestEventOrganizerForm
+export default RequestEventOrganizerContactForm

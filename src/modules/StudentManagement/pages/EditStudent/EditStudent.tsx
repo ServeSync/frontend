@@ -61,14 +61,7 @@ const EditStudent = () => {
   const getAllHomeRoomsByFacultyIdQuery = new GetAllHomeRoomsByFacultyIdQuery(facultyId)
   const homeRooms = getAllHomeRoomsByFacultyIdQuery.fetch()
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    setError,
-    setValue,
-    formState: { errors }
-  } = useForm<FormStudentType>({
+  const { register, handleSubmit, control, setError, setValue } = useForm<FormStudentType>({
     resolver: yupResolver(FormStudentSchema)
   })
 
@@ -150,7 +143,6 @@ const EditStudent = () => {
         <form onSubmit={handleSubmitForm}>
           <EditStudentForm
             register={register}
-            errors={errors}
             setValue={setValue}
             control={control}
             student={student}
@@ -162,7 +154,6 @@ const EditStudent = () => {
             onChange={handleChangeFile}
             onChangeFaculty={handleChangeFaculty}
             previewImage={previewImage}
-            isLoading={getStudentQuery.isLoading()}
             isLoadingEdit={editStudentCommandHandler.isLoading()}
           />
         </form>

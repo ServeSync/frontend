@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormRegister } from 'react-hook-form'
 import Skeleton from 'react-loading-skeleton'
 
 interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register: UseFormRegister<any>
   id: string
   name: string

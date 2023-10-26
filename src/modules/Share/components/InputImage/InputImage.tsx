@@ -34,7 +34,6 @@ const InputImage = ({ onChange, register, previewImage, student }: Props) => {
         {...register('imageUrl')}
         ref={fileInputRef}
         onChange={OnFileChange}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onClick={(event) => ((event.target as any).value = null)}
       />
       <Button

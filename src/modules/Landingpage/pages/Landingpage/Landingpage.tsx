@@ -3,11 +3,15 @@ import { Helmet } from 'react-helmet-async'
 import LandingPageHeader from '../../components/LandingPageHeader'
 import Footer from '../../components/Footer'
 import Container from '../../components/Container'
-import { GetAllEventsQuery } from 'src/modules/EventManagement/services'
+import { GetAllEventsByStatusQuery } from '../../../EventManagement/services/'
 
 const Landingpage = () => {
-  const getAllEventsQuery = new GetAllEventsQuery()
-  const events = getAllEventsQuery.fetch()
+  const getAllEventsDoneQuery = new GetAllEventsByStatusQuery('done', 5)
+  const getAllEventHappendingQuery = new GetAllEventsByStatusQuery('happening', 5)
+  const getAllEventUpcomingQuery = new GetAllEventsByStatusQuery('upcoming', 5)
+  const eventsDone = getAllEventsDoneQuery.fetch()
+  const eventsHappening = getAllEventHappendingQuery.fetch()
+  const eventsUpcoming = getAllEventUpcomingQuery.fetch()
 
   return (
     <Fragment>
@@ -17,7 +21,7 @@ const Landingpage = () => {
       </Helmet>
       <div className=''>
         <LandingPageHeader />
-        <Container events={events} />
+        <Container eventsDone={eventsDone} eventsHappending={eventsHappening} eventsUpcoming={eventsUpcoming} />
         <Footer />
       </div>
     </Fragment>

@@ -1,4 +1,4 @@
-import { useContext, Fragment, useState } from 'react'
+import { useContext, Fragment } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AppContext } from '../../contexts'
@@ -7,14 +7,13 @@ import { GetRoleQuery } from 'src/modules/RoleManagement/services'
 import { clearTokenFromLocalStorage } from 'src/modules/Authentication/utils'
 import path from '../../constants/path'
 import Button from '../Button'
-import Popover from '../Popover'
 import { GetStudentQuery } from 'src/modules/StudentManagement/services'
 import useQueryRoleConfig from 'src/modules/RoleManagement/hooks/useQueryRoleConfig'
 import useQueryStudentConfig from 'src/modules/StudentManagement/hooks/useQueryStudentConfig'
+import Popover from '@mui/material/Popover'
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 
 export default function Header() {
-  const [isOpenPopover, setIsOpenPopover] = useState(false)
-
   const { setIsAuthenticated } = useContext(AppContext)
 
   const navigate = useNavigate()
@@ -98,16 +97,35 @@ export default function Header() {
             ) : (
               <span>{profile?.email}</span>
             )}
-            <Button type='button' classNameButton='rounded-full'>
-              <Popover
-                className='rounded-full flex items-center w-8 h-8 align-middle z-[80]'
-                classNamePopover='z-[60]'
-                renderPopover={
-                  <ul className='flex flex-col gap-2 absolute right-[-16px] w-56 p-2 text-gray-700 bg-white rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]'>
-                    <li>
+            <PopupState variant='popover' popupId='profile'>
+              {(popupState) => (
+                <div>
+                  <Button
+                    classNameButton='relative bg-slate-300 rounded-full outline-none w-[40px] pt-[100%]'
+                    {...bindTrigger(popupState)}
+                  >
+                    <img
+                      src={profile?.avatarUrl}
+                      alt='avatar'
+                      className='rounded-full top-0 h-full w-full object-cover object-top absolute'
+                    />
+                  </Button>
+                  <Popover
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center'
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'left'
+                    }}
+                    {...bindPopover(popupState)}
+                    className='mt-2'
+                  >
+                    <div>
                       <Link
                         to={'/profile'}
-                        className='flex items-center cursor-pointer w-full px-2 py-1 text-sm font-medium rounded-md hover:bg-gray-100 hover:text-gray-800'
+                        className='flex items-center cursor-pointer text-sm font-medium hover:bg-gray-100 hover:text-gray-800 px-3 py-2'
                       >
                         <svg
                           fill='none'
@@ -121,13 +139,13 @@ export default function Header() {
                         >
                           <path d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' />
                         </svg>
-                        <span>Thông tin cá nhân</span>
+                        <span className='w-[140px]'>Thông tin cá nhân</span>
                       </Link>
-                    </li>
-                    <li>
+                    </div>
+                    <div>
                       <Link
                         to={'/settings'}
-                        className='flex items-center cursor-pointer w-full px-2 py-1 text-sm font-medium rounded-md hover:bg-gray-100 hover:text-gray-800  '
+                        className='flex items-center cursor-pointer w-full text-sm font-medium hover:bg-gray-100 hover:text-gray-800 p-3 py-2'
                       >
                         <svg
                           fill='none'
@@ -144,11 +162,11 @@ export default function Header() {
                         </svg>
                         <span>Cài đặt</span>
                       </Link>
-                    </li>
-                    <li>
+                    </div>
+                    <div>
                       <button
                         onClick={handleLogout}
-                        className='flex items-center cursor-pointer w-full px-2 py-1 text-sm font-medium rounded-md hover:bg-gray-100 hover:text-gray-800  '
+                        className='flex items-center cursor-pointer w-full  p-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-800'
                       >
                         <svg
                           fill='none'
@@ -164,21 +182,11 @@ export default function Header() {
                         </svg>
                         <span>Đăng xuất</span>
                       </button>
-                    </li>
-                  </ul>
-                }
-                isOpenPopover={isOpenPopover}
-                setIsOpenPopover={setIsOpenPopover}
-              >
-                <div className='relative bg-slate-300 rounded-full outline-none w-[40px] pt-[100%]'>
-                  <img
-                    src={profile?.avatarUrl}
-                    alt='avatar'
-                    className='rounded-full top-0 h-full w-full object-cover object-top absolute'
-                  />
+                    </div>
+                  </Popover>
                 </div>
-              </Popover>
-            </Button>
+              )}
+            </PopupState>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormRegister } from 'react-hook-form'
 
 interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register: UseFormRegister<any>
   classNameInput: string
   name: string

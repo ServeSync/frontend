@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from 'classnames'
 import { Link, createSearchParams } from 'react-router-dom'
 
 interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queryConfig: any
   pageSize: number
   pathname: string

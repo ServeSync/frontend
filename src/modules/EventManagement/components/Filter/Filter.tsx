@@ -14,7 +14,7 @@ interface Props {
 
 const Filter = ({ control, onResetForm }: Props) => {
   return (
-    <div className='w-[360px] bg-white border-[1px] border-gray-300 rounded-lg p-6 shadow-md text-gray-600'>
+    <div className='w-[360px] p-6 shadow-md text-gray-600'>
       <div className='flex items-center justify-center mb-4'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
