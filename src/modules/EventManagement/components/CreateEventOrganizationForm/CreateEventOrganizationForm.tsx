@@ -1,4 +1,4 @@
-import { Controller, Control, UseFormGetValues } from 'react-hook-form'
+import { Controller, Control } from 'react-hook-form'
 import { FormEventType } from '../../utils'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -7,40 +7,29 @@ import Button from 'src/modules/Share/components/Button'
 import { EventOrganizationType } from '../../interfaces'
 import path from 'src/modules/Share/constants/path'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
 
 interface Props {
   control: Control<FormEventType>
-  getValues: UseFormGetValues<FormEventType>
+  representatives: EventOrganizationType[]
   eventOrganizations: EventOrganizationType[]
-  handleChangeEventOrganization: (id: string) => void
   handleAddEventOrganization: () => void
   errors: string
 }
 
 const CreateEventOrganizationForm = ({
   control,
-  getValues,
+  representatives,
   eventOrganizations,
-  handleChangeEventOrganization,
   handleAddEventOrganization,
   errors
 }: Props) => {
-  const [representative, setRepresentative] = useState<EventOrganizationType[]>([])
-
-  const onAddEventOrganization = () => {
-    const id = getValues('organizations.organizationId')
-    setRepresentative([...representative, eventOrganizations.find((item) => item.id === id) as EventOrganizationType])
-    handleAddEventOrganization()
-  }
-
   return (
     <div>
       <div>
-        <div className='col-span-4 flex justify-between items-center mb-2'>
+        <div className='col-span-4 flex justify-between items-center mb-4'>
           <h2 className='text-[16px]'>Thêm nhà tổ chức</h2>
         </div>
-        <div className='grid grid-cols-10 gap-x-6'>
+        <div className='grid grid-cols-10 gap-x-6 mb-2'>
           <Controller
             name={'organizations.organizationId'}
             control={control}
@@ -55,10 +44,7 @@ const CreateEventOrganizationForm = ({
                     value={(eventOrganizations && eventOrganizations.find((option) => option.id === value)) || null}
                     getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label='Chọn tổ chức' />}
-                    onChange={(_, option) => {
-                      onChange(option ? option.id : '')
-                      handleChangeEventOrganization(option?.id as string)
-                    }}
+                    onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors}</span>
@@ -83,11 +69,11 @@ const CreateEventOrganizationForm = ({
               </div>
             )}
           />
-          <div className='col-span-2 flex items-center justify-end'>
+          <div className='col-span-2 flex justify-end'>
             <Button
               type='button'
-              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold '
-              onClick={onAddEventOrganization}
+              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[48px] mt-[4px]'
+              onClick={handleAddEventOrganization}
             >
               Thêm tổ chức
             </Button>
@@ -95,7 +81,7 @@ const CreateEventOrganizationForm = ({
         </div>
       </div>
       <div>
-        <div className='col-span-4 flex justify-between items-center mb-2'>
+        <div className='col-span-4 flex justify-between items-center mb-4'>
           <h2 className='text-[16px]'>Đơn vị đại diện</h2>
         </div>
         <Controller
@@ -108,8 +94,10 @@ const CreateEventOrganizationForm = ({
                 <Autocomplete
                   disablePortal
                   id='representative_organization'
-                  options={representative ? representative : []}
-                  value={(representative && representative.find((option) => (option?.id as string) === value)) || null}
+                  options={representatives ? representatives : []}
+                  value={
+                    (representatives && representatives.find((option) => (option?.id as string) === value)) || null
+                  }
                   getOptionLabel={(option) => option.name}
                   noOptionsText='Không có lựa chọn'
                   renderInput={(params) => <TextField {...params} label='Chọn tổ chức' />}

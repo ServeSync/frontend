@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { GoogleMap, Marker, DirectionsRenderer, Autocomplete, useJsApiLoader } from '@react-google-maps/api'
 import { UseFormRegister, UseFormHandleSubmit, UseFormSetValue, UseFormReset } from 'react-hook-form'
 import { Input, Box, ButtonGroup, Flex } from '@chakra-ui/react'
@@ -24,6 +24,10 @@ const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, set
     libraries: ['places']
   })
 
+  useEffect(() => {
+    setMarkers([...markers, { position: center }])
+  }, [center, markers, setMarkers])
+
   const [_, setMap] = useState<google.maps.Map>()
   const [directionsResponse, setDirectionsResponse] = useState(null)
 
@@ -42,7 +46,7 @@ const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, set
         const location = results[0].geometry.location
         const locationCurrent = { latitude: location.lat(), longitude: location.lng() }
         const marker = { position: locationCurrent }
-        setMarkers([marker])
+        setMarkers([...markers, marker])
         setCenter(locationCurrent)
         setValue('address.longitude', locationCurrent?.longitude.toString())
         setValue('address.latitude', locationCurrent?.latitude.toString())

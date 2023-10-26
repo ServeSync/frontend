@@ -8,7 +8,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import dayjs from 'dayjs'
 import { FormStudentType } from '../../utils/rules'
 import { EducationProgramType, FacultyType, HomeRoomType, StudentType } from '../../interfaces'
-import InputImage from 'src/modules/Share/components/InputImage'
+import InputAvatar from 'src/modules/Share/components/InputAvatar'
 import Button from 'src/modules/Share/components/Button'
 import { gender } from '../../constants'
 
@@ -70,7 +70,7 @@ const EditStudentForm = ({
       <div className='grid grid-cols-6 gap-6'>
         <div className='col-span-1'>
           <div className='flex flex-col items-center justify-center '>
-            <InputImage register={register} onChange={onChange} previewImage={previewImage} student={student} />
+            <InputAvatar register={register} onChange={onChange} previewImage={previewImage} student={student} />
           </div>
         </div>
         <div className='col-span-5 grid grid-cols-3 gap-x-6 gap-y-4 text-[14px]'>

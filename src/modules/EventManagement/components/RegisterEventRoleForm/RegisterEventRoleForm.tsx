@@ -26,6 +26,7 @@ const RegisterEventRoleForm = ({
   setDataEventRole
 }: Props) => {
   const [isEditEventRole, setIsEditEventRole] = useState<boolean>(false)
+
   const [index, setIndex] = useState<number>(0)
   const [errors, setErrors] = useState<string>('')
 
@@ -41,33 +42,29 @@ const RegisterEventRoleForm = ({
   }
 
   const handleSubmit = () => {
-    if (!isEditEventRole) {
-      const data = { ...getValues('roles') }
-      if (data.description && data.isNeedApprove && data.name && data.quantity && data.score) {
-        setDataEventRole([...dataEventRole, data])
+    const role = { ...getValues('roles') }
+    let eventRoles: EventRole[] = []
+    isEditEventRole ? (eventRoles = [...dataEventRole].splice(index - 1, 1)) : (eventRoles = [...dataEventRole])
+    if (role.description && role.isNeedApprove && role.name && role.quantity && role.score) {
+      if (role.name.length <= 5) {
+        setErrors('Tên vài trò ít nhất 5 kí tự !')
+      } else if (role.description.length <= 10) {
+        setErrors('Mô tả vài trò ít nhất 10 kí tự !')
+      } else if (eventRoles.some((item) => item.name === role.name)) {
+        setErrors('Vai trò đã tồn tại !')
+      } else {
+        if (isEditEventRole) {
+          const data = [...dataEventRole]
+          data[index] = role
+          setDataEventRole(data)
+        } else {
+          setDataEventRole([...dataEventRole, role])
+        }
         setErrors('')
         reset()
-      } else if (data.description && data.description.length <= 10) {
-        setErrors('Mô tả vài trò ít nhất 10 kí tự !')
-      } else {
-        setErrors('Vui lòng nhập đầy đủ dữ liệu !')
       }
     } else {
-      const data = [...dataEventRole]
-      data[index] = { ...getValues('roles') }
-      if (
-        data[index].description &&
-        data[index].isNeedApprove &&
-        data[index].name &&
-        data[index].quantity &&
-        data[index].score
-      ) {
-        setDataEventRole(data)
-        setErrors('')
-        reset()
-      } else {
-        setErrors('Vui lòng nhập đầy đủ dữ liệu !')
-      }
+      setErrors('Vui lòng nhập đầy đủ dữ liệu !')
     }
     setIsEditEventRole(false)
   }
@@ -90,6 +87,7 @@ const RegisterEventRoleForm = ({
 
   const handleCancelEdit = () => {
     setIsEditEventRole(false)
+    reset()
   }
 
   const reset = () => {
@@ -105,9 +103,9 @@ const RegisterEventRoleForm = ({
       <div>
         <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'>
           <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
-            <tr className='text-[14px] text-gray-600'>
+            <tr className='text-[16px] text-gray-600'>
               {RoleTableHeader.map((item) => (
-                <th className='px-2 py-2 font-medium' key={item.id}>
+                <th className='px-2 py-2 font-semibold text-center' key={item.id}>
                   <span>{item.name}</span>
                 </th>
               ))}
@@ -277,11 +275,11 @@ const RegisterEventRoleForm = ({
               </LocalizationProvider>
             )}
           />
-          <div className='flex justify-end col-span-6 gap-4 items-center'>
+          <div className='flex justify-end col-span-6 gap-4'>
             {isEditEventRole && (
               <Button
                 type='button'
-                classNameButton='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[40px]'
+                classNameButton='bg-gray-300 py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px] mt-[4px]'
                 onClick={handleCancelEdit}
               >
                 Hủy
@@ -289,17 +287,17 @@ const RegisterEventRoleForm = ({
             )}
             <Button
               type='button'
-              classNameButton='bg-[#da4848] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[40px]'
+              classNameButton='bg-[#da4848] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px] mt-[4px]'
               onClick={handleResetForm}
             >
               Làm mới
             </Button>
             <Button
               type='button'
-              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[40px]'
+              classNameButton='bg-[#26C6DA] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px] mt-[4px]'
               onClick={handleSubmit}
             >
-              Thêm vai trò
+              {isEditEventRole ? 'Chỉnh sửa' : 'Thêm'}
             </Button>
           </div>
         </div>

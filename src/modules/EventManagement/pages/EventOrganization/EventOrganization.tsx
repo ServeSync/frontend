@@ -2,9 +2,8 @@ import { Control, UseFormGetValues, UseFormSetValue } from 'react-hook-form'
 import { FormEventType } from '../../utils'
 import CreateEventOrganizationForm from '../../components/CreateEventOrganizationForm'
 import { useEffect, useState } from 'react'
-import { GetAllContactsByOrganizationIdQuery, GetAllEventOrganizationsQuery } from '../../services'
+import { GetAllEventOrganizationsQuery } from '../../services'
 import {
-  ContactsListType,
   EventOrganizationFormType,
   EventOrganizationRepFormType,
   EventOrganizationType,
@@ -22,9 +21,10 @@ interface Props {
 }
 
 const EventOrganization = ({ page, index, control, getValues, setValue, setDataEventOrganization }: Props) => {
-  const [organizationId, setOrganizationId] = useState<string>('')
   const [listEventOrganizationsAdded, setListEventOrganizationsAdded] = useState<EventOrganizationType[]>([])
   const [errors, setErrors] = useState<string>('')
+
+  const [representatives, setRepresentatives] = useState<EventOrganizationType[]>([])
 
   useEffect(() => {
     const organization = listEventOrganizationsAdded.map((item) => {
@@ -51,31 +51,42 @@ const EventOrganization = ({ page, index, control, getValues, setValue, setDataE
   const getAllEventOrganizationsQuery = new GetAllEventOrganizationsQuery()
   const eventOrganizations = getAllEventOrganizationsQuery.fetch() as EventOrganizationsListType
 
-  const getAllContactsByOrganizationIdQuery = new GetAllContactsByOrganizationIdQuery(organizationId)
-  const contacts = getAllContactsByOrganizationIdQuery.fetch() as ContactsListType
-
-  const handleChangeEventOrganization = (id: string) => {
-    setOrganizationId(id)
-  }
-
   const handleAddEventOrganization = () => {
+    const id = getValues('organizations.organizationId')
     const role = { ...getValues('organizations') }.role as string
-    if (role && role !== '' && organizationId && organizationId !== '') {
-      const eventOrganization = eventOrganizations.data.find(
-        (item) => item.id === organizationId
-      ) as EventOrganizationType
-      const body = {
-        ...eventOrganization,
-        role: role,
-        contacts: []
+    if (role && role !== '' && id && id !== '') {
+      if (role.length <= 5) {
+        setErrors('Vai trò đại diện ít nhất 5 kí tự')
+      } else if (listEventOrganizationsAdded.some((item) => item.id === id)) {
+        setErrors('Ban tổ chức đã được thêm vào sự kiện !')
+      } else {
+        const eventOrganization = eventOrganizations.data.find((item) => item.id === id) as EventOrganizationType
+        const body = {
+          ...eventOrganization,
+          role: role,
+          contacts: []
+        }
+        setListEventOrganizationsAdded([...listEventOrganizationsAdded, body])
+        setValue('organizations.organizationId', undefined)
+        setValue('organizations.role', '')
+        setErrors('')
+        setRepresentatives([
+          ...representatives,
+          eventOrganizations && (eventOrganizations.data.find((item) => item.id === id) as EventOrganizationType)
+        ])
       }
-      setListEventOrganizationsAdded([...listEventOrganizationsAdded, body])
-      setValue('organizations.organizationId', '')
-      setValue('organizations.role', '')
-      setErrors('')
     } else {
       setErrors('Vui lòng nhập đầy đủ thông tin !')
     }
+  }
+
+  const handleRemoveEventOrganization = (id: number) => {
+    const newListEventOrganizationsAdded = [...listEventOrganizationsAdded]
+    newListEventOrganizationsAdded.splice(id, 1)
+    setListEventOrganizationsAdded(newListEventOrganizationsAdded)
+    const newRepresentatives = [...representatives]
+    newRepresentatives.splice(id, 1)
+    setRepresentatives(newRepresentatives)
   }
 
   return (
@@ -89,19 +100,19 @@ const EventOrganization = ({ page, index, control, getValues, setValue, setDataE
                 <EventOrganizationForm
                   control={control}
                   getValues={getValues}
+                  setValue={setValue}
                   index={index}
                   eventOrganization={eventOrganization}
-                  contacts={contacts && contacts.data}
                   listEventOrganizationsAdded={listEventOrganizationsAdded}
                   setListEventOrganizationsAdded={setListEventOrganizationsAdded}
+                  handleRemoveEventOrganization={handleRemoveEventOrganization}
                 />
               </div>
             ))}
           <CreateEventOrganizationForm
             control={control}
-            getValues={getValues}
+            representatives={representatives}
             eventOrganizations={eventOrganizations && eventOrganizations.data}
-            handleChangeEventOrganization={handleChangeEventOrganization}
             handleAddEventOrganization={handleAddEventOrganization}
             errors={errors}
           />

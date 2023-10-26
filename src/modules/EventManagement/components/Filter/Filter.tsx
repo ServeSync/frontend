@@ -14,7 +14,7 @@ interface Props {
 
 const Filter = ({ control, onResetForm }: Props) => {
   return (
-    <div className='w-[360px] px-6 py-10 shadow-md text-gray-600'>
+    <div className='w-[360px] px-6 py-8 shadow-md text-gray-600'>
       <div className='flex items-center justify-center mb-4'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -111,14 +111,14 @@ const Filter = ({ control, onResetForm }: Props) => {
       <div className='flex justify-between mt-6'>
         <Button
           type='button'
-          classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#da2626] px-4 py-2 rounded-lg'
+          classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#da2626] px-4 py-3 rounded-lg'
           onClick={onResetForm}
         >
           Làm mới
         </Button>
         <Button
           type='submit'
-          classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
+          classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-3 rounded-lg'
         >
           Lưu
         </Button>
