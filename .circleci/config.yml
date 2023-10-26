@@ -25,8 +25,8 @@ jobs:
           name: Build docker image
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM 
-            docker build -t $DOCKER_USER/servesync_web:latest . 
-            docker build -t $DOCKER_USER/servesync_web:$TAG . 
+            docker build --build-arg VITE_APP_API_URL=$VITE_APP_API_URL --build-arg VITE_APP_RESETPASSWORD_URL=$VITE_APP_RESETPASSWORD_URL --build-arg VITE_APP_GOOGLE_MAPS_API_KEY=$VITE_APP_GOOGLE_MAPS_API_KEY -t $DOCKER_USER/servesync_web:latest . 
+            docker build --build-arg VITE_APP_API_URL=$VITE_APP_API_URL --build-arg VITE_APP_RESETPASSWORD_URL=$VITE_APP_RESETPASSWORD_URL --build-arg VITE_APP_GOOGLE_MAPS_API_KEY=$VITE_APP_GOOGLE_MAPS_API_KEY -t $DOCKER_USER/servesync_web:$TAG . 
       - run:
           name: Deploy docker image
           command: |
