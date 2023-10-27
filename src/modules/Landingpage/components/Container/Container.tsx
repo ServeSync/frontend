@@ -210,21 +210,27 @@ const Container = ({ eventsDone, eventsHappending, eventsUpcoming }: Props) => {
             modules={[Pagination, Navigation]}
             className=' px-6 !overflow-visible flex'
           >
-            {eventsUpcoming.data.length > 0 &&
+            {eventsUpcoming &&
+              eventsUpcoming.data.length > 0 &&
               eventsUpcoming.data.map((event, index) => (
                 <SwiperSlide key={index}>
-                  <CardEvent
-                    rating={event.rating}
-                    imgUrl={event.imageUrl}
-                    location={event.address.fullAddress}
-                    member={event.capacity}
-                    organizational={event.representativeOrganization.name}
-                    time={event.startAt + '-' + event.endAt}
-                    title={event.name}
-                    status='Sắp diễn ra'
-                  />
+                  <CardEvent event={event} />
                 </SwiperSlide>
               ))}
+            {eventsUpcoming && eventsUpcoming.data.length === 0 && (
+              <div className='flex w-full items-center justify-center'>
+                <div className='text-center'>
+                  <div className='inline-flex rounded-full bg-[#c6f8ff] p-4'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' id='calendar'>
+                      <path d='M53 5h-8v4H19V5h-8v4H0v50h64V9H53V5zm-6 2h4v6h-4V7zM13 7h4v6h-4V7zM2 57V19h60v38H2zm60-46v6H2v-6h9v4h8v-4h26v4h8v-4h9z'></path>
+                    </svg>
+                  </div>
+                  <h1 className='mt-5 text-[36px] font-bold text-slate-800 lg:text-[50px]'>
+                    Không có sự kiện vào thời điểm này
+                  </h1>
+                </div>
+              </div>
+            )}
           </Swiper>
         </div>
         <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>
@@ -245,21 +251,26 @@ const Container = ({ eventsDone, eventsHappending, eventsUpcoming }: Props) => {
             modules={[Pagination, Navigation]}
             className=' px-6 !overflow-visible flex'
           >
-            {eventsHappending.data.length > 0 &&
+            {eventsHappending &&
               eventsHappending.data.map((event, index) => (
                 <SwiperSlide key={index}>
-                  <CardEvent
-                    rating={event.rating}
-                    member={event.capacity}
-                    time={event.startAt + ' - ' + event.endAt}
-                    organizational={event.representativeOrganization.name}
-                    title={event.name}
-                    imgUrl={event.imageUrl}
-                    location={event.address.fullAddress}
-                    status='Sự kiện đang diễn ra'
-                  />
+                  <CardEvent event={event} />
                 </SwiperSlide>
               ))}
+            {eventsHappending && eventsHappending.data.length === 0 && (
+              <div className='flex w-full items-center justify-center'>
+                <div className='text-center'>
+                  <div className='inline-flex rounded-full bg-[#c6f8ff] p-4'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' id='calendar'>
+                      <path d='M53 5h-8v4H19V5h-8v4H0v50h64V9H53V5zm-6 2h4v6h-4V7zM13 7h4v6h-4V7zM2 57V19h60v38H2zm60-46v6H2v-6h9v4h8v-4h26v4h8v-4h9z'></path>
+                    </svg>
+                  </div>
+                  <h1 className='mt-5 text-[36px] font-bold text-slate-800 lg:text-[50px]'>
+                    Không có sự kiện vào thời điểm này
+                  </h1>
+                </div>
+              </div>
+            )}
           </Swiper>
         </div>
         <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>
@@ -280,21 +291,26 @@ const Container = ({ eventsDone, eventsHappending, eventsUpcoming }: Props) => {
             modules={[Pagination, Navigation]}
             className=' px-6 !overflow-visible flex'
           >
-            {eventsDone.data.length > 0 &&
+            {eventsDone &&
               eventsDone.data.map((event, index) => (
                 <SwiperSlide key={index}>
-                  <CardEvent
-                    rating={event.rating}
-                    member={event.capacity}
-                    time={event.startAt + ' - ' + event.endAt}
-                    organizational={event.representativeOrganization.name}
-                    title={event.name}
-                    imgUrl={event.imageUrl}
-                    location={event.address.fullAddress}
-                    status='Sự kiện đã kết thúc'
-                  />
+                  <CardEvent event={event} />
                 </SwiperSlide>
               ))}
+            {eventsDone && eventsDone.data.length === 0 && (
+              <div className='flex w-full items-center justify-center'>
+                <div className='text-center'>
+                  <div className='inline-flex rounded-full bg-[#c6f8ff] p-4'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' id='calendar'>
+                      <path d='M53 5h-8v4H19V5h-8v4H0v50h64V9H53V5zm-6 2h4v6h-4V7zM13 7h4v6h-4V7zM2 57V19h60v38H2zm60-46v6H2v-6h9v4h8v-4h26v4h8v-4h9z'></path>
+                    </svg>
+                  </div>
+                  <h1 className='mt-5 text-[36px] font-bold text-slate-800 lg:text-[50px]'>
+                    Không có sự kiện vào thời điểm này
+                  </h1>
+                </div>
+              </div>
+            )}
           </Swiper>
         </div>
         <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>

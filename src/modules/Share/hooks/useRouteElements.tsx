@@ -11,6 +11,7 @@ const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/Forge
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
 const Home = lazy(() => import('src/modules/Home/pages/Home'))
 const Landingpage = lazy(() => import('src/modules/Landingpage/pages/Landingpage'))
+const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
 
@@ -85,6 +86,14 @@ const useRouteElements = () => {
           element: (
             <Suspense>
               <RequestEvent />
+            </Suspense>
+          )
+        },
+        {
+          path: path.eventdetail,
+          element: (
+            <Suspense>
+              <EventDetail />
             </Suspense>
           )
         }

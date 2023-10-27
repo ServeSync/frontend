@@ -9,12 +9,12 @@ interface OptionType {
 
 interface Props<T> {
   id: string
+  label: string
   options: T[]
   value: string
   setTextSearch: React.Dispatch<React.SetStateAction<string>>
   onChange: (...event: any[]) => void
-  label: string
-  handleChangeId?: (id: string) => void
+  onChangeId?: (id: string) => void
 }
 
 function AutocompleteWithDebounce<T extends OptionType>({
@@ -24,13 +24,13 @@ function AutocompleteWithDebounce<T extends OptionType>({
   setTextSearch,
   onChange,
   label,
-  handleChangeId
+  onChangeId
 }: Props<T>) {
   const handleDebouncedSearch = debounce((value: string) => {
     setTextSearch(value)
   }, 1000)
 
-  const handleInputChange = (event: React.SyntheticEvent<Element, Event>, newValue: string) => {
+  const handleInputChange = (_: any, newValue: string) => {
     handleDebouncedSearch(newValue)
   }
 
@@ -45,7 +45,7 @@ function AutocompleteWithDebounce<T extends OptionType>({
       renderInput={(params) => <TextField {...params} label={label} />}
       onChange={(_, option) => {
         onChange(option ? option.id : '')
-        handleChangeId && handleChangeId(option?.id as string)
+        onChangeId && onChangeId(option?.id as string)
       }}
       onInputChange={handleInputChange}
       className='bg-white'

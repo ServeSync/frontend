@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   UseFieldArrayReturn,
-  UseFormRegister,
   Control,
-  FieldErrors,
   UseFormGetValues,
-  UseFormResetField
+  UseFormResetField,
+  UseFormSetValue,
+  FieldErrors
 } from 'react-hook-form'
 import { FormEventType } from '../../utils'
-import RegisterEventRoleTable from '../../components/RegisterEventRoleTable'
 import RegisterEventTimeForm from '../../components/RegisterEventTimeForm'
 import RegisterEventRoleForm from '../../components/RegisterEventRoleForm'
 import { EventRole } from '../../interfaces'
@@ -16,11 +15,11 @@ import { EventRole } from '../../interfaces'
 interface Props {
   page: number
   index: number
-  register: UseFormRegister<FormEventType>
   control: Control<FormEventType>
-  errors: FieldErrors<FormEventType>
   getValues: UseFormGetValues<FormEventType>
+  errors: FieldErrors<FormEventType>
   resetField: UseFormResetField<FormEventType>
+  setValue: UseFormSetValue<FormEventType>
   FieldRegistration: UseFieldArrayReturn<FormEventType, 'registrationInfos'>
   FieldAttendance: UseFieldArrayReturn<FormEventType, 'attendanceInfos'>
   dataEventRole: EventRole[]
@@ -30,10 +29,10 @@ interface Props {
 const RegisterEvent = ({
   page,
   index,
-  register,
   control,
-  errors,
   getValues,
+  errors,
+  setValue,
   resetField,
   FieldRegistration,
   FieldAttendance,
@@ -45,17 +44,15 @@ const RegisterEvent = ({
       {page === index && (
         <div className='flex flex-col'>
           <RegisterEventTimeForm
-            errors={errors}
             control={control}
+            errors={errors}
             FieldRegistration={FieldRegistration}
             FieldAttendance={FieldAttendance}
           />
-          <RegisterEventRoleTable dataEventRole={dataEventRole} setDataEventRole={setDataEventRole} />
           <RegisterEventRoleForm
-            register={register}
-            errors={errors}
             control={control}
             getValues={getValues}
+            setValue={setValue}
             resetField={resetField}
             dataEventRole={dataEventRole}
             setDataEventRole={setDataEventRole}

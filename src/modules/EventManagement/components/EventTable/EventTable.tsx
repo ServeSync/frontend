@@ -1,5 +1,5 @@
 import Skeleton from 'react-loading-skeleton'
-import { EventTableHeader } from '../../constants'
+import { EventTableHeader, StatusToMessage } from '../../constants'
 import { EventsListType } from '../../interfaces'
 import { formatDateTime } from 'src/modules/Share/utils'
 import HeaderTable from 'src/modules/Share/components/HeaderTable'
@@ -25,10 +25,10 @@ const EventTable = ({ events, isLoading, onSort }: Props) => {
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                   key={index}
                 >
-                  <th className='px-2 py-4 font-medium w-[12%]'>
+                  <th className='px-2 py-4 font-medium w-[14%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[22%]'>
+                  <th className='px-2 py-4 font-medium w-[20%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
                   <th className='px-2 py-4 font-medium w-w-[8%]'>
@@ -57,16 +57,20 @@ const EventTable = ({ events, isLoading, onSort }: Props) => {
                 className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                 key={index}
               >
-                <th className='px-2 py-4 font-medium w-[12%]'>{event.name}</th>
-                <th className='px-2 py-4 font-medium w-[22%] overflow-hidden'>
-                  <span className='line-clamp-1'> {event.address.fullAddress}</span>
+                <th className='px-2 py-4 font-medium w-[14%] overflow-hidden'>
+                  <span className='line-clamp-1'>{event.name}</span>
+                </th>
+                <th className='px-2 py-4 font-medium w-[20%] overflow-hidden'>
+                  <span className='line-clamp-1'>{event.address.fullAddress}</span>
                 </th>
                 <th className='px-2 py-4 font-medium w-[8%]'>{event.capacity}</th>
                 <th className='px-2 py-4 font-medium w-[10%]'>{event.registered}</th>
-                <th className='px-2 py-4 font-medium w-[16%]'>{event.representativeOrganization.name}</th>
+                <th className='px-2 py-4 font-medium w-[16%] overflow-hidden'>
+                  <span className='line-clamp-1'>{event.representativeOrganization.name}</span>
+                </th>
                 <th className='px-2 py-4 font-medium w-[11%]'>{formatDateTime(event.startAt)}</th>
                 <th className='px-2 py-4 font-medium w-[11%]'>{formatDateTime(event.endAt)}</th>
-                <th className='px-2 py-4 font-medium'>{event.status}</th>
+                <th className='px-2 py-4 font-medium'>{StatusToMessage(event.status)}</th>
               </tr>
             ))}
       </tbody>

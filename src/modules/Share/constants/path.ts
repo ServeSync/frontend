@@ -1,5 +1,6 @@
 const path = {
   landingpage: '/',
+  eventdetail: '/event-detail',
   home: '/home',
   login: '/login',
   forget_password: '/forgetPassword',

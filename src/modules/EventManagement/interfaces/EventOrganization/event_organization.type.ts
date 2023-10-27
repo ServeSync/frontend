@@ -1,3 +1,5 @@
+import { ContactType } from '.'
+
 export interface EventOrganizationsListType {
   total: number
   totalPages: number
@@ -11,5 +13,6 @@ export interface EventOrganizationType {
   phoneNumber: string
   address: string
   imageUrl: string
-  role?: string
+  role: string
+  contacts: ContactType[]
 }

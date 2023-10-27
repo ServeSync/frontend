@@ -1,21 +1,39 @@
+import { createSearchParams, useNavigate } from 'react-router-dom'
 import EventRating from '../EventRating/EventRating'
+import { EventType } from 'src/modules/EventManagement/interfaces'
+import path from 'src/modules/Share/constants/path'
 
 interface Props {
-  imgUrl?: string
-  title?: string
-  member?: number
-  organizational?: string
-  location?: string
-  time?: string
-  rating: number
-  status?: string
+  event: EventType
 }
-const CardEvent = ({ imgUrl, status, location, member, organizational, rating, time, title }: Props) => {
+const CardEvent = ({ event }: Props) => {
+  const navigate = useNavigate()
+  const onShowDetail = (id: string) => {
+    navigate({
+      pathname: path.eventdetail,
+      search: createSearchParams({
+        id: id
+      }).toString()
+    })
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      onShowDetail(event.id)
+    }
+  }
   return (
-    <div className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] shadow-lg rounded-3xl '>
+    <div
+      className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] shadow-lg rounded-3xl cursor-pointer'
+      onClick={() => onShowDetail(event.id)}
+      onKeyDown={handleKeyDown}
+      role='button'
+      tabIndex={0}
+    >
       <div className='px-4 py-6 flex justify-center items-center '>
         <img
-          src={imgUrl}
+          src={event.imageUrl}
           alt='ui/ux review check'
           className='rounded-2xl border object-cover max-sm:w-[100px] max-sm:h-[100px] max-md:w-[200px] max-md:h-[200px] w-[300px] h-[300px] lg:w-[400px] lg:h-[400px]   '
         />
@@ -23,13 +41,13 @@ const CardEvent = ({ imgUrl, status, location, member, organizational, rating, t
       <div className='px-6 pb-8 '>
         <div className='flex flex-col'>
           <div className='font-normal leading-7 whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px]'>
-            {title}
+            {event.name}
           </div>
           <div className='max-sm:text-[8px] text-[14px] lg:text-[16px] flex items-center gap-4 justify-between max-md:flex-col-reverse'>
-            {organizational}
+            {event.representativeOrganization.name}
             <div className='flex items-center justify-center gap-1.5 font-normal'>
               <span className='text-[#26C6DA]  font-normal leading-7 break-words max-sm:text-[14px] text-[20px] lg:text-[23px]'>
-                {member}
+                {event.capacity}
               </span>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -67,7 +85,7 @@ const CardEvent = ({ imgUrl, status, location, member, organizational, rating, t
                 />
               </svg>
               <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                {location}
+                {event.address.fullAddress}
               </span>
             </div>
             <div className='flex items-center gap-1'>
@@ -82,15 +100,15 @@ const CardEvent = ({ imgUrl, status, location, member, organizational, rating, t
                 <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z' />
               </svg>
               <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                {time}
+                {event.startAt + ' ' + event.endAt}
               </span>
             </div>
           </div>
           <div className='flex justify-between mt-6 max-md:flex-col'>
-            <EventRating rating={rating} />
+            <EventRating rating={event.rating} />
             <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
               <span className='text-[#F93232] font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[12px]'>
-                {status}
+                {event.status}
               </span>
             </div>
           </div>

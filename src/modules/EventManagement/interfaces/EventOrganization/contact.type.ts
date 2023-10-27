@@ -15,4 +15,5 @@ export interface ContactType {
   imageUrl: string
   position: string
   eventOrganizationId: string
+  role: string
 }

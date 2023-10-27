@@ -1,7 +1,10 @@
-import { EventOrganizationRep } from '.'
+export interface EventOrganizationFormType {
+  organizationId: string
+  role: string
+  organizationReps: EventOrganizationRepFormType[]
+}
 
-export interface EventOrganization {
-  organizationId?: string
-  role?: string
-  organizationReps?: EventOrganizationRep[]
+export interface EventOrganizationRepFormType {
+  organizationRepId: string
+  role: string
 }
