@@ -8,6 +8,9 @@ export default defineConfig({
   server: {
     port: 4000
   },
+  define: {
+    global: 'window'
+  },
   css: {
     devSourcemap: true
   },

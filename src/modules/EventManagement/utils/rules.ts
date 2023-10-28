@@ -55,11 +55,11 @@ export const FormEventSchema = yup.object().shape({
   ),
   attendanceInfos: yup.array().of(
     yup.object().shape({
-      startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu tham gia !'),
+      startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu điểm danh !'),
       endAt: yup
         .string()
-        .required('Vui lòng nhập thời gian kết thúc tham gia !')
-        .test('uniqueTimes', 'Thời gian tham gia ít nhất 15 phút.', function (endAt) {
+        .required('Vui lòng nhập thời gian kết thúc điểm danh !')
+        .test('uniqueTimes', 'Thời gian điểm danh ít nhất 15 phút.', function (endAt) {
           const startAt = this.parent.startAt
           if (!startAt || !endAt) {
             return true

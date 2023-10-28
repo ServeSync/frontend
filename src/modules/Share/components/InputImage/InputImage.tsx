@@ -44,7 +44,7 @@ const InputImage = ({ onChange, register, previewImage, student }: Props) => {
             'https://cdn.sforum.vn/sforum/wp-content/uploads/2020/08/Pastel-iPhone-wallpaper-Arthur1992aS-iDownloadBlog-Blue-thumbnail-1472x1472-1.jpeg'
           }
           alt='avatar'
-          className='top-0 h-full w-full object-cover object-top absolute rounded-2xl'
+          className='top-0 h-full w-full object-cover object-center absolute rounded-2xl'
         />
         <Button
           type='button'

@@ -4,11 +4,12 @@ interface Props {
   children?: React.ReactNode
   isLoading?: boolean
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined
+  disabled?: boolean
 }
 
-const Button = ({ type, classNameButton, children, isLoading, onClick }: Props) => {
+const Button = ({ type, classNameButton, children, isLoading, onClick, disabled }: Props) => {
   return (
-    <button type={type} className={classNameButton} onClick={onClick}>
+    <button type={type} className={classNameButton} onClick={onClick} disabled={disabled}>
       {isLoading && (
         <svg
           aria-hidden='true'
