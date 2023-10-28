@@ -16,8 +16,19 @@ interface Props {
   setCenter: React.Dispatch<React.SetStateAction<LocationType>>
   markers: MarkerType[]
   setMarkers: React.Dispatch<React.SetStateAction<MarkerType[]>>
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
 }
-const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, setMarkers, reset }: Props) => {
+const Map = ({
+  register,
+  handleSubmit,
+  setValue,
+  center,
+  setCenter,
+  markers,
+  setMarkers,
+  reset,
+  setIsOpenModal
+}: Props) => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
@@ -29,37 +40,38 @@ const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, set
   }, [center, markers, setMarkers])
 
   const [_, setMap] = useState<google.maps.Map>()
-  const [directionsResponse, setDirectionsResponse] = useState(null)
+  const [directionsResponse] = useState(null)
+  const [address, setAddress] = useState<string>('')
+  const [locationCurrent, setLocationCurrent] = useState<{ latitude: number; longitude: number }>(center)
 
   if (!isLoaded) {
     return null
   }
 
   const handleSearchAddress = handleSubmit((data) => {
-    const address = data.address
-    if (address === '') {
+    if (data.address === '') {
       return
     }
+    setAddress(data.address)
     const geocoder = new google.maps.Geocoder()
-    geocoder.geocode({ address: address }, (results, status) => {
+    geocoder.geocode({ address: data.address }, (results, status) => {
       if (status === 'OK' && results) {
         const location = results[0].geometry.location
-        const locationCurrent = { latitude: location.lat(), longitude: location.lng() }
-        const marker = { position: locationCurrent }
+        const marker = { position: { latitude: location.lat(), longitude: location.lng() } }
         setMarkers([...markers, marker])
-        setCenter(locationCurrent)
-        setValue('address.longitude', locationCurrent?.longitude.toString())
-        setValue('address.latitude', locationCurrent?.latitude.toString())
-        setValue('address.fullAddress', address)
+        setLocationCurrent({ latitude: location.lat(), longitude: location.lng() })
+        setCenter({ latitude: location.lat(), longitude: location.lng() })
       } else {
         console.error('Geocode was not successful for the following reason: ' + status)
       }
     })
   })
 
-  const clearRoute = () => {
-    setDirectionsResponse(null)
-    setMarkers([])
+  const handleEnterAddress = () => {
+    setValue('address.longitude', locationCurrent?.longitude.toString())
+    setValue('address.latitude', locationCurrent?.latitude.toString())
+    setValue('address.fullAddress', address)
+    setIsOpenModal(false)
     reset()
   }
 
@@ -98,17 +110,18 @@ const Map = ({ register, handleSubmit, setValue, center, setCenter, markers, set
             <ButtonGroup>
               <Button
                 type='button'
-                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'
+                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold hover:bg-[#60d9e9]'
                 onClick={handleSearchAddress}
               >
                 Tìm kiếm
               </Button>
               <Button
                 type='button'
-                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'
-                onClick={clearRoute}
+                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold hover:bg-[#60d9e9] disabled:bg-slate-300 disabled:cursor-not-allowed'
+                onClick={handleEnterAddress}
+                disabled={address === ''}
               >
-                Làm mới
+                Chọn
               </Button>
             </ButtonGroup>
           </form>

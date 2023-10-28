@@ -1,0 +1,16 @@
+div.DraftEditor-root {
+  padding: 0 20px;
+}
+
+div.DraftEditor-editorContainer {
+  height: 240px;
+}
+
+div.public-DraftEditor-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+div.public-DraftStyleDefault-block {
+  margin: 6px 0;
+}

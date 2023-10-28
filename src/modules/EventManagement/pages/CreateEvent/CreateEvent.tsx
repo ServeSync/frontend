@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue } from 'react-hook-form'
+import { Control, UseFormSetValue, FieldErrors } from 'react-hook-form'
 import CreateEventForm from '../../components/CreateEventForm'
 import { FormEventType } from '../../utils'
 import { ActivitiesListType, EventCategoriesListType } from '../../interfaces'
@@ -12,9 +12,10 @@ interface Props {
   index: number
   control: Control<FormEventType>
   setValue: UseFormSetValue<FormEventType>
+  errors: FieldErrors<FormEventType>
 }
 
-const CreateEvent = ({ page, index, control, setValue }: Props) => {
+const CreateEvent = ({ page, index, control, setValue, errors }: Props) => {
   const [categoryId, setCategoryId] = useState<string>('')
 
   const handleChangeCategory = (id: string) => {
@@ -39,6 +40,7 @@ const CreateEvent = ({ page, index, control, setValue }: Props) => {
         <CreateEventForm
           control={control}
           setValue={setValue}
+          errors={errors}
           eventCategories={eventCategories && eventCategories.data}
           activities={activities && activities.data}
           onChangeCategory={handleChangeCategory}

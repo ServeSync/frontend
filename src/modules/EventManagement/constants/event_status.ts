@@ -1,9 +1,9 @@
 export const eventStatus = [
   { id: 'Cancelled', name: 'Đã hủy' },
-  { id: 'Happening', name: 'Đang xảy ra' },
-  { id: 'Done', name: 'Đã hoàn thành' },
+  { id: 'Happening', name: 'Đang diễn ra' },
+  { id: 'Done', name: 'Đã tổ chức' },
   { id: 'Expired', name: 'Đã hết hạn' },
-  { id: 'Pending', name: 'Chưa duyệt' },
+  { id: 'Pending', name: 'Đang kiểm duyệt' },
   { id: 'Rejected', name: 'Bị hủy' },
   { id: 'Upcoming', name: 'Sắp diễn ra' }
 ]
@@ -15,12 +15,12 @@ interface Status {
 export function StatusToMessage(status: string) {
   const mappedEventStatus: Status = {
     Cancelled: 'Đã hủy',
-    Happening: 'Đang xảy ra',
-    Done: 'Đã hoàn thành',
+    Happening: 'Đang diễn ra',
+    Done: 'Đã tổ chức',
     Expired: 'Đã hết hạn',
-    Pending: 'Chưa duyệt',
+    Pending: 'Đang kiểm duyệt',
     Rejected: 'Bị hủy',
-    Attendance: 'Đang tham dự',
+    Attendance: 'Đang điểm danh',
     Registration: 'Đã đăng kí',
     Upcoming: 'Sắp diễn ra'
   }

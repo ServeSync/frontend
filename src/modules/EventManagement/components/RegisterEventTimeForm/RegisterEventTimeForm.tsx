@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { FormEventType } from '../../utils'
 import Button from 'src/modules/Share/components/Button'
 import { DateTimePicker } from '@mui/x-date-pickers'
+import 'src/modules/Share/assets/css/editor.css'
 
 interface Props {
   control: Control<FormEventType>
@@ -106,7 +107,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 )}
               </div>
             </div>
-            <div className='col-span-12'>
+            <div className='w-full'>
               <span className='block min-h-[16px] text-red-600 text-xs font-medium'>
                 {errors.registrationInfos?.message}
               </span>
@@ -116,7 +117,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
       </div>
       <div>
         <div className='col-span-4 flex justify-between items-center mb-2'>
-          <h2 className='text-[16px]'>Khung giờ tham gia</h2>
+          <h2 className='text-[16px]'>Khung giờ điểm danh</h2>
         </div>
         {FieldAttendance.fields.map((field, index: number) => (
           <div key={field.id}>
@@ -202,14 +203,12 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                   </Button>
                 )}
               </div>
-              <div className='col-span-12'>
-                <span className='block min-h-[16px] text-red-600 text-xs font-medium'>
-                  {errors.attendanceInfos?.message}
-                </span>
-              </div>
             </div>
           </div>
         ))}
+      </div>
+      <div className='w-full'>
+        <span className='block min-h-[16px] text-red-600 text-xs font-medium'>{errors.attendanceInfos?.message}</span>
       </div>
     </div>
   )

@@ -102,7 +102,7 @@ const CreateEventPage = () => {
         <meta name='description' content='This is create event page of the project' />
       </Helmet>
       <form onSubmit={handleSubmitForm}>
-        <div className='rounded-xl h-[300px]'>
+        <div className='rounded-xl h-[360px]'>
           <div className='w-full h-full relative rounded-xl'>
             <InputImage register={register} onChange={handleChangeFile} previewImage={previewImage} />
             <div className='absolute bottom-[4px] right-[26px]'>
@@ -118,7 +118,7 @@ const CreateEventPage = () => {
               name='name'
               placeholder='Tên sự kiện'
               className='col-span-1 flex flex-col relative mb-3'
-              classNameInput='text-[#000] text-[46px] font-bold placeholder:text-[46px] placeholder-black placeholder-bold bg-transparent pr-4 outline-none h-[54px] mt-4'
+              classNameInput='text-[#195E8E] text-[46px] font-bold placeholder:text-[46px] placeholder:text-[#195E8E] placeholder-bold bg-transparent pr-4 outline-none h-[54px] mt-4'
               error={errors.name?.message}
             />
             <Input
@@ -127,7 +127,7 @@ const CreateEventPage = () => {
               name='introduction'
               placeholder='Giới thiệu sự kiện'
               className='col-span-1 flex flex-col relative z-10'
-              classNameInput='text-black/90 text-[18px] placeholder:text-black/90 bg-transparent pl-7 pr-4 outline-none h-[28px]'
+              classNameInput='text-black/90 text-[16px] placeholder:text-black/90 bg-transparent pl-7 pr-4 outline-none h-[28px]'
               error={errors.introduction?.message}
             >
               <div className='absolute left-0 top-[0px] cursor-pointer text-black'>
@@ -161,10 +161,11 @@ const CreateEventPage = () => {
                   '& button': {
                     color: '#2f2f2f',
                     textTransform: 'capitalize',
-                    fontSize: '17px',
+                    fontSize: '18px',
                     margin: '0 10px',
                     fontFamily: 'Open Sans',
-                    letterSpacing: '0'
+                    letterSpacing: '0',
+                    fontWeight: '600'
                   },
                   '& button:active, button.Mui-selected,': {
                     color: '#26c6da'
@@ -178,7 +179,7 @@ const CreateEventPage = () => {
               </Tabs>
             </Box>
             <Box className='mt-6'>
-              <CreateEvent page={page} index={0} control={control} setValue={setValue} />
+              <CreateEvent page={page} index={0} control={control} setValue={setValue} errors={errors} />
               <RegisterEvent
                 page={page}
                 index={1}

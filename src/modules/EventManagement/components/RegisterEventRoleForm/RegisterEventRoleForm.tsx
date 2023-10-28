@@ -43,8 +43,9 @@ const RegisterEventRoleForm = ({
 
   const handleSubmit = () => {
     const role = { ...getValues('roles') }
-    let eventRoles: EventRole[] = []
-    isEditEventRole ? (eventRoles = [...dataEventRole].splice(index - 1, 1)) : (eventRoles = [...dataEventRole])
+    const regexNumber = /^-?\d+$/
+    const eventRoles: EventRole[] = [...dataEventRole]
+    isEditEventRole ? eventRoles.splice(index, 1) : eventRoles
     if (role.description && role.isNeedApprove && role.name && role.quantity && role.score) {
       if (role.name.length <= 5) {
         setErrors('Tên vài trò ít nhất 5 kí tự !')
@@ -52,11 +53,14 @@ const RegisterEventRoleForm = ({
         setErrors('Mô tả vài trò ít nhất 10 kí tự !')
       } else if (eventRoles.some((item) => item.name === role.name)) {
         setErrors('Vai trò đã tồn tại !')
+      } else if (!regexNumber.test(role.quantity) || !regexNumber.test(role.score)) {
+        setErrors('Vui lòng nhập số lượng và điểm là số !')
       } else {
         if (isEditEventRole) {
           const data = [...dataEventRole]
           data[index] = role
           setDataEventRole(data)
+          setIsEditEventRole(false)
         } else {
           setDataEventRole([...dataEventRole, role])
         }
@@ -66,13 +70,6 @@ const RegisterEventRoleForm = ({
     } else {
       setErrors('Vui lòng nhập đầy đủ dữ liệu !')
     }
-    setIsEditEventRole(false)
-  }
-
-  const handleToggleChecked = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const data = [...dataEventRole]
-    data[index].isNeedApprove = event.target.checked.toString()
-    setDataEventRole(data)
   }
 
   const handleRemoveEventRole = (id: number) => {
@@ -123,11 +120,7 @@ const RegisterEventRoleForm = ({
                   <th className='px-2 py-4 font-medium'>{item.description}</th>
                   <th className='px-2 py-4 font-medium w-[7%] text-center'>{item.score}</th>
                   <th className='px-2 py-4 font-medium w-[15%] text-center'>
-                    <input
-                      type='checkbox'
-                      checked={item.isNeedApprove === 'true'}
-                      onChange={(e) => handleToggleChecked(e, index)}
-                    />
+                    <input type='checkbox' defaultChecked={item.isNeedApprove === 'true'} disabled readOnly />
                   </th>
                   <th className='px-2 py-4 font-medium w-[13%]'>
                     <div>
