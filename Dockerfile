@@ -1,5 +1,5 @@
 # Stage 1: Build the React app
-FROM node:14.17.6-alpine as build
+FROM node:16.17.1-alpine3.15 as build
 
 ARG VITE_APP_API_URL                  
 ARG VITE_APP_RESETPASSWORD_URL
