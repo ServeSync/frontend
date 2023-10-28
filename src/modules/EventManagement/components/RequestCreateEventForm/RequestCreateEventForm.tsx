@@ -278,6 +278,7 @@ const RequestCreateEventForm = ({
                 setCenter={setCenter}
                 markers={markers}
                 setMarkers={setMarkers}
+                setIsOpenModal={setIsOpenModal}
               />
             </ModalCustom>
           </div>
