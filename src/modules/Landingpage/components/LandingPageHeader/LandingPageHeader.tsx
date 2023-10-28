@@ -20,20 +20,27 @@ const LandingPageHeader = () => {
           <NavLink
             to='/'
             className={({ isActive }) =>
-              classNames('cursor-pointer transition-all duration-300 hover:text-black', {
+              classNames('cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0', {
                 'text-black': isActive
               })
             }
           >
-            Home
+            Trang chủ
           </NavLink>
-          <li className='cursor-pointer transition-all duration-300 hover:text-black'>Discover</li>
-          <li className='cursor-pointer transition-all duration-300 hover:text-black'>Special Deals</li>
-          <li className='cursor-pointer transition-all duration-300 hover:text-black'>Contact</li>
-        </ul>
-        <div className='lg:block font-medium items-center text-[14px] hidden '>
+          <li className='cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'>Discover</li>
+          <li className='cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'>Special Deals</li>
+          <li className='cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'>Contact</li>
           <Link
-            className='bg-[#5D50C6] text-white px-10 py-4 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md  no-underline '
+            to={path.request_event}
+            className='px-4 justify-start items-start inline-flex gap-2   rounded-full w-full cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'
+          >
+            Yêu cầu sự kiện
+          </Link>
+        </ul>
+
+        <div className='font-medium items-center text-[14px] hidden lg:block'>
+          <Link
+            className='bg-[#5D50C6] text-white px-10 py-4 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md  no-underline flex-shrink-0'
             to={path.login}
           >
             Đăng nhập

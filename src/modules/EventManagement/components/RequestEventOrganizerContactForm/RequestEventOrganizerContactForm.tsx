@@ -2,12 +2,12 @@
 import { Fragment } from 'react'
 import { FormRequestEventType } from '../../utils'
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form'
-import InputImage from 'src/modules/Share/components/InputImage'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
 import { gender } from 'src/modules/StudentManagement/constants'
+import InputAvatar from 'src/modules/Share/components/InputAvatar'
 interface Props {
   register: UseFormRegister<FormRequestEventType>
   errors: FieldErrors<FormRequestEventType>
@@ -35,7 +35,7 @@ const RequestEventOrganizerContactForm = ({
           render={({ field }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2 flex flex-col items-center mx-6'>
-                <InputImage
+                <InputAvatar
                   register={register}
                   onChange={handleChangeFileOrganizerContact}
                   previewImage={previewImageOrganizerContact}
@@ -144,12 +144,13 @@ const RequestEventOrganizerContactForm = ({
             <Controller
               name='eventOrganizationContactInfo.birth'
               control={control}
-              render={({ field: { onChange, value } }) => (
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <div>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DatePicker']}>
                       <DatePicker
                         {...register('eventOrganizationContactInfo.birth')}
+                        format='DD/MM/YYYY'
                         label='Chọn ngày sinh'
                         className='w-full'
                         onChange={onChange}
@@ -157,9 +158,7 @@ const RequestEventOrganizerContactForm = ({
                       />
                     </DemoContainer>
                   </LocalizationProvider>
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.eventOrganizationContactInfo?.birth?.message as string}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               )}
             />

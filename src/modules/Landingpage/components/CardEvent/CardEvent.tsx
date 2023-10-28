@@ -2,6 +2,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import EventRating from '../EventRating/EventRating'
 import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
+import classNames from 'classnames'
 
 interface Props {
   event: EventType
@@ -23,6 +24,11 @@ const CardEvent = ({ event }: Props) => {
       onShowDetail(event.id)
     }
   }
+  function formatDate(dateString: string) {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', options)
+  }
   return (
     <div
       className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] shadow-lg rounded-3xl cursor-pointer'
@@ -43,10 +49,10 @@ const CardEvent = ({ event }: Props) => {
           <div className='font-normal leading-7 whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px]'>
             {event.name}
           </div>
-          <div className='max-sm:text-[8px] text-[14px] lg:text-[16px] flex items-center gap-4 justify-between max-md:flex-col-reverse'>
+          <div className='max-sm:text-[8px] text-[14px] lg:text-[16px] flex items-center gap-4 justify-between max-md:flex-col-reverse truncate'>
             {event.representativeOrganization.name}
             <div className='flex items-center justify-center gap-1.5 font-normal'>
-              <span className='text-[#26C6DA]  font-normal leading-7 break-words max-sm:text-[14px] text-[20px] lg:text-[23px]'>
+              <span className='font-normal leading-7 break-words max-sm:text-[14px] text-[20px] lg:text-[23px]'>
                 {event.capacity}
               </span>
               <svg
@@ -55,7 +61,7 @@ const CardEvent = ({ event }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-6 h-6 max-sm:w-4 max-sm:h-4'
+                className='w-6 h-6 max-sm:w-4 max-sm:h-4 '
               >
                 <path
                   strokeLinecap='round'
@@ -67,15 +73,15 @@ const CardEvent = ({ event }: Props) => {
           </div>
         </div>
         <div className='mt-4 flex flex-col'>
-          <div className='flex flex-col justify-start gap-4'>
-            <div className='flex items-center gap-1'>
+          <div className='flex flex-col justify-start gap-4  '>
+            <div className='flex items-center gap-1  '>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-6 h-6 max-sm:w-4 max-sm:h-4'
+                className='w-6 h-6 max-sm:w-4 max-sm:h-4 flex-shrink-0'
               >
                 <path strokeLinecap='round' strokeLinejoin='round' d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z' />
                 <path
@@ -84,7 +90,7 @@ const CardEvent = ({ event }: Props) => {
                   d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
                 />
               </svg>
-              <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
+              <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px] truncate'>
                 {event.address.fullAddress}
               </span>
             </div>
@@ -95,20 +101,42 @@ const CardEvent = ({ event }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-6 h-6  max-sm:w-4 max-sm:h-4'
+                className='w-6 h-6 max-sm:w-4 max-sm:h-4 flex-shrink-0'
               >
                 <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z' />
               </svg>
               <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                {event.startAt + ' ' + event.endAt}
+                {formatDate(event.startAt) + ' - ' + formatDate(event.endAt)}
               </span>
             </div>
           </div>
           <div className='flex justify-between mt-6 max-md:flex-col'>
             <EventRating rating={event.rating} />
-            <div className='px-6 rounded-xl bg-[#F93232]/20 flex justify-center items-center cursor-pointer'>
-              <span className='text-[#F93232] font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[12px]'>
-                {event.status}
+
+            <div
+              className={classNames('px-6 rounded-xl  flex justify-center items-center cursor-pointer', {
+                'bg-[#00F335]/50': event.status === 'Done',
+                'bg-[#58CCFE]': event.status === 'Happening',
+                'bg-[#FFE55A]/50': event.status === 'Upcoming'
+              })}
+            >
+              <span
+                className={classNames(
+                  'font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[12px]',
+                  {
+                    'text-[#f93232]': event.status === 'Done',
+                    'text-green-950': event.status === 'Happening',
+                    'text-yellow-950': event.status === 'Upcoming'
+                  }
+                )}
+              >
+                {event.status === 'Done'
+                  ? 'Đã diễn ra'
+                  : event.status === 'Happening'
+                  ? 'Đang diễn ra'
+                  : event.status === 'Upcoming'
+                  ? 'Sắp diễn ra'
+                  : ''}
               </span>
             </div>
           </div>

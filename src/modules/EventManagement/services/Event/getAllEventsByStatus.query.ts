@@ -6,7 +6,7 @@ import { EventsListType } from '../../interfaces'
 class GetAllEventsByStatusQuery {
   private _query
 
-  constructor(eventStatus: string, size: number) {
+  constructor(eventStatus: string, size?: number) {
     this._query = useQuery({
       queryKey: ['events', eventStatus, size],
       queryFn: () => eventAPI.getListEventsByStatus(eventStatus, size),

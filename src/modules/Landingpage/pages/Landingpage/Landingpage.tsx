@@ -6,8 +6,8 @@ import Container from '../../components/Container'
 import { GetAllEventsByStatusQuery } from '../../../EventManagement/services/'
 
 const Landingpage = () => {
-  const getAllEventsDoneQuery = new GetAllEventsByStatusQuery('done', 5)
-  const getAllEventHappendingQuery = new GetAllEventsByStatusQuery('happening', 5)
+  const getAllEventsDoneQuery = new GetAllEventsByStatusQuery('done')
+  const getAllEventHappendingQuery = new GetAllEventsByStatusQuery('happening')
   const getAllEventUpcomingQuery = new GetAllEventsByStatusQuery('upcoming', 5)
   const eventsDone = getAllEventsDoneQuery.fetch()
   const eventsHappening = getAllEventHappendingQuery.fetch()

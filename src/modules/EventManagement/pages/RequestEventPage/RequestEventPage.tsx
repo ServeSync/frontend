@@ -16,8 +16,7 @@ import {
 import { toast } from 'react-toastify'
 import path from 'src/modules/Share/constants/path'
 import { useNavigate } from 'react-router-dom'
-import { eventOrganizationInfo } from '../../interfaces/RequestEventForm/request_event_organization.type'
-import { MarkerType, eventOrganizationContactInfo } from '../../interfaces'
+import { MarkerType } from '../../interfaces'
 import { omit } from 'lodash'
 import Button from 'src/modules/Share/components/Button'
 
@@ -60,11 +59,6 @@ const RequestEventPage = () => {
     return fileOrganizerContact ? URL.createObjectURL(fileOrganizerContact) : ''
   }, [fileOrganizerContact])
 
-  const [dataEventOrganizationInfo, setDataEventOrganizationInfo] = useState<eventOrganizationInfo>()
-
-  const [dataEventOrganizationContactInfo, setDataEventOrganizationContactInfo] =
-    useState<eventOrganizationContactInfo>()
-
   const {
     register,
     handleSubmit,
@@ -95,12 +89,12 @@ const RequestEventPage = () => {
 
   const handleSubmitForm = handleSubmit(async (data) => {
     try {
-      const organizationDataPromise = requestCreateOrganizationInfo.handle(
+      const organizationDataPromise = await requestCreateOrganizationInfo.handle(
         { ...getValues('eventOrganizationInfo') },
         fileOrganizer as File
       )
 
-      const organizationContactDataPromise = requestCreateOrganizationContactInfo.handle(
+      const organizationContactDataPromise = await requestCreateOrganizationContactInfo.handle(
         { ...getValues('eventOrganizationContactInfo') },
         fileOrganizerContact as File
       )
@@ -110,40 +104,31 @@ const RequestEventPage = () => {
         organizationContactDataPromise
       ])
 
-      if (organizationData) {
-        setDataEventOrganizationInfo(organizationData)
+      if (organizationData && organizationContactData) {
+        const newData = omit(data, 'categoryId')
+
+        const body = {
+          ...newData,
+          eventOrganizationInfo: organizationDataPromise,
+          eventOrganizationContactInfo: organizationContactDataPromise
+        }
+        console.log(body)
+        await requestCreateEventCommandHandler.handle(
+          { ...body },
+          file as File,
+          () => {
+            toast.success('Yêu cầu thêm sự kiện thành công !')
+            navigate({
+              pathname: path.landingpage
+            })
+          },
+          setError
+        )
       }
-
-      if (organizationContactData) {
-        setDataEventOrganizationContactInfo(organizationContactData)
-      }
-
-      const newData = omit(data, 'categoryId')
-
-      const body = {
-        ...newData,
-        eventOrganizationInfo: dataEventOrganizationInfo,
-        eventOrganizationContactInfo: dataEventOrganizationContactInfo
-      }
-
-      await requestCreateEventCommandHandler.handle(
-        {
-          ...body
-        },
-        file as File,
-        () => {
-          toast.success('Yêu cầu thêm sự kiện thành công !')
-          navigate({
-            pathname: path.landingpage
-          })
-        },
-        setError
-      )
     } catch (error) {
       console.log(error)
     }
   })
-
   return (
     <Fragment>
       <Helmet>
@@ -151,39 +136,54 @@ const RequestEventPage = () => {
         <meta name='description' content='This is create event page of the project' />
       </Helmet>
       <form onSubmit={handleSubmitForm}>
-        <div className='bg-[#1C2A3A] h-[200px] max-w-[80%] m-auto rounded-xl'>
-          <div className='flex justify-between items-center max-w-[800px] mx-auto h-full'>
-            <div className='flex flex-col mt-20 mx-6'>
-              <Input
-                register={register}
-                id='name'
-                name='name'
-                placeholder='Tên sự kiện'
-                className='col-span-1 flex flex-col'
-                classNameInput='text-white text-[24px] placeholder:text-white bg-[#1C2A3A] outline-none'
-                error={errors.name?.message}
-              />
-              <Input
-                register={register}
-                id='introduction'
-                name='introduction'
-                placeholder='Giới thiệu sự kiện'
-                className='col-span-1 flex flex-col'
-                classNameInput='text-white/70 text-[13px] placeholder:text-white/70 bg-[#1C2A3A] outline-none'
-                error={errors.introduction?.message}
-              />
-            </div>
-            <div className='flex items-center mt-10'>
-              <div className='mx-6 h-[80px] w-[80px]'>
-                <InputImage register={register} onChange={handleChangeFile} previewImage={previewImage} />
-                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                  {errors.imageUrl?.message}
-                </span>
-              </div>
+        <div className='rounded-xl h-[300px]'>
+          <div className='w-full h-full relative rounded-xl'>
+            <InputImage register={register} onChange={handleChangeFile} previewImage={previewImage} />
+            <div className='absolute bottom-[4px] right-[26px]'>
+              <span className='block min-h-[16px] text-red-600 text-[14px] mt-1 font-medium'>
+                {errors.imageUrl?.message}
+              </span>
             </div>
           </div>
+          <div className='flex flex-col max-w-[840px] mx-auto top-0 '>
+            <Input
+              register={register}
+              id='name'
+              name='name'
+              placeholder='Tên sự kiện'
+              className='col-span-1 flex flex-col relative mb-3'
+              classNameInput='text-[#000] text-[46px] font-bold placeholder:text-[46px] placeholder-black placeholder-bold bg-transparent pr-4 outline-none h-[54px] mt-4'
+              error={errors.name?.message}
+            />
+            <Input
+              register={register}
+              id='introduction'
+              name='introduction'
+              placeholder='Giới thiệu sự kiện'
+              className='col-span-1 flex flex-col relative z-10'
+              classNameInput='text-black/90 text-[18px] placeholder:text-black/90 bg-transparent pl-7 pr-4 outline-none h-[28px]'
+              error={errors.introduction?.message}
+            >
+              <div className='absolute left-0 top-[0px] cursor-pointer text-black'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10'
+                  />
+                </svg>
+              </div>
+            </Input>
+          </div>
         </div>
-        <div className='max-w-[800px] mx-auto pb-4 '>
+        <div className='max-w-[840px] mx-auto pb-4 mt-40'>
           <Box>
             <Box>
               <Tabs

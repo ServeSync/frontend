@@ -35,12 +35,6 @@ const Container = ({ eventsDone, eventsHappending, eventsUpcoming }: Props) => {
             >
               Bắt đầu
             </Link>
-            <Link
-              to={path.request_event}
-              className='px-4 justify-start items-start inline-flex gap-2 text-black text-[12px] rounded-full w-full hover:underline'
-            >
-              Tham gia với tư cách nhà tổ chức sự kiện
-            </Link>
           </div>
         </div>
         <div className=''>

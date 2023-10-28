@@ -166,7 +166,7 @@ const RequestCreateEventForm = ({
                   <AutocompleteWithDebounce<EventCategoryType>
                     id='education_program'
                     options={eventCategories}
-                    handleChangeId={handleChangeCategory}
+                    onChangeId={handleChangeCategory}
                     onChange={onChange}
                     label='Danh mục sự kiện'
                     value={value as string}

@@ -20,21 +20,21 @@ interface Props {
 
 const RequestCreteEvent = ({ page, index, setValue, errors, register, control, markers, setMarkers }: Props) => {
   const [categoryId, setCategoryId] = useState<string>('')
-  const [activitiesSearch, setActivitiesSearch] = useState<string>('')
-  const [eventCategoriesSearch, setEventCategoriesSearch] = useState<string>('')
 
-  const queryEventCategoryConfig = useQueryEventCategoryConfig(eventCategoriesSearch)
+  const handleChangeCategory = (id: string) => {
+    setCategoryId(id)
+  }
+  const [eventCategoriesSearch, setEventCategoriesSearch] = useState<string>('')
+  const [activitiesSearch, setActivitiesSearch] = useState<string>('')
+
   const queryActivityConfig = useQueryActivityConfig(activitiesSearch)
+  const queryEventCategoryConfig = useQueryEventCategoryConfig(eventCategoriesSearch)
 
   const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery(queryEventCategoryConfig)
   const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoriesListType
 
   const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId, queryActivityConfig)
   const activities = getAllActivitiesByCategoryIdQuery.fetch() as ActivitiesListType
-
-  const handleChangeCategory = (id: string) => {
-    setCategoryId(id)
-  }
 
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>

@@ -2,13 +2,13 @@
 import { Fragment } from 'react'
 import { FormRequestEventType } from '../../utils'
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form'
-import InputImage from 'src/modules/Share/components/InputImage'
 import { TextField } from '@mui/material'
 // import Button from 'src/modules/Share/components/Button'
 // import { CreateOrganizationInfoCommandHandler } from '../../services/RequestEvent'
 // import { handleError } from 'src/modules/Share/utils'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import InputAvatar from 'src/modules/Share/components/InputAvatar'
 interface Props {
   register: UseFormRegister<FormRequestEventType>
   errors: FieldErrors<FormRequestEventType>
@@ -36,7 +36,7 @@ const RequestEventOrganizerForm = ({
           render={({ field }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2 flex flex-col items-center mx-6'>
-                <InputImage
+                <InputAvatar
                   register={register}
                   onChange={handleChangeFileOrganizer}
                   previewImage={previewImageOrganizer}
