@@ -11,6 +11,8 @@ interface Props {
 }
 
 const EventTable = ({ events, isLoading, onSort }: Props) => {
+  console.log(events)
+
   return (
     <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
       <HeaderTable header={EventTableHeader} onSort={onSort} />

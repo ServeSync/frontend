@@ -1,4 +1,6 @@
 const path = {
+  landingpage: '/',
+  eventdetail: '/event-detail',
   home: '/home',
   login: '/login',
   forget_password: '/forgetPassword',
@@ -9,6 +11,7 @@ const path = {
   edit_student: '/students/edit',
   event: '/events',
   create_event: '/events/create',
+  request_event: '/request',
   edit_event: '/events/edit',
   event_organizer: '/organizers',
   standard: '/standards',

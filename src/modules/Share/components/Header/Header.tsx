@@ -43,7 +43,7 @@ export default function Header() {
   const handleLogout = () => {
     setIsAuthenticated(false)
     clearTokenFromLocalStorage()
-    navigate(path.login)
+    navigate(path.landingpage)
   }
 
   return (
@@ -62,6 +62,11 @@ export default function Header() {
                 )
               ) : (
                 <span className='text-gray-500'>List</span>
+              )}
+              {location[1] !== 'request' ? (
+                <span className='text-gray-500'>{handleHeader()}</span>
+              ) : (
+                <span className='text-gray-500'>Request</span>
               )}
             </Fragment>
           )}
