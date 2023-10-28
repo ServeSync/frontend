@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Controller, Control, useForm, UseFormSetValue } from 'react-hook-form'
+import { Controller, Control, useForm, UseFormSetValue, FieldErrors } from 'react-hook-form'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Autocomplete, TextField } from '@mui/material'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
@@ -13,10 +13,15 @@ import ModalCustom from 'src/modules/Share/components/Modal'
 import Map from '../Map'
 import { yupResolver } from '@hookform/resolvers/yup'
 import AutocompleteWithDebounce from 'src/modules/Share/components/AutocompleteWithDebounce'
+import { EditorState, convertToRaw } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import draftToHtml from 'draftjs-to-html'
 
 interface Props {
   control: Control<FormEventType>
   setValue: UseFormSetValue<FormEventType>
+  errors: FieldErrors<FormEventType>
   eventCategories: EventCategoryType[]
   activities: ActivityType[]
   onChangeCategory: (id: string) => void
@@ -27,12 +32,20 @@ interface Props {
 const CreateEventForm = ({
   control,
   setValue,
+  errors,
   eventCategories,
   activities,
   onChangeCategory,
   setEventCategoriesSearch,
   setActivitiesSearch
 }: Props) => {
+  const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
+
+  const onEditorStateChange = (editorState: EditorState) => {
+    setDescription(editorState)
+    setValue('description', draftToHtml(convertToRaw(description.getCurrentContent())))
+  }
+
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const handleOpenModal = () => {
@@ -251,30 +264,23 @@ const CreateEventForm = ({
                 setCenter={setCenter}
                 markers={markers}
                 setMarkers={setMarkers}
+                setIsOpenModal={setIsOpenModal}
               />
             </ModalCustom>
           </div>
-          <Controller
-            name='description'
-            control={control}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-12'>
-                  <TextField
-                    id='description'
-                    label='Mô tả chi tiết'
-                    placeholder='Nhập mô tả chi tiết cho sự kiện'
-                    multiline
-                    rows={8}
-                    className='w-full bg-white'
-                    value={value}
-                    onChange={onChange}
-                  />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
-                </div>
-              </LocalizationProvider>
-            )}
-          />
+          <div className='col-span-12 '>
+            <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
+              <Editor
+                editorState={description}
+                wrapperClassName='demo-wrapper'
+                editorClassName='demo-editor'
+                onEditorStateChange={onEditorStateChange}
+              />
+            </div>
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+              {errors.description?.message}
+            </span>
+          </div>
         </div>
       </div>
     </div>

@@ -40,7 +40,7 @@ const CreateEventOrganizationForm = ({
                   <Autocomplete
                     disablePortal
                     id='event_organization'
-                    options={eventOrganizations && eventOrganizations}
+                    options={eventOrganizations ? eventOrganizations : []}
                     value={(eventOrganizations && eventOrganizations.find((option) => option.id === value)) || null}
                     getOptionLabel={(option) => option.name}
                     renderInput={(params) => <TextField {...params} label='Chọn tổ chức' />}
