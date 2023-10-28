@@ -176,7 +176,7 @@ const Container = ({ eventsDone, eventsHappending, eventsUpcoming }: Props) => {
             <img
               src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1698624000&Signature=dbrogaOmzyYsShCPMPqGrMqXM~ABWE-myC-1EKKfzmZ3iz1w9ThIft9ej6Ux4hY4Fk1a2cnb4Ewk9kGIMcBkZOSFzdh2bKPcF6DgZBbtM9eMLa7CcLnQZcUy~X5X1ZAbaMCSwcUYzINn9e0JoB1coab~HQX0PVk9vnc-c7RXMwiYVkjiH2RdGOVzaZ4em5aeJ4II8NMIhz1qw9x8L6uj1vA8k3u-Jqz1JVvP1lBtd7hCh-Weqp0M2DyMjWArwgqUSzXoy~4ebmhIPb2nnPTWiQQiIOlb0Lg0nGVVFnta~-fT5P9sVi2mIHBp2zaCpa7xDrEN1Bkn8PLvyUHIYCka8Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
               alt=''
-              className='rounded-full '
+              className='rounded-full'
             />
             <div className='absolute top-[300px] left-60 bg-white rounded-full max-md:top-[150px] max-md:left-20'>
               <img

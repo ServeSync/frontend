@@ -31,8 +31,7 @@ const RequestEventOrganizerContactForm = ({
           name='eventOrganizationContactInfo.imageUrl'
           control={control}
           defaultValue=''
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          render={({ field }) => (
+          render={() => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2 flex flex-col items-center mx-6'>
                 <InputAvatar

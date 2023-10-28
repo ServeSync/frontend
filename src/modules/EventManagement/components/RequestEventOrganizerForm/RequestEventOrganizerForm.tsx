@@ -32,8 +32,7 @@ const RequestEventOrganizerForm = ({
           name='eventOrganizationInfo.imageUrl'
           control={control}
           defaultValue=''
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          render={({ field }) => (
+          render={() => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2 flex flex-col items-center mx-6'>
                 <InputAvatar
@@ -167,21 +166,6 @@ const RequestEventOrganizerForm = ({
           />
         </div>
       </div>
-      {/* <div className='flex justify-end col-span-2 gap-4 items-center'>
-        <Button
-          type='button'
-          classNameButton='bg-gray-300   py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[40px]'
-        >
-          Làm mới
-        </Button>
-        <Button
-          type='button'
-          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[40px]'
-          onClick={handleAddEventOrganizer}
-        >
-          Thêm nhà tổ chức
-        </Button>
-      </div> */}
     </Fragment>
   )
 }
