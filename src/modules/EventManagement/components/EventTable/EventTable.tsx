@@ -1,8 +1,8 @@
 import Skeleton from 'react-loading-skeleton'
-import { EventTableHeader, StatusToMessage } from '../../constants'
-import { EventsListType } from '../../interfaces'
-import { formatDateTime } from 'src/modules/Share/utils'
 import HeaderTable from 'src/modules/Share/components/HeaderTable'
+import { EventTableHeader, StatusToMessage } from '../../constants'
+import { formatDateTime } from 'src/modules/Share/utils'
+import { EventsListType } from '../../interfaces'
 
 interface Props {
   events: EventsListType

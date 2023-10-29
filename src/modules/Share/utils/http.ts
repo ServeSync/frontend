@@ -44,7 +44,7 @@ class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
-        if (url === '/auth/sign-in') {
+        if (url === '/auth/admin-portal/sign-in' || url === '/auth/student-portal/sign-in') {
           const data = response.data as AuthResponse | RefreshResponse
           this.accessToken = data.accessToken
           this.refreshToken = data.refreshToken
@@ -84,9 +84,6 @@ class Http {
           }
         } else {
           handleError(error)
-          // this.accessToken = ''
-          // this.refreshToken = ''
-          // clearTokenFromLocalStorage()
         }
         return Promise.reject(error)
       }
