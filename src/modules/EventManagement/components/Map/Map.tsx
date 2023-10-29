@@ -5,7 +5,7 @@ import { UseFormRegister, UseFormHandleSubmit, UseFormSetValue, UseFormReset } f
 import { Input, Box, ButtonGroup, Flex } from '@chakra-ui/react'
 import Button from 'src/modules/Share/components/Button'
 import { LocationType, MarkerType } from '../../interfaces'
-import { FormEventType, FormSearchMapType } from '../../utils'
+import { FormSearchMapType } from '../../utils'
 
 
 interface Props {
