@@ -1,17 +1,18 @@
 import { Suspense, lazy, useContext } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
-import { AppContext } from '../contexts'
-import path from '../constants/path'
-import AuthenticationLayout from '../layouts/AuthenticationLayout'
-import MainLayout from '../layouts/MainLayout'
-
-const Home = lazy(() => import('src/modules/Home/pages/Home'))
-const NotFound = lazy(() => import('../components/NotFound'))
+import path from 'src/modules/Share/constants/path'
+import AuthenticationLayout from 'src/modules/Share/layouts/AuthenticationLayout'
+import MainLayout from 'src/modules/Share/layouts/MainLayout'
+import LandingpageLayout from '../layouts/LandingpageLayout'
+import { AppContext } from '../contexts/app.context'
 
 const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
-
+const Home = lazy(() => import('src/modules/Home/pages/Home'))
+const Landingpage = lazy(() => import('src/modules/Landingpage/pages/Landingpage'))
+const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail'))
+const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
 
 const Student = lazy(() => import('src/modules/StudentManagement/pages/Student'))
@@ -22,6 +23,8 @@ const Event = lazy(() => import('src/modules/EventManagement/pages/Event'))
 const CreateEvent = lazy(() => import('src/modules/EventManagement/pages/CreateEventPage'))
 const EditEvent = lazy(() => import('src/modules/EventManagement/pages/EditEvent'))
 
+const RequestEvent = lazy(() => import('src/modules/EventManagement/pages/RequestEventPage'))
+
 const RejectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
   return !isAuthenticated ? <Outlet /> : <Navigate to={path.home} />
@@ -29,7 +32,7 @@ const RejectedRoute = () => {
 
 const ProtectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
-  return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
+  return isAuthenticated ? <Outlet /> : <Navigate to={path.landingpage} />
 }
 
 const useRouteElements = () => {
@@ -66,6 +69,32 @@ const useRouteElements = () => {
                 <ResetPassword />
               </Suspense>
             </AuthenticationLayout>
+          )
+        },
+        {
+          path: path.landingpage,
+          element: (
+            <LandingpageLayout>
+              <Suspense>
+                <Landingpage />
+              </Suspense>
+            </LandingpageLayout>
+          )
+        },
+        {
+          path: path.request_event,
+          element: (
+            <Suspense>
+              <RequestEvent />
+            </Suspense>
+          )
+        },
+        {
+          path: path.eventdetail,
+          element: (
+            <Suspense>
+              <EventDetail />
+            </Suspense>
           )
         }
       ]
@@ -144,6 +173,7 @@ const useRouteElements = () => {
             </MainLayout>
           )
         },
+
         {
           path: path.edit_event,
           element: (
