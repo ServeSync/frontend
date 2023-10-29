@@ -7,10 +7,12 @@ import { FormEventType, FormSearchMapType } from '../../utils'
 import { LocationType, MarkerType } from '../../interfaces'
 import Button from 'src/modules/Share/components/Button'
 
+
 interface Props {
   register: UseFormRegister<FormSearchMapType>
   handleSubmit: UseFormHandleSubmit<FormSearchMapType>
-  setValue: UseFormSetValue<FormEventType>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setValue: UseFormSetValue<any>
   reset: UseFormReset<FormSearchMapType>
   center: LocationType
   setCenter: React.Dispatch<React.SetStateAction<LocationType>>
