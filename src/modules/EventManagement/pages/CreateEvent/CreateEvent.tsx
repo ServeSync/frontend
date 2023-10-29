@@ -1,11 +1,11 @@
 import { Control, UseFormSetValue, FieldErrors } from 'react-hook-form'
-import CreateEventForm from '../../components/CreateEventForm'
-import { FormEventType } from '../../utils'
-import { ActivitiesListType, EventCategoriesListType } from '../../interfaces'
 import { useState } from 'react'
-import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../services'
+import { FormEventType } from '../../utils'
 import useQueryActivityConfig from '../../hooks/useQueryActivityConfig'
 import useQueryEventCategoryConfig from '../../hooks/useQueryEventCategoryConfig'
+import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../services'
+import { ActivitiesListType, EventCategoriesListType } from '../../interfaces'
+import CreateEventForm from '../../components/CreateEventForm'
 
 interface Props {
   page: number
