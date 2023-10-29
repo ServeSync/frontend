@@ -1,8 +1,5 @@
 import { Control, UseFormGetValues, UseFormSetValue } from 'react-hook-form'
-import { FormEventType } from '../../utils'
-import CreateEventOrganizationForm from '../../components/CreateEventOrganizationForm'
 import { useEffect, useState } from 'react'
-import { GetAllEventOrganizationsQuery } from '../../services'
 import {
   EventOrganizationFormType,
   EventOrganizationRepFormType,
@@ -10,6 +7,9 @@ import {
   EventOrganizationsListType
 } from '../../interfaces'
 import EventOrganizationForm from '../../components/EventOrganizationForm'
+import { FormEventType } from '../../utils'
+import { GetAllEventOrganizationsQuery } from '../../services'
+import CreateEventOrganizationForm from '../../components/CreateEventOrganizationForm'
 
 interface Props {
   page: number
