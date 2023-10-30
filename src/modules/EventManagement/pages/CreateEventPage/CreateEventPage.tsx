@@ -77,8 +77,8 @@ const CreateEventPage = () => {
         })
       },
       (error: any) => {
-        handleError<FormEventType>(error, setError)
         toast.error('Thông tin không hợp lệ vui lòng kiểm tra lại !')
+        handleError<FormEventType>(error, setError)
       },
       setError
     )
@@ -151,6 +151,7 @@ const CreateEventPage = () => {
                 getValues={getValues}
                 setValue={setValue}
                 setDataEventOrganization={setDataEventOrganization}
+                isLoading={createEventCommandHandler.isLoading()}
               />
             </Box>
           </Box>

@@ -18,9 +18,18 @@ interface Props {
   getValues: UseFormGetValues<FormEventType>
   setValue: UseFormSetValue<FormEventType>
   setDataEventOrganization: React.Dispatch<React.SetStateAction<EventOrganizationFormType[]>>
+  isLoading: boolean
 }
 
-const EventOrganization = ({ page, index, control, getValues, setValue, setDataEventOrganization }: Props) => {
+const EventOrganization = ({
+  page,
+  index,
+  control,
+  getValues,
+  setValue,
+  setDataEventOrganization,
+  isLoading
+}: Props) => {
   const [listEventOrganizationsAdded, setListEventOrganizationsAdded] = useState<EventOrganizationType[]>([])
   const [errors, setErrors] = useState<string>('')
 
@@ -115,6 +124,7 @@ const EventOrganization = ({ page, index, control, getValues, setValue, setDataE
             eventOrganizations={eventOrganizations && eventOrganizations.data}
             handleAddEventOrganization={handleAddEventOrganization}
             errors={errors}
+            isLoading={isLoading}
           />
         </div>
       )}

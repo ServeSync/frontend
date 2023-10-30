@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
 import eventAPI from './event.api'
 import { FormEvent } from '../../interfaces'
+import { toast } from 'react-toastify'
 
 class CreateEventCommandHandler {
   private _queryClient
@@ -26,6 +27,7 @@ class CreateEventCommandHandler {
         setError('imageUrl', {
           message: 'Vui lòng chọn ảnh !'
         })
+        toast.error('Vui lòng chọn ảnh !')
       }
     })
     event.imageUrl = uploadImageResponse.data.url

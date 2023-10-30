@@ -93,7 +93,7 @@ const CreateEventForm = ({
             name='name'
             placeholder='Tên sự kiện'
             className='col-span-12'
-            classNameInput='text-[#195E8E] text-[42px] font-bold placeholder:text-[42px] placeholder:text-[#195E8E] placeholder-bold bg-transparent pr-4 outline-none h-[54px]'
+            classNameInput='w-full text-[#195E8E] text-[42px] font-bold placeholder:text-[42px] placeholder:text-[#195E8E] placeholder-bold bg-transparent pr-4 outline-none h-[54px]'
             error={errors.name?.message}
           />
           <Input
@@ -102,7 +102,7 @@ const CreateEventForm = ({
             name='introduction'
             placeholder='Giới thiệu sự kiện'
             className='col-span-12 relative'
-            classNameInput='text-black/90 text-[16px] placeholder:text-black/90 bg-transparent pl-7 pr-4 outline-none h-[28px]'
+            classNameInput='w-full text-black/90 text-[16px] placeholder:text-black/90 bg-transparent pl-7 pr-4 outline-none h-[28px]'
             error={errors.introduction?.message}
           >
             <div className='absolute left-0 top-[0px] cursor-pointer text-black'>
@@ -331,9 +331,8 @@ const CreateEventForm = ({
           <div className='col-span-12 '>
             <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
               <Editor
+                placeholder='Nhập mô tả sự kiện'
                 editorState={description}
-                wrapperClassName='demo-wrapper'
-                editorClassName='demo-editor'
                 onEditorStateChange={onEditorStateChange}
               />
             </div>

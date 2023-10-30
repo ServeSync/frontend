@@ -9,7 +9,14 @@ export const FormEventSchema = yup.object().shape({
     .required('Vui lòng nhập giới thiệu sự kiện !')
     .min(10, 'Giới thiệu sự kiện ít nhất 10 kí tự !'),
   imageUrl: yup.string(),
-  startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu sự kiện !'),
+  startAt: yup
+    .string()
+    .required('Vui lòng nhập thời gian bắt đầu sự kiện !')
+    .test('is-future', 'Ngày bắt đầu không được trong quá khứ', function (startAt) {
+      const startDate = new Date(startAt)
+      const now = new Date()
+      return startDate > now
+    }),
   endAt: yup
     .string()
     .required('Vui lòng nhập thời gian kết thúc sự kiện !')
@@ -36,7 +43,14 @@ export const FormEventSchema = yup.object().shape({
     yup
       .object()
       .shape({
-        startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu thời gian đăng kí !'),
+        startAt: yup
+          .string()
+          .required('Vui lòng nhập thời gian bắt đầu thời gian đăng kí !')
+          .test('is-future', 'Thời gian bắt đầu đăng kí không được trong quá khứ', function (startAt) {
+            const startDate = new Date(startAt)
+            const now = new Date()
+            return startDate > now
+          }),
         endAt: yup
           .string()
           .required('Vui lòng nhập thời gian kêt thúc thời gian đăng kí !')
@@ -55,7 +69,14 @@ export const FormEventSchema = yup.object().shape({
   ),
   attendanceInfos: yup.array().of(
     yup.object().shape({
-      startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu điểm danh !'),
+      startAt: yup
+        .string()
+        .required('Vui lòng nhập thời gian bắt đầu điểm danh !')
+        .test('is-future', 'Thời gian bắt đầu điểm danh không được trong quá khứ', function (startAt) {
+          const startDate = new Date(startAt)
+          const now = new Date()
+          return startDate > now
+        }),
       endAt: yup
         .string()
         .required('Vui lòng nhập thời gian kết thúc điểm danh !')

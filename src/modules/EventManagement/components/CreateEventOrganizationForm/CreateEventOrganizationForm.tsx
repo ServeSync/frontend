@@ -14,6 +14,7 @@ interface Props {
   eventOrganizations: EventOrganizationType[]
   handleAddEventOrganization: () => void
   errors: string
+  isLoading: boolean
 }
 
 const CreateEventOrganizationForm = ({
@@ -21,7 +22,8 @@ const CreateEventOrganizationForm = ({
   representatives,
   eventOrganizations,
   handleAddEventOrganization,
-  errors
+  errors,
+  isLoading
 }: Props) => {
   return (
     <div>
@@ -120,7 +122,11 @@ const CreateEventOrganizationForm = ({
         >
           Trở lại
         </Link>
-        <Button type='submit' classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'>
+        <Button
+          type='submit'
+          isLoading={isLoading}
+          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'
+        >
           Tạo sự kiện
         </Button>
       </div>

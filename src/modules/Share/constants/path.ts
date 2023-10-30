@@ -1,5 +1,5 @@
 const path = {
-  landing_page: '/home',
+  landing_page: '/',
   event_detail: '/event-detail',
   login: '/login',
   forget_password: '/forgetPassword',
