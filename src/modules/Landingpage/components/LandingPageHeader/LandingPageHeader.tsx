@@ -30,15 +30,15 @@ const LandingPageHeader = () => {
           <li className='cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'>Discover</li>
           <li className='cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'>Special Deals</li>
           <li className='cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'>Contact</li>
+        </ul>
+
+        <div className='font-medium items-center text-[14px] hidden lg:flex gap-4'>
           <Link
             to={path.request_event}
-            className='px-4 justify-start items-start inline-flex gap-2   rounded-full w-full cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'
+            className=' text-black px-4 py-4 rounded-3xl  transition-all duration-300 hover:shadow-md  no-underline flex-shrink-0'
           >
             Yêu cầu sự kiện
           </Link>
-        </ul>
-
-        <div className='font-medium items-center text-[14px] hidden lg:block'>
           <Link
             className='bg-[#5D50C6] text-white px-10 py-4 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md  no-underline flex-shrink-0'
             to={path.login}
