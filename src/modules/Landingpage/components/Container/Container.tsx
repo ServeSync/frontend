@@ -1,14 +1,13 @@
 /* eslint-disable import/no-unresolved */
 import { Link } from 'react-router-dom'
-import {} from '@material-tailwind/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import SwiperCore from 'swiper'
 import { Navigation, Pagination } from 'swiper/modules'
 import path from 'src/modules/Share/constants/path'
-import CardEvent from '../CardEvent'
 import { EventsListType } from 'src/modules/EventManagement/interfaces'
+import CardEvent from '../CardEvent'
 
 interface Props {
   eventsDone: EventsListType

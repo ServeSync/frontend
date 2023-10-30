@@ -5,10 +5,12 @@ import path from 'src/modules/Share/constants/path'
 import { logo } from 'src/modules/Share/constants'
 
 const LandingPageHeader = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen)
   }
+
   return (
     <div className=''>
       <header className='relative max-w-screen-xl w-full h-auto flex justify-between items-center py-8 px-4 top-0 left-0 right-0 bg-transparent z-50 mx-auto'>

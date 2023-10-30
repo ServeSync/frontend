@@ -40,4 +40,5 @@ const EventRating = ({
     </div>
   )
 }
+
 export default EventRating

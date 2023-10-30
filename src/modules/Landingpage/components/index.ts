@@ -1,5 +1,0 @@
-export * from './CardEvent'
-export * from './Container'
-export * from './EventRating'
-export * from './Footer'
-export * from './LandingPageHeader'

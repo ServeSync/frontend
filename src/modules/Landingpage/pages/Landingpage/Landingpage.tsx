@@ -1,9 +1,10 @@
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
-import LandingPageHeader from '../../components/LandingPageHeader'
-import Footer from '../../components/Footer'
-import Container from '../../components/Container'
+
 import { GetAllEventsByStatusQuery } from '../../../EventManagement/services'
+import LandingPageHeader from '../../components/LandingPageHeader'
+import Container from '../../components/Container'
+import Footer from '../../components/Footer'
 
 const LandingPage = () => {
   const getAllEventsDoneQuery = new GetAllEventsByStatusQuery('done')
