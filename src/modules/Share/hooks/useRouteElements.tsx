@@ -5,7 +5,6 @@ import { AppContext } from '../contexts/app.context'
 import AuthenticationLayout from '../layouts/AuthenticationLayout'
 import MainLayout from '../layouts/MainLayout'
 import LandingPageProjectLayout from '../layouts/LandingPageProjectLayout'
-import LandingPageProject from 'src/modules/LandingPage/pages/LandingPageProject'
 
 const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
@@ -14,6 +13,7 @@ const Home = lazy(() => import('src/modules/Home/pages/Home'))
 const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
+const LandingPage = lazy(() => import('src/modules/LandingPage/pages/LandingPage'))
 const Student = lazy(() => import('src/modules/StudentManagement/pages/Student'))
 const CreateStudent = lazy(() => import('src/modules/StudentManagement/pages/CreateStudent'))
 const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditStudent'))
@@ -75,7 +75,7 @@ const useRouteElements = () => {
           element: (
             <LandingPageProjectLayout>
               <Suspense>
-                <LandingPageProject />
+                <LandingPage />
               </Suspense>
             </LandingPageProjectLayout>
           )

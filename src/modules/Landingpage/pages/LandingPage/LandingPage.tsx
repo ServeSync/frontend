@@ -5,7 +5,7 @@ import LandingPageHeader from '../../components/LandingPageHeader'
 import Container from '../../components/Container'
 import Footer from '../../components/Footer'
 
-const LandingPageProject = () => {
+const LandingPage = () => {
   const getAllEventsDoneQuery = new GetAllEventsByStatusQuery('done')
   const getAllEventHappeningQuery = new GetAllEventsByStatusQuery('happening')
   const getAllEventUpcomingQuery = new GetAllEventsByStatusQuery('upcoming')
@@ -29,4 +29,4 @@ const LandingPageProject = () => {
   )
 }
 
-export default LandingPageProject
+export default LandingPage
