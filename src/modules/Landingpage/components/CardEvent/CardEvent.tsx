@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSearchParams, useNavigate } from 'react-router-dom'
+import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
 import classNames from 'classnames'
-import { EventType } from 'src/modules/EventManagement/interfaces'
-import EventRating from '../EventRating'
+import EventRating from '../EventRating/EventRating'
+
 
 interface Props {
   event: EventType

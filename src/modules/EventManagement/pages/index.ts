@@ -7,4 +7,8 @@ export * from './EditEvent'
 export * from './RequestCreateEvent'
 export * from './RequestEventOrganizer'
 export * from './EventDetail'
+export * from './EventDetailInfomationPage'
+export * from './EventDetailRegisterPage'
+export * from './EventDetailOrganizerPage'
 export * from './RequestEventPage'
+
