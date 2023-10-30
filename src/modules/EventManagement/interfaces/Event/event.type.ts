@@ -1,5 +1,4 @@
-import { Address, RepresentativeOrganization } from '.'
-import { EventOrganizationFormType, EventRole } from '..'
+import { Address, EventOrganizationFormType, EventRole, RepresentativeOrganization } from '..'
 
 export interface EventsListType {
   total: number

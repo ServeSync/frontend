@@ -1,11 +1,11 @@
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { GetAllEventsByStatusQuery } from 'src/modules/EventManagement/services'
 import LandingPageHeader from '../../components/LandingPageHeader'
-import Footer from '../../components/Footer'
 import Container from '../../components/Container'
-import { GetAllEventsByStatusQuery } from '../../../EventManagement/services'
+import Footer from '../../components/Footer'
 
-const LandingPage = () => {
+function LandingPageProject() {
   const getAllEventsDoneQuery = new GetAllEventsByStatusQuery('done')
   const getAllEventHappeningQuery = new GetAllEventsByStatusQuery('happening')
   const getAllEventUpcomingQuery = new GetAllEventsByStatusQuery('upcoming')
@@ -29,4 +29,4 @@ const LandingPage = () => {
   )
 }
 
-export default LandingPage
+export default LandingPageProject
