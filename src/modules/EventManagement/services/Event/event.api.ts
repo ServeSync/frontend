@@ -1,5 +1,5 @@
 import http from 'src/modules/Share/utils/http'
-import { EventsListConfig, EventsListType, FormEvent } from '../../interfaces'
+import { EventDetailType, EventsListConfig, EventsListType, FormEvent } from '../../interfaces'
 
 const eventAPI = {
   getListEvents: (params: EventsListConfig) => http.get<EventsListType>('/events', { params }),
@@ -11,6 +11,9 @@ const eventAPI = {
         size
       }
     }),
+
+  getEvent: (id: string) => http.get<EventDetailType>(`/events/${id}`),
+
   createEvent: (body: FormEvent) => http.post('/events', body)
 }
 

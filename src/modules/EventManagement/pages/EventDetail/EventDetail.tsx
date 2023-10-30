@@ -7,6 +7,8 @@ import EventDetailInfomationPage from '../EventDetailInfomationPage'
 import EventDetailRegisterPage from '../EventDetailRegisterPage'
 import EventDetailOrganizerPage from '../EventDetailOrganizerPage'
 import EventRating from 'src/modules/Landingpage/components/EventRating'
+import useQueryEventConfig from '../../hooks/useQueryEventConfig'
+import { GetEventByIdQuery } from '../../services'
 
 const EventDetail = () => {
   const [page, setPage] = useState<number>(0)
@@ -25,6 +27,12 @@ const EventDetail = () => {
     }
   }, [scrolled])
 
+  const queryEventConfig = useQueryEventConfig()
+
+  const getEventQuery = new GetEventByIdQuery(queryEventConfig.id as string)
+  const event = getEventQuery.fetch()
+  console.log(event)
+
   return (
     <Fragment>
       <Helmet>
@@ -34,9 +42,9 @@ const EventDetail = () => {
       <div className='relative bg-white w-full h-full py-[100px]'>
         <div className='flex flex-col gap-6 mb-10 px-[220px]'>
           <div className='flex flex-col'>
-            <h1 className='text-black text-[80px] font-semibold break-words'>DUT Job Fair</h1>
-            <h4 className='text-black text-[25px] font-light break-words'>Write a small description for the event</h4>
-            <h6 className='text-[#A0A2A4] text-[20px] font-light break-words'>Hoạt động tình nguyện</h6>
+            <h1 className='text-black text-[80px] font-semibold break-words'>{event?.name}</h1>
+            <h4 className='text-black text-[25px] font-light break-words'>{event?.introduction}</h4>
+            <h6 className='text-[#A0A2A4] text-[20px] font-light break-words'>{event?.type}</h6>
           </div>
           <div className='flex justify-between items-center'>
             <div className='flex flex-col gap-4'>
@@ -56,7 +64,7 @@ const EventDetail = () => {
                     d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
                   />
                 </svg>
-                <span className='text-[#A0A2A4] text-[15px] font-normal break-words'>Thừa thiên huế</span>
+                <span className='text-[#A0A2A4] text-[15px] font-normal break-words'>{event?.address.fullAddress}</span>
               </div>
               <div className='flex'>
                 <svg
@@ -76,8 +84,10 @@ const EventDetail = () => {
                 <span className='text-[#A0A2A4] text-[15px] font-normal break-words'>22/09/2023 - 23/09/2023</span>
               </div>
               <div className='flex justify-between '>
-                <EventRating rating={4} />
-                <div className='bg-[#58CCFE] rounded-2xl px-6 flex justify-center items-center py-1'>Đang diễn ra</div>
+                <EventRating rating={event?.rating} />
+                <div className='bg-[#58CCFE] rounded-2xl px-6 flex justify-center items-center py-1'>
+                  {event?.status}
+                </div>
               </div>
             </div>
             <div className=''>
@@ -91,19 +101,15 @@ const EventDetail = () => {
           </div>
         </div>
         <div className='relative mb-[55px] px-[220px]'>
-          <img
-            src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699228800&Signature=lAXe1LY7TIoqQsQFZ449oMxLAax~vH1jgj05umunVrwcG0YuF0vwCRXoGmfVeF1d0UMhatepyE8pAu1KBErhXoV7Qw5qYWOzcR9YQKvVPiTHPfgi6JA-dupbe~HTDmxf8SjA3qsmCI6lBuM6ihdkWzDPP9Hb0Rqw651IhYjyzRyH7hcAvQwwvjlMrb0WWCKjOiOiNsgJNY2VvyxTEdZk5ng0HHmurdMiCwePzmieafI0Sa1IDIhH0IxEiHAX3PNBA5MEQmcAiWNF99mBxjuLrAJeisof37BZT5l7hbmjpGIswyU25Ir463lmmxC4j8BnCuBaDL4ovfN6eS3fs7blVQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-            alt=''
-            className='w-full max-h-[500px] rounded-3xl max-w-full object-cover'
-          />
+          <img src={event?.imageUrl} alt='' className='w-full max-h-[500px] rounded-3xl max-w-full object-cover' />
         </div>
         <div className='w-full h-full bg-[#F4F4F4] grid px-[220px] grid-cols-4 mb-[90px]'>
           <div className='flex flex-col justify-center items-center col-span-1'>
-            <div className='font-semibold text-[30px] break-words'>5</div>
+            <div className='font-semibold text-[30px] break-words'>{event?.roles.length}</div>
             <div className='text-[20px] font-normal'>Vai trò khác nhau</div>
           </div>
           <div className='flex flex-col justify-center items-center col-span-1'>
-            <div className='font-semibold text-[30px] break-words'>3</div>
+            <div className='font-semibold text-[30px] break-words'>{event?.organizations.length}</div>
             <div className='text-[20px] font-normal'>Ban tổ chức</div>
           </div>
           <div className='flex flex-col justify-center items-center col-span-1'>
