@@ -12,12 +12,12 @@ import { EventsListType } from 'src/modules/EventManagement/interfaces'
 
 interface Props {
   eventsDone: EventsListType
-  eventsHappending: EventsListType
+  eventsHappening: EventsListType
   eventsUpcoming: EventsListType
 }
 
 SwiperCore.use([Navigation, Pagination])
-const Container = ({ eventsDone, eventsHappending, eventsUpcoming }: Props) => {
+const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
   return (
     <div className='flex flex-col mb-[200px] '>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center max-w-screen-xl w-full py-8 px-4 m-auto '>
@@ -245,13 +245,13 @@ const Container = ({ eventsDone, eventsHappending, eventsUpcoming }: Props) => {
             modules={[Pagination, Navigation]}
             className=' px-6 !overflow-visible flex'
           >
-            {eventsHappending &&
-              eventsHappending.data.map((event, index) => (
+            {eventsHappening &&
+              eventsHappening.data.map((event, index) => (
                 <SwiperSlide key={index}>
                   <CardEvent event={event} />
                 </SwiperSlide>
               ))}
-            {eventsHappending && eventsHappending.data.length === 0 && (
+            {eventsHappening && eventsHappening.data.length === 0 && (
               <div className='flex w-full items-center justify-center'>
                 <div className='text-center'>
                   <div className='inline-flex rounded-full bg-[#c6f8ff] p-4'>

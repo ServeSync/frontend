@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useState, useMemo } from 'react'
+import { Fragment, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
 import { toast } from 'react-toastify'
@@ -12,28 +12,18 @@ import { FormEventSchema, FormEventType } from '../../utils'
 import { CreateEventCommandHandler } from '../../services'
 import path from 'src/modules/Share/constants/path'
 import { handleError } from 'src/modules/Share/utils'
-import InputImage from 'src/modules/Share/components/InputImage'
-import Input from 'src/modules/Share/components/Input'
 import CreateEvent from '../CreateEvent'
 import RegisterEvent from '../RegisterEvent'
 import EventOrganization from '../EventOrganization'
 
 const CreateEventPage = () => {
+  const [file, setFile] = useState<File>()
+
   const [page, setPage] = useState<number>(0)
 
   const handleChange = (event: React.SyntheticEvent, newPage: number) => {
     event.preventDefault()
     setPage(newPage)
-  }
-
-  const [file, setFile] = useState<File>()
-
-  const previewImage = useMemo(() => {
-    return file ? URL.createObjectURL(file) : ''
-  }, [file])
-
-  const handleChangeFile = (file?: File) => {
-    setFile(file)
   }
 
   const navigate = useNavigate()
@@ -101,54 +91,7 @@ const CreateEventPage = () => {
         <meta name='description' content='This is create event page of the project' />
       </Helmet>
       <form onSubmit={handleSubmitForm}>
-        <div className='rounded-xl h-[360px]'>
-          <div className='w-full h-full relative rounded-xl'>
-            <InputImage register={register} onChange={handleChangeFile} previewImage={previewImage} />
-            <div className='absolute bottom-[4px] right-[26px]'>
-              <span className='block min-h-[16px] text-red-600 text-[14px] mt-1 font-medium'>
-                {errors.imageUrl?.message}
-              </span>
-            </div>
-          </div>
-          <div className='flex flex-col max-w-[840px] mx-auto top-0 '>
-            <Input
-              register={register}
-              id='name'
-              name='name'
-              placeholder='Tên sự kiện'
-              className='col-span-1 flex flex-col relative mb-3'
-              classNameInput='text-[#195E8E] text-[46px] font-bold placeholder:text-[46px] placeholder:text-[#195E8E] placeholder-bold bg-transparent pr-4 outline-none h-[54px] mt-4'
-              error={errors.name?.message}
-            />
-            <Input
-              register={register}
-              id='introduction'
-              name='introduction'
-              placeholder='Giới thiệu sự kiện'
-              className='col-span-1 flex flex-col relative z-10'
-              classNameInput='text-black/90 text-[16px] placeholder:text-black/90 bg-transparent pl-7 pr-4 outline-none h-[28px]'
-              error={errors.introduction?.message}
-            >
-              <div className='absolute left-0 top-[0px] cursor-pointer text-black'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-6 h-6'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10'
-                  />
-                </svg>
-              </div>
-            </Input>
-          </div>
-        </div>
-        <div className='max-w-[840px] mx-auto'>
+        <div className='w-full'>
           <Box>
             <Box>
               <Tabs
@@ -156,7 +99,7 @@ const CreateEventPage = () => {
                 onChange={handleChange}
                 aria-label='basic tabs example'
                 sx={{
-                  '& div': { width: '100%', margin: '80px -5px 0' },
+                  '& div': { width: '100%', margin: '0 -5px 0' },
                   '& button': {
                     color: '#2f2f2f',
                     textTransform: 'capitalize',
@@ -178,7 +121,16 @@ const CreateEventPage = () => {
               </Tabs>
             </Box>
             <Box className='mt-6'>
-              <CreateEvent page={page} index={0} control={control} setValue={setValue} errors={errors} />
+              <CreateEvent
+                page={page}
+                index={0}
+                register={register}
+                control={control}
+                setValue={setValue}
+                errors={errors}
+                file={file}
+                setFile={setFile}
+              />
               <RegisterEvent
                 page={page}
                 index={1}

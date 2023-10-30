@@ -24,12 +24,12 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
         </div>
         {FieldRegistration.fields.map((field, index: number) => (
           <div key={field.id}>
-            <div className='grid grid-cols-9 gap-x-6 mb-4 '>
+            <div className='grid grid-cols-11 gap-x-6 mb-2'>
               <Controller
                 name={`registrationInfos.${index}.startAt`}
                 control={control}
                 render={({ field: { onChange, value = null }, fieldState: { error } }) => (
-                  <div className='col-span-4'>
+                  <div className='col-span-5'>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={['DateTimeField']}>
                         <DateTimePicker
@@ -51,7 +51,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 name={`registrationInfos.${index}.endAt`}
                 control={control}
                 render={({ field: { onChange, value = null }, fieldState: { error } }) => (
-                  <div className='col-span-4'>
+                  <div className='col-span-5'>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={['DateTimeField']}>
                         <DateTimePicker
@@ -121,12 +121,12 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
         </div>
         {FieldAttendance.fields.map((field, index: number) => (
           <div key={field.id}>
-            <div className='grid grid-cols-9 gap-x-6 mb-4'>
+            <div className='grid grid-cols-11 gap-x-6 mb-2'>
               <Controller
                 name={`attendanceInfos.${index}.startAt`}
                 control={control}
                 render={({ field: { onChange, value = null }, fieldState: { error } }) => (
-                  <div className='col-span-4'>
+                  <div className='col-span-5'>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={['DateTimeField']}>
                         <DateTimePicker
@@ -148,7 +148,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 name={`attendanceInfos.${index}.endAt`}
                 control={control}
                 render={({ field: { onChange, value = null }, fieldState: { error } }) => (
-                  <div className='col-span-4'>
+                  <div className='col-span-5'>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={['DateTimeField']}>
                         <DateTimePicker

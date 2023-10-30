@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
 import requestEventAPI from './requestEvent.api'
-import { requestEventForm } from '../../interfaces/RequestEventForm/requestEventForm.type'
+import { requestEventForm } from '../../interfaces/RequestEventForm/request_event-form.type'
 import { toast } from 'react-toastify'
 
 class RequestCreateEventCommandHandler {
@@ -30,7 +30,7 @@ class RequestCreateEventCommandHandler {
         })
       }
     })
- 
+
     event.imageUrl = uploadImageResponse?.data.url
 
     return this._requestCreateEventMutation.mutate(event, {

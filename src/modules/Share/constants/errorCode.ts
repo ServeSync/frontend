@@ -66,6 +66,21 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server',
       field: 'email'
     },
+    'Faculty:000002': {
+      message: 'Khoa không tồn tại!',
+      type: 'Server',
+      field: 'facultyId'
+    },
+    'HomeRoom:000002': {
+      message: 'Lớp sinh hoạt không tồn tại!',
+      type: 'Server',
+      field: 'homeRoomId'
+    },
+    'EducationProgram:000002': {
+      message: 'Hệ đào tạo không tồn tại!',
+      type: 'Server',
+      field: 'educationProgramId'
+    },
     'Event:000002': {
       message: 'Không phải thời điểm đăng ký !',
       type: 'Server'

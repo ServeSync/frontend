@@ -3,12 +3,10 @@ import { Fragment } from 'react'
 import { FormRequestEventType } from '../../utils'
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form'
 import { TextField } from '@mui/material'
-// import Button from 'src/modules/Share/components/Button'
-// import { CreateOrganizationInfoCommandHandler } from '../../services/RequestEvent'
-// import { handleError } from 'src/modules/Share/utils'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import InputAvatar from 'src/modules/Share/components/InputAvatar'
+
 interface Props {
   register: UseFormRegister<FormRequestEventType>
   errors: FieldErrors<FormRequestEventType>

@@ -1,87 +1,35 @@
-import { useContext, Fragment } from 'react'
+import { useContext } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import Popover from '@mui/material/Popover'
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
 import { AppContext } from '../../contexts'
 import { GetProfileQuery } from '../../services'
-import { GetRoleQuery } from 'src/modules/RoleManagement/services'
 import { clearTokenFromLocalStorage } from 'src/modules/Authentication/utils'
 import path from '../../constants/path'
 import Button from '../Button'
-import { GetStudentQuery } from 'src/modules/StudentManagement/services'
-import useQueryRoleConfig from 'src/modules/RoleManagement/hooks/useQueryRoleConfig'
-import useQueryStudentConfig from 'src/modules/StudentManagement/hooks/useQueryStudentConfig'
-import Popover from '@mui/material/Popover'
-import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state'
+import { HandleHeading } from '../../constants'
 
 export default function Header() {
   const { setIsAuthenticated } = useContext(AppContext)
 
   const navigate = useNavigate()
 
-  const queryRoleConfig = useQueryRoleConfig()
-  const queryStudentConfig = useQueryStudentConfig()
-
-  const location = useLocation().pathname.split('/').slice(1)
+  const location = useLocation().pathname.split('/').slice(2)
 
   const getProfileQuery = new GetProfileQuery()
   const profile = getProfileQuery.fetch()
 
-  const getRoleQuery = new GetRoleQuery(queryRoleConfig.id as string, location[0])
-  const role = getRoleQuery.fetch()
-
-  const getStudentQuery = new GetStudentQuery(queryStudentConfig.id as string, location[0])
-  const student = getStudentQuery.fetch()
-
-  const handleHeader = () => {
-    if (role) {
-      return role.name
-    } else if (student) {
-      return student.fullName
-    } else return ''
-  }
-
   const handleLogout = () => {
     setIsAuthenticated(false)
     clearTokenFromLocalStorage()
-    navigate(path.landingpage)
+    navigate(path.landing_page)
   }
 
   return (
     <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all z-40'>
       <div className='w-full lg:max-w-full md:max-w-[786px] sm:max-w-[640px] flex items-center justify-between h-full px-6 overflow-hidden text-black'>
-        <div className='font-semibold text-[18px] capitalize flex'>
-          {location[0] !== 'home' && location[0] !== 'roles' && (
-            <Fragment>
-              <Link to={`/${location[0]}`}>{location[0]}</Link>
-              <div className='h-6 mx-4 border-r border-gray-300 -skew-x-12'></div>
-              {location[1] ? (
-                location[1] !== 'create' ? (
-                  <span className='text-gray-500'>{handleHeader()}</span>
-                ) : (
-                  <span className='text-gray-500'>Create</span>
-                )
-              ) : (
-                <span className='text-gray-500'>List</span>
-              )}
-              {location[1] !== 'request' ? (
-                <span className='text-gray-500'>{handleHeader()}</span>
-              ) : (
-                <span className='text-gray-500'>Request</span>
-              )}
-            </Fragment>
-          )}
-          {location[0] === 'roles' && (
-            <Fragment>
-              <Link to={`/${location[0]}`}>{location[0]}</Link>
-              <div className='h-6 mx-4 border-r border-gray-300 -skew-x-12'></div>
-              {role ? (
-                <span className='text-gray-500'>{handleHeader()}</span>
-              ) : (
-                <span className='text-gray-500'>List</span>
-              )}
-            </Fragment>
-          )}
-        </div>
+        <div className='font-semibold text-[18px] capitalize flex'>{HandleHeading(location[0])}</div>
         <div className='flex items-center flex-shrink-0 gap-x-6'>
           <div className='relative flex items-center gap-3'>
             <Button type='button' classNameButton='relative'>

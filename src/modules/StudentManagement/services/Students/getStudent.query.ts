@@ -11,12 +11,12 @@ class GetStudentQuery {
   private _query
   private _navigate
 
-  constructor(id: string, param?: string) {
+  constructor(id: string) {
     this._navigate = useNavigate()
     this._query = useQuery({
       queryKey: ['student', id],
       queryFn: () => studentAPI.getStudent(id),
-      enabled: id !== undefined && param === 'students',
+      enabled: id !== undefined,
       onError: (error: any) => {
         handleError(error)
         this._navigate(path.student)

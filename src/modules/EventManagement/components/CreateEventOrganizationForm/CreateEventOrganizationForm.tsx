@@ -29,14 +29,14 @@ const CreateEventOrganizationForm = ({
         <div className='col-span-4 flex justify-between items-center mb-4'>
           <h2 className='text-[16px]'>Thêm nhà tổ chức</h2>
         </div>
-        <div className='grid grid-cols-10 gap-x-6 mb-2'>
+        <div className='grid grid-cols-12 gap-x-6 mb-2'>
           <Controller
             name={'organizations.organizationId'}
             control={control}
             defaultValue=''
             render={({ field: { onChange, value } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-4'>
+                <div className='col-span-5'>
                   <Autocomplete
                     disablePortal
                     id='event_organization'
@@ -57,7 +57,7 @@ const CreateEventOrganizationForm = ({
             control={control}
             defaultValue=''
             render={({ field: { onChange, value } }) => (
-              <div className='col-span-4'>
+              <div className='col-span-5'>
                 <TextField
                   id='role'
                   label='Vai trò'

@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import EventRating from 'src/modules/Landingpage/components/EventRating/EventRating'
+import EventRating from 'src/modules/LandingPage/components/EventRating/EventRating'
 import path from 'src/modules/Share/constants/path'
 
 const EventDetail = () => {

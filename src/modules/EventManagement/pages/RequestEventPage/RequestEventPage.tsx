@@ -112,14 +112,13 @@ const RequestEventPage = () => {
           eventOrganizationInfo: organizationDataPromise,
           eventOrganizationContactInfo: organizationContactDataPromise
         }
-        console.log(body)
         await requestCreateEventCommandHandler.handle(
           { ...body },
           file as File,
           () => {
             toast.success('Yêu cầu thêm sự kiện thành công !')
             navigate({
-              pathname: path.landingpage
+              pathname: path.landing_page
             })
           },
           setError

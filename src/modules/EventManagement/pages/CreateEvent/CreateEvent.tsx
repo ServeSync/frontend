@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue, FieldErrors } from 'react-hook-form'
+import { Control, UseFormSetValue, FieldErrors, UseFormRegister } from 'react-hook-form'
 import { useState } from 'react'
 import { FormEventType } from '../../utils'
 import useQueryActivityConfig from '../../hooks/useQueryActivityConfig'
@@ -11,11 +11,14 @@ interface Props {
   page: number
   index: number
   control: Control<FormEventType>
+  register: UseFormRegister<FormEventType>
   setValue: UseFormSetValue<FormEventType>
   errors: FieldErrors<FormEventType>
+  file: File | undefined
+  setFile: React.Dispatch<React.SetStateAction<File | undefined>>
 }
 
-const CreateEvent = ({ page, index, control, setValue, errors }: Props) => {
+const CreateEvent = ({ page, index, register, control, setValue, errors, file, setFile }: Props) => {
   const [categoryId, setCategoryId] = useState<string>('')
 
   const handleChangeCategory = (id: string) => {
@@ -39,10 +42,13 @@ const CreateEvent = ({ page, index, control, setValue, errors }: Props) => {
       {page === index && (
         <CreateEventForm
           control={control}
+          register={register}
           setValue={setValue}
           errors={errors}
           eventCategories={eventCategories && eventCategories.data}
           activities={activities && activities.data}
+          file={file}
+          setFile={setFile}
           onChangeCategory={handleChangeCategory}
           setEventCategoriesSearch={setEventCategoriesSearch}
           setActivitiesSearch={setActivitiesSearch}
