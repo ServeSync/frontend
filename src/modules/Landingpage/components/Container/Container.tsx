@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
 import { Link } from 'react-router-dom'
-import {} from '@material-tailwind/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
