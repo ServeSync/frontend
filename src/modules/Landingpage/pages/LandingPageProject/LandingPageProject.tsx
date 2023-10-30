@@ -5,7 +5,7 @@ import LandingPageHeader from '../../components/LandingPageHeader'
 import Container from '../../components/Container'
 import Footer from '../../components/Footer'
 
-function LandingPageProject() {
+const LandingPageProject = () => {
   const getAllEventsDoneQuery = new GetAllEventsByStatusQuery('done')
   const getAllEventHappeningQuery = new GetAllEventsByStatusQuery('happening')
   const getAllEventUpcomingQuery = new GetAllEventsByStatusQuery('upcoming')
@@ -20,7 +20,7 @@ function LandingPageProject() {
         <title>ServeSync</title>
         <meta name='description' content='This is student management page of the project' />
       </Helmet>
-      <div className=''>
+      <div>
         <LandingPageHeader />
         <Container eventsDone={eventsDone} eventsHappening={eventsHappening} eventsUpcoming={eventsUpcoming} />
         <Footer />
