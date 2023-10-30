@@ -8,6 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
 import { gender } from 'src/modules/StudentManagement/constants'
 import InputAvatar from 'src/modules/Share/components/InputAvatar'
+
 interface Props {
   register: UseFormRegister<FormRequestEventType>
   errors: FieldErrors<FormRequestEventType>
@@ -209,21 +210,6 @@ const RequestEventOrganizerContactForm = ({
           />
         </div>
       </div>
-      {/* <div className='flex justify-end col-span-2 gap-4 items-center'>
-        <Button
-          type='button'
-          classNameButton='bg-gray-300   py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[40px]'
-        >
-          Làm mới
-        </Button>
-        <Button
-          type='button'
-          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[40px]'
-          onClick={handleAddEventOrganizerContact}
-        >
-          Thêm nhà tổ chức
-        </Button>
-      </div> */}
     </Fragment>
   )
 }

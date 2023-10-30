@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react'
 import { GoogleMap, Marker, DirectionsRenderer, Autocomplete, useJsApiLoader } from '@react-google-maps/api'
@@ -7,11 +8,9 @@ import Button from 'src/modules/Share/components/Button'
 import { LocationType, MarkerType } from '../../interfaces'
 import { FormSearchMapType } from '../../utils'
 
-
 interface Props {
   register: UseFormRegister<FormSearchMapType>
   handleSubmit: UseFormHandleSubmit<FormSearchMapType>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setValue: UseFormSetValue<any>
   reset: UseFormReset<FormSearchMapType>
   center: LocationType

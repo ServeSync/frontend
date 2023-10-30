@@ -48,7 +48,7 @@ const InputImage = ({ onChange, register, previewImage, student }: Props) => {
         />
         <Button
           type='button'
-          classNameButton='absolute bg-slate-100 outline-none w-[60px] h-[60px] bottom-6 right-6 rounded-full'
+          classNameButton='absolute bg-slate-100 outline-none w-[48px] h-[48px] bottom-6 right-6 rounded-full'
           onClick={handleUploadFile}
         >
           <div className='flex items-center justify-center'>

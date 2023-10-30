@@ -14,7 +14,7 @@ const EventDetailInfomation = () => {
   useEffect(() => {
     setMarkers([...markers, { position: center }])
   }, [center, markers, setMarkers])
-
+ 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,

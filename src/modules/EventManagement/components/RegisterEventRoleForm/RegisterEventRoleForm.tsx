@@ -7,6 +7,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { FormEventType } from '../../utils'
 import { EventRole } from '../../interfaces'
 import { RoleTableHeader, isNeedApprove } from '../../constants'
+import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg'
+import draftToHtml from 'draftjs-to-html'
 
 interface Props {
   control: Control<FormEventType>
@@ -26,6 +29,11 @@ const RegisterEventRoleForm = ({
   setDataEventRole
 }: Props) => {
   const [isEditEventRole, setIsEditEventRole] = useState<boolean>(false)
+  const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
+
+  const onEditorStateChange = (editorState: EditorState) => {
+    setDescription(editorState)
+  }
 
   const [index, setIndex] = useState<number>(0)
   const [errors, setErrors] = useState<string>('')
@@ -35,14 +43,21 @@ const RegisterEventRoleForm = ({
     setIndex(index)
     const data = [...dataEventRole]
     setValue('roles.name', data[index].name)
-    setValue('roles.description', data[index].description)
     setValue('roles.isNeedApprove', data[index].isNeedApprove)
     setValue('roles.quantity', data[index].quantity)
     setValue('roles.score', data[index].score)
+    const blocksFromHTML = convertFromHTML(data[index].description as string)
+    const description = EditorState.createWithContent(
+      ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
+    )
+    setDescription(description)
   }
 
   const handleSubmit = () => {
-    const role = { ...getValues('roles') }
+    const role = {
+      ...{ ...getValues('roles') },
+      description: draftToHtml(convertToRaw(description.getCurrentContent()))
+    }
     const regexNumber = /^-?\d+$/
     const eventRoles: EventRole[] = [...dataEventRole]
     isEditEventRole ? eventRoles.splice(index, 1) : eventRoles
@@ -66,6 +81,7 @@ const RegisterEventRoleForm = ({
         }
         setErrors('')
         reset()
+        setDescription(EditorState.createEmpty())
       }
     } else {
       setErrors('Vui lòng nhập đầy đủ dữ liệu !')
@@ -80,11 +96,13 @@ const RegisterEventRoleForm = ({
 
   const handleResetForm = () => {
     reset()
+    setDescription(EditorState.createEmpty())
   }
 
   const handleCancelEdit = () => {
     setIsEditEventRole(false)
     reset()
+    setDescription(EditorState.createEmpty())
   }
 
   const reset = () => {
@@ -102,7 +120,7 @@ const RegisterEventRoleForm = ({
           <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
             <tr className='text-[16px] text-gray-600'>
               {RoleTableHeader.map((item) => (
-                <th className='px-2 py-2 font-semibold text-center' key={item.id}>
+                <th className='px-2 py-2 font-semibold' key={item.id}>
                   <span>{item.name}</span>
                 </th>
               ))}
@@ -117,12 +135,15 @@ const RegisterEventRoleForm = ({
                   key={index}
                 >
                   <th className='px-2 py-4 font-medium w-[20%]'>{item.name}</th>
-                  <th className='px-2 py-4 font-medium'>{item.description}</th>
-                  <th className='px-2 py-4 font-medium w-[7%] text-center'>{item.score}</th>
-                  <th className='px-2 py-4 font-medium w-[15%] text-center'>
+                  <th
+                    className='px-2 py-4 font-medium'
+                    dangerouslySetInnerHTML={{ __html: item.description as string }}
+                  ></th>
+                  <th className='px-2 py-4 font-medium w-[4%] text-center'>{item.score}</th>
+                  <th className='px-2 py-4 font-medium w-[10%] text-center'>
                     <input type='checkbox' defaultChecked={item.isNeedApprove === 'true'} disabled readOnly />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[13%]'>
+                  <th className='px-2 py-4 font-medium w-[10%]'>
                     <div>
                       <Button
                         type='button'
@@ -173,13 +194,13 @@ const RegisterEventRoleForm = ({
         </table>
       </div>
       <div className='border-[1px] border-gray-300 p-4'>
-        <div className='grid grid-cols-12 grid-rows-3 gap-x-6 gap-y-2'>
+        <div className='grid grid-cols-12 gap-6'>
           <Controller
             name='roles.name'
             control={control}
             render={({ field: { onChange, value = '' } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-6'>
+                <div className='col-span-4'>
                   <TextField
                     id='role_name'
                     label='Vai trò'
@@ -192,12 +213,12 @@ const RegisterEventRoleForm = ({
               </LocalizationProvider>
             )}
           />
-          <Controller
+          {/* <Controller
             name='roles.description'
             control={control}
             render={({ field: { onChange, value = '' } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-6 row-span-2'>
+                <div className='col-span-6'>
                   <TextField
                     id='role_description'
                     label='Mô tả'
@@ -211,13 +232,13 @@ const RegisterEventRoleForm = ({
                 </div>
               </LocalizationProvider>
             )}
-          />
+          /> */}
           <Controller
             name='roles.quantity'
             control={control}
             render={({ field: { onChange, value = '' } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-3'>
+                <div className='col-span-2'>
                   <TextField
                     id='role_quantity'
                     label='Số lượng'
@@ -234,7 +255,7 @@ const RegisterEventRoleForm = ({
             control={control}
             render={({ field: { onChange, value = '' } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-3'>
+                <div className='col-span-2'>
                   <TextField
                     id='role_score'
                     label='Điểm'
@@ -251,7 +272,7 @@ const RegisterEventRoleForm = ({
             control={control}
             render={({ field: { onChange, value } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-6'>
+                <div className='col-span-4'>
                   <Autocomplete
                     disablePortal
                     id='isNeedApprove'
@@ -263,16 +284,21 @@ const RegisterEventRoleForm = ({
                     onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors}</span>
                 </div>
               </LocalizationProvider>
             )}
           />
-          <div className='flex justify-end col-span-6 gap-4'>
+          <div className='col-span-12 '>
+            <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
+              <Editor editorState={description} onEditorStateChange={onEditorStateChange} />
+            </div>
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors}</span>
+          </div>
+          <div className='flex justify-end col-span-12 gap-4'>
             {isEditEventRole && (
               <Button
                 type='button'
-                classNameButton='bg-gray-300 py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px] mt-[4px]'
+                classNameButton='bg-gray-300 py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
                 onClick={handleCancelEdit}
               >
                 Hủy
@@ -280,14 +306,14 @@ const RegisterEventRoleForm = ({
             )}
             <Button
               type='button'
-              classNameButton='bg-[#da4848] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px] mt-[4px]'
+              classNameButton='bg-[#da4848] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
               onClick={handleResetForm}
             >
               Làm mới
             </Button>
             <Button
               type='button'
-              classNameButton='bg-[#26C6DA] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px] mt-[4px]'
+              classNameButton='bg-[#26C6DA] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
               onClick={handleSubmit}
             >
               {isEditEventRole ? 'Chỉnh sửa' : 'Thêm'}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Controller, Control, useForm, UseFormSetValue, FieldErrors } from 'react-hook-form'
-import { useState } from 'react'
+import { Controller, Control, useForm, UseFormSetValue, FieldErrors, UseFormRegister } from 'react-hook-form'
+import { useMemo, useState } from 'react'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Autocomplete, TextField } from '@mui/material'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
@@ -17,13 +17,18 @@ import AutocompleteWithDebounce from 'src/modules/Share/components/AutocompleteW
 import Button from 'src/modules/Share/components/Button'
 import Map from '../Map'
 import ModalCustom from 'src/modules/Share/components/Modal'
+import InputImage from 'src/modules/Share/components/InputImage'
+import Input from 'src/modules/Share/components/Input'
 
 interface Props {
-  control: Control<any>
-  setValue: UseFormSetValue<any>
+  control: Control<FormEventType>
+  register: UseFormRegister<FormEventType>
+  setValue: UseFormSetValue<FormEventType>
   errors: FieldErrors<FormEventType>
   eventCategories: EventCategoryType[]
   activities: ActivityType[]
+  file: File | undefined
+  setFile: React.Dispatch<React.SetStateAction<File | undefined>>
   onChangeCategory: (id: string) => void
   setEventCategoriesSearch: React.Dispatch<React.SetStateAction<string>>
   setActivitiesSearch: React.Dispatch<React.SetStateAction<string>>
@@ -31,14 +36,25 @@ interface Props {
 
 const CreateEventForm = ({
   control,
+  register,
   setValue,
   errors,
   eventCategories,
   activities,
+  file,
+  setFile,
   onChangeCategory,
   setEventCategoriesSearch,
   setActivitiesSearch
 }: Props) => {
+  const previewImage = useMemo(() => {
+    return file ? URL.createObjectURL(file) : ''
+  }, [file])
+
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+  }
+
   const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
 
   const onEditorStateChange = (editorState: EditorState) => {
@@ -70,13 +86,57 @@ const CreateEventForm = ({
   return (
     <div>
       <div className='flex flex-col gap-y-2'>
-        <h2 className='text-[17px] col-span-4 mb-2'>Thông tin chi tiết</h2>
         <div className='grid grid-cols-12 gap-x-6 gap-y-4'>
+          <Input
+            register={register}
+            id='name'
+            name='name'
+            placeholder='Tên sự kiện'
+            className='col-span-12'
+            classNameInput='text-[#195E8E] text-[42px] font-bold placeholder:text-[42px] placeholder:text-[#195E8E] placeholder-bold bg-transparent pr-4 outline-none h-[54px]'
+            error={errors.name?.message}
+          />
+          <Input
+            register={register}
+            id='introduction'
+            name='introduction'
+            placeholder='Giới thiệu sự kiện'
+            className='col-span-12 relative'
+            classNameInput='text-black/90 text-[16px] placeholder:text-black/90 bg-transparent pl-7 pr-4 outline-none h-[28px]'
+            error={errors.introduction?.message}
+          >
+            <div className='absolute left-0 top-[0px] cursor-pointer text-black'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='w-6 h-6'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10'
+                />
+              </svg>
+            </div>
+          </Input>
+          <div className='col-span-4 row-span-4'>
+            <div className='w-full h-full relative rounded-xl'>
+              <InputImage register={register} onChange={handleChangeFile} previewImage={previewImage} />
+              <div className='absolute bottom-[4px] right-[26px]'>
+                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                  {errors.imageUrl?.message}
+                </span>
+              </div>
+            </div>
+          </div>
           <Controller
             name='startAt'
             control={control}
             render={({ field: { onChange, value = null }, fieldState: { error } }) => (
-              <div className='col-span-6 mt-[-8px]'>
+              <div className='col-span-4 mt-[-8px]'>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DateTimeField']}>
                     <DateTimePicker
@@ -96,7 +156,7 @@ const CreateEventForm = ({
             name='endAt'
             control={control}
             render={({ field: { onChange, value = null }, fieldState: { error } }) => (
-              <div className='col-span-6 mt-[-8px]'>
+              <div className='col-span-4 mt-[-8px]'>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DateTimeField']}>
                     <DateTimePicker
@@ -113,75 +173,12 @@ const CreateEventForm = ({
             )}
           />
           <Controller
-            name='type'
-            control={control}
-            defaultValue=''
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-4'>
-                  <Autocomplete
-                    disablePortal
-                    id='eventType'
-                    options={eventType}
-                    value={eventType.find((option) => option.id === value) || null}
-                    getOptionLabel={(option) => option.name}
-                    renderInput={(params) => <TextField {...params} label='Chọn loại sự kiện' />}
-                    onChange={(_, option) => onChange(option ? option.id : '')}
-                    className='bg-white'
-                  />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
-                </div>
-              </LocalizationProvider>
-            )}
-          />
-          <Controller
-            name='categoryId'
-            control={control}
-            defaultValue=''
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-4'>
-                  <AutocompleteWithDebounce
-                    id='education_program'
-                    label='Danh mục sự kiện'
-                    options={eventCategories}
-                    value={value as string}
-                    onChange={onChange}
-                    onChangeId={onChangeCategory}
-                    setTextSearch={setEventCategoriesSearch}
-                  />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
-                </div>
-              </LocalizationProvider>
-            )}
-          />
-          <Controller
-            name='activityId'
-            control={control}
-            defaultValue=''
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-4'>
-                  <AutocompleteWithDebounce
-                    id='education_program'
-                    label='Hoạt động sự kiện'
-                    options={activities}
-                    value={value as string}
-                    onChange={onChange}
-                    setTextSearch={setActivitiesSearch}
-                  />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
-                </div>
-              </LocalizationProvider>
-            )}
-          />
-          <Controller
             name='address.fullAddress'
             control={control}
             defaultValue='Danang University of Technology, Nguyễn Lương Bằng, Hòa Khánh Bắc, Liên Chiểu, Da Nang, Vietnam'
             render={({ field: { onChange, value = null }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-12'>
+                <div className='col-span-8'>
                   <TextField
                     id='address'
                     label='Địa điểm'
@@ -201,7 +198,7 @@ const CreateEventForm = ({
             defaultValue='108.15078258893459'
             render={({ field: { value = null }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-5'>
+                <div className='col-span-4'>
                   <TextField
                     id='address_longitude'
                     label='Kinh độ'
@@ -220,7 +217,7 @@ const CreateEventForm = ({
             defaultValue='16.074160300547344'
             render={({ field: { value = null }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-5'>
+                <div className='col-span-3'>
                   <TextField
                     id='address_latitude'
                     label='Vĩ độ'
@@ -233,7 +230,7 @@ const CreateEventForm = ({
               </LocalizationProvider>
             )}
           />
-          <div className='col-span-2 flex justify-end'>
+          <div className='col-span-1 flex justify-end'>
             <Button
               type='button'
               classNameButton='border-[1px] border-[#39a4b2] w-[56px] h-[56px] rounded-lg text-[#39a4b2] flex items-center justify-center'
@@ -268,6 +265,69 @@ const CreateEventForm = ({
               />
             </ModalCustom>
           </div>
+          <Controller
+            name='type'
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div className='col-span-4'>
+                  <Autocomplete
+                    disablePortal
+                    id='eventType'
+                    options={eventType}
+                    value={eventType.find((option) => option.id === value) || null}
+                    getOptionLabel={(option) => option.name}
+                    renderInput={(params) => <TextField {...params} label='Chọn loại sự kiện' />}
+                    onChange={(_, option) => onChange(option ? option.id : '')}
+                    className='bg-white'
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
+                </div>
+              </LocalizationProvider>
+            )}
+          />
+          <Controller
+            name='categoryId'
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div className='col-span-2'>
+                  <AutocompleteWithDebounce
+                    id='education_program'
+                    label='Danh mục sự kiện'
+                    options={eventCategories}
+                    value={value as string}
+                    onChange={onChange}
+                    onChangeId={onChangeCategory}
+                    setTextSearch={setEventCategoriesSearch}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
+                </div>
+              </LocalizationProvider>
+            )}
+          />
+          <Controller
+            name='activityId'
+            control={control}
+            defaultValue=''
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div className='col-span-2'>
+                  <AutocompleteWithDebounce
+                    id='education_program'
+                    label='Hoạt động sự kiện'
+                    options={activities}
+                    value={value as string}
+                    onChange={onChange}
+                    setTextSearch={setActivitiesSearch}
+                  />
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
+                </div>
+              </LocalizationProvider>
+            )}
+          />
           <div className='col-span-12 '>
             <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
               <Editor

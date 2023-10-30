@@ -260,7 +260,7 @@ const EditStudentForm = ({
           <Controller
             name='facultyId'
             control={control}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
+            render={({ field: { onChange, value = student && student.citizenId }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <Autocomplete

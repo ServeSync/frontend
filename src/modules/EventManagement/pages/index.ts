@@ -10,3 +10,5 @@ export * from './EventDetail'
 export * from './EventDetailInfomationPage'
 export * from './EventDetailRegisterPage'
 export * from './EventDetailOrganizerPage'
+export * from './RequestEventPage'
+

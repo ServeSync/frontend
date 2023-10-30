@@ -29,7 +29,7 @@ const Footer = () => {
         <li className='text-[16px] font-medium '>Contact</li>
         <li className='text-[14px] font-normal '>Why ServeSync?</li>
         <li className='text-[14px] font-normal '>Partner with us</li>
-        <li className='text-[14px] font-normal '>FAQ’s</li>
+        <li className='text-[14px] font-normal '>FAQs</li>
         <li className='text-[14px] font-normal '>Blog</li>
       </ul>
       <ul className='list-none space-y-10 h-full'>

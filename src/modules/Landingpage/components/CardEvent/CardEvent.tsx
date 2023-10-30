@@ -1,34 +1,38 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
 import classNames from 'classnames'
 import EventRating from '../EventRating/EventRating'
 
+
 interface Props {
   event: EventType
 }
 const CardEvent = ({ event }: Props) => {
   const navigate = useNavigate()
+
   const onShowDetail = (id: string) => {
     navigate({
-      pathname: path.eventdetail,
+      pathname: path.event_detail,
       search: createSearchParams({
         id: id
       }).toString()
     })
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleKeyDown = (event: any) => {
     if (event.key === 'Enter') {
       onShowDetail(event.id)
     }
   }
-  function formatDate(dateString: string) {
+
+  const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
     const date = new Date(dateString)
     return date.toLocaleDateString('en-US', options)
   }
+
   return (
     <div
       className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] shadow-lg rounded-3xl cursor-pointer'
