@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Controller, Control, useForm, UseFormSetValue, FieldErrors } from 'react-hook-form'
+import { useState } from 'react'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Autocomplete, TextField } from '@mui/material'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { FormEventType, FormSearchMapSchema, FormSearchMapType } from '../../utils'
-import { ActivityType, EventCategoryType, LocationType, MarkerType } from '../../interfaces'
-import { eventType } from '../../constants'
-import Button from 'src/modules/Share/components/Button'
-import { useState } from 'react'
-import ModalCustom from 'src/modules/Share/components/Modal'
-import Map from '../Map'
-import { yupResolver } from '@hookform/resolvers/yup'
-import AutocompleteWithDebounce from 'src/modules/Share/components/AutocompleteWithDebounce'
 import { EditorState, convertToRaw } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import draftToHtml from 'draftjs-to-html'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { FormEventType, FormSearchMapSchema, FormSearchMapType } from '../../utils'
+import { ActivityType, EventCategoryType, LocationType, MarkerType } from '../../interfaces'
+import { eventType } from '../../constants'
+import AutocompleteWithDebounce from 'src/modules/Share/components/AutocompleteWithDebounce'
+import Button from 'src/modules/Share/components/Button'
+import Map from '../Map'
+import ModalCustom from 'src/modules/Share/components/Modal'
 
 interface Props {
   control: Control<FormEventType>
@@ -141,7 +141,7 @@ const CreateEventForm = ({
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-4'>
-                  <AutocompleteWithDebounce<EventCategoryType>
+                  <AutocompleteWithDebounce
                     id='education_program'
                     label='Danh mục sự kiện'
                     options={eventCategories}

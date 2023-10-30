@@ -2,7 +2,8 @@ import http from 'src/modules/Share/utils/http'
 import { AuthResponse, RefreshResponse } from '../../interfaces'
 
 const authAPI = {
-  login: (body: { userNameOrEmail: string; password: string }) => http.post<AuthResponse>('/auth/sign-in', body),
+  login: (body: { userNameOrEmail: string; password: string }) =>
+    http.post<AuthResponse>('/auth/admin-portal/sign-in', body),
 
   forgetPassword: (body: { userNameOrEmail: string; callBackUrl: string }) => http.post('auth/forget-password', body),
 

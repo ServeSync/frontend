@@ -7,6 +7,7 @@ import Button from 'src/modules/Share/components/Button'
 import { LocationType, MarkerType } from '../../interfaces'
 import { FormSearchMapType } from '../../utils'
 
+
 interface Props {
   register: UseFormRegister<FormSearchMapType>
   handleSubmit: UseFormHandleSubmit<FormSearchMapType>
