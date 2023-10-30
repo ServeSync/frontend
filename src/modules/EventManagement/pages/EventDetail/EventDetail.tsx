@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import EventRating from 'src/modules/LandingPage/components/EventRating/EventRating'
 import path from 'src/modules/Share/constants/path'
 import { Box, Tab, Tabs } from '@mui/material'
-import EventDetailInfomationPage from '../EventDetailInformationPage'
+import EventDetailInformationPage from '../EventDetailInformationPage'
 import EventDetailRegisterPage from '../EventDetailRegisterPage'
 import EventDetailOrganizerPage from '../EventDetailOrganizerPage'
 
@@ -144,7 +144,7 @@ const EventDetail = () => {
               </Tabs>
             </Box>
             <Box className='mt-6'>
-              <EventDetailInfomationPage page={page} index={0} />
+              <EventDetailInformationPage page={page} index={0} />
               <EventDetailRegisterPage page={page} index={1} />
               <EventDetailOrganizerPage page={page} index={2} />
             </Box>

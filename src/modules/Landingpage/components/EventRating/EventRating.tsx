@@ -1,12 +1,13 @@
 interface Props {
   rating: number
-  activeClassname?: string
-  nonActiveClassname?: string
+  activeClassName?: string
+  nonActiveClassName?: string
 }
+
 const EventRating = ({
   rating,
-  activeClassname = 'w-4 h-4 fill-[#FF5722] text-[#FF5722]',
-  nonActiveClassname = 'w-4 h-4 fill-current text-gray-300'
+  activeClassName = 'w-4 h-4 fill-[#FF5722] text-[#FF5722]',
+  nonActiveClassName = 'w-4 h-4 fill-current text-gray-300'
 }: Props) => {
   const handleWidth = (rating: number) => {
     if (rating > 0) {
@@ -19,7 +20,7 @@ const EventRating = ({
       {rating}
       <div className='relative'>
         <div className='absolute top-0 left-0 h-full overflow-hidden' style={{ width: handleWidth(rating) }}>
-          <svg enableBackground='new 0 0 15 15' viewBox='0 0 15 15' x={0} y={0} className={activeClassname}>
+          <svg enableBackground='new 0 0 15 15' viewBox='0 0 15 15' x={0} y={0} className={activeClassName}>
             <polygon
               points='7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4'
               strokeLinecap='round'
@@ -28,7 +29,7 @@ const EventRating = ({
             />
           </svg>
         </div>
-        <svg enableBackground='new 0 0 15 15' viewBox='0 0 15 15' x={0} y={0} className={nonActiveClassname}>
+        <svg enableBackground='new 0 0 15 15' viewBox='0 0 15 15' x={0} y={0} className={nonActiveClassName}>
           <polygon
             points='7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4'
             strokeLinecap='round'
