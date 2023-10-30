@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import EventRating from 'src/modules/LandingPage/components/EventRating/EventRating'
 import path from 'src/modules/Share/constants/path'
 import { Box, Tab, Tabs } from '@mui/material'
-import EventDetailInfomationPage from '../EventDetailInfomationPage'
+import EventDetailInfomationPage from '../EventDetailInformationPage'
 import EventDetailRegisterPage from '../EventDetailRegisterPage'
 import EventDetailOrganizerPage from '../EventDetailOrganizerPage'
 
