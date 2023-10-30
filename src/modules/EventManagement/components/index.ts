@@ -7,7 +7,11 @@ export * from './CreateEventOrganizationForm'
 export * from './EditEventForm'
 export * from './Filter'
 export * from './Map'
+export * from './EventDetailInfomation'
+export * from './EventDetailRegister'
+export * from './EventDetailOrganizer'
 export * from './RequestCreateEventForm'
 export * from './RequestEventOrganizerContactForm'
 export * from './RequestEventOrganizerForm'
+
 

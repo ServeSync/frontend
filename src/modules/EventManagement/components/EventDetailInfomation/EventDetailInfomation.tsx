@@ -13,9 +13,8 @@ const EventDetailInfomation = () => {
 
   useEffect(() => {
     setMarkers([...markers, { position: center }])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [center, setMarkers])
-
+  }, [center, markers, setMarkers])
+ 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
