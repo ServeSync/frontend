@@ -1,8 +1,8 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import EventRating from '../EventRating/EventRating'
 import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
 import classNames from 'classnames'
+import EventRating from '../EventRating/EventRating'
 
 interface Props {
   event: EventType
@@ -112,7 +112,6 @@ const CardEvent = ({ event }: Props) => {
           </div>
           <div className='flex justify-between mt-6 max-md:flex-col'>
             <EventRating rating={event.rating} />
-
             <div
               className={classNames('px-6 rounded-xl  flex justify-center items-center cursor-pointer', {
                 'bg-[#00F335]/50': event.status === 'Done',

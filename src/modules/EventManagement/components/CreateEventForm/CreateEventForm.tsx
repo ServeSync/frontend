@@ -19,8 +19,8 @@ import Map from '../Map'
 import ModalCustom from 'src/modules/Share/components/Modal'
 
 interface Props {
-  control: Control<FormEventType>
-  setValue: UseFormSetValue<FormEventType>
+  control: Control<any>
+  setValue: UseFormSetValue<any>
   errors: FieldErrors<FormEventType>
   eventCategories: EventCategoryType[]
   activities: ActivityType[]

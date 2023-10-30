@@ -7,8 +7,8 @@ import 'swiper/css/pagination'
 import SwiperCore from 'swiper'
 import { Navigation, Pagination } from 'swiper/modules'
 import path from 'src/modules/Share/constants/path'
-import CardEvent from '../CardEvent'
 import { EventsListType } from 'src/modules/EventManagement/interfaces'
+import CardEvent from '../CardEvent'
 
 interface Props {
   eventsDone: EventsListType

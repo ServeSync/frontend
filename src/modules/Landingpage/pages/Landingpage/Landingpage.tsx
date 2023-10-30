@@ -8,7 +8,7 @@ import { GetAllEventsByStatusQuery } from '../../../EventManagement/services/'
 const Landingpage = () => {
   const getAllEventsDoneQuery = new GetAllEventsByStatusQuery('done')
   const getAllEventHappendingQuery = new GetAllEventsByStatusQuery('happening')
-  const getAllEventUpcomingQuery = new GetAllEventsByStatusQuery('upcoming', 5)
+  const getAllEventUpcomingQuery = new GetAllEventsByStatusQuery('upcoming')
   const eventsDone = getAllEventsDoneQuery.fetch()
   const eventsHappening = getAllEventHappendingQuery.fetch()
   const eventsUpcoming = getAllEventUpcomingQuery.fetch()

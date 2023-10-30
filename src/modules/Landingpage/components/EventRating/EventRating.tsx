@@ -1,19 +1,19 @@
-export default function EventRating({
-  rating,
-  activeClassname = 'w-4 h-4 fill-[#FF5722] text-[#FF5722]',
-  nonActiveClassname = 'w-4 h-4 fill-current text-gray-300'
-}: {
+interface Props {
   rating: number
   activeClassname?: string
   nonActiveClassname?: string
-}) {
+}
+const EventRating = ({
+  rating,
+  activeClassname = 'w-4 h-4 fill-[#FF5722] text-[#FF5722]',
+  nonActiveClassname = 'w-4 h-4 fill-current text-gray-300'
+}: Props) => {
   const handleWidth = (rating: number) => {
     if (rating > 0) {
       return rating * 20 + '%'
     }
     return '0%'
   }
-
   return (
     <div className='flex items-center text-[#FF5722] justify-center gap-1 text-[14px]'>
       {rating}
@@ -40,3 +40,5 @@ export default function EventRating({
     </div>
   )
 }
+
+export default EventRating
