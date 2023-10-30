@@ -4,13 +4,13 @@ import path from 'src/modules/Share/constants/path'
 import { AppContext } from '../contexts/app.context'
 import AuthenticationLayout from '../layouts/AuthenticationLayout'
 import MainLayout from '../layouts/MainLayout'
-import LandingPageLayout from '../layouts/LandingPageLayout'
+import LandingPageLayout from '../layouts/LandingpageLayout'
 
 const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
 const Home = lazy(() => import('src/modules/Home/pages/Home'))
-const LandingPage = lazy(() => import('src/modules/LandingPage/pages/LandingPage'))
+const LandingPage = lazy(() => import('src/modules/Landingpage/pages/Landingpage'))
 const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))

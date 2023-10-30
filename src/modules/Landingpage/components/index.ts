@@ -1,10 +1,6 @@
 export * from './CardEvent'
-export * from './Container'
-export * from './Footer'
-export * from './LandingPageHeader'
 export * from './EventRating'
-export * from './CardEvent'
 export * from './Container'
-export * from './EventRating'
-export * from './Footer'
 export * from './LandingPageHeader'
+export * from './Footer'
+

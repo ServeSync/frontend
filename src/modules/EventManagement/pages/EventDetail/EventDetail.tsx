@@ -1,12 +1,12 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import EventRating from 'src/modules/LandingPage/components/EventRating/EventRating'
 import path from 'src/modules/Share/constants/path'
 import { Box, Tab, Tabs } from '@mui/material'
 import EventDetailInfomationPage from '../EventDetailInformationPage'
 import EventDetailRegisterPage from '../EventDetailRegisterPage'
 import EventDetailOrganizerPage from '../EventDetailOrganizerPage'
+import EventRating from 'src/modules/Landingpage/components/EventRating'
 
 const EventDetail = () => {
   const [page, setPage] = useState<number>(0)
