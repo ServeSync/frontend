@@ -1,7 +1,7 @@
 interface Props {
   children?: React.ReactNode
 }
-const LandingpageLayout = ({ children }: Props) => {
+const LandingPageLayout = ({ children }: Props) => {
   return (
     <div>
       <div className='w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] absolute top-[50px] left-[-100px]'></div>
@@ -10,4 +10,4 @@ const LandingpageLayout = ({ children }: Props) => {
   )
 }
 
-export default LandingpageLayout
+export default LandingPageLayout
