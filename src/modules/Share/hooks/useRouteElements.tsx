@@ -10,11 +10,10 @@ const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
 const Home = lazy(() => import('src/modules/Home/pages/Home'))
-const LandingPage = lazy(() => import('src/modules/LandingPage/pages/LandingPageProject'))
 const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
-
+const LandingPageProject = lazy(() => import('src/modules/LandingPage/pages/LandingPageProject'))
 const Student = lazy(() => import('src/modules/StudentManagement/pages/Student'))
 const CreateStudent = lazy(() => import('src/modules/StudentManagement/pages/CreateStudent'))
 const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditStudent'))
@@ -76,7 +75,7 @@ const useRouteElements = () => {
           element: (
             <LandingPageProjectLayout>
               <Suspense>
-                <LandingPage />
+                <LandingPageProject />
               </Suspense>
             </LandingPageProjectLayout>
           )

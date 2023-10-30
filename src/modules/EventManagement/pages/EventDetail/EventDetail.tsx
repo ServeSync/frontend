@@ -6,7 +6,7 @@ import { Box, Tab, Tabs } from '@mui/material'
 import EventDetailRegisterPage from '../EventDetailRegisterPage'
 import EventDetailOrganizerPage from '../EventDetailOrganizerPage'
 import EventDetailInformationPage from '../EventDetailInformationPage'
-import EventRating from 'src/modules/LandingPage/components/EventRating'
+import EventRating from '../../components/EventRating'
 
 const EventDetail = () => {
   const [page, setPage] = useState<number>(0)
