@@ -113,8 +113,6 @@ export const FormSearchMapSchema = yup.object({
 
 export type FormSearchMapType = yup.InferType<typeof FormSearchMapSchema>
 
-// Phan cua Ngoc Nguyen
-
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 const today = new Date()

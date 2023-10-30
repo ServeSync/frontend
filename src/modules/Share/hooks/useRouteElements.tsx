@@ -1,16 +1,16 @@
 import { Suspense, lazy, useContext } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
-import AuthenticationLayout from 'src/modules/Share/layouts/AuthenticationLayout'
-import MainLayout from 'src/modules/Share/layouts/MainLayout'
-import LandingpageLayout from '../layouts/LandingpageLayout'
 import { AppContext } from '../contexts/app.context'
+import AuthenticationLayout from '../layouts/AuthenticationLayout'
+import MainLayout from '../layouts/MainLayout'
+import LandingPageLayout from '../layouts/LandingpageLayout'
 
 const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
 const Home = lazy(() => import('src/modules/Home/pages/Home'))
-const Landingpage = lazy(() => import('src/modules/Landingpage/pages/Landingpage'))
+const LandingPage = lazy(() => import('src/modules/Landingpage/pages/Landingpage'))
 const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
@@ -32,7 +32,7 @@ const RejectedRoute = () => {
 
 const ProtectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
-  return isAuthenticated ? <Outlet /> : <Navigate to={path.landingpage} />
+  return isAuthenticated ? <Outlet /> : <Navigate to={path.landing_page} />
 }
 
 const useRouteElements = () => {
@@ -72,13 +72,13 @@ const useRouteElements = () => {
           )
         },
         {
-          path: path.landingpage,
+          path: path.landing_page,
           element: (
-            <LandingpageLayout>
+            <LandingPageLayout>
               <Suspense>
-                <Landingpage />
+                <LandingPage />
               </Suspense>
-            </LandingpageLayout>
+            </LandingPageLayout>
           )
         },
         {
@@ -90,7 +90,7 @@ const useRouteElements = () => {
           )
         },
         {
-          path: path.eventdetail,
+          path: path.event_detail,
           element: (
             <Suspense>
               <EventDetail />

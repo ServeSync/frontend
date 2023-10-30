@@ -1,6 +1,6 @@
 const path = {
-  landingpage: '/',
-  eventdetail: '/event-detail',
+  landing_page: '/',
+  event_detail: '/event-detail',
   login: '/login',
   forget_password: '/forgetPassword',
   reset_password: '/resetPassword',

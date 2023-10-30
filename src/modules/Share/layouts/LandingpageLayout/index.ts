@@ -1,3 +1,3 @@
-import LandingpageLayout from './LandingpageLayout'
+import LandingPageLayout from './LandingpageLayout'
 
-export default LandingpageLayout
+export default LandingPageLayout

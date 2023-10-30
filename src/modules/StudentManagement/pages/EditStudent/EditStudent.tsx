@@ -51,9 +51,7 @@ const EditStudent = () => {
   }
 
   useEffect(() => {
-    if (student) {
-      setFacultyId(student.facultyId)
-    }
+    student && setFacultyId(student.facultyId)
   }, [student, setFacultyId])
 
   const getAllEducationProgramsQuery = new GetAllEducationProgramsQuery()
