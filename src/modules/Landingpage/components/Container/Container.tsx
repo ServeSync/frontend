@@ -19,7 +19,7 @@ interface Props {
 SwiperCore.use([Navigation, Pagination])
 const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
   return (
-    <div className='flex flex-col mb-[200px] '>
+    <div className='flex flex-col mb-[200px] overflow-hidden'>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center max-w-screen-xl w-full py-8 px-4 m-auto '>
         <div className='flex flex-col gap-11 lg:max-w-[50%] max-lg:items-center '>
           <div className='w-full text-black text-[69px] font-normal leading-[82px] break-words'>
@@ -39,7 +39,7 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
         </div>
         <div className=''>
           <img
-            src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1698624000&Signature=ltw6vplHGB7GWLlv-ktkGa6oJe3upmWZYuXjUUlK31dpLTi-16JYluKFEXHI2om0WP8doa0Ufk9yIH9FsutvDMXiueJfKFP02vPiI-7DeJ4~IwOLMugkg4ISB4HCD1kTYY4PtXT8pgK6ICCFdGDy4y3av7nLslTrB2w3zipoX4ALgGLSNkurh9AuMCLNK~RWMkuQRnA9ZSLekjvqGeEAzi~9WwxiDZd53JBWYNbjnJ5jUhPzsCl81JSfuwefOooHf7IfdFEHJFbTcxlZlUDK2~1xZf2SG44FoHRZDbgAirgoZcC0OEeDXPNDgZZ6J2PSxXPYluozhppGqAc4ZlGvww__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+            src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699833600&Signature=H2VfA70IdCIy1BGzWgbA1ChJFKq4UYFWEqza2nEGH6DQgyFy5qFoAuIcuW8hkcqWNthududDsoknnqa7VDmn~Dx9VJhipd~7~Q4yKdh1q65g2BKtaFHv0wXTMtwtO7hn~B2KM8qop2byNOknDdzAhXFb6n1FPb7s2sxE6w0-acQUKScP6aPouIH7FoTW3lJVNfgthm03H82MqQJl2Jui4GKd-raIHJwa0QyF2eo8EbkoZk0qejsyl5qh5T3f3O1-sxxBuHmP4R2-fjEDB-KgZBYPuTkiGmoo-Ar9-hJOpJdpLFBB10tqn4D1ifw78fac-j0PdzM0WbxUCnVEKR9Bpg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
             alt=''
             className='rounded-[30px]'
           />
@@ -48,11 +48,11 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
       <div className='flex justify-between max-lg:flex-col items-center gap-20 max-w-screen-xl w-full py-8 px-4 m-auto'>
         <div className='lg:max-w-[50%] relative'>
           <img
-            src='https://s3-alpha-sig.figma.com/img/009c/540d/95f73101eb52a8e05f8d6932d3340bcb?Expires=1698624000&Signature=A~vZn7wHfk9yqo8d02DT5jGTrK6oo-UyOkdJvMwRcFG8m6QL4mfLtwv0NoJM3sApF4W1A3CbV-VaPdIxdginwo3KTnAvnkuZMW~kRPZ0P6x92IZ1eY1To6NNwCWQ~IsSbzbGrd23hbNIPoyZ8CCZqfrt8hZoJ07qtvGERAemN-ssL63kdZ~DBViih0aROJOc9IMisk~Rkdk1wYB-00HfkmbguyZatnUfHwdUvP77TvoD74M42grrrBrg15ynArUSTOjlilpXB1PEVbTnFhLQCiOYuqIAYrtKIhvT62UXV4idTt~UKeHwA9CDhJJAQK5dloSJ1YDhfdLBW1hLI84DqQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+            src='https://s3-alpha-sig.figma.com/img/009c/540d/95f73101eb52a8e05f8d6932d3340bcb?Expires=1699833600&Signature=c3ABQR5mj7dcsbT7IO3jrm3bh-E4bydBApVXPrAv36yv63ZUr99dlPslYJA1UXpeqKnSphPFj3xzC8Qusy5VyFLwHRWlybr2zPvsegfzqvB2eaMgqfG5YC5SUBO1AbMbxfRo9RIgpw6h5GdIEXozv4uXYQw-C2~XhOcxSaHLCoBzxKbidjL7d3tG~KLySeBeg72sSbDsOIifeyB6JpH1tAfKFU6OJPs4QxVE8SarEoIsphJZGA90o0pTl2QHYIhlBlwlZ6sXI4vnlm7~1QkE8G0NhOTUhnpi-M3ZgXYSrMBnOBA9E3Y0x5Ux-HCEpUfqRbaUEBOcSEw2LVnduXFPDw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
             alt=''
             className='rounded-[30px] z-20 relative'
           />
-          <div className='absolute w-[110%] h-[80%] bg-[#26C6DA] top-[200px] left-[-100px] z-10 rounded-r-full'></div>
+          <div className='absolute w-[110%] h-[80%] bg-[#26C6DA]/80 top-[200px] left-[-100px] z-10 rounded-r-full'></div>
         </div>
         <div className='relative flex flex-col gap-5 mt-20'>
           <div className='text-[#F85E9F] text-[23px] font-normal uppercase leading-7 break-words'>Điểm tích lũy</div>
@@ -75,7 +75,7 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
               <div className='text-[#191825] text-[18px] font-normal leading-7 '>Đánh giá tích cực</div>
             </div>
           </div>
-          <div className='absolute w-[50%] h-[50%] bg-[#26C6DA] shadow-xl blur-[200px] top-[-100px] right-[0px] max-lg:right-0'></div>
+          <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-[-100px] right-[50px] max-lg:right-0'></div>
         </div>
       </div>
       <div className='flex max-lg:flex-col gap-28 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-40'>
@@ -169,18 +169,18 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
               <div className='text-[23px] font-normal leading-7 break-words'>Tham gia và tích lũy điểm</div>
             </div>
           </div>
-          <div className='w-[50%] h-[50%] bg-[#26C6DA] shadow-xl blur-[200px] absolute top-[-100px] left-[-250px]'></div>
+          <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-[-100px] left-[-50px] '></div>
         </div>
         <div className='max-w-[45%]'>
           <div className='relative'>
             <img
-              src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1698624000&Signature=dbrogaOmzyYsShCPMPqGrMqXM~ABWE-myC-1EKKfzmZ3iz1w9ThIft9ej6Ux4hY4Fk1a2cnb4Ewk9kGIMcBkZOSFzdh2bKPcF6DgZBbtM9eMLa7CcLnQZcUy~X5X1ZAbaMCSwcUYzINn9e0JoB1coab~HQX0PVk9vnc-c7RXMwiYVkjiH2RdGOVzaZ4em5aeJ4II8NMIhz1qw9x8L6uj1vA8k3u-Jqz1JVvP1lBtd7hCh-Weqp0M2DyMjWArwgqUSzXoy~4ebmhIPb2nnPTWiQQiIOlb0Lg0nGVVFnta~-fT5P9sVi2mIHBp2zaCpa7xDrEN1Bkn8PLvyUHIYCka8Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+              src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1699228800&Signature=Irn7kP7enF9PUJTJ-P6shE79PGWHjqOwI29BLnNvPUh6Ju7Jut23Gpi79k~cliPqHI6POeAcnnJGt-Qx1BpqXNRG8KZuy-BYTUN6RMvci2~KhiNlnU0rlziPVqtZZ9pK8uUtDVWuQjQt-uO7XpgU4mHDcAJegY-R31lFKHpfZZtQAIiSdMqlBA4Kf1C3fTs2Om4ziBaNW~KuMGeKgeS9o1O3gKI3b19qkN4cbXDOlemz1r8~7B2r5DD6rpg-474IQUVsfKYiL65yJw0l5xDd0CV8xTRAN41Te1fwTR49ICPnTBBzEnhnvA0yRsBBgDHFZQVPotLjBShuqEFR8JX78A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
               alt=''
               className='rounded-full'
             />
             <div className='absolute top-[300px] left-60 bg-white rounded-full max-md:top-[150px] max-md:left-20'>
               <img
-                src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1698624000&Signature=ltw6vplHGB7GWLlv-ktkGa6oJe3upmWZYuXjUUlK31dpLTi-16JYluKFEXHI2om0WP8doa0Ufk9yIH9FsutvDMXiueJfKFP02vPiI-7DeJ4~IwOLMugkg4ISB4HCD1kTYY4PtXT8pgK6ICCFdGDy4y3av7nLslTrB2w3zipoX4ALgGLSNkurh9AuMCLNK~RWMkuQRnA9ZSLekjvqGeEAzi~9WwxiDZd53JBWYNbjnJ5jUhPzsCl81JSfuwefOooHf7IfdFEHJFbTcxlZlUDK2~1xZf2SG44FoHRZDbgAirgoZcC0OEeDXPNDgZZ6J2PSxXPYluozhppGqAc4ZlGvww__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699228800&Signature=lAXe1LY7TIoqQsQFZ449oMxLAax~vH1jgj05umunVrwcG0YuF0vwCRXoGmfVeF1d0UMhatepyE8pAu1KBErhXoV7Qw5qYWOzcR9YQKvVPiTHPfgi6JA-dupbe~HTDmxf8SjA3qsmCI6lBuM6ihdkWzDPP9Hb0Rqw651IhYjyzRyH7hcAvQwwvjlMrb0WWCKjOiOiNsgJNY2VvyxTEdZk5ng0HHmurdMiCwePzmieafI0Sa1IDIhH0IxEiHAX3PNBA5MEQmcAiWNF99mBxjuLrAJeisof37BZT5l7hbmjpGIswyU25Ir463lmmxC4j8BnCuBaDL4ovfN6eS3fs7blVQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
                 alt=''
                 className='rounded-full p-4'
               />
@@ -227,7 +227,6 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
             )}
           </Swiper>
         </div>
-        <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>
       </div>
       <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
         <div className='flex flex-col gap-4'>
@@ -267,7 +266,6 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
             )}
           </Swiper>
         </div>
-        <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>
       </div>
       <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
         <div className='flex flex-col gap-4'>
@@ -307,15 +305,13 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
             )}
           </Swiper>
         </div>
-        <div className='w-[40%] h-[40%] bg-[#26C6DA]/50 shadow-xl blur-[300px] absolute top-40 left-[-100px]'></div>
       </div>
-
       <div className='flex flex-col justify-center items-center py-8 px-4 m-auto max-w-screen-xl mt-20'>
         <div className='w-full h-full lg:px-40 py-12 inline-flex justify-center items-center relative'>
           <div className='text-center text-[44px] font-normal leading-[52px] break-words'>
             Tham gia cùng chúng mình để cùng tay tạo nên các khoảnh khắc đáng nhớ nhé!
           </div>
-          <div className='w-[50%] h-[50%] bg-[#26C6DA]/80 shadow-xl blur-[150px] absolute top-20'></div>
+          <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-20'></div>
         </div>
         <div className=' mx-auto px-5 py-2 lg:px-32 lg:pt-24'>
           <div className='-m-1 flex flex-wrap md:-m-2'>

@@ -55,7 +55,7 @@ const CardEvent = ({ event }: Props) => {
           <div className='max-sm:text-[8px] text-[14px] lg:text-[16px] flex items-center gap-4 justify-between max-md:flex-col-reverse truncate'>
             {event.representativeOrganization.name}
             <div className='flex items-center justify-center gap-1.5 font-normal'>
-              <span className='font-normal leading-7 break-words max-sm:text-[14px] text-[20px] lg:text-[23px]'>
+              <span className='font-normal leading-7 break-words max-sm:text-[14px] text-[20px] lg:text-[23px] text-[#195E8E]'>
                 {event.capacity}
               </span>
               <svg
@@ -64,7 +64,7 @@ const CardEvent = ({ event }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-6 h-6 max-sm:w-4 max-sm:h-4 '
+                className='w-6 h-6 max-sm:w-4 text-[#195E8E] max-sm:h-4 '
               >
                 <path
                   strokeLinecap='round'
@@ -84,7 +84,7 @@ const CardEvent = ({ event }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-6 h-6 max-sm:w-4 max-sm:h-4 flex-shrink-0'
+                className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#E80505] flex-shrink-0'
               >
                 <path strokeLinecap='round' strokeLinejoin='round' d='M15 10.5a3 3 0 11-6 0 3 3 0 016 0z' />
                 <path
@@ -104,7 +104,7 @@ const CardEvent = ({ event }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-6 h-6 max-sm:w-4 max-sm:h-4 flex-shrink-0'
+                className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#00BA21] flex-shrink-0'
               >
                 <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z' />
               </svg>
@@ -122,16 +122,7 @@ const CardEvent = ({ event }: Props) => {
                 'bg-[#FFE55A]/50': event.status === 'Upcoming'
               })}
             >
-              <span
-                className={classNames(
-                  'font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[12px]',
-                  {
-                    'text-[#f93232]': event.status === 'Done',
-                    'text-green-950': event.status === 'Happening',
-                    'text-yellow-950': event.status === 'Upcoming'
-                  }
-                )}
-              >
+              <span className='font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[12px]'>
                 {event.status === 'Done'
                   ? 'Đã diễn ra'
                   : event.status === 'Happening'
