@@ -10,7 +10,7 @@ class GetAllFacultiesQuery {
     this._query = useQuery({
       queryKey: ['faculties'],
       queryFn: () => facultyAPI.getListFaculties(),
-      staleTime: 5 * 60 * 1000
+      staleTime: 3 * 60 * 1000
     })
   }
 

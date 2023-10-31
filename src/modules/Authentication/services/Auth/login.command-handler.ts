@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation } from '@tanstack/react-query'
-import { FormLoginType } from '../../utils/rules'
 import authAPI from './auth.api'
+import { FormLoginType } from '../../utils'
 
 class LoginCommandHandler {
   private _loginMutation

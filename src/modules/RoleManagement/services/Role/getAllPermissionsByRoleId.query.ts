@@ -8,7 +8,7 @@ class GetAllPermissionsByRoleIdQuery {
 
   constructor(id: string) {
     this._query = useQuery({
-      queryKey: ['permissions', id],
+      queryKey: ['permissionsByRoleId', id],
       queryFn: () => roleAPI.getListPermissionsByRoleId(id),
       enabled: id !== undefined
     })

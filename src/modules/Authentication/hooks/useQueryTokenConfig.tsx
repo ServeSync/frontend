@@ -1,9 +1,9 @@
 import { isUndefined, omitBy } from 'lodash'
-import { ResetTokenConfig } from '../interfaces'
+import { ResetPasswordTokenConfig } from '../interfaces'
 import { useQueryParams } from 'src/modules/Share/hooks'
 
 export type QueryTokenConfig = {
-  [key in keyof ResetTokenConfig]: string
+  [key in keyof ResetPasswordTokenConfig]: string
 }
 
 const useQueryTokenConfig = () => {

@@ -6,8 +6,8 @@ export const EventTableHeader = [
   },
   {
     id: '2',
-    name: 'Địa điểm',
-    sort: 'Address'
+    name: 'Đơn vị tổ chức',
+    sort: 'RepresentativeOrganization'
   },
   {
     id: '3',
@@ -19,20 +19,21 @@ export const EventTableHeader = [
     name: 'Đã đăng kí',
     sort: ''
   },
+
   {
     id: '5',
-    name: 'Đơn vị tổ chức',
-    sort: 'RepresentativeOrganization'
-  },
-  {
-    id: '6',
     name: 'Ngày bắt đầu',
     sort: 'StartAt'
   },
   {
-    id: '7',
+    id: '6',
     name: 'Ngày kết thúc',
     sort: 'EndAt'
+  },
+  {
+    id: '7',
+    name: 'Loại',
+    sort: ''
   },
   {
     id: '8',

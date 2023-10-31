@@ -67,11 +67,6 @@ const EditStudent = () => {
     resolver: yupResolver(FormStudentSchema)
   })
 
-  const educationIdOfStudent = getStudentQuery.getEducationIdByStudentId()
-  const programOfStudent = educationPrograms?.find((program) => program.id === educationIdOfStudent)
-  const programScoreOfStudent = programOfStudent?.requiredActivityScore || 0
-  const programNameOfStudent = programOfStudent?.name || ''
-
   const editStudentCommandHandler = new EditStudentCommandHandler()
 
   const handleSubmitForm = handleSubmit(async (data) => {
@@ -124,12 +119,17 @@ const EditStudent = () => {
     })
   }
 
-  const handlePreviousPage = () => {
+  const handleCancel = () => {
     navigate({
       pathname: path.student,
       search: createSearchParams(prevAccountConfig).toString()
     })
   }
+
+  const educationIdOfStudent = getStudentQuery.getEducationIdByStudentId()
+  const programOfStudent = educationPrograms?.find((program) => program.id === educationIdOfStudent)
+  const programScoreOfStudent = programOfStudent?.requiredActivityScore || 0
+  const programNameOfStudent = programOfStudent?.name || ''
 
   return (
     <Fragment>
@@ -148,7 +148,7 @@ const EditStudent = () => {
             faculties={faculties}
             homeRooms={homeRooms}
             handleDeleteStudent={handleDeleteStudent}
-            onPreviousPage={handlePreviousPage}
+            onCancel={handleCancel}
             onChange={handleChangeFile}
             onChangeFaculty={handleChangeFaculty}
             previewImage={previewImage}

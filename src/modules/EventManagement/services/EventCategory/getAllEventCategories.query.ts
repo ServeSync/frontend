@@ -11,7 +11,7 @@ class GetAllEventCategoriesQuery {
       queryKey: ['event_categories', eventCategoriesSearch],
       queryFn: () => eventCategoryAPI.getListEventCategories(eventCategoriesSearch),
       keepPreviousData: true,
-      staleTime: 5 * 60 * 1000
+      staleTime: 3 * 60 * 1000
     })
   }
 

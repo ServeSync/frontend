@@ -25,10 +25,10 @@ const RoleTable = ({ roles, roleID, isLoading, onEditRole }: Props) => {
               <Button
                 type='button'
                 classNameButton={classNames(
-                  'w-full border-[1px] border-[#65cad7] px-4 py-2 rounded-md outline-none capitalize font-medium text-left',
+                  'w-full border-[1px] border-[#26C6DA] px-4 py-2 rounded-md outline-none capitalize font-medium text-left',
                   {
                     'bg-[#d4faff]': role.id !== roleID,
-                    'bg-[#65cad7]': role.id === roleID
+                    'bg-[#26C6DA] text-gray-100  ': role.id === roleID
                   }
                 )}
                 key={role.id}

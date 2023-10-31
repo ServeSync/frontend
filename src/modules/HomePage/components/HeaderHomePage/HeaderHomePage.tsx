@@ -2,9 +2,9 @@ import { Link, NavLink } from 'react-router-dom'
 import classNames from 'classnames'
 import { useState } from 'react'
 import path from 'src/modules/Share/constants/path'
-import { logo } from 'src/modules/Share/constants'
+import { logo } from 'src/modules/Share/assets/image'
 
-const LandingPageHeader = () => {
+const HeaderHomePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 
   const handleMenuToggle = () => {
@@ -12,43 +12,77 @@ const LandingPageHeader = () => {
   }
 
   return (
-    <div className=''>
+    <div>
       <header className='relative max-w-screen-xl w-full h-auto flex justify-between items-center py-8 px-4 top-0 left-0 right-0 bg-transparent z-50 mx-auto'>
         <div className='flex w-56 items-center font-normal text-[24px] gap-4 leading-10 font-serif'>
           <img src={logo} alt='logo-img' className='w-20 h-20' />
           ServeSync
         </div>
-        <ul className='lg:flex gap-8 list-none font-medium text-[#191825]/50 hidden text-[14px]'>
-          <NavLink
-            to='/'
-            className={({ isActive }) =>
-              classNames('cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0', {
-                'text-black': isActive
-              })
-            }
-          >
-            Trang chủ
-          </NavLink>
-          <li className='cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'>Discover</li>
-          <li className='cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'>Special Deals</li>
-          <li className='cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0'>Contact</li>
+        <ul className='lg:flex gap-8 list-none font-medium text-[#191825]/50 hidden text-[16px] '>
+          <li>
+            <NavLink
+              to='/'
+              className={({ isActive }) =>
+                classNames('cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0', {
+                  'text-black': isActive
+                })
+              }
+            >
+              Trang chủ
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to='/!'
+              className={({ isActive }) =>
+                classNames('cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0', {
+                  'text-black': isActive
+                })
+              }
+            >
+              Discover
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to='/!'
+              className={({ isActive }) =>
+                classNames('cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0', {
+                  'text-black': isActive
+                })
+              }
+            >
+              Contact
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to='/!'
+              className={({ isActive }) =>
+                classNames('cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0', {
+                  'text-black': isActive
+                })
+              }
+            >
+              Special Deals
+            </NavLink>
+          </li>
         </ul>
-
         <div className='font-medium items-center text-[14px] hidden lg:flex gap-4'>
           <Link
             to={path.request_event}
-            className=' text-black px-4 py-4 rounded-3xl  transition-all duration-300 hover:shadow-md  no-underline flex-shrink-0'
+            className='text-black px-4 py-4 rounded-full transition-all duration-300 shadow-[0_3px_10px_rgb(0,0,0,0.2)] hover:bg-slate-50 no-underline flex-shrink-0'
           >
             Yêu cầu sự kiện
           </Link>
           <Link
-            className='bg-[#5D50C6] text-white px-10 py-4 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md  no-underline flex-shrink-0'
+            className='bg-[#5D50C6] hover:bg-[#5D50C6]/90 text-white px-10 py-4 rounded-full transition-all duration-300 shadow-[0_3px_10px_rgb(0,0,0,0.2)] no-underline flex-shrink-0'
             to={path.login}
           >
             Đăng nhập
           </Link>
         </div>
-        <button className=' text-[2.8rem] transition-all hover:text-[#26C6DA] lg:hidden' onClick={handleMenuToggle}>
+        <button className='text-[2.8rem] transition-all hover:text-[#26C6DA] lg:hidden' onClick={handleMenuToggle}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='30'
@@ -69,7 +103,7 @@ const LandingPageHeader = () => {
             <div className=' mt-4 ml-3 flex items-center gap-12'>
               <Link
                 to={path.login}
-                className='text-white cursor-pointer transition-all duration-300 no-underline px-4 py-4 bg-[#5D50C6] rounded-lg '
+                className='text-white cursor-pointer transition-all duration-300 no-underline px-4 py-4 bg-[#5D50C6] rounded-xl'
               >
                 Đăng nhập
               </Link>
@@ -93,34 +127,36 @@ const LandingPageHeader = () => {
             </div>
 
             <ul className='flex flex-col font-medium mt-4 rounded-lg bg-gray-50  text-[#191825]/50'>
-              <NavLink
-                to='/'
-                className={({ isActive }) =>
-                  classNames(
-                    'cursor-pointer transition-all duration-300 hover:text-[#26C6DA] py-4 pl-3 pr-4 flex items-center gap-2',
-                    {
-                      'text-[#26C6DA] bg-slate-300': isActive
-                    }
-                  )
-                }
-                onClick={handleMenuToggle}
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-6 h-6'
+              <li>
+                <NavLink
+                  to='/'
+                  className={({ isActive }) =>
+                    classNames(
+                      'cursor-pointer transition-all duration-300 hover:text-[#26C6DA] py-4 pl-3 pr-4 flex items-center gap-2',
+                      {
+                        'text-[#26C6DA] bg-slate-300': isActive
+                      }
+                    )
+                  }
+                  onClick={handleMenuToggle}
                 >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25'
-                  />
-                </svg>
-                Home
-              </NavLink>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='w-6 h-6'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25'
+                    />
+                  </svg>
+                  Home
+                </NavLink>
+              </li>
               <li className='cursor-pointer transition-all duration-300 hover:text-[#26C6DA] py-4 pl-3 pr-4 flex items-center gap-2'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -181,4 +217,4 @@ const LandingPageHeader = () => {
   )
 }
 
-export default LandingPageHeader
+export default HeaderHomePage

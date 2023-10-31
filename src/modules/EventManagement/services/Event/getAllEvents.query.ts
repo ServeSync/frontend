@@ -14,7 +14,7 @@ class GetAllEventsQuery {
       queryKey: ['events', this._queryEventConfig, eventStatus],
       queryFn: () => eventAPI.getListEvents(this._queryEventConfig as EventsListConfig),
       keepPreviousData: true,
-      staleTime: 5 * 60 * 1000
+      staleTime: 3 * 60 * 1000
     })
   }
 

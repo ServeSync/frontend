@@ -11,7 +11,7 @@ class GetAllEventOrganizationsQuery {
       queryKey: ['event_organizations'],
       queryFn: () => eventOrganizationAPI.getListEventOrganizations(),
       keepPreviousData: true,
-      staleTime: 5 * 60 * 1000
+      staleTime: 3 * 60 * 1000
     })
   }
 

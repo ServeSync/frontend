@@ -118,7 +118,7 @@ const RequestEventPage = () => {
           () => {
             toast.success('Yêu cầu thêm sự kiện thành công !')
             navigate({
-              pathname: path.landing_page
+              pathname: path.home_page
             })
           },
           setError

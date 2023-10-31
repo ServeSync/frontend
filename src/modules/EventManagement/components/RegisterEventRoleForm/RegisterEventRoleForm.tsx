@@ -56,7 +56,9 @@ const RegisterEventRoleForm = ({
   const handleSubmit = () => {
     const role = {
       ...{ ...getValues('roles') },
-      description: draftToHtml(convertToRaw(description.getCurrentContent()))
+      description: draftToHtml(convertToRaw(description.getCurrentContent())),
+      quantity: ({ ...getValues('roles') }.quantity as string).replace(/^0+/, ''),
+      score: ({ ...getValues('roles') }.score as string).replace(/^0+/, '')
     }
     const regexNumber = /^\d+$/
     const eventRoles: EventRole[] = [...dataEventRole]
@@ -135,10 +137,12 @@ const RegisterEventRoleForm = ({
                   key={index}
                 >
                   <th className='px-2 py-4 font-medium w-[20%]'>{item.name}</th>
-                  <th
-                    className='px-2 py-4 font-medium'
-                    dangerouslySetInnerHTML={{ __html: item.description as string }}
-                  ></th>
+                  <th className='px-2 py-4 font-medium overflow-hidden '>
+                    <span
+                      className='line-clamp-2'
+                      dangerouslySetInnerHTML={{ __html: item.description as string }}
+                    ></span>
+                  </th>
                   <th className='px-2 py-4 font-medium w-[8%] text-center'>{item.quantity}</th>
                   <th className='px-2 py-4 font-medium w-[4%] text-center'>{item.score}</th>
                   <th className='px-2 py-4 font-medium w-[10%] text-center'>
@@ -301,7 +305,7 @@ const RegisterEventRoleForm = ({
               classNameButton='bg-[#26C6DA] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
               onClick={handleSubmit}
             >
-              {isEditEventRole ? 'Chỉnh sửa' : 'Thêm'}
+              {isEditEventRole ? 'Lưu' : 'Thêm'}
             </Button>
           </div>
         </div>

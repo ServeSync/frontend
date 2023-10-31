@@ -143,7 +143,7 @@ const Student = () => {
         <div className='flex justify-between items-center pt-[16px] pb-[40px] font-normal'>
           <form onSubmit={handleSubmitFormFilter}>
             <InputSearch
-              classNameInput='bg-white border-[1px] border-gray-200 rounded h-[44px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
+              classNameInput='bg-white border-[1px] border-gray-200 rounded-md h-[44px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
               placeholder='Tìm kiếm sinh viên'
               name='search'
               register={FilterStudentForm.register}

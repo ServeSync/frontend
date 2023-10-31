@@ -1,3 +1,4 @@
+export * from './student.api'
 export * from './getAllStudents.query'
 export * from './getStudent.query'
 export * from './createStudent.command-handler'

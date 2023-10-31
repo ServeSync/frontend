@@ -10,7 +10,7 @@ import path from 'src/modules/Share/constants/path'
 import { GetAllEventsQuery } from '../../services'
 import useSorting from 'src/modules/Share/hooks/useSorting'
 import { FormFilterEventSchema, FormFilterEventType } from '../../utils'
-import { formatDate } from 'src/modules/Share/utils'
+import { formatDateFilter } from 'src/modules/Share/utils'
 import InputSearch from 'src/modules/Share/components/InputSearch'
 import PopoverCustom from 'src/modules/Share/components/Popover'
 import Filter from '../../components/Filter'
@@ -36,8 +36,8 @@ const Event = () => {
     const config = {
       ...queryEventConfig,
       page: 1,
-      startDate: formatDate(data.startAt as string),
-      endDate: formatDate(data.endAt as string),
+      startDate: formatDateFilter(data.startAt as string),
+      endDate: formatDateFilter(data.endAt as string),
       eventType: data.type,
       eventStatus: data.status,
       search: data.search
@@ -66,7 +66,7 @@ const Event = () => {
         <div className='flex justify-between items-center pt-[16px] pb-[40px] font-normal'>
           <form onSubmit={handleSubmitFormFilter}>
             <InputSearch
-              classNameInput='bg-white border-[1px] border-gray-200 rounded h-[44px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
+              classNameInput='bg-white border-[1px] border-gray-200 rounded-sm h-[44px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
               placeholder='Tìm kiếm sự kiện'
               name='search'
               register={FilterEventForm.register}

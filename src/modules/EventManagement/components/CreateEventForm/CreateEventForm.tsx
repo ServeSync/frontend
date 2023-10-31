@@ -233,7 +233,7 @@ const CreateEventForm = ({
           <div className='col-span-1 flex justify-end'>
             <Button
               type='button'
-              classNameButton='border-[1px] border-[#39a4b2] w-[56px] h-[56px] rounded-lg text-[#39a4b2] flex items-center justify-center'
+              classNameButton='border-[1px] border-[#39a4b2] w-[48px] h-[48px] rounded-lg text-[#39a4b2] flex items-center justify-center'
               onClick={handleOpenModal}
             >
               <svg

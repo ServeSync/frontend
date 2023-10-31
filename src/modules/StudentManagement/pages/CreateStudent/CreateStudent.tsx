@@ -5,7 +5,12 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import { CreateStudentCommandHandler, GetAllEducationProgramsQuery, GetAllFacultiesQuery } from '../../services'
+import {
+  CreateStudentCommandHandler,
+  GetAllEducationProgramsQuery,
+  GetAllFacultiesQuery,
+  GetAllHomeRoomsByFacultyIdQuery
+} from '../../services'
 import path from 'src/modules/Share/constants/path'
 import { formatVNDateTime, handleError } from 'src/modules/Share/utils'
 import CreateStudentForm from '../../components/CreateStudentForm'
@@ -22,6 +27,12 @@ const CreateStudent = () => {
     setFile(file)
   }
 
+  const [facultyId, setFacultyId] = useState<string>('')
+
+  const handleChangeFaculty = (id: string) => {
+    setFacultyId(id)
+  }
+
   const navigate = useNavigate()
 
   const getAllFacultiesQuery = new GetAllFacultiesQuery()
@@ -29,6 +40,9 @@ const CreateStudent = () => {
 
   const getAllEducationProgramsQuery = new GetAllEducationProgramsQuery()
   const educationPrograms = getAllEducationProgramsQuery.fetch()
+
+  const getAllHomeRoomsByFacultyIdQuery = new GetAllHomeRoomsByFacultyIdQuery(facultyId)
+  const homeRooms = getAllHomeRoomsByFacultyIdQuery.fetch()
 
   const {
     register,
@@ -62,7 +76,7 @@ const CreateStudent = () => {
     )
   })
 
-  const handlePreviousPage = () => {
+  const handleCancel = () => {
     navigate({
       pathname: path.student
     })
@@ -82,9 +96,11 @@ const CreateStudent = () => {
             errors={errors}
             educationPrograms={educationPrograms}
             faculties={faculties}
-            onChange={handleChangeFile}
+            homeRooms={homeRooms}
             previewImage={previewImage}
-            onPreviousPage={handlePreviousPage}
+            onChange={handleChangeFile}
+            onCancel={handleCancel}
+            onChangeFaculty={handleChangeFaculty}
             isLoading={createStudentCommandHandler.isLoading()}
           />
         </form>

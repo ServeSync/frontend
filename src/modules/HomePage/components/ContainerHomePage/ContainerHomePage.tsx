@@ -1,13 +1,7 @@
-/* eslint-disable import/no-unresolved */
 import { Link } from 'react-router-dom'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/css'
-import 'swiper/css/pagination'
-import SwiperCore from 'swiper'
-import { Navigation, Pagination } from 'swiper/modules'
 import path from 'src/modules/Share/constants/path'
 import { EventsListType } from 'src/modules/EventManagement/interfaces'
-import CardEvent from '../CardEvent'
+import ContainerEvent from '../EventContainer'
 
 interface Props {
   eventsDone: EventsListType
@@ -15,18 +9,19 @@ interface Props {
   eventsUpcoming: EventsListType
 }
 
-SwiperCore.use([Navigation, Pagination])
-const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
+const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
   return (
     <div className='flex flex-col mb-[200px] overflow-hidden'>
-      <div className='flex max-lg:flex-col gap-10 justify-between items-center max-w-screen-xl w-full py-8 px-4 m-auto '>
+      <div className='flex max-lg:flex-col gap-10 justify-between items-center max-w-screen-xl w-full py-8 px-4 m-auto'>
         <div className='flex flex-col gap-11 lg:max-w-[50%] max-lg:items-center '>
-          <div className='w-full text-black text-[69px] font-normal leading-[82px] break-words'>
-            Tham gia <span className='text-[#26C6DA]'> hoạt động cộng đồng</span> cùng mình nhé!
-          </div>
-          <div className='text-[#19182580] text-[18px] font-normal leading-7 break-words'>
+          <h1 className='w-full text-black text-[69px] font-normal leading-[82px] break-words'>
+            <span>Tham gia</span>
+            <span className='text-[#26C6DA]'> hoạt động cộng đồng </span>
+            <span>cùng mình nhé!</span>
+          </h1>
+          <p className='text-[#19182580] text-[18px] font-normal leading-7 break-words'>
             Chúng tôi mở đường cho bạn tìm đến các hoạt động phù hợp với bản thân.
-          </div>
+          </p>
           <div className='flex flex-col gap-4'>
             <Link
               to={path.login}
@@ -36,7 +31,7 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
             </Link>
           </div>
         </div>
-        <div className=''>
+        <div>
           <img
             src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699833600&Signature=H2VfA70IdCIy1BGzWgbA1ChJFKq4UYFWEqza2nEGH6DQgyFy5qFoAuIcuW8hkcqWNthududDsoknnqa7VDmn~Dx9VJhipd~7~Q4yKdh1q65g2BKtaFHv0wXTMtwtO7hn~B2KM8qop2byNOknDdzAhXFb6n1FPb7s2sxE6w0-acQUKScP6aPouIH7FoTW3lJVNfgthm03H82MqQJl2Jui4GKd-raIHJwa0QyF2eo8EbkoZk0qejsyl5qh5T3f3O1-sxxBuHmP4R2-fjEDB-KgZBYPuTkiGmoo-Ar9-hJOpJdpLFBB10tqn4D1ifw78fac-j0PdzM0WbxUCnVEKR9Bpg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
             alt=''
@@ -54,43 +49,43 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
           <div className='absolute w-[110%] h-[80%] bg-[#26C6DA]/80 top-[200px] left-[-100px] z-10 rounded-r-full'></div>
         </div>
         <div className='relative flex flex-col gap-5 mt-20'>
-          <div className='text-[#F85E9F] text-[23px] font-normal uppercase leading-7 break-words'>Điểm tích lũy</div>
-          <div className='text-[44px] font-normal leading-10 '>Chúng tôi giúp bạn tìm đến các hoạt động phù hợp</div>
+          <h2 className='text-[#F85E9F] text-[24px] font-normal uppercase leading-7 break-words'>Điểm tích lũy</h2>
+          <h3 className='text-[40px] font-normal leading-11'>Chúng tôi giúp bạn tìm đến các hoạt động phù hợp</h3>
           <div className='grid grid-cols-1 sm:grid-cols-2 mt-5 gap-10'>
             <div className='flex flex-col gap-4 items-center justify-center border rounded-3xl p-8'>
-              <div className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>500+</div>
-              <div className='text-[#191825] text-[18px] font-normal leading-7 '>Sự kiện đã tổ chức</div>
+              <span className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>500+</span>
+              <span className='text-[#191825] text-[18px] font-normal leading-7 '>Sự kiện đã tổ chức</span>
             </div>
             <div className='flex flex-col gap-4 items-center justify-center border rounded-3xl p-8'>
-              <div className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>100</div>
-              <div className='text-[#191825] text-[18px] font-normal leading-7 '>Nhà tổ chức sự kiện</div>
+              <span className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>100</span>
+              <span className='text-[#191825] text-[18px] font-normal leading-7 '>Nhà tổ chức sự kiện</span>
             </div>
             <div className='flex flex-col gap-4 items-center justify-center border rounded-3xl p-8'>
-              <div className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>700+</div>
-              <div className='text-[#191825] text-[18px] font-normal leading-7 '>Sinh viên tham gia</div>
+              <span className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>700+</span>
+              <span className='text-[#191825] text-[18px] font-normal leading-7 '>Sinh viên tham gia</span>
             </div>
             <div className='flex flex-col gap-4 items-center justify-center border rounded-3xl p-8'>
-              <div className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>2k+</div>
-              <div className='text-[#191825] text-[18px] font-normal leading-7 '>Đánh giá tích cực</div>
+              <span className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>2k+</span>
+              <span className='text-[#191825] text-[18px] font-normal leading-7 '>Đánh giá tích cực</span>
             </div>
           </div>
           <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-[-100px] right-[50px] max-lg:right-0'></div>
         </div>
       </div>
-      <div className='flex max-lg:flex-col gap-28 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-40'>
-        <div className='flex flex-col gap-11  max-lg:items-center relative'>
+      <div className='flex max-lg:flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-40'>
+        <div className='flex flex-col gap-8 max-lg:items-center relative'>
           <div className='flex flex-col'>
-            <div className='text-[#F85E9F] text-[44px] font-normal uppercase leading-[52px] break-words tracking-[8px]'>
+            <h2 className='text-[#F85E9F] text-[44px] font-normal uppercase leading-[52px] break-words tracking-[8px]'>
               Tham gia sự kiện
-            </div>
-            <div className='text-[30px] font-normal leading-9 mt-4'>Quy trình tham gia sự kiện</div>
-            <div className='text-[18px] font-normal leading-7 break-words text-[#19182580] mt-8'>
+            </h2>
+            <h3 className='text-[30px] font-normal leading-9 mt-4'>Quy trình tham gia sự kiện</h3>
+            <h4 className='text-[18px] font-normal leading-7 break-words text-[#19182580] mt-8'>
               Quy trình tham gia sự kiện đơn giản, đảm bảo bạn là yếu tố cần thiết cho sự kiện.
-            </div>
+            </h4>
           </div>
-          <div className='flex flex-col gap-16'>
+          <div className='flex flex-col gap-8'>
             <div className='flex items-center gap-8'>
-              <div className='bg-[#FF5722] rounded-3xl p-8 text-white'>
+              <div className='bg-[#FF5722] rounded-3xl p-6 text-white'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
@@ -106,10 +101,10 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
                   />
                 </svg>
               </div>
-              <div className='text-[23px] font-normal leading-7 break-words'>Chọn sự kiện phù hợp với bạn</div>
+              <span className='text-[23px] font-normal leading-7 break-words'>Chọn sự kiện phù hợp với bạn</span>
             </div>
             <div className='flex  items-center gap-8'>
-              <div className='bg-[#FACD49] rounded-3xl p-8 text-white'>
+              <div className='bg-[#FACD49] rounded-3xl p-6 text-white'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
@@ -125,12 +120,12 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
                   />
                 </svg>
               </div>
-              <div className='text-[23px] font-normal leading-7 break-words'>
+              <span className='text-[23px] font-normal leading-7 break-words'>
                 Gửi lời ngỏ ý tham gia của bạn đến ban tổ chức
-              </div>
+              </span>
             </div>
             <div className='flex  items-center gap-8'>
-              <div className='bg-[#F85E9F] rounded-3xl p-8 text-white'>
+              <div className='bg-[#F85E9F] rounded-3xl p-6 text-white'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
@@ -146,10 +141,10 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
                   />
                 </svg>
               </div>
-              <div className='text-[23px] font-normal leading-7 break-words'>Nhận lời mời tham gia sự kiện </div>
+              <span className='text-[23px] font-normal leading-7 break-words'>Nhận lời mời tham gia sự kiện </span>
             </div>
             <div className='flex  items-center gap-8'>
-              <div className='bg-[#F85E9F] rounded-3xl p-8 text-white'>
+              <div className='bg-[#F85E9F] rounded-3xl p-6 text-white'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
@@ -165,10 +160,9 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
                   />
                 </svg>
               </div>
-              <div className='text-[23px] font-normal leading-7 break-words'>Tham gia và tích lũy điểm</div>
+              <span className='text-[23px] font-normal leading-7 break-words'>Tham gia và tích lũy điểm</span>
             </div>
           </div>
-          <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-[-100px] left-[-50px] '></div>
         </div>
         <div className='max-w-[45%]'>
           <div className='relative'>
@@ -187,129 +181,14 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
           </div>
         </div>
       </div>
-      <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
-        <div className='flex flex-col gap-4'>
-          <div className='text-[#F85E9F] uppercase text-[44px] font-normal tracking-[8px] break-words'>
-            Sự kiện sắp diễn ra
-          </div>
-          <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện sắp tổ chức tới đây</div>
-        </div>
-        <div className='overflow-hidden py-10 w-full '>
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={30}
-            navigation={true}
-            pagination={{ clickable: true }}
-            modules={[Pagination, Navigation]}
-            className=' px-6 !overflow-visible flex'
-          >
-            {eventsUpcoming &&
-              eventsUpcoming.data.length > 0 &&
-              eventsUpcoming.data.map((event, index) => (
-                <SwiperSlide key={index}>
-                  <CardEvent event={event} />
-                </SwiperSlide>
-              ))}
-            {eventsUpcoming && eventsUpcoming.data.length === 0 && (
-              <div className='flex w-full items-center justify-center'>
-                <div className='text-center'>
-                  <div className='inline-flex rounded-full bg-[#c6f8ff] p-4'>
-                    <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' id='calendar'>
-                      <path d='M53 5h-8v4H19V5h-8v4H0v50h64V9H53V5zm-6 2h4v6h-4V7zM13 7h4v6h-4V7zM2 57V19h60v38H2zm60-46v6H2v-6h9v4h8v-4h26v4h8v-4h9z'></path>
-                    </svg>
-                  </div>
-                  <h1 className='mt-5 text-[36px] font-bold text-slate-800 lg:text-[50px]'>
-                    Không có sự kiện vào thời điểm này
-                  </h1>
-                </div>
-              </div>
-            )}
-          </Swiper>
-        </div>
-      </div>
-      <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
-        <div className='flex flex-col gap-4'>
-          <div className='text-[#F85E9F] uppercase text-[44px] font-normal tracking-[8px] break-words'>
-            Sự kiện đang diễn ra
-          </div>
-          <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện đang được tổ chức </div>
-        </div>
-        <div className='overflow-hidden py-10 w-full '>
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={30}
-            navigation={true}
-            pagination={{ clickable: true }}
-            modules={[Pagination, Navigation]}
-            className=' px-6 !overflow-visible flex'
-          >
-            {eventsHappening &&
-              eventsHappening.data.map((event, index) => (
-                <SwiperSlide key={index}>
-                  <CardEvent event={event} />
-                </SwiperSlide>
-              ))}
-            {eventsHappening && eventsHappening.data.length === 0 && (
-              <div className='flex w-full items-center justify-center'>
-                <div className='text-center'>
-                  <div className='inline-flex rounded-full bg-[#c6f8ff] p-4'>
-                    <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' id='calendar'>
-                      <path d='M53 5h-8v4H19V5h-8v4H0v50h64V9H53V5zm-6 2h4v6h-4V7zM13 7h4v6h-4V7zM2 57V19h60v38H2zm60-46v6H2v-6h9v4h8v-4h26v4h8v-4h9z'></path>
-                    </svg>
-                  </div>
-                  <h1 className='mt-5 text-[36px] font-bold text-slate-800 lg:text-[50px]'>
-                    Không có sự kiện vào thời điểm này
-                  </h1>
-                </div>
-              </div>
-            )}
-          </Swiper>
-        </div>
-      </div>
-      <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
-        <div className='flex flex-col gap-4'>
-          <div className='text-[#F85E9F] uppercase text-[44px] font-normal tracking-[8px] break-words'>
-            Sự kiện đã kết thúc
-          </div>
-          <div className='font-normal text-[30px] leading-9 break-words'>Sự kiện đã hoàn thành tổ chức </div>
-        </div>
-        <div className='overflow-hidden py-10 w-full '>
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={30}
-            navigation={true}
-            pagination={{ clickable: true }}
-            modules={[Pagination, Navigation]}
-            className=' px-6 !overflow-visible flex'
-          >
-            {eventsDone &&
-              eventsDone.data.map((event, index) => (
-                <SwiperSlide key={index}>
-                  <CardEvent event={event} />
-                </SwiperSlide>
-              ))}
-            {eventsDone && eventsDone.data.length === 0 && (
-              <div className='flex w-full items-center justify-center'>
-                <div className='text-center'>
-                  <div className='inline-flex rounded-full bg-[#c6f8ff] p-4'>
-                    <svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' id='calendar'>
-                      <path d='M53 5h-8v4H19V5h-8v4H0v50h64V9H53V5zm-6 2h4v6h-4V7zM13 7h4v6h-4V7zM2 57V19h60v38H2zm60-46v6H2v-6h9v4h8v-4h26v4h8v-4h9z'></path>
-                    </svg>
-                  </div>
-                  <h1 className='mt-5 text-[36px] font-bold text-slate-800 lg:text-[50px]'>
-                    Không có sự kiện vào thời điểm này
-                  </h1>
-                </div>
-              </div>
-            )}
-          </Swiper>
-        </div>
-      </div>
+      <ContainerEvent heading='Sự kiện sắp diễn ra' title='Sự kiện sắp tổ chức tới đây' event={eventsUpcoming} />
+      <ContainerEvent heading='Sự kiện đang diễn ra' title='Sự kiện đang được tổ chức' event={eventsHappening} />
+      <ContainerEvent heading='Sự kiện đã kết thúc' title='Sự kiện đã hoàn thành' event={eventsDone} />
       <div className='flex flex-col justify-center items-center py-8 px-4 m-auto max-w-screen-xl mt-20'>
         <div className='w-full h-full lg:px-40 py-12 inline-flex justify-center items-center relative'>
-          <div className='text-center text-[44px] font-normal leading-[52px] break-words'>
+          <span className='text-center text-[44px] font-normal leading-[52px] break-words'>
             Tham gia cùng chúng mình để cùng tay tạo nên các khoảnh khắc đáng nhớ nhé!
-          </div>
+          </span>
           <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-20'></div>
         </div>
         <div className=' mx-auto px-5 py-2 lg:px-32 lg:pt-24'>
@@ -367,4 +246,4 @@ const Container = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
   )
 }
 
-export default Container
+export default ContainerHomePage

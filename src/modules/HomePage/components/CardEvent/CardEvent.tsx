@@ -8,6 +8,7 @@ import EventRating from 'src/modules/EventManagement/components/EventRating'
 interface Props {
   event: EventType
 }
+
 const CardEvent = ({ event }: Props) => {
   const navigate = useNavigate()
 
@@ -34,7 +35,7 @@ const CardEvent = ({ event }: Props) => {
 
   return (
     <div
-      className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] shadow-lg rounded-3xl cursor-pointer'
+      className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] rounded-3xl cursor-pointer shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'
       onClick={() => onShowDetail(event.id)}
       onKeyDown={handleKeyDown}
       role='button'
@@ -44,7 +45,7 @@ const CardEvent = ({ event }: Props) => {
         <img
           src={event.imageUrl}
           alt='ui/ux review check'
-          className='rounded-2xl border object-cover max-sm:w-[100px] max-sm:h-[100px] max-md:w-[200px] max-md:h-[200px] w-[300px] h-[300px] lg:w-[400px] lg:h-[400px]   '
+          className='rounded-2xl border object-cover max-sm:w-[100px] max-sm:h-[100px] max-md:w-[200px] max-md:h-[200px] w-[300px] h-[300px] lg:w-[400px] lg:h-[400px]'
         />
       </div>
       <div className='px-6 pb-8 '>
