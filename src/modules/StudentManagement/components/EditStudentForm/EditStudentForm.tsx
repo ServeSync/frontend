@@ -6,11 +6,11 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import dayjs from 'dayjs'
-import { FormStudentType } from '../../utils/rules'
 import { EducationProgramType, FacultyType, HomeRoomType, StudentType } from '../../interfaces'
 import InputAvatar from 'src/modules/Share/components/InputAvatar'
 import Button from 'src/modules/Share/components/Button'
 import { gender } from '../../constants'
+import { FormStudentType } from '../../utils'
 
 interface Props {
   register: UseFormRegister<FormStudentType>

@@ -1,4 +1,4 @@
-export interface eventOrganizationInfo {
+export interface EventOrganizationInfo {
   name?: string
   description?: string
   email?: string

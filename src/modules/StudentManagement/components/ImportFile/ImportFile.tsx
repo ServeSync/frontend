@@ -10,7 +10,7 @@ interface Props {
   previewNameFile: string
 }
 
-function ImportFile({ onChangeFile, onSubmitFile, previewNameFile }: Props) {
+const ImportFile = ({ onChangeFile, onSubmitFile, previewNameFile }: Props) => {
   return (
     <div className='bg-white p-6 rounded-lg'>
       <h2 className='w-full text-center mb-3 text-[24px] font-semibold'>Nhập file</h2>

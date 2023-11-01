@@ -12,7 +12,7 @@ import { handleError } from 'src/modules/Share/utils'
 import ResetPasswordForm from '../../components/ResetPasswordForm'
 import { logo } from 'src/modules/Share/assets/image'
 
-export default function ResetPassword() {
+const ResetPassword = () => {
   const navigate = useNavigate()
 
   const {
@@ -74,3 +74,5 @@ export default function ResetPassword() {
     </Fragment>
   )
 }
+
+export default ResetPassword

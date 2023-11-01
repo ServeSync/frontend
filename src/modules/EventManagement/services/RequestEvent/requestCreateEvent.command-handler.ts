@@ -2,8 +2,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
-import requestEventAPI from './requestEvent.api'
-import { requestEventForm } from '../../interfaces/RequestEventForm/request_event-form.type'
+import requestEventAPI from './request_event.api'
+import { RequestEventForm } from '../../interfaces/RequestEventForm/request_event-form.type'
 import { toast } from 'react-toastify'
 
 class RequestCreateEventCommandHandler {
@@ -15,11 +15,11 @@ class RequestCreateEventCommandHandler {
     this._queryClient = useQueryClient()
     this._uploadImageMutation = useMutation(imageAPI.uploadImage)
     this._requestCreateEventMutation = useMutation({
-      mutationFn: (body: requestEventForm) => requestEventAPI.requestCreateEvent(body)
+      mutationFn: (body: RequestEventForm) => requestEventAPI.requestCreateEvent(body)
     })
   }
 
-  handle = async (event: requestEventForm, file: File, handleSuccess: any, setError: any) => {
+  handle = async (event: RequestEventForm, file: File, handleSuccess: any, setError: any) => {
     const form = new FormData()
     form.append('file', file)
 

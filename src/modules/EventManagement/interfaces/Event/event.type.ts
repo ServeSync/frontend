@@ -1,11 +1,5 @@
 import { Address, EventOrganizationFormType, EventRole, RepresentativeOrganization } from '..'
 
-export interface EventsListType {
-  total: number
-  totalPages: number
-  data: EventType[]
-}
-
 export interface EventType {
   id: string
   name: string
@@ -22,16 +16,10 @@ export interface EventType {
   address: Address
 }
 
-export interface EventsListConfig {
-  startDate?: string
-  endDate?: string
-  eventType?: string
-  eventStatus?: string
-  id?: string
-  search?: string
-  sorting?: string
-  page?: number
-  size?: number
+export interface EventsListType {
+  total: number
+  totalPages: number
+  data: EventType[]
 }
 
 export interface FormEvent {

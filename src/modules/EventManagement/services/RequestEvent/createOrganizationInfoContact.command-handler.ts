@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
-import { eventOrganizationContactInfo } from '../../interfaces'
+import { EventOrganizationContactInfo } from '../../interfaces'
 import { toast } from 'react-toastify'
 
 class CreateOrganizationInfoContactCommandHandler {
@@ -12,7 +12,7 @@ class CreateOrganizationInfoContactCommandHandler {
     this._uploadImageMutation = useMutation(imageAPI.uploadImage)
   }
 
-  handle = async (organizationContactInfo: eventOrganizationContactInfo, file: File) => {
+  handle = async (organizationContactInfo: EventOrganizationContactInfo, file: File) => {
     const form = new FormData()
     form.append('file', file)
 

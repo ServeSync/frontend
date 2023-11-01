@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { FormRoleType } from '../../utils/rules'
+import { FormRoleType } from '../../utils/rules/role.rules'
 import roleAPI from './role.api'
 
 class EditRoleCommandHandler {

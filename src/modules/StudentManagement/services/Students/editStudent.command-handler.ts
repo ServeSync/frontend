@@ -2,9 +2,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import studentAPI from './student.api'
-import { FormStudentType } from '../../utils/rules'
 import { StudentForm } from '../../interfaces'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
+import { FormStudentType } from '../../utils'
 
 class EditStudentCommandHandler {
   private _queryClient

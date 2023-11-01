@@ -1,2 +1,2 @@
-export * from './role.type'
-export * from './permission.type'
+export * from './Role'
+export * from './Permission'

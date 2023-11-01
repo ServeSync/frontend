@@ -1,4 +1,4 @@
-export interface eventOrganizationContactInfo {
+export interface EventOrganizationContactInfo {
   name?: string
   email?: string
   phoneNumber?: string

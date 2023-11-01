@@ -1,7 +1,7 @@
-import { eventOrganizationContactInfo, eventOrganizationInfo } from '.'
+import { EventOrganizationContactInfo, EventOrganizationInfo } from '.'
 import { Address } from '..'
 
-export interface requestEventForm {
+export interface RequestEventForm {
   name?: string
   introduction?: string
   description?: string
@@ -12,6 +12,6 @@ export interface requestEventForm {
   eventType?: string
   activityId?: string
   address?: Address
-  eventOrganizationInfo?: eventOrganizationInfo
-  eventOrganizationContactInfo?: eventOrganizationContactInfo
+  EventOrganizationInfo?: EventOrganizationInfo
+  EventOrganizationContactInfo?: EventOrganizationContactInfo
 }

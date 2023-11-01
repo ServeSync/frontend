@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
-
 import { useQuery } from '@tanstack/react-query'
 import eventAPI from './event.api'
 import { handleError } from 'src/modules/Share/utils'
