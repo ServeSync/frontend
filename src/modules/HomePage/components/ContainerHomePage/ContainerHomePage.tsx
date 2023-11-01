@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import { EventsListType } from 'src/modules/EventManagement/interfaces'
 import ContainerEvent from '../EventContainer'
+import { landingPageImage, landingPageImage2, landingPageImage3 } from 'src/modules/Share/assets/image'
 
 interface Props {
   eventsDone: EventsListType
@@ -31,21 +32,14 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
             </Link>
           </div>
         </div>
-        <div>
-          <img
-            src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699833600&Signature=H2VfA70IdCIy1BGzWgbA1ChJFKq4UYFWEqza2nEGH6DQgyFy5qFoAuIcuW8hkcqWNthududDsoknnqa7VDmn~Dx9VJhipd~7~Q4yKdh1q65g2BKtaFHv0wXTMtwtO7hn~B2KM8qop2byNOknDdzAhXFb6n1FPb7s2sxE6w0-acQUKScP6aPouIH7FoTW3lJVNfgthm03H82MqQJl2Jui4GKd-raIHJwa0QyF2eo8EbkoZk0qejsyl5qh5T3f3O1-sxxBuHmP4R2-fjEDB-KgZBYPuTkiGmoo-Ar9-hJOpJdpLFBB10tqn4D1ifw78fac-j0PdzM0WbxUCnVEKR9Bpg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-            alt=''
-            className='rounded-[30px]'
-          />
+        <div className=''>
+          <img src={landingPageImage} alt='' className='rounded-[30px]' />
+          <div></div>
         </div>
       </div>
       <div className='flex justify-between max-lg:flex-col items-center gap-20 max-w-screen-xl w-full py-8 px-4 m-auto'>
         <div className='lg:max-w-[50%] relative'>
-          <img
-            src='https://s3-alpha-sig.figma.com/img/009c/540d/95f73101eb52a8e05f8d6932d3340bcb?Expires=1699833600&Signature=c3ABQR5mj7dcsbT7IO3jrm3bh-E4bydBApVXPrAv36yv63ZUr99dlPslYJA1UXpeqKnSphPFj3xzC8Qusy5VyFLwHRWlybr2zPvsegfzqvB2eaMgqfG5YC5SUBO1AbMbxfRo9RIgpw6h5GdIEXozv4uXYQw-C2~XhOcxSaHLCoBzxKbidjL7d3tG~KLySeBeg72sSbDsOIifeyB6JpH1tAfKFU6OJPs4QxVE8SarEoIsphJZGA90o0pTl2QHYIhlBlwlZ6sXI4vnlm7~1QkE8G0NhOTUhnpi-M3ZgXYSrMBnOBA9E3Y0x5Ux-HCEpUfqRbaUEBOcSEw2LVnduXFPDw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-            alt=''
-            className='rounded-[30px] z-20 relative'
-          />
+          <img src={landingPageImage2} alt='' className='rounded-[30px] z-20 relative' />
           <div className='absolute w-[110%] h-[80%] bg-[#26C6DA]/80 top-[200px] left-[-100px] z-10 rounded-r-full'></div>
         </div>
         <div className='relative flex flex-col gap-5 mt-20'>
@@ -166,21 +160,14 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
         </div>
         <div className='max-w-[45%]'>
           <div className='relative'>
-            <img
-              src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1699228800&Signature=Irn7kP7enF9PUJTJ-P6shE79PGWHjqOwI29BLnNvPUh6Ju7Jut23Gpi79k~cliPqHI6POeAcnnJGt-Qx1BpqXNRG8KZuy-BYTUN6RMvci2~KhiNlnU0rlziPVqtZZ9pK8uUtDVWuQjQt-uO7XpgU4mHDcAJegY-R31lFKHpfZZtQAIiSdMqlBA4Kf1C3fTs2Om4ziBaNW~KuMGeKgeS9o1O3gKI3b19qkN4cbXDOlemz1r8~7B2r5DD6rpg-474IQUVsfKYiL65yJw0l5xDd0CV8xTRAN41Te1fwTR49ICPnTBBzEnhnvA0yRsBBgDHFZQVPotLjBShuqEFR8JX78A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-              alt=''
-              className='rounded-full'
-            />
+            <img src={landingPageImage3} alt='' className='rounded-full' />
             <div className='absolute top-[300px] left-60 bg-white rounded-full max-md:top-[150px] max-md:left-20'>
-              <img
-                src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699228800&Signature=lAXe1LY7TIoqQsQFZ449oMxLAax~vH1jgj05umunVrwcG0YuF0vwCRXoGmfVeF1d0UMhatepyE8pAu1KBErhXoV7Qw5qYWOzcR9YQKvVPiTHPfgi6JA-dupbe~HTDmxf8SjA3qsmCI6lBuM6ihdkWzDPP9Hb0Rqw651IhYjyzRyH7hcAvQwwvjlMrb0WWCKjOiOiNsgJNY2VvyxTEdZk5ng0HHmurdMiCwePzmieafI0Sa1IDIhH0IxEiHAX3PNBA5MEQmcAiWNF99mBxjuLrAJeisof37BZT5l7hbmjpGIswyU25Ir463lmmxC4j8BnCuBaDL4ovfN6eS3fs7blVQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-                alt=''
-                className='rounded-full p-4'
-              />
+              <img src={landingPageImage} alt='' className='rounded-full p-4' />
             </div>
           </div>
         </div>
       </div>
+
       <ContainerEvent heading='Sự kiện sắp diễn ra' title='Sự kiện sắp tổ chức tới đây' event={eventsUpcoming} />
       <ContainerEvent heading='Sự kiện đang diễn ra' title='Sự kiện đang được tổ chức' event={eventsHappening} />
       <ContainerEvent heading='Sự kiện đã kết thúc' title='Sự kiện đã hoàn thành' event={eventsDone} />
@@ -198,21 +185,21 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1699228800&Signature=Irn7kP7enF9PUJTJ-P6shE79PGWHjqOwI29BLnNvPUh6Ju7Jut23Gpi79k~cliPqHI6POeAcnnJGt-Qx1BpqXNRG8KZuy-BYTUN6RMvci2~KhiNlnU0rlziPVqtZZ9pK8uUtDVWuQjQt-uO7XpgU4mHDcAJegY-R31lFKHpfZZtQAIiSdMqlBA4Kf1C3fTs2Om4ziBaNW~KuMGeKgeS9o1O3gKI3b19qkN4cbXDOlemz1r8~7B2r5DD6rpg-474IQUVsfKYiL65yJw0l5xDd0CV8xTRAN41Te1fwTR49ICPnTBBzEnhnvA0yRsBBgDHFZQVPotLjBShuqEFR8JX78A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src={landingPageImage3}
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1699228800&Signature=Irn7kP7enF9PUJTJ-P6shE79PGWHjqOwI29BLnNvPUh6Ju7Jut23Gpi79k~cliPqHI6POeAcnnJGt-Qx1BpqXNRG8KZuy-BYTUN6RMvci2~KhiNlnU0rlziPVqtZZ9pK8uUtDVWuQjQt-uO7XpgU4mHDcAJegY-R31lFKHpfZZtQAIiSdMqlBA4Kf1C3fTs2Om4ziBaNW~KuMGeKgeS9o1O3gKI3b19qkN4cbXDOlemz1r8~7B2r5DD6rpg-474IQUVsfKYiL65yJw0l5xDd0CV8xTRAN41Te1fwTR49ICPnTBBzEnhnvA0yRsBBgDHFZQVPotLjBShuqEFR8JX78A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src={landingPageImage3}
                 />
               </div>
               <div className='w-full p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1699228800&Signature=Irn7kP7enF9PUJTJ-P6shE79PGWHjqOwI29BLnNvPUh6Ju7Jut23Gpi79k~cliPqHI6POeAcnnJGt-Qx1BpqXNRG8KZuy-BYTUN6RMvci2~KhiNlnU0rlziPVqtZZ9pK8uUtDVWuQjQt-uO7XpgU4mHDcAJegY-R31lFKHpfZZtQAIiSdMqlBA4Kf1C3fTs2Om4ziBaNW~KuMGeKgeS9o1O3gKI3b19qkN4cbXDOlemz1r8~7B2r5DD6rpg-474IQUVsfKYiL65yJw0l5xDd0CV8xTRAN41Te1fwTR49ICPnTBBzEnhnvA0yRsBBgDHFZQVPotLjBShuqEFR8JX78A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src={landingPageImage3}
                 />
               </div>
             </div>
@@ -221,21 +208,21 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699228800&Signature=lAXe1LY7TIoqQsQFZ449oMxLAax~vH1jgj05umunVrwcG0YuF0vwCRXoGmfVeF1d0UMhatepyE8pAu1KBErhXoV7Qw5qYWOzcR9YQKvVPiTHPfgi6JA-dupbe~HTDmxf8SjA3qsmCI6lBuM6ihdkWzDPP9Hb0Rqw651IhYjyzRyH7hcAvQwwvjlMrb0WWCKjOiOiNsgJNY2VvyxTEdZk5ng0HHmurdMiCwePzmieafI0Sa1IDIhH0IxEiHAX3PNBA5MEQmcAiWNF99mBxjuLrAJeisof37BZT5l7hbmjpGIswyU25Ir463lmmxC4j8BnCuBaDL4ovfN6eS3fs7blVQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src={landingPageImage}
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699228800&Signature=lAXe1LY7TIoqQsQFZ449oMxLAax~vH1jgj05umunVrwcG0YuF0vwCRXoGmfVeF1d0UMhatepyE8pAu1KBErhXoV7Qw5qYWOzcR9YQKvVPiTHPfgi6JA-dupbe~HTDmxf8SjA3qsmCI6lBuM6ihdkWzDPP9Hb0Rqw651IhYjyzRyH7hcAvQwwvjlMrb0WWCKjOiOiNsgJNY2VvyxTEdZk5ng0HHmurdMiCwePzmieafI0Sa1IDIhH0IxEiHAX3PNBA5MEQmcAiWNF99mBxjuLrAJeisof37BZT5l7hbmjpGIswyU25Ir463lmmxC4j8BnCuBaDL4ovfN6eS3fs7blVQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src={landingPageImage}
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src='https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699228800&Signature=lAXe1LY7TIoqQsQFZ449oMxLAax~vH1jgj05umunVrwcG0YuF0vwCRXoGmfVeF1d0UMhatepyE8pAu1KBErhXoV7Qw5qYWOzcR9YQKvVPiTHPfgi6JA-dupbe~HTDmxf8SjA3qsmCI6lBuM6ihdkWzDPP9Hb0Rqw651IhYjyzRyH7hcAvQwwvjlMrb0WWCKjOiOiNsgJNY2VvyxTEdZk5ng0HHmurdMiCwePzmieafI0Sa1IDIhH0IxEiHAX3PNBA5MEQmcAiWNF99mBxjuLrAJeisof37BZT5l7hbmjpGIswyU25Ir463lmmxC4j8BnCuBaDL4ovfN6eS3fs7blVQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+                  src={landingPageImage}
                 />
               </div>
             </div>

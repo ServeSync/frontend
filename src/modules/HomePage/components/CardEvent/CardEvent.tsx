@@ -4,6 +4,7 @@ import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
 import classNames from 'classnames'
 import EventRating from 'src/modules/EventManagement/components/EventRating'
+import { formatDateTime, formatTime } from 'src/modules/Share/utils'
 
 interface Props {
   event: EventType
@@ -27,15 +28,9 @@ const CardEvent = ({ event }: Props) => {
     }
   }
 
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', options)
-  }
-
   return (
     <div
-      className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] rounded-3xl cursor-pointer shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'
+      className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] shadow-lg rounded-3xl cursor-pointer'
       onClick={() => onShowDetail(event.id)}
       onKeyDown={handleKeyDown}
       role='button'
@@ -50,7 +45,7 @@ const CardEvent = ({ event }: Props) => {
       </div>
       <div className='px-6 pb-8 '>
         <div className='flex flex-col'>
-          <div className='font-normal leading-7 whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px]'>
+          <div className='font-normal leading-7 text-[#F85E9F] whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px]'>
             {event.name}
           </div>
           <div className='max-sm:text-[8px] text-[14px] lg:text-[16px] flex items-center gap-4 justify-between max-md:flex-col-reverse truncate'>
@@ -105,12 +100,32 @@ const CardEvent = ({ event }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
+                className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#FACD49] flex-shrink-0'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M3 8.25V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V8.25m-18 0V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6zM7.5 6h.008v.008H7.5V6zm2.25 0h.008v.008H9.75V6z'
+                />
+              </svg>
+
+              <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
+                {formatDateTime(event.startAt) + ' - ' + formatDateTime(event.endAt)}
+              </span>
+            </div>
+            <div className='flex items-center gap-1'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
                 className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#00BA21] flex-shrink-0'
               >
                 <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z' />
               </svg>
               <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                {formatDate(event.startAt) + ' - ' + formatDate(event.endAt)}
+                {formatTime(event.startAt) + ' - ' + formatTime(event.endAt)}
               </span>
             </div>
           </div>

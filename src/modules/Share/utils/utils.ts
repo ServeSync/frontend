@@ -43,3 +43,7 @@ export function formatDateFilter(date: string) {
 export function formatVNDateTime(date: string) {
   return moment(date).tz('Asia/Ho_Chi_Minh').format('ddd, DD MMM YYYY HH:mm:ss [GMT]')
 }
+
+export function formatTime(time: string) {
+  return moment(time).tz('Asia/Ho_Chi_Minh').format('HH:mm')
+}

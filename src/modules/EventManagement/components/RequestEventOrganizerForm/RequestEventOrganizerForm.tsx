@@ -24,8 +24,8 @@ const RequestEventOrganizerForm = ({
 }: Props) => {
   return (
     <Fragment>
-      <h2 className='text-[17px] col-span-4 mb-2'>Thông tin ban tổ chức</h2>
-      <div className='grid grid-cols-6 gap-4'>
+      <h2 className='text-[42px] text-[#195E8E] font-bold col-span-4 mb-10 bg-transparent '>Thông tin ban tổ chức</h2>
+      <div className='grid grid-cols-8 gap-4'>
         <Controller
           name='eventOrganizationInfo.imageUrl'
           control={control}
@@ -46,7 +46,7 @@ const RequestEventOrganizerForm = ({
           )}
         />
 
-        <div className='col-span-4'>
+        <div className='col-span-6'>
           <Controller
             name='eventOrganizationInfo.name'
             control={control}
@@ -59,7 +59,7 @@ const RequestEventOrganizerForm = ({
                     {...register('eventOrganizationInfo.name')}
                     label='Tên tổ chức'
                     placeholder='Nhập tên tổ chức'
-                    className='w-full bg-white'
+                    className='w-full bg-white '
                     onChange={onChange}
                     value={value}
                   />

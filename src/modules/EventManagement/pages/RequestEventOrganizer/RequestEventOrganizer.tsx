@@ -28,7 +28,7 @@ const RequestEventOrganizer = ({
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-3' aria-controls='simple-tabpanel-3'>
       {page === index && (
-        <div className='flex flex-col gap-y-2 max-w-[800px] mx-auto'>
+        <div className='flex flex-col gap-y-2 w-full mx-auto'>
           <RequestEventOrganizerForm
             handleChangeFileOrganizer={handleChangeFileOrganizer}
             previewImageOrganizer={previewImageOrganizer}

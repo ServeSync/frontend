@@ -137,12 +137,28 @@ const today = new Date()
 
 export const FormRequestEventSchema = yup.object().shape({
   name: yup.string().required('Vui lòng nhập tên sự kiện !').min(10, 'Tên sự kiện phải tối thiểu 10 kí tự!'),
-  introduction: yup.string().required('Vui lòng nhập giới thiệu sự kiện !'),
-  description: yup.string().required('Vui lòng nhập mô tả sự kiện !'),
+  introduction: yup
+    .string()
+    .required('Vui lòng nhập giới thiệu sự kiện !')
+    .min(10, 'Giới thiệu sự kiện ít nhất 10 kí tự !')
+    .max(128, 'Giới thiệu sự kiện tối đa 128 kí tự !'),
+  description: yup.string().required('Vui lòng nhập mô tả sự kiện !').min(256, 'Mô tả sự kiện ít nhất 256 kí tự !'),
   capacity: yup.string().required('Vui lòng nhập số lượng người tham gia !'),
   imageUrl: yup.string(),
-  startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu !'),
-  endAt: yup.string().required('Vui lòng nhập thời gian kết thúc !'),
+  startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu sự kiện!'),
+  endAt: yup
+    .string()
+    .required('Vui lòng nhập thời gian kết thúc sự kiện !')
+    .test('endAt', 'Thời gian kết thúc phải sau thời gian bắt đầu ít nhất 1 giờ', function (endAt) {
+      const startAt = this.parent.startAt
+      if (!startAt || !endAt) {
+        return true
+      }
+      const startAtDate = new Date(startAt)
+      const endAtDate = new Date(endAt)
+      const minimumEndAtDate = addHours(startAtDate, 1)
+      return endAtDate > minimumEndAtDate
+    }),
   eventType: yup.string().required('Vui lòng chọn loại sự kiện !'),
   categoryId: yup.string().required('Vui lòng chọn chủ đề !'),
   activityId: yup.string().required('Vui lòng chọn hoạt động !'),
