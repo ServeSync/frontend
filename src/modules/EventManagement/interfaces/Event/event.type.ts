@@ -1,5 +1,4 @@
-import { Address, RepresentativeOrganization } from '.'
-import { EventOrganizationFormType, EventRole } from '..'
+import { Address, EventOrganizationFormType, EventRole, RepresentativeOrganization } from '..'
 
 export interface EventsListType {
   total: number
@@ -73,8 +72,8 @@ export interface EventDetailType {
   calculatedStatus: string
   address: {
     fullAddress: string
-    longitude: string
-    latitude: string
+    longitude: number
+    latitude: number
   }
   description: string
   isRegistered: boolean

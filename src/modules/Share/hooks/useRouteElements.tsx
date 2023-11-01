@@ -4,17 +4,16 @@ import path from 'src/modules/Share/constants/path'
 import { AppContext } from '../contexts/app.context'
 import AuthenticationLayout from '../layouts/AuthenticationLayout'
 import MainLayout from '../layouts/MainLayout'
-import LandingPageLayout from '../layouts/LandingpageLayout'
+import LandingPageProjectLayout from '../layouts/LandingPageProjectLayout'
 
 const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
 const Home = lazy(() => import('src/modules/Home/pages/Home'))
-const LandingPage = lazy(() => import('src/modules/Landingpage/pages/Landingpage'))
 const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
-
+const LandingPage = lazy(() => import('src/modules/HomePage/pages/LandingPage'))
 const Student = lazy(() => import('src/modules/StudentManagement/pages/Student'))
 const CreateStudent = lazy(() => import('src/modules/StudentManagement/pages/CreateStudent'))
 const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditStudent'))
@@ -74,11 +73,11 @@ const useRouteElements = () => {
         {
           path: path.landing_page,
           element: (
-            <LandingPageLayout>
+            <LandingPageProjectLayout>
               <Suspense>
                 <LandingPage />
               </Suspense>
-            </LandingPageLayout>
+            </LandingPageProjectLayout>
           )
         },
         {

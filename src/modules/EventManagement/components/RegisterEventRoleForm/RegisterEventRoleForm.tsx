@@ -213,26 +213,6 @@ const RegisterEventRoleForm = ({
               </LocalizationProvider>
             )}
           />
-          {/* <Controller
-            name='roles.description'
-            control={control}
-            render={({ field: { onChange, value = '' } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-6'>
-                  <TextField
-                    id='role_description'
-                    label='Mô tả'
-                    placeholder='Nhập Mô tả'
-                    multiline
-                    rows={4.7}
-                    className='w-full bg-white'
-                    onChange={onChange}
-                    value={value}
-                  />
-                </div>
-              </LocalizationProvider>
-            )}
-          /> */}
           <Controller
             name='roles.quantity'
             control={control}
