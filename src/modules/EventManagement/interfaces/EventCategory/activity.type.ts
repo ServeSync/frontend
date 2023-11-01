@@ -11,7 +11,3 @@ export interface ActivityType {
   id: string
   name: string
 }
-
-export interface ActivitiesListConfig {
-  search?: string
-}

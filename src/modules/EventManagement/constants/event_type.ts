@@ -8,7 +8,7 @@ interface Type {
   [key: string]: string
 }
 
-export function TypeToMessage(type: string) {
+export const TypeToMessage = (type: string) => {
   const mappedEventType: Type = {
     Internal: 'Trong trường',
     External: 'Ngoài trường',

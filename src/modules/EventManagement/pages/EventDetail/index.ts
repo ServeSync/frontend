@@ -1,3 +1,4 @@
-import EventDetail from './EventDetail'
-
-export default EventDetail
+export * from './EventDetail'
+export * from './EventDetailRegisterPage'
+export * from './EventDetailInformationPage'
+export * from './EventDetailOrganizationPage'

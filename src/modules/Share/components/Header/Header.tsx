@@ -10,7 +10,7 @@ import path from '../../constants/path'
 import Button from '../Button'
 import { HandleHeading } from '../../constants'
 
-export default function Header() {
+const Header = () => {
   const { setIsAuthenticated } = useContext(AppContext)
 
   const navigate = useNavigate()
@@ -135,3 +135,5 @@ export default function Header() {
     </header>
   )
 }
+
+export default Header

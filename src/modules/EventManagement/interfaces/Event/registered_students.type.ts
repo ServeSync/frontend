@@ -3,6 +3,7 @@ export interface RegisteredStudentsListType {
   totalPages: number
   data: RegisteredStudentsType[]
 }
+
 export interface RegisteredStudentsType {
   role: string
   id: string

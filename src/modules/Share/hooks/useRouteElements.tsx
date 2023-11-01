@@ -8,8 +8,8 @@ import HomePageLayout from '../layouts/HomePageLayout'
 
 //Client
 const HomePage = lazy(() => import('src/modules/HomePage/pages/HomePage'))
-const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail'))
-const RequestEvent = lazy(() => import('src/modules/EventManagement/pages/RequestEventPage'))
+const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail/EventDetail'))
+const RequestEvent = lazy(() => import('src/modules/EventManagement/pages/RequestEvent/RequestEventPage'))
 //Auth
 const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
@@ -21,7 +21,7 @@ const Student = lazy(() => import('src/modules/StudentManagement/pages/Student')
 const CreateStudent = lazy(() => import('src/modules/StudentManagement/pages/CreateStudent'))
 const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditStudent'))
 const Event = lazy(() => import('src/modules/EventManagement/pages/Event'))
-const CreateEvent = lazy(() => import('src/modules/EventManagement/pages/CreateEventPage'))
+const CreateEvent = lazy(() => import('src/modules/EventManagement/pages/CreateEvent/CreateEventPage'))
 const EditEvent = lazy(() => import('src/modules/EventManagement/pages/EditEvent'))
 
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))

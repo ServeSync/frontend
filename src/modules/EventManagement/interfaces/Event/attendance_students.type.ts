@@ -3,6 +3,7 @@ export interface AttendanceStudentsListType {
   totalPage: number
   data: AttendanceStudentsType[]
 }
+
 export interface AttendanceStudentsType {
   id: string
   name: string
