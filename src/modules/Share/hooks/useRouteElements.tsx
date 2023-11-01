@@ -10,10 +10,13 @@ import HomePageLayout from '../layouts/HomePageLayout'
 const HomePage = lazy(() => import('src/modules/HomePage/pages/HomePage'))
 const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail/EventDetail'))
 const RequestEvent = lazy(() => import('src/modules/EventManagement/pages/RequestEvent/RequestEventPage'))
+const AttendanceEvent = lazy(() => import('src/modules/EventManagement/pages/AttendanceEvent'))
+
 //Auth
 const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
+
 //Admin
 const Dashboard = lazy(() => import('src/modules/Dashboard/pages/Dashboard'))
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
@@ -95,6 +98,14 @@ const useRouteElements = () => {
           element: (
             <Suspense>
               <EventDetail />
+            </Suspense>
+          )
+        },
+        {
+          path: path.attendance_event,
+          element: (
+            <Suspense>
+              <AttendanceEvent />
             </Suspense>
           )
         }

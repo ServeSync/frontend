@@ -1,8 +1,9 @@
 const path = {
   //Client
   home_page: '/',
-  event_detail: '/event-detail',
+  event_detail: '/events/detail',
   request_event: '/events/request',
+  attendance_event: '/events/attendance',
   //Auth
   login: '/login',
   forget_password: '/forgetPassword',

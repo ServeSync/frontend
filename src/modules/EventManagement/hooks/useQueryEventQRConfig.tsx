@@ -10,8 +10,8 @@ const useQueryEventQRConfig = () => {
   const queryEventAttendanceParams: EventAttendanceConfig = useQueryParams()
   const queryEventAttendanceConfig: EventAttendanceConfig = omitBy(
     {
-      code: queryEventAttendanceParams.code,
-      id: queryEventAttendanceParams.eventId
+      Code: queryEventAttendanceParams.Code,
+      EventId: queryEventAttendanceParams.EventId
     },
     isUndefined
   )
