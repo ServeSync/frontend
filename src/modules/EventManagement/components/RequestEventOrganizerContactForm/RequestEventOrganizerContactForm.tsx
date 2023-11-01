@@ -26,8 +26,10 @@ const RequestEventOrganizerContactForm = ({
 }: Props) => {
   return (
     <Fragment>
-      <h2 className='text-[17px] col-span-4 mb-2'>Người đại diện</h2>
-      <div className='grid grid-cols-6 gap-4'>
+      <h2 className='text-[42px] text-[#195E8E] font-bold col-span-4 mb-10 bg-transparent '>
+        Thông tin người đại diện
+      </h2>
+      <div className='grid grid-cols-8 gap-4'>
         <Controller
           name='eventOrganizationContactInfo.imageUrl'
           control={control}
@@ -47,7 +49,7 @@ const RequestEventOrganizerContactForm = ({
             </LocalizationProvider>
           )}
         />
-        <div className='col-span-4'>
+        <div className='col-span-6'>
           <Controller
             name='eventOrganizationContactInfo.name'
             control={control}

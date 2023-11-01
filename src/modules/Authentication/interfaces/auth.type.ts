@@ -8,6 +8,6 @@ export interface RefreshResponse {
   refreshToken: string
 }
 
-export interface ResetTokenConfig {
+export interface ResetPasswordTokenConfig {
   token?: string
 }

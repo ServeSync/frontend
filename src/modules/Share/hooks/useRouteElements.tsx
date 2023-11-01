@@ -4,34 +4,36 @@ import path from 'src/modules/Share/constants/path'
 import { AppContext } from '../contexts/app.context'
 import AuthenticationLayout from '../layouts/AuthenticationLayout'
 import MainLayout from '../layouts/MainLayout'
-import LandingPageProjectLayout from '../layouts/LandingPageProjectLayout'
+import HomePageLayout from '../layouts/HomePageLayout'
 
+//Client
+const HomePage = lazy(() => import('src/modules/HomePage/pages/HomePage'))
+const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail'))
+const RequestEvent = lazy(() => import('src/modules/EventManagement/pages/RequestEventPage'))
+//Auth
 const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
-const Home = lazy(() => import('src/modules/Home/pages/Home'))
-const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail'))
-const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
+//Admin
+const Dashboard = lazy(() => import('src/modules/Dashboard/pages/Dashboard'))
 const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
-const LandingPage = lazy(() => import('src/modules/HomePage/pages/LandingPage'))
 const Student = lazy(() => import('src/modules/StudentManagement/pages/Student'))
 const CreateStudent = lazy(() => import('src/modules/StudentManagement/pages/CreateStudent'))
 const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditStudent'))
-
 const Event = lazy(() => import('src/modules/EventManagement/pages/Event'))
 const CreateEvent = lazy(() => import('src/modules/EventManagement/pages/CreateEventPage'))
 const EditEvent = lazy(() => import('src/modules/EventManagement/pages/EditEvent'))
 
-const RequestEvent = lazy(() => import('src/modules/EventManagement/pages/RequestEventPage'))
+const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 
 const RejectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
-  return !isAuthenticated ? <Outlet /> : <Navigate to={path.home} />
+  return !isAuthenticated ? <Outlet /> : <Navigate to={path.dashboard} />
 }
 
 const ProtectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
-  return isAuthenticated ? <Outlet /> : <Navigate to={path.landing_page} />
+  return isAuthenticated ? <Outlet /> : <Navigate to={path.home_page} />
 }
 
 const useRouteElements = () => {
@@ -71,13 +73,13 @@ const useRouteElements = () => {
           )
         },
         {
-          path: path.landing_page,
+          path: path.home_page,
           element: (
-            <LandingPageProjectLayout>
+            <HomePageLayout>
               <Suspense>
-                <LandingPage />
+                <HomePage />
               </Suspense>
-            </LandingPageProjectLayout>
+            </HomePageLayout>
           )
         },
         {
@@ -103,11 +105,11 @@ const useRouteElements = () => {
       element: <ProtectedRoute />,
       children: [
         {
-          path: path.home,
+          path: path.dashboard,
           element: (
             <MainLayout>
               <Suspense>
-                <Home />
+                <Dashboard />
               </Suspense>
             </MainLayout>
           )

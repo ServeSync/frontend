@@ -17,6 +17,7 @@ class GetStudentQuery {
       queryKey: ['student', id],
       queryFn: () => studentAPI.getStudent(id),
       enabled: id !== undefined,
+      staleTime: 1 * 60 * 1000,
       onError: (error: any) => {
         handleError(error)
         this._navigate(path.student)

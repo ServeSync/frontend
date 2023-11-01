@@ -1,17 +1,18 @@
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { GetAllEventsByStatusQuery } from 'src/modules/EventManagement/services'
-import LandingPageHeader from '../../components/LandingPageHeader'
-import Container from '../../components/Container'
-import Footer from '../../components/Footer'
+import HeaderHomePage from '../../components/HeaderHomePage'
+import ContainerHomePage from '../../components/ContainerHomePage'
+import FooterHomePage from '../../components/FooterHomePage'
 
-const LandingPage = () => {
+const HomePage = () => {
   const getAllEventsDoneQuery = new GetAllEventsByStatusQuery('done')
-  const getAllEventHappeningQuery = new GetAllEventsByStatusQuery('happening')
-  const getAllEventUpcomingQuery = new GetAllEventsByStatusQuery('upcoming')
-
   const eventsDone = getAllEventsDoneQuery.fetch()
+
+  const getAllEventHappeningQuery = new GetAllEventsByStatusQuery('happening')
   const eventsHappening = getAllEventHappeningQuery.fetch()
+
+  const getAllEventUpcomingQuery = new GetAllEventsByStatusQuery('upcoming')
   const eventsUpcoming = getAllEventUpcomingQuery.fetch()
 
   return (
@@ -21,12 +22,12 @@ const LandingPage = () => {
         <meta name='description' content='This is student management page of the project' />
       </Helmet>
       <div>
-        <LandingPageHeader />
-        <Container eventsDone={eventsDone} eventsHappening={eventsHappening} eventsUpcoming={eventsUpcoming} />
-        <Footer />
+        <HeaderHomePage />
+        <ContainerHomePage eventsDone={eventsDone} eventsHappening={eventsHappening} eventsUpcoming={eventsUpcoming} />
+        <FooterHomePage />
       </div>
     </Fragment>
   )
 }
 
-export default LandingPage
+export default HomePage

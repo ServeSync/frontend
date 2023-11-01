@@ -2,7 +2,7 @@ interface Props {
   children?: React.ReactNode
 }
 
-const LandingPageProjectLayout = ({ children }: Props) => {
+const HomePageLayout = ({ children }: Props) => {
   return (
     <div>
       <div className='w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] absolute top-[50px] left-[-100px]'></div>
@@ -11,4 +11,4 @@ const LandingPageProjectLayout = ({ children }: Props) => {
   )
 }
 
-export default LandingPageProjectLayout
+export default HomePageLayout

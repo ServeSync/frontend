@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { UseFormRegister, FieldErrors, Control, Controller } from 'react-hook-form'
 import { Autocomplete, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { FormStudentType } from '../../utils/rules'
-import { EducationProgramType, FacultyType } from '../../interfaces'
-import { GetAllHomeRoomsByFacultyIdQuery } from '../../services'
+import { EducationProgramType, FacultyType, HomeRoomType } from '../../interfaces'
 import InputAvatar from 'src/modules/Share/components/InputAvatar'
 import Button from 'src/modules/Share/components/Button'
 import { gender } from '../../constants'
@@ -18,9 +17,11 @@ interface Props {
   control: Control<FormStudentType>
   educationPrograms: EducationProgramType[]
   faculties: FacultyType[]
-  onChange: (file?: File) => void
+  homeRooms: HomeRoomType[]
   previewImage: string
-  onPreviousPage: () => void
+  onChange: (file?: File) => void
+  onCancel: () => void
+  onChangeFaculty: (id: string) => void
   isLoading: boolean
 }
 
@@ -30,20 +31,13 @@ const CreateStudentForm = ({
   errors,
   educationPrograms,
   faculties,
-  onChange,
+  homeRooms,
   previewImage,
-  onPreviousPage,
+  onChange,
+  onCancel,
+  onChangeFaculty,
   isLoading
 }: Props) => {
-  const [facultyId, setFacultyId] = useState<string>('')
-
-  const getAllHomeRoomsByFacultyIdQuery = new GetAllHomeRoomsByFacultyIdQuery(facultyId)
-  const homeRooms = getAllHomeRoomsByFacultyIdQuery.fetch()
-
-  const handleChangeFaculty = (id: string) => {
-    setFacultyId(id)
-  }
-
   return (
     <Fragment>
       <div className='grid grid-cols-4 gap-4'>
@@ -236,7 +230,7 @@ const CreateStudentForm = ({
                     renderInput={(params) => <TextField {...params} label='Khoa' />}
                     onChange={(_, option) => {
                       onChange(option ? option.id : '')
-                      handleChangeFaculty(option?.id as string)
+                      onChangeFaculty(option?.id as string)
                     }}
                     className='bg-white'
                   />
@@ -295,7 +289,7 @@ const CreateStudentForm = ({
         <Button
           type='button'
           classNameButton='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-gray-800 font-semibold mt-6'
-          onClick={onPreviousPage}
+          onClick={onCancel}
         >
           Hủy
         </Button>

@@ -14,7 +14,7 @@ class GetAllStudentsQuery {
       queryKey: ['students', this._queryStudentConfig],
       queryFn: () => studentAPI.getListStudents(this._queryStudentConfig as StudentsListConfig),
       keepPreviousData: true,
-      staleTime: 5 * 60 * 1000
+      staleTime: 3 * 60 * 1000
     })
   }
 

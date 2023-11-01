@@ -11,7 +11,7 @@ class GetAllRolesQuery {
       queryKey: ['roles'],
       queryFn: () => roleAPI.getListRoles(),
       keepPreviousData: true,
-      staleTime: 5 * 60 * 1000
+      staleTime: 3 * 60 * 1000
     })
   }
 

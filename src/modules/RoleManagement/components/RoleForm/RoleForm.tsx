@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import Button from 'src/modules/Share/components/Button'
 import Input from 'src/modules/Share/components/Input'
@@ -9,10 +8,9 @@ interface Props {
   errors: FieldErrors<FormRoleType>
   isEditForm: boolean
   isLoading: boolean
-  onCreateRole: () => void
 }
 
-const RoleForm = ({ register, errors, isEditForm, onCreateRole, isLoading }: Props) => {
+const RoleForm = ({ register, errors, isEditForm, isLoading }: Props) => {
   return (
     <div className='flex flex-col gap-2'>
       <Input
@@ -21,10 +19,10 @@ const RoleForm = ({ register, errors, isEditForm, onCreateRole, isLoading }: Pro
         name='name'
         placeholder='Nhập tên Role'
         className='relative'
-        classNameInput='w-full border-[2px] border-[#26C6DA] rounded py-2 pl-10 pr-4 outline-none h-[52px]'
+        classNameInput='w-full border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none h-[48px]'
         error={errors.name?.message}
       >
-        <div className='absolute left-[4px] top-[12px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
+        <div className='absolute left-[4px] top-[10px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -42,22 +40,11 @@ const RoleForm = ({ register, errors, isEditForm, onCreateRole, isLoading }: Pro
         </div>
       </Input>
       <Button
-        classNameButton={classNames('w-full py-2 bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-md text-white', {
-          'mb-[30px]': !isEditForm
-        })}
+        classNameButton='w-full py-2 bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-md text-white'
         isLoading={isLoading}
       >
         {isEditForm ? 'Cập nhật role' : 'Tạo Role'}
       </Button>
-      {isEditForm && (
-        <Button
-          type='button'
-          classNameButton='w-full text-[#33b6c7] text-right text-[14px] hover:underline h-[22px]'
-          onClick={onCreateRole}
-        >
-          Tạo Role ?
-        </Button>
-      )}
     </div>
   )
 }

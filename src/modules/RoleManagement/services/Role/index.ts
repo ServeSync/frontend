@@ -1,3 +1,4 @@
+export * from './role.api'
 export * from './getAllRoles.query'
 export * from './getRole.query'
 export * from './getAllPermissionsByRoleId.query'

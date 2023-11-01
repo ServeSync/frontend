@@ -11,7 +11,7 @@ import EventRating from '../../components/EventRating'
 import EventDetailInformationPage from '../EventDetailInformationPage'
 import { formatDateTime, formatTime } from 'src/modules/Share/utils'
 import classNames from 'classnames'
-import LandingPageHeader from 'src/modules/HomePage/components/LandingPageHeader'
+import LandingPageHeader from 'src/modules/HomePage/components/HeaderHomePage/HeaderHomePage'
 
 const EventDetail = () => {
   const [page, setPage] = useState<number>(0)

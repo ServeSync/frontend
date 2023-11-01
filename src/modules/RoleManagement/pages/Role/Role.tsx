@@ -47,7 +47,7 @@ const Role = () => {
 
   useEffect(() => {
     if (role) {
-      setValue('name', role.name)
+      setValue('name', role?.name)
       setIsEditForm(true)
     } else {
       reset()
@@ -64,13 +64,8 @@ const Role = () => {
         id: id
       }).toString()
     })
-    setValue('name', role?.name as string)
-  }
-
-  const onCreateRole = () => {
-    reset()
-    setIsEditForm(false)
-    navigate(path.role)
+    setValue('name', role?.name)
+    setError('name', { message: '' })
   }
 
   const handleSubmitForm = handleSubmit((data) => {
@@ -147,16 +142,10 @@ const Role = () => {
               register={register}
               errors={errors}
               isEditForm={isEditForm}
-              onCreateRole={onCreateRole}
               isLoading={createRoleCommandHandler.isLoading() || editRoleCommandHandler.isLoading()}
             />
           </form>
-          <RoleTable
-            roles={roles}
-            onEditRole={onEditRole}
-            roleID={role?.id as string}
-            isLoading={getAllRolesQuery.isLoading()}
-          />
+          <RoleTable roles={roles} onEditRole={onEditRole} roleID={role?.id} isLoading={getAllRolesQuery.isLoading()} />
         </div>
         <div className='col-span-3'>
           <Permission onDeleteRole={handleDeleteRole} />

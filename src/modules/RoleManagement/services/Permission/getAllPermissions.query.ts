@@ -10,7 +10,7 @@ class GetAllPermissionsQuery {
     this._query = useQuery({
       queryKey: ['permissions'],
       queryFn: () => permissionAPI.getListPermissions(),
-      staleTime: 5 * 60 * 1000
+      staleTime: 3 * 60 * 1000
     })
   }
 

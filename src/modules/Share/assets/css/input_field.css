@@ -1,0 +1,19 @@
+.MuiInputBase-root .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 10px 14px;
+  height: 28px;
+}
+
+.MuiFormControl-root .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.MuiFormControl-root .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root,
+.MuiFormControl-root .css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root,
+.MuiFormControl-root .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 6px;
+}
+
+.MuiInputBase-root .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  height: 15px;
+}

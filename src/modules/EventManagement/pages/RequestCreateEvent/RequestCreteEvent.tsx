@@ -6,6 +6,7 @@ import { ActivitiesListType, EventCategoriesListType, MarkerType } from '../../i
 import useQueryEventCategoryConfig from '../../hooks/useQueryEventCategoryConfig'
 import useQueryActivityConfig from '../../hooks/useQueryActivityConfig'
 import { useState } from 'react'
+import { EditorState } from 'draft-js'
 
 interface Props {
   page: number
@@ -16,9 +17,26 @@ interface Props {
   setValue: UseFormSetValue<FormRequestEventType>
   markers: MarkerType[]
   setMarkers: React.Dispatch<React.SetStateAction<MarkerType[]>>
+  file: File | undefined
+  setFile: React.Dispatch<React.SetStateAction<File | undefined>>
+  description: EditorState
+  onEditorStateChange: (editorState: EditorState) => void
 }
 
-const RequestCreteEvent = ({ page, index, setValue, errors, register, control, markers, setMarkers }: Props) => {
+const RequestCreteEvent = ({
+  page,
+  index,
+  setValue,
+  errors,
+  register,
+  control,
+  markers,
+  setMarkers,
+  file,
+  setFile,
+  description,
+  onEditorStateChange
+}: Props) => {
   const [categoryId, setCategoryId] = useState<string>('')
 
   const handleChangeCategory = (id: string) => {
@@ -39,19 +57,25 @@ const RequestCreteEvent = ({ page, index, setValue, errors, register, control, m
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
       {page === index && (
-        <RequestCreateEventForm
-          register={register}
-          control={control}
-          errors={errors}
-          setValue={setValue}
-          eventCategories={eventCategories && eventCategories.data}
-          activities={activities && activities?.data}
-          handleChangeCategory={handleChangeCategory}
-          setEventCategoriesSearch={setEventCategoriesSearch}
-          setActivitiesSearch={setActivitiesSearch}
-          markers={markers}
-          setMarkers={setMarkers}
-        />
+        <div className='gap-y-2 w-full mx-auto'>
+          <RequestCreateEventForm
+            register={register}
+            control={control}
+            errors={errors}
+            setValue={setValue}
+            eventCategories={eventCategories && eventCategories.data}
+            activities={activities && activities?.data}
+            file={file}
+            setFile={setFile}
+            handleChangeCategory={handleChangeCategory}
+            setEventCategoriesSearch={setEventCategoriesSearch}
+            setActivitiesSearch={setActivitiesSearch}
+            markers={markers}
+            setMarkers={setMarkers}
+            description={description}
+            onEditorStateChange={onEditorStateChange}
+          />
+        </div>
       )}
     </div>
   )

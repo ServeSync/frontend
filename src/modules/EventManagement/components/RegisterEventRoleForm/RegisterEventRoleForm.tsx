@@ -56,9 +56,11 @@ const RegisterEventRoleForm = ({
   const handleSubmit = () => {
     const role = {
       ...{ ...getValues('roles') },
-      description: draftToHtml(convertToRaw(description.getCurrentContent()))
+      description: draftToHtml(convertToRaw(description.getCurrentContent())),
+      quantity: ({ ...getValues('roles') }.quantity as string).replace(/^0+/, ''),
+      score: ({ ...getValues('roles') }.score as string).replace(/^0+/, '')
     }
-    const regexNumber = /^-?\d+$/
+    const regexNumber = /^\d+$/
     const eventRoles: EventRole[] = [...dataEventRole]
     isEditEventRole ? eventRoles.splice(index, 1) : eventRoles
     if (role.description && role.isNeedApprove && role.name && role.quantity && role.score) {
@@ -69,7 +71,7 @@ const RegisterEventRoleForm = ({
       } else if (eventRoles.some((item) => item.name === role.name)) {
         setErrors('Vai trò đã tồn tại !')
       } else if (!regexNumber.test(role.quantity) || !regexNumber.test(role.score)) {
-        setErrors('Vui lòng nhập số lượng và điểm là số !')
+        setErrors('Vui lòng nhập số lượng và điểm là số dương !')
       } else {
         if (isEditEventRole) {
           const data = [...dataEventRole]
@@ -135,10 +137,13 @@ const RegisterEventRoleForm = ({
                   key={index}
                 >
                   <th className='px-2 py-4 font-medium w-[20%]'>{item.name}</th>
-                  <th
-                    className='px-2 py-4 font-medium'
-                    dangerouslySetInnerHTML={{ __html: item.description as string }}
-                  ></th>
+                  <th className='px-2 py-4 font-medium overflow-hidden '>
+                    <span
+                      className='line-clamp-2'
+                      dangerouslySetInnerHTML={{ __html: item.description as string }}
+                    ></span>
+                  </th>
+                  <th className='px-2 py-4 font-medium w-[8%] text-center'>{item.quantity}</th>
                   <th className='px-2 py-4 font-medium w-[4%] text-center'>{item.score}</th>
                   <th className='px-2 py-4 font-medium w-[10%] text-center'>
                     <input type='checkbox' defaultChecked={item.isNeedApprove === 'true'} disabled readOnly />
@@ -270,7 +275,11 @@ const RegisterEventRoleForm = ({
           />
           <div className='col-span-12 '>
             <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
-              <Editor editorState={description} onEditorStateChange={onEditorStateChange} />
+              <Editor
+                editorState={description}
+                onEditorStateChange={onEditorStateChange}
+                placeholder='Nhập mô tả vai trò'
+              />
             </div>
             <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors}</span>
           </div>
@@ -296,7 +305,7 @@ const RegisterEventRoleForm = ({
               classNameButton='bg-[#26C6DA] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
               onClick={handleSubmit}
             >
-              {isEditEventRole ? 'Chỉnh sửa' : 'Thêm'}
+              {isEditEventRole ? 'Lưu' : 'Thêm'}
             </Button>
           </div>
         </div>

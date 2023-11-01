@@ -10,7 +10,8 @@ class GetAllHomeRoomsByFacultyIdQuery {
     this._query = useQuery({
       queryKey: ['home_rooms', facultyId],
       queryFn: () => homeroomAPI.getListHomeRooms(facultyId),
-      enabled: facultyId !== '' && facultyId !== undefined
+      enabled: facultyId !== '' && facultyId !== undefined,
+      staleTime: 3 * 60 * 1000
     })
   }
 

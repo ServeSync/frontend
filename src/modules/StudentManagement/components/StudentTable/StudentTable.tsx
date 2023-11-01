@@ -1,7 +1,7 @@
 import Skeleton from 'react-loading-skeleton'
 import { StudentsListType } from '../../interfaces'
 import { StudentTableHeader } from '../../constants'
-import { formatDateTime } from 'src/modules/Share/utils'
+import { formatDateOfBirth } from 'src/modules/Share/utils'
 import HeaderTable from 'src/modules/Share/components/HeaderTable'
 
 interface Props {
@@ -60,7 +60,7 @@ const StudentTable = ({ students, onEditStudent, onSort, isLoading }: Props) => 
                 <th className='px-2 py-4 font-medium w-[8%]'>{student.code}</th>
                 <th className='px-2 py-4 font-medium w-[20%]'>{student.fullName}</th>
                 <th className='px-2 py-4 font-medium w-[9%]'>{student.gender ? 'Nam' : 'Nữ'}</th>
-                <th className='px-2 py-4 font-medium w-[9%]'>{formatDateTime(student.dateOfBirth)}</th>
+                <th className='px-2 py-4 font-medium w-[9%]'>{formatDateOfBirth(student.dateOfBirth)}</th>
                 <th className='px-2 py-4 font-medium w-[12%]'>{student.homeRoom.name}</th>
                 <th className='px-2 py-4 font-medium w-[25%]'>{student.faculty.name}</th>
                 <th className='px-2 py-4 font-medium w-[10%]'>{student.educationProgram.name}</th>

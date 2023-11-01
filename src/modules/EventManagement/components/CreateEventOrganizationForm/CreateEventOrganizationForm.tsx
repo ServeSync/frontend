@@ -14,6 +14,7 @@ interface Props {
   eventOrganizations: EventOrganizationType[]
   handleAddEventOrganization: () => void
   errors: string
+  isLoading: boolean
 }
 
 const CreateEventOrganizationForm = ({
@@ -21,7 +22,8 @@ const CreateEventOrganizationForm = ({
   representatives,
   eventOrganizations,
   handleAddEventOrganization,
-  errors
+  errors,
+  isLoading
 }: Props) => {
   return (
     <div>
@@ -115,12 +117,24 @@ const CreateEventOrganizationForm = ({
       <div className='flex justify-end gap-x-6 mt-[160px]'>
         <Link
           to={path.event}
-          type='button'
-          className='bg-[#a7a7a7] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'
+          className='flex justify-center items-center bg-[#195E8E] w-[80px] h-[50px] text-white p-2 rounded-full font-semibold hover:bg-[#dd5353] transition-all'
         >
-          Trở lại
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='w-6 h-6'
+          >
+            <path strokeLinecap='round' strokeLinejoin='round' d='M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3' />
+          </svg>
         </Link>
-        <Button type='submit' classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'>
+        <Button
+          type='submit'
+          isLoading={isLoading}
+          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-full text-[14px] text-white font-semibold h-[50px] w-[140px]'
+        >
           Tạo sự kiện
         </Button>
       </div>

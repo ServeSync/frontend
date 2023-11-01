@@ -1,4 +1,4 @@
-import { formatDate, formatDateTime, formatTime } from 'src/modules/Share/utils'
+import { formatDateTime, formatTime } from 'src/modules/Share/utils'
 import { AttendanceStudentsListType, EventDetailType, RegisteredStudentsListType } from '../../interfaces'
 
 interface Props {
@@ -91,10 +91,10 @@ const EventDetailRegister = ({ event, registeredStudents, attendanceStudents }: 
                       className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
                     >
                       <th className='px-2 py-4 text-center font-medium flex justify-center items-center gap-3'>
-                        {formatTime(registrationInfo.startAt) + ' ' + formatDate(registrationInfo.startAt)}
+                        {formatTime(registrationInfo.startAt) + ' ' + formatDateTime(registrationInfo.startAt)}
                       </th>
                       <th className='px-2 py-4 text-center font-medium'>
-                        {formatTime(registrationInfo.endAt) + ' ' + formatDate(registrationInfo.endAt)}
+                        {formatTime(registrationInfo.endAt) + ' ' + formatDateTime(registrationInfo.endAt)}
                       </th>
                       <th className='px-2 py-4 text-center font-medium'>
                         {event.isRegistered ? 'Đang diễn ra' : 'Đã kết thúc'}
@@ -131,10 +131,10 @@ const EventDetailRegister = ({ event, registeredStudents, attendanceStudents }: 
                       className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
                     >
                       <th className='px-2 py-4 text-center font-medium flex justify-center items-center gap-3'>
-                        {formatTime(attendanceInfo.startAt) + ' ' + formatDate(attendanceInfo.startAt)}
+                        {formatTime(attendanceInfo.startAt) + ' ' + formatDateTime(attendanceInfo.startAt)}
                       </th>
                       <th className='px-2 py-4 text-center font-medium'>
-                        {formatTime(attendanceInfo.endAt) + ' ' + formatDate(attendanceInfo.endAt)}
+                        {formatTime(attendanceInfo.endAt) + ' ' + formatDateTime(attendanceInfo.endAt)}
                       </th>
                       <th className='px-2 py-4 text-center font-medium'>
                         {event.isAttendance ? 'Đang diễn ra' : 'Đã kết thúc'}

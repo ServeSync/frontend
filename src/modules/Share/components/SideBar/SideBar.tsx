@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import classNames from 'classnames'
 import path from '../../constants/path'
-import { logo } from '../../constants'
+import { logo } from '../../assets/image'
 
 const SideBar = () => {
   const [expanded, setExpanded] = useState(true)
@@ -23,7 +23,7 @@ const SideBar = () => {
             'justify-center': !expanded
           })}
         >
-          <Link to={path.home} className='text-lg font-bold text-gray-800 flex items-center justify-between'>
+          <Link to={path.dashboard} className='text-lg font-bold text-gray-800 flex items-center justify-between'>
             <img
               src={logo}
               alt='logo'
@@ -76,7 +76,7 @@ const SideBar = () => {
           <ul className='flex flex-col gap-2 text-[#9198a5]'>
             <li className='py-2'>
               <NavLink
-                to={path.home}
+                to={path.dashboard}
                 className={({ isActive }) =>
                   classNames(
                     'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',

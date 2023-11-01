@@ -41,8 +41,10 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                         />
                       </DemoContainer>
                     </LocalizationProvider>
+
                     <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
                       {error && error.message}
+                      {errors.registrationInfos?.message}
                     </span>
                   </div>
                 )}
@@ -107,11 +109,6 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 )}
               </div>
             </div>
-            <div className='w-full'>
-              <span className='block min-h-[16px] text-red-600 text-xs font-medium'>
-                {errors.registrationInfos?.message}
-              </span>
-            </div>
           </div>
         ))}
       </div>
@@ -140,6 +137,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                     </LocalizationProvider>
                     <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
                       {error && error.message}
+                      {errors.attendanceInfos?.message}
                     </span>
                   </div>
                 )}
@@ -206,9 +204,6 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
             </div>
           </div>
         ))}
-      </div>
-      <div className='w-full'>
-        <span className='block min-h-[16px] text-red-600 text-xs font-medium'>{errors.attendanceInfos?.message}</span>
       </div>
     </div>
   )

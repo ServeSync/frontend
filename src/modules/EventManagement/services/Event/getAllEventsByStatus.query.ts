@@ -11,7 +11,7 @@ class GetAllEventsByStatusQuery {
       queryKey: ['events', eventStatus, size],
       queryFn: () => eventAPI.getListEventsByStatus(eventStatus, size),
       keepPreviousData: true,
-      staleTime: 5 * 60 * 1000
+      staleTime: 3 * 60 * 1000
     })
   }
   fetch() {

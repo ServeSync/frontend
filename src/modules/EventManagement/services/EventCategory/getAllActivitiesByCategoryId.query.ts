@@ -11,7 +11,7 @@ class GetAllActivitiesByCategoryIdQuery {
       queryKey: ['activities', categoryId, activitiesSearch],
       queryFn: () => eventCategoryAPI.getListActivitiesByCategoryId({ categoryId, activitiesSearch }),
       enabled: categoryId !== '',
-      staleTime: 5 * 60 * 1000
+      staleTime: 3 * 60 * 1000
     })
   }
 

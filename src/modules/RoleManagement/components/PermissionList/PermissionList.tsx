@@ -47,14 +47,14 @@ const PermissionList = ({
                   <div key={permission.id} className='col-span-1'>
                     <div className='flex items-center gap-3'>
                       <input
-                        id={`checkbox-${permission.id}`}
+                        id={permission.id}
                         type='checkbox'
                         value={permission.name}
                         checked={checkboxValues[permission.id] || false}
                         onChange={() => onChangeCheckbox(permission.id, !checkboxValues[permission.id])}
                         disabled={!isEditPermissions}
                       />
-                      <label htmlFor={`checkbox-${permission.id}`} className='flex items-center cursor-pointer'>
+                      <label htmlFor={permission.id} className='flex items-center cursor-pointer'>
                         <span>{permission.description}</span>
                       </label>
                     </div>

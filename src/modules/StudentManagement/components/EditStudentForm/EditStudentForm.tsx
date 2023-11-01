@@ -23,7 +23,7 @@ interface Props {
   handleDeleteStudent: (id: string) => void
   onChange: (file?: File) => void
   onChangeFaculty: (id: string) => void
-  onPreviousPage: () => void
+  onCancel: () => void
   previewImage: string
   isLoadingEdit: boolean
 }
@@ -37,7 +37,7 @@ const EditStudentForm = ({
   faculties,
   homeRooms,
   handleDeleteStudent,
-  onPreviousPage,
+  onCancel,
   onChange,
   onChangeFaculty,
   previewImage,
@@ -332,7 +332,7 @@ const EditStudentForm = ({
         <Button
           type='button'
           classNameButton='bg-[#9a9a9a] py-2 px-4 rounded-lg text-[16px] text-white font-semibold mt-6'
-          onClick={onPreviousPage}
+          onClick={onCancel}
         >
           Hủy
         </Button>
