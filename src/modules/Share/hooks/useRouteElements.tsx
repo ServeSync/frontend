@@ -8,7 +8,7 @@ import HomePageLayout from '../layouts/HomePageLayout'
 
 //Client
 const HomePage = lazy(() => import('src/modules/HomePage/pages/HomePage'))
-const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail/EventDetail'))
+const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail/EventDetailPage'))
 const RequestEvent = lazy(() => import('src/modules/EventManagement/pages/RequestEvent/RequestEventPage'))
 //Auth
 const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
@@ -23,7 +23,8 @@ const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditS
 const Event = lazy(() => import('src/modules/EventManagement/pages/Event'))
 const CreateEvent = lazy(() => import('src/modules/EventManagement/pages/CreateEvent/CreateEventPage'))
 const EditEvent = lazy(() => import('src/modules/EventManagement/pages/EditEvent'))
-
+const EventPending = lazy(() => import('src/modules/EventManagement/pages/EventPending/EventPendingPage'))
+const EditEventPending = lazy(() => import('src/modules/EventManagement/pages/EditEventPending'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 
 const RejectedRoute = () => {
@@ -181,6 +182,26 @@ const useRouteElements = () => {
             <MainLayout>
               <Suspense>
                 <EditEvent />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.event_pending,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <EventPending />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.edit_event_pending,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <EditEventPending />
               </Suspense>
             </MainLayout>
           )

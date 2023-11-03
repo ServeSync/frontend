@@ -43,7 +43,7 @@ const EventDetailOrganization = ({ event }: Props) => {
                     <span>Địa chỉ</span>
                     <span>:</span>
                   </div>
-                  <span className='line-clamp-1 flex-1'></span>
+                  <span className='line-clamp-1 flex-1'>{organization.address}</span>
                 </li>
                 <li className='flex gap-4'>
                   <div className='w-[100px] flex justify-between font-medium'>
@@ -99,7 +99,7 @@ const EventDetailOrganization = ({ event }: Props) => {
                   </th>
                   <th className='px-2 py-4 text-center font-medium'>{representative.email}</th>
                   <th className='px-2 py-4 text-center font-medium w-[20%] '>{representative.phoneNumber}</th>
-                  <th className='px-2 py-4 text-center font-medium w-[15%] '>{representative.organizationRepId}</th>
+                  <th className='px-2 py-4 text-center font-medium w-[15%] '>{representative.role}</th>
                 </tr>
               ))}
             </tbody>

@@ -10,7 +10,7 @@ interface Props {
 }
 const EventDetailRegisterPage = ({ page, index, event, registeredStudents, attendanceStudents }: Props) => {
   return (
-    <div role='tabpanel' hidden={page !== index} id='tab-2' aria-controls='simple-tabpanel-2'>
+    <div role='tabpanel' hidden={page !== index} id='tab-3' aria-controls='simple-tabpanel-3'>
       {page === index && (
         <EventDetailRegister
           event={event}

@@ -26,9 +26,7 @@ const RequestEventOrganizationContactForm = ({
 }: Props) => {
   return (
     <Fragment>
-      <h2 className='text-[42px] text-[#195E8E] font-bold col-span-4 mb-10 bg-transparent '>
-        Thông tin người đại diện
-      </h2>
+      <h2 className='text-[24px] text-black font-bold col-span-4 mb-10 bg-transparent '>Thông tin người đại diện</h2>
       <div className='grid grid-cols-8 gap-4'>
         <Controller
           name='EventOrganizationContactInfo.imageUrl'

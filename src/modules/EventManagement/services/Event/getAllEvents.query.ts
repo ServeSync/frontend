@@ -8,10 +8,10 @@ class GetAllEventsQuery {
   private _query
   private _queryEventConfig
 
-  constructor(eventStatus?: EventsListType) {
+  constructor() {
     this._queryEventConfig = useQueryEventConfig()
     this._query = useQuery({
-      queryKey: ['events', this._queryEventConfig, eventStatus],
+      queryKey: ['events', this._queryEventConfig],
       queryFn: () => eventAPI.getListEvents(this._queryEventConfig as EventsListConfig),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000

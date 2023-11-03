@@ -25,7 +25,7 @@ const HeaderTable = ({ header, onSort }: Props) => {
       <tr className='text-[14px] text-gray-600'>
         {header.map((item) => (
           <th
-            className='px-2 py-2 font-medium cursor-pointer hover:text-black hover:font-semibold'
+            className='px-2 py-2 font-medium cursor-pointer hover:text-black hover:font-semibold '
             onClick={() => handleSort(item.sort)}
             key={item.id}
           >
