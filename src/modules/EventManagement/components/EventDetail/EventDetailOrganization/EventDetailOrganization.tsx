@@ -4,8 +4,6 @@ interface Props {
   event: EventDetailType
 }
 const EventDetailOrganization = ({ event }: Props) => {
-  console.log(event)
-
   return (
     <div className='flex flex-col gap-10'>
       {event.organizations.map((organization, index) => (

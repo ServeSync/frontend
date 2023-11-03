@@ -1,4 +1,6 @@
-export * from './useQueryEventConfig'
+export * from './useGeoLocation'
 export * from './useQueryActivityConfig'
 export * from './useQueryEventCategoryConfig'
+export * from './useQueryEventConfig'
+export * from './useQueryEventQRConfig'
 export * from './useQueryRequestEventConfig'

@@ -92,6 +92,7 @@ export interface FormEvent {
 }
 
 export interface EventDetailType {
+  id: string
   name: string
   introduction: string
   imageUrl: string
@@ -110,18 +111,26 @@ export interface EventDetailType {
   isAttendance: boolean
   roles: [
     {
-      isRegistered: boolean
-      registered: string
-      id: string
+      id?: string
+      isRegistered?: boolean
+      registered?: string
+      approvedRegistered?: string
       name: string
       description: string
-      isNeedApprove: boolean
-      score: number
+      isNeedApprove: string
+      score: string
       quantity: string
     }
   ]
   organizations: [
     {
+      id: string
+      name: string
+      email: string
+      phoneNumber: string
+      address: string
+      imageUrl: string
+      organizationId: string
       role: string
       representatives: [
         {
@@ -131,17 +140,11 @@ export interface EventDetailType {
           email: string
           phoneNumber: string
           position: string
+          address: string
           role: string
           organizationRepId: string
         }
       ]
-      id: string
-      name: string
-      email: string
-      phoneNumber: string
-      address: string
-      imageUrl: string
-      organizationId: string
     }
   ]
   registrationInfos: [
@@ -149,6 +152,7 @@ export interface EventDetailType {
       id: string
       startAt: string
       endAt: string
+      status: string
     }
   ]
   attendanceInfos: [
@@ -158,11 +162,14 @@ export interface EventDetailType {
       qrCodeUrl: string
       startAt: string
       endAt: string
+      status: string
     }
   ]
   capacity: string
   registered: string
+  attended: string
   rating: number
+  approvedRegistered: string
   activity: {
     id: string
     name: string
@@ -171,8 +178,8 @@ export interface EventDetailType {
     id: string
     name: string
     email: string
-    phoneNumber: string
     address: string
+    phoneNumber: string
     imageUrl: string
     organizationId: string
   }

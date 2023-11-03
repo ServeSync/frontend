@@ -1,6 +1,6 @@
 import * as yup from 'yup'
-import { FormLoginSchema } from './login.rules'
+import { FormSignInSchema } from './sign_in.rules'
 
-export const FormForgetPasswordSchema = FormLoginSchema.omit(['password'])
+export const FormForgetPasswordSchema = FormSignInSchema.omit(['password'])
 
 export type FormForgetPasswordType = yup.InferType<typeof FormForgetPasswordSchema>

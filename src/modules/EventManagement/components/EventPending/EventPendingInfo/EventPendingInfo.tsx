@@ -13,6 +13,8 @@ interface Props {
   eventPending: EventPendingType
 }
 const EventPendingInfo = ({ eventPending }: Props) => {
+  console.log(eventPending)
+
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const [mapImageURL, setMapImageURL] = useState<string | null>(null)
@@ -177,8 +179,8 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           <div className='col-span-3'>
             <TextField
               style={{ width: '100%' }}
-              label='Số lượng tham gia '
-              value={eventPending.capacity}
+              label='Hoạt động sự kiện'
+              value={eventPending.activity}
               InputProps={{
                 readOnly: true
               }}

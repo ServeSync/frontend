@@ -1,4 +1,4 @@
 export interface EventAttendanceConfig {
-  code?: string
-  eventId?: string
+  Code?: string
+  EventId?: string
 }

@@ -1,9 +1,11 @@
 import http from 'src/modules/Share/utils/http'
 import { AuthResponse, RefreshResponse } from '../../interfaces'
+import { FormSignInType } from '../../utils'
 
 const authAPI = {
-  login: (body: { userNameOrEmail: string; password: string }) =>
-    http.post<AuthResponse>('/auth/admin-portal/sign-in', body),
+  adminSignIn: (body: FormSignInType) => http.post<AuthResponse>('/auth/admin-portal/sign-in', body),
+
+  studentSignIn: (body: FormSignInType) => http.post<AuthResponse>('/auth/student-portal/sign-in', body),
 
   forgetPassword: (body: { userNameOrEmail: string; callBackUrl: string }) => http.post('auth/forget-password', body),
 

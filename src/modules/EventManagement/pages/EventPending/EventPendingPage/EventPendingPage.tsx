@@ -84,6 +84,7 @@ const EventPendingPage = () => {
         />
         <div className='flex justify-end'>
           <Pagination
+            className='mt-[20px]'
             queryConfig={queryEventPendingConfig}
             pageSize={getAllEventsPendingQuery.getTotalPages()}
             pathname={path.event_pending}

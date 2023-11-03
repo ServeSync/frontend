@@ -10,7 +10,7 @@ class GetAttendanceStudentsQuery {
 
   constructor(id: string) {
     this._query = useQuery({
-      queryKey: ['attendance-students', id],
+      queryKey: ['attendance_students', id],
       queryFn: () => eventAPI.getAttendanceStudents(id),
       enabled: id !== undefined,
       onError: (error: any) => {

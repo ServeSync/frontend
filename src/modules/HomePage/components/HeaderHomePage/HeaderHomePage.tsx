@@ -37,12 +37,12 @@ const LandingPageHeader = () => {
         <div className='font-medium items-center text-[14px] hidden lg:flex gap-4'>
           <Link
             to={path.request_event}
-            className=' text-black px-4 py-4 rounded-3xl  transition-all duration-300 hover:shadow-md  no-underline flex-shrink-0'
+            className=' text-black px-4 py-4 rounded-full transition-all duration-300 hover:bg-slate-100  no-underline flex-shrink-0 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'
           >
             Yêu cầu sự kiện
           </Link>
           <Link
-            className='bg-[#5D50C6] text-white px-10 py-4 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md  no-underline flex-shrink-0'
+            className='bg-[#5D50C6] text-white px-10 py-4 rounded-full shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 hover:bg-[#5D50C6]/80 no-underline flex-shrink-0'
             to={path.login}
           >
             Đăng nhập

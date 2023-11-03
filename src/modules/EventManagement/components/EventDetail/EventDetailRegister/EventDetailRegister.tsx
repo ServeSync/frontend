@@ -57,7 +57,7 @@ const EventDetailRegister = ({ event, registeredStudents, attendanceStudents }: 
                       <th className='px-2 py-4 text-center font-medium'>{role.registered}</th>
                       <th className='px-2 py-4 text-center font-medium'>{role.score}</th>
                       <th className='px-2 py-4 text-center font-medium'>
-                        <input type='checkbox' checked={role.isNeedApprove} disabled readOnly />
+                        <input type='checkbox' checked={role.isNeedApprove === 'true'} disabled readOnly />
                       </th>
                     </tr>
                   ))}

@@ -1,2 +1,2 @@
-export * from './Role'
-export * from './Permission'
+export * from './RolePage'
+export * from './PermissionPage'
