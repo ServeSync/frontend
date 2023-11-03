@@ -8,9 +8,10 @@ interface Props {
   events: EventsListType
   isLoading: boolean
   onSort: (column: string) => void
+  onEditEvent: (id: string) => void
 }
 
-const EventTable = ({ events, isLoading, onSort }: Props) => {
+const EventTable = ({ events, isLoading, onSort, onEditEvent }: Props) => {
   return (
     <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
       <HeaderTable header={EventTableHeader} onSort={onSort} />
@@ -54,6 +55,7 @@ const EventTable = ({ events, isLoading, onSort }: Props) => {
               <tr
                 className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                 key={index}
+                onClick={() => onEditEvent(event.id)}
               >
                 <th className='px-2 py-4 font-medium w-[14%]'>
                   <span className='line-clamp-1'>{event.name}</span>

@@ -4,7 +4,7 @@ import { PermissionType, RoleType, RolesListType } from '../../interfaces'
 const roleAPI = {
   getListRoles: () => http.get<RolesListType>('/roles'),
 
-  getRole: (id: string) => http.get<RoleType>(`/roles/${id}`),
+  getRoleById: (id: string) => http.get<RoleType>(`/roles/${id}`),
 
   createRole: (body: Omit<RoleType, 'id'>) => http.post<RoleType>('/roles', body),
 

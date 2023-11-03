@@ -10,7 +10,7 @@ class GetRegisteredStudentsQuery {
 
   constructor(id: string) {
     this._query = useQuery({
-      queryKey: ['registered-students', id],
+      queryKey: ['registered_students', id],
       queryFn: () => eventAPI.getRegisteredStudents(id),
       enabled: id !== undefined,
       onError: (error: any) => {

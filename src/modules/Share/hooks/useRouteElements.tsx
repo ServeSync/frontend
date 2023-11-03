@@ -7,23 +7,26 @@ import MainLayout from '../layouts/MainLayout'
 import HomePageLayout from '../layouts/HomePageLayout'
 
 //Client
+const StudentSignIn = lazy(() => import('src/modules/Authentication/pages/StudentSignIn'))
 const HomePage = lazy(() => import('src/modules/HomePage/pages/HomePage'))
-const EventDetail = lazy(() => import('src/modules/EventManagement/pages/EventDetail/EventDetail'))
-const RequestEvent = lazy(() => import('src/modules/EventManagement/pages/RequestEvent/RequestEventPage'))
+const EventDetailPage = lazy(() => import('src/modules/EventManagement/pages/EventDetailPage/EventDetailPage'))
+const RequestEventPage = lazy(() => import('src/modules/EventManagement/pages/RequestEventPage/RequestEventPage'))
+const AttendanceEvent = lazy(() => import('src/modules/EventManagement/pages/AttendanceEventPage'))
+
 //Auth
-const Login = lazy(() => import('src/modules/Authentication/pages/Login'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
-//Admin
-const Dashboard = lazy(() => import('src/modules/Dashboard/pages/Dashboard'))
-const Role = lazy(() => import('src/modules/RoleManagement/pages/Role'))
-const Student = lazy(() => import('src/modules/StudentManagement/pages/Student'))
-const CreateStudent = lazy(() => import('src/modules/StudentManagement/pages/CreateStudent'))
-const EditStudent = lazy(() => import('src/modules/StudentManagement/pages/EditStudent'))
-const Event = lazy(() => import('src/modules/EventManagement/pages/Event'))
-const CreateEvent = lazy(() => import('src/modules/EventManagement/pages/CreateEvent/CreateEventPage'))
-const EditEvent = lazy(() => import('src/modules/EventManagement/pages/EditEvent'))
 
+//Admin
+const AdminSignIn = lazy(() => import('src/modules/Authentication/pages/AdminSignIn'))
+const Dashboard = lazy(() => import('src/modules/Dashboard/pages/Dashboard'))
+const RolePage = lazy(() => import('src/modules/RoleManagement/pages/RolePage'))
+const StudentPage = lazy(() => import('src/modules/StudentManagement/pages/StudentPage'))
+const CreateStudentPage = lazy(() => import('src/modules/StudentManagement/pages/CreateStudentPage'))
+const EditStudentPage = lazy(() => import('src/modules/StudentManagement/pages/EditStudentPage'))
+const EventPage = lazy(() => import('src/modules/EventManagement/pages/EventPage'))
+const CreateEventPage = lazy(() => import('src/modules/EventManagement/pages/CreateEventPage/CreateEventPage'))
+const EditEventPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPage/EditEventPage'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 
 const RejectedRoute = () => {
@@ -43,11 +46,21 @@ const useRouteElements = () => {
       element: <RejectedRoute />,
       children: [
         {
+          path: path.admin_login,
+          element: (
+            <AuthenticationLayout>
+              <Suspense>
+                <AdminSignIn />
+              </Suspense>
+            </AuthenticationLayout>
+          )
+        },
+        {
           path: path.login,
           element: (
             <AuthenticationLayout>
               <Suspense>
-                <Login />
+                <StudentSignIn />
               </Suspense>
             </AuthenticationLayout>
           )
@@ -86,7 +99,7 @@ const useRouteElements = () => {
           path: path.request_event,
           element: (
             <Suspense>
-              <RequestEvent />
+              <RequestEventPage />
             </Suspense>
           )
         },
@@ -94,7 +107,15 @@ const useRouteElements = () => {
           path: path.event_detail,
           element: (
             <Suspense>
-              <EventDetail />
+              <EventDetailPage />
+            </Suspense>
+          )
+        },
+        {
+          path: path.attendance_event,
+          element: (
+            <Suspense>
+              <AttendanceEvent />
             </Suspense>
           )
         }
@@ -119,7 +140,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <Role />
+                <RolePage />
               </Suspense>
             </MainLayout>
           )
@@ -129,7 +150,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <Student />
+                <StudentPage />
               </Suspense>
             </MainLayout>
           )
@@ -139,7 +160,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <CreateStudent />
+                <CreateStudentPage />
               </Suspense>
             </MainLayout>
           )
@@ -149,7 +170,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <EditStudent />
+                <EditStudentPage />
               </Suspense>
             </MainLayout>
           )
@@ -159,7 +180,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <Event />
+                <EventPage />
               </Suspense>
             </MainLayout>
           )
@@ -169,18 +190,17 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <CreateEvent />
+                <CreateEventPage />
               </Suspense>
             </MainLayout>
           )
         },
-
         {
           path: path.edit_event,
           element: (
             <MainLayout>
               <Suspense>
-                <EditEvent />
+                <EditEventPage />
               </Suspense>
             </MainLayout>
           )

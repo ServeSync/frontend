@@ -11,7 +11,7 @@ class GetEventByIdQuery {
   constructor(id: string) {
     this._query = useQuery({
       queryKey: ['event', id],
-      queryFn: () => eventAPI.getEvent(id),
+      queryFn: () => eventAPI.getEventById(id),
       enabled: id !== undefined,
       onError: (error: any) => {
         handleError(error)

@@ -12,7 +12,8 @@ import {
 const eventAPI = {
   getListEvents: (params: EventsListConfig) => http.get<EventsListType>('/events', { params }),
 
-  getEvent: (id: string) => http.get<EventDetailType>(`/events/${id}`),
+  getEventById: (id: string) => http.get<EventDetailType>(`/events/${id}`),
+
   createEvent: (body: FormEvent) => http.post('/events', body),
 
   attendanceEvent: (body: { id: string; data: EventAttendance }) =>

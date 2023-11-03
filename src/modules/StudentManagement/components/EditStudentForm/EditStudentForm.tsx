@@ -48,6 +48,7 @@ const EditStudentForm = ({
       setValue('homeRoomId', student.homeRoomId)
     }
   }, [homeRooms, student, setValue])
+
   useEffect(() => {
     if (faculties && educationPrograms && student) {
       setValue('code', student.code)
@@ -78,7 +79,7 @@ const EditStudentForm = ({
             name='code'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value = (student && student.code) || null }, fieldState: { error } }) => (
+            render={({ field: { onChange, value = student && student.code }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <TextField
@@ -260,7 +261,7 @@ const EditStudentForm = ({
           <Controller
             name='facultyId'
             control={control}
-            render={({ field: { onChange, value = student && student.citizenId }, fieldState: { error } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div>
                   <Autocomplete

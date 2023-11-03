@@ -1,3 +1,3 @@
-export * from './Student'
-export * from './CreateStudent'
-export * from './EditStudent'
+export * from './StudentPage'
+export * from './CreateStudentPage'
+export * from './EditStudentPage'
