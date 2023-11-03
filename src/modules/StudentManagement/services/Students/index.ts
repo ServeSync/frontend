@@ -1,6 +1,6 @@
 export * from './student.api'
 export * from './getAllStudents.query'
-export * from './getStudent.query'
+export * from './getStudentById.query'
 export * from './createStudent.command-handler'
 export * from './importFileStudent.command-handler'
 export * from './editStudent.command-handler'

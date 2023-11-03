@@ -1,3 +1,3 @@
-import RequestCreateEventForm from './RequestEventForm'
+import RequestEventForm from './RequestEventForm'
 
-export default RequestCreateEventForm
+export default RequestEventForm

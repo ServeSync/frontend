@@ -1,6 +1,6 @@
 export * from './role.api'
 export * from './getAllRoles.query'
-export * from './getRole.query'
+export * from './getRoleById.query'
 export * from './getAllPermissionsByRoleId.query'
 export * from './createRole.command-handler'
 export * from './editRole.command-handler'

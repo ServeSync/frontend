@@ -7,13 +7,11 @@ export interface ContactsListType {
 export interface ContactType {
   id: string
   name: string
-  gender: boolean
-  birth: string
+  imageUrl: string
   email: string
   phoneNumber: string
-  address: string
-  imageUrl: string
   position: string
-  eventOrganizationId: string
+  address: string
   role: string
+  organizationRepId: string
 }

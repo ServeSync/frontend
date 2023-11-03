@@ -1,6 +1,5 @@
 export * from './EventTable'
-export * from './CreateEventForm'
-export * from './EditEventForm'
+export * from './EventForm'
 export * from './RequestEventForm'
 export * from './Filter'
 export * from './Map'

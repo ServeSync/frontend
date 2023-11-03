@@ -1,14 +1,15 @@
 const path = {
   //Client
+  login: '/login',
   home_page: '/',
   event_detail: '/events/detail',
   request_event: '/events/request',
   attendance_event: '/events/attendance',
   //Auth
-  login: '/login',
   forget_password: '/forgetPassword',
   reset_password: '/resetPassword',
   //Admin
+  admin_login: '/admin/login',
   dashboard: '/admin/dashboard',
   role: '/admin/roles',
   student: '/admin/students',

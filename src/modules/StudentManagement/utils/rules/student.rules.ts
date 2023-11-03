@@ -6,25 +6,25 @@ const phoneRegExp =
 export const FormStudentSchema = yup.object({
   code: yup.string().trim().required('Vui lòng nhập mã số sinh viên !').length(9, 'Mã số sinh viên không hợp lệ!'),
   fullName: yup.string().trim().required('Vui lòng nhập tên !').min(5, 'Họ và tên tối thiểu 5 kí tự'),
-  email: yup.string().trim().required('Vui lòng nhập email !').email('Email không hợp lệ !'),
+  email: yup.string().trim().required('Vui lòng nhập Email !').email('Email không hợp lệ !'),
   gender: yup.string().required('Vui lòng chọn giới tính !'),
   birth: yup
     .string()
     .required('Vui lòng chọn ngày sinh !')
-    .test('is-before-today', 'Ngày sinh phải bé hơn ngày hiện tại !', function (value) {
+    .test('is_before_today', 'Ngày sinh phải bé hơn ngày hiện tại !', function (value) {
       if (!value) {
         return true
       }
-      const dob = new Date(value)
+      const birth = new Date(value)
       const today = new Date()
-      return dob < today
+      return birth < today
     }),
   phone: yup
     .string()
     .trim()
     .required('Vui lòng nhập số điện thoại !')
     .length(10, 'Số điện thoại không hợp lệ!')
-    .matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
+    .matches(phoneRegExp, 'Số điện thoại không hợp lệ !'),
   homeTown: yup.string().trim().required('Vui lòng nhập nơi sinh !'),
   address: yup.string().trim().required('Vui lòng nhập địa chỉ !'),
   citizenId: yup.string().trim().required('Vui lòng nhập căn cước công dân !'),

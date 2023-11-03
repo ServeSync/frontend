@@ -2,9 +2,10 @@ import { addHours, addMinutes } from 'date-fns'
 import * as yup from 'yup'
 
 export const FormEventSchema = yup.object().shape({
-  name: yup.string().required('Vui lòng nhập tên sự kiện !').min(10, 'Tên sự kiện ít nhất 10 kí tự !'),
+  name: yup.string().trim().required('Vui lòng nhập tên sự kiện !').min(10, 'Tên sự kiện ít nhất 10 kí tự !'),
   introduction: yup
     .string()
+    .trim()
     .required('Vui lòng nhập giới thiệu sự kiện !')
     .min(10, 'Giới thiệu sự kiện ít nhất 10 kí tự !'),
   imageUrl: yup.string(),

@@ -14,5 +14,6 @@ export interface EventOrganizationType {
   address: string
   imageUrl: string
   role: string
-  contacts: ContactType[]
+  organizationId?: string
+  representatives: ContactType[]
 }
