@@ -7,11 +7,13 @@ export interface RegisteredStudentsListType {
 export interface RegisteredStudentsType {
   role: string
   id: string
+  code: string
   studentId: string
   name: string
   email: string
   phone: string
   status: string
   imageUrl: string
+  homeRoomName: string
   registeredAt: string
 }
