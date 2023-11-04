@@ -36,6 +36,10 @@ export function formatDateTime(dateTime: string) {
   return moment(dateTime).format('HH:mm DD/MM/YYYY')
 }
 
+export function formatDateTimeVN(dateTime: string) {
+  return moment(dateTime).add(7, 'hours').format('HH:mm DD/MM/YYYY')
+}
+
 export function formatDateFilter(date: string) {
   return date && moment(date).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD')
 }

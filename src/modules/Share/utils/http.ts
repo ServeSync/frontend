@@ -10,7 +10,7 @@ import {
 import connect from 'src/modules/Share/constants/connect'
 import HttpStatusCode from '../constants/httpStatusCode.enum'
 import authAPI from 'src/modules/Authentication/services/Auth/auth.api'
-import { handleError, isAxiosUnauthorizedError } from './utils'
+import { isAxiosUnauthorizedError } from './utils'
 import { AuthResponse, RefreshResponse } from 'src/modules/Authentication/interfaces'
 
 class Http {
@@ -82,8 +82,6 @@ class Http {
               }
             })
           }
-        } else {
-          handleError(error)
         }
         return Promise.reject(error)
       }

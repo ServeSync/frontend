@@ -90,6 +90,7 @@ const EventForm = ({
     if (event) {
       setValue('name', event.name)
       setValue('introduction', event.introduction)
+      setValue('imageUrl', event.imageUrl)
       const blocksFromHTML = convertFromHTML(event.description as string)
       const description = EditorState.createWithContent(
         ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
@@ -139,7 +140,12 @@ const EventForm = ({
           </Input>
           <div className='col-span-4 row-span-4'>
             <div className='w-full h-full relative rounded-xl'>
-              <InputImage register={register} onChange={handleChangeFile} previewImage={previewImage} />
+              <InputImage
+                register={register}
+                onChange={handleChangeFile}
+                previewImage={previewImage}
+                avatar={event?.imageUrl}
+              />
               <div className='absolute bottom-[4px] right-[26px]'>
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
                   {errors.imageUrl?.message}

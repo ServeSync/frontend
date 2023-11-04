@@ -2,16 +2,15 @@
 import { Fragment, useRef } from 'react'
 import { UseFormRegister } from 'react-hook-form'
 import Button from '../Button'
-import { StudentType } from 'src/modules/StudentManagement/interfaces'
 
 interface Props {
   onChange?: (file?: File) => void
   register: UseFormRegister<any>
   previewImage: string
-  student?: StudentType
+  avatar?: string
 }
 
-const InputImage = ({ onChange, register, previewImage, student }: Props) => {
+const InputImage = ({ onChange, register, previewImage, avatar }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const OnFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,8 +21,6 @@ const InputImage = ({ onChange, register, previewImage, student }: Props) => {
   const handleUploadFile = () => {
     fileInputRef.current?.click()
   }
-
-  const avatar = student?.imageUrl
 
   return (
     <Fragment>
