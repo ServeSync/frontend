@@ -6,14 +6,14 @@ import { Box, Tab, Tabs } from '@mui/material'
 // import EventDetailRegisterPage from '../EventDetailRegisterPage'
 import useQueryEventConfig from '../../../hooks/useQueryEventConfig'
 import { GetAttendanceStudentsQuery, GetEventByIdQuery, GetRegisteredStudentsQuery } from '../../../services'
-import { formatDateOfBirth, formatDateTime, formatTime } from 'src/modules/Share/utils'
-import classNames from 'classnames'
+import { formatDateTime } from 'src/modules/Share/utils'
 import LandingPageHeader from 'src/modules/HomePage/components/HeaderHomePage/HeaderHomePage'
 import { LocationType } from 'src/modules/EventManagement/interfaces'
 import EventDetailRegisterListPage from '../EventDetailRegisterListPage'
 import EventDetailAttendanceListPage from '../EventDetailAttendanceListPage'
 import EventDetailInformationPage from '../EventDetailInformationPage'
 import EventDetailOrganizationPage from '../EventDetailOrganizationPage'
+import FooterHomePage from 'src/modules/HomePage/components/FooterHomePage'
 
 const EventDetailPage = () => {
   const [page, setPage] = useState<number>(0)
@@ -71,6 +71,7 @@ const EventDetailPage = () => {
                 <h1 className='text-black text-[60px] font-semibold break-words'>{event.name}</h1>
                 <h4 className='text-black text-[25px] font-light break-words'>{event.introduction}</h4>
                 <h6 className='text-[#A0A2A4] text-[20px] font-light break-words'>{event.type}</h6>
+
                 <div className='text-center font-medium flex gap-3 mt-2'>
                   <img
                     src={event.representativeOrganization.imageUrl}
@@ -79,34 +80,32 @@ const EventDetailPage = () => {
                   />
                   <div className='flex flex-col text-start'>
                     <p className='font-normal text-[#F93232]'>
-                      Tổ chức đại diện:
                       <span className='font-semibold text-black'> {event.representativeOrganization.name}</span>
+                      <span className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-[#A0A2A4] text-[12px] ring-1 ring-inset ring-gray-500/10 ms-3'>
+                        {event.calculatedStatus}
+                      </span>
                     </p>
-                    <p className='text-gray-400'>{event.representativeOrganization.email}</p>
+                    <p className='text-[#A0A2A4] text-[16px] font-light'>{event.representativeOrganization.email}</p>
                   </div>
                 </div>
               </div>
-              <div className='flex justify-between items-center'>
-                <div
-                  className={classNames(
-                    ' px-10 py-2  rounded-3xl shadow-md transition-all duration-300 hover:shadow-md  no-underline flex-shrink-0',
-                    {
-                      'bg-[#00F335]/50': event.status === 'Done',
-                      'bg-[#58CCFE]': event.status === 'Happening',
-                      'bg-[#FFE55A]/50': event.status === 'Upcoming'
-                    }
-                  )}
-                >
-                  <span className='font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[12px] text-center'>
-                    {event.status === 'Done'
-                      ? 'Đã diễn ra'
-                      : event.status === 'Happening'
-                      ? 'Đang diễn ra'
-                      : event.status === 'Upcoming'
-                      ? 'Sắp diễn ra'
-                      : ''}
+              <div className='flex justify-between items-end'>
+                {!event.isRegistered ? (
+                  event.calculatedStatus == 'Registration' ? (
+                    <Link
+                      className='bg-[#0E91EF] text-white px-8 py-3 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md text-center  no-underline flex-shrink-0 '
+                      to={path.login}
+                    >
+                      Đăng ký ngay
+                    </Link>
+                  ) : (
+                    <span></span>
+                  )
+                ) : (
+                  <span className='inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20'>
+                    Đã đăng ký.
                   </span>
-                </div>
+                )}
               </div>
             </div>
             <div className='relative mb-[200px] px-[120px]'>
@@ -129,7 +128,7 @@ const EventDetailPage = () => {
                         d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
                       />
                     </svg>
-                    <span className='text-[#A0A2A4] text-[15px] font-normal break-words truncate text-center'>
+                    <span className='text-[#A0A2A4] text-[16px] font-normal break-words truncate text-center'>
                       {event.address.fullAddress}
                     </span>
                   </div>
@@ -148,9 +147,7 @@ const EventDetailPage = () => {
                         d='M3 8.25V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V8.25m-18 0V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6zM7.5 6h.008v.008H7.5V6zm2.25 0h.008v.008H9.75V6z'
                       />
                     </svg>
-                    <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center'>
-                      {formatDateOfBirth(event.startAt) + ' - ' + formatDateOfBirth(event.endAt)}
-                    </span>
+                    <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center'>{event.type}</span>
                   </div>
                   <div className='flex gap-2'>
                     <svg
@@ -168,7 +165,7 @@ const EventDetailPage = () => {
                       />
                     </svg>
                     <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center'>
-                      {formatTime(event.startAt) + ' - ' + formatTime(event.endAt)}
+                      {formatDateTime(event.startAt) + ' - ' + formatDateTime(event.endAt)}
                     </span>
                   </div>
                   <div className='flex gap-2'>
@@ -187,23 +184,18 @@ const EventDetailPage = () => {
                       />
                     </svg>
                     <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center'>
-                      {event?.roles?.map((role) => parseFloat(role.score))?.reduce((a, b) => Math.min(a, b)) +
-                        ' - ' +
-                        event?.roles?.map((role) => parseFloat(role.score))?.reduce((a, b) => Math.max(a, b))}
-                      điểm
+                      {event.activity.minScore.toFixed(2)} - {event.activity.maxScore.toFixed(2)} điểm
                     </span>
                   </div>
                 </div>
                 <div className='col-span-1 flex  justify-center'>
-                  {mapImageURL && (
-                    <img src={mapImageURL} alt='Static Map' className='w-full object-cover rounded-2xl' />
-                  )}
+                  {mapImageURL && <img src={mapImageURL} alt='Static Map' className='object-cover rounded-2xl' />}
                 </div>
-                <div className='col-span-1 flex flex-col gap-5'>
+                <div className='col-span-1 flex flex-col justify-between gap-5'>
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
                       <p className='font-semibold text-[16px] text-[#1F2933] break-words'>Khung giờ đăng ký</p>
-                      <button>Xem tất cả</button>
+                      <button className='font-light text-[14px] text-[#146BCD]'>Xem tất cả</button>
                     </div>
                     <div className='flex gap-2'>
                       <svg
@@ -221,16 +213,20 @@ const EventDetailPage = () => {
                         />
                       </svg>
                       <span className='text-[#A0A2A4] text-[15px] font-normal break-words'>
-                        {formatDateTime(event.registrationInfos[0].startAt) +
+                        {formatDateTime(
+                          event.registrationInfos.find((e) => e.id == event.nearestRegistrationInfoId)!.startAt
+                        ) +
                           ' - ' +
-                          formatDateTime(event.registrationInfos[0].endAt)}
+                          formatDateTime(
+                            event.registrationInfos.find((e) => e.id == event.nearestRegistrationInfoId)!.endAt
+                          )}
                       </span>
                     </div>
                   </div>
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
                       <p className='font-semibold text-[16px] text-[#1F2933] break-words'>Khung giờ điểm danh</p>
-                      <button>Xem tất cả</button>
+                      <button className='font-light text-[14px] text-[#146BCD]'>Xem tất cả</button>
                     </div>
                     <div className='flex gap-2'>
                       <svg
@@ -248,28 +244,20 @@ const EventDetailPage = () => {
                         />
                       </svg>
                       <span className='text-[#A0A2A4] text-[15px] font-normal break-words'>
-                        {formatDateTime(event.attendanceInfos[0].startAt) +
+                        {formatDateTime(
+                          event.attendanceInfos.find((e) => e.id == event.nearestAttendanceInfoId)!.startAt
+                        ) +
                           ' - ' +
-                          formatDateTime(event.attendanceInfos[0].endAt)}
+                          formatDateTime(
+                            event.attendanceInfos.find((e) => e.id == event.nearestAttendanceInfoId)!.endAt
+                          )}
                       </span>
                     </div>
                   </div>
-                  {event.isRegistered ? (
-                    <Link
-                      className='bg-[#0E91EF] text-white px-10 m-auto py-4 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md text-center  no-underline flex-shrink-0 '
-                      to={path.login}
-                    >
-                      Đăng ký ngay
-                    </Link>
-                  ) : (
-                    <div className='bg-red-500 px-10 m-auto py-4 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md text-center  no-underline flex-shrink-0 cursor-not-allowed'>
-                      Không thể đăng ký
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
-            <div className='w-full h-full bg-[#F4F4F4] grid px-[120px] py-6 grid-cols-4 mb-[90px]'>
+            <div className='w-full h-full bg-[#F4F4F4] grid px-[120px] py-6 grid-cols-4 mb-[50px]'>
               <div className='flex flex-col justify-center items-center col-span-1'>
                 <div className='font-semibold text-[30px] break-words'>{event.roles.length}</div>
                 <div className='text-[20px] font-normal'>Vai trò khác nhau</div>
@@ -279,11 +267,11 @@ const EventDetailPage = () => {
                 <div className='text-[20px] font-normal'>Ban tổ chức</div>
               </div>
               <div className='flex flex-col justify-center items-center col-span-1'>
-                <div className='font-semibold text-[30px] break-words'>{registeredStudents?.data.length}</div>
+                <div className='font-semibold text-[30px] break-words'>{event.registered}</div>
                 <div className='text-[20px] font-normal'>Sinh viên đăng ký</div>
               </div>
               <div className='flex flex-col justify-center items-center col-span-1'>
-                <div className='font-semibold text-[30px] break-words'>{attendanceStudents?.data.length}</div>
+                <div className='font-semibold text-[30px] break-words'>{event.attended}</div>
                 <div className='text-[20px] font-normal'>Sinh viên tham dự</div>
               </div>
             </div>
@@ -327,6 +315,7 @@ const EventDetailPage = () => {
             </div>
           </div>
         )}
+        <FooterHomePage />
       </div>
     </Fragment>
   )

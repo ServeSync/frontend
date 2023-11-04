@@ -173,6 +173,8 @@ export interface EventDetailType {
   activity: {
     id: string
     name: string
+    maxScore: number
+    minScore: number
   }
   representativeOrganization: {
     id: string
@@ -183,4 +185,6 @@ export interface EventDetailType {
     imageUrl: string
     organizationId: string
   }
+  nearestRegistrationInfoId: string
+  nearestAttendanceInfoId: string
 }
