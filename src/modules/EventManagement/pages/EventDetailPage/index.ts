@@ -1,4 +1,5 @@
-export * from './EventDetailPage'
-export * from './EventDetailRegisterPage'
+export * from './EventDetailAttendanceListPage'
 export * from './EventDetailInformationPage'
 export * from './EventDetailOrganizationPage'
+export * from './EventDetailPage'
+export * from './EventDetailRegisterListPage'

@@ -1,8 +1,16 @@
 import http from 'src/modules/Share/utils/http'
 import { RequestEventForm } from '../../interfaces/RequestEventForm/request_event-form.type'
+import { EventPendingType, EventsPendingListType, RequestEventsListConfig } from '../../interfaces'
 
 const requestEventAPI = {
-  requestCreateEvent: (body: RequestEventForm) => http.post('/event-collaboration-requests', body)
+  requestCreateEvent: (body: RequestEventForm) => http.post('/event-collaboration-requests', body),
+
+  getListRequestEvents: (params: RequestEventsListConfig) =>
+    http.get<EventsPendingListType>('/event-collaboration-requests', { params }),
+
+  getRequestEvent: (id: string) => http.get<EventPendingType>(`/event-collaboration-requests/${id}`),
+
+  approveRequestEvent: (id: string) => http.post<string>(`/event-collaboration-requests/${id}/approve`)
 }
 
 export default requestEventAPI

@@ -36,6 +36,7 @@
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "framer-motion": "^10.16.4",
+    "html-react-parser": "^5.0.6",
     "lodash": "^4.17.21",
     "material-ui-popup-state": "^5.0.9",
     "moment-timezone": "^0.5.43",

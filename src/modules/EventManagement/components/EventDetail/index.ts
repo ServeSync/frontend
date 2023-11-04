@@ -1,3 +1,5 @@
 export * from './EventDetailInformation'
 export * from './EventDetailOrganization'
 export * from './EventDetailRegister'
+export * from './EventDetailRegisterList'
+export * from './EventDetailAttendanceList'

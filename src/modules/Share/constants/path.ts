@@ -19,6 +19,8 @@ const path = {
   create_event: '/admin/events/create',
   edit_event: '/admin/events/edit',
   event_organizer: '/admin/organizers',
+  event_pending: '/admin/pendingEvents',
+  edit_event_pending: '/admin/pendingEvents/edit',
   standard: '/admin/standards',
   complaint: '/admin/complaints'
 } as const

@@ -120,6 +120,10 @@ export function ErrorCodeToMessage(errorCode: string): {
     'EventRole:000003': {
       message: 'Vai trò đã được đăng ký đủ số lượng !',
       type: 'Server'
+    },
+    'EventCollaborationRequest:000002': {
+      message: 'Ngày duyệt sự kiện phải trước ngày tổ chức hơn 1 ngày !',
+      type: 'Server'
     }
   }
 

@@ -91,7 +91,7 @@ const RequestEventForm = ({
             name='name'
             placeholder='Tên sự kiện'
             className='col-span-12'
-            classNameInput='w-full text-[#195E8E] text-[42px] font-bold placeholder:text-[42px] placeholder:text-[#195E8E] placeholder-bold bg-transparent pr-4 outline-none h-[54px]'
+            classNameInput='w-full text-[#195E8E] text-[60px] font-bold placeholder:text-[60px] placeholder:text-[#195E8E] placeholder-bold bg-transparent pr-4 outline-none h-[80px]'
             error={errors.name?.message}
           />
           <Input

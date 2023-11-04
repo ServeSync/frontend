@@ -22,6 +22,48 @@ export interface EventsListType {
   data: EventType[]
 }
 
+export interface EventsPendingListType {
+  total: number
+  totalPages: number
+  data: EventPendingType[]
+}
+
+export interface EventPendingType {
+  id: string
+  name: string
+  introduction: string
+  capacity: number
+  imageUrl: string
+  startAt: string
+  endAt: string
+  status: string
+  type: string
+  address: Address
+  description: string
+  organization: {
+    name: string
+    description: string
+    email: string
+    phoneNumber: string
+    address: string
+    imageUrl: string
+  }
+  organizationContact: {
+    name: string
+    email: string
+    phoneNumber: string
+    gender: boolean
+    address: string
+    birth: string
+    position: string
+    imageUrl: string
+  }
+  activity: {
+    id: string
+    name: string
+  }
+}
+
 export interface FormEvent {
   name: string
   introduction: string
@@ -131,6 +173,8 @@ export interface EventDetailType {
   activity: {
     id: string
     name: string
+    maxScore: number
+    minScore: number
   }
   representativeOrganization: {
     id: string
@@ -141,4 +185,6 @@ export interface EventDetailType {
     imageUrl: string
     organizationId: string
   }
+  nearestRegistrationInfoId: string
+  nearestAttendanceInfoId: string
 }

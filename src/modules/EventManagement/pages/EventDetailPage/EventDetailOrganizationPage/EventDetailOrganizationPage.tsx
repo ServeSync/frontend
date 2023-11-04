@@ -8,7 +8,7 @@ interface Props {
 }
 const EventDetailOrganizationPage = ({ page, index, event }: Props) => {
   return (
-    <div role='tabpanel' hidden={page !== index} id='tab-3' aria-controls='simple-tabpanel-3'>
+    <div role='tabpanel' hidden={page !== index} id='tab-2' aria-controls='simple-tabpanel-2'>
       {page === index && <EventDetailOrganizer event={event} />}
     </div>
   )

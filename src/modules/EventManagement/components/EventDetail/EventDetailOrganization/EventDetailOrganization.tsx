@@ -41,7 +41,7 @@ const EventDetailOrganization = ({ event }: Props) => {
                     <span>Địa chỉ</span>
                     <span>:</span>
                   </div>
-                  <span className='line-clamp-1 flex-1'></span>
+                  <span className='line-clamp-1 flex-1'>{organization.address}</span>
                 </li>
                 <li className='flex gap-4'>
                   <div className='w-[100px] flex justify-between font-medium'>
@@ -52,32 +52,24 @@ const EventDetailOrganization = ({ event }: Props) => {
                 </li>
               </ul>
             </div>
-            {organization.organizationId === event.representativeOrganization.organizationId && (
-              <div className='col-span-1'>
-                <div className='w-full flex '>
-                  <div className='p-4 bg-red-200 rounded-lg flex justify-center items-center'>
-                    <div className='text-center text-red-600 text-sm font-nunito font-light leading-20'>
-                      Tổ chức đại diện
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
           <h3 className='text-[16px] mt-4 mb-2 font-semibold'>Thành viên</h3>
           <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'>
             <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
               <tr className='text-[14px] text-gray-600'>
-                <th className='px-2 py-2 text-center font-semibold'>
+                <th className='px-2 py-2 font-semibold'>
+                  <span>#</span>
+                </th>
+                <th className='px-2 py-2 font-semibold'>
                   <span>Họ và tên</span>
                 </th>
-                <th className='px-2 py-2 text-center font-semibold'>
+                <th className='px-2 py-2 font-semibold'>
                   <span>Địa chỉ email</span>
                 </th>
-                <th className='px-2 py-2 text-center font-semibold'>
+                <th className='px-2 py-2 font-semibold'>
                   <span>Số điện thoại</span>
                 </th>
-                <th className='px-2 py-2 text-center font-semibold'>
+                <th className='px-2 py-2 font-semibold'>
                   <span>Vai trò</span>
                 </th>
               </tr>
@@ -88,16 +80,17 @@ const EventDetailOrganization = ({ event }: Props) => {
                   key={index}
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
                 >
-                  <th className='px-2 py-4 text-center font-medium flex justify-center items-center gap-3'>
+                  <th className='px-2 py-4 font-medium'>{index + 1}</th>
+                  <th className='px-2 py-4 font-medium flex items-center gap-3'>
                     <img src={representative.imageUrl} alt='' className='rounded-full object-cover w-[50px]' />
                     <div className='flex flex-col'>
                       <span className='font-semibold'>{representative.name}</span>
-                      <span className='text-gray-400'>{representative.position}</span>
+                      <span className='text-gray-400 text-[12px]'>{representative.position}</span>
                     </div>
                   </th>
-                  <th className='px-2 py-4 text-center font-medium'>{representative.email}</th>
-                  <th className='px-2 py-4 text-center font-medium w-[20%] '>{representative.phoneNumber}</th>
-                  <th className='px-2 py-4 text-center font-medium w-[15%] '>{representative.organizationRepId}</th>
+                  <th className='px-2 py-4 font-medium'>{representative.email}</th>
+                  <th className='px-2 py-4 font-medium w-[20%] '>{representative.phoneNumber}</th>
+                  <th className='px-2 py-4 font-medium w-[25%] '>{representative.role}</th>
                 </tr>
               ))}
             </tbody>
