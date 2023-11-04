@@ -150,8 +150,8 @@ const RegisterEventRoleForm = ({
                       dangerouslySetInnerHTML={{ __html: item.description as string }}
                     ></span>
                   </th>
-                  <th className='px-2 py-4 font-medium w-[8%] text-center'>{item.quantity}</th>
-                  <th className='px-2 py-4 font-medium w-[4%] text-center'>{item.score}</th>
+                  <th className='px-2 py-4 font-medium w-[8%]'>{item.quantity}</th>
+                  <th className='px-2 py-4 font-medium w-[4%]'>{item.score}</th>
                   <th className='px-2 py-4 font-medium w-[10%] text-center'>
                     <input type='checkbox' defaultChecked={item.isNeedApprove === 'true'} disabled readOnly />
                   </th>

@@ -44,7 +44,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       field: 'name'
     },
     'Role:000004': {
-      message: 'Role admin không cho phép thay đổi !',
+      message: 'Role không cho phép thêm mới, xóa và chỉnh sửa !',
       type: 'Server'
     },
     'Student:000001': {

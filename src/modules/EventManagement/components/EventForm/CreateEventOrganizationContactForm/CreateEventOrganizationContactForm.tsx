@@ -142,7 +142,7 @@ const CreateEventOrganizationContactForm = ({
         <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
           <tr className='text-[14px] text-gray-600'>
             {OrganizerTableHeader.map((item) => (
-              <th className='px-2 py-2 text-center font-semibold' key={item.id}>
+              <th className='px-2 py-2 font-semibold' key={item.id}>
                 <span>{item.name}</span>
               </th>
             ))}
@@ -158,9 +158,9 @@ const CreateEventOrganizationContactForm = ({
               >
                 <th className='px-2 py-4 font-medium w-[20%]'>{item.name}</th>
                 <th className='px-2 py-4 font-medium'>{item.email}</th>
-                <th className='px-2 py-4 font-medium w-[20%] text-center'>{item.phoneNumber}</th>
-                <th className='px-2 py-4 font-medium w-[15%] text-center'>{item.role}</th>
-                <th className='px-2 py-4 font-medium w-[13%] text-center'>
+                <th className='px-2 py-4 font-medium w-[20%]'>{item.phoneNumber}</th>
+                <th className='px-2 py-4 font-medium w-[15%]'>{item.role}</th>
+                <th className='px-2 py-4 font-medium w-[13%]'>
                   <Button
                     type='button'
                     classNameButton='py-2 px-2 rounded-lg text-[14px] hover:bg-slate-200'

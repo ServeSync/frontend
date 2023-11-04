@@ -2,16 +2,12 @@
 import { Fragment, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useFieldArray } from 'react-hook-form'
 import _ from 'lodash'
 import { EventOrganizationFormType, EventRole, FormEvent } from '../../../interfaces'
 import { FormEventSchema, FormEventType } from '../../../utils'
 import { CreateEventCommandHandler, GetEventByIdQuery } from '../../../services'
-import path from 'src/modules/Share/constants/path'
-import { handleError } from 'src/modules/Share/utils'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import EditEvent from '../EditEvent/EditEvent'
 import EditEventRegistration from '../EditEventRegistration'
@@ -27,8 +23,6 @@ const EditEventPage = () => {
     setPage(newPage)
   }
 
-  const navigate = useNavigate()
-
   const [dataEventRole, setDataEventRole] = useState<EventRole[]>([])
   const [dataEventOrganization, setDataEventOrganization] = useState<EventOrganizationFormType[]>([])
 
@@ -39,7 +33,6 @@ const EditEventPage = () => {
     getValues,
     resetField,
     setValue,
-    setError,
     formState: { errors }
   } = useForm<FormEventType>({
     resolver: yupResolver(FormEventSchema),
@@ -68,21 +61,7 @@ const EditEventPage = () => {
       roles: dataEventRole,
       organizations: dataEventOrganization
     } as FormEvent
-    createEventCommandHandler.handle(
-      body,
-      file as File,
-      () => {
-        toast.success('Thêm sự kiện thành công !')
-        navigate({
-          pathname: path.event
-        })
-      },
-      (error: any) => {
-        toast.error('Thông tin không hợp lệ vui lòng kiểm tra lại !')
-        handleError<FormEventType>(error, setError)
-      },
-      setError
-    )
+    console.log(body)
   })
 
   const queryEventConfig = useQueryEventConfig()

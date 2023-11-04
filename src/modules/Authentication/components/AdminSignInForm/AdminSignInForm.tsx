@@ -3,6 +3,8 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import Button from 'src/modules/Share/components/Button'
 import Input from 'src/modules/Share/components/Input'
 import { FormSignInType } from '../../utils'
+import { Link } from 'react-router-dom'
+import path from 'src/modules/Share/constants/path'
 
 interface Props {
   register: UseFormRegister<FormSignInType>
@@ -19,7 +21,7 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
         register={register}
         id='userNameOrEmail'
         name='userNameOrEmail'
-        placeholder='Nhập Email hoặc MSSV'
+        placeholder='Nhập Email'
         className='flex flex-col relative'
         classNameInput='border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none h-[48px]'
         error={errors.userNameOrEmail?.message}
@@ -113,13 +115,33 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
           </Button>
         )}
       </Input>
+      <div className='flex justify-between'>
+        <Link
+          to={path.forget_password}
+          className='text-[16px] text-right text-[#195E8E] font-semibold mb-4 hover:text-[#195E8E]/60 hover:underline'
+        >
+          Quên mật khẩu ?
+        </Link>
+        <Link
+          to={path.home_page}
+          className='text-[16px] text-right text-[#195E8E] font-semibold mb-4 hover:text-[#195E8E]/60 hover:underline'
+        >
+          Trang chủ
+        </Link>
+      </div>
       <Button
         type='submit'
         isLoading={isLoading}
-        classNameButton='w-full bg-[#195E8E] hover:bg-[#195E8E]/80 p-2 rounded-xl text-[20px] text-white font-semibold'
+        classNameButton='w-full bg-[#195E8E] hover:bg-[#195E8E]/80 p-2 rounded-xl text-[18px] text-white font-semibold'
       >
         Đăng nhập
       </Button>
+      <div className='mt-12'>
+        <span>Muốn hợp tác với chúng tôi ? </span>
+        <Link to={'/!'} className='text-[16px] text-right text-[#52aff2] mb-4 hover:underline'>
+          Đăng kí tổ chức sự kiện
+        </Link>
+      </div>
     </div>
   )
 }

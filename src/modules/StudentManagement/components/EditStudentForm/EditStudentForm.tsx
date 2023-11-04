@@ -71,7 +71,12 @@ const EditStudentForm = ({
       <div className='grid grid-cols-6 gap-6'>
         <div className='col-span-1'>
           <div className='flex flex-col items-center justify-center '>
-            <InputAvatar register={register} onChange={onChange} previewImage={previewImage} student={student} />
+            <InputAvatar
+              register={register}
+              onChange={onChange}
+              previewImage={previewImage}
+              avatar={student && student.imageUrl}
+            />
           </div>
         </div>
         <div className='col-span-5 grid grid-cols-3 gap-x-6 gap-y-4 text-[14px]'>

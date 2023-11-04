@@ -115,29 +115,27 @@ const StudentSignInForm = ({ register, errors, isLoading }: Props) => {
           </Button>
         )}
       </Input>
-      <div className='flex justify-end'>
+      <div className='flex justify-between'>
         <Link
           to={path.forget_password}
           className='text-[16px] text-right text-[#195E8E] font-semibold mb-4 hover:text-[#195E8E]/60 hover:underline'
         >
           Quên mật khẩu ?
         </Link>
+        <Link
+          to={path.home_page}
+          className='text-[16px] text-right text-[#195E8E] font-semibold mb-4 hover:text-[#195E8E]/60 hover:underline'
+        >
+          Trang chủ
+        </Link>
       </div>
       <Button
         type='submit'
         isLoading={isLoading}
-        classNameButton='w-full bg-[#195E8E] hover:bg-[#195E8E]/80 p-2 rounded-xl text-[20px] text-white font-semibold'
+        classNameButton='w-full bg-[#195E8E] hover:bg-[#195E8E]/80 p-2 rounded-xl text-[18px] text-white font-semibold'
       >
         Đăng nhập
       </Button>
-      <div className='flex justify-center'>
-        <Link
-          to={path.admin_login}
-          className='text-[16px] text-right text-[#195E8E] font-semibold mt-4 hover:text-[#195E8E]/60 hover:underline'
-        >
-          Đăng nhập với vai trò Quản trị viên
-        </Link>
-      </div>
     </div>
   )
 }

@@ -27,7 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <QueryClientProvider client={queryClient}>
           <AppProvider>
             <App />
-            <ToastContainer />
+            <ToastContainer style={{ width: '460px' }} />
           </AppProvider>
         </QueryClientProvider>
       </HelmetProvider>
