@@ -15,6 +15,7 @@ const EventRating = ({
     }
     return '0%'
   }
+
   return (
     <div className='flex items-center text-[#FF5722] justify-center gap-1 text-[14px]'>
       {rating}

@@ -14,6 +14,9 @@ import { URLSearchParamsInit, createSearchParams, useNavigate } from 'react-rout
 import { isEmpty, omitBy } from 'lodash'
 import { formatDateFilter } from 'src/modules/Share/utils'
 import EventPendingTable from 'src/modules/EventManagement/components/EventPending/EventPendingTable'
+import PopoverCustom from 'src/modules/Share/components/Popover'
+import Button from 'src/modules/Share/components/Button'
+import Filter from 'src/modules/EventManagement/components/Filter'
 
 const EventPendingPage = () => {
   const navigate = useNavigate()
@@ -47,10 +50,10 @@ const EventPendingPage = () => {
     const config = {
       ...queryEventPendingConfig,
       page: 1,
-      startDate: formatDateFilter(data.startAt as string),
-      endDate: formatDateFilter(data.endAt as string),
-      eventType: data.type,
-      eventStatus: data.status,
+      startAt: formatDateFilter(data.startAt as string),
+      endAt: formatDateFilter(data.endAt as string),
+      type: data.type,
+      status: data.status,
       search: data.search
     }
     navigate({
@@ -58,6 +61,14 @@ const EventPendingPage = () => {
       search: createSearchParams(omitBy(config, isEmpty) as URLSearchParamsInit).toString()
     })
   })
+
+  const handleResetFormFilter = () => {
+    FilterEventForm.resetField('search')
+    FilterEventForm.resetField('startAt')
+    FilterEventForm.resetField('endAt')
+    FilterEventForm.setValue('type', '')
+    FilterEventForm.setValue('status', '')
+  }
 
   return (
     <Fragment>
@@ -75,6 +86,33 @@ const EventPendingPage = () => {
               register={FilterEventForm.register}
             />
           </form>
+          <div className='flex gap-4'>
+            <PopoverCustom
+              renderPopover={
+                <form onSubmit={handleSubmitFormFilter}>
+                  <Filter control={FilterEventForm.control} onResetForm={handleResetFormFilter} />
+                </form>
+              }
+            >
+              <Button classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z'
+                  />
+                </svg>
+                <span>Lọc</span>
+              </Button>
+            </PopoverCustom>
+          </div>
         </div>
         <EventPendingTable
           eventsPending={eventsPending}

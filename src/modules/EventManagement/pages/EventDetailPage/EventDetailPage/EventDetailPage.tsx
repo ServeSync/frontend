@@ -62,13 +62,13 @@ const EventDetailPage = () => {
         <title>Event Detail</title>
         <meta name='description' content='This is event detail page of the project' />
       </Helmet>
-      <div className=''>
+      <div>
         <LandingPageHeader />
         {event && (
-          <div className='relative bg-white w-full h-full pb-[100px] '>
+          <div className='relative bg-white h-full pb-[100px] max-w-screen-xl mx-auto'>
             <div className='flex mb-10 px-[120px] justify-between'>
               <div className='flex flex-col'>
-                <h1 className='text-black text-[80px] font-semibold break-words'>{event.name}</h1>
+                <h1 className='text-black text-[60px] font-semibold break-words'>{event.name}</h1>
                 <h4 className='text-black text-[25px] font-light break-words'>{event.introduction}</h4>
                 <h6 className='text-[#A0A2A4] text-[20px] font-light break-words'>{event.type}</h6>
                 <div className='text-center font-medium flex gap-3 mt-2'>

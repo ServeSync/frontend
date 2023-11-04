@@ -14,5 +14,6 @@ export const TypeToMessage = (type: string) => {
     External: 'Ngoài trường',
     Collaboration: 'Kết hợp'
   }
+
   return mappedEventType[`${type}`]
 }

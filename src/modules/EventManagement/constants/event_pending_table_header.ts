@@ -29,5 +29,10 @@ export const EventPendingTableHeader = [
     id: '6',
     name: 'Loại',
     sort: 'Type'
+  },
+  {
+    id: '7',
+    name: 'Trạng thái',
+    sort: 'Status'
   }
 ]

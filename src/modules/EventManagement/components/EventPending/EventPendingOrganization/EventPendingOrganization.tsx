@@ -28,7 +28,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Tên tổ chức'
               value={eventPending.organization.name}
               InputProps={{
@@ -38,7 +38,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Số điện thoại'
               value={eventPending.organization.phoneNumber}
               InputProps={{
@@ -48,7 +48,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Địa chỉ email'
               value={eventPending.organization.email}
               InputProps={{
@@ -58,7 +58,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Địa chỉ '
               value={eventPending.organization.address}
               InputProps={{
@@ -81,7 +81,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Tên người đại diện'
               value={eventPending.organizationContact.name}
               InputProps={{
@@ -91,7 +91,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Số điện thoại'
               value={eventPending.organizationContact.phoneNumber}
               InputProps={{
@@ -101,7 +101,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Địa chỉ email'
               value={eventPending.organizationContact.email}
               InputProps={{
@@ -111,7 +111,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Địa chỉ '
               value={eventPending.organizationContact.address}
               InputProps={{
@@ -121,7 +121,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Địa chỉ '
               value={eventPending.organizationContact.address}
               InputProps={{
@@ -131,7 +131,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Vị trí nhân sự'
               value={eventPending.organizationContact.position}
               InputProps={{
@@ -141,7 +141,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Ngày sinh'
               value={formatDateOfBirth(eventPending.organizationContact.birth)}
               InputProps={{
@@ -151,7 +151,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Giới tính'
               value={eventPending.organizationContact.gender ? 'Nam' : 'Nữ'}
               InputProps={{

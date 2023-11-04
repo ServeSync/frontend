@@ -6,15 +6,13 @@ import { EventPendingType } from 'src/modules/EventManagement/interfaces'
 import Button from 'src/modules/Share/components/Button'
 import { formatDateTime } from 'src/modules/Share/utils'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ModalCustom from 'src/modules/Share/components/Modal'
 
 interface Props {
   eventPending: EventPendingType
 }
 const EventPendingInfo = ({ eventPending }: Props) => {
-  console.log(eventPending)
-
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const [mapImageURL, setMapImageURL] = useState<string | null>(null)
@@ -27,11 +25,12 @@ const EventPendingInfo = ({ eventPending }: Props) => {
     setIsOpenModal(false)
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const center = {
-    latitude: eventPending?.address?.latitude,
-    longitude: eventPending?.address?.longitude
-  }
+  const center = useMemo(() => {
+    return {
+      latitude: eventPending?.address?.latitude,
+      longitude: eventPending?.address?.longitude
+    }
+  }, [eventPending])
 
   useEffect(() => {
     const googleMapsApiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY
@@ -73,7 +72,7 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Thời gian bắt đầu'
               value={formatDateTime(eventPending.startAt)}
               InputProps={{
@@ -83,7 +82,7 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Thời gian kết thúc'
               value={formatDateTime(eventPending.endAt)}
               InputProps={{
@@ -93,7 +92,7 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-6'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Địa điểm'
               value={eventPending.address.fullAddress}
               InputProps={{
@@ -103,7 +102,7 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-2'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Kinh độ'
               value={eventPending.address.longitude}
               InputProps={{
@@ -113,7 +112,7 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-2'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Vĩ độ'
               value={eventPending.address.latitude}
               InputProps={{
@@ -148,7 +147,7 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           </ModalCustom>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Loại sự kiện'
               value={TypeToMessage(eventPending.type)}
               InputProps={{
@@ -158,7 +157,7 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Số lượng tham gia '
               value={eventPending.capacity}
               InputProps={{
@@ -168,8 +167,7 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
-              label='Số lượng tham gia '
+              className='w-full'
               value={eventPending.capacity}
               InputProps={{
                 readOnly: true
@@ -178,9 +176,9 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-3'>
             <TextField
-              style={{ width: '100%' }}
+              className='w-full'
               label='Hoạt động sự kiện'
-              value={eventPending.activity}
+              value={eventPending.activity.name}
               InputProps={{
                 readOnly: true
               }}

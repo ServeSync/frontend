@@ -122,7 +122,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server'
     },
     'EventCollaborationRequest:000002': {
-      message: 'Ngày duyệt sự kiện phải trước ngày tổ chức hơn 1 ngày ',
+      message: 'Ngày duyệt sự kiện phải trước ngày tổ chức hơn 1 ngày !',
       type: 'Server'
     }
   }
