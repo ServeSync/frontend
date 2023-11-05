@@ -3,6 +3,13 @@ import { Address, EventOrganizationFormType, EventRole, RepresentativeOrganizati
 export interface EventType {
   id: string
   name: string
+  activity: {
+    id: string
+    minScore: number
+    maxNumber: number
+    name: string
+    eventCategoryId: string
+  }
   introduction: string
   capacity: number
   registered: number
@@ -187,4 +194,18 @@ export interface EventDetailType {
   }
   nearestRegistrationInfoId: string
   nearestAttendanceInfoId: string
+}
+
+export interface StudentAttendedEvent extends EventType
+{
+  role: string
+  score: number
+  attendanceAt: string
+}
+
+export interface StudentAttendedEventsListType
+{
+  total: number
+  totalPages: number
+  data: StudentAttendedEvent[]
 }
