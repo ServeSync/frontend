@@ -10,7 +10,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { FormRequestEventType, FormSearchMapSchema, FormSearchMapType } from '../../../utils'
 import { ActivityType, EventCategoryType, LocationType, MarkerType } from '../../../interfaces'
 import { eventType } from '../../../constants'
-import AutocompleteWithDebounce from 'src/modules/Share/components/AutocompleteWithDebounce'
 import Button from 'src/modules/Share/components/Button'
 import Map from '../../Map'
 import ModalCustom from 'src/modules/Share/components/Modal'
@@ -28,8 +27,6 @@ interface Props {
   file: File | undefined
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>
   handleChangeCategory: (id: string) => void
-  setActivitiesSearch: React.Dispatch<React.SetStateAction<string>>
-  setEventCategoriesSearch: React.Dispatch<React.SetStateAction<string>>
   markers: MarkerType[]
   setMarkers: React.Dispatch<React.SetStateAction<MarkerType[]>>
   description: EditorState
@@ -46,8 +43,6 @@ const RequestEventForm = ({
   file,
   setFile,
   handleChangeCategory,
-  setActivitiesSearch,
-  setEventCategoriesSearch,
   markers,
   setMarkers,
   description,
@@ -310,14 +305,19 @@ const RequestEventForm = ({
               render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <div className='col-span-6'>
-                    <AutocompleteWithDebounce<EventCategoryType>
-                      id='education_program'
-                      options={eventCategories}
-                      onChangeId={handleChangeCategory}
-                      onChange={onChange}
-                      label='Danh mục sự kiện'
-                      value={value as string}
-                      setTextSearch={setEventCategoriesSearch}
+                    <Autocomplete
+                      disablePortal
+                      id='event_category'
+                      options={eventCategories ? eventCategories : []}
+                      value={(eventCategories && eventCategories.find((option) => option.id === value)) || null}
+                      getOptionLabel={(option) => option.name}
+                      noOptionsText='Không có lựa chọn'
+                      renderInput={(params) => <TextField {...params} label='Danh mục sự kiện' />}
+                      onChange={(_, option) => {
+                        onChange(option ? option.id : '')
+                        handleChangeCategory && handleChangeCategory(option?.id as string)
+                      }}
+                      className='bg-white'
                     />
                     <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                   </div>
@@ -331,13 +331,16 @@ const RequestEventForm = ({
               render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <div className='col-span-6'>
-                    <AutocompleteWithDebounce
-                      id='education_program'
-                      options={activities}
-                      onChange={onChange}
-                      label='Hoạt động sự kiện'
-                      value={value as string}
-                      setTextSearch={setActivitiesSearch}
+                    <Autocomplete
+                      disablePortal
+                      id='activity'
+                      options={activities ? activities : []}
+                      value={(activities && activities.find((option) => option.id === value)) || null}
+                      getOptionLabel={(option) => option.name}
+                      noOptionsText='Không có lựa chọn'
+                      renderInput={(params) => <TextField {...params} label='Hoạt động sự kiện' />}
+                      onChange={(_, option) => onChange(option ? option.id : '')}
+                      className='bg-white'
                     />
                     <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                   </div>

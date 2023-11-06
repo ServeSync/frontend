@@ -43,8 +43,8 @@ export const FormRequestEventSchema = yup.object().shape({
   activityId: yup.string().required('Vui lòng chọn hoạt động !'),
   address: yup.object().shape({
     fullAddress: yup.string().required('Vui lòng nhập địa chỉ !'),
-    longitude: yup.string(),
-    latitude: yup.string()
+    longitude: yup.string().required('Vui lòng nhập kinh độ!'),
+    latitude: yup.string().required('Vui lòng nhập vĩ độ !')
   }),
   EventOrganizationInfo: yup.object().shape({
     name: yup.string().required('Vui lòng nhập tên tổ chức !'),

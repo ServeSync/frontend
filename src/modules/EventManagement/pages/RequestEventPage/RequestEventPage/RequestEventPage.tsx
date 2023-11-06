@@ -110,7 +110,6 @@ const RequestEventPage = () => {
 
       if (organizationData && organizationContactData) {
         const newData = omit(data, 'categoryId')
-
         const body = {
           ...newData,
           EventOrganizationInfo: organizationDataPromise,

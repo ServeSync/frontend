@@ -3,7 +3,6 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
 import classNames from 'classnames'
-import EventRating from 'src/modules/EventManagement/components/EventRating'
 import { formatDateTime, formatTime } from 'src/modules/Share/utils'
 import { StatusToMessage } from 'src/modules/EventManagement/constants'
 

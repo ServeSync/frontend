@@ -17,14 +17,13 @@ import Button from 'src/modules/Share/components/Button'
 import { AppContext } from 'src/modules/Share/contexts'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import { RegistrationInfoTableHeader, StatusToMessage, TypeToMessage } from 'src/modules/EventManagement/constants'
-import { TypeToMessage } from 'src/modules/EventManagement/constants'
 
 const EventDetailPage = () => {
   const { isAuthenticated } = useContext(AppContext)
 
   const [isOpenModal, setIsOpenModal] = useState(false)
 
-  const [isOpenModalRegistrationInfos, setisOpenModalRegistrationInfos] = useState(false)
+  const [isOpenModalRegistrationInfos, setIsOpenModalRegistrationInfos] = useState(false)
 
   const [isOpenModalAttendanceInfos, setIsOpenModalAttendanceInfos] = useState(false)
 
@@ -33,7 +32,7 @@ const EventDetailPage = () => {
   }
 
   const handleCloseModalRegistrationInfos = () => {
-    setisOpenModalRegistrationInfos(false)
+    setIsOpenModalRegistrationInfos(false)
   }
 
   const handleCloseModalAttendanceInfos = () => {
@@ -41,7 +40,7 @@ const EventDetailPage = () => {
   }
 
   const handleOpenModalRegistrationInfos = () => {
-    setisOpenModalRegistrationInfos(true)
+    setIsOpenModalRegistrationInfos(true)
   }
 
   const handleOpenModalAttendanceInfos = () => {

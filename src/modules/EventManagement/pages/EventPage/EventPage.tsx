@@ -17,6 +17,7 @@ import Filter from '../../components/Filter'
 import Button from 'src/modules/Share/components/Button'
 import EventTable from '../../components/EventTable'
 import Pagination from 'src/modules/Share/components/Pagination'
+import { eventStatus } from '../../constants'
 
 const EventPage = () => {
   const navigate = useNavigate()
@@ -91,7 +92,7 @@ const EventPage = () => {
             <PopoverCustom
               renderPopover={
                 <form onSubmit={handleSubmitFormFilter}>
-                  <Filter control={FilterEventForm.control} onResetForm={handleResetFormFilter} />
+                  <Filter options={eventStatus} control={FilterEventForm.control} onResetForm={handleResetFormFilter} />
                 </form>
               }
             >

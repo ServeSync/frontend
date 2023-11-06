@@ -3,8 +3,6 @@ import { FormRequestEventType } from '../../../utils'
 import RequestCreateEventForm from '../../../components/RequestEventForm/RequestEventForm'
 import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../../services'
 import { ActivityType, EventCategoryType, MarkerType } from '../../../interfaces'
-import useQueryEventCategoryConfig from '../../../hooks/useQueryEventCategoryConfig'
-import useQueryActivityConfig from '../../../hooks/useQueryActivityConfig'
 import { useState } from 'react'
 import { EditorState } from 'draft-js'
 
@@ -42,16 +40,11 @@ const RequestEvent = ({
   const handleChangeCategory = (id: string) => {
     setCategoryId(id)
   }
-  const [eventCategoriesSearch, setEventCategoriesSearch] = useState<string>('')
-  const [activitiesSearch, setActivitiesSearch] = useState<string>('')
 
-  const queryActivityConfig = useQueryActivityConfig(activitiesSearch)
-  const queryEventCategoryConfig = useQueryEventCategoryConfig(eventCategoriesSearch)
-
-  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery(queryEventCategoryConfig)
+  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery()
   const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoryType[]
 
-  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId, queryActivityConfig)
+  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)
   const activities = getAllActivitiesByCategoryIdQuery.fetch() as ActivityType[]
 
   return (
@@ -68,8 +61,6 @@ const RequestEvent = ({
             file={file}
             setFile={setFile}
             handleChangeCategory={handleChangeCategory}
-            setEventCategoriesSearch={setEventCategoriesSearch}
-            setActivitiesSearch={setActivitiesSearch}
             markers={markers}
             setMarkers={setMarkers}
             description={description}
