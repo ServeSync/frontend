@@ -334,23 +334,23 @@ const EditStudentForm = ({
           />
         </div>
       </div>
-      <div className='flex justify-end gap-6 border-b-2 pb-4'>
+      <div className='flex justify-end gap-6 border-b-2 pb-5'>
         <Button
           type='button'
-          classNameButton='bg-[#9a9a9a] py-2 px-4 rounded-lg text-[16px] text-white font-semibold mt-6'
+          classNameButton='bg-[#9a9a9a] py-2 px-4 rounded-lg text-[16px] text-white font-semibold'
           onClick={onCancel}
         >
           Hủy
         </Button>
         <Button
           type='button'
-          classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[16px] text-white font-semibold mt-6'
+          classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[16px] text-white font-semibold'
           onClick={() => handleDeleteStudent(student.id)}
         >
           Xóa
         </Button>
         <Button
-          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6 w-[90px]'
+          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
           isLoading={isLoadingEdit}
         >
           Lưu
