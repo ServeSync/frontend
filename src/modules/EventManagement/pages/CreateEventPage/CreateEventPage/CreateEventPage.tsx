@@ -164,17 +164,17 @@ const CreateEventPage = () => {
             </Box>
           </Box>
         </div>
-        <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 p-5 bg-slate-100 w-full z-20'>
+        <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 px-4 py-2 bg-slate-100 w-full z-20'>
           <Link
             to={path.event}
-            className='flex justify-center items-center bg-[#989899] w-[80px] h-[50px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+            className='flex justify-center items-center bg-[#989899] w-[80px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
           >
             Cancel
           </Link>
           <Button
             type='submit'
             isLoading={createEventCommandHandler.isLoading()}
-            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[50px] w-[140px]'
+            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[140px]'
             onClick={onIsSuccess}
           >
             Tạo sự kiện
