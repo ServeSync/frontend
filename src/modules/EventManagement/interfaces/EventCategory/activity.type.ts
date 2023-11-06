@@ -1,9 +1,3 @@
-export interface ActivitiesListType {
-  total: number
-  totalPages: number
-  data: ActivityType[]
-}
-
 export interface ActivityType {
   minScore: number
   maxScore: number

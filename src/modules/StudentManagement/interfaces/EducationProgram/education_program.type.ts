@@ -5,8 +5,7 @@ export interface EducationProgramType {
   requiredCredit: number
 }
 
-export interface StudentEducationProgramResultType
-{
+export interface StudentEducationProgramResultType {
   id: string
   name: string
   requiredActivityScore: number

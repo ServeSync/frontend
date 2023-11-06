@@ -19,7 +19,7 @@ import Button from 'src/modules/Share/components/Button'
 
 const CreateEventPage = () => {
   const [file, setFile] = useState<File>()
-  // const [isSuccess, setIsSuccess] = useState<boolean>(false)
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const [page, setPage] = useState<number>(0)
 
@@ -77,6 +77,7 @@ const CreateEventPage = () => {
         navigate({
           pathname: path.event
         })
+        setIsSuccess(true)
       },
       (error: any) => {
         toast.error('Thông tin không hợp lệ vui lòng kiểm tra lại !')
@@ -85,6 +86,12 @@ const CreateEventPage = () => {
       setError
     )
   })
+
+  const onIsSuccess = () => {
+    if (!isSuccess && !createEventCommandHandler.isLoading()) {
+      toast.error('Vui lòng kiểm tra lại dữ liệu!')
+    }
+  }
 
   return (
     <Fragment>
@@ -168,6 +175,7 @@ const CreateEventPage = () => {
             type='submit'
             isLoading={createEventCommandHandler.isLoading()}
             classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[50px] w-[140px]'
+            onClick={onIsSuccess}
           >
             Tạo sự kiện
           </Button>

@@ -12,7 +12,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { FormEventType, FormSearchMapSchema, FormSearchMapType } from '../../../utils'
 import { ActivityType, EventCategoryType, EventDetailType, LocationType, MarkerType } from '../../../interfaces'
 import { eventType } from '../../../constants'
-import AutocompleteWithDebounce from 'src/modules/Share/components/AutocompleteWithDebounce'
 import Button from 'src/modules/Share/components/Button'
 import Map from '../../Map'
 import ModalCustom from 'src/modules/Share/components/Modal'
@@ -30,8 +29,6 @@ interface Props {
   file: File | undefined
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>
   onChangeCategory: (id: string) => void
-  setEventCategoriesSearch: React.Dispatch<React.SetStateAction<string>>
-  setActivitiesSearch: React.Dispatch<React.SetStateAction<string>>
   event?: EventDetailType
 }
 
@@ -45,8 +42,6 @@ const EventForm = ({
   file,
   setFile,
   onChangeCategory,
-  setEventCategoriesSearch,
-  setActivitiesSearch,
   event
 }: Props) => {
   const previewImage = useMemo(() => {
@@ -84,6 +79,12 @@ const EventForm = ({
   const FormSearchMap = useForm<FormSearchMapType>({
     resolver: yupResolver(FormSearchMapSchema)
   })
+
+  useEffect(() => {
+    if (event && activities) {
+      setValue('activityId', event?.activity.id)
+    }
+  }, [event, activities, setValue])
 
   useEffect(() => {
     if (event) {
@@ -330,18 +331,25 @@ const EventForm = ({
           <Controller
             name='categoryId'
             control={control}
-            defaultValue=''
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
+            render={({
+              field: { onChange, value = event ? event.activity.eventCategoryId : '' },
+              fieldState: { error }
+            }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-2'>
-                  <AutocompleteWithDebounce
-                    id='education_program'
-                    label='Danh mục sự kiện'
-                    options={eventCategories}
-                    value={value as string}
-                    onChange={onChange}
-                    onChangeId={onChangeCategory}
-                    setTextSearch={setEventCategoriesSearch}
+                  <Autocomplete
+                    disablePortal
+                    id='event_category'
+                    options={eventCategories ? eventCategories : []}
+                    value={(eventCategories && eventCategories.find((option) => option.id === value)) || null}
+                    getOptionLabel={(option) => option.name}
+                    noOptionsText='Không có lựa chọn'
+                    renderInput={(params) => <TextField {...params} label='Danh mục sự kiện' />}
+                    onChange={(_, option) => {
+                      onChange(option ? option.id : '')
+                      onChangeCategory && onChangeCategory(option?.id as string)
+                    }}
+                    className='bg-white'
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
@@ -355,13 +363,16 @@ const EventForm = ({
             render={({ field: { onChange, value = event ? event.activity.id : '' }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className='col-span-2'>
-                  <AutocompleteWithDebounce
-                    id='education_program'
-                    label='Hoạt động sự kiện'
-                    options={activities}
-                    value={value as string}
-                    onChange={onChange}
-                    setTextSearch={setActivitiesSearch}
+                  <Autocomplete
+                    disablePortal
+                    id='activity'
+                    options={activities ? activities : []}
+                    value={(activities && activities.find((option) => option.id === value)) || null}
+                    getOptionLabel={(option) => option.name}
+                    noOptionsText='Không có lựa chọn'
+                    renderInput={(params) => <TextField {...params} label='Hoạt động sự kiện' />}
+                    onChange={(_, option) => onChange(option ? option.id : '')}
+                    className='bg-white'
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>

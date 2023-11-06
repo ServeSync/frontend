@@ -16,6 +16,7 @@ import FooterHomePage from 'src/modules/HomePage/components/FooterHomePage'
 import Button from 'src/modules/Share/components/Button'
 import { AppContext } from 'src/modules/Share/contexts'
 import ModalCustom from 'src/modules/Share/components/Modal'
+import { TypeToMessage } from 'src/modules/EventManagement/constants'
 
 const EventDetailPage = () => {
   const { isAuthenticated } = useContext(AppContext)
@@ -92,7 +93,7 @@ const EventDetailPage = () => {
               <div className='flex flex-col'>
                 <h1 className='text-black text-[60px] font-semibold break-words'>{event.name}</h1>
                 <h4 className='text-black text-[25px] font-light break-words'>{event.introduction}</h4>
-                <h6 className='text-[#A0A2A4] text-[20px] font-light break-words'>{event.type}</h6>
+                <h6 className='text-[#A0A2A4] text-[20px] font-light break-words'>{TypeToMessage(event.type)}</h6>
 
                 <div className='text-center font-medium flex gap-3 mt-2'>
                   <img
@@ -225,7 +226,9 @@ const EventDetailPage = () => {
                         d='M3 8.25V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V8.25m-18 0V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6zM7.5 6h.008v.008H7.5V6zm2.25 0h.008v.008H9.75V6z'
                       />
                     </svg>
-                    <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center'>{event.type}</span>
+                    <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center'>
+                      {TypeToMessage(event.type)}
+                    </span>
                   </div>
                   <div className='flex gap-2'>
                     <svg
@@ -353,7 +356,7 @@ const EventDetailPage = () => {
                 <div className='text-[20px] font-normal'>Sinh viên tham dự</div>
               </div>
             </div>
-            <div className='w-full h-full px-[220px] overflow-hidden'>
+            <div className='w-full h-full px-[120px] overflow-hidden'>
               <Box>
                 <Box>
                   <Tabs
@@ -361,7 +364,7 @@ const EventDetailPage = () => {
                     onChange={handleChange}
                     aria-label='basic tabs example'
                     sx={{
-                      '& div': { width: '100%', margin: '0 -5px' },
+                      '& div': { width: '100%', margin: '0 -5px', display: 'flex', justifyContent: 'center' },
                       '& button': {
                         color: '#2f2f2f',
                         textTransform: 'capitalize',
@@ -378,7 +381,6 @@ const EventDetailPage = () => {
                   >
                     <Tab label='Thông tin chung' id='tab-1' aria-controls='simple-tabpanel-1'></Tab>
                     <Tab label='Ban tổ chức sự kiện' id='tab-2' aria-controls='simple-tabpanel-2'></Tab>
-                    {/* <Tab label='Thông tin đăng ký' id='tab-3' aria-controls='simple-tabpanel-3'></Tab> */}
                     <Tab label='Danh sách đăng ký' id='tab-3' aria-controls='simple-tabpanel-3'></Tab>
                     <Tab label='Danh sách điểm danh' id='tab-4' aria-controls='simple-tabpanel-4'></Tab>
                   </Tabs>

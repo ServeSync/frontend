@@ -1,11 +1,9 @@
 import { Control, UseFormSetValue, FieldErrors, UseFormRegister } from 'react-hook-form'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FormEventType } from '../../../utils'
-import useQueryActivityConfig from '../../../hooks/useQueryActivityConfig'
-import useQueryEventCategoryConfig from '../../../hooks/useQueryEventCategoryConfig'
 import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../../services'
-import { ActivitiesListType, EventCategoriesListType, EventDetailType } from '../../../interfaces'
 import EventForm from 'src/modules/EventManagement/components/EventForm/EventForm'
+import { ActivityType, EventCategoryType, EventDetailType } from 'src/modules/EventManagement/interfaces'
 
 interface Props {
   page: number
@@ -20,23 +18,21 @@ interface Props {
 }
 
 const EditEvent = ({ page, index, register, control, setValue, errors, file, setFile, event }: Props) => {
-  const [categoryId, setCategoryId] = useState<string>('')
+  const [categoryId, setCategoryId] = useState<string>(event ? event.activity.eventCategoryId : '')
 
   const handleChangeCategory = (id: string) => {
     setCategoryId(id)
   }
 
-  const [eventCategoriesSearch, setEventCategoriesSearch] = useState<string>('')
-  const [activitiesSearch, setActivitiesSearch] = useState<string>('')
+  useEffect(() => {
+    event && setCategoryId(event.activity.eventCategoryId)
+  }, [event, setCategoryId])
 
-  const queryActivityConfig = useQueryActivityConfig(activitiesSearch)
-  const queryEventCategoryConfig = useQueryEventCategoryConfig(eventCategoriesSearch)
+  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery()
+  const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoryType[]
 
-  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery(queryEventCategoryConfig)
-  const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoriesListType
-
-  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId, queryActivityConfig)
-  const activities = getAllActivitiesByCategoryIdQuery.fetch() as ActivitiesListType
+  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)
+  const activities = getAllActivitiesByCategoryIdQuery.fetch() as ActivityType[]
 
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
@@ -46,13 +42,11 @@ const EditEvent = ({ page, index, register, control, setValue, errors, file, set
           register={register}
           setValue={setValue}
           errors={errors}
-          eventCategories={eventCategories && eventCategories.data}
-          activities={activities && activities.data}
+          eventCategories={eventCategories && eventCategories}
+          activities={activities && activities}
           file={file}
           setFile={setFile}
           onChangeCategory={handleChangeCategory}
-          setEventCategoriesSearch={setEventCategoriesSearch}
-          setActivitiesSearch={setActivitiesSearch}
           event={event}
         />
       )}

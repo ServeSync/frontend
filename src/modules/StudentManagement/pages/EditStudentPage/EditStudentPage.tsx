@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -23,7 +24,8 @@ import EditStudentForm from '../../components/EditStudentForm'
 import CircleChart from '../../components/CircleChart'
 import EventsOfStudentTable from '../../components/EventsOfStudentTable'
 import { FormStudentSchema, FormStudentType } from '../../utils'
-import { StudentAttendedEvent } from 'src/modules/EventManagement/interfaces'
+import { StudentAttendedEvent, StudentAttendedEventsListType } from 'src/modules/EventManagement/interfaces'
+import Button from 'src/modules/Share/components/Button'
 
 const EditStudentPage = () => {
   const [file, setFile] = useState<File>()
@@ -49,9 +51,9 @@ const EditStudentPage = () => {
 
   const [facultyId, setFacultyId] = useState<string>(student && student.facultyId)
 
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(1)
 
-  const [attendedEvents, setAttendedEvents] = useState<StudentAttendedEvent[]>([]);
+  const [attendedEvents, setAttendedEvents] = useState<StudentAttendedEvent[]>([])
 
   const handleChangeFaculty = (id: string) => {
     setFacultyId(id)
@@ -74,25 +76,17 @@ const EditStudentPage = () => {
     resolver: yupResolver(FormStudentSchema)
   })
 
-  const getStudentEducationProgramResultQuery = new GetStudentEducationProgramsQuery(student?.id);
-  const educationProgramResult = getStudentEducationProgramResultQuery.fetch();
+  const getStudentEducationProgramResultQuery = new GetStudentEducationProgramsQuery(student?.id)
+  const educationProgramResult = getStudentEducationProgramResultQuery.fetch()
 
-  const getAttendedEventsQuery = new GetAttendedEventsByStudent(student?.id, page);
-  const attendedEventsQueryResult = getAttendedEventsQuery.fetch();
-
-  useEffect(() => {
-    getAttendedEventsQuery.fetch();
-  }, [page]);
+  const getAttendedEventsQuery = new GetAttendedEventsByStudent(student?.id, page)
+  const attendedEventsQueryResult = getAttendedEventsQuery.fetch() as StudentAttendedEventsListType
 
   useEffect(() => {
-    if (!getAttendedEventsQuery.isLoading())
-    {
-      console.log(attendedEvents);
-      setAttendedEvents([...attendedEvents, ...attendedEventsQueryResult.data]);
-    }
+    attendedEventsQueryResult && setAttendedEvents([...attendedEvents, ...attendedEventsQueryResult.data])
   }, [getAttendedEventsQuery.isLoading()])
 
-  const editStudentCommandHandler = new EditStudentCommandHandler();
+  const editStudentCommandHandler = new EditStudentCommandHandler()
 
   const handleSubmitForm = handleSubmit(async (data) => {
     editStudentCommandHandler.handle(
@@ -152,9 +146,8 @@ const EditStudentPage = () => {
   }
 
   const onLoadMore = () => {
-    if (page < attendedEventsQueryResult.totalPages)
-    {
-      setPage(page + 1);
+    if (page < attendedEventsQueryResult.totalPages) {
+      setPage(page + 1)
     }
   }
 
@@ -200,25 +193,33 @@ const EditStudentPage = () => {
                 <p className='font-semibold'>Danh sách hoạt động phục vụ cộng đồng sinh viên đã tham gia</p>
               </div>
             </div>
-            <EventsOfStudentTable 
-              events={attendedEvents}
-              isLoading={getAttendedEventsQuery.isLoading()}
-            />
-            {
-              attendedEventsQueryResult?.totalPages > 1 && page < attendedEventsQueryResult?.totalPages &&
+            <EventsOfStudentTable events={attendedEvents} isLoading={getAttendedEventsQuery.isLoading()} />
+            {attendedEventsQueryResult?.totalPages > 1 && page < attendedEventsQueryResult?.totalPages && (
               <div className='flex justify-center mt-3'>
-                <button className='text-[12px] text-[#1635F4]' onClick={onLoadMore}>Xem thêm</button>
+                <Button classNameButton='text-[12px] text-[#1635F4]' onClick={onLoadMore}>
+                  Xem thêm
+                </Button>
               </div>
-            }
-            {
-              attendedEventsQueryResult?.total < 1 && 
+            )}
+            {attendedEventsQueryResult?.total < 1 && (
               <div className='flex flex-col items-center mt-3 text-[#A0A2A4]'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className='w-12'>
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-8 h-8'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z'
+                  />
                 </svg>
                 <span className='text-[14px] font-normal'>Hiện sinh viên chưa tham gia hoạt động nào.</span>
               </div>
-            }
+            )}
           </div>
         </div>
       </div>
