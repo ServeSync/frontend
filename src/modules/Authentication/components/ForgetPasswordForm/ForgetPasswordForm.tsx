@@ -63,7 +63,7 @@ const ForgetPasswordForm = ({ register, errors, isLoading }: Props) => {
         </Link>
         <Button
           type='submit'
-          classNameButton='flex justify-center items-center bg-[#195E8E] w-[72px] h-[48px] text-white p-2 rounded-2xl font-semibold transition-all duration-300 mb-5 hover:bg-[#195E8E]/80'
+          classNameButton='flex justify-center items-center bg-[#195E8E] w-[72px] h-[48px] text-white p-2 rounded-2xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/80'
           isLoading={isLoading}
         >
           <svg
