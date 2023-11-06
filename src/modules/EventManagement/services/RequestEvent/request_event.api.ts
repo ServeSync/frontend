@@ -10,7 +10,9 @@ const requestEventAPI = {
 
   getRequestEvent: (id: string) => http.get<EventPendingType>(`/event-collaboration-requests/${id}`),
 
-  approveRequestEvent: (id: string) => http.post<string>(`/event-collaboration-requests/${id}/approve`)
+  approveRequestEvent: (id: string) => http.post<string>(`/event-collaboration-requests/${id}/approve`),
+
+  rejectRequestEvent: (id: string) => http.post<string>(`/event-collaboration-requests/${id}/reject`)
 }
 
 export default requestEventAPI
