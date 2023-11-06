@@ -269,7 +269,7 @@ const RequestEventForm = ({
               defaultValue=''
               render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <div className='col-span-3'>
+                  <div className='col-span-6'>
                     <Autocomplete
                       disablePortal
                       id='eventType'
@@ -290,7 +290,7 @@ const RequestEventForm = ({
               control={control}
               render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <div className='col-span-3'>
+                  <div className='col-span-6'>
                     <TextField
                       id='quantity'
                       label='Số lượng tham gia'
@@ -309,7 +309,7 @@ const RequestEventForm = ({
               control={control}
               render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <div className='col-span-3'>
+                  <div className='col-span-6'>
                     <AutocompleteWithDebounce<EventCategoryType>
                       id='education_program'
                       options={eventCategories}
@@ -330,7 +330,7 @@ const RequestEventForm = ({
               defaultValue=''
               render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <div className='col-span-3'>
+                  <div className='col-span-6'>
                     <AutocompleteWithDebounce
                       id='education_program'
                       options={activities}

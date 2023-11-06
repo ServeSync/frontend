@@ -1,24 +1,21 @@
-import { Address, EventOrganizationFormType, EventRole, RepresentativeOrganization } from '..'
+import { Activity, Address, EventOrganizationFormType, EventRole, RepresentativeOrganization } from '..'
 
 export interface EventType {
+  capacity: number
+  attended: number
+  registered: number
+  approvedRegistered: number
+  rating: number
+  activity: Activity
   id: string
   name: string
-  activity: {
-    id: string
-    minScore: number
-    maxNumber: number
-    name: string
-    eventCategoryId: string
-  }
   introduction: string
-  capacity: number
-  registered: number
-  rating: number
   imageUrl: string
   startAt: string
   endAt: string
   type: string
   status: string
+  calculatedStatus: string
   representativeOrganization: RepresentativeOrganization
   address: Address
 }
@@ -172,16 +169,18 @@ export interface EventDetailType {
       status: string
     }
   ]
-  capacity: string
-  registered: string
-  attended: string
+  capacity: number
+  registered: number
+  attended: number
   rating: number
-  approvedRegistered: string
+  approvedRegistered: number
   activity: {
     id: string
     name: string
     maxScore: number
     minScore: number
+    eventCategoryId: string
+    eventCategoryName: string
   }
   representativeOrganization: {
     id: string

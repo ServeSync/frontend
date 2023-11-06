@@ -1,6 +1,7 @@
 import Skeleton from 'react-loading-skeleton'
 import { StudentAttendedEvent } from 'src/modules/EventManagement/interfaces'
 import { formatDateTime } from 'src/modules/Share/utils'
+import { EventsOfStudentTableHeader } from '../../constants'
 
 interface Props {
   events: StudentAttendedEvent[]
@@ -12,30 +13,11 @@ const EventsOfStudentTable = ({ events, isLoading }: Props) => {
     <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
       <thead className='bg-[#f7f8f9] border-[1px] border-gray-200'>
         <tr className='text-[14px] text-gray-600'>
-          <th className='px-4 py-2 font-medium cursor-pointer'>
-            <span>#</span>
-          </th>
-          <th className='py-2 font-medium cursor-pointer'>
-            <span>Tên sự kiện</span>
-          </th>
-          <th className='py-2 font-medium cursor-pointer'>
-            <span>Đơn vị tổ chức</span>
-          </th>
-          <th className='py-2 font-medium cursor-pointer'>
-            <span>Thời gian bắt đầu</span>
-          </th>
-          <th className='py-2 font-medium cursor-pointer'>
-            <span>Thời gian kết thúc</span>
-          </th>
-          <th className='py-2 font-medium cursor-pointer'>
-            <span>Vai trò</span>
-          </th>
-          <th className='py-2 font-medium cursor-pointer'>
-            <span>Điểm</span>
-          </th>
-          <th className='py-2 font-medium cursor-pointer'>
-            <span>Thời gian điểm danh</span>
-          </th>
+          {EventsOfStudentTableHeader.map((item) => (
+            <th className='px-4 py-2 font-medium cursor-pointer' key={item.id}>
+              <span>{item.name}</span>
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>

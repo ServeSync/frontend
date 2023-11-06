@@ -17,6 +17,7 @@ import Button from 'src/modules/Share/components/Button'
 import { AppContext } from 'src/modules/Share/contexts'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import { RegistrationInfoTableHeader, StatusToMessage, TypeToMessage } from 'src/modules/EventManagement/constants'
+import { TypeToMessage } from 'src/modules/EventManagement/constants'
 
 const EventDetailPage = () => {
   const { isAuthenticated } = useContext(AppContext)
@@ -478,7 +479,7 @@ const EventDetailPage = () => {
                     onChange={handleChange}
                     aria-label='basic tabs example'
                     sx={{
-                      '& div': { width: '100%', margin: '0 -5px' },
+                      '& div': { width: '100%', margin: '0 -5px', display: 'flex', justifyContent: 'center' },
                       '& button': {
                         color: '#2f2f2f',
                         textTransform: 'capitalize',

@@ -15,7 +15,7 @@ export const FormRequestEventSchema = yup.object().shape({
     .min(10, 'Giới thiệu sự kiện ít nhất 10 kí tự !')
     .max(128, 'Giới thiệu sự kiện tối đa 128 kí tự !'),
   description: yup.string().required('Vui lòng nhập mô tả sự kiện !').min(256, 'Mô tả sự kiện ít nhất 256 kí tự !'),
-  capacity: yup.string().required('Vui lòng nhập số lượng người tham gia !'),
+  capacity: yup.string().required('Vui lòng nhập số lượng tham gia !'),
   imageUrl: yup.string(),
   startAt: yup
     .string()

@@ -1,6 +1,7 @@
 export * from './event.type'
 export * from './event.config'
 export * from './address.type'
+export * from './activity.type'
 export * from './representative_organization.type'
 export * from './registered_students.type'
 export * from './attendance_students.type'

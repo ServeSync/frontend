@@ -3,7 +3,8 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
 import classNames from 'classnames'
-import { formatDateOfBirth, formatTime } from 'src/modules/Share/utils'
+import EventRating from 'src/modules/EventManagement/components/EventRating'
+import { formatDateTime, formatTime } from 'src/modules/Share/utils'
 import { StatusToMessage } from 'src/modules/EventManagement/constants'
 
 interface Props {
@@ -45,11 +46,11 @@ const CardEvent = ({ event }: Props) => {
       </div>
       <div className='px-6 pb-8'>
         <div className='flex flex-col'>
-          <div className='font-normal leading-7 text-[#195E8E] whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px] truncate'>
+          <span className='font-normal leading-7 text-[#F85E9F] whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px] truncate'>
             {event.name}
-          </div>
+          </span>
           <div className='max-sm:text-[8px] text-[14px] lg:text-[16px] flex items-center gap-4 justify-between max-md:flex-col-reverse truncate'>
-            {event.representativeOrganization.name}
+            <span>{event.representativeOrganization.name}</span>
             <div className='flex items-center justify-center gap-1.5 font-normal'>
               <span className='font-normal leading-7 break-words max-sm:text-[14px] text-[20px] lg:text-[23px] text-[#195E8E]'>
                 {event.capacity}
@@ -108,9 +109,8 @@ const CardEvent = ({ event }: Props) => {
                   d='M3 8.25V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V8.25m-18 0V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6zM7.5 6h.008v.008H7.5V6zm2.25 0h.008v.008H9.75V6z'
                 />
               </svg>
-
-              <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                {formatDateOfBirth(event.startAt) + ' - ' + formatDateOfBirth(event.endAt)}
+              <span className='text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
+                {formatDateTime(event.startAt) + ' - ' + formatDateTime(event.endAt)}
               </span>
             </div>
             <div className='flex items-center gap-1'>

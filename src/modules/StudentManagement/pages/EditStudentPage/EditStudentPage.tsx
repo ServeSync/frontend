@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -23,7 +24,8 @@ import EditStudentForm from '../../components/EditStudentForm'
 import CircleChart from '../../components/CircleChart'
 import EventsOfStudentTable from '../../components/EventsOfStudentTable'
 import { FormStudentSchema, FormStudentType } from '../../utils'
-import { StudentAttendedEvent } from 'src/modules/EventManagement/interfaces'
+import { StudentAttendedEvent, StudentAttendedEventsListType } from 'src/modules/EventManagement/interfaces'
+import Button from 'src/modules/Share/components/Button'
 
 const EditStudentPage = () => {
   const [file, setFile] = useState<File>()
@@ -78,17 +80,11 @@ const EditStudentPage = () => {
   const educationProgramResult = getStudentEducationProgramResultQuery.fetch()
 
   const getAttendedEventsQuery = new GetAttendedEventsByStudent(student?.id, page)
-  const attendedEventsQueryResult = getAttendedEventsQuery.fetch()
+
+  const attendedEventsQueryResult = getAttendedEventsQuery.fetch() as StudentAttendedEventsListType
 
   useEffect(() => {
-    getAttendedEventsQuery.fetch()
-  }, [page])
-
-  useEffect(() => {
-    if (!getAttendedEventsQuery.isLoading()) {
-      console.log(attendedEvents)
-      setAttendedEvents([...attendedEvents, ...attendedEventsQueryResult.data])
-    }
+    attendedEventsQueryResult && setAttendedEvents([...attendedEvents, ...attendedEventsQueryResult.data])
   }, [getAttendedEventsQuery.isLoading()])
 
   const editStudentCommandHandler = new EditStudentCommandHandler()
@@ -201,9 +197,9 @@ const EditStudentPage = () => {
             <EventsOfStudentTable events={attendedEvents} isLoading={getAttendedEventsQuery.isLoading()} />
             {attendedEventsQueryResult?.totalPages > 1 && page < attendedEventsQueryResult?.totalPages && (
               <div className='flex justify-center mt-3'>
-                <button className='text-[12px] text-[#1635F4]' onClick={onLoadMore}>
+                <Button classNameButton='text-[12px] text-[#1635F4]' onClick={onLoadMore}>
                   Xem thêm
-                </button>
+                </Button>
               </div>
             )}
             {attendedEventsQueryResult?.total < 1 && (
@@ -212,9 +208,9 @@ const EditStudentPage = () => {
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
                   viewBox='0 0 24 24'
-                  strokeWidth='1.5'
+                  strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-12'
+                  className='w-8 h-8'
                 >
                   <path
                     strokeLinecap='round'

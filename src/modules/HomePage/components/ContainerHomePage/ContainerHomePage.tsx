@@ -171,7 +171,6 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
           </div>
         </div>
       </div>
-
       <ContainerEvent heading='Sự kiện sắp diễn ra' title='Sự kiện sắp tổ chức tới đây' event={eventsUpcoming} />
       <ContainerEvent heading='Sự kiện đang diễn ra' title='Sự kiện đang được tổ chức' event={eventsHappening} />
       <ContainerEvent heading='Sự kiện đã kết thúc' title='Sự kiện đã hoàn thành' event={eventsDone} />

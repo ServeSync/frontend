@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import eventCategoryAPI from './event_category.api'
-import { EventCategoriesListConfig, EventCategoryType } from '../../interfaces'
+import { EventCategoryType } from '../../interfaces'
 
 class GetAllEventCategoriesQuery {
   private _query
 
-  constructor(eventCategoriesSearch?: EventCategoriesListConfig) {
+  constructor() {
     this._query = useQuery({
-      queryKey: ['event_categories', eventCategoriesSearch],
-      queryFn: () => eventCategoryAPI.getListEventCategories(eventCategoriesSearch),
+      queryKey: ['event_categories'],
+      queryFn: () => eventCategoryAPI.getListEventCategories(),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000
     })

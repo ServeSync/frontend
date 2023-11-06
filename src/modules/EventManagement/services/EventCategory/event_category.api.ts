@@ -1,14 +1,10 @@
 import http from 'src/modules/Share/utils/http'
-import { ActivitiesListConfig, ActivityType, EventCategoriesListConfig, EventCategoryType } from '../../interfaces'
-
+import { ActivityType, EventCategoryType } from '../../interfaces'
 const eventCategoryAPI = {
-  getListEventCategories: (params?: EventCategoriesListConfig) =>
-    http.get<EventCategoryType[]>('/event-categories', { params }),
+  getListEventCategories: () => http.get<EventCategoryType[]>('/event-categories'),
 
-  getListActivitiesByCategoryId: (body: { categoryId: string; activitiesSearch?: ActivitiesListConfig }) => {
-    return http.get<ActivityType[]>(`/event-categories/${body.categoryId}/activities`, {
-      params: body.activitiesSearch
-    })
+  getListActivitiesByCategoryId: (categoryId: string) => {
+    return http.get<ActivityType[]>(`/event-categories/${categoryId}/activities`)
   }
 }
 
