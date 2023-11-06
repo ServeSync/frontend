@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Button from 'src/modules/Share/components/Button'
 import useQueryRequestEventConfig from '../../hooks/useQueryRequestEventConfig'
-import { ApproveRequestEvent, GetEventPendingQuery } from '../../services'
+import { ApproveRequestEvent, GetEventPendingQuery, RejectRequestEvent } from '../../services'
 import EventPendingInfoPage from '../EventPending/EventPendingInfoPage'
 import EventPendingOrganizationPage from '../EventPending/EventPendingOrganizationPage'
 import { toast } from 'react-toastify'
@@ -29,12 +29,27 @@ const EditEventPendingPage = () => {
 
   const approveRequestEvent = new ApproveRequestEvent()
 
+  const rejectRequestEvent = new RejectRequestEvent()
+
   const handleApproveRequestEvent = () => {
     approveRequestEvent.handle(
       queryEventPendingConfig.id as string,
       () => {
         navigate(path.event_pending)
         toast.success('Chấp thuận thành công')
+      },
+      (error: any) => {
+        handleError(error)
+      }
+    )
+  }
+
+  const handleRejectRequestEvent = () => {
+    rejectRequestEvent.handle(
+      queryEventPendingConfig.id as string,
+      () => {
+        navigate(path.event_pending)
+        toast.success('Đã từ chối')
       },
       (error: any) => {
         handleError(error)
@@ -81,6 +96,13 @@ const EditEventPendingPage = () => {
         </Box>
       </div>
       <div className='flex justify-end gap-x-6 fixed bottom-0 right-0 p-5 bg-slate-100 w-full z-20'>
+        <Button
+          type='button'
+          classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
+          onClick={handleRejectRequestEvent}
+        >
+          Từ chối
+        </Button>
         <Button
           type='submit'
           classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
