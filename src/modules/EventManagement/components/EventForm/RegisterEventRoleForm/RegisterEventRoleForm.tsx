@@ -10,6 +10,7 @@ import { RoleTableHeader, isNeedApprove } from '../../../constants'
 import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import draftToHtml from 'draftjs-to-html'
+import Parser from 'html-react-parser'
 
 interface Props {
   control: Control<FormEventType>
@@ -144,11 +145,8 @@ const RegisterEventRoleForm = ({
                   key={index}
                 >
                   <th className='px-2 py-4 font-medium w-[20%]'>{item.name}</th>
-                  <th className='px-2 py-4 font-medium overflow-hidden '>
-                    <span
-                      className='line-clamp-2'
-                      dangerouslySetInnerHTML={{ __html: item.description as string }}
-                    ></span>
+                  <th className='px-2 py-4 font-medium overflow-hidden'>
+                    <span className='line-clamp-2'>{Parser(item.description)}</span>
                   </th>
                   <th className='px-2 py-4 font-medium w-[8%]'>{item.quantity}</th>
                   <th className='px-2 py-4 font-medium w-[4%]'>{item.score}</th>
@@ -280,7 +278,7 @@ const RegisterEventRoleForm = ({
               </LocalizationProvider>
             )}
           />
-          <div className='col-span-12 '>
+          <div className='col-span-12'>
             <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
               <Editor
                 editorState={description}

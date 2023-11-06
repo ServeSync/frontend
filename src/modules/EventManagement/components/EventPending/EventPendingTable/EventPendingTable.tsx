@@ -52,17 +52,17 @@ const EventPendingTable = ({ eventsPending, isLoading, onSort, onEditEventPendin
                 key={event.id}
                 onClick={() => onEditEventPending(event.id)}
               >
-                <th className='px-2 py-4 font-medium w-[20%] '>
+                <th className='px-2 py-4 font-medium w-[20%] overflow-hidden'>
                   <span className='line-clamp-1'>{event.name}</span>
                 </th>
                 <th className='px-2 py-4 font-medium overflow-hidden'>
                   <span className='line-clamp-1'>{event.organization.name}</span>
                 </th>
-                <th className='px-2 py-4 font-medium w-[10%] '>{event.capacity}</th>
-                <th className='px-2 py-4 font-medium w-[10%]'>{formatDateTime(event.startAt)}</th>
-                <th className='px-2 py-4 font-medium w-[10%]'>{formatDateTime(event.endAt)}</th>
+                <th className='px-2 py-4 font-medium w-[8%]'>{event.capacity}</th>
+                <th className='px-2 py-4 font-medium w-[12%]'>{formatDateTime(event.startAt)}</th>
+                <th className='px-2 py-4 font-medium w-[12%]'>{formatDateTime(event.endAt)}</th>
                 <th className='px-2 py-4 font-medium w-[10%]'>{TypeToMessage(event.type)}</th>
-                <th className='px-2 py-4 font-medium w-[15%]'>{StatusToMessage(event.status)}</th>
+                <th className='px-2 py-4 font-medium w-[12%]'>{StatusToMessage(event.status)}</th>
               </tr>
             ))}
       </tbody>

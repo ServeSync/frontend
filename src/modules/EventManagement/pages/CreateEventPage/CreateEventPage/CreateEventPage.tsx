@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useFieldArray } from 'react-hook-form'
 import _ from 'lodash'
@@ -15,6 +15,7 @@ import { handleError } from 'src/modules/Share/utils'
 import CreateEvent from '../CreateEvent'
 import CreateEventRegistration from '../CreateEventRegistration'
 import CreateEventOrganization from '../CreateEventOrganization'
+import Button from 'src/modules/Share/components/Button'
 
 const CreateEventPage = () => {
   const [file, setFile] = useState<File>()
@@ -152,10 +153,24 @@ const CreateEventPage = () => {
                 getValues={getValues}
                 setValue={setValue}
                 setDataEventOrganization={setDataEventOrganization}
-                isLoading={createEventCommandHandler.isLoading()}
               />
             </Box>
           </Box>
+        </div>
+        <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 p-5 bg-slate-100 w-full z-20'>
+          <Link
+            to={path.event}
+            className='flex justify-center items-center bg-[#989899] w-[80px] h-[50px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+          >
+            Cancel
+          </Link>
+          <Button
+            type='submit'
+            isLoading={createEventCommandHandler.isLoading()}
+            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[50px] w-[140px]'
+          >
+            Tạo sự kiện
+          </Button>
         </div>
       </form>
     </Fragment>

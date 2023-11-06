@@ -1,9 +1,8 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
-import { Box, Tab, Tabs } from '@mui/material'
-// import EventDetailRegisterPage from '../EventDetailRegisterPage'
+import { Box, Tab, Tabs, TextField } from '@mui/material'
 import useQueryEventConfig from '../../../hooks/useQueryEventConfig'
 import { GetAttendanceStudentsQuery, GetEventByIdQuery, GetRegisteredStudentsQuery } from '../../../services'
 import { formatDateTime } from 'src/modules/Share/utils'
@@ -14,16 +13,29 @@ import EventDetailAttendanceListPage from '../EventDetailAttendanceListPage'
 import EventDetailInformationPage from '../EventDetailInformationPage'
 import EventDetailOrganizationPage from '../EventDetailOrganizationPage'
 import FooterHomePage from 'src/modules/HomePage/components/FooterHomePage'
+import Button from 'src/modules/Share/components/Button'
+import { AppContext } from 'src/modules/Share/contexts'
+import ModalCustom from 'src/modules/Share/components/Modal'
 
 const EventDetailPage = () => {
-  const [page, setPage] = useState<number>(0)
+  const { isAuthenticated } = useContext(AppContext)
 
-  const [scrolled, setScrolled] = useState(false)
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false)
+  }
+
+  const [page, setPage] = useState<number>(0)
 
   const handleChange = (event: React.SyntheticEvent, newPage: number) => {
     event.preventDefault()
     setPage(newPage)
   }
+
+  const [scrolled, setScrolled] = useState(false)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!scrolled) {
@@ -55,6 +67,16 @@ const EventDetailPage = () => {
     const imageURL = `https://maps.googleapis.com/maps/api/staticmap?center=${center.latitude},${center.longitude}&markers=color:red%7C%7C${center.latitude},${center.longitude}&zoom=15&size=300x150&key=${googleMapsApiKey}`
     setMapImageURL(imageURL)
   }, [center])
+
+  const handleRegisterEvent = () => {
+    if (isAuthenticated) {
+      setIsOpenModal(true)
+    } else {
+      navigate({
+        pathname: path.login
+      })
+    }
+  }
 
   return (
     <Fragment>
@@ -92,12 +114,12 @@ const EventDetailPage = () => {
               <div className='flex justify-between items-end'>
                 {!event.isRegistered ? (
                   event.calculatedStatus == 'Registration' ? (
-                    <Link
-                      className='bg-[#0E91EF] text-white px-8 py-3 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md text-center  no-underline flex-shrink-0 '
-                      to={path.login}
+                    <Button
+                      onClick={handleRegisterEvent}
+                      classNameButton='bg-[#0E91EF] text-white px-8 py-3 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md text-center  no-underline flex-shrink-0'
                     >
                       Đăng ký ngay
-                    </Link>
+                    </Button>
                   ) : (
                     <span></span>
                   )
@@ -108,6 +130,62 @@ const EventDetailPage = () => {
                 )}
               </div>
             </div>
+            <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModal}>
+              <div className='bg-white p-10 rounded-xl w-[480px]'>
+                <form>
+                  <div className='flex justify-between mb-8'>
+                    <h2 className='font-semibold text-[18px]'>Đăng kí tham gia hoạt động</h2>
+                    <Button classNameButton='' onClick={handleCloseModal}>
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        strokeWidth={1.5}
+                        stroke='currentColor'
+                        className='w-6 h-6'
+                      >
+                        <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+                      </svg>
+                    </Button>
+                  </div>
+                  {/* <Controller
+                      name=''
+                      control={control}
+                      render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          
+                        </LocalizationProvider>
+                      )}
+                    /> */}
+                  <div>
+                    <TextField
+                      id='introduce'
+                      label='Tự giới thiệu'
+                      placeholder='Kinh nghiệm...'
+                      className='w-full bg-white'
+                      multiline
+                      rows={3}
+                      // onChange={onChange}
+                      // value={value}
+                    />
+                  </div>
+                  <div className='flex mt-4 justify-end gap-4'>
+                    <Button
+                      type='button'
+                      classNameButton='bg-[#ff3d3d] py-3 px-4 rounded-lg text-[14px] text-white font-semibold'
+                    >
+                      Hủy
+                    </Button>
+                    <Button
+                      type='button'
+                      classNameButton='bg-[#26C6DA] py-3 px-4 rounded-lg text-[14px] text-white font-semibold'
+                    >
+                      Đăng kí
+                    </Button>
+                  </div>
+                </form>
+              </div>
+            </ModalCustom>
             <div className='relative mb-[200px] px-[120px]'>
               <img src={event?.imageUrl} alt='' className='w-full max-h-[500px] rounded-3xl max-w-full object-cover' />
               <div className='bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[80%] absolute right-0 left-0 mx-auto bottom-[-160px] grid grid-cols-3 px-10 py-8 rounded-2xl gap-4'>

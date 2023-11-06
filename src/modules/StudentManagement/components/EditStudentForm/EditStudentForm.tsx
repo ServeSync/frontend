@@ -70,7 +70,7 @@ const EditStudentForm = ({
     <Fragment>
       <div className='grid grid-cols-6 gap-6'>
         <div className='col-span-1'>
-          <div className='flex flex-col items-center justify-center '>
+          <div className='flex flex-col items-center justify-center'>
             <InputAvatar
               register={register}
               onChange={onChange}

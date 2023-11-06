@@ -32,9 +32,26 @@ const RequestEventPage = () => {
   }
 
   const [file, setFile] = useState<File>()
+
   const [fileOrganizer, setFileOrganizer] = useState<File>()
 
+  const handleChangeFileOrganizer = (file?: File) => {
+    setFileOrganizer(file)
+  }
+
+  const previewImageOrganizer = useMemo(() => {
+    return fileOrganizer ? URL.createObjectURL(fileOrganizer) : ''
+  }, [fileOrganizer])
+
   const [fileOrganizerContact, setFileOrganizerContact] = useState<File>()
+
+  const handleChangeFileOrganizerContact = (file?: File) => {
+    setFileOrganizerContact(file)
+  }
+
+  const previewImageOrganizerContact = useMemo(() => {
+    return fileOrganizerContact ? URL.createObjectURL(fileOrganizerContact) : ''
+  }, [fileOrganizerContact])
 
   const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
 
@@ -42,22 +59,6 @@ const RequestEventPage = () => {
     setDescription(editorState)
     setValue('description', draftToHtml(convertToRaw(description.getCurrentContent())))
   }
-
-  const handleChangeFileOrganizer = (file?: File) => {
-    setFileOrganizer(file)
-  }
-
-  const handleChangeFileOrganizerContact = (file?: File) => {
-    setFileOrganizerContact(file)
-  }
-
-  const previewImageOrganizer = useMemo(() => {
-    return fileOrganizer ? URL.createObjectURL(fileOrganizer) : ''
-  }, [fileOrganizer])
-
-  const previewImageOrganizerContact = useMemo(() => {
-    return fileOrganizerContact ? URL.createObjectURL(fileOrganizerContact) : ''
-  }, [fileOrganizerContact])
 
   const {
     register,
@@ -80,6 +81,7 @@ const RequestEventPage = () => {
     setMarkers([])
     setDescription(EditorState.createEmpty())
   }
+
   const navigate = useNavigate()
 
   const requestCreateEventCommandHandler = new RequestCreateEventCommandHandler()
@@ -140,7 +142,7 @@ const RequestEventPage = () => {
         <div className='w-[20%] h-[20%] bg-[#26C6DA]/80 shadow-xl blur-[200px] absolute top-[20px] left-[-100px]'></div>
         <LandingPageHeader />
         <form onSubmit={handleSubmitForm}>
-          <div className='max-w-[1200px] mx-auto pb-4 mt-10 px-6'>
+          <div className='max-w-[1280px] mx-auto pb-4 mt-10'>
             <Box>
               <Box>
                 <Tabs

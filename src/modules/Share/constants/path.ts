@@ -1,7 +1,7 @@
 const path = {
   //Client
   login: '/login',
-  home_page: '/',
+  home_page: '/home',
   event_detail: '/events/detail',
   request_event: '/events/request',
   attendance_event: '/events/attendance',
@@ -18,9 +18,9 @@ const path = {
   event: '/admin/events',
   create_event: '/admin/events/create',
   edit_event: '/admin/events/edit',
+  event_pending: '/admin/pending_events',
+  edit_event_pending: '/admin/pending_events/edit',
   event_organizer: '/admin/organizers',
-  event_pending: '/admin/pendingEvents',
-  edit_event_pending: '/admin/pendingEvents/edit',
   standard: '/admin/standards',
   complaint: '/admin/complaints'
 } as const

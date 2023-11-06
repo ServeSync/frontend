@@ -17,20 +17,19 @@ interface Props {
 
 const RequestEventOrganizationForm = ({
   register,
-  errors,
   control,
   handleChangeFileOrganizer,
   previewImageOrganizer
 }: Props) => {
   return (
     <Fragment>
-      <h2 className='text-[24px] text-black font-bold col-span-4 mb-10 bg-transparent '>Thông tin ban tổ chức</h2>
+      <h2 className='text-[24px] text-black font-bold col-span-4 mb-10 bg-transparent'>Thông tin ban tổ chức</h2>
       <div className='grid grid-cols-8 gap-4'>
         <Controller
           name='EventOrganizationInfo.imageUrl'
           control={control}
           defaultValue=''
-          render={() => (
+          render={({ fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2 flex flex-col items-center mx-6'>
                 <InputAvatar
@@ -38,34 +37,27 @@ const RequestEventOrganizationForm = ({
                   onChange={handleChangeFileOrganizer}
                   previewImage={previewImageOrganizer}
                 />
-                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                  {errors.EventOrganizationInfo?.imageUrl?.message}
-                </span>
+                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
             </LocalizationProvider>
           )}
         />
-
-        <div className='col-span-6'>
+        <div className='col-span-6 grid grid-cols-1 gap-4'>
           <Controller
             name='EventOrganizationInfo.name'
             control={control}
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='my-2'>
+                <div className='col-span-1'>
                   <TextField
-                    id='address'
-                    {...register('EventOrganizationInfo.name')}
+                    id='name'
                     label='Tên tổ chức'
                     placeholder='Nhập tên tổ chức'
                     className='w-full bg-white '
                     onChange={onChange}
                     value={value}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.EventOrganizationInfo?.name?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -73,22 +65,18 @@ const RequestEventOrganizationForm = ({
           <Controller
             name='EventOrganizationInfo.description'
             control={control}
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='my-2'>
+                <div className='col-span-1'>
                   <TextField
-                    id='address'
-                    {...register('EventOrganizationInfo.description')}
+                    id='description'
                     label='Mô tả tổ chức'
                     placeholder='Mô tả tổ chức'
                     className='w-full bg-white'
                     onChange={onChange}
                     value={value}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.EventOrganizationInfo?.description?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -96,22 +84,18 @@ const RequestEventOrganizationForm = ({
           <Controller
             name='EventOrganizationInfo.phoneNumber'
             control={control}
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='my-2'>
+                <div className='col-span-1'>
                   <TextField
-                    id='address'
-                    {...register('EventOrganizationInfo.phoneNumber')}
+                    id='phoneNumber'
                     label='Số điện thoại'
                     placeholder='Số điện thoại'
                     className='w-full bg-white'
                     onChange={onChange}
                     value={value}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.EventOrganizationInfo?.phoneNumber?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -119,22 +103,18 @@ const RequestEventOrganizationForm = ({
           <Controller
             name='EventOrganizationInfo.email'
             control={control}
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='my-2'>
+                <div className='col-span-1'>
                   <TextField
-                    id='address'
-                    {...register('EventOrganizationInfo.email')}
+                    id='email'
                     label='Địa chỉ email'
                     placeholder='Địa chỉ email'
                     className='w-full bg-white'
                     onChange={onChange}
                     value={value}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.EventOrganizationInfo?.email?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}
@@ -143,21 +123,18 @@ const RequestEventOrganizationForm = ({
             name='EventOrganizationInfo.address'
             control={control}
             defaultValue=''
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='my-2'>
+                <div className='col-span-1'>
                   <TextField
                     id='address'
-                    {...register('EventOrganizationInfo.address')}
                     label='Địa chỉ'
                     placeholder='Địa chỉ'
                     className='w-full bg-white'
                     onChange={onChange}
                     value={value}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                    {errors.EventOrganizationInfo?.address?.message}
-                  </span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               </LocalizationProvider>
             )}

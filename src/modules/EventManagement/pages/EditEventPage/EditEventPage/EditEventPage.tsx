@@ -7,11 +7,14 @@ import { useForm, useFieldArray } from 'react-hook-form'
 import _ from 'lodash'
 import { EventOrganizationFormType, EventRole, FormEvent } from '../../../interfaces'
 import { FormEventSchema, FormEventType } from '../../../utils'
-import { CreateEventCommandHandler, GetEventByIdQuery } from '../../../services'
+import { GetEventByIdQuery } from '../../../services'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import EditEvent from '../EditEvent/EditEvent'
 import EditEventRegistration from '../EditEventRegistration'
 import EditEventOrganization from '../EditEventOrganization'
+import { Link } from 'react-router-dom'
+import Button from 'src/modules/Share/components/Button'
+import path from 'src/modules/Share/constants/path'
 
 const EditEventPage = () => {
   const [file, setFile] = useState<File>()
@@ -51,8 +54,6 @@ const EditEventPage = () => {
     control,
     name: 'attendanceInfos'
   })
-
-  const createEventCommandHandler = new CreateEventCommandHandler()
 
   const handleSubmitForm = handleSubmit((data) => {
     const body = {
@@ -103,6 +104,8 @@ const EditEventPage = () => {
                 <Tab label='Tạo sự kiện' id='tab-1' aria-controls='simple-tabpanel-1' className='capitalize' />
                 <Tab label='Thông tin đăng ký' id='tab-2' aria-controls='simple-tabpanel-2' />
                 <Tab label='Ban tổ chức sự kiện' id='tab-3' aria-controls='simple-tabpanel-3' />
+                <Tab label='Danh sách đăng ký' id='tab-4' aria-controls='simple-tabpanel-4' />
+                <Tab label='Danh sách điểm danh' id='tab-5' aria-controls='simple-tabpanel-5' />
               </Tabs>
             </Box>
             <Box className='mt-6'>
@@ -138,11 +141,24 @@ const EditEventPage = () => {
                 getValues={getValues}
                 setValue={setValue}
                 setDataEventOrganization={setDataEventOrganization}
-                isLoading={createEventCommandHandler.isLoading()}
                 event={event}
               />
             </Box>
           </Box>
+        </div>
+        <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 p-5 bg-slate-100 w-full z-20'>
+          <Link
+            to={path.event}
+            className='flex justify-center items-center bg-[#989899] w-[80px] h-[50px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+          >
+            Hủy
+          </Link>
+          <Button
+            type='submit'
+            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[50px] w-[140px]'
+          >
+            Tạo sự kiện
+          </Button>
         </div>
       </form>
     </Fragment>

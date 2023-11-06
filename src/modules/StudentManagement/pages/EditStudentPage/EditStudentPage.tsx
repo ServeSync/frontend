@@ -184,7 +184,7 @@ const EditStudentPage = () => {
         </form>
         <div className='mt-5'>
           <div className='px-4 col-span-2'>
-            <div className=''>
+            <div>
               <p className='font-semibold'>Kết quả tham gia hoạt động phục vụ cộng đồng</p>
             </div>
             <div className='mt-4'>

@@ -7,7 +7,6 @@ import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import draftToHtml from 'draftjs-to-html'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormEventType, FormSearchMapSchema, FormSearchMapType } from '../../../utils'
@@ -91,6 +90,9 @@ const EventForm = ({
       setValue('name', event.name)
       setValue('introduction', event.introduction)
       setValue('imageUrl', event.imageUrl)
+      setValue('address.fullAddress', event.address.fullAddress)
+      setValue('address.latitude', event.address.latitude.toString())
+      setValue('address.longitude', event.address.longitude.toString())
       const blocksFromHTML = convertFromHTML(event.description as string)
       const description = EditorState.createWithContent(
         ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
@@ -196,11 +198,16 @@ const EventForm = ({
           <Controller
             name='address.fullAddress'
             control={control}
+            defaultValue={
+              (event && event.address.fullAddress) ||
+              'Danang University of Technology, Nguyễn Lương Bằng, Hòa Khánh Bắc, Liên Chiểu, Da Nang, Vietnam'
+            }
             render={({
               field: {
                 onChange,
-                value = (event && event.address.fullAddress) ||
-                  'Danang University of Technology, Nguyễn Lương Bằng, Hòa Khánh Bắc, Liên Chiểu, Da Nang, Vietnam'
+                value = event
+                  ? event.address.fullAddress
+                  : 'Danang University of Technology, Nguyễn Lương Bằng, Hòa Khánh Bắc, Liên Chiểu, Da Nang, Vietnam'
               },
               fieldState: { error }
             }) => (
@@ -222,6 +229,7 @@ const EventForm = ({
           <Controller
             name='address.longitude'
             control={control}
+            defaultValue={event ? event.address.longitude.toString() : '108.15078258893459'}
             render={({
               field: { value = event ? event.address.longitude : '108.15078258893459' },
               fieldState: { error }
@@ -243,6 +251,7 @@ const EventForm = ({
           <Controller
             name='address.latitude'
             control={control}
+            defaultValue={event ? event.address.latitude.toString() : '16.074160300547344'}
             render={({
               field: { onChange, value = event ? event.address.latitude : '16.074160300547344' },
               fieldState: { error }
