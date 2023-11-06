@@ -20,6 +20,7 @@ import { EditorState, convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 import RequestEvent from '../RequestEvent'
 import RequestEventOrganization from '../RequestEventOrganization'
+import FooterHomePage from 'src/modules/HomePage/components/FooterHomePage'
 
 const RequestEventPage = () => {
   const [page, setPage] = useState<number>(0)
@@ -142,7 +143,7 @@ const RequestEventPage = () => {
         <div className='w-[20%] h-[20%] bg-[#26C6DA]/80 shadow-xl blur-[200px] absolute top-[20px] left-[-100px]'></div>
         <LandingPageHeader />
         <form onSubmit={handleSubmitForm}>
-          <div className='max-w-[1280px] mx-auto pb-4 mt-10'>
+          <div className='max-w-[1280px] mx-auto pb-4 mt-10 mb-10'>
             <Box>
               <Box>
                 <Tabs
@@ -207,6 +208,7 @@ const RequestEventPage = () => {
               </Button>
               <Button
                 type='submit'
+                isLoading={requestCreateEventCommandHandler.isLoading()}
                 classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
               >
                 Tạo
@@ -214,6 +216,7 @@ const RequestEventPage = () => {
             </div>
           </div>
         </form>
+        <FooterHomePage />
       </div>
     </Fragment>
   )

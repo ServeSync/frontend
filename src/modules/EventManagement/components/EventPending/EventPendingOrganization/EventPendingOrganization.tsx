@@ -16,7 +16,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
       <div>
         <h2 className='text-[24px] text-black font-bold col-span-4 mb-10 bg-transparent'>Thông tin ban tổ chức</h2>
         <div className='grid grid-cols-8 gap-4'>
-          <div className='col-span-2'>
+          <div className='col-span-2 row-span-3'>
             <div className='relative bg-slate-300 rounded-full outline-none w-full pt-[100%]'>
               <img
                 src={eventPending.organization.imageUrl}
@@ -25,51 +25,49 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
               />
             </div>
           </div>
-          <div className='col-span-6 grid grid-cols-1 gap-4'>
-            <div className='col-span-1'>
-              <TextField
-                className='w-full'
-                label='Tên tổ chức'
-                value={eventPending.organization.name}
-                InputProps={{
-                  readOnly: true
-                }}
-              />
-            </div>
-            <div className='col-span-1'>
-              <TextField
-                className='w-full'
-                label='Số điện thoại'
-                value={eventPending.organization.phoneNumber}
-                InputProps={{
-                  readOnly: true
-                }}
-              />
-            </div>
-            <div className='col-span-1'>
-              <TextField
-                className='w-full'
-                label='Địa chỉ email'
-                value={eventPending.organization.email}
-                InputProps={{
-                  readOnly: true
-                }}
-              />
-            </div>
-            <div className='col-span-1'>
-              <TextField
-                className='w-full'
-                label='Địa chỉ '
-                value={eventPending.organization.address}
-                InputProps={{
-                  readOnly: true
-                }}
-              />
-            </div>
-            <div className='col-span-2'>
-              <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
-                <Editor readOnly editorState={editorState} />
-              </div>
+          <div className='col-span-3'>
+            <TextField
+              className='w-full'
+              label='Tên tổ chức'
+              value={eventPending.organization.name}
+              InputProps={{
+                readOnly: true
+              }}
+            />
+          </div>
+          <div className='col-span-3'>
+            <TextField
+              className='w-full'
+              label='Số điện thoại'
+              value={eventPending.organization.phoneNumber}
+              InputProps={{
+                readOnly: true
+              }}
+            />
+          </div>
+          <div className='col-span-3'>
+            <TextField
+              className='w-full'
+              label='Địa chỉ email'
+              value={eventPending.organization.email}
+              InputProps={{
+                readOnly: true
+              }}
+            />
+          </div>
+          <div className='col-span-3'>
+            <TextField
+              className='w-full'
+              label='Địa chỉ '
+              value={eventPending.organization.address}
+              InputProps={{
+                readOnly: true
+              }}
+            />
+          </div>
+          <div className='col-span-6'>
+            <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
+              <Editor readOnly editorState={editorState} />
             </div>
           </div>
         </div>

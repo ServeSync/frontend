@@ -124,6 +124,11 @@ export function ErrorCodeToMessage(errorCode: string): {
     'EventCollaborationRequest:000002': {
       message: 'Ngày duyệt sự kiện phải trước ngày tổ chức hơn 1 ngày !',
       type: 'Server'
+    },
+
+    'EventActivity:000001': {
+      message: 'Hoạt động sự kiện không tồn tại !',
+      type: 'Server'
     }
   }
 

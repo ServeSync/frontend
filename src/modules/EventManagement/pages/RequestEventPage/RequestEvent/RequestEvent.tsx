@@ -2,7 +2,7 @@ import { Control, FieldErrors, UseFormRegister, UseFormSetValue } from 'react-ho
 import { FormRequestEventType } from '../../../utils'
 import RequestCreateEventForm from '../../../components/RequestEventForm/RequestEventForm'
 import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../../services'
-import { ActivitiesListType, EventCategoriesListType, MarkerType } from '../../../interfaces'
+import { ActivityType, EventCategoryType, MarkerType } from '../../../interfaces'
 import useQueryEventCategoryConfig from '../../../hooks/useQueryEventCategoryConfig'
 import useQueryActivityConfig from '../../../hooks/useQueryActivityConfig'
 import { useState } from 'react'
@@ -49,10 +49,10 @@ const RequestEvent = ({
   const queryEventCategoryConfig = useQueryEventCategoryConfig(eventCategoriesSearch)
 
   const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery(queryEventCategoryConfig)
-  const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoriesListType
+  const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoryType[]
 
   const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId, queryActivityConfig)
-  const activities = getAllActivitiesByCategoryIdQuery.fetch() as ActivitiesListType
+  const activities = getAllActivitiesByCategoryIdQuery.fetch() as ActivityType[]
 
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
@@ -63,8 +63,8 @@ const RequestEvent = ({
             control={control}
             errors={errors}
             setValue={setValue}
-            eventCategories={eventCategories && eventCategories.data}
-            activities={activities && activities?.data}
+            eventCategories={eventCategories}
+            activities={activities}
             file={file}
             setFile={setFile}
             handleChangeCategory={handleChangeCategory}

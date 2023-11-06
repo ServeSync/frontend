@@ -18,7 +18,7 @@ class ApproveRequestEvent {
     return this._approveRequestEventMutation.mutate(id, {
       onSuccess: () => {
         this._queryClient.invalidateQueries({
-          queryKey: ['approveRequestEvent']
+          queryKey: ['pending_events']
         })
         handleSuccess()
       },

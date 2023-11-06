@@ -3,16 +3,20 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Control, Controller } from 'react-hook-form'
 import { Autocomplete, TextField } from '@mui/material'
-import { eventStatus, eventType } from '../../constants'
+import { eventType } from '../../constants'
 import { FormFilterEventType } from '../../utils'
 import Button from 'src/modules/Share/components/Button'
 
 interface Props {
+  options: {
+    id: string
+    name: string
+  }[]
   control: Control<FormFilterEventType>
   onResetForm: () => void
 }
 
-const Filter = ({ control, onResetForm }: Props) => {
+const Filter = ({ control, onResetForm, options }: Props) => {
   return (
     <div className='w-[360px] px-6 py-8 shadow-md text-gray-600'>
       <div className='flex items-center justify-center mb-4'>
@@ -40,10 +44,10 @@ const Filter = ({ control, onResetForm }: Props) => {
               <Autocomplete
                 disablePortal
                 id='eventStatus'
-                options={eventStatus}
+                options={options}
                 getOptionLabel={(option) => option.name}
                 noOptionsText='Không có lựa chọn'
-                value={eventStatus.find((option) => option.id === value) || null}
+                value={options.find((option) => option.id === value) || null}
                 renderInput={(params) => <TextField {...params} label='Chọn trạng thái sự kiện' />}
                 onChange={(_, option) => onChange(option ? option.id : '')}
               />

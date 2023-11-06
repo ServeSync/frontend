@@ -35,8 +35,8 @@ export const FormRequestEventSchema = yup.object().shape({
       }
       const startAtDate = new Date(startAt)
       const endAtDate = new Date(endAt)
-      const minimumEndAtDate = addHours(startAtDate, 1)
-      return endAtDate > minimumEndAtDate
+      const minTime = addHours(startAtDate, 1)
+      return endAtDate > minTime
     }),
   eventType: yup.string().required('Vui lòng chọn loại sự kiện !'),
   categoryId: yup.string().required('Vui lòng chọn chủ đề !'),

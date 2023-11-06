@@ -29,6 +29,7 @@ const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
 
   const drawMiddleTextPlugin = {
     id: 'drawMiddleTextPlugin',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     beforeDraw: (chart: any) => {
       const ctx = chart.ctx
       const xCoor = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2

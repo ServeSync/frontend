@@ -17,6 +17,7 @@ import EventPendingTable from 'src/modules/EventManagement/components/EventPendi
 import PopoverCustom from 'src/modules/Share/components/Popover'
 import Button from 'src/modules/Share/components/Button'
 import Filter from 'src/modules/EventManagement/components/Filter'
+import { pendingEventStatus } from 'src/modules/EventManagement/constants'
 
 const EventPendingPage = () => {
   const navigate = useNavigate()
@@ -90,7 +91,11 @@ const EventPendingPage = () => {
             <PopoverCustom
               renderPopover={
                 <form onSubmit={handleSubmitFormFilter}>
-                  <Filter control={FilterEventForm.control} onResetForm={handleResetFormFilter} />
+                  <Filter
+                    options={pendingEventStatus}
+                    control={FilterEventForm.control}
+                    onResetForm={handleResetFormFilter}
+                  />
                 </form>
               }
             >

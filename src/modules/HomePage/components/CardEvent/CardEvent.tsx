@@ -130,7 +130,6 @@ const CardEvent = ({ event }: Props) => {
             </div>
           </div>
           <div className='flex justify-between mt-6 max-md:flex-col'>
-            <EventRating rating={event.rating} />
             <div
               className={classNames('px-6 rounded-xl  flex justify-center items-center cursor-pointer', {
                 'bg-[#00F335]/50': event.status === 'Done',

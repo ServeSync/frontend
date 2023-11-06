@@ -14,7 +14,7 @@ class GetEventPendingQuery {
   constructor(id: string) {
     this._navigate = useNavigate()
     this._query = useQuery({
-      queryKey: ['eventpending', id],
+      queryKey: ['pending_event', id],
       queryFn: () => requestEventAPI.getRequestEvent(id),
       enabled: id !== undefined,
       staleTime: 1 * 60 * 1000,

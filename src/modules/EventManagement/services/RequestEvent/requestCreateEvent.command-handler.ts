@@ -36,7 +36,7 @@ class RequestCreateEventCommandHandler {
     return this._requestCreateEventMutation.mutate(event, {
       onSuccess: () => {
         this._queryClient.invalidateQueries({
-          queryKey: ['requestEvent']
+          queryKey: ['pending_events']
         })
         handleSuccess()
       },
@@ -44,6 +44,10 @@ class RequestCreateEventCommandHandler {
         toast.error('Chưa có dữ liệu ban tổ chức!')
       }
     })
+  }
+
+  isLoading() {
+    return this._uploadImageMutation.isLoading || this._requestCreateEventMutation.isLoading
   }
 }
 
