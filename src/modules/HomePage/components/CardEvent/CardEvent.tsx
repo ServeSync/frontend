@@ -36,14 +36,14 @@ const CardEvent = ({ event }: Props) => {
       role='button'
       tabIndex={0}
     >
-      <div className='px-4 py-6 flex justify-center items-center '>
+      <div className='px-4 py-6 flex justify-center items-center'>
         <img
           src={event.imageUrl}
           alt='ui/ux review check'
           className='rounded-2xl border object-cover max-sm:w-[100px] max-sm:h-[100px] max-md:w-[200px] max-md:h-[200px] w-[300px] h-[300px] lg:w-[400px] lg:h-[400px]'
         />
       </div>
-      <div className='px-6 pb-8 '>
+      <div className='px-6 pb-8'>
         <div className='flex flex-col'>
           <div className='font-normal leading-7 text-[#F85E9F] whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px] truncate'>
             {event.name}
@@ -72,8 +72,8 @@ const CardEvent = ({ event }: Props) => {
           </div>
         </div>
         <div className='mt-4 flex flex-col'>
-          <div className='flex flex-col justify-start gap-4  '>
-            <div className='flex items-center gap-1  '>
+          <div className='flex flex-col justify-start gap-4 '>
+            <div className='flex items-center gap-1 '>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'

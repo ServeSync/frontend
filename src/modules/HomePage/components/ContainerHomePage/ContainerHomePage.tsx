@@ -14,7 +14,7 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
   return (
     <div className='flex flex-col mb-[200px] overflow-hidden'>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center max-w-screen-xl w-full py-8 px-4 m-auto'>
-        <div className='flex flex-col gap-11 lg:max-w-[50%] max-lg:items-center '>
+        <div className='flex flex-col gap-11 lg:max-w-[50%] max-lg:items-center'>
           <h1 className='w-full text-black text-[69px] font-normal leading-[82px] break-words'>
             <span>Tham gia</span>
             <span className='text-[#26C6DA]'> hoạt động cộng đồng </span>
@@ -32,7 +32,7 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
             </Link>
           </div>
         </div>
-        <div className=''>
+        <div>
           <img src={landingPageImage} alt='' className='rounded-[30px]' />
           <div></div>
         </div>
@@ -48,19 +48,19 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
           <div className='grid grid-cols-1 sm:grid-cols-2 mt-5 gap-10'>
             <div className='flex flex-col gap-4 items-center justify-center border rounded-3xl p-8'>
               <span className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>500+</span>
-              <span className='text-[#191825] text-[18px] font-normal leading-7 '>Sự kiện đã tổ chức</span>
+              <span className='text-[#191825] text-[18px] font-normal leading-7'>Sự kiện đã tổ chức</span>
             </div>
             <div className='flex flex-col gap-4 items-center justify-center border rounded-3xl p-8'>
               <span className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>100</span>
-              <span className='text-[#191825] text-[18px] font-normal leading-7 '>Nhà tổ chức sự kiện</span>
+              <span className='text-[#191825] text-[18px] font-normal leading-7'>Nhà tổ chức sự kiện</span>
             </div>
             <div className='flex flex-col gap-4 items-center justify-center border rounded-3xl p-8'>
               <span className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>700+</span>
-              <span className='text-[#191825] text-[18px] font-normal leading-7 '>Sinh viên tham gia</span>
+              <span className='text-[#191825] text-[18px] font-normal leading-7'>Sinh viên tham gia</span>
             </div>
             <div className='flex flex-col gap-4 items-center justify-center border rounded-3xl p-8'>
               <span className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>2k+</span>
-              <span className='text-[#191825] text-[18px] font-normal leading-7 '>Đánh giá tích cực</span>
+              <span className='text-[#191825] text-[18px] font-normal leading-7'>Đánh giá tích cực</span>
             </div>
           </div>
           <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-[-100px] right-[50px] max-lg:right-0'></div>

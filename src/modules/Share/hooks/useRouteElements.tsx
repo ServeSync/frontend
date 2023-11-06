@@ -26,8 +26,8 @@ const EditStudentPage = lazy(() => import('src/modules/StudentManagement/pages/E
 const EventPage = lazy(() => import('src/modules/EventManagement/pages/EventPage'))
 const CreateEventPage = lazy(() => import('src/modules/EventManagement/pages/CreateEventPage/CreateEventPage'))
 const EditEventPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPage/EditEventPage'))
-const EditEventPending = lazy(() => import('src/modules/EventManagement/pages/EditEventPending/EditEventPending'))
 const EventPending = lazy(() => import('src/modules/EventManagement/pages/EventPending/EventPendingPage'))
+const EditEventPendingPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPendingPage'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 
 const RejectedRoute = () => {
@@ -87,28 +87,10 @@ const useRouteElements = () => {
           )
         },
         {
-          path: path.home_page,
-          element: (
-            <HomePageLayout>
-              <Suspense>
-                <HomePage />
-              </Suspense>
-            </HomePageLayout>
-          )
-        },
-        {
           path: path.request_event,
           element: (
             <Suspense>
               <RequestEventPage />
-            </Suspense>
-          )
-        },
-        {
-          path: path.event_detail,
-          element: (
-            <Suspense>
-              <EventDetailPage />
             </Suspense>
           )
         },
@@ -221,12 +203,30 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <EditEventPending />
+                <EditEventPendingPage />
               </Suspense>
             </MainLayout>
           )
         }
       ]
+    },
+    {
+      path: path.home_page,
+      element: (
+        <HomePageLayout>
+          <Suspense>
+            <HomePage />
+          </Suspense>
+        </HomePageLayout>
+      )
+    },
+    {
+      path: path.event_detail,
+      element: (
+        <Suspense>
+          <EventDetailPage />
+        </Suspense>
+      )
     },
     {
       path: '*',

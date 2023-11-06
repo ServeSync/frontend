@@ -1,3 +1,4 @@
+import { EventOrganizationDetailTableHeader } from 'src/modules/EventManagement/constants'
 import { EventDetailType } from '../../../interfaces'
 
 interface Props {
@@ -9,9 +10,9 @@ const EventDetailOrganization = ({ event }: Props) => {
       {event.organizations.map((organization, index) => (
         <div key={index} className='border-[1px] border-gray-300 p-6 rounded-xl overflow-hidden'>
           <h2 className='text-[20px] font-semibold mb-4'>Thông tin ban tổ chức</h2>
-          <div className='grid grid-cols-5 gap-6  items-center'>
+          <div className='grid grid-cols-5 gap-6 items-center'>
             <div className='col-span-1'>
-              <img src={organization.imageUrl} alt='' className='rounded-xl h-full object-cover' />
+              <img src={organization.imageUrl} alt='' className='rounded-md object-cover' />
             </div>
             <div className='col-span-3'>
               <ul>
@@ -57,30 +58,19 @@ const EventDetailOrganization = ({ event }: Props) => {
           <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'>
             <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
               <tr className='text-[14px] text-gray-600'>
-                <th className='px-2 py-2 font-semibold'>
-                  <span>#</span>
-                </th>
-                <th className='px-2 py-2 font-semibold'>
-                  <span>Họ và tên</span>
-                </th>
-                <th className='px-2 py-2 font-semibold'>
-                  <span>Địa chỉ email</span>
-                </th>
-                <th className='px-2 py-2 font-semibold'>
-                  <span>Số điện thoại</span>
-                </th>
-                <th className='px-2 py-2 font-semibold'>
-                  <span>Vai trò</span>
-                </th>
+                {EventOrganizationDetailTableHeader.map((item) => (
+                  <th className='px-2 py-2 font-semibold' key={item.id}>
+                    <span>{item.name}</span>
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {organization.representatives.map((representative, index) => (
+              {organization.representatives.map((representative) => (
                 <tr
-                  key={index}
+                  key={representative.id}
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
                 >
-                  <th className='px-2 py-4 font-medium'>{index + 1}</th>
                   <th className='px-2 py-4 font-medium flex items-center gap-3'>
                     <img src={representative.imageUrl} alt='' className='rounded-full object-cover w-[50px]' />
                     <div className='flex flex-col'>
@@ -89,8 +79,8 @@ const EventDetailOrganization = ({ event }: Props) => {
                     </div>
                   </th>
                   <th className='px-2 py-4 font-medium'>{representative.email}</th>
-                  <th className='px-2 py-4 font-medium w-[20%] '>{representative.phoneNumber}</th>
-                  <th className='px-2 py-4 font-medium w-[25%] '>{representative.role}</th>
+                  <th className='px-2 py-4 font-medium w-[20%]'>{representative.phoneNumber}</th>
+                  <th className='px-2 py-4 font-medium w-[25%]'>{representative.role}</th>
                 </tr>
               ))}
             </tbody>

@@ -80,7 +80,7 @@ const EventPendingPage = () => {
         <div className='flex justify-between items-center pt-[16px] pb-[40px] font-normal'>
           <form onSubmit={handleSubmitFormFilter}>
             <InputSearch
-              classNameInput='bg-white border-[1px] border-gray-200 rounded-sm h-[44px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
+              classNameInput='bg-white border-[1px] border-gray-200 rounded-md h-[44px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
               placeholder='Tìm kiếm sự kiện'
               name='search'
               register={FilterEventForm.register}
@@ -120,14 +120,12 @@ const EventPendingPage = () => {
           onSort={SortEventPending.handleSort}
           onEditEventPending={onEditEventPending}
         />
-        <div className='flex justify-end'>
-          <Pagination
-            className='mt-[20px]'
-            queryConfig={queryEventPendingConfig}
-            pageSize={getAllEventsPendingQuery.getTotalPages()}
-            pathname={path.event_pending}
-          />
-        </div>
+        <Pagination
+          className='mt-[20px] flex justify-end'
+          queryConfig={queryEventPendingConfig}
+          pageSize={getAllEventsPendingQuery.getTotalPages()}
+          pathname={path.event_pending}
+        />
       </div>
     </Fragment>
   )

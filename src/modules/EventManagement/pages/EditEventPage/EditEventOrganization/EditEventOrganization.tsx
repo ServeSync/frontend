@@ -19,7 +19,6 @@ interface Props {
   getValues: UseFormGetValues<FormEventType>
   setValue: UseFormSetValue<FormEventType>
   setDataEventOrganization: React.Dispatch<React.SetStateAction<EventOrganizationFormType[]>>
-  isLoading: boolean
   event: EventDetailType
 }
 
@@ -30,7 +29,6 @@ const EditEventOrganization = ({
   getValues,
   setValue,
   setDataEventOrganization,
-  isLoading,
   event
 }: Props) => {
   const [listEventOrganizationsAdded, setListEventOrganizationsAdded] = useState<EventOrganizationType[]>([])
@@ -131,7 +129,6 @@ const EditEventOrganization = ({
             eventOrganizations={eventOrganizations && eventOrganizations.data}
             handleAddEventOrganization={handleAddEventOrganization}
             errors={errors}
-            isLoading={isLoading}
           />
         </div>
       )}

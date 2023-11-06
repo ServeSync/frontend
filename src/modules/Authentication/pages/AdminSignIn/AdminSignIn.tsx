@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from 'src/modules/Share/contexts'
-import { FormSignInSchema, FormSignInType } from '../../utils'
+import { FormAdminSignInSchema, FormAdminSignInType } from '../../utils'
 import { AdminSignInCommandHandler } from '../../services'
 import path from 'src/modules/Share/constants/path'
 import { handleError } from 'src/modules/Share/utils'
@@ -22,8 +22,8 @@ const AdminSignIn = () => {
     handleSubmit,
     setError,
     formState: { errors }
-  } = useForm<FormSignInType>({
-    resolver: yupResolver(FormSignInSchema)
+  } = useForm<FormAdminSignInType>({
+    resolver: yupResolver(FormAdminSignInSchema)
   })
 
   const adminSignInCommandHandler = new AdminSignInCommandHandler()
@@ -36,7 +36,7 @@ const AdminSignIn = () => {
         navigate(path.dashboard)
       },
       (error: any) => {
-        handleError<FormSignInType>(error, setError)
+        handleError<FormAdminSignInType>(error, setError)
       }
     )
   })
@@ -56,7 +56,7 @@ const AdminSignIn = () => {
           />
         </div>
         <div className='col-span-1 p-12 flex flex-col justify-center'>
-          <Link to={path.home_page} className='col-span-1 flex justify-center mb-4'>
+          <Link to={path.home_page} className='flex justify-center mb-4'>
             <img src={logo} alt='logo' className='w-[80px] h-[80px]' />
           </Link>
           <div className='mb-[20px] text-center'>

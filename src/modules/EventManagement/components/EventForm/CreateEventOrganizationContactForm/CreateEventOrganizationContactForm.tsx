@@ -7,7 +7,7 @@ import { FormEventType } from '../../../utils'
 import { ContactType, ContactsListType, EventDetailType, EventOrganizationType } from '../../../interfaces'
 import { GetAllContactsByOrganizationIdQuery } from '../../../services'
 import Button from 'src/modules/Share/components/Button'
-import { OrganizerTableHeader } from '../../../constants'
+import { EventOrganizationTableHeader } from '../../../constants'
 
 interface Props {
   control: Control<FormEventType>
@@ -141,7 +141,7 @@ const CreateEventOrganizationContactForm = ({
       <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'>
         <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
           <tr className='text-[14px] text-gray-600'>
-            {OrganizerTableHeader.map((item) => (
+            {EventOrganizationTableHeader.map((item) => (
               <th className='px-2 py-2 font-semibold' key={item.id}>
                 <span>{item.name}</span>
               </th>

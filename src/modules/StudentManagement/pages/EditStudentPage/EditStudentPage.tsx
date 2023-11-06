@@ -157,7 +157,7 @@ const EditStudentPage = () => {
         </form>
         <div className='grid grid-cols-6 pt-6'>
           <div className='border-r-2 px-4 col-span-2'>
-            <div className=''>
+            <div>
               <p className='font-semibold'>Kết quả tham gia hoạt động phục vụ cộng đồng</p>
             </div>
             <div className='grid grid-cols-4 mt-4'>

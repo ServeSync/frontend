@@ -18,7 +18,7 @@ const EventsOfStudentTable = () => {
           <th className='px-4 py-2 font-medium cursor-pointer'>
             <span>Ngày</span>
           </th>
-          <th className='px-4 py-2 font-medium cursor-pointer '>
+          <th className='px-4 py-2 font-medium cursor-pointer'>
             <span>Trạng thái</span>
           </th>
         </tr>
