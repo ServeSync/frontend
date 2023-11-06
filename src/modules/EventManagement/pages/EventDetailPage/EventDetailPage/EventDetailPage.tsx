@@ -23,28 +23,28 @@ const EventDetailPage = () => {
 
   const [isOpenModal, setIsOpenModal] = useState(false)
 
-  const [isOpenModal1, setIsOpenModal1] = useState(false)
+  const [isOpenModalRegistrationInfos, setisOpenModalRegistrationInfos] = useState(false)
 
-  const [isOpenModal2, setIsOpenModal2] = useState(false)
+  const [isOpenModalAttendanceInfos, setIsOpenModalAttendanceInfos] = useState(false)
 
   const handleCloseModal = () => {
     setIsOpenModal(false)
   }
 
-  const handleCloseModal1 = () => {
-    setIsOpenModal1(false)
+  const handleCloseModalRegistrationInfos = () => {
+    setisOpenModalRegistrationInfos(false)
   }
 
-  const handleCloseModal2 = () => {
-    setIsOpenModal2(false)
+  const handleCloseModalAttendanceInfos = () => {
+    setIsOpenModalAttendanceInfos(false)
   }
 
-  const handleOpenModal1 = () => {
-    setIsOpenModal1(true)
+  const handleOpenModalRegistrationInfos = () => {
+    setisOpenModalRegistrationInfos(true)
   }
 
-  const handleOpenModal2 = () => {
-    setIsOpenModal2(true)
+  const handleOpenModalAttendanceInfos = () => {
+    setIsOpenModalAttendanceInfos(true)
   }
   const [page, setPage] = useState<number>(0)
 
@@ -197,11 +197,11 @@ const EventDetailPage = () => {
                 </form>
               </div>
             </ModalCustom>
-            <ModalCustom isOpenModal={isOpenModal1} handleClose={handleCloseModal1}>
+            <ModalCustom isOpenModal={isOpenModalRegistrationInfos} handleClose={handleCloseModalRegistrationInfos}>
               <div className='bg-white p-10 rounded-xl w-[800px]'>
                 <div className='flex justify-between'>
                   <h2 className='text-[30px] font-semibold'>Khung giờ đăng ký</h2>
-                  <Button classNameButton='' onClick={handleCloseModal1}>
+                  <Button classNameButton='' onClick={handleCloseModalRegistrationInfos}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       fill='none'
@@ -244,11 +244,11 @@ const EventDetailPage = () => {
                 ))}
               </div>
             </ModalCustom>
-            <ModalCustom isOpenModal={isOpenModal2} handleClose={handleCloseModal2}>
+            <ModalCustom isOpenModal={isOpenModalAttendanceInfos} handleClose={handleCloseModalAttendanceInfos}>
               <div className='bg-white p-10 rounded-xl w-[800px]'>
                 <div className='flex justify-between'>
                   <h2 className='text-[30px] font-semibold'>Khung giờ điểm danh</h2>
-                  <Button classNameButton='' onClick={handleCloseModal2}>
+                  <Button classNameButton='' onClick={handleCloseModalAttendanceInfos}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       fill='none'
@@ -380,7 +380,10 @@ const EventDetailPage = () => {
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
                       <p className='font-semibold text-[16px] text-[#1F2933] break-words'>Khung giờ đăng ký</p>
-                      <Button classNameButton='font-light text-[14px] text-[#146BCD]' onClick={handleOpenModal1}>
+                      <Button
+                        classNameButton='font-light text-[14px] text-[#146BCD]'
+                        onClick={handleOpenModalRegistrationInfos}
+                      >
                         Xem tất cả
                       </Button>
                     </div>
@@ -413,7 +416,10 @@ const EventDetailPage = () => {
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
                       <p className='font-semibold text-[16px] text-[#1F2933] break-words'>Khung giờ điểm danh</p>
-                      <button className='font-light text-[14px] text-[#146BCD]' onClick={handleOpenModal2}>
+                      <button
+                        className='font-light text-[14px] text-[#146BCD]'
+                        onClick={handleOpenModalAttendanceInfos}
+                      >
                         Xem tất cả
                       </button>
                     </div>
