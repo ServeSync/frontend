@@ -46,7 +46,8 @@ const EventPendingTable = ({ eventsPending, isLoading, onSort, onEditEventPendin
                   </th>
                 </tr>
               ))
-          : eventsPending.data.map((event) => (
+          : eventsPending &&
+            eventsPending.data.map((event) => (
               <tr
                 className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                 key={event.id}
