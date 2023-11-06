@@ -13,14 +13,14 @@ const LandingPageHeader = () => {
 
   return (
     <Fragment>
-      <header className='relative max-w-screen-xl w-full h-auto flex justify-between items-center py-8 px-4 top-0 left-0 right-0 bg-transparent z-50 mx-auto'>
+      <header className='relative w-[90%] h-auto flex justify-between items-center py-8 px-4 top-0 left-0 right-0 bg-transparent z-50 mx-auto'>
         <div className='flex w-56 items-center font-normal text-[24px] gap-4 leading-10 font-serif'>
           <img src={logo} alt='logo-img' className='w-20 h-20' />
           ServeSync
         </div>
         <ul className='lg:flex gap-8 list-none font-medium text-[#191825]/50 hidden text-[14px]'>
           <NavLink
-            to='/'
+            to={path.home_page}
             className={({ isActive }) =>
               classNames('cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0', {
                 'text-black': isActive

@@ -11,7 +11,7 @@ class GetAllEventsPendingQuery {
   constructor(type?: EventPendingType) {
     this._queryRequestEventConfig = useQueryRequestEventConfig()
     this._query = useQuery({
-      queryKey: ['eventspending', this._queryRequestEventConfig, type],
+      queryKey: ['pending_events', this._queryRequestEventConfig, type],
       queryFn: () => requestEventAPI.getListRequestEvents(this._queryRequestEventConfig as RequestEventsListConfig),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000

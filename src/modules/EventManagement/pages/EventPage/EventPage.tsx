@@ -27,6 +27,7 @@ const EventPage = () => {
 
   const getAllEventsQuery = new GetAllEventsQuery()
   const events = getAllEventsQuery.fetch()
+  console.log(events)
 
   const FilterEventForm = useForm<FormFilterEventType>({
     resolver: yupResolver(FormFilterEventSchema)

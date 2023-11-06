@@ -45,7 +45,7 @@ const CardEvent = ({ event }: Props) => {
       </div>
       <div className='px-6 pb-8'>
         <div className='flex flex-col'>
-          <div className='font-normal leading-7 text-[#F85E9F] whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px] truncate'>
+          <div className='font-normal leading-7 text-[#195E8E] whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px] truncate'>
             {event.name}
           </div>
           <div className='max-sm:text-[8px] text-[14px] lg:text-[16px] flex items-center gap-4 justify-between max-md:flex-col-reverse truncate'>

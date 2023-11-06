@@ -16,7 +16,7 @@ SwiperCore.use([Navigation, Pagination])
 
 const ContainerEvent = ({ heading, title, event }: Props) => {
   return (
-    <div className='flex flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-10 relative'>
+    <div className='flex flex-col gap-10 justify-between max-lg:items-center w-full py-8 px-4 m-auto mt-10 relative'>
       <div className='flex flex-col gap-4'>
         <h2 className='text-[#F85E9F] uppercase text-[44px] font-normal tracking-[8px] break-words'>{heading}</h2>
         <h3 className='font-normal text-[30px] leading-9 break-words'>{title}</h3>

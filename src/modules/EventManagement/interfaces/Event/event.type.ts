@@ -196,15 +196,13 @@ export interface EventDetailType {
   nearestAttendanceInfoId: string
 }
 
-export interface StudentAttendedEvent extends EventType
-{
+export interface StudentAttendedEvent extends EventType {
   role: string
   score: number
   attendanceAt: string
 }
 
-export interface StudentAttendedEventsListType
-{
+export interface StudentAttendedEventsListType {
   total: number
   totalPages: number
   data: StudentAttendedEvent[]

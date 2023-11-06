@@ -22,7 +22,9 @@ export const StatusToMessage = (status: string) => {
     Rejected: 'Bị hủy',
     Attendance: 'Đang điểm danh',
     Registration: 'Đã đăng kí',
-    Upcoming: 'Sắp diễn ra'
+    Upcoming: 'Sắp diễn ra',
+    Approved: 'Đã duyệt',
+    ClosedRegistration: 'Đã đóng đăng kí'
   }
   return mappedEventStatus[`${status}`]
 }

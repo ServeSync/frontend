@@ -1,6 +1,5 @@
 export const logo = 'https://res.cloudinary.com/dboijruhe/image/upload/v1698472046/Assets/mqdwwsszosbceacvw4eu.png'
-export const landingPageImage =
-  'https://s3-alpha-sig.figma.com/img/7c55/c8f8/b6cd8b0885bfeed6a85d18f5883fe6f6?Expires=1699833600&Signature=H2VfA70IdCIy1BGzWgbA1ChJFKq4UYFWEqza2nEGH6DQgyFy5qFoAuIcuW8hkcqWNthududDsoknnqa7VDmn~Dx9VJhipd~7~Q4yKdh1q65g2BKtaFHv0wXTMtwtO7hn~B2KM8qop2byNOknDdzAhXFb6n1FPb7s2sxE6w0-acQUKScP6aPouIH7FoTW3lJVNfgthm03H82MqQJl2Jui4GKd-raIHJwa0QyF2eo8EbkoZk0qejsyl5qh5T3f3O1-sxxBuHmP4R2-fjEDB-KgZBYPuTkiGmoo-Ar9-hJOpJdpLFBB10tqn4D1ifw78fac-j0PdzM0WbxUCnVEKR9Bpg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+export const landingPageImage = '"https://via.placeholder.com/568x509'
 export const landingPageImage2 =
   'https://s3-alpha-sig.figma.com/img/009c/540d/95f73101eb52a8e05f8d6932d3340bcb?Expires=1699833600&Signature=c3ABQR5mj7dcsbT7IO3jrm3bh-E4bydBApVXPrAv36yv63ZUr99dlPslYJA1UXpeqKnSphPFj3xzC8Qusy5VyFLwHRWlybr2zPvsegfzqvB2eaMgqfG5YC5SUBO1AbMbxfRo9RIgpw6h5GdIEXozv4uXYQw-C2~XhOcxSaHLCoBzxKbidjL7d3tG~KLySeBeg72sSbDsOIifeyB6JpH1tAfKFU6OJPs4QxVE8SarEoIsphJZGA90o0pTl2QHYIhlBlwlZ6sXI4vnlm7~1QkE8G0NhOTUhnpi-M3ZgXYSrMBnOBA9E3Y0x5Ux-HCEpUfqRbaUEBOcSEw2LVnduXFPDw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
 export const landingPageImage3 =

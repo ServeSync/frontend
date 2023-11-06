@@ -12,8 +12,8 @@ interface Props {
 
 const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
   return (
-    <div className='flex flex-col mb-[200px] overflow-hidden'>
-      <div className='flex max-lg:flex-col gap-10 justify-between items-center max-w-screen-xl w-full py-8 px-4 m-auto'>
+    <div className='flex flex-col pb-[200px] overflow-hidden w-[85%] mx-auto'>
+      <div className='flex max-lg:flex-col gap-10 justify-between items-center w-full py-8 px-4 m-auto'>
         <div className='flex flex-col gap-11 lg:max-w-[50%] max-lg:items-center'>
           <h1 className='w-full text-black text-[69px] font-normal leading-[82px] break-words'>
             <span>Tham gia</span>
@@ -32,12 +32,16 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
             </Link>
           </div>
         </div>
-        <div>
-          <img src={landingPageImage} alt='' className='rounded-[30px]' />
+        <div className='flex justify-center items-center lg:max-w-[50%]'>
+          <img
+            src='https://s3-alpha-sig.figma.com/img/ff86/4153/8d0b3da488e360fcb93103240156f714?Expires=1699833600&Signature=i38i8hNvgRRsvvfupA2MB8XY~65bbqrjsOe5SkkxZ3JKFx1JzMqs-GYHN9kugun-aDaylwLYqb9JqDS-PDvh97CbbSVnrKNc7OdsSp2FjaoLGfNcvGYaNwFZC62Ev-ZRI2wzNIBQudfOCyaFG5JuI5--SrqO9mzqezY~CupGct6-7~aicNQzuRtNn1MgsIPnJhhLUWadXl2ngMY~GaY6CsmGbTFDrlkzFj0BFvhj1flyfkAxxsnTbR~5ZJT~rdXqGUBhBFpQIfXXXKyonK6Q-ycNqdACnqVXpwn0GcIX3673xuzpKr6ZN1XyLZ1karNBKL43sbAX-J1L6Z~vmUo27g__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+            alt=''
+            className='w-[80%]'
+          />
           <div></div>
         </div>
       </div>
-      <div className='flex justify-between max-lg:flex-col items-center gap-20 max-w-screen-xl w-full py-8 px-4 m-auto'>
+      <div className='flex justify-between max-lg:flex-col items-center gap-20 w-full py-8 px-4 m-auto'>
         <div className='lg:max-w-[50%] relative'>
           <img src={landingPageImage2} alt='' className='rounded-[30px] z-20 relative' />
           <div className='absolute w-[110%] h-[80%] bg-[#26C6DA]/80 top-[200px] left-[-100px] z-10 rounded-r-full'></div>
@@ -63,10 +67,10 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
               <span className='text-[#191825] text-[18px] font-normal leading-7'>Đánh giá tích cực</span>
             </div>
           </div>
-          <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-[-100px] right-[50px] max-lg:right-0'></div>
+          {/* <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-[-100px] right-[40px] max-lg:right-0'></div> */}
         </div>
       </div>
-      <div className='flex max-lg:flex-col gap-10 justify-between max-lg:items-center max-w-screen-xl w-full py-8 px-4 m-auto mt-40'>
+      <div className='flex max-lg:flex-col gap-10 justify-between max-lg:items-center  w-full py-8 px-4 m-auto mt-40'>
         <div className='flex flex-col gap-8 max-lg:items-center relative'>
           <div className='flex flex-col'>
             <h2 className='text-[#F85E9F] text-[44px] font-normal uppercase leading-[52px] break-words tracking-[8px]'>
@@ -171,14 +175,14 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
       <ContainerEvent heading='Sự kiện sắp diễn ra' title='Sự kiện sắp tổ chức tới đây' event={eventsUpcoming} />
       <ContainerEvent heading='Sự kiện đang diễn ra' title='Sự kiện đang được tổ chức' event={eventsHappening} />
       <ContainerEvent heading='Sự kiện đã kết thúc' title='Sự kiện đã hoàn thành' event={eventsDone} />
-      <div className='flex flex-col justify-center items-center py-8 px-4 m-auto max-w-screen-xl mt-20'>
+      <div className='flex flex-col justify-center items-center py-8 px-4 m-auto mt-20'>
         <div className='w-full h-full lg:px-40 py-12 inline-flex justify-center items-center relative'>
           <span className='text-center text-[44px] font-normal leading-[52px] break-words'>
             Tham gia cùng chúng mình để cùng tay tạo nên các khoảnh khắc đáng nhớ nhé!
           </span>
           <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-20'></div>
         </div>
-        <div className=' mx-auto px-5 py-2 lg:px-32 lg:pt-24'>
+        <div className='mx-auto px-5 py-2 lg:pt-24'>
           <div className='-m-1 flex flex-wrap md:-m-2'>
             <div className='flex w-1/2 flex-wrap'>
               <div className='w-1/2 p-1 md:p-2'>

@@ -16,16 +16,36 @@ import FooterHomePage from 'src/modules/HomePage/components/FooterHomePage'
 import Button from 'src/modules/Share/components/Button'
 import { AppContext } from 'src/modules/Share/contexts'
 import ModalCustom from 'src/modules/Share/components/Modal'
+import { RegistrationInfoTableHeader, StatusToMessage, TypeToMessage } from 'src/modules/EventManagement/constants'
 
 const EventDetailPage = () => {
   const { isAuthenticated } = useContext(AppContext)
 
   const [isOpenModal, setIsOpenModal] = useState(false)
 
+  const [isOpenModal1, setIsOpenModal1] = useState(false)
+
+  const [isOpenModal2, setIsOpenModal2] = useState(false)
+
   const handleCloseModal = () => {
     setIsOpenModal(false)
   }
 
+  const handleCloseModal1 = () => {
+    setIsOpenModal1(false)
+  }
+
+  const handleCloseModal2 = () => {
+    setIsOpenModal2(false)
+  }
+
+  const handleOpenModal1 = () => {
+    setIsOpenModal1(true)
+  }
+
+  const handleOpenModal2 = () => {
+    setIsOpenModal2(true)
+  }
   const [page, setPage] = useState<number>(0)
 
   const handleChange = (event: React.SyntheticEvent, newPage: number) => {
@@ -87,13 +107,12 @@ const EventDetailPage = () => {
       <div>
         <LandingPageHeader />
         {event && (
-          <div className='relative bg-white h-full pb-[100px] max-w-screen-xl mx-auto'>
+          <div className='relative bg-white h-full pb-[100px] mx-auto'>
             <div className='flex mb-10 px-[120px] justify-between'>
               <div className='flex flex-col'>
-                <h1 className='text-black text-[60px] font-semibold break-words'>{event.name}</h1>
+                <h1 className=' text-[60px] font-semibold break-words text-[#195E8E]'>{event.name}</h1>
                 <h4 className='text-black text-[25px] font-light break-words'>{event.introduction}</h4>
-                <h6 className='text-[#A0A2A4] text-[20px] font-light break-words'>{event.type}</h6>
-
+                <h6 className='text-[#A0A2A4] text-[20px] font-light break-words'>{TypeToMessage(event.type)}</h6>
                 <div className='text-center font-medium flex gap-3 mt-2'>
                   <img
                     src={event.representativeOrganization.imageUrl}
@@ -104,7 +123,7 @@ const EventDetailPage = () => {
                     <p className='font-normal text-[#F93232]'>
                       <span className='font-semibold text-black'> {event.representativeOrganization.name}</span>
                       <span className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-[#A0A2A4] text-[12px] ring-1 ring-inset ring-gray-500/10 ms-3'>
-                        {event.calculatedStatus}
+                        {StatusToMessage(event.calculatedStatus)}
                       </span>
                     </p>
                     <p className='text-[#A0A2A4] text-[16px] font-light'>{event.representativeOrganization.email}</p>
@@ -148,15 +167,7 @@ const EventDetailPage = () => {
                       </svg>
                     </Button>
                   </div>
-                  {/* <Controller
-                      name=''
-                      control={control}
-                      render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          
-                        </LocalizationProvider>
-                      )}
-                    /> */}
+
                   <div>
                     <TextField
                       id='introduce'
@@ -184,6 +195,100 @@ const EventDetailPage = () => {
                     </Button>
                   </div>
                 </form>
+              </div>
+            </ModalCustom>
+            <ModalCustom isOpenModal={isOpenModal1} handleClose={handleCloseModal1}>
+              <div className='bg-white p-10 rounded-xl w-[800px]'>
+                <div className='flex justify-between'>
+                  <h2 className='text-[30px] font-semibold'>Khung giờ đăng ký</h2>
+                  <Button classNameButton='' onClick={handleCloseModal1}>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='w-6 h-6 '
+                    >
+                      <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+                    </svg>
+                  </Button>
+                </div>
+                {event.registrationInfos.map((registrationInfo) => (
+                  <table
+                    key={registrationInfo.id}
+                    className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'
+                  >
+                    <thead className='px-2 py-2 font-semibold'>
+                      <tr className='text-[14px] text-gray-600'>
+                        {RegistrationInfoTableHeader.map((item) => (
+                          <th key={item.id} className='px-2 py-2 font-semibold'>
+                            {item.name}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {event.registrationInfos.map((registrationInfo) => (
+                        <tr
+                          key={registrationInfo.id}
+                          className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
+                        >
+                          <th className='px-2 py-4 font-medium'>{formatDateTime(registrationInfo.startAt)}</th>
+                          <th className='px-2 py-4 font-medium'>{formatDateTime(registrationInfo.endAt)}</th>
+                          <th className='px-2 py-4 font-medium'>{StatusToMessage(registrationInfo.status)}</th>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ))}
+              </div>
+            </ModalCustom>
+            <ModalCustom isOpenModal={isOpenModal2} handleClose={handleCloseModal2}>
+              <div className='bg-white p-10 rounded-xl w-[800px]'>
+                <div className='flex justify-between'>
+                  <h2 className='text-[30px] font-semibold'>Khung giờ điểm danh</h2>
+                  <Button classNameButton='' onClick={handleCloseModal2}>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='w-6 h-6 '
+                    >
+                      <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+                    </svg>
+                  </Button>
+                </div>
+                {event.registrationInfos.map((registrationInfo) => (
+                  <table
+                    key={registrationInfo.id}
+                    className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'
+                  >
+                    <thead className='px-2 py-2 font-semibold'>
+                      <tr className='text-[14px] text-gray-600'>
+                        {RegistrationInfoTableHeader.map((item) => (
+                          <th key={item.id} className='px-2 py-2 font-semibold'>
+                            {item.name}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {event.attendanceInfos.map((attendanceInfo) => (
+                        <tr
+                          key={registrationInfo.id}
+                          className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
+                        >
+                          <th className='px-2 py-4 font-medium'>{formatDateTime(attendanceInfo.startAt)}</th>
+                          <th className='px-2 py-4 font-medium'>{formatDateTime(attendanceInfo.endAt)}</th>
+                          <th className='px-2 py-4 font-medium'>{StatusToMessage(attendanceInfo.status)}</th>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ))}
               </div>
             </ModalCustom>
             <div className='relative mb-[200px] px-[120px]'>
@@ -225,7 +330,9 @@ const EventDetailPage = () => {
                         d='M3 8.25V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V8.25m-18 0V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6zM7.5 6h.008v.008H7.5V6zm2.25 0h.008v.008H9.75V6z'
                       />
                     </svg>
-                    <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center'>{event.type}</span>
+                    <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center'>
+                      {TypeToMessage(event.type)}
+                    </span>
                   </div>
                   <div className='flex gap-2'>
                     <svg
@@ -273,7 +380,9 @@ const EventDetailPage = () => {
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
                       <p className='font-semibold text-[16px] text-[#1F2933] break-words'>Khung giờ đăng ký</p>
-                      <button className='font-light text-[14px] text-[#146BCD]'>Xem tất cả</button>
+                      <Button classNameButton='font-light text-[14px] text-[#146BCD]' onClick={handleOpenModal1}>
+                        Xem tất cả
+                      </Button>
                     </div>
                     <div className='flex gap-2'>
                       <svg
@@ -304,7 +413,9 @@ const EventDetailPage = () => {
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
                       <p className='font-semibold text-[16px] text-[#1F2933] break-words'>Khung giờ điểm danh</p>
-                      <button className='font-light text-[14px] text-[#146BCD]'>Xem tất cả</button>
+                      <button className='font-light text-[14px] text-[#146BCD]' onClick={handleOpenModal2}>
+                        Xem tất cả
+                      </button>
                     </div>
                     <div className='flex gap-2'>
                       <svg
@@ -353,7 +464,7 @@ const EventDetailPage = () => {
                 <div className='text-[20px] font-normal'>Sinh viên tham dự</div>
               </div>
             </div>
-            <div className='w-full h-full px-[220px] overflow-hidden'>
+            <div className='w-full h-full px-[120px] overflow-hidden'>
               <Box>
                 <Box>
                   <Tabs
@@ -378,7 +489,6 @@ const EventDetailPage = () => {
                   >
                     <Tab label='Thông tin chung' id='tab-1' aria-controls='simple-tabpanel-1'></Tab>
                     <Tab label='Ban tổ chức sự kiện' id='tab-2' aria-controls='simple-tabpanel-2'></Tab>
-                    {/* <Tab label='Thông tin đăng ký' id='tab-3' aria-controls='simple-tabpanel-3'></Tab> */}
                     <Tab label='Danh sách đăng ký' id='tab-3' aria-controls='simple-tabpanel-3'></Tab>
                     <Tab label='Danh sách điểm danh' id='tab-4' aria-controls='simple-tabpanel-4'></Tab>
                   </Tabs>

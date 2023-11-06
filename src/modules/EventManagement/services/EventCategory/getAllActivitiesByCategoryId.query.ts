@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import eventCategoryAPI from './event_category.api'
-import { ActivitiesListConfig, ActivitiesListType } from '../../interfaces'
+import { ActivitiesListConfig, ActivityType } from '../../interfaces'
 
 class GetAllActivitiesByCategoryIdQuery {
   private _query
@@ -16,7 +16,7 @@ class GetAllActivitiesByCategoryIdQuery {
   }
 
   fetch() {
-    return this._query.data?.data as ActivitiesListType
+    return this._query.data?.data as ActivityType[]
   }
 }
 

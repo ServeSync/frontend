@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import eventCategoryAPI from './event_category.api'
-import { EventCategoriesListType, EventCategoriesListConfig } from '../../interfaces'
+import { EventCategoriesListConfig, EventCategoryType } from '../../interfaces'
 
 class GetAllEventCategoriesQuery {
   private _query
@@ -16,7 +16,7 @@ class GetAllEventCategoriesQuery {
   }
 
   fetch() {
-    return this._query.data?.data as EventCategoriesListType
+    return this._query.data?.data as EventCategoryType[]
   }
 }
 
