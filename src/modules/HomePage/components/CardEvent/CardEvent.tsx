@@ -4,7 +4,8 @@ import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
 import classNames from 'classnames'
 import EventRating from 'src/modules/EventManagement/components/EventRating'
-import { formatDateTime, formatTime } from 'src/modules/Share/utils'
+import { formatDateOfBirth, formatTime } from 'src/modules/Share/utils'
+import { StatusToMessage } from 'src/modules/EventManagement/constants'
 
 interface Props {
   event: EventType
@@ -110,7 +111,7 @@ const CardEvent = ({ event }: Props) => {
               </svg>
 
               <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                {formatDateTime(event.startAt) + ' - ' + formatDateTime(event.endAt)}
+                {formatDateOfBirth(event.startAt) + ' - ' + formatDateOfBirth(event.endAt)}
               </span>
             </div>
             <div className='flex items-center gap-1'>
@@ -139,13 +140,7 @@ const CardEvent = ({ event }: Props) => {
               })}
             >
               <span className='font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[12px]'>
-                {event.status === 'Done'
-                  ? 'Đã diễn ra'
-                  : event.status === 'Happening'
-                  ? 'Đang diễn ra'
-                  : event.status === 'Upcoming'
-                  ? 'Sắp diễn ra'
-                  : ''}
+                {StatusToMessage(event.status)}
               </span>
             </div>
           </div>
