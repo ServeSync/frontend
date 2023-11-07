@@ -8,7 +8,7 @@ export const FormEventSchema = yup.object().shape({
     .trim()
     .required('Vui lòng nhập giới thiệu sự kiện !')
     .min(10, 'Giới thiệu sự kiện ít nhất 10 kí tự !'),
-  imageUrl: yup.string(),
+  imageUrl: yup.string().required('Vui lòng chọn ảnh !'),
   startAt: yup
     .string()
     .required('Vui lòng nhập thời gian bắt đầu sự kiện !')

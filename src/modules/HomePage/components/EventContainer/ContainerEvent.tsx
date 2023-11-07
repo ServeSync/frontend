@@ -24,7 +24,7 @@ const ContainerEvent = ({ heading, title, event }: Props) => {
       <div className='overflow-hidden py-10 w-full px-4'>
         <Swiper
           slidesPerView={3}
-          spaceBetween={30}
+          spaceBetween={40}
           navigation={true}
           pagination={{ clickable: true }}
           modules={[Pagination, Navigation]}

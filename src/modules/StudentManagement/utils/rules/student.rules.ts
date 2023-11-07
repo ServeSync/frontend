@@ -31,7 +31,7 @@ export const FormStudentSchema = yup.object({
   facultyId: yup.string().required('Vui lòng chọn khoa !'),
   homeRoomId: yup.string().required('Vui lòng chọn lớp sinh hoạt !'),
   educationProgramId: yup.string().required('Vui lòng chọn hệ đào tạo !'),
-  imageUrl: yup.string()
+  imageUrl: yup.string().required('Vui lòng chọn ảnh !')
 })
 
 export type FormStudentType = yup.InferType<typeof FormStudentSchema>

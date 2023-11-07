@@ -169,28 +169,28 @@ const EditEventPage = () => {
             <Fragment>
               <Button
                 type='submit'
-                classNameButton='bg-[#dd5353] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[140px]'
+                classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
               >
                 Từ chối
               </Button>
               <Button
                 type='submit'
-                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[140px]'
+                classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[128px]'
               >
-                Chấp nhật
+                Chấp thuận
               </Button>
             </Fragment>
           ) : (
             <Fragment>
               <Link
                 to={path.event}
-                className='flex justify-center items-center bg-[#989899] w-[80px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+                className='flex justify-center items-center bg-[#989899] w-[60px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
               >
                 Hủy
               </Link>
               <Button
                 type='submit'
-                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[140px]'
+                classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[120px]'
               >
                 Cập nhật
               </Button>

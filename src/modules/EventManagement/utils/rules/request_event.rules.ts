@@ -15,8 +15,11 @@ export const FormRequestEventSchema = yup.object().shape({
     .min(10, 'Giới thiệu sự kiện ít nhất 10 kí tự !')
     .max(128, 'Giới thiệu sự kiện tối đa 128 kí tự !'),
   description: yup.string().required('Vui lòng nhập mô tả sự kiện !').min(256, 'Mô tả sự kiện ít nhất 256 kí tự !'),
-  capacity: yup.string().required('Vui lòng nhập số lượng tham gia !'),
-  imageUrl: yup.string(),
+  capacity: yup
+    .string()
+    .required('Vui lòng nhập số lượng tham gia !')
+    .matches(/^[1-9]\d*$/, 'Vui lòng nhập số lượng lớn hơn 0'),
+  imageUrl: yup.string().required('Vui lòng chọn ảnh!'),
   startAt: yup
     .string()
     .required('Vui lòng nhập thời gian bắt đầu sự kiện!')
@@ -39,7 +42,7 @@ export const FormRequestEventSchema = yup.object().shape({
       return endAtDate > minTime
     }),
   eventType: yup.string().required('Vui lòng chọn loại sự kiện !'),
-  categoryId: yup.string().required('Vui lòng chọn chủ đề !'),
+  categoryId: yup.string().required('Vui lòng chọn danh mục sự kiện !'),
   activityId: yup.string().required('Vui lòng chọn hoạt động !'),
   address: yup.object().shape({
     fullAddress: yup.string().required('Vui lòng nhập địa chỉ !'),
@@ -57,7 +60,7 @@ export const FormRequestEventSchema = yup.object().shape({
       .length(10, 'Số điện thoại không hợp lệ!')
       .matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
     address: yup.string().required('Vui lòng nhập địa chỉ !'),
-    imageUrl: yup.string()
+    imageUrl: yup.string().required('Vui lòng chọn ảnh!')
   }),
   EventOrganizationContactInfo: yup.object().shape({
     name: yup.string().required('Vui lòng nhập tên người đại diện !'),
@@ -81,7 +84,7 @@ export const FormRequestEventSchema = yup.object().shape({
         return dob < today
       }),
     position: yup.string().required('Vui lòng nhập chức vụ !'),
-    imageUrl: yup.string()
+    imageUrl: yup.string().required('Vui lòng chọn ảnh!')
   })
 })
 

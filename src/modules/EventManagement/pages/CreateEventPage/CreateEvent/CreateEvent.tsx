@@ -23,7 +23,7 @@ const CreateEvent = ({ page, index, register, control, setValue, errors, file, s
     setCategoryId(id)
   }
 
-  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery()
+  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery('Event')
   const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoryType[]
 
   const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)

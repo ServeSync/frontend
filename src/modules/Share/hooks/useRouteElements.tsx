@@ -43,6 +43,24 @@ const ProtectedRoute = () => {
 const useRouteElements = () => {
   const routeElements = useRoutes([
     {
+      path: path.home_page,
+      element: (
+        <HomePageLayout>
+          <Suspense>
+            <HomePage />
+          </Suspense>
+        </HomePageLayout>
+      )
+    },
+    {
+      path: path.event_detail,
+      element: (
+        <Suspense>
+          <EventDetailPage />
+        </Suspense>
+      )
+    },
+    {
       path: '',
       element: <RejectedRoute />,
       children: [
@@ -210,24 +228,7 @@ const useRouteElements = () => {
         }
       ]
     },
-    {
-      path: path.home_page,
-      element: (
-        <HomePageLayout>
-          <Suspense>
-            <HomePage />
-          </Suspense>
-        </HomePageLayout>
-      )
-    },
-    {
-      path: path.event_detail,
-      element: (
-        <Suspense>
-          <EventDetailPage />
-        </Suspense>
-      )
-    },
+
     {
       path: '*',
       element: (

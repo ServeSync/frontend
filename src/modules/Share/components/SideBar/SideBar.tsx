@@ -23,7 +23,7 @@ const SideBar = () => {
             'justify-center': !expanded
           })}
         >
-          <Link to={path.dashboard} className='text-lg font-bold text-gray-800 flex items-center justify-between'>
+          <Link to={path.home_page} className='text-lg font-bold text-gray-800 flex items-center justify-between'>
             <img
               src={logo}
               alt='logo'

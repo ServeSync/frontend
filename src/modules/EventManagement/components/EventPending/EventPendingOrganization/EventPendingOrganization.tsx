@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material'
-import { ContentState, EditorState } from 'draft-js'
+import { ContentState, EditorState, convertFromHTML } from 'draft-js'
 import { EventPendingType } from 'src/modules/EventManagement/interfaces'
 import { Editor } from 'react-draft-wysiwyg'
 import { formatDateOfBirth } from 'src/modules/Share/utils'
@@ -9,8 +9,11 @@ interface Props {
 }
 const EventPendingOrganization = ({ eventPending }: Props) => {
   if (!eventPending) return null
-  const contentState = ContentState.createFromText(eventPending.organization.description)
-  const editorState = EditorState.createWithContent(contentState)
+  const contentState = convertFromHTML(eventPending.organization.description)
+  const description = EditorState.createWithContent(
+    ContentState.createFromBlockArray(contentState.contentBlocks, contentState.entityMap)
+  )
+
   return (
     <div className='flex flex-col gap-y-8 w-full mx-auto'>
       <div>
@@ -67,7 +70,7 @@ const EventPendingOrganization = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-6'>
             <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
-              <Editor readOnly editorState={editorState} />
+              <Editor readOnly editorState={description} />
             </div>
           </div>
         </div>

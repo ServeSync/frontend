@@ -6,10 +6,10 @@ import { EventCategoryType } from '../../interfaces'
 class GetAllEventCategoriesQuery {
   private _query
 
-  constructor() {
+  constructor(type?: string) {
     this._query = useQuery({
       queryKey: ['event_categories'],
-      queryFn: () => eventCategoryAPI.getListEventCategories(),
+      queryFn: () => eventCategoryAPI.getListEventCategories({ Type: type }),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000
     })

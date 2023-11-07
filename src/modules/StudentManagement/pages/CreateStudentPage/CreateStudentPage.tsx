@@ -17,16 +17,6 @@ import CreateStudentForm from '../../components/CreateStudentForm'
 import { FormStudentSchema, FormStudentType } from '../../utils'
 
 const CreateStudentPage = () => {
-  const [file, setFile] = useState<File>()
-
-  const previewImage = useMemo(() => {
-    return file ? URL.createObjectURL(file) : ''
-  }, [file])
-
-  const handleChangeFile = (file?: File) => {
-    setFile(file)
-  }
-
   const [facultyId, setFacultyId] = useState<string>('')
 
   const handleChangeFaculty = (id: string) => {
@@ -49,10 +39,22 @@ const CreateStudentPage = () => {
     control,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors }
   } = useForm<FormStudentType>({
     resolver: yupResolver(FormStudentSchema)
   })
+
+  const [file, setFile] = useState<File>()
+
+  const previewImage = useMemo(() => {
+    return file ? URL.createObjectURL(file) : ''
+  }, [file])
+
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+    setValue('imageUrl', ' ')
+  }
 
   const createStudentCommandHandler = new CreateStudentCommandHandler()
 
