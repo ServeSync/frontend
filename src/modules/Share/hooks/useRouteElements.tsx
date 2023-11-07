@@ -12,7 +12,7 @@ const HomePage = lazy(() => import('src/modules/HomePage/pages/HomePage'))
 const EventDetailPage = lazy(() => import('src/modules/EventManagement/pages/EventDetailPage/EventDetailPage'))
 const RequestEventPage = lazy(() => import('src/modules/EventManagement/pages/RequestEventPage/RequestEventPage'))
 const AttendanceEvent = lazy(() => import('src/modules/EventManagement/pages/AttendanceEventPage'))
-
+const EventsPage = lazy(() => import('src/modules/HomePage/pages/EventsPage'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
 
@@ -117,6 +117,14 @@ const useRouteElements = () => {
           element: (
             <Suspense>
               <AttendanceEvent />
+            </Suspense>
+          )
+        },
+        {
+          path: path.list_events,
+          element: (
+            <Suspense>
+              <EventsPage />
             </Suspense>
           )
         }

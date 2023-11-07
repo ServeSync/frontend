@@ -65,6 +65,10 @@ export interface EventPendingType {
   activity: {
     id: string
     name: string
+    eventCategoryId: string
+    eventCategoryName: string
+    minScore: number
+    maxScore: number
   }
 }
 

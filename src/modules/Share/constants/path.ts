@@ -5,6 +5,7 @@ const path = {
   event_detail: '/events/detail',
   request_event: '/events/request',
   attendance_event: '/events/attendance',
+  list_events: '/events',
   //Auth
   forget_password: '/forgetPassword',
   reset_password: '/resetPassword',
