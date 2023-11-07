@@ -33,7 +33,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
     } else {
       window.scrollTo(0, 400)
     }
-  }, [events])
+  }, [events, scrolled])
 
   const FilterEventForm = useForm<FormFilterEventType>({
     resolver: yupResolver(FormFilterEventSchema)
