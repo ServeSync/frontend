@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import { EventsListType } from 'src/modules/EventManagement/interfaces'
 import ContainerEvent from '../EventContainer'
-import { global, homePage_01, homePage_02, homePage_03 } from 'src/modules/Share/assets/image'
+import { global_image, homePage_01, homePage_02, homePage_03 } from 'src/modules/Share/assets/image'
 
 interface Props {
   eventsDone: EventsListType
@@ -33,7 +33,7 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
           </div>
         </div>
         <div className='flex justify-center items-center lg:max-w-[50%]'>
-          <img src={global} alt='' className='w-[80%]' />
+          <img src={global_image} alt='' className='w-[80%]' />
         </div>
       </div>
       <div className='flex justify-between max-lg:flex-col items-center gap-20 w-full py-8 px-4 m-auto'>

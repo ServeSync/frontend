@@ -1,5 +1,5 @@
 export const logo = 'https://res.cloudinary.com/dboijruhe/image/upload/v1698472046/Assets/mqdwwsszosbceacvw4eu.png'
-export const global =
+export const global_image =
   'http://res.cloudinary.com/dboijruhe/image/upload/v1699333104/ServeSync/34100fad-14a0-4f16-9038-b2d6d98b0858-8d0b3da488e360fcb93103240156f714.png'
 export const homePage_01 =
   'http://res.cloudinary.com/dboijruhe/image/upload/v1699333500/ServeSync/6aa0528c-287e-4baa-8fda-fdc77d018813-1.jpg'
