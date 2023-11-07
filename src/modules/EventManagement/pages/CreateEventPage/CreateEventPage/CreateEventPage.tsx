@@ -112,7 +112,7 @@ const CreateEventPage = () => {
                   '& button': {
                     color: '#2f2f2f',
                     textTransform: 'capitalize',
-                    fontSize: '18px',
+                    fontSize: '16px',
                     margin: '0 10px',
                     fontFamily: 'Open Sans',
                     letterSpacing: '0',

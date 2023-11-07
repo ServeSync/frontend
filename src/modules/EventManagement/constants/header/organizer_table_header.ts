@@ -24,18 +24,22 @@ export const EventOrganizationTableHeader = [
 export const EventOrganizationDetailTableHeader = [
   {
     id: '1',
-    name: 'Họ và tên'
+    name: '#'
   },
   {
     id: '2',
-    name: 'Địa chỉ email'
+    name: 'Họ và tên'
   },
   {
     id: '3',
-    name: 'Số điện thoại'
+    name: 'Địa chỉ email'
   },
   {
     id: '4',
+    name: 'Số điện thoại'
+  },
+  {
+    id: '5',
     name: 'Vai trò'
   }
 ]

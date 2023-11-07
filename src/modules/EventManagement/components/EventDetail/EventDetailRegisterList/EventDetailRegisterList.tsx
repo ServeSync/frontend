@@ -22,20 +22,15 @@ const EventDetailRegisterList = ({ registeredStudents }: Props) => {
               </tr>
             </thead>
             <tbody>
-              {registeredStudents.data.map((student) => (
+              {registeredStudents.data.map((student, index) => (
                 <tr
                   key={student.id}
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
                 >
-                  <th className='grid grid-cols-3 gap-3 px-2 py-4 font-medium'>
-                    <div className='relative rounded-full outline-none w-full pt-[100%] col-span-1'>
-                      <img
-                        src={student.imageUrl}
-                        alt=''
-                        className='rounded-full top-0 w-full object-cover object-top absolute'
-                      />
-                    </div>
-                    <div className='flex flex-col col-span-2'>
+                  <th className='px-2 py-4 font-medium'>{index + 1}</th>
+                  <th className='px-2 py-4 font-medium flex flex-row items-center gap-3'>
+                    <img src={student.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
+                    <div className='flex flex-col'>
                       <span className='font-semibold'>{student.name}</span>
                       <span className='text-gray-400 text-[12px]'>{student.code}</span>
                     </div>

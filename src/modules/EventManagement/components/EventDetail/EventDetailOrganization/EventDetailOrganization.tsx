@@ -66,13 +66,14 @@ const EventDetailOrganization = ({ event }: Props) => {
               </tr>
             </thead>
             <tbody>
-              {organization.representatives.map((representative) => (
+              {organization.representatives.map((representative, index) => (
                 <tr
                   key={representative.id}
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
                 >
+                  <th className='px-2 py-4 font-medium'>{index + 1}</th>
                   <th className='px-2 py-4 font-medium flex items-center gap-3'>
-                    <img src={representative.imageUrl} alt='' className='rounded-full object-cover w-[50px]' />
+                    <img src={representative.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
                     <div className='flex flex-col'>
                       <span className='font-semibold'>{representative.name}</span>
                       <span className='text-gray-400 text-[12px]'>{representative.position}</span>

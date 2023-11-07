@@ -72,7 +72,7 @@ const RegisterEventRoleForm = ({
     const eventRoles: EventRole[] = [...dataEventRole]
     isEditEventRole ? eventRoles.splice(index, 1) : eventRoles
     if (role.description && role.isNeedApprove && role.name && role.quantity && role.score) {
-      if (role.name.length <= 5) {
+      if (role.name.length < 5) {
         setErrors('Tên vài trò ít nhất 5 kí tự !')
       } else if (role.description.length <= 10) {
         setErrors('Mô tả vài trò ít nhất 10 kí tự !')
@@ -144,14 +144,22 @@ const RegisterEventRoleForm = ({
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
                   key={index}
                 >
-                  <th className='px-2 py-4 font-medium w-[20%]'>{item.name}</th>
+                  <th className='px-2 py-4 font-medium w-[20%] overflow-hidden'>
+                    <span className='line-clamp-1'>{item.name}</span>
+                  </th>
                   <th className='px-2 py-4 font-medium overflow-hidden'>
-                    <span className='line-clamp-2'>{Parser(item.description)}</span>
+                    <span className='line-clamp-1'>{Parser(item.description)}</span>
                   </th>
                   <th className='px-2 py-4 font-medium w-[8%]'>{item.quantity}</th>
                   <th className='px-2 py-4 font-medium w-[4%]'>{item.score}</th>
-                  <th className='px-2 py-4 font-medium w-[10%] text-center'>
-                    <input type='checkbox' defaultChecked={item.isNeedApprove === 'true'} disabled readOnly />
+                  <th className='px-2 py-4 font-medium w-[12%]'>
+                    <input
+                      type='checkbox'
+                      defaultChecked={item.isNeedApprove === 'true'}
+                      disabled
+                      readOnly
+                      className='ml-12'
+                    />
                   </th>
                   <th className='px-2 py-4 font-medium w-[10%]'>
                     <div>

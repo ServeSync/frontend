@@ -30,7 +30,7 @@ const CardEvent = ({ event }: Props) => {
 
   return (
     <div
-      className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] shadow-lg rounded-3xl cursor-pointer'
+      className='max-sm:min-w-[100%] sm:min-w-[45%] lg:min-w-[30%] shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] rounded-3xl cursor-pointer'
       onClick={() => onShowDetail(event.id)}
       onKeyDown={handleKeyDown}
       role='button'
@@ -40,7 +40,7 @@ const CardEvent = ({ event }: Props) => {
         <img
           src={event.imageUrl}
           alt='ui/ux review check'
-          className='rounded-2xl border object-cover max-sm:w-[100px] max-sm:h-[100px] max-md:w-[200px] max-md:h-[200px] w-[300px] h-[300px] lg:w-[400px] lg:h-[400px]'
+          className='rounded-2xl border object-cover max-sm:w-[80px] max-sm:h-[80px] max-md:w-[160px] max-md:h-[160px] w-[240px] h-[240px] lg:w-[320px] lg:h-[320px]'
         />
       </div>
       <div className='px-6 pb-8'>
@@ -48,8 +48,10 @@ const CardEvent = ({ event }: Props) => {
           <span className='font-normal leading-7 text-[#F85E9F] whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px] truncate'>
             {event.name}
           </span>
-          <div className='max-sm:text-[8px] text-[14px] lg:text-[16px] flex items-center gap-4 justify-between max-md:flex-col-reverse truncate'>
-            <span>{event.representativeOrganization.name}</span>
+          <div className='flex items-end justify-between gap-4 max-sm:text-[8px] text-[14px] lg:text-[16px] max-md:flex-col-reverse truncate'>
+            <div className='max-w-[80%] overflow-hidden'>
+              <span className='line-clamp-1'>{event.representativeOrganization.name}</span>
+            </div>
             <div className='flex items-center justify-center gap-1.5 font-normal'>
               <span className='font-normal leading-7 break-words max-sm:text-[14px] text-[20px] lg:text-[23px] text-[#195E8E]'>
                 {event.capacity}
@@ -89,7 +91,7 @@ const CardEvent = ({ event }: Props) => {
                   d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
                 />
               </svg>
-              <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px] truncate'>
+              <span className=' text-[#A0A2A4] font-normal leading-6 break-words max-sm:text-[10px] text-[13px] lg:text-[15px] truncate'>
                 {event.address.fullAddress}
               </span>
             </div>
@@ -108,37 +110,47 @@ const CardEvent = ({ event }: Props) => {
                   d='M3 8.25V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V8.25m-18 0V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6zM7.5 6h.008v.008H7.5V6zm2.25 0h.008v.008H9.75V6z'
                 />
               </svg>
-              <span className='text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                {formatDateTime(event.startAt) + ' - ' + formatDateTime(event.endAt)}
-              </span>
+              <div className='flex items-center gap-2 text-[#A0A2A4] font-normal leading-4 break-words  max-sm:text-[10px] text-[13px] lg:text-[15px]'>
+                <span>{formatDateTime(event.startAt)}</span>
+                <span>-</span>
+                <span>{formatDateTime(event.endAt)}</span>
+              </div>
             </div>
-            <div className='flex items-center gap-1'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#00BA21] flex-shrink-0'
-              >
-                <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z' />
-              </svg>
-              <span className=' text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                {formatTime(event.startAt) + ' - ' + formatTime(event.endAt)}
-              </span>
-            </div>
-          </div>
-          <div className='flex justify-between mt-6 max-md:flex-col'>
-            <div
-              className={classNames('px-6 rounded-xl  flex justify-center items-center cursor-pointer', {
-                'bg-[#00F335]/50': event.status === 'Done',
-                'bg-[#58CCFE]': event.status === 'Happening',
-                'bg-[#FFE55A]/50': event.status === 'Upcoming'
-              })}
-            >
-              <span className='font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[12px]'>
-                {StatusToMessage(event.status)}
-              </span>
+            <div className='flex justify-between items-center'>
+              <div className='flex items-center gap-1'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#00BA21] flex-shrink-0'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
+                  />
+                </svg>
+                <div className='flex items-center gap-2 text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
+                  <span>{formatTime(event.startAt)}</span>
+                  <span>-</span>
+                  <span> {formatTime(event.endAt)}</span>
+                </div>
+              </div>
+              <div className='flex items-center max-md:flex-col'>
+                <div
+                  className={classNames('px-4 py-[6px] rounded-full flex justify-center items-center cursor-pointer', {
+                    'bg-[#00F335]/50': event.status === 'Done',
+                    'bg-[#58CCFE]': event.status === 'Happening',
+                    'bg-[#FFE55A]/50': event.status === 'Upcoming'
+                  })}
+                >
+                  <span className='font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[13px]'>
+                    {StatusToMessage(event.status)}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

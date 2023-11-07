@@ -1,26 +1,30 @@
 export const AttendanceStudentsTableHeader = [
   {
     id: '1',
-    name: 'Họ tên'
+    name: '#'
   },
   {
     id: '2',
-    name: 'Địa chỉ email'
+    name: 'Họ tên'
   },
   {
     id: '3',
-    name: 'Lớp sinh hoạt'
+    name: 'Địa chỉ email'
   },
   {
     id: '4',
-    name: 'Điểm'
+    name: 'Lớp sinh hoạt'
   },
   {
     id: '5',
-    name: 'Vai trò'
+    name: 'Điểm'
   },
   {
     id: '6',
+    name: 'Vai trò'
+  },
+  {
+    id: '7',
     name: 'Thời gian điểm danh'
   }
 ]

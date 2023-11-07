@@ -43,7 +43,7 @@ const CreateEventOrganizationContactForm = ({
     const id = getValues('organizations.organizationReps.organizationRepId')
     const role = { ...getValues('organizations') }.organizationReps.role as string
     if (role && role !== '' && id && id !== '') {
-      if (role.length <= 5) {
+      if (role.length < 5) {
         setErrors('Vai trò nhà tổ chức ít nhất 5 kí tự')
       } else if (listContactsAdded.some((item) => item.id === id)) {
         setErrors('Nhà tổ chức đã được thêm vào sự kiện !')
@@ -156,14 +156,20 @@ const CreateEventOrganizationContactForm = ({
                 className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
                 key={`${id}${item.id}`}
               >
-                <th className='px-2 py-4 font-medium w-[20%]'>{item.name}</th>
+                <th className='px-2 py-4 font-medium flex items-center gap-3'>
+                  <img src={item.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
+                  <div className='flex flex-col'>
+                    <span className='font-semibold'>{item.name}</span>
+                    <span className='text-gray-400 text-[12px]'>{item.position}</span>
+                  </div>
+                </th>
                 <th className='px-2 py-4 font-medium'>{item.email}</th>
-                <th className='px-2 py-4 font-medium w-[20%]'>{item.phoneNumber}</th>
-                <th className='px-2 py-4 font-medium w-[15%]'>{item.role}</th>
-                <th className='px-2 py-4 font-medium w-[13%]'>
+                <th className='px-2 py-4 font-medium'>{item.phoneNumber}</th>
+                <th className='px-2 py-4 font-medium'>{item.role}</th>
+                <th className='px-2 py-4 font-medium'>
                   <Button
                     type='button'
-                    classNameButton='py-2 px-2 rounded-lg text-[14px] hover:bg-slate-200'
+                    classNameButton='py-2 px-2 rounded-lg text-[14px] hover:bg-slate-200 ml-4'
                     onClick={() => handleDeleteContact(index, id)}
                   >
                     <svg

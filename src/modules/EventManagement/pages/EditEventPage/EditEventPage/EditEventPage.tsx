@@ -97,7 +97,7 @@ const EditEventPage = () => {
                   '& button': {
                     color: '#2f2f2f',
                     textTransform: 'capitalize',
-                    fontSize: '18px',
+                    fontSize: '16px',
                     margin: '0 10px',
                     fontFamily: 'Open Sans',
                     letterSpacing: '0',
@@ -113,10 +113,10 @@ const EditEventPage = () => {
                 <Tab label='Thông tin đăng ký' id='tab-2' aria-controls='simple-tabpanel-2' />
                 <Tab label='Ban tổ chức sự kiện' id='tab-3' aria-controls='simple-tabpanel-3' />
                 {event && event.status !== 'Pending' && (
-                  <Fragment>
-                    <Tab label='Danh sách đăng ký' id='tab-4' aria-controls='simple-tabpanel-4' />
-                    <Tab label='Danh sách điểm danh' id='tab-5' aria-controls='simple-tabpanel-5' />
-                  </Fragment>
+                  <Tab label='Danh sách đăng ký' id='tab-4' aria-controls='simple-tabpanel-4' />
+                )}
+                {event && event.status !== 'Pending' && (
+                  <Tab label='Danh sách điểm danh' id='tab-5' aria-controls='simple-tabpanel-5' />
                 )}
               </Tabs>
             </Box>
@@ -155,7 +155,7 @@ const EditEventPage = () => {
                 setDataEventOrganization={setDataEventOrganization}
                 event={event}
               />
-              {event && event.status === 'Pending' && (
+              {event && event.status !== 'Pending' && (
                 <Fragment>
                   <AttendanceStudentsList page={page} index={3} attendanceStudents={attendanceStudents} />
                   <RegisteredStudentsList page={page} index={4} registeredStudents={registeredStudents} />
