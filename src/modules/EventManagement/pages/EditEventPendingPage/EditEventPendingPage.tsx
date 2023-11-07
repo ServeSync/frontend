@@ -95,22 +95,24 @@ const EditEventPendingPage = () => {
           </Box>
         </Box>
       </div>
-      <div className='flex justify-end gap-x-6 fixed bottom-0 right-0 p-5 bg-slate-100 w-full z-20'>
-        <Button
-          type='button'
-          classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
-          onClick={handleRejectRequestEvent}
-        >
-          Từ chối
-        </Button>
-        <Button
-          type='submit'
-          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
-          onClick={handleApproveRequestEvent}
-        >
-          Chấp thuận
-        </Button>
-      </div>
+      {eventPending && eventPending.status === 'Pending' && (
+        <div className='flex justify-end gap-x-6 fixed bottom-0 right-0 p-5 bg-slate-100 w-full z-20'>
+          <Button
+            type='button'
+            classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
+            onClick={handleRejectRequestEvent}
+          >
+            Từ chối
+          </Button>
+          <Button
+            type='submit'
+            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
+            onClick={handleApproveRequestEvent}
+          >
+            Chấp thuận
+          </Button>
+        </div>
+      )}
     </Fragment>
   )
 }

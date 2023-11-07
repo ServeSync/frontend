@@ -170,7 +170,8 @@ const EventPendingInfo = ({ eventPending }: Props) => {
             <div className='col-span-6'>
               <TextField
                 className='w-full'
-                value={eventPending.capacity}
+                label='Danh mục sự kiện'
+                value={eventPending.activity.eventCategoryName}
                 InputProps={{
                   readOnly: true
                 }}
