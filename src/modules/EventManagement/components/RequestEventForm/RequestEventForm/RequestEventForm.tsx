@@ -56,6 +56,7 @@ const RequestEventForm = ({
 
   const handleChangeFile = (file?: File) => {
     setFile(file)
+    setValue('imageUrl', ' ')
   }
 
   const handleOpenModal = () => {
@@ -115,16 +116,14 @@ const RequestEventForm = ({
             </div>
           </Input>
           <div className='col-span-4'>
-            <div className='w-full h-full relative rounded-xl'>
+            <div className='w-full h-[calc(100%-40px)] rounded-xl'>
               <InputImage register={register} onChange={handleChangeFile} previewImage={previewImage} />
-              <div className='absolute bottom-[4px] right-[26px]'>
-                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                  {errors.imageUrl?.message}
-                </span>
-              </div>
+              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                {errors.imageUrl?.message}
+              </span>
             </div>
           </div>
-          <div className='col-span-8 grid grid-cols-12 gap-6'>
+          <div className='col-span-8 grid grid-cols-12 gap-y-4 gap-x-6'>
             <Controller
               name='startAt'
               control={control}

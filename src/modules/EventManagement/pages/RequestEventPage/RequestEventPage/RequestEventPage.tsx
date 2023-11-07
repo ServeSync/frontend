@@ -38,6 +38,7 @@ const RequestEventPage = () => {
 
   const handleChangeFileOrganizer = (file?: File) => {
     setFileOrganizer(file)
+    setValue('EventOrganizationInfo.imageUrl', ' ')
   }
 
   const previewImageOrganizer = useMemo(() => {
@@ -48,6 +49,7 @@ const RequestEventPage = () => {
 
   const handleChangeFileOrganizerContact = (file?: File) => {
     setFileOrganizerContact(file)
+    setValue('EventOrganizationContactInfo.imageUrl', ' ')
   }
 
   const previewImageOrganizerContact = useMemo(() => {

@@ -3,7 +3,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
 import classNames from 'classnames'
-import { formatDateTime, formatTime } from 'src/modules/Share/utils'
+import { formatDateTime } from 'src/modules/Share/utils'
 import { StatusToMessage } from 'src/modules/EventManagement/constants'
 
 interface Props {
@@ -36,11 +36,11 @@ const CardEvent = ({ event }: Props) => {
       role='button'
       tabIndex={0}
     >
-      <div className='px-4 py-6 flex justify-center items-center'>
+      <div className='px-4 py-6 flex justify-center items-center w-full'>
         <img
           src={event.imageUrl}
           alt='ui/ux review check'
-          className='rounded-2xl border object-cover max-sm:w-[80px] max-sm:h-[80px] max-md:w-[160px] max-md:h-[160px] w-[240px] h-[240px] lg:w-[320px] lg:h-[320px]'
+          className='rounded-2xl border object-cover max-sm:h-[80px] max-md:h-[160px] h-[240px] lg:h-[320px] w-full'
         />
       </div>
       <div className='px-6 pb-8'>
@@ -53,7 +53,7 @@ const CardEvent = ({ event }: Props) => {
               <span className='line-clamp-1'>{event.representativeOrganization.name}</span>
             </div>
             <div className='flex items-center justify-center gap-1.5 font-normal'>
-              <span className='font-normal leading-7 break-words max-sm:text-[14px] text-[20px] lg:text-[23px] text-[#195E8E]'>
+              <span className='font-normal leading-7 break-words max-sm:text-[14px] text-[16px] lg:text-[px] text-[#195E8E]'>
                 {event.capacity}
               </span>
               <svg
@@ -62,7 +62,7 @@ const CardEvent = ({ event }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-6 h-6 max-sm:w-4 text-[#195E8E] max-sm:h-4 '
+                className='w-5 h-5 max-sm:w-4 text-[#195E8E] max-sm:h-4 '
               >
                 <path
                   strokeLinecap='round'
@@ -91,7 +91,7 @@ const CardEvent = ({ event }: Props) => {
                   d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
                 />
               </svg>
-              <span className=' text-[#A0A2A4] font-normal leading-6 break-words max-sm:text-[10px] text-[13px] lg:text-[15px] truncate'>
+              <span className='text-[#A0A2A4] font-normal leading-6 break-words max-sm:text-[10px] text-[13px] lg:text-[15px] truncate'>
                 {event.address.fullAddress}
               </span>
             </div>
@@ -102,7 +102,7 @@ const CardEvent = ({ event }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#FACD49] flex-shrink-0'
+                className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#00F335] flex-shrink-0'
               >
                 <path
                   strokeLinecap='round'
@@ -112,8 +112,6 @@ const CardEvent = ({ event }: Props) => {
               </svg>
               <div className='flex items-center gap-2 text-[#A0A2A4] font-normal leading-4 break-words  max-sm:text-[10px] text-[13px] lg:text-[15px]'>
                 <span>{formatDateTime(event.startAt)}</span>
-                <span>-</span>
-                <span>{formatDateTime(event.endAt)}</span>
               </div>
             </div>
             <div className='flex justify-between items-center'>
@@ -124,18 +122,16 @@ const CardEvent = ({ event }: Props) => {
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#00BA21] flex-shrink-0'
+                  className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#FACD49] flex-shrink-0'
                 >
                   <path
                     strokeLinecap='round'
                     strokeLinejoin='round'
-                    d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
+                    d='M3 8.25V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V8.25m-18 0V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6zM7.5 6h.008v.008H7.5V6zm2.25 0h.008v.008H9.75V6z'
                   />
                 </svg>
-                <div className='flex items-center gap-2 text-[#A0A2A4] font-normal leading-4 break-words max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                  <span>{formatTime(event.startAt)}</span>
-                  <span>-</span>
-                  <span> {formatTime(event.endAt)}</span>
+                <div className='flex items-center gap-2 text-[#A0A2A4] font-normal leading-4 break-words  max-sm:text-[10px] text-[13px] lg:text-[15px]'>
+                  <span>{formatDateTime(event.endAt)}</span>
                 </div>
               </div>
               <div className='flex items-center max-md:flex-col'>

@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material'
-import { ContentState, EditorState } from 'draft-js'
+import { ContentState, EditorState, convertFromHTML } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import { TypeToMessage } from 'src/modules/EventManagement/constants'
 import { EventPendingType } from 'src/modules/EventManagement/interfaces'
@@ -39,8 +39,10 @@ const EventPendingInfo = ({ eventPending }: Props) => {
 
   if (!eventPending) return null
 
-  const contentState = ContentState.createFromText(eventPending.description)
-  const editorState = EditorState.createWithContent(contentState)
+  const contentState = convertFromHTML(eventPending.description as string)
+  const description = EditorState.createWithContent(
+    ContentState.createFromBlockArray(contentState.contentBlocks, contentState.entityMap)
+  )
 
   return (
     <div>
@@ -187,7 +189,7 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           </div>
           <div className='col-span-12'>
             <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
-              <Editor readOnly editorState={editorState} />
+              <Editor readOnly editorState={description} />
             </div>
           </div>
         </div>
