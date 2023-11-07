@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import { EventsListType } from 'src/modules/EventManagement/interfaces'
 import ContainerEvent from '../EventContainer'
-import { landingPageImage, landingPageImage2, landingPageImage3 } from 'src/modules/Share/assets/image'
+import { global, homePage_01, homePage_02, homePage_03 } from 'src/modules/Share/assets/image'
 
 interface Props {
   eventsDone: EventsListType
@@ -12,7 +12,7 @@ interface Props {
 
 const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
   return (
-    <div className='flex flex-col pb-[200px] overflow-hidden w-[85%] mx-auto'>
+    <div className='flex flex-col pb-[200px] overflow-hidden w-[80%] mx-auto'>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center w-full py-8 px-4 m-auto'>
         <div className='flex flex-col gap-11 lg:max-w-[50%] max-lg:items-center'>
           <h1 className='w-full text-black text-[69px] font-normal leading-[82px] break-words'>
@@ -26,29 +26,26 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
           <div className='flex flex-col gap-4'>
             <Link
               to={path.login}
-              className='px-8 py-4 bg-[#26c6da] justify-center items-start inline-flex gap-2 rounded-[100px] text-[#eeeeee] text-[16px] w-[150px]'
+              className='px-6 py-4 bg-[#26c6da] justify-center items-start inline-flex gap-2 rounded-full text-white text-[16px] w-[120px] font-semibold'
             >
-              Bắt đầu
+              <span>Bắt đầu</span>
             </Link>
           </div>
         </div>
         <div className='flex justify-center items-center lg:max-w-[50%]'>
-          <img
-            src='https://s3-alpha-sig.figma.com/img/ff86/4153/8d0b3da488e360fcb93103240156f714?Expires=1699833600&Signature=i38i8hNvgRRsvvfupA2MB8XY~65bbqrjsOe5SkkxZ3JKFx1JzMqs-GYHN9kugun-aDaylwLYqb9JqDS-PDvh97CbbSVnrKNc7OdsSp2FjaoLGfNcvGYaNwFZC62Ev-ZRI2wzNIBQudfOCyaFG5JuI5--SrqO9mzqezY~CupGct6-7~aicNQzuRtNn1MgsIPnJhhLUWadXl2ngMY~GaY6CsmGbTFDrlkzFj0BFvhj1flyfkAxxsnTbR~5ZJT~rdXqGUBhBFpQIfXXXKyonK6Q-ycNqdACnqVXpwn0GcIX3673xuzpKr6ZN1XyLZ1karNBKL43sbAX-J1L6Z~vmUo27g__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-            alt=''
-            className='w-[80%]'
-          />
-          <div></div>
+          <img src={global} alt='' className='w-[80%]' />
         </div>
       </div>
       <div className='flex justify-between max-lg:flex-col items-center gap-20 w-full py-8 px-4 m-auto'>
         <div className='lg:max-w-[50%] relative'>
-          <img src={landingPageImage2} alt='' className='rounded-[30px] z-20 relative' />
+          <img src={homePage_02} alt='' className='rounded-[30px] z-20 relative' />
           <div className='absolute w-[110%] h-[80%] bg-[#26C6DA]/80 top-[200px] left-[-100px] z-10 rounded-r-full'></div>
         </div>
         <div className='relative flex flex-col gap-5 mt-20'>
-          <h2 className='text-[#F85E9F] text-[24px] font-normal uppercase leading-7 break-words'>Điểm tích lũy</h2>
-          <h3 className='text-[40px] font-normal leading-11'>Chúng tôi giúp bạn tìm đến các hoạt động phù hợp</h3>
+          <h2 className='text-[#F85E9F] text-[44px] font-normal uppercase leading-7 break-words tracking-[4px]'>
+            Điểm tích lũy
+          </h2>
+          <h3 className='text-[24px] font-normal leading-11'>Chúng tôi giúp bạn tìm đến các hoạt động phù hợp</h3>
           <div className='grid grid-cols-1 sm:grid-cols-2 mt-5 gap-10'>
             <div className='flex flex-col gap-4 items-center justify-center border rounded-3xl p-8'>
               <span className='text-[#FF5722] text-[35px] font-normal leading-10 break-words'>500+</span>
@@ -67,16 +64,15 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
               <span className='text-[#191825] text-[18px] font-normal leading-7'>Đánh giá tích cực</span>
             </div>
           </div>
-          {/* <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-[-100px] right-[40px] max-lg:right-0'></div> */}
         </div>
       </div>
-      <div className='flex max-lg:flex-col gap-10 justify-between max-lg:items-center  w-full py-8 px-4 m-auto mt-40'>
+      <div className='flex max-lg:flex-col gap-10 justify-between max-lg:items-center w-full py-8 px-4 m-auto mt-40'>
         <div className='flex flex-col gap-8 max-lg:items-center relative'>
           <div className='flex flex-col'>
-            <h2 className='text-[#F85E9F] text-[44px] font-normal uppercase leading-[52px] break-words tracking-[8px]'>
+            <h2 className='text-[#F85E9F] text-[44px] font-normal uppercase leading-[52px] break-words tracking-[4px]'>
               Tham gia sự kiện
             </h2>
-            <h3 className='text-[30px] font-normal leading-9 mt-4'>Quy trình tham gia sự kiện</h3>
+            <h3 className='text-[24px] font-normal leading-9 mt-4'>Quy trình tham gia sự kiện</h3>
             <h4 className='text-[18px] font-normal leading-7 break-words text-[#19182580] mt-8'>
               Quy trình tham gia sự kiện đơn giản, đảm bảo bạn là yếu tố cần thiết cho sự kiện.
             </h4>
@@ -90,7 +86,7 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-10 h-10'
+                  className='w-8 h-8'
                 >
                   <path
                     strokeLinecap='round'
@@ -109,7 +105,7 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-10 h-10'
+                  className='w-8 h-8'
                 >
                   <path
                     strokeLinecap='round'
@@ -130,7 +126,7 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-10 h-10'
+                  className='w-8 h-8'
                 >
                   <path
                     strokeLinecap='round'
@@ -149,7 +145,7 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-10 h-10'
+                  className='w-8 h-8'
                 >
                   <path
                     strokeLinecap='round'
@@ -164,9 +160,9 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
         </div>
         <div className='max-w-[45%]'>
           <div className='relative'>
-            <img src={landingPageImage3} alt='' className='rounded-full' />
+            <img src={homePage_03} alt='' className='rounded-full' />
             <div className='absolute top-[300px] left-60 bg-white rounded-full max-md:top-[150px] max-md:left-20'>
-              <img src={landingPageImage} alt='' className='rounded-full p-4' />
+              <img src={homePage_01} alt='' className='rounded-full p-4' />
             </div>
           </div>
         </div>
@@ -188,21 +184,21 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={landingPageImage3}
+                  src={homePage_03}
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={landingPageImage3}
+                  src={homePage_03}
                 />
               </div>
               <div className='w-full p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={landingPageImage3}
+                  src={homePage_03}
                 />
               </div>
             </div>
@@ -211,21 +207,21 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={landingPageImage}
+                  src={homePage_01}
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={landingPageImage}
+                  src={homePage_01}
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={landingPageImage}
+                  src={homePage_01}
                 />
               </div>
             </div>

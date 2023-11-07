@@ -1,6 +1,9 @@
 export const logo = 'https://res.cloudinary.com/dboijruhe/image/upload/v1698472046/Assets/mqdwwsszosbceacvw4eu.png'
-export const landingPageImage = '"https://via.placeholder.com/568x509'
-export const landingPageImage2 =
-  'https://s3-alpha-sig.figma.com/img/009c/540d/95f73101eb52a8e05f8d6932d3340bcb?Expires=1699833600&Signature=c3ABQR5mj7dcsbT7IO3jrm3bh-E4bydBApVXPrAv36yv63ZUr99dlPslYJA1UXpeqKnSphPFj3xzC8Qusy5VyFLwHRWlybr2zPvsegfzqvB2eaMgqfG5YC5SUBO1AbMbxfRo9RIgpw6h5GdIEXozv4uXYQw-C2~XhOcxSaHLCoBzxKbidjL7d3tG~KLySeBeg72sSbDsOIifeyB6JpH1tAfKFU6OJPs4QxVE8SarEoIsphJZGA90o0pTl2QHYIhlBlwlZ6sXI4vnlm7~1QkE8G0NhOTUhnpi-M3ZgXYSrMBnOBA9E3Y0x5Ux-HCEpUfqRbaUEBOcSEw2LVnduXFPDw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-export const landingPageImage3 =
-  'https://s3-alpha-sig.figma.com/img/29cb/6860/0ba1ef31dd9cebc579284487687bfbcc?Expires=1699228800&Signature=Irn7kP7enF9PUJTJ-P6shE79PGWHjqOwI29BLnNvPUh6Ju7Jut23Gpi79k~cliPqHI6POeAcnnJGt-Qx1BpqXNRG8KZuy-BYTUN6RMvci2~KhiNlnU0rlziPVqtZZ9pK8uUtDVWuQjQt-uO7XpgU4mHDcAJegY-R31lFKHpfZZtQAIiSdMqlBA4Kf1C3fTs2Om4ziBaNW~KuMGeKgeS9o1O3gKI3b19qkN4cbXDOlemz1r8~7B2r5DD6rpg-474IQUVsfKYiL65yJw0l5xDd0CV8xTRAN41Te1fwTR49ICPnTBBzEnhnvA0yRsBBgDHFZQVPotLjBShuqEFR8JX78A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+export const global =
+  'http://res.cloudinary.com/dboijruhe/image/upload/v1699333104/ServeSync/34100fad-14a0-4f16-9038-b2d6d98b0858-8d0b3da488e360fcb93103240156f714.png'
+export const homePage_01 =
+  'http://res.cloudinary.com/dboijruhe/image/upload/v1699333500/ServeSync/6aa0528c-287e-4baa-8fda-fdc77d018813-1.jpg'
+export const homePage_02 =
+  'http://res.cloudinary.com/dboijruhe/image/upload/v1699333667/ServeSync/d8c0e09d-140b-411b-865c-c3b37a6e4e43-2.png'
+export const homePage_03 =
+  'http://res.cloudinary.com/dboijruhe/image/upload/v1699333697/ServeSync/0f92b622-1681-452c-ba72-3060198b1a64-3.png'

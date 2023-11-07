@@ -55,7 +55,7 @@ const CreateEventOrganization = ({ page, index, control, getValues, setValue, se
     const id = getValues('organizations.organizationId')
     const role = { ...getValues('organizations') }.role as string
     if (role && role !== '' && id && id !== '') {
-      if (role.length <= 5) {
+      if (role.length < 5) {
         setErrors('Vai trò đại diện ít nhất 5 kí tự')
       } else if (listEventOrganizationsAdded.some((item) => item.id === id)) {
         setErrors('Ban tổ chức đã được thêm vào sự kiện !')

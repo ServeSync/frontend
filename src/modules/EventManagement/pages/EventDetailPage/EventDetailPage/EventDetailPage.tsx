@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
@@ -21,26 +22,26 @@ import { RegistrationInfoTableHeader, StatusToMessage, TypeToMessage } from 'src
 const EventDetailPage = () => {
   const { isAuthenticated } = useContext(AppContext)
 
-  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [isOpenModalRegisterEvent, setIsOpenModalRegisterEvent] = useState(false)
+
+  const handleCloseModalRegisterEvent = () => {
+    setIsOpenModalRegisterEvent(false)
+  }
 
   const [isOpenModalRegistrationInfos, setIsOpenModalRegistrationInfos] = useState(false)
 
-  const [isOpenModalAttendanceInfos, setIsOpenModalAttendanceInfos] = useState(false)
-
-  const handleCloseModal = () => {
-    setIsOpenModal(false)
+  const handleOpenModalRegistrationInfos = () => {
+    setIsOpenModalRegistrationInfos(true)
   }
 
   const handleCloseModalRegistrationInfos = () => {
     setIsOpenModalRegistrationInfos(false)
   }
 
+  const [isOpenModalAttendanceInfos, setIsOpenModalAttendanceInfos] = useState(false)
+
   const handleCloseModalAttendanceInfos = () => {
     setIsOpenModalAttendanceInfos(false)
-  }
-
-  const handleOpenModalRegistrationInfos = () => {
-    setIsOpenModalRegistrationInfos(true)
   }
 
   const handleOpenModalAttendanceInfos = () => {
@@ -90,7 +91,7 @@ const EventDetailPage = () => {
 
   const handleRegisterEvent = () => {
     if (isAuthenticated) {
-      setIsOpenModal(true)
+      setIsOpenModalRegisterEvent(true)
     } else {
       navigate({
         pathname: path.login
@@ -110,23 +111,25 @@ const EventDetailPage = () => {
           <div className='relative bg-white h-full pb-[100px] mx-auto'>
             <div className='flex mb-10 px-[120px] justify-between'>
               <div className='flex flex-col'>
-                <h1 className=' text-[60px] font-semibold break-words text-[#195E8E]'>{event.name}</h1>
-                <h4 className='text-black text-[25px] font-light break-words'>{event.introduction}</h4>
-                <h6 className='text-[#A0A2A4] text-[20px] font-light break-words'>{TypeToMessage(event.type)}</h6>
-                <div className='text-center font-medium flex gap-3 mt-2'>
+                <h1 className='text-[54px] font-semibold break-words text-[#195E8E]'>{event.name}</h1>
+                <h2 className='text-black text-[25px] font-medium break-words'>{event.introduction}</h2>
+                <h3 className='text-[#A0A2A4] text-[20px] font-light break-words'>{TypeToMessage(event.type)}</h3>
+                <div className='text-center font-medium flex items-center gap-3 mt-2'>
                   <img
                     src={event.representativeOrganization.imageUrl}
                     alt=''
-                    className='rounded-full object-cover w-[50px]'
+                    className='rounded-full object-cover w-[50px] h-[50px]'
                   />
                   <div className='flex flex-col text-start'>
-                    <p className='font-normal text-[#F93232]'>
+                    <div className='font-normal flex items-end mb-1'>
                       <span className='font-semibold text-black'> {event.representativeOrganization.name}</span>
                       <span className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-[#A0A2A4] text-[12px] ring-1 ring-inset ring-gray-500/10 ms-3'>
                         {StatusToMessage(event.calculatedStatus)}
                       </span>
-                    </p>
-                    <p className='text-[#A0A2A4] text-[16px] font-light'>{event.representativeOrganization.email}</p>
+                    </div>
+                    <span className='text-[#A0A2A4] text-[16px] font-light'>
+                      {event.representativeOrganization.email}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -149,12 +152,12 @@ const EventDetailPage = () => {
                 )}
               </div>
             </div>
-            <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModal}>
+            <ModalCustom isOpenModal={isOpenModalRegisterEvent} handleClose={handleCloseModalRegisterEvent}>
               <div className='bg-white p-10 rounded-xl w-[480px]'>
                 <form>
                   <div className='flex justify-between mb-8'>
                     <h2 className='font-semibold text-[18px]'>Đăng kí tham gia hoạt động</h2>
-                    <Button classNameButton='' onClick={handleCloseModal}>
+                    <Button classNameButton='' onClick={handleCloseModalRegisterEvent}>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
@@ -167,7 +170,6 @@ const EventDetailPage = () => {
                       </svg>
                     </Button>
                   </div>
-
                   <div>
                     <TextField
                       id='introduce'
@@ -199,16 +201,19 @@ const EventDetailPage = () => {
             </ModalCustom>
             <ModalCustom isOpenModal={isOpenModalRegistrationInfos} handleClose={handleCloseModalRegistrationInfos}>
               <div className='bg-white p-10 rounded-xl w-[800px]'>
-                <div className='flex justify-between'>
-                  <h2 className='text-[30px] font-semibold'>Khung giờ đăng ký</h2>
-                  <Button classNameButton='' onClick={handleCloseModalRegistrationInfos}>
+                <div className='flex justify-between items-center'>
+                  <h2 className='text-[24px] font-semibold'>Khung giờ đăng ký</h2>
+                  <Button
+                    classNameButton='p-2 hover:bg-slate-100 rounded-lg'
+                    onClick={handleCloseModalRegistrationInfos}
+                  >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       fill='none'
                       viewBox='0 0 24 24'
                       strokeWidth={1.5}
                       stroke='currentColor'
-                      className='w-6 h-6 '
+                      className='w-6 h-6'
                     >
                       <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
                     </svg>
@@ -219,7 +224,7 @@ const EventDetailPage = () => {
                     key={registrationInfo.id}
                     className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'
                   >
-                    <thead className='px-2 py-2 font-semibold'>
+                    <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
                       <tr className='text-[14px] text-gray-600'>
                         {RegistrationInfoTableHeader.map((item) => (
                           <th key={item.id} className='px-2 py-2 font-semibold'>
@@ -246,9 +251,9 @@ const EventDetailPage = () => {
             </ModalCustom>
             <ModalCustom isOpenModal={isOpenModalAttendanceInfos} handleClose={handleCloseModalAttendanceInfos}>
               <div className='bg-white p-10 rounded-xl w-[800px]'>
-                <div className='flex justify-between'>
-                  <h2 className='text-[30px] font-semibold'>Khung giờ điểm danh</h2>
-                  <Button classNameButton='' onClick={handleCloseModalAttendanceInfos}>
+                <div className='flex justify-between items-center'>
+                  <h2 className='text-[24px] font-semibold'>Khung giờ điểm danh</h2>
+                  <Button classNameButton='p-2 hover:bg-slate-100 rounded-lg' onClick={handleCloseModalAttendanceInfos}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       fill='none'
@@ -266,7 +271,7 @@ const EventDetailPage = () => {
                     key={registrationInfo.id}
                     className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'
                   >
-                    <thead className='px-2 py-2 font-semibold'>
+                    <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
                       <tr className='text-[14px] text-gray-600'>
                         {RegistrationInfoTableHeader.map((item) => (
                           <th key={item.id} className='px-2 py-2 font-semibold'>
@@ -292,7 +297,11 @@ const EventDetailPage = () => {
               </div>
             </ModalCustom>
             <div className='relative mb-[200px] px-[120px]'>
-              <img src={event?.imageUrl} alt='' className='w-full max-h-[500px] rounded-3xl max-w-full object-cover' />
+              <img
+                src={event?.imageUrl}
+                alt=''
+                className='w-full min-h-[500px] max-h-[600px] rounded-3xl max-w-full object-cover'
+              />
               <div className='bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[80%] absolute right-0 left-0 mx-auto bottom-[-160px] grid grid-cols-3 px-10 py-8 rounded-2xl gap-4'>
                 <div className='col-span-1 flex flex-col gap-4'>
                   <div className='flex gap-2'>
@@ -349,9 +358,11 @@ const EventDetailPage = () => {
                         d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
                       />
                     </svg>
-                    <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center'>
-                      {formatDateTime(event.startAt) + ' - ' + formatDateTime(event.endAt)}
-                    </span>
+                    <div className='text-[#A0A2A4] text-[15px] font-normal break-words text-center flex gap-2'>
+                      <span>{formatDateTime(event.startAt)}</span>
+                      <span>-</span>
+                      <span>{formatDateTime(event.endAt)}</span>
+                    </div>
                   </div>
                   <div className='flex gap-2'>
                     <svg
@@ -402,15 +413,19 @@ const EventDetailPage = () => {
                           d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
                         />
                       </svg>
-                      <span className='text-[#A0A2A4] text-[15px] font-normal break-words'>
-                        {formatDateTime(
-                          event.registrationInfos.find((e) => e.id == event.nearestRegistrationInfoId)!.startAt
-                        ) +
-                          ' - ' +
-                          formatDateTime(
+                      <div className='flex gap-2 text-[#A0A2A4] text-[15px] font-normal break-words'>
+                        <span>
+                          {formatDateTime(
+                            event.registrationInfos.find((e) => e.id == event.nearestRegistrationInfoId)!.startAt
+                          )}
+                        </span>
+                        <span>-</span>
+                        <span>
+                          {formatDateTime(
                             event.registrationInfos.find((e) => e.id == event.nearestRegistrationInfoId)!.endAt
                           )}
-                      </span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <div className='gap-2 flex flex-col'>
@@ -438,15 +453,19 @@ const EventDetailPage = () => {
                           d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
                         />
                       </svg>
-                      <span className='text-[#A0A2A4] text-[15px] font-normal break-words'>
-                        {formatDateTime(
-                          event.attendanceInfos.find((e) => e.id == event.nearestAttendanceInfoId)!.startAt
-                        ) +
-                          ' - ' +
-                          formatDateTime(
+                      <div className='text-[#A0A2A4] text-[15px] font-normal break-words flex gap-2'>
+                        <span>
+                          {formatDateTime(
+                            event.attendanceInfos.find((e) => e.id == event.nearestAttendanceInfoId)!.startAt
+                          )}
+                        </span>
+                        <span>-</span>
+                        <span>
+                          {formatDateTime(
                             event.attendanceInfos.find((e) => e.id == event.nearestAttendanceInfoId)!.endAt
                           )}
-                      </span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -482,7 +501,7 @@ const EventDetailPage = () => {
                       '& button': {
                         color: '#2f2f2f',
                         textTransform: 'capitalize',
-                        fontSize: '17px',
+                        fontSize: '16px',
                         margin: '0 10px',
                         fontFamily: 'Open Sans',
                         letterSpacing: '0'

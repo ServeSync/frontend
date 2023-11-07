@@ -19,7 +19,7 @@ const LandingPageHeader = () => {
           <img src={logo} alt='logo-img' className='w-20 h-20' />
           <span className='font-semibold text-[28px]'>ServeSync</span>
         </div>
-        <ul className='lg:flex gap-8 list-none font-medium text-[#191825]/50 hidden text-[14px]'>
+        <ul className='lg:flex gap-8 list-none font-semibold text-[#191825]/50 hidden text-[16px]'>
           <NavLink
             to={path.home_page}
             className={({ isActive }) =>
