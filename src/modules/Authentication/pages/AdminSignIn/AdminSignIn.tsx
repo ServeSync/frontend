@@ -10,7 +10,7 @@ import { AdminSignInCommandHandler } from '../../services'
 import path from 'src/modules/Share/constants/path'
 import { handleError } from 'src/modules/Share/utils'
 import AdminSignInForm from '../../components/AdminSignInForm'
-import { global, logo } from 'src/modules/Share/assets/image'
+import { global_image, logo } from 'src/modules/Share/assets/image'
 
 const AdminSignIn = () => {
   const { setIsAuthenticated } = useContext(AppContext)
@@ -49,7 +49,7 @@ const AdminSignIn = () => {
       </Helmet>
       <div className='grid grid-cols-2 bg-white rounded-3xl w-[1000px] overflow-hidden shadow-[rgba(25,_94,_142,_0.36)_2px_9px_20px]'>
         <div className='col-span-1 flex items-center justify-center bg-[#bdeef4] rounded-e-full'>
-          <img src={global} alt='image_login' className='mx-auto w-[300px]' />
+          <img src={global_image} alt='image_login' className='mx-auto w-[300px]' />
         </div>
         <div className='col-span-1 p-12 flex flex-col justify-center'>
           <Link to={path.home_page} className='flex justify-center mb-4'>
