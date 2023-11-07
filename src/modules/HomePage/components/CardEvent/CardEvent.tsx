@@ -50,10 +50,10 @@ const CardEvent = ({ event }: Props) => {
           </span>
           <div className='flex items-end justify-between gap-4 max-sm:text-[8px] text-[14px] lg:text-[16px] max-md:flex-col-reverse truncate'>
             <div className='max-w-[80%] overflow-hidden'>
-              <span className='line-clamp-1'>{event.representativeOrganization.name}</span>
+              <span className='line-clamp-1'>{event.introduction}</span>
             </div>
             <div className='flex items-center justify-center gap-1.5 font-normal'>
-              <span className='font-normal leading-7 break-words max-sm:text-[14px] text-[16px] lg:text-[px] text-[#195E8E]'>
+              <span className='font-normal leading-7 break-words max-sm:text-[14px] text-[16px] lg:text-[18px] text-[#195E8E]'>
                 {event.capacity}
               </span>
               <svg
@@ -112,6 +112,8 @@ const CardEvent = ({ event }: Props) => {
               </svg>
               <div className='flex items-center gap-2 text-[#A0A2A4] font-normal leading-4 break-words  max-sm:text-[10px] text-[13px] lg:text-[15px]'>
                 <span>{formatDateTime(event.startAt)}</span>
+                <span>-</span>
+                <span>{formatDateTime(event.endAt)}</span>
               </div>
             </div>
             <div className='flex justify-between items-center'>
@@ -122,16 +124,20 @@ const CardEvent = ({ event }: Props) => {
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#FACD49] flex-shrink-0'
+                  className='w-6 h-6 text-[#51cbff]'
                 >
                   <path
                     strokeLinecap='round'
                     strokeLinejoin='round'
-                    d='M3 8.25V18a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18V8.25m-18 0V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6zM7.5 6h.008v.008H7.5V6zm2.25 0h.008v.008H9.75V6z'
+                    d='M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z'
                   />
                 </svg>
-                <div className='flex items-center gap-2 text-[#A0A2A4] font-normal leading-4 break-words  max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                  <span>{formatDateTime(event.endAt)}</span>
+
+                <div className='flex items-center gap-1 text-[#A0A2A4] font-normal leading-4 break-words  max-sm:text-[10px] text-[13px] lg:text-[15px]'>
+                  <span>{event.activity.minScore}</span>
+                  <span>-</span>
+                  <span>{event.activity.maxScore}</span>
+                  <span>Điểm</span>
                 </div>
               </div>
               <div className='flex items-center max-md:flex-col'>
