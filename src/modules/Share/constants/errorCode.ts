@@ -66,6 +66,18 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server',
       field: 'email'
     },
+    'Student:000009': {
+      message: 'Bạn đã điểm danh tham gia sự kiện!',
+      type: 'Server'
+    },
+    'Student:000010': {
+      message: 'Bạn chưa đăng ký tham gia sự kiện!',
+      type: 'Server'
+    },
+    'Student:000011': {
+      message: 'Bạn không ở trong vùng diễn ra sự kiện!',
+      type: 'Server'
+    },
     'Faculty:000002': {
       message: 'Khoa không tồn tại!',
       type: 'Server',
@@ -106,6 +118,10 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Thời gian điểm danh không nằm trong thời gian diễn ra sự kiện !',
       type: 'Server',
       field: 'attendanceInfos'
+    },
+    'EventAttendanceInfo:000005': {
+      message: 'Yêu cầu điểm danh không hợp lệ!',
+      type: 'Server'
     },
     'EventRegistration:000002': {
       message: 'Khung giờ đăng ký bị trùng với thời gian diễn ra sự kiện !',

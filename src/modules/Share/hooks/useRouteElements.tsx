@@ -137,6 +137,14 @@ const useRouteElements = () => {
           )
         },
         {
+          path: path.attendance_event,
+          element: (
+            <Suspense>
+              <AttendanceEvent />
+            </Suspense>
+          )
+        },
+        {
           path: path.role,
           element: (
             <MainLayout>
