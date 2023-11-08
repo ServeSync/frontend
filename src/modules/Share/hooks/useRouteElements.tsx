@@ -113,14 +113,6 @@ const useRouteElements = () => {
           )
         },
         {
-          path: path.attendance_event,
-          element: (
-            <Suspense>
-              <AttendanceEvent />
-            </Suspense>
-          )
-        },
-        {
           path: path.list_events,
           element: (
             <Suspense>
@@ -142,6 +134,14 @@ const useRouteElements = () => {
                 <Dashboard />
               </Suspense>
             </MainLayout>
+          )
+        },
+        {
+          path: path.attendance_event,
+          element: (
+            <Suspense>
+              <AttendanceEvent />
+            </Suspense>
           )
         },
         {
