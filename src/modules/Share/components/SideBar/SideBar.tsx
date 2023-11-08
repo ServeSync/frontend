@@ -276,7 +276,7 @@ const SideBar = () => {
             </li>
             <li className='py-2'>
               <NavLink
-                to={path.event_organizer}
+                to={path.event_organization}
                 className={({ isActive }) =>
                   classNames(
                     'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
