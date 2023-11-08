@@ -28,8 +28,8 @@ const CreateEventPage = lazy(() => import('src/modules/EventManagement/pages/Cre
 const EditEventPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPage/EditEventPage'))
 const EventPending = lazy(() => import('src/modules/EventManagement/pages/EventPending/EventPendingPage'))
 const EditEventPendingPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPendingPage'))
+const EventOrganzationPage = lazy(() => import('src/modules/EventOrganizationManagement/pages/EventOrganizationPage'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
-
 const RejectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
   return !isAuthenticated ? <Outlet /> : <Navigate to={path.dashboard} />
@@ -240,6 +240,16 @@ const useRouteElements = () => {
             <Suspense>
               <AttendanceEvent />
             </Suspense>
+          )
+        },
+        {
+          path: path.event_organization,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <EventOrganzationPage />
+              </Suspense>
+            </MainLayout>
           )
         }
       ]
