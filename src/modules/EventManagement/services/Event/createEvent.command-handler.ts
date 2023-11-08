@@ -4,7 +4,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
 import eventAPI from './event.api'
 import { FormEvent } from '../../interfaces'
-import { toast } from 'react-toastify'
 
 class CreateEventCommandHandler {
   private _queryClient
@@ -19,17 +18,10 @@ class CreateEventCommandHandler {
     })
   }
 
-  handle = async (event: FormEvent, file: File, handleSuccess: any, handleError: any, setError: any) => {
+  handle = async (event: FormEvent, file: File, handleSuccess: any, handleError: any) => {
     const form = new FormData()
     form.append('file', file)
-    const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form, {
-      onError: () => {
-        setError('imageUrl', {
-          message: 'Vui lòng chọn ảnh !'
-        })
-        toast.error('Vui lòng chọn ảnh !')
-      }
-    })
+    const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
     event.imageUrl = uploadImageResponse.data.url
 
     return this._createEventMutation.mutate(event, {
@@ -44,6 +36,7 @@ class CreateEventCommandHandler {
       }
     })
   }
+
   isLoading() {
     return this._uploadImageMutation.isLoading || this._createEventMutation.isLoading
   }

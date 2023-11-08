@@ -19,18 +19,10 @@ class RequestCreateEventCommandHandler {
     })
   }
 
-  handle = async (event: RequestEventForm, file: File, handleSuccess: any, setError: any) => {
+  handle = async (event: RequestEventForm, file: File, handleSuccess: any) => {
     const form = new FormData()
     form.append('file', file)
-
-    const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form, {
-      onError: () => {
-        setError('imageUrl', {
-          message: 'Vui lòng chọn ảnh !'
-        })
-      }
-    })
-
+    const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
     event.imageUrl = uploadImageResponse?.data.url
 
     return this._requestCreateEventMutation.mutate(event, {

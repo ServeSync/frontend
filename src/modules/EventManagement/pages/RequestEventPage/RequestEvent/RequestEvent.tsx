@@ -15,8 +15,8 @@ interface Props {
   setValue: UseFormSetValue<FormRequestEventType>
   markers: MarkerType[]
   setMarkers: React.Dispatch<React.SetStateAction<MarkerType[]>>
-  file: File | undefined
-  setFile: React.Dispatch<React.SetStateAction<File | undefined>>
+  previewImage: string
+  handleChangeFile: (file?: File) => void
   description: EditorState
   onEditorStateChange: (editorState: EditorState) => void
 }
@@ -30,8 +30,8 @@ const RequestEvent = ({
   control,
   markers,
   setMarkers,
-  file,
-  setFile,
+  previewImage,
+  handleChangeFile,
   description,
   onEditorStateChange
 }: Props) => {
@@ -58,8 +58,8 @@ const RequestEvent = ({
             setValue={setValue}
             eventCategories={eventCategories}
             activities={activities}
-            file={file}
-            setFile={setFile}
+            previewImage={previewImage}
+            handleChangeFile={handleChangeFile}
             handleChangeCategory={handleChangeCategory}
             markers={markers}
             setMarkers={setMarkers}

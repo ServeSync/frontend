@@ -1,4 +1,4 @@
-import { RegisteredStudentsTableHeader } from 'src/modules/EventManagement/constants'
+import { RegisteredStudentsTableHeader, StatusToMessage } from 'src/modules/EventManagement/constants'
 import { RegisteredStudentsListType } from 'src/modules/EventManagement/interfaces'
 import { formatDateTime } from 'src/modules/Share/utils'
 
@@ -38,7 +38,7 @@ const EventDetailRegisterList = ({ registeredStudents }: Props) => {
                   <th className='px-2 py-4 font-medium'>{student.email}</th>
                   <th className='px-2 py-4 font-medium'>{student.homeRoomName}</th>
                   <th className='px-2 py-4 font-medium'>{student.role}</th>
-                  <th className='px-2 py-4 font-medium'>{student.status}</th>
+                  <th className='px-2 py-4 font-medium'>{StatusToMessage(student.status)}</th>
                   <th className='px-2 py-4 font-medium w-[15%]'>{formatDateTime(student.registeredAt)}</th>
                 </tr>
               ))}

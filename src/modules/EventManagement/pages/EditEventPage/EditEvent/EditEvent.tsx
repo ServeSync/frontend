@@ -4,6 +4,7 @@ import { FormEventType } from '../../../utils'
 import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../../services'
 import EventForm from 'src/modules/EventManagement/components/EventForm/EventForm'
 import { ActivityType, EventCategoryType, EventDetailType } from 'src/modules/EventManagement/interfaces'
+import { EditorState } from 'draft-js'
 
 interface Props {
   page: number
@@ -15,9 +16,23 @@ interface Props {
   file: File | undefined
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>
   event: EventDetailType
+  description: EditorState
+  setDescription: React.Dispatch<React.SetStateAction<EditorState>>
 }
 
-const EditEvent = ({ page, index, register, control, setValue, errors, file, setFile, event }: Props) => {
+const EditEvent = ({
+  page,
+  index,
+  register,
+  control,
+  setValue,
+  errors,
+  file,
+  setFile,
+  event,
+  description,
+  setDescription
+}: Props) => {
   const [categoryId, setCategoryId] = useState<string>(event ? event.activity.eventCategoryId : '')
 
   const handleChangeCategory = (id: string) => {
@@ -28,7 +43,7 @@ const EditEvent = ({ page, index, register, control, setValue, errors, file, set
     event && setCategoryId(event.activity.eventCategoryId)
   }, [event, setCategoryId])
 
-  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery()
+  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery('Event')
   const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoryType[]
 
   const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)
@@ -48,6 +63,8 @@ const EditEvent = ({ page, index, register, control, setValue, errors, file, set
           setFile={setFile}
           onChangeCategory={handleChangeCategory}
           event={event}
+          description={description}
+          setDescription={setDescription}
         />
       )}
     </div>

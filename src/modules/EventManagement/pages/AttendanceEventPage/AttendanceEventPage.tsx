@@ -1,10 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { handleError } from 'src/modules/Share/utils'
 import useGeoLocation from '../../hooks/useGeoLocation'
 import useQueryEventQRConfig from '../../hooks/useQueryEventQRConfig'
 import { AttendanceEventCommandHandler } from '../../services'
-import Button from 'src/modules/Share/components/Button'
 
 const AttendanceEventPage = () => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
@@ -16,9 +16,9 @@ const AttendanceEventPage = () => {
 
   const handleAttendanceEvent = () => {
     const body = {
-      id: queryEventQRConfig.Code as string,
+      id: queryEventQRConfig.EventId as string,
       data: {
-        code: queryEventQRConfig.EventId as string,
+        code: queryEventQRConfig.Code as string,
         latitude: location.coordinates.lat,
         longitude: location.coordinates.lng
       }
@@ -34,16 +34,12 @@ const AttendanceEventPage = () => {
     )
   }
 
+  useEffect(() => {
+    handleAttendanceEvent()
+  }, [])
+
   return (
     <div className='w-full h-screen flex justify-center items-center'>
-      {!isSuccess && (
-        <Button
-          onClick={handleAttendanceEvent}
-          classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#49ec90] px-4 py-2 rounded-lg cursor-pointer'
-        >
-          <span>Điểm danh</span>
-        </Button>
-      )}
       {isSuccess && (
         <div className='flex h-[calc(100vh-80px)] w-full items-center justify-center bg-white p-5'>
           <div className='text-center'>

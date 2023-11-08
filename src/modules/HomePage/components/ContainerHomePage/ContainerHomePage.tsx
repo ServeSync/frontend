@@ -175,7 +175,7 @@ const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Prop
           <span className='text-center text-[44px] font-normal leading-[52px] break-words'>
             Tham gia cùng chúng mình để cùng tay tạo nên các khoảnh khắc đáng nhớ nhé!
           </span>
-          <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-20'></div>
+          <div className='absolute w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] top-60'></div>
         </div>
         <div className='mx-auto px-5 py-2 lg:pt-24'>
           <div className='-m-1 flex flex-wrap md:-m-2'>

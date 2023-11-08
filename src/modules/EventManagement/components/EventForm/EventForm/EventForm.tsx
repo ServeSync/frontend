@@ -1,5 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Controller, Control, useForm, UseFormSetValue, FieldErrors, UseFormRegister } from 'react-hook-form'
+import {
+  Controller,
+  Control,
+  useForm,
+  UseFormSetValue,
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetError
+} from 'react-hook-form'
 import { useEffect, useMemo, useState } from 'react'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Autocomplete, TextField } from '@mui/material'
@@ -7,7 +15,6 @@ import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import draftToHtml from 'draftjs-to-html'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormEventType, FormSearchMapSchema, FormSearchMapType } from '../../../utils'
 import { ActivityType, EventCategoryType, EventDetailType, LocationType, MarkerType } from '../../../interfaces'
@@ -18,11 +25,13 @@ import ModalCustom from 'src/modules/Share/components/Modal'
 import InputImage from 'src/modules/Share/components/InputImage'
 import Input from 'src/modules/Share/components/Input'
 import dayjs from 'dayjs'
+import draftToHtml from 'draftjs-to-html'
 
 interface Props {
   control: Control<FormEventType>
   register: UseFormRegister<FormEventType>
   setValue: UseFormSetValue<FormEventType>
+  setError?: UseFormSetError<FormEventType>
   errors: FieldErrors<FormEventType>
   eventCategories: EventCategoryType[]
   activities: ActivityType[]
@@ -30,34 +39,38 @@ interface Props {
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>
   onChangeCategory: (id: string) => void
   event?: EventDetailType
+  description: EditorState
+  setDescription: React.Dispatch<React.SetStateAction<EditorState>>
 }
 
 const EventForm = ({
   control,
   register,
   setValue,
+  setError,
   errors,
   eventCategories,
   activities,
   file,
   setFile,
   onChangeCategory,
-  event
+  event,
+  description,
+  setDescription
 }: Props) => {
   const previewImage = useMemo(() => {
     return file ? URL.createObjectURL(file) : ''
   }, [file])
 
-  const handleChangeFile = (file?: File) => {
-    setFile(file)
-    setValue('imageUrl', ' ')
-  }
-
-  const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
-
   const onEditorStateChange = (editorState: EditorState) => {
     setDescription(editorState)
     setValue('description', draftToHtml(convertToRaw(description.getCurrentContent())))
+  }
+
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+    setValue('imageUrl', ' ')
+    setError && setError('imageUrl', { message: '' })
   }
 
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -99,12 +112,12 @@ const EventForm = ({
       setValue('address.latitude', event.address.latitude.toString())
       setValue('address.longitude', event.address.longitude.toString())
       const blocksFromHTML = convertFromHTML(event.description as string)
-      const description = EditorState.createWithContent(
+      const content = EditorState.createWithContent(
         ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
       )
-      setDescription(description)
+      setDescription(content)
     }
-  }, [event, setValue])
+  }, [event, setValue, setDescription])
 
   return (
     <div>

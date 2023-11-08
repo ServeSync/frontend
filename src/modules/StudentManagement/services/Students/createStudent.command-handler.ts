@@ -18,18 +18,10 @@ class CreateStudentCommandHandler {
     })
   }
 
-  handle = async (student: StudentForm, file: File, handleSuccess: any, handleError: any, setError: any) => {
+  handle = async (student: StudentForm, file: File, handleSuccess: any, handleError: any) => {
     const form = new FormData()
     form.append('file', file)
-
-    const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form, {
-      onError: () => {
-        setError('imageUrl', {
-          message: 'Vui lòng chọn ảnh !'
-        })
-      }
-    })
-
+    const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
     student.imageUrl = uploadImageResponse.data.url
 
     return this._createStudentMutation.mutate(student, {

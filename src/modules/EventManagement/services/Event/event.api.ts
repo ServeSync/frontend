@@ -19,6 +19,10 @@ const eventAPI = {
   attendanceEvent: (body: { id: string; data: EventAttendance }) =>
     http.post(`/events/${body.id}/event-attendances`, body.data),
 
+  cancelEvent: (id: string) => http.post(`/events/${id}/cancel`),
+
+  approveEvent: (id: string) => http.post(`/events/${id}/approve`),
+
   getListEventsByStatus: (eventStatus: string, size?: number) =>
     http.get<EventsListType>('/events', {
       params: {

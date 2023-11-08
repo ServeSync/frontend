@@ -21,7 +21,7 @@ const studentAPI = {
     }),
 
   getAttendedEvents: (id: string, page: number) =>
-    http.get<StudentAttendedEventsListType>(`/students/${id}/attendance-events`, { params: { page, size: 1 } })
+    http.get<StudentAttendedEventsListType>(`/students/${id}/attendance-events`, { params: { page } })
 }
 
 export default studentAPI

@@ -23,6 +23,7 @@ class AttendanceEventCommandHandler {
       }
     })
   }
+
   isLoading() {
     return this._attendanceEventMutation.isLoading
   }

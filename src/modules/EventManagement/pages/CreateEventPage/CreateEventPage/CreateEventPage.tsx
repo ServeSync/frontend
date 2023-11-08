@@ -16,10 +16,10 @@ import CreateEvent from '../CreateEvent'
 import CreateEventRegistration from '../CreateEventRegistration'
 import CreateEventOrganization from '../CreateEventOrganization'
 import Button from 'src/modules/Share/components/Button'
+import { EditorState } from 'draft-js'
 
 const CreateEventPage = () => {
   const [file, setFile] = useState<File>()
-  const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const [page, setPage] = useState<number>(0)
 
@@ -32,6 +32,7 @@ const CreateEventPage = () => {
 
   const [dataEventRole, setDataEventRole] = useState<EventRole[]>([])
   const [dataEventOrganization, setDataEventOrganization] = useState<EventOrganizationFormType[]>([])
+  const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
 
   const {
     register,
@@ -77,18 +78,15 @@ const CreateEventPage = () => {
         navigate({
           pathname: path.event
         })
-        setIsSuccess(true)
       },
       (error: any) => {
-        toast.error('Thông tin không hợp lệ vui lòng kiểm tra lại !')
         handleError<FormEventType>(error, setError)
-      },
-      setError
+      }
     )
   })
 
   const onIsSuccess = () => {
-    if (!isSuccess && !createEventCommandHandler.isLoading()) {
+    if (createEventCommandHandler && createEventCommandHandler.isLoading() === false) {
       toast.error('Vui lòng kiểm tra lại dữ liệu!')
     }
   }
@@ -136,9 +134,12 @@ const CreateEventPage = () => {
                 register={register}
                 control={control}
                 setValue={setValue}
+                setError={setError}
                 errors={errors}
                 file={file}
                 setFile={setFile}
+                description={description}
+                setDescription={setDescription}
               />
               <CreateEventRegistration
                 page={page}
@@ -174,7 +175,7 @@ const CreateEventPage = () => {
           <Button
             type='submit'
             isLoading={createEventCommandHandler.isLoading()}
-            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[120px]'
+            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[140px]'
             onClick={onIsSuccess}
           >
             Tạo sự kiện

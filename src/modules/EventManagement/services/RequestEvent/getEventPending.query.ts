@@ -17,7 +17,7 @@ class GetEventPendingQuery {
       queryKey: ['pending_event', id],
       queryFn: () => requestEventAPI.getRequestEvent(id),
       enabled: id !== undefined,
-      staleTime: 1 * 60 * 1000,
+      staleTime: 3 * 60 * 1000,
       onError: (error: any) => {
         handleError(error)
         this._navigate(path.event_pending)
