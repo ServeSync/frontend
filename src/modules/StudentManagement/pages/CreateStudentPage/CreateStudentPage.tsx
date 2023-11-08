@@ -23,6 +23,12 @@ const CreateStudentPage = () => {
     setFacultyId(id)
   }
 
+  const [file, setFile] = useState<File>()
+
+  const previewImage = useMemo(() => {
+    return file ? URL.createObjectURL(file) : ''
+  }, [file])
+
   const navigate = useNavigate()
 
   const getAllFacultiesQuery = new GetAllFacultiesQuery()
@@ -45,17 +51,6 @@ const CreateStudentPage = () => {
     resolver: yupResolver(FormStudentSchema)
   })
 
-  const [file, setFile] = useState<File>()
-
-  const previewImage = useMemo(() => {
-    return file ? URL.createObjectURL(file) : ''
-  }, [file])
-
-  const handleChangeFile = (file?: File) => {
-    setFile(file)
-    setValue('imageUrl', ' ')
-  }
-
   const createStudentCommandHandler = new CreateStudentCommandHandler()
 
   const handleCreateStudent = handleSubmit(async (data) => {
@@ -73,8 +68,7 @@ const CreateStudentPage = () => {
       },
       (error: any) => {
         handleError<FormStudentType>(error, setError)
-      },
-      setError
+      }
     )
   })
 
@@ -82,6 +76,12 @@ const CreateStudentPage = () => {
     navigate({
       pathname: path.student
     })
+  }
+
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+    setValue('imageUrl', ' ')
+    setError('imageUrl', { message: '' })
   }
 
   return (

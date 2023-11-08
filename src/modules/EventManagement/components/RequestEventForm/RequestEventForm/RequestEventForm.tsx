@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Controller, Control, useForm, UseFormSetValue, FieldErrors, UseFormRegister } from 'react-hook-form'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Autocomplete, TextField } from '@mui/material'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
@@ -24,8 +24,8 @@ interface Props {
   setValue: UseFormSetValue<FormRequestEventType>
   eventCategories: EventCategoryType[]
   activities: ActivityType[]
-  file: File | undefined
-  setFile: React.Dispatch<React.SetStateAction<File | undefined>>
+  previewImage: string
+  handleChangeFile: (file?: File) => void
   handleChangeCategory: (id: string) => void
   markers: MarkerType[]
   setMarkers: React.Dispatch<React.SetStateAction<MarkerType[]>>
@@ -40,24 +40,15 @@ const RequestEventForm = ({
   setValue,
   eventCategories,
   activities,
-  file,
-  setFile,
+  previewImage,
+  handleChangeFile,
   handleChangeCategory,
   markers,
   setMarkers,
   description,
   onEditorStateChange
 }: Props) => {
-  const previewImage = useMemo(() => {
-    return file ? URL.createObjectURL(file) : ''
-  }, [file])
-
   const [isOpenModal, setIsOpenModal] = useState(false)
-
-  const handleChangeFile = (file?: File) => {
-    setFile(file)
-    setValue('imageUrl', ' ')
-  }
 
   const handleOpenModal = () => {
     setIsOpenModal(true)

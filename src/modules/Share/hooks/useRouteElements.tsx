@@ -61,6 +61,14 @@ const useRouteElements = () => {
       )
     },
     {
+      path: path.list_events,
+      element: (
+        <Suspense>
+          <EventsPage />
+        </Suspense>
+      )
+    },
+    {
       path: '',
       element: <RejectedRoute />,
       children: [
@@ -109,14 +117,6 @@ const useRouteElements = () => {
           element: (
             <Suspense>
               <RequestEventPage />
-            </Suspense>
-          )
-        },
-        {
-          path: path.list_events,
-          element: (
-            <Suspense>
-              <EventsPage />
             </Suspense>
           )
         }
@@ -232,6 +232,14 @@ const useRouteElements = () => {
                 <EditEventPendingPage />
               </Suspense>
             </MainLayout>
+          )
+        },
+        {
+          path: path.attendance_event,
+          element: (
+            <Suspense>
+              <AttendanceEvent />
+            </Suspense>
           )
         }
       ]

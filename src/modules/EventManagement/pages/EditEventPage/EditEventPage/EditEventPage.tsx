@@ -7,16 +7,25 @@ import { useForm, useFieldArray } from 'react-hook-form'
 import _ from 'lodash'
 import { EventOrganizationFormType, EventRole, FormEvent } from '../../../interfaces'
 import { FormEventSchema, FormEventType } from '../../../utils'
-import { GetAttendanceStudentsQuery, GetEventByIdQuery, GetRegisteredStudentsQuery } from '../../../services'
+import {
+  ApproveEventCommandHandler,
+  CancelEventCommandHandler,
+  GetAttendanceStudentsQuery,
+  GetEventByIdQuery,
+  GetRegisteredStudentsQuery
+} from '../../../services'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import EditEvent from '../EditEvent/EditEvent'
 import EditEventRegistration from '../EditEventRegistration'
 import EditEventOrganization from '../EditEventOrganization'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Button from 'src/modules/Share/components/Button'
 import path from 'src/modules/Share/constants/path'
 import AttendanceStudentsList from '../AttendanceStudentsList'
 import RegisteredStudentsList from '../RegisteredStudentsList'
+import Swal from 'sweetalert2'
+import { handleError } from 'src/modules/Share/utils'
+import { EditorState } from 'draft-js'
 
 const EditEventPage = () => {
   const [file, setFile] = useState<File>()
@@ -28,8 +37,11 @@ const EditEventPage = () => {
     setPage(newPage)
   }
 
+  const navigate = useNavigate()
+
   const [dataEventRole, setDataEventRole] = useState<EventRole[]>([])
   const [dataEventOrganization, setDataEventOrganization] = useState<EventOrganizationFormType[]>([])
+  const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
 
   const {
     register,
@@ -37,6 +49,7 @@ const EditEventPage = () => {
     control,
     getValues,
     resetField,
+    setError,
     setValue,
     formState: { errors }
   } = useForm<FormEventType>({
@@ -77,6 +90,66 @@ const EditEventPage = () => {
 
   const getRegisteredStudentsQuery = new GetRegisteredStudentsQuery(queryEventConfig.id as string)
   const registeredStudents = getRegisteredStudentsQuery.fetch()
+
+  const cancelEventCommandHandler = new CancelEventCommandHandler()
+
+  const handleCancelEvent = (id: string) => {
+    Swal.fire({
+      title: 'Xác nhận hủy?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        cancelEventCommandHandler.handle(
+          id,
+          () => {
+            Swal.fire('Đã hủy!', 'Hủy sự kiện thành công', 'success')
+            navigate({
+              pathname: path.event
+            })
+          },
+          (error: any) => {
+            handleError<FormEventType>(error, setError)
+          }
+        )
+      }
+    })
+  }
+
+  const approveEventCommandHandler = new ApproveEventCommandHandler()
+
+  const handleApproveEvent = (id: string) => {
+    Swal.fire({
+      title: 'Xác nhận chấp thuận?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        approveEventCommandHandler.handle(
+          id,
+          () => {
+            Swal.fire('Đã chấp thuận!', 'Chấp thuận sự kiện thành công', 'success')
+            navigate({
+              pathname: path.event
+            })
+          },
+          (error: any) => {
+            handleError<FormEventType>(error, setError)
+          }
+        )
+      }
+    })
+  }
 
   return (
     <Fragment>
@@ -131,6 +204,8 @@ const EditEventPage = () => {
                 file={file}
                 setFile={setFile}
                 event={event}
+                description={description}
+                setDescription={setDescription}
               />
               <EditEventRegistration
                 page={page}
@@ -157,8 +232,8 @@ const EditEventPage = () => {
               />
               {event && event.status !== 'Pending' && (
                 <Fragment>
-                  <AttendanceStudentsList page={page} index={3} attendanceStudents={attendanceStudents} />
-                  <RegisteredStudentsList page={page} index={4} registeredStudents={registeredStudents} />
+                  <RegisteredStudentsList page={page} index={3} registeredStudents={registeredStudents} />
+                  <AttendanceStudentsList page={page} index={4} attendanceStudents={attendanceStudents} />
                 </Fragment>
               )}
             </Box>
@@ -168,26 +243,27 @@ const EditEventPage = () => {
           {event && event.status === 'Pending' ? (
             <Fragment>
               <Button
-                type='submit'
+                type='button'
                 classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
               >
                 Từ chối
               </Button>
               <Button
-                type='submit'
                 classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[128px]'
+                onClick={() => handleApproveEvent(event.id)}
               >
                 Chấp thuận
               </Button>
             </Fragment>
           ) : (
             <Fragment>
-              <Link
-                to={path.event}
-                className='flex justify-center items-center bg-[#989899] w-[60px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+              <Button
+                type='button'
+                classNameButton='flex justify-center items-center bg-[#989899] w-[60px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+                onClick={() => handleCancelEvent(event.id)}
               >
                 Hủy
-              </Link>
+              </Button>
               <Button
                 type='submit'
                 classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[120px]'

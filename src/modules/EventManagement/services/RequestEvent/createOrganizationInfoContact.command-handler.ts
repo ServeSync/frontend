@@ -3,7 +3,6 @@
 import { useMutation } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
 import { EventOrganizationContactInfo } from '../../interfaces'
-import { toast } from 'react-toastify'
 
 class CreateOrganizationInfoContactCommandHandler {
   private _uploadImageMutation
@@ -15,15 +14,14 @@ class CreateOrganizationInfoContactCommandHandler {
   handle = async (organizationContactInfo: EventOrganizationContactInfo, file: File) => {
     const form = new FormData()
     form.append('file', file)
-
-    const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form, {
-      onError: () => {
-        toast.error('Vui lòng chọn ảnh đại diện!')
-      }
-    })
+    const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
     organizationContactInfo.imageUrl = uploadImageResponse.data.url
 
     return organizationContactInfo
+  }
+
+  isLoading() {
+    return this._uploadImageMutation.isLoading
   }
 }
 

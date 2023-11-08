@@ -34,23 +34,17 @@ const RequestEventPage = () => {
 
   const [file, setFile] = useState<File>()
 
-  const [fileOrganizer, setFileOrganizer] = useState<File>()
+  const previewImage = useMemo(() => {
+    return file ? URL.createObjectURL(file) : ''
+  }, [file])
 
-  const handleChangeFileOrganizer = (file?: File) => {
-    setFileOrganizer(file)
-    setValue('EventOrganizationInfo.imageUrl', ' ')
-  }
+  const [fileOrganizer, setFileOrganizer] = useState<File>()
 
   const previewImageOrganizer = useMemo(() => {
     return fileOrganizer ? URL.createObjectURL(fileOrganizer) : ''
   }, [fileOrganizer])
 
   const [fileOrganizerContact, setFileOrganizerContact] = useState<File>()
-
-  const handleChangeFileOrganizerContact = (file?: File) => {
-    setFileOrganizerContact(file)
-    setValue('EventOrganizationContactInfo.imageUrl', ' ')
-  }
 
   const previewImageOrganizerContact = useMemo(() => {
     return fileOrganizerContact ? URL.createObjectURL(fileOrganizerContact) : ''
@@ -117,22 +111,35 @@ const RequestEventPage = () => {
           EventOrganizationInfo: organizationDataPromise,
           EventOrganizationContactInfo: organizationContactDataPromise
         }
-        await requestCreateEventCommandHandler.handle(
-          { ...body },
-          file as File,
-          () => {
-            toast.success('Yêu cầu thêm sự kiện thành công !')
-            navigate({
-              pathname: path.home_page
-            })
-          },
-          setError
-        )
+        await requestCreateEventCommandHandler.handle({ ...body }, file as File, () => {
+          toast.success('Yêu cầu thêm sự kiện thành công !')
+          navigate({
+            pathname: path.home_page
+          })
+        })
       }
     } catch (error) {
       console.log(error)
     }
   })
+
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+    setValue('imageUrl', ' ')
+    setError('imageUrl', { message: '' })
+  }
+
+  const handleChangeFileOrganizer = (file?: File) => {
+    setFileOrganizer(file)
+    setValue('EventOrganizationInfo.imageUrl', ' ')
+    setError('EventOrganizationInfo.imageUrl', { message: '' })
+  }
+
+  const handleChangeFileOrganizerContact = (file?: File) => {
+    setFileOrganizerContact(file)
+    setValue('EventOrganizationContactInfo.imageUrl', ' ')
+    setError('EventOrganizationContactInfo.imageUrl', { message: '' })
+  }
 
   return (
     <Fragment>
@@ -179,8 +186,8 @@ const RequestEventPage = () => {
                   setValue={setValue}
                   control={control}
                   errors={errors}
-                  file={file}
-                  setFile={setFile}
+                  previewImage={previewImage}
+                  handleChangeFile={handleChangeFile}
                   markers={markers}
                   setMarkers={setMarkers}
                   description={description}
@@ -192,10 +199,10 @@ const RequestEventPage = () => {
                   register={register}
                   control={control}
                   errors={errors}
-                  handleChangeFileOrganizer={handleChangeFileOrganizer}
-                  handleChangeFileOrganizerContact={handleChangeFileOrganizerContact}
                   previewImageOrganizer={previewImageOrganizer}
+                  handleChangeFileOrganizer={handleChangeFileOrganizer}
                   previewImageOrganizerContact={previewImageOrganizerContact}
+                  handleChangeFileOrganizerContact={handleChangeFileOrganizerContact}
                 />
               </Box>
             </Box>
@@ -209,7 +216,11 @@ const RequestEventPage = () => {
               </Button>
               <Button
                 type='submit'
-                isLoading={requestCreateEventCommandHandler.isLoading()}
+                isLoading={
+                  requestCreateEventCommandHandler.isLoading() ||
+                  requestCreateOrganizationInfo.isLoading() ||
+                  requestCreateOrganizationContactInfo.isLoading()
+                }
                 classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
               >
                 Tạo

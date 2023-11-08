@@ -105,6 +105,10 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Không phải thời gian điểm danh !',
       type: 'Server'
     },
+    'Event:000005': {
+      message: 'Sự kiện không thể bị hủy !',
+      type: 'Server'
+    },
     'EventAttendanceInfo:000001': {
       message: 'Thời gian điểm danh bị trùng nhau !',
       type: 'Server',

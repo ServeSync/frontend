@@ -33,7 +33,7 @@ const StudentSignIn = () => {
       data,
       () => {
         setIsAuthenticated(true)
-        navigate(path.dashboard)
+        navigate(path.home_page)
       },
       (error: any) => {
         handleError<FormSignInType>(error, setError)

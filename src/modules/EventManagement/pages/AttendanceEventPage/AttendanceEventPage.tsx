@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react'
 import useGeoLocation from '../../hooks/useGeoLocation'
@@ -37,6 +38,10 @@ const AttendanceEventPage = () => {
       );
     }
   }, [queryEventQRConfig.Code, queryEventQRConfig.EventId, isSuccess, location.coordinates.lat, location.coordinates.lng]);
+
+  useEffect(() => {
+    handleAttendanceEvent()
+  }, [])
 
   return (
     <div className='w-full h-screen flex justify-center items-center'>

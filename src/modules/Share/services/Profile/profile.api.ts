@@ -1,8 +1,10 @@
 import http from 'src/modules/Share/utils/http'
-import { Profile } from '../../interfaces/Profile'
+import { Profile, ProfileStudent } from '../../interfaces/Profile'
 
 const profileAPI = {
-  getProfile: () => http.get<Profile>('/profile')
+  getProfile: () => http.get<Profile>('/profile'),
+
+  getProfileStudent: () => http.get<ProfileStudent>('/profile/student')
 }
 
 export default profileAPI
