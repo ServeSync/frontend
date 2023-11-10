@@ -66,6 +66,14 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server',
       field: 'email'
     },
+    'Student:000007': {
+      message: 'Sinh viên đã đăng kí sự kiện với vai trò đã chọn',
+      type: 'Server'
+    },
+    'Student:000008': {
+      message: 'Sinh viên đã được chấp nhận tham gia sự kiện',
+      type: 'Server'
+    },
     'Student:000009': {
       message: 'Bạn đã điểm danh tham gia sự kiện!',
       type: 'Server'

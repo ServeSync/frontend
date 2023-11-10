@@ -5,6 +5,9 @@ import { AppContext } from '../contexts/app.context'
 import AuthenticationLayout from '../layouts/AuthenticationLayout'
 import MainLayout from '../layouts/MainLayout'
 import HomePageLayout from '../layouts/HomePageLayout'
+import { GetProfileQuery } from '../services'
+import { PermissionProvider } from '../contexts'
+import { Permission } from '../interfaces'
 
 //Client
 const StudentSignIn = lazy(() => import('src/modules/Authentication/pages/StudentSignIn'))
@@ -37,11 +40,26 @@ const RejectedRoute = () => {
 
 const ProtectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
-  return isAuthenticated ? <Outlet /> : <Navigate to={path.home_page} />
+
+  const getProfileQuery = new GetProfileQuery()
+  const permissions = getProfileQuery.fetch()?.permissions
+
+  const fetchPermission = (permission: Permission): boolean => {
+    return permissions.includes(permission)
+  }
+
+  if (!getProfileQuery.isLoading()) {
+    return (
+      <PermissionProvider fetchPermission={fetchPermission}>
+        {isAuthenticated && permissions ? <Outlet /> : <Navigate to={path.home_page} />}
+      </PermissionProvider>
+    )
+  }
 }
 
 const useRouteElements = () => {
   const routeElements = useRoutes([
+    // Public routes
     {
       path: path.home_page,
       element: (
@@ -68,6 +86,7 @@ const useRouteElements = () => {
         </Suspense>
       )
     },
+    // Rejected routes
     {
       path: '',
       element: <RejectedRoute />,
@@ -122,6 +141,7 @@ const useRouteElements = () => {
         }
       ]
     },
+    // Protected routes
     {
       path: '',
       element: <ProtectedRoute />,
@@ -244,7 +264,6 @@ const useRouteElements = () => {
         }
       ]
     },
-
     {
       path: '*',
       element: (

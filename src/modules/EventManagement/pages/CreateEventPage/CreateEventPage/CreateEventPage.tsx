@@ -86,9 +86,11 @@ const CreateEventPage = () => {
   })
 
   const onIsSuccess = () => {
-    if (createEventCommandHandler && createEventCommandHandler.isLoading() === false) {
-      toast.error('Vui lòng kiểm tra lại dữ liệu!')
-    }
+    setTimeout(() => {
+      if (createEventCommandHandler && createEventCommandHandler.isLoading() === false) {
+        toast.error('Vui lòng kiểm tra lại dữ liệu!')
+      }
+    }, 300)
   }
 
   return (
@@ -122,7 +124,7 @@ const CreateEventPage = () => {
                   '.MuiTabs-indicator': { backgroundColor: '#26c6da' }
                 }}
               >
-                <Tab label='Tạo sự kiện' id='tab-1' aria-controls='simple-tabpanel-1' className='capitalize' />
+                <Tab label='Thông tin chung' id='tab-1' aria-controls='simple-tabpanel-1' className='capitalize' />
                 <Tab label='Thông tin đăng ký' id='tab-2' aria-controls='simple-tabpanel-2' />
                 <Tab label='Ban tổ chức sự kiện' id='tab-3' aria-controls='simple-tabpanel-3' />
               </Tabs>

@@ -1,10 +1,12 @@
+export type Permission = string
+
 export interface Profile {
   id: string
   fullName: string
   email: string
   avatarUrl: string
   roles: string[]
-  permissions: string[]
+  permissions: Permission[]
 }
 
 export interface ProfileStudent {

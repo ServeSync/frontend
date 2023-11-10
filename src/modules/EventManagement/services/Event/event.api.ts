@@ -6,6 +6,7 @@ import {
   EventsListConfig,
   EventsListType,
   FormEvent,
+  RegisteredEventType,
   RegisteredStudentsListType
 } from '../../interfaces'
 
@@ -22,6 +23,8 @@ const eventAPI = {
   cancelEvent: (id: string) => http.post(`/events/${id}/cancel`),
 
   approveEvent: (id: string) => http.post(`/events/${id}/approve`),
+
+  registerEvent: (body: RegisteredEventType) => http.post('/events/register', body),
 
   getListEventsByStatus: (eventStatus: string, size?: number) =>
     http.get<EventsListType>('/events', {
