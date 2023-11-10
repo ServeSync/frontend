@@ -3,7 +3,7 @@ import { Fragment, useContext, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
-import { Box, Tab, Tabs, TextField } from '@mui/material'
+import { Box, Tab, Tabs } from '@mui/material'
 import useQueryEventConfig from '../../../hooks/useQueryEventConfig'
 import { GetAttendanceStudentsQuery, GetEventByIdQuery, GetRegisteredStudentsQuery } from '../../../services'
 import { formatDateTime } from 'src/modules/Share/utils'
@@ -16,16 +16,26 @@ import EventDetailOrganizationPage from '../EventDetailOrganizationPage'
 import FooterHomePage from 'src/modules/HomePage/components/FooterHomePage'
 import Button from 'src/modules/Share/components/Button'
 import { AppContext } from 'src/modules/Share/contexts'
-import ModalCustom from 'src/modules/Share/components/Modal'
-import { RegistrationInfoTableHeader, StatusToMessage, TypeToMessage } from 'src/modules/EventManagement/constants'
+import { StatusToMessage, TypeToMessage } from 'src/modules/EventManagement/constants'
+import EventDetailModal from 'src/modules/EventManagement/components/EventDetail/EventDetailModal'
 
 const EventDetailPage = () => {
   const { isAuthenticated } = useContext(AppContext)
 
-  const [isOpenModalRegisterEvent, setIsOpenModalRegisterEvent] = useState(false)
+  const [isOpenModalTableRegisterEvent, setIsOpenModalTableRegisterEvent] = useState(false)
 
-  const handleCloseModalRegisterEvent = () => {
-    setIsOpenModalRegisterEvent(false)
+  const handleCloseModalTableRegisterEvent = () => {
+    setIsOpenModalTableRegisterEvent(false)
+  }
+
+  const handleRegisterEvent = () => {
+    if (isAuthenticated) {
+      setIsOpenModalTableRegisterEvent(true)
+    } else {
+      navigate({
+        pathname: path.login
+      })
+    }
   }
 
   const [isOpenModalRegistrationInfos, setIsOpenModalRegistrationInfos] = useState(false)
@@ -47,6 +57,17 @@ const EventDetailPage = () => {
   const handleOpenModalAttendanceInfos = () => {
     setIsOpenModalAttendanceInfos(true)
   }
+
+  const [isOpenMapImage, setIsOpenMapImage] = useState(false)
+
+  const handleCloseModalMap = () => {
+    setIsOpenMapImage(false)
+  }
+
+  const handleOpenModalMap = () => {
+    setIsOpenMapImage(true)
+  }
+
   const [page, setPage] = useState<number>(0)
 
   const handleChange = (event: React.SyntheticEvent, newPage: number) => {
@@ -54,9 +75,11 @@ const EventDetailPage = () => {
     setPage(newPage)
   }
 
-  const [scrolled, setScrolled] = useState(false)
-
   const navigate = useNavigate()
+
+  const queryEventConfig = useQueryEventConfig()
+
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     if (!scrolled) {
@@ -64,8 +87,6 @@ const EventDetailPage = () => {
       setScrolled(true)
     }
   }, [scrolled])
-
-  const queryEventConfig = useQueryEventConfig()
 
   const getEventQuery = new GetEventByIdQuery(queryEventConfig.id as string)
   const event = getEventQuery.fetch()
@@ -85,19 +106,9 @@ const EventDetailPage = () => {
 
   useEffect(() => {
     const googleMapsApiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY
-    const imageURL = `https://maps.googleapis.com/maps/api/staticmap?center=${center.latitude},${center.longitude}&markers=color:red%7C%7C${center.latitude},${center.longitude}&zoom=15&size=300x150&key=${googleMapsApiKey}`
+    const imageURL = `https://maps.googleapis.com/maps/api/staticmap?center=${center.latitude},${center.longitude}&markers=color:red%7C%7C${center.latitude},${center.longitude}&zoom=15&size=900x300&key=${googleMapsApiKey}`
     setMapImageURL(imageURL)
   }, [center])
-
-  const handleRegisterEvent = () => {
-    if (isAuthenticated) {
-      setIsOpenModalRegisterEvent(true)
-    } else {
-      navigate({
-        pathname: path.login
-      })
-    }
-  }
 
   return (
     <Fragment>
@@ -152,150 +163,6 @@ const EventDetailPage = () => {
                 )}
               </div>
             </div>
-            <ModalCustom isOpenModal={isOpenModalRegisterEvent} handleClose={handleCloseModalRegisterEvent}>
-              <div className='bg-white p-10 rounded-xl w-[480px]'>
-                <form>
-                  <div className='flex justify-between mb-8'>
-                    <h2 className='font-semibold text-[18px]'>Đăng kí tham gia hoạt động</h2>
-                    <Button classNameButton='' onClick={handleCloseModalRegisterEvent}>
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                        strokeWidth={1.5}
-                        stroke='currentColor'
-                        className='w-6 h-6'
-                      >
-                        <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
-                      </svg>
-                    </Button>
-                  </div>
-                  <div>
-                    <TextField
-                      id='introduce'
-                      label='Tự giới thiệu'
-                      placeholder='Kinh nghiệm...'
-                      className='w-full bg-white'
-                      multiline
-                      rows={3}
-                      // onChange={onChange}
-                      // value={value}
-                    />
-                  </div>
-                  <div className='flex mt-4 justify-end gap-4'>
-                    <Button
-                      type='button'
-                      classNameButton='bg-[#ff3d3d] py-3 px-4 rounded-lg text-[14px] text-white font-semibold'
-                    >
-                      Hủy
-                    </Button>
-                    <Button
-                      type='button'
-                      classNameButton='bg-[#26C6DA] py-3 px-4 rounded-lg text-[14px] text-white font-semibold'
-                    >
-                      Đăng kí
-                    </Button>
-                  </div>
-                </form>
-              </div>
-            </ModalCustom>
-            <ModalCustom isOpenModal={isOpenModalRegistrationInfos} handleClose={handleCloseModalRegistrationInfos}>
-              <div className='bg-white p-10 rounded-xl w-[800px]'>
-                <div className='flex justify-between items-center'>
-                  <h2 className='text-[24px] font-semibold'>Khung giờ đăng ký</h2>
-                  <Button
-                    classNameButton='p-2 hover:bg-slate-100 rounded-lg'
-                    onClick={handleCloseModalRegistrationInfos}
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
-                    </svg>
-                  </Button>
-                </div>
-                {event.registrationInfos.map((registrationInfo) => (
-                  <table
-                    key={registrationInfo.id}
-                    className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'
-                  >
-                    <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
-                      <tr className='text-[14px] text-gray-600'>
-                        {RegistrationInfoTableHeader.map((item) => (
-                          <th key={item.id} className='px-2 py-2 font-semibold'>
-                            {item.name}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {event.registrationInfos.map((registrationInfo) => (
-                        <tr
-                          key={registrationInfo.id}
-                          className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
-                        >
-                          <th className='px-2 py-4 font-medium'>{formatDateTime(registrationInfo.startAt)}</th>
-                          <th className='px-2 py-4 font-medium'>{formatDateTime(registrationInfo.endAt)}</th>
-                          <th className='px-2 py-4 font-medium'>{StatusToMessage(registrationInfo.status)}</th>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                ))}
-              </div>
-            </ModalCustom>
-            <ModalCustom isOpenModal={isOpenModalAttendanceInfos} handleClose={handleCloseModalAttendanceInfos}>
-              <div className='bg-white p-10 rounded-xl w-[800px]'>
-                <div className='flex justify-between items-center'>
-                  <h2 className='text-[24px] font-semibold'>Khung giờ điểm danh</h2>
-                  <Button classNameButton='p-2 hover:bg-slate-100 rounded-lg' onClick={handleCloseModalAttendanceInfos}>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-6 h-6 '
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
-                    </svg>
-                  </Button>
-                </div>
-                {event.registrationInfos.map((registrationInfo) => (
-                  <table
-                    key={registrationInfo.id}
-                    className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'
-                  >
-                    <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
-                      <tr className='text-[14px] text-gray-600'>
-                        {RegistrationInfoTableHeader.map((item) => (
-                          <th key={item.id} className='px-2 py-2 font-semibold'>
-                            {item.name}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {event.attendanceInfos.map((attendanceInfo) => (
-                        <tr
-                          key={registrationInfo.id}
-                          className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
-                        >
-                          <th className='px-2 py-4 font-medium'>{formatDateTime(attendanceInfo.startAt)}</th>
-                          <th className='px-2 py-4 font-medium'>{formatDateTime(attendanceInfo.endAt)}</th>
-                          <th className='px-2 py-4 font-medium'>{StatusToMessage(attendanceInfo.status)}</th>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                ))}
-              </div>
-            </ModalCustom>
             <div className='relative mb-[200px] px-[120px]'>
               <img
                 src={event?.imageUrl}
@@ -384,9 +251,11 @@ const EventDetailPage = () => {
                     </span>
                   </div>
                 </div>
-                <div className='col-span-1 flex  justify-center'>
-                  {mapImageURL && <img src={mapImageURL} alt='Static Map' className='object-cover rounded-2xl' />}
-                </div>
+                <Button classNameButton='col-span-1 flex  justify-center outline-none' onClick={handleOpenModalMap}>
+                  {mapImageURL && (
+                    <img src={mapImageURL} alt='Static Map' className='object-cover h-[150px] rounded-lg' />
+                  )}
+                </Button>
                 <div className='col-span-1 flex flex-col justify-between gap-5'>
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
@@ -489,6 +358,18 @@ const EventDetailPage = () => {
                 <div className='text-[20px] font-normal'>Sinh viên tham dự</div>
               </div>
             </div>
+            <EventDetailModal
+              event={event}
+              mapImageURL={mapImageURL}
+              isOpenMapImage={isOpenMapImage}
+              handleCloseModalMap={handleCloseModalMap}
+              isOpenModalTableRegisterEvent={isOpenModalTableRegisterEvent}
+              handleCloseModalTableRegisterEvent={handleCloseModalTableRegisterEvent}
+              isOpenModalRegistrationInfos={isOpenModalRegistrationInfos}
+              handleCloseModalRegistrationInfos={handleCloseModalRegistrationInfos}
+              isOpenModalAttendanceInfos={isOpenModalAttendanceInfos}
+              handleCloseModalAttendanceInfos={handleCloseModalAttendanceInfos}
+            />
             <div className='w-full h-full px-[120px] overflow-hidden'>
               <Box>
                 <Box>

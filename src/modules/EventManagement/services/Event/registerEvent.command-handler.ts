@@ -2,18 +2,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation } from '@tanstack/react-query'
 import eventAPI from './event.api'
+import { RegisteredEventType } from '../../interfaces'
 
 class RegisterEventCommandHandler {
   private _registerEventMutation
 
   constructor() {
     this._registerEventMutation = useMutation({
-      mutationFn: (id: string) => eventAPI.cancelEvent(id)
+      mutationFn: (body: RegisteredEventType) => eventAPI.registerEvent(body)
     })
   }
 
-  handle = (id: string, handleSuccess: any, handleError: any) => {
-    return this._registerEventMutation.mutate(id, {
+  handle = (body: RegisteredEventType, handleSuccess: any, handleError: any) => {
+    return this._registerEventMutation.mutate(body, {
       onSuccess: () => {
         handleSuccess()
       },

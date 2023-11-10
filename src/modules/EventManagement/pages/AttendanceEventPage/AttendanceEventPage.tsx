@@ -14,6 +14,7 @@ const AttendanceEventPage = () => {
   const queryEventQRConfig = useQueryEventQRConfig()
 
   const isValidData = queryEventQRConfig.Code && queryEventQRConfig.EventId && !isSuccess
+
   useEffect(() => {
     if (isValidData && !isHandle.state && location.loaded && location.error == 0) {
       const attendanceEventCommandHandler = new AttendanceEventCommandHandler()

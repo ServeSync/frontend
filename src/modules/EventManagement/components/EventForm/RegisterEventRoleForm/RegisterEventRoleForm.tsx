@@ -315,7 +315,7 @@ const RegisterEventRoleForm = ({
             </Button>
             <Button
               type='button'
-              classNameButton='bg-[#26C6DA] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
+              classNameButton='bg-[#26da38] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
               onClick={handleSubmit}
             >
               {isEditEventRole ? 'Lưu' : 'Thêm'}
