@@ -157,6 +157,10 @@ export function ErrorCodeToMessage(errorCode: string): {
     'EventActivity:000001': {
       message: 'Hoạt động sự kiện không tồn tại !',
       type: 'Server'
+    },
+    'EventOrganization:000003': {
+      message: 'Nhà tổ chức hiện đang tổ chức một sự kiện ',
+      type: 'Server'
     }
   }
 

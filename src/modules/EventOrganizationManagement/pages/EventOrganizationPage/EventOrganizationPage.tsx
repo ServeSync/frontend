@@ -4,12 +4,13 @@ import { useForm } from 'react-hook-form'
 import InputSearch from 'src/modules/Share/components/InputSearch'
 import { FormFilterOrganizerSchema, FormFilterOrganizerType } from '../../utils'
 import { yupResolver } from '@hookform/resolvers/yup'
-import OrganizerTable from '../../components/OrganizerTable'
 import { GetAllEventOrganizationsQuery } from 'src/modules/EventManagement/services'
 import useSorting from 'src/modules/Share/hooks/useSorting'
 import path from 'src/modules/Share/constants/path'
 import Pagination from 'src/modules/Share/components/Pagination'
 import useQueryOrganizationConfig from '../../hooks/useQueryOrganizationConfig'
+import EventOrganizationTable from '../../components/EventOrganizationTable'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 
 const EventOrganizationPage = () => {
   const FilterOrganizerForm = useForm<FormFilterOrganizerType>({
@@ -22,6 +23,21 @@ const EventOrganizationPage = () => {
   const queryOrganizationConfig = useQueryOrganizationConfig()
   const SortOrganizer = useSorting({ queryConfig: queryOrganizationConfig, pathname: path.event_organization })
 
+  const navigate = useNavigate()
+
+  const onEditEventOrganization = (id: string) => {
+    navigate(
+      {
+        pathname: path.edit_event_organization,
+        search: createSearchParams({
+          id: id
+        }).toString()
+      },
+      {
+        state: queryOrganizationConfig
+      }
+    )
+  }
   return (
     <Fragment>
       <Helmet>
@@ -40,16 +56,17 @@ const EventOrganizationPage = () => {
           </form>
         </div>
       </div>
-      <OrganizerTable
+      <EventOrganizationTable
         organizers={organizers}
         isLoading={getAllOrganizationQuery.isLoading()}
         onSort={SortOrganizer.handleSort}
+        onEditOrganization={onEditEventOrganization}
       />
       <Pagination
         queryConfig={queryOrganizationConfig}
         pageSize={getAllOrganizationQuery.getTotalPages()}
         pathname={path.event_organization}
-        className='flex justify-end'
+        className='flex justify-center'
       />
     </Fragment>
   )

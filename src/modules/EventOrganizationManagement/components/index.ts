@@ -1,1 +1,2 @@
-export * from './OrganizerTable'
+export * from './EventOrganizationTable'
+export * from './EditEventOrganizationForm'

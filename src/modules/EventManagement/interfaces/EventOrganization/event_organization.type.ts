@@ -1,4 +1,4 @@
-import { ContactType } from '.'
+import { ContactType, RepresentativeType } from '.'
 
 export interface EventOrganizationsListType {
   total: number
@@ -9,11 +9,22 @@ export interface EventOrganizationsListType {
 export interface EventOrganizationType {
   id: string
   name: string
+  description: string
   email: string
   phoneNumber: string
   address: string
   imageUrl: string
   role: string
   organizationId?: string
-  representatives: ContactType[]
+  representatives: RepresentativeType[]
+  contacts: ContactType[]
+}
+
+export interface EventOrganizationForm {
+  name: string
+  description: string
+  email: string
+  phoneNumber: string
+  address: string
+  imageUrl: string
 }

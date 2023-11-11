@@ -134,6 +134,7 @@ export interface EventDetailType {
     {
       id: string
       name: string
+      description: string
       email: string
       phoneNumber: string
       address: string
@@ -150,6 +151,20 @@ export interface EventDetailType {
           position: string
           address: string
           role: string
+          organizationRepId: string
+        }
+      ]
+      contacts: [
+        {
+          id: string
+          name: string
+          imageUrl: string
+          gender: string
+          birth: string
+          email: string
+          phoneNumber: string
+          position: string
+          address: string
           organizationRepId: string
         }
       ]

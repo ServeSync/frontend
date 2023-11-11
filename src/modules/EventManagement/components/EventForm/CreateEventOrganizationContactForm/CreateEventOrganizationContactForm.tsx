@@ -4,7 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
 import { useState } from 'react'
 import { FormEventType } from '../../../utils'
-import { ContactType, ContactsListType, EventDetailType, EventOrganizationType } from '../../../interfaces'
+import { ContactsListType, EventDetailType, EventOrganizationType, RepresentativeType } from '../../../interfaces'
 import { GetAllContactsByOrganizationIdQuery } from '../../../services'
 import Button from 'src/modules/Share/components/Button'
 import { EventOrganizationTableHeader } from '../../../constants'
@@ -33,7 +33,7 @@ const CreateEventOrganizationContactForm = ({
 }: Props) => {
   const [errors, setErrors] = useState<string>('')
 
-  const [listContactsAdded, setListContactsAdded] = useState<ContactType[]>([])
+  const [listContactsAdded, setListContactsAdded] = useState<RepresentativeType[]>([])
 
   const getAllContactsByOrganizationIdQuery = new GetAllContactsByOrganizationIdQuery(eventOrganization.id)
   const contactsList = getAllContactsByOrganizationIdQuery.fetch() as ContactsListType
@@ -48,7 +48,7 @@ const CreateEventOrganizationContactForm = ({
       } else if (listContactsAdded.some((item) => item.id === id)) {
         setErrors('Nhà tổ chức đã được thêm vào sự kiện !')
       } else {
-        const contact = contacts.find((item) => item.id === id) as ContactType
+        const contact = contacts.find((item) => item.id === id) as RepresentativeType
         const body = {
           ...contact,
           role: role

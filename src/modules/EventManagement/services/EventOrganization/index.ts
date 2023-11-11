@@ -1,3 +1,6 @@
 export * from './event_organization.api'
 export * from './getAllEventOrganizations.query'
 export * from './getAllContactsByOrganizationId.query'
+export * from './getEventOrganizationById.query'
+export * from './editEventOrganization.command-handler'
+export * from './deleteEventOrganization.command-handler'

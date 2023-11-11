@@ -5,10 +5,11 @@ import Skeleton from 'react-loading-skeleton'
 
 interface Props {
   organizers: EventOrganizationsListType
+  onEditOrganization: (id: string) => void
   onSort: (column: string) => void
   isLoading: boolean
 }
-const OrganizerTable = ({ organizers, isLoading, onSort }: Props) => {
+const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onSort }: Props) => {
   return (
     <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
       <HeaderTable header={OrganizerTableHeader} onSort={onSort} />
@@ -40,11 +41,15 @@ const OrganizerTable = ({ organizers, isLoading, onSort }: Props) => {
               <tr
                 className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                 key={organizer.id}
+                onClick={() => onEditOrganization(organizer.id)}
               >
-                <th className='px-2 py-4 font-medium w-[25%]'>{organizer.name}</th>
+                <th className='px-2 py-4 font-medium w-[25%] flex items-center gap-3'>
+                  <img src={organizer.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
+                  <span>{organizer.name}</span>
+                </th>
                 <th className='px-2 py-4 font-medium w-[25%]'>{organizer.email}</th>
                 <th className='px-2 py-4 font-medium w-[25%]'>{organizer.phoneNumber}</th>
-                <th className='px-2 py-4 font-medium w-[25%]'>{organizer.address}</th>
+                <th className='px-2 py-4 font-medium w-[25%] truncate'>{organizer.address}</th>
               </tr>
             ))}
       </tbody>
@@ -52,4 +57,4 @@ const OrganizerTable = ({ organizers, isLoading, onSort }: Props) => {
   )
 }
 
-export default OrganizerTable
+export default EventOrganizationTable
