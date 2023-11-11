@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import { PermissionType } from '../../interfaces'
 import Button from 'src/modules/Share/components/Button'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 interface Props {
   id: string
@@ -71,20 +72,24 @@ const PermissionList = ({
               >
                 Hủy
               </Button>
-              <Button
-                type='button'
-                classNameButton='bg-red-600 hover:bg-red-600/80 rounded-lg px-3 py-2 text-white'
-                onClick={() => onDeleteRole(id)}
-              >
-                Xóa
-              </Button>
-              <Button
-                type='submit'
-                classNameButton='bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-lg px-3 py-2 text-white w-[120px]'
-                isLoading={isLoadingEdit}
-              >
-                Cập nhật
-              </Button>
+              <Restricted to={'ServeSync.Permissions.Roles.Delete'}>
+                <Button
+                  type='button'
+                  classNameButton='bg-red-600 hover:bg-red-600/80 rounded-lg px-3 py-2 text-white'
+                  onClick={() => onDeleteRole(id)}
+                >
+                  Xóa
+                </Button>
+              </Restricted>
+              <Restricted to={'ServeSync.Permissions.Roles.UpdatePermissions'}>
+                <Button
+                  type='submit'
+                  classNameButton='bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-lg px-3 py-2 text-white w-[120px]'
+                  isLoading={isLoadingEdit}
+                >
+                  Cập nhật
+                </Button>
+              </Restricted>
             </div>
           )}
         </div>

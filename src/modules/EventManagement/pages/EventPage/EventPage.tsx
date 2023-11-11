@@ -18,6 +18,7 @@ import Button from 'src/modules/Share/components/Button'
 import EventTable from '../../components/EventTable'
 import Pagination from 'src/modules/Share/components/Pagination'
 import { eventStatus } from '../../constants'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 const EventPage = () => {
   const navigate = useNavigate()
@@ -113,12 +114,14 @@ const EventPage = () => {
                 <span>Lọc</span>
               </Button>
             </PopoverCustom>
-            <Link
-              to={path.create_event}
-              className='flex items-center text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
-            >
-              Thêm sự kiện
-            </Link>
+            <Restricted to={'ServeSync.Permissions.Events.Create'}>
+              <Link
+                to={path.create_event}
+                className='flex items-center text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
+              >
+                Thêm sự kiện
+              </Link>
+            </Restricted>
           </div>
         </div>
         <EventTable

@@ -8,6 +8,8 @@ import HomePageLayout from '../layouts/HomePageLayout'
 import { GetProfileQuery } from '../services'
 import { PermissionProvider } from '../contexts'
 import { Permission } from '../interfaces'
+import Restricted from '../components/Restricted'
+import NotAllowed from '../components/NotAllowed'
 
 //Client
 const StudentSignIn = lazy(() => import('src/modules/Authentication/pages/StudentSignIn'))
@@ -31,7 +33,7 @@ const CreateEventPage = lazy(() => import('src/modules/EventManagement/pages/Cre
 const EditEventPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPage/EditEventPage'))
 const EventPending = lazy(() => import('src/modules/EventManagement/pages/EventPending/EventPendingPage'))
 const EditEventPendingPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPendingPage'))
-const EventOrganzationPage = lazy(() => import('src/modules/EventOrganizationManagement/pages/EventOrganizationPage'))
+const EventOrganizationPage = lazy(() => import('src/modules/EventOrganizationManagement/pages/EventOrganizationPage'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 const RejectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
@@ -169,7 +171,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <RolePage />
+                <Restricted to='ServeSync.Permissions.Roles.View' fallback={<NotAllowed />}>
+                  <RolePage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -179,7 +183,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <StudentPage />
+                <Restricted to='ServeSync.Permissions.Students.View' fallback={<NotAllowed />}>
+                  <StudentPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -189,7 +195,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <CreateStudentPage />
+                <Restricted to='ServeSync.Permissions.Students.Create' fallback={<NotAllowed />}>
+                  <CreateStudentPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -199,7 +207,12 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <EditStudentPage />
+                <Restricted
+                  to={'ServeSync.Permissions.Students.ViewProfile' && 'ServeSync.Permissions.Students.Edit'}
+                  fallback={<NotAllowed />}
+                >
+                  <EditStudentPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -209,7 +222,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <EventPage />
+                <Restricted to={'ServeSync.Permissions.Events.View'} fallback={<NotAllowed />}>
+                  <EventPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -219,7 +234,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <CreateEventPage />
+                <Restricted to={'ServeSync.Permissions.Events.Create'} fallback={<NotAllowed />}>
+                  <CreateEventPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -229,7 +246,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <EditEventPage />
+                <Restricted to={'ServeSync.Permissions.Events.Edit'} fallback={<NotAllowed />}>
+                  <EditEventPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -267,7 +286,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <EventOrganzationPage />
+                <Restricted to={'ServeSync.Permissions.EventOrganizations.View'} fallback={<NotAllowed />}>
+                  <EventOrganizationPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )

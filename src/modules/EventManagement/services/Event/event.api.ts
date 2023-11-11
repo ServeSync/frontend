@@ -26,6 +26,8 @@ const eventAPI = {
 
   registerEvent: (body: RegisteredEventType) => http.post('/events/register', body),
 
+  rejectEvent: (id: string) => http.post(`/events/${id}/reject`),
+
   getListEventsByStatus: (eventStatus: string, size?: number) =>
     http.get<EventsListType>('/events', {
       params: {

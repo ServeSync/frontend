@@ -26,6 +26,8 @@ import RegisteredStudentsList from '../RegisteredStudentsList'
 import Swal from 'sweetalert2'
 import { handleError } from 'src/modules/Share/utils'
 import { EditorState } from 'draft-js'
+import Restricted from 'src/modules/Share/components/Restricted'
+import { RejectEventCommandHandler } from 'src/modules/EventManagement/services/Event/rejectEvent.command-handler'
 
 const EditEventPage = () => {
   const [file, setFile] = useState<File>()
@@ -151,6 +153,35 @@ const EditEventPage = () => {
     })
   }
 
+  const rejectEventCommandHandler = new RejectEventCommandHandler()
+
+  const handleRejectEvent = (id: string) => {
+    Swal.fire({
+      title: 'Xác nhận từ chối ?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        rejectEventCommandHandler.handle(
+          id,
+          () => {
+            Swal.fire('Đã từ chối!', 'Từ chối sự kiện thành công', 'success')
+            navigate({
+              pathname: path.event
+            })
+          },
+          (error: any) => {
+            handleError<FormEventType>(error, setError)
+          }
+        )
+      }
+    })
+  }
   return (
     <Fragment>
       <Helmet>
@@ -242,28 +273,35 @@ const EditEventPage = () => {
         <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 px-4 py-2 bg-slate-100 w-full z-20'>
           {event && event.status === 'Pending' ? (
             <Fragment>
-              <Button
-                type='button'
-                classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
-              >
-                Từ chối
-              </Button>
-              <Button
-                classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[128px]'
-                onClick={() => handleApproveEvent(event.id)}
-              >
-                Chấp thuận
-              </Button>
+              <Restricted to={'ServeSync.Permissions.Events.Reject'}>
+                <Button
+                  type='button'
+                  classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
+                  onClick={() => handleRejectEvent(event.id)}
+                >
+                  Từ chối
+                </Button>
+              </Restricted>
+              <Restricted to={'ServeSync.Permissions.Events.Approve'}>
+                <Button
+                  classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[128px]'
+                  onClick={() => handleApproveEvent(event.id)}
+                >
+                  Chấp thuận
+                </Button>
+              </Restricted>
             </Fragment>
           ) : (
             <Fragment>
-              <Button
-                type='button'
-                classNameButton='flex justify-center items-center bg-[#989899] w-[60px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
-                onClick={() => handleCancelEvent(event.id)}
-              >
-                Hủy
-              </Button>
+              <Restricted to={'ServeSync.Permissions.Events.Cancel'}>
+                <Button
+                  type='button'
+                  classNameButton='flex justify-center items-center bg-[#989899] w-[60px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+                  onClick={() => handleCancelEvent(event.id)}
+                >
+                  Hủy
+                </Button>
+              </Restricted>
               <Button
                 type='submit'
                 classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[120px]'

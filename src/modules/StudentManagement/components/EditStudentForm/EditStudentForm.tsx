@@ -11,6 +11,7 @@ import InputAvatar from 'src/modules/Share/components/InputAvatar'
 import Button from 'src/modules/Share/components/Button'
 import { gender } from '../../constants'
 import { FormStudentType } from '../../utils'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 interface Props {
   register: UseFormRegister<FormStudentType>
@@ -342,19 +343,23 @@ const EditStudentForm = ({
         >
           Hủy
         </Button>
-        <Button
-          type='button'
-          classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[16px] text-white font-semibold'
-          onClick={() => handleDeleteStudent(student.id)}
-        >
-          Xóa
-        </Button>
-        <Button
-          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
-          isLoading={isLoadingEdit}
-        >
-          Lưu
-        </Button>
+        <Restricted to='ServeSync.Permissions.Students.Delete'>
+          <Button
+            type='button'
+            classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[16px] text-white font-semibold'
+            onClick={() => handleDeleteStudent(student.id)}
+          >
+            Xóa
+          </Button>
+        </Restricted>
+        <Restricted to='ServeSync.Permissions.Students.EditProfile'>
+          <Button
+            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
+            isLoading={isLoadingEdit}
+          >
+            Lưu
+          </Button>
+        </Restricted>
       </div>
     </Fragment>
   )
