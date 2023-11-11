@@ -35,9 +35,15 @@ const EventPending = lazy(() => import('src/modules/EventManagement/pages/EventP
 const EditEventPendingPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPendingPage'))
 const EventOrganizationPage = lazy(() => import('src/modules/EventOrganizationManagement/pages/EventOrganizationPage'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
+
 const RejectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
   return !isAuthenticated ? <Outlet /> : <Navigate to={path.dashboard} />
+}
+
+const ProtectedStudentRoute = () => {
+  const { isAuthenticated } = useContext(AppContext)
+  return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
 }
 
 const ProtectedRoute = () => {
@@ -87,6 +93,20 @@ const useRouteElements = () => {
           <EventsPage />
         </Suspense>
       )
+    },
+    {
+      path: '',
+      element: <ProtectedStudentRoute />,
+      children: [
+        {
+          path: path.attendance_event,
+          element: (
+            <Suspense>
+              <AttendanceEvent />
+            </Suspense>
+          )
+        }
+      ]
     },
     // Rejected routes
     {
@@ -156,14 +176,6 @@ const useRouteElements = () => {
                 <Dashboard />
               </Suspense>
             </MainLayout>
-          )
-        },
-        {
-          path: path.attendance_event,
-          element: (
-            <Suspense>
-              <AttendanceEvent />
-            </Suspense>
           )
         },
         {
@@ -271,14 +283,6 @@ const useRouteElements = () => {
                 <EditEventPendingPage />
               </Suspense>
             </MainLayout>
-          )
-        },
-        {
-          path: path.attendance_event,
-          element: (
-            <Suspense>
-              <AttendanceEvent />
-            </Suspense>
           )
         },
         {
