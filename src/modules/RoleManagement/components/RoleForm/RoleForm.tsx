@@ -2,6 +2,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import Button from 'src/modules/Share/components/Button'
 import Input from 'src/modules/Share/components/Input'
 import { FormRoleType } from '../../utils'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 interface Props {
   register: UseFormRegister<FormRoleType>
@@ -39,12 +40,14 @@ const RoleForm = ({ register, errors, isEditForm, isLoading }: Props) => {
           </svg>
         </div>
       </Input>
-      <Button
-        classNameButton='w-full py-2 bg-[#2a98a6] hover:bg-[#2a98a6]/90 rounded-md text-white'
-        isLoading={isLoading}
-      >
-        {isEditForm ? 'Cập nhật role' : 'Tạo Role'}
-      </Button>
+      <Restricted to={'ServeSync.Permissions.Roles.Create' || 'ServeSync.Permissions.Roles.Edit'}>
+        <Button
+          classNameButton='w-full py-2 bg-[#2a98a6] hover:bg-[#2a98a6]/90 rounded-md text-white'
+          isLoading={isLoading}
+        >
+          {isEditForm ? 'Cập nhật role' : 'Tạo Role'}
+        </Button>
+      </Restricted>
     </div>
   )
 }

@@ -26,6 +26,7 @@ import StudentTable from '../../components/StudentTable'
 import Pagination from 'src/modules/Share/components/Pagination'
 import PopoverCustom from 'src/modules/Share/components/Popover'
 import ImportFile from '../../components/ImportFile'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 const StudentPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -210,13 +211,15 @@ const StudentPage = () => {
                 previewNameFile={previewNameFile}
               />
             </ModalCustom>
-            <Link
-              to={path.create_student}
-              state={queryStudentConfig}
-              className='flex items-center text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
-            >
-              Thêm sinh viên
-            </Link>
+            <Restricted to='ServeSync.Permissions.Students.Create'>
+              <Link
+                to={path.create_student}
+                state={queryStudentConfig}
+                className='flex items-center text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
+              >
+                Thêm sinh viên
+              </Link>
+            </Restricted>
           </div>
         </div>
         <StudentTable

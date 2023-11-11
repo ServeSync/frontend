@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import { handleError } from 'src/modules/Share/utils'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 const EditEventPendingPage = () => {
   const [page, setPage] = useState<number>(0)
@@ -97,20 +98,24 @@ const EditEventPendingPage = () => {
       </div>
       {eventPending && eventPending.status === 'Pending' && (
         <div className='flex justify-end gap-x-6 fixed bottom-0 right-0 p-5 bg-slate-100 w-full z-20'>
-          <Button
-            type='button'
-            classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
-            onClick={handleRejectRequestEvent}
-          >
-            Từ chối
-          </Button>
-          <Button
-            type='submit'
-            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
-            onClick={handleApproveRequestEvent}
-          >
-            Chấp thuận
-          </Button>
+          <Restricted to={'ServeSync.Permissions.Events.RejectRegistration'}>
+            <Button
+              type='button'
+              classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
+              onClick={handleRejectRequestEvent}
+            >
+              Từ chối
+            </Button>
+          </Restricted>
+          <Restricted to={'ServeSync.Permissions.Events.ApproveRegistration'}>
+            <Button
+              type='button'
+              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
+              onClick={handleApproveRequestEvent}
+            >
+              Chấp thuận
+            </Button>
+          </Restricted>
         </div>
       )}
     </Fragment>
