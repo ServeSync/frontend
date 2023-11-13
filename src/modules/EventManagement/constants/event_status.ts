@@ -20,8 +20,8 @@ export const StatusToMessage = (status: string) => {
     Expired: 'Đã hết hạn',
     Pending: 'Đang kiểm duyệt',
     Rejected: 'Bị hủy',
-    Attendance: 'Đang điểm danh',
-    Registration: 'Đã đăng kí',
+    Attendance: 'Đang trong thời gian điểm danh',
+    Registration: 'Đang trong thời gian đăng ký',
     Upcoming: 'Sắp diễn ra',
     Approved: 'Đã duyệt',
     ClosedRegistration: 'Đã đóng đăng kí'

@@ -48,8 +48,8 @@ const CardEvent = ({ event }: Props) => {
           <span className='font-normal leading-7 text-[#F85E9F] whitespace-nowrap break-words max-sm:text-[10px] max-md:text-[14px] text-[20px] lg:text-[23px] truncate'>
             {event.name}
           </span>
-          <div className='flex items-end justify-between gap-4 max-sm:text-[8px] text-[14px] lg:text-[16px] max-md:flex-col-reverse truncate'>
-            <div className='max-w-[80%] overflow-hidden'>
+          <div className='flex items-end justify-between gap-4 max-sm:text-[8px] text-[14px] lg:text-[16px] max-md:flex-col-reverse '>
+            <div className='max-w-[80%] '>
               <span className='line-clamp-1'>{event.introduction}</span>
             </div>
             <div className='flex items-center justify-center gap-1.5 font-normal'>

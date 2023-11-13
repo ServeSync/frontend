@@ -30,7 +30,7 @@ const Header = () => {
     <header className='w-full sticky top-0 h-[72px] border-[1px] bg-white shadow-bottom transition-all z-40'>
       <div className='w-full lg:max-w-full md:max-w-[786px] sm:max-w-[640px] flex items-center justify-between h-full px-6 overflow-hidden text-black'>
         <div className='font-semibold text-[18px] flex'>{HandleHeading(location[0])}</div>
-        <div className='flex items-center flex-shrink-0 gap-x-6'>
+        <div className='flex items-center flex-shrink-0 gap-x-6'> 
           <div className='relative flex items-center gap-3'>
             <Button type='button' classNameButton='relative'>
               <div className='rounded-md flex items-center'>
