@@ -15,6 +15,9 @@ const eventOrganizationAPI = {
 
   getListContactsByOrganizationId: (id: string) => http.get<ContactsListType>(`/event-organizations/${id}/contacts`),
 
+  createEventOrganization: (body: EventOrganizationForm) =>
+    http.post<EventOrganizationType>('/event-organizations', body),
+
   editEventOrganization: (body: { id: string; data: EventOrganizationForm }) =>
     http.put(`/event-organizations/${body.id}`, body.data),
 

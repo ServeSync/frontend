@@ -95,7 +95,7 @@ const EditEventOrganizationForm = ({
                     <div>
                       <TextField
                         id='description'
-                        label='Mô tả sự kiện'
+                        label='Mô tả nhà tổ chức sự kiện'
                         value={value}
                         placeholder='Nhập mô tả'
                         className='w-full bg-white'

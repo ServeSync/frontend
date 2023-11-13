@@ -34,6 +34,9 @@ const EditEventPage = lazy(() => import('src/modules/EventManagement/pages/EditE
 const EventPending = lazy(() => import('src/modules/EventManagement/pages/EventPending/EventPendingPage'))
 const EditEventPendingPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPendingPage'))
 const EventOrganizationPage = lazy(() => import('src/modules/EventOrganizationManagement/pages/EventOrganizationPage'))
+const CreateOrganizationPage = lazy(
+  () => import('src/modules/EventOrganizationManagement/pages/CreateEventOrganizationPage')
+)
 const EditEventOrganizationPage = lazy(
   () => import('src/modules/EventOrganizationManagement/pages/EditEventOrganizationPage')
 )
@@ -292,6 +295,16 @@ const useRouteElements = () => {
                 <Restricted to={'ServeSync.Permissions.EventOrganizations.View'} fallback={<NotAllowed />}>
                   <EventOrganizationPage />
                 </Restricted>
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.create_organization,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <CreateOrganizationPage />
               </Suspense>
             </MainLayout>
           )

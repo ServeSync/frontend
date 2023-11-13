@@ -8,12 +8,12 @@ import eventOrganizationAPI from './event_organization.api'
 class EditEventOrganizationCommandHandler {
   private _queryClient
   private _uploadImageMutation
-  private _editStudentMuation
+  private _editEventOrganizationMutation
 
   constructor() {
     this._queryClient = useQueryClient()
     this._uploadImageMutation = useMutation(imageAPI.uploadImage)
-    this._editStudentMuation = useMutation({
+    this._editEventOrganizationMutation = useMutation({
       mutationFn: (body: { id: string; data: FormEventOrganizationType }) =>
         eventOrganizationAPI.editEventOrganization(body)
     })
@@ -31,7 +31,7 @@ class EditEventOrganizationCommandHandler {
       const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
       body.data.imageUrl = uploadImageResponse.data.url
     }
-    return this._editStudentMuation.mutate(body, {
+    return this._editEventOrganizationMutation.mutate(body, {
       onSuccess: () => {
         this._queryClient.invalidateQueries({
           queryKey: ['event_organization']
@@ -48,7 +48,7 @@ class EditEventOrganizationCommandHandler {
   }
 
   isLoading() {
-    return this._uploadImageMutation.isLoading || this._editStudentMuation.isLoading
+    return this._uploadImageMutation.isLoading || this._editEventOrganizationMutation.isLoading
   }
 }
 export { EditEventOrganizationCommandHandler }

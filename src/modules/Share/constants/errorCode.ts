@@ -158,8 +158,16 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Hoạt động sự kiện không tồn tại !',
       type: 'Server'
     },
+    'EventOrganization:000002': {
+      message: 'Email này đã được đăng ký bởi tổ chức khác',
+      type: 'Server'
+    },
     'EventOrganization:000003': {
       message: 'Nhà tổ chức hiện đang tổ chức một sự kiện ',
+      type: 'Server'
+    },
+    'EventOrganization:000004': {
+      message: 'Tên nhà tổ chức sự kiện đã tồn tại',
       type: 'Server'
     }
   }

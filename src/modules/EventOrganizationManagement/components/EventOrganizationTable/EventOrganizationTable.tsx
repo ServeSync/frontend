@@ -39,17 +39,17 @@ const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onS
           : organizers &&
             organizers.data.map((organizer) => (
               <tr
-                className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
+                className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50 truncate'
                 key={organizer.id}
                 onClick={() => onEditOrganization(organizer.id)}
               >
-                <th className='px-2 py-4 font-medium w-[25%] flex items-center gap-3'>
+                <th className='px-2 py-4 font-medium w-[40%] flex items-center gap-3'>
                   <img src={organizer.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
-                  <span>{organizer.name}</span>
+                  <span className='whitespace-nowrap '>{organizer.name}</span>
                 </th>
-                <th className='px-2 py-4 font-medium w-[25%]'>{organizer.email}</th>
-                <th className='px-2 py-4 font-medium w-[25%]'>{organizer.phoneNumber}</th>
-                <th className='px-2 py-4 font-medium w-[25%] truncate'>{organizer.address}</th>
+                <th className='px-2 py-4 font-medium w-[20%]'>{organizer.email}</th>
+                <th className='px-2 py-4 font-medium w-[20%]'>{organizer.phoneNumber}</th>
+                <th className='px-2 py-4 font-medium overflow-hidden'>{organizer.address}</th>
               </tr>
             ))}
       </tbody>

@@ -10,7 +10,8 @@ import path from 'src/modules/Share/constants/path'
 import Pagination from 'src/modules/Share/components/Pagination'
 import useQueryOrganizationConfig from '../../hooks/useQueryOrganizationConfig'
 import EventOrganizationTable from '../../components/EventOrganizationTable'
-import { createSearchParams, useNavigate } from 'react-router-dom'
+import { Link, createSearchParams, useNavigate } from 'react-router-dom'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 const EventOrganizationPage = () => {
   const FilterOrganizerForm = useForm<FormFilterOrganizerType>({
@@ -49,11 +50,20 @@ const EventOrganizationPage = () => {
           <form>
             <InputSearch
               classNameInput='bg-white border-[1px] border-gray-200 rounded-md h-[44px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
-              placeholder='Tìm kiếm sinh viên'
+              placeholder='Tìm kiếm nhà tổ chức'
               name='search'
               register={FilterOrganizerForm.register}
             />
           </form>
+          <Restricted to='ServeSync.Permissions.EventOrganizations.Create'>
+            <Link
+              to={path.create_organization}
+              state={queryOrganizationConfig}
+              className='flex items-center text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
+            >
+              Thêm nhà tổ chức
+            </Link>
+          </Restricted>
         </div>
       </div>
       <EventOrganizationTable
