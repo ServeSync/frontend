@@ -8,10 +8,10 @@ import { RegisteredStudentsListType } from '../../interfaces'
 class GetRegisteredStudentsQuery {
   private _query
 
-  constructor(id: string) {
+  constructor(id: string, page: number) {
     this._query = useQuery({
-      queryKey: ['registered_students', id],
-      queryFn: () => eventAPI.getRegisteredStudents(id),
+      queryKey: ['registered_students', id, page],
+      queryFn: () => eventAPI.getRegisteredStudents(id, page),
       enabled: id !== undefined,
       staleTime: 3 * 60 * 1000,
       onError: (error: any) => {

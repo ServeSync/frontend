@@ -64,25 +64,31 @@ const CreateEventPage = () => {
   const createEventCommandHandler = new CreateEventCommandHandler()
 
   const handleSubmitForm = handleSubmit((data) => {
-    const body = {
-      ...data,
-      ..._.omit(data, 'categoryId'),
-      roles: dataEventRole,
-      organizations: dataEventOrganization
-    } as FormEvent
-    createEventCommandHandler.handle(
-      body,
-      file as File,
-      () => {
-        toast.success('Thêm sự kiện thành công !')
-        navigate({
-          pathname: path.event
-        })
-      },
-      (error: any) => {
-        handleError<FormEventType>(error, setError)
-      }
-    )
+    if (dataEventRole.length === 0) {
+      setError('roles', { message: 'Sự kiện có ít nhất 1 vai trò !' })
+    } else if (dataEventOrganization.some((item) => item.organizationReps.length === 0)) {
+      setError('organizations.organizationReps', { message: 'Ban tổ chức có ít nhất 1 nhà đại diện !' })
+    } else {
+      const body = {
+        ...data,
+        ..._.omit(data, 'categoryId'),
+        roles: dataEventRole,
+        organizations: dataEventOrganization
+      } as FormEvent
+      createEventCommandHandler.handle(
+        body,
+        file as File,
+        () => {
+          toast.success('Thêm sự kiện thành công !')
+          navigate({
+            pathname: path.event
+          })
+        },
+        (error: any) => {
+          handleError<FormEventType>(error, setError)
+        }
+      )
+    }
   })
 
   const onIsSuccess = () => {
@@ -160,6 +166,7 @@ const CreateEventPage = () => {
                 page={page}
                 index={2}
                 control={control}
+                errors={errors}
                 getValues={getValues}
                 setValue={setValue}
                 setDataEventOrganization={setDataEventOrganization}

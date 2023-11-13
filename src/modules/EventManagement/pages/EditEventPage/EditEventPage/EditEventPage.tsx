@@ -7,13 +7,7 @@ import { useForm, useFieldArray } from 'react-hook-form'
 import _ from 'lodash'
 import { EventOrganizationFormType, EventRole, FormEvent } from '../../../interfaces'
 import { FormEventSchema, FormEventType } from '../../../utils'
-import {
-  ApproveEventCommandHandler,
-  CancelEventCommandHandler,
-  GetAttendanceStudentsQuery,
-  GetEventByIdQuery,
-  GetRegisteredStudentsQuery
-} from '../../../services'
+import { ApproveEventCommandHandler, CancelEventCommandHandler, GetEventByIdQuery } from '../../../services'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import EditEvent from '../EditEvent/EditEvent'
 import EditEventRegistration from '../EditEventRegistration'
@@ -86,12 +80,6 @@ const EditEventPage = () => {
 
   const getEventByIdQuery = new GetEventByIdQuery(queryEventConfig.id as string)
   const event = getEventByIdQuery.fetch()
-
-  const getAttendanceStudentsQuery = new GetAttendanceStudentsQuery(queryEventConfig.id as string)
-  const attendanceStudents = getAttendanceStudentsQuery.fetch()
-
-  const getRegisteredStudentsQuery = new GetRegisteredStudentsQuery(queryEventConfig.id as string)
-  const registeredStudents = getRegisteredStudentsQuery.fetch()
 
   const cancelEventCommandHandler = new CancelEventCommandHandler()
 
@@ -257,14 +245,15 @@ const EditEventPage = () => {
                 index={2}
                 control={control}
                 getValues={getValues}
+                errors={errors}
                 setValue={setValue}
                 setDataEventOrganization={setDataEventOrganization}
                 event={event}
               />
               {event && event.status !== 'Pending' && (
                 <Fragment>
-                  <RegisteredStudentsList page={page} index={3} registeredStudents={registeredStudents} />
-                  <AttendanceStudentsList page={page} index={4} attendanceStudents={attendanceStudents} />
+                  <RegisteredStudentsList page={page} index={3} />
+                  <AttendanceStudentsList page={page} index={4} />
                 </Fragment>
               )}
             </Box>
@@ -296,10 +285,10 @@ const EditEventPage = () => {
               <Restricted to={'ServeSync.Permissions.Events.Cancel'}>
                 <Button
                   type='button'
-                  classNameButton='flex justify-center items-center bg-[#989899] w-[60px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+                  classNameButton='flex justify-center items-center bg-[#989899] w-[150px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
                   onClick={() => handleCancelEvent(event.id)}
                 >
-                  Hủy
+                  Hủy sự kiện
                 </Button>
               </Restricted>
               <Button

@@ -12,8 +12,9 @@ import { FormEventType, FormRegisterEventSchema, FormRegisterEventType } from 's
 import { yupResolver } from '@hookform/resolvers/yup'
 import { RegisterEventCommandHandler } from 'src/modules/EventManagement/services'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
+import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 
 interface Props {
   event: EventDetailType
@@ -45,6 +46,8 @@ const EventDetailModal = ({
 
   const navigate = useNavigate()
 
+  const queryEventConfig = useQueryEventConfig()
+
   const handleCloseModalRegisterEvent = () => {
     setIsOpenModalRegisterEvent(false)
   }
@@ -70,7 +73,8 @@ const EventDetailModal = ({
       () => {
         toast.success('Đăng kí sự kiện thành công !')
         navigate({
-          pathname: path.event_detail
+          pathname: path.event_detail,
+          search: createSearchParams(queryEventConfig.id).toString()
         })
       },
       (error: any) => {
@@ -83,9 +87,9 @@ const EventDetailModal = ({
     <Fragment>
       <ModalCustom isOpenModal={isOpenModalRegisterEvent} handleClose={handleCloseModalRegisterEvent}>
         <div className='bg-white p-10 rounded-xl w-[480px]'>
-          <form onSubmit={handleRegister}>
-            <div className='flex justify-between mb-8'>
-              <h2 className='font-semibold text-[18px]'>Đăng kí tham gia hoạt động</h2>
+          <form onSubmit={handleRegister} className='flex flex-col gap-4'>
+            <div className='flex justify-between'>
+              <h2 className='font-semibold text-[18px]'>Đơn đề nghị tham gia sự kiện</h2>
               <Button classNameButton='' onClick={handleCloseModalRegisterEvent}>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -103,21 +107,21 @@ const EventDetailModal = ({
               name='description'
               control={control}
               render={({ field: { onChange }, fieldState: { error } }) => (
-                <div>
+                <div className='flex flex-col gap-2'>
+                  <label htmlFor='description'>Lời giới thiệu</label>
                   <TextField
                     id='description'
-                    label='Tự giới thiệu'
                     placeholder='Kinh nghiệm...'
                     className='w-full bg-white'
                     onChange={onChange}
                     multiline
-                    rows={3}
+                    rows={4}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                 </div>
               )}
             />
-            <div className='flex mt-4 justify-end gap-4'>
+            <div className='flex justify-end'>
               <Button
                 type='submit'
                 classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'
@@ -165,25 +169,22 @@ const EventDetailModal = ({
                     <th className='px-2 py-4 font-medium'>{role.name}</th>
                     <th className='px-2 py-4 font-medium'>{Parser(role.description)}</th>
                     <th className='px-2 py-4 font-medium'>{role.quantity}</th>
-                    <th className='px-2 py-4 font-medium'>{role.registered}</th>
                     <th className='px-2 py-4 font-medium'>{role.score}</th>
+                    <th className='px-2 py-4 font-medium'>{role.registered}</th>
                     <th className='px-2 py-4 font-medium'>
-                      <input
-                        type='checkbox'
-                        defaultChecked={role.isNeedApprove === 'true'}
-                        disabled
-                        readOnly
-                        className='ml-12'
-                      />
+                      <input type='checkbox' defaultChecked={role.isNeedApprove} disabled readOnly className='ml-12' />
                     </th>
                     <th className='px-2 py-4 font-medium'>
-                      <Button
-                        type='button'
-                        classNameButton='bg-[#26C6DA] py-1 px-4 rounded-full text-[14px] text-white font-semibold'
-                        onClick={() => handleOpenModalRegisterEvent(role?.id as string)}
-                      >
-                        Đăng kí
-                      </Button>
+                      {(role.approvedRegistered as number) < Number(role?.quantity) &&
+                        (!role.isRegistered as boolean) && (
+                          <Button
+                            type='button'
+                            classNameButton='bg-[#26C6DA] py-1 px-4 rounded-full text-[14px] text-white font-semibold'
+                            onClick={() => handleOpenModalRegisterEvent(role?.id as string)}
+                          >
+                            Đăng kí
+                          </Button>
+                        )}
                     </th>
                   </tr>
                 ))}

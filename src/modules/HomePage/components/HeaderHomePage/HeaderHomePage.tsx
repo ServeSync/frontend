@@ -33,7 +33,7 @@ const LandingPageHeader = () => {
 
   return (
     <Fragment>
-      <header className='relative mx-auto w-[80%] h-auto flex justify-between items-center py-8 px-4 top-0 left-0 right-0 bg-transparent z-50'>
+      <header className='relative mx-auto w-[80%] h-auto flex justify-between items-center py-8 top-0 left-0 right-0 bg-transparent z-50'>
         <Link to={path.home_page} className='flex w-56 items-center gap-4 leading-10 font-serif mb-4'>
           <img src={logo} alt='logo-img' className='w-20 h-20' />
           <span className='font-semibold text-[36px] font-Pacifico text-[#26C6DA]'>ServeSync</span>

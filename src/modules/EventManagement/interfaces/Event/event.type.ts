@@ -121,11 +121,11 @@ export interface EventDetailType {
     {
       id?: string
       isRegistered?: boolean
-      registered?: string
-      approvedRegistered?: string
+      registered?: number
+      approvedRegistered?: number
       name: string
       description: string
-      isNeedApprove: string
+      isNeedApprove: boolean
       score: string
       quantity: string
     }

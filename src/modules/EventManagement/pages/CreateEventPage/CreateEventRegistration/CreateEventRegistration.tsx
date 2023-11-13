@@ -53,6 +53,7 @@ const CreateEventRegistration = ({
             control={control}
             getValues={getValues}
             setValue={setValue}
+            errors={errors}
             resetField={resetField}
             dataEventRole={dataEventRole}
             setDataEventRole={setDataEventRole}

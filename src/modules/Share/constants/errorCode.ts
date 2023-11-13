@@ -75,15 +75,23 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server'
     },
     'Student:000009': {
-      message: 'Bạn đã điểm danh tham gia sự kiện!',
+      message: 'Bạn đã điểm danh tham gia sự kiện !',
       type: 'Server'
     },
     'Student:000010': {
-      message: 'Bạn chưa đăng ký tham gia sự kiện!',
+      message: 'Bạn chưa đăng ký tham gia sự kiện !',
       type: 'Server'
     },
     'Student:000011': {
-      message: 'Bạn không ở trong vùng diễn ra sự kiện!',
+      message: 'Bạn không ở trong vùng diễn ra sự kiện !',
+      type: 'Server'
+    },
+    'Student:000012': {
+      message: 'Đơn xin đăng ký tham gia sự kiện không ở trạng thái kiểm duyệt !',
+      type: 'Server'
+    },
+    'Student:000013': {
+      message: 'Đơn xin đăng ký không tồn tại !',
       type: 'Server'
     },
     'Faculty:000002': {

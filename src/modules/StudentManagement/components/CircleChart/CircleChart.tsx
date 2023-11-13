@@ -18,7 +18,9 @@ const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
       {
         data: [
           educationProgramResult?.gainScore,
-          educationProgramResult?.requiredActivityScore - educationProgramResult?.gainScore
+          educationProgramResult?.requiredActivityScore > educationProgramResult?.gainScore
+            ? educationProgramResult?.requiredActivityScore - educationProgramResult?.gainScore
+            : 0
         ],
         backgroundColor: ['#296EF0', '#EBEBEB'],
         borderColor: ['#296EF0', '#EBEBEB'],
@@ -39,7 +41,10 @@ const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
       ctx.fillText(
-        `${((educationProgramResult?.gainScore * 100) / educationProgramResult?.requiredActivityScore).toFixed(1)}%`,
+        `${(educationProgramResult?.gainScore < educationProgramResult?.requiredActivityScore
+          ? (educationProgramResult?.gainScore * 100) / educationProgramResult?.requiredActivityScore
+          : 100
+        ).toFixed(1)}%`,
         xCoor,
         yCoor
       )
@@ -49,19 +54,20 @@ const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
 
   return (
     <Fragment>
-      <div className='flex items-center'>
+      <div className='grid grid-cols-4 gap-6'>
         <div className='col-span-1'>
           {isLoading ? (
-            <Skeleton />
+            <Skeleton className='h-[160px]' />
           ) : (
             <Doughnut
               data={chartData}
+              className='h-[160px]'
               options={{ maintainAspectRatio: false, cutout: '70%', responsive: true }}
               plugins={[drawMiddleTextPlugin]}
             />
           )}
         </div>
-        <div className='col-span-5 flex flex-col pl-6 text-[14px]'>
+        <div className='col-span-3 flex flex-col text-[14px] mt-6'>
           <div className='flex leading-7'>
             <div className='flex justify-between w-[200px]'>
               <span>Hệ đào tạo</span>
