@@ -70,7 +70,7 @@ const EventDetailModal = ({
       () => {
         toast.success('Đăng kí sự kiện thành công !')
         navigate({
-          pathname: path.event_detail
+          pathname: path.list_events
         })
       },
       (error: any) => {

@@ -1,10 +1,10 @@
 export interface ContactsListType {
   total: number
   totalPages: number
-  data: ContactType[]
+  data: RepresentativeType[]
 }
 
-export interface ContactType {
+export interface RepresentativeType {
   id: string
   name: string
   imageUrl: string
@@ -13,5 +13,18 @@ export interface ContactType {
   position: string
   address: string
   role: string
+  organizationRepId: string
+}
+
+export interface ContactType {
+  id: string
+  name: string
+  imageUrl: string
+  gender: string
+  birth: string
+  email: string
+  phoneNumber: string
+  position: string
+  address: string
   organizationRepId: string
 }

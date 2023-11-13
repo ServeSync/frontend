@@ -27,12 +27,8 @@ const ListEvent = ({ events, pageSize }: Props) => {
   const [scrolled, setScrolled] = useState(true)
 
   useEffect(() => {
-    if (scrolled) {
-      window.scrollTo(0, 0)
-      setScrolled(false)
-    } else {
-      window.scrollTo(0, 400)
-    }
+    window.scrollTo(0, 0)
+    setScrolled(false)
   }, [events, scrolled])
 
   const FilterEventForm = useForm<FormFilterEventType>({
