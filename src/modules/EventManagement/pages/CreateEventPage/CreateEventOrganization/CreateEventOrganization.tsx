@@ -1,4 +1,4 @@
-import { Control, UseFormGetValues, UseFormSetValue } from 'react-hook-form'
+import { Control, UseFormGetValues, UseFormSetValue, FieldErrors } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import {
   EventOrganizationFormType,
@@ -15,14 +15,23 @@ interface Props {
   page: number
   index: number
   control: Control<FormEventType>
+  errors: FieldErrors<FormEventType>
   getValues: UseFormGetValues<FormEventType>
   setValue: UseFormSetValue<FormEventType>
   setDataEventOrganization: React.Dispatch<React.SetStateAction<EventOrganizationFormType[]>>
 }
 
-const CreateEventOrganization = ({ page, index, control, getValues, setValue, setDataEventOrganization }: Props) => {
+const CreateEventOrganization = ({
+  page,
+  index,
+  control,
+  errors,
+  getValues,
+  setValue,
+  setDataEventOrganization
+}: Props) => {
   const [listEventOrganizationsAdded, setListEventOrganizationsAdded] = useState<EventOrganizationType[]>([])
-  const [errors, setErrors] = useState<string>('')
+  const [errorsLocal, setErrorsLocal] = useState<string>('')
 
   const [representatives, setRepresentatives] = useState<EventOrganizationType[]>([])
 
@@ -56,9 +65,9 @@ const CreateEventOrganization = ({ page, index, control, getValues, setValue, se
     const role = { ...getValues('organizations') }.role as string
     if (role && role !== '' && id && id !== '') {
       if (role.length < 5) {
-        setErrors('Vai trò đại diện ít nhất 5 kí tự')
+        setErrorsLocal('Vai trò đại diện ít nhất 5 kí tự')
       } else if (listEventOrganizationsAdded.some((item) => item.id === id)) {
-        setErrors('Ban tổ chức đã được thêm vào sự kiện !')
+        setErrorsLocal('Ban tổ chức đã được thêm vào sự kiện !')
       } else {
         const eventOrganization = eventOrganizations.data.find((item) => item.id === id) as EventOrganizationType
         const body = {
@@ -69,14 +78,14 @@ const CreateEventOrganization = ({ page, index, control, getValues, setValue, se
         setListEventOrganizationsAdded([...listEventOrganizationsAdded, body])
         setValue('organizations.organizationId', undefined)
         setValue('organizations.role', '')
-        setErrors('')
+        setErrorsLocal('')
         setRepresentatives([
           ...representatives,
           eventOrganizations && (eventOrganizations.data.find((item) => item.id === id) as EventOrganizationType)
         ])
       }
     } else {
-      setErrors('Vui lòng nhập đầy đủ thông tin !')
+      setErrorsLocal('Vui lòng nhập đầy đủ thông tin !')
     }
   }
 
@@ -113,6 +122,7 @@ const CreateEventOrganization = ({ page, index, control, getValues, setValue, se
             representatives={representatives}
             eventOrganizations={eventOrganizations && eventOrganizations.data}
             handleAddEventOrganization={handleAddEventOrganization}
+            errorsLocal={errorsLocal}
             errors={errors}
           />
         </div>

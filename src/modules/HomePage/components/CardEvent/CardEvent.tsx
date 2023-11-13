@@ -3,7 +3,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
 import classNames from 'classnames'
-import { formatDateTime } from 'src/modules/Share/utils'
+import { formatDateTimeVN } from 'src/modules/Share/utils'
 import { StatusToMessage } from 'src/modules/EventManagement/constants'
 
 interface Props {
@@ -111,9 +111,9 @@ const CardEvent = ({ event }: Props) => {
                 />
               </svg>
               <div className='flex items-center gap-2 text-[#A0A2A4] font-normal leading-4 break-words  max-sm:text-[10px] text-[13px] lg:text-[15px]'>
-                <span>{formatDateTime(event.startAt)}</span>
+                <span>{formatDateTimeVN(event.startAt)}</span>
                 <span>-</span>
-                <span>{formatDateTime(event.endAt)}</span>
+                <span>{formatDateTimeVN(event.endAt)}</span>
               </div>
             </div>
             <div className='flex justify-between items-center'>

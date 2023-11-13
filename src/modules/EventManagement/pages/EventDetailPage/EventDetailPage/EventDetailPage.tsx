@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import { Box, Tab, Tabs } from '@mui/material'
 import useQueryEventConfig from '../../../hooks/useQueryEventConfig'
-import { GetAttendanceStudentsQuery, GetEventByIdQuery, GetRegisteredStudentsQuery } from '../../../services'
+import { GetEventByIdQuery } from '../../../services'
 import { formatDateTime } from 'src/modules/Share/utils'
 import LandingPageHeader from 'src/modules/HomePage/components/HeaderHomePage/HeaderHomePage'
 import { LocationType } from 'src/modules/EventManagement/interfaces'
@@ -91,12 +91,6 @@ const EventDetailPage = () => {
   const getEventQuery = new GetEventByIdQuery(queryEventConfig.id as string)
   const event = getEventQuery.fetch()
 
-  const getRegisteredStudentsQuery = new GetRegisteredStudentsQuery(queryEventConfig.id as string)
-  const registeredStudents = getRegisteredStudentsQuery.fetch()
-
-  const getAttendanceStudentsQuery = new GetAttendanceStudentsQuery(queryEventConfig.id as string)
-  const attendanceStudents = getAttendanceStudentsQuery.fetch()
-
   const [mapImageURL, setMapImageURL] = useState<string | null>(null)
 
   const center: LocationType = {
@@ -120,7 +114,7 @@ const EventDetailPage = () => {
         <LandingPageHeader />
         {event && (
           <div className='relative bg-white h-full pb-[100px] mx-auto'>
-            <div className='flex mb-10 px-[120px] justify-between'>
+            <div className='flex mb-10 px-[10%] justify-between'>
               <div className='flex flex-col'>
                 <h1 className='text-[54px] font-semibold break-words text-[#195E8E]'>{event.name}</h1>
                 <h2 className='text-black text-[25px] font-medium break-words'>{event.introduction}</h2>
@@ -157,19 +151,19 @@ const EventDetailPage = () => {
                     <span></span>
                   )
                 ) : (
-                  <span className='inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20'>
+                  <span className='inline-flex items-center bg-green-50 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20 px-4 py-2 rounded-full'>
                     Đã đăng ký.
                   </span>
                 )}
               </div>
             </div>
-            <div className='relative mb-[200px] px-[120px]'>
+            <div className='relative mb-[200px] px-[10%]'>
               <img
                 src={event?.imageUrl}
                 alt=''
                 className='w-full min-h-[500px] max-h-[600px] rounded-3xl max-w-full object-cover'
               />
-              <div className='bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[80%] absolute right-0 left-0 mx-auto bottom-[-160px] grid grid-cols-3 px-10 py-8 rounded-2xl gap-4'>
+              <div className='bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[70%] absolute right-0 left-0 mx-auto bottom-[-160px] grid grid-cols-3 px-10 py-8 rounded-2xl gap-4'>
                 <div className='col-span-1 flex flex-col gap-4'>
                   <div className='flex gap-2'>
                     <svg
@@ -340,7 +334,7 @@ const EventDetailPage = () => {
                 </div>
               </div>
             </div>
-            <div className='w-full h-full bg-[#F4F4F4] grid px-[120px] py-6 grid-cols-4 mb-[50px]'>
+            <div className='w-full h-full bg-[#F4F4F4] grid px-[10%] py-6 grid-cols-4 mb-[50px]'>
               <div className='flex flex-col justify-center items-center col-span-1'>
                 <div className='font-semibold text-[30px] break-words'>{event.roles.length}</div>
                 <div className='text-[20px] font-normal'>Vai trò khác nhau</div>
@@ -370,7 +364,7 @@ const EventDetailPage = () => {
               isOpenModalAttendanceInfos={isOpenModalAttendanceInfos}
               handleCloseModalAttendanceInfos={handleCloseModalAttendanceInfos}
             />
-            <div className='w-full h-full px-[120px] overflow-hidden'>
+            <div className='w-full h-full px-[10%] overflow-hidden'>
               <Box>
                 <Box>
                   <Tabs
@@ -402,8 +396,8 @@ const EventDetailPage = () => {
                 <Box className='mt-6'>
                   <EventDetailInformationPage event={event} page={page} index={0} />
                   <EventDetailOrganizationPage event={event} page={page} index={1} />
-                  <EventDetailRegisterListPage page={page} index={2} registeredStudents={registeredStudents} />
-                  <EventDetailAttendanceListPage page={page} index={3} attendanceStudents={attendanceStudents} />
+                  <EventDetailRegisterListPage page={page} index={2} />
+                  <EventDetailAttendanceListPage page={page} index={3} />
                 </Box>
               </Box>
             </div>

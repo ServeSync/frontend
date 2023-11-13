@@ -19,6 +19,7 @@ class GetAttendanceStudentsQuery {
       }
     })
   }
+
   fetch() {
     return this._query.data?.data as AttendanceStudentsListType
   }

@@ -1,4 +1,4 @@
-import { Control, Controller, UseFormGetValues, UseFormResetField, UseFormSetValue } from 'react-hook-form'
+import { Control, Controller, UseFormGetValues, UseFormResetField, UseFormSetValue, FieldErrors } from 'react-hook-form'
 import { Fragment, useEffect, useState } from 'react'
 import { Autocomplete, TextField } from '@mui/material'
 import Button from 'src/modules/Share/components/Button'
@@ -15,6 +15,7 @@ import Parser from 'html-react-parser'
 interface Props {
   control: Control<FormEventType>
   getValues: UseFormGetValues<FormEventType>
+  errors: FieldErrors<FormEventType>
   resetField: UseFormResetField<FormEventType>
   setValue: UseFormSetValue<FormEventType>
   dataEventRole: EventRole[]
@@ -25,6 +26,7 @@ interface Props {
 const RegisterEventRoleForm = ({
   control,
   getValues,
+  errors,
   resetField,
   setValue,
   dataEventRole,
@@ -39,7 +41,7 @@ const RegisterEventRoleForm = ({
   }
 
   const [index, setIndex] = useState<number>(0)
-  const [errors, setErrors] = useState<string>('')
+  const [errorsLocal, setErrorsLocal] = useState<string>('')
 
   useEffect(() => {
     event && setDataEventRole(event.roles)
@@ -50,7 +52,7 @@ const RegisterEventRoleForm = ({
     setIndex(index)
     const data = [...dataEventRole]
     setValue('roles.name', data[index].name)
-    setValue('roles.isNeedApprove', data[index].isNeedApprove)
+    setValue('roles.isNeedApprove', data[index].isNeedApprove.toString())
     setValue('roles.quantity', data[index].quantity)
     setValue('roles.score', data[index].score)
     const blocksFromHTML = convertFromHTML(data[index].description as string)
@@ -63,7 +65,7 @@ const RegisterEventRoleForm = ({
   const handleSubmit = () => {
     const role = {
       name: { ...getValues('roles') }.name as string,
-      isNeedApprove: { ...getValues('roles') }.isNeedApprove as string,
+      isNeedApprove: Boolean({ ...getValues('roles') }.isNeedApprove),
       description: draftToHtml(convertToRaw(description.getCurrentContent())),
       quantity: ({ ...getValues('roles') }.quantity as string).replace(/^0+/, ''),
       score: ({ ...getValues('roles') }.score as string).replace(/^0+/, '')
@@ -73,13 +75,13 @@ const RegisterEventRoleForm = ({
     isEditEventRole ? eventRoles.splice(index, 1) : eventRoles
     if (role.description && role.isNeedApprove && role.name && role.quantity && role.score) {
       if (role.name.length < 5) {
-        setErrors('Tên vài trò ít nhất 5 kí tự !')
+        setErrorsLocal('Tên vài trò ít nhất 5 kí tự !')
       } else if (role.description.length <= 10) {
-        setErrors('Mô tả vài trò ít nhất 10 kí tự !')
+        setErrorsLocal('Mô tả vài trò ít nhất 10 kí tự !')
       } else if (eventRoles.some((item) => item.name === role.name)) {
-        setErrors('Vai trò đã tồn tại !')
+        setErrorsLocal('Vai trò đã tồn tại !')
       } else if (!regexNumber.test(role.quantity) || !regexNumber.test(role.score)) {
-        setErrors('Vui lòng nhập số lượng và điểm là số dương !')
+        setErrorsLocal('Vui lòng nhập số lượng và điểm là số dương !')
       } else {
         if (isEditEventRole) {
           const data = [...dataEventRole]
@@ -89,12 +91,12 @@ const RegisterEventRoleForm = ({
         } else {
           setDataEventRole([...dataEventRole, role])
         }
-        setErrors('')
+        setErrorsLocal('')
         reset()
         setDescription(EditorState.createEmpty())
       }
     } else {
-      setErrors('Vui lòng nhập đầy đủ dữ liệu !')
+      setErrorsLocal('Vui lòng nhập đầy đủ dữ liệu !')
     }
   }
 
@@ -153,13 +155,7 @@ const RegisterEventRoleForm = ({
                   <th className='px-2 py-4 font-medium w-[8%]'>{item.quantity}</th>
                   <th className='px-2 py-4 font-medium w-[4%]'>{item.score}</th>
                   <th className='px-2 py-4 font-medium w-[12%]'>
-                    <input
-                      type='checkbox'
-                      defaultChecked={item.isNeedApprove === 'true'}
-                      disabled
-                      readOnly
-                      className='ml-12'
-                    />
+                    <input type='checkbox' defaultChecked={item.isNeedApprove} disabled readOnly className='ml-12' />
                   </th>
                   <th className='px-2 py-4 font-medium w-[10%]'>
                     <div>
@@ -294,7 +290,10 @@ const RegisterEventRoleForm = ({
                 placeholder='Nhập mô tả vai trò'
               />
             </div>
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors}</span>
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errorsLocal}</span>
+            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+              {errors && errors.roles?.message}
+            </span>
           </div>
           <div className='flex justify-end col-span-12 gap-4'>
             {isEditEventRole && (

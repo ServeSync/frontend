@@ -36,7 +36,8 @@ const eventAPI = {
       }
     }),
 
-  getRegisteredStudents: (id: string) => http.get<RegisteredStudentsListType>(`/events/${id}/registered-students`),
+  getRegisteredStudents: (id: string, page: number) =>
+    http.get<RegisteredStudentsListType>(`/events/${id}/registered-students`, { params: { page } }),
 
   getAttendanceStudents: (id: string) => http.get<AttendanceStudentsListType>(`/events/${id}/attendance-students`)
 }

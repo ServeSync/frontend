@@ -14,7 +14,7 @@ const EventsOfStudentTable = ({ events, isLoading }: Props) => {
       <thead className='bg-[#f7f8f9] border-[1px] border-gray-200'>
         <tr className='text-[14px] text-gray-600'>
           {EventsOfStudentTableHeader.map((item) => (
-            <th className='px-4 py-2 font-medium cursor-pointer' key={item.id}>
+            <th className='px-2 py-2 font-medium cursor-pointer' key={item.id}>
               <span>{item.name}</span>
             </th>
           ))}
@@ -26,14 +26,14 @@ const EventsOfStudentTable = ({ events, isLoading }: Props) => {
             key={index}
             className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
           >
-            <th className='px-4 py-4 font-medium'>{index + 1}</th>
-            <th className='py-4 font-medium'>{event.name}</th>
-            <th className='py-4 font-medium'>{event.representativeOrganization.name}</th>
-            <th className='py-4 font-medium'>{formatDateTime(event.startAt)}</th>
-            <th className='py-4 font-medium'>{formatDateTime(event.endAt)}</th>
-            <th className='py-4 font-medium'>{event.role}</th>
-            <th className='py-4 font-medium'>{event.score}</th>
-            <th className='py-4 font-medium'>{formatDateTime(event.attendanceAt)}</th>
+            <th className='px-2 py-4 font-medium'>{index + 1}</th>
+            <th className='px-2 py-4 font-medium'>{event.name}</th>
+            <th className='px-2 py-4 font-medium'>{event.representativeOrganization.name}</th>
+            <th className='px-2 py-4 font-medium'>{formatDateTime(event.startAt)}</th>
+            <th className='px-2 py-4 font-medium'>{formatDateTime(event.endAt)}</th>
+            <th className='px-2 py-4 font-medium'>{event.role}</th>
+            <th className='px-2 py-4 font-medium'>{event.score}</th>
+            <th className='px-2 py-4 font-medium'>{formatDateTime(event.attendanceAt)}</th>
           </tr>
         ))}
         {isLoading &&
@@ -44,28 +44,28 @@ const EventsOfStudentTable = ({ events, isLoading }: Props) => {
                 key={index}
                 className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
               >
-                <th className='px-4 py-4 font-medium'>
+                <th className='px-2 py-4 font-medium'>
                   <Skeleton />
                 </th>
-                <th className='py-4 font-medium'>
+                <th className='px-2 py-4 font-medium'>
                   <Skeleton />
                 </th>
-                <th className='py-4 font-medium'>
+                <th className='px-2 py-4 font-medium'>
                   <Skeleton />
                 </th>
-                <th className='py-4 font-medium'>
+                <th className='px-2 py-4 font-medium'>
                   <Skeleton />
                 </th>
-                <th className='py-4 font-medium'>
+                <th className='px-2 py-4 font-medium'>
                   <Skeleton />
                 </th>
-                <th className='py-4 font-medium'>
+                <th className='px-2 py-4 font-medium'>
                   <Skeleton />
                 </th>
-                <th className='py-4 font-medium'>
+                <th className='px-2 py-4 font-medium'>
                   <Skeleton />
                 </th>
-                <th className='py-4 font-medium'>
+                <th className='px-2 py-4 font-medium'>
                   <Skeleton />
                 </th>
               </tr>

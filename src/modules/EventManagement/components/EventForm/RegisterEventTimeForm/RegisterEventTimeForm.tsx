@@ -76,7 +76,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                   {index === 0 ? (
                     <Button
                       type='button'
-                      classNameButton='flex items-center justify-center mb-4 border-[1px] border-gray-300 hover:bg-slate-200 h-[56px] w-[56px] rounded-lg'
+                      classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                       onClick={() => FieldRegistration.append({ startAt: '', endAt: '' })}
                     >
                       <svg
@@ -93,7 +93,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                   ) : (
                     <Button
                       type='button'
-                      classNameButton='flex items-center justify-center mb-4 border-[1px] border-gray-300 hover:bg-slate-200 h-[56px] w-[56px] rounded-lg'
+                      classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                       onClick={() => FieldRegistration.remove(index)}
                     >
                       <svg
@@ -164,7 +164,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                     {index === 0 ? (
                       <Button
                         type='button'
-                        classNameButton='flex items-center justify-center mb-4 border-[1px] border-gray-300 hover:bg-slate-200 h-[56px] w-[56px] rounded-lg'
+                        classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                         onClick={() => FieldRegistration.append({ startAt: '', endAt: '' })}
                       >
                         <svg
@@ -181,7 +181,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                     ) : (
                       <Button
                         type='button'
-                        classNameButton='flex items-center justify-center mb-4 border-[1px] border-gray-300 hover:bg-slate-200 h-[56px] w-[56px] rounded-lg'
+                        classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                         onClick={() => FieldRegistration.remove(index)}
                       >
                         <svg
@@ -257,7 +257,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                   {index === 0 ? (
                     <Button
                       type='button'
-                      classNameButton='flex items-center justify-center mb-4 border-[1px] border-gray-300 hover:bg-slate-200 h-[56px] w-[56px] rounded-lg'
+                      classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                       onClick={() => FieldAttendance.append({ startAt: '', endAt: '' })}
                     >
                       <svg
@@ -274,7 +274,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                   ) : (
                     <Button
                       type='button'
-                      classNameButton='flex items-center justify-center mb-4 border-[1px] border-gray-300 hover:bg-slate-200 h-[56px] w-[56px] rounded-lg'
+                      classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                       onClick={() => FieldAttendance.remove(index)}
                     >
                       <svg
@@ -344,7 +344,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                     {index === 0 ? (
                       <Button
                         type='button'
-                        classNameButton='flex items-center justify-center mb-4 border-[1px] border-gray-300 hover:bg-slate-200 h-[56px] w-[56px] rounded-lg'
+                        classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                         onClick={() => FieldAttendance.append({ startAt: '', endAt: '' })}
                       >
                         <svg
@@ -361,7 +361,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                     ) : (
                       <Button
                         type='button'
-                        classNameButton='flex items-center justify-center mb-4 border-[1px] border-gray-300 hover:bg-slate-200 h-[56px] w-[56px] rounded-lg'
+                        classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                         onClick={() => FieldAttendance.remove(index)}
                       >
                         <svg

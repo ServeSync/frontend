@@ -12,6 +12,8 @@ export interface RegisteredStudentsType {
   name: string
   email: string
   phone: string
+  description: string
+  rejectReason: string
   status: string
   imageUrl: string
   homeRoomName: string

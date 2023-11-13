@@ -1,4 +1,4 @@
-import { Controller, Control } from 'react-hook-form'
+import { Controller, Control, FieldErrors } from 'react-hook-form'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
@@ -11,7 +11,8 @@ interface Props {
   representatives: EventOrganizationType[]
   eventOrganizations: EventOrganizationType[]
   handleAddEventOrganization: () => void
-  errors: string
+  errorsLocal: string
+  errors: FieldErrors<FormEventType>
 }
 
 const CreateEventOrganizationForm = ({
@@ -19,6 +20,7 @@ const CreateEventOrganizationForm = ({
   representatives,
   eventOrganizations,
   handleAddEventOrganization,
+  errorsLocal,
   errors
 }: Props) => {
   return (
@@ -45,7 +47,10 @@ const CreateEventOrganizationForm = ({
                     onChange={(_, option) => onChange(option ? option.id : '')}
                     className='bg-white'
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors}</span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errorsLocal}</span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors && errors.organizations?.organizationReps?.message}
+                  </span>
                 </div>
               </LocalizationProvider>
             )}
@@ -70,7 +75,7 @@ const CreateEventOrganizationForm = ({
           <div className='col-span-2 flex justify-end'>
             <Button
               type='button'
-              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[48px] mt-[4px]'
+              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[48px]'
               onClick={handleAddEventOrganization}
             >
               Thêm tổ chức
