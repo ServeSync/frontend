@@ -3,12 +3,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
 import { FormEventType } from '../../../utils'
-import { EventOrganizationType } from '../../../interfaces'
+import { EventOrganizationForm, EventOrganizationType } from '../../../interfaces'
 import Button from 'src/modules/Share/components/Button'
 
 interface Props {
   control: Control<FormEventType>
-  representatives: EventOrganizationType[]
+  representatives: EventOrganizationForm[]
   eventOrganizations: EventOrganizationType[]
   handleAddEventOrganization: () => void
   errorsLocal: string

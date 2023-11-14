@@ -12,7 +12,7 @@ import { FormEventSchema, FormEventType } from '../../../utils'
 import { CreateEventCommandHandler } from '../../../services'
 import path from 'src/modules/Share/constants/path'
 import { handleError } from 'src/modules/Share/utils'
-import CreateEvent from '../CreateEvent'
+import CreateEventInformation from '../CreateEventInformation'
 import CreateEventRegistration from '../CreateEventRegistration'
 import CreateEventOrganization from '../CreateEventOrganization'
 import Button from 'src/modules/Share/components/Button'
@@ -136,7 +136,7 @@ const CreateEventPage = () => {
               </Tabs>
             </Box>
             <Box className='mt-6'>
-              <CreateEvent
+              <CreateEventInformation
                 page={page}
                 index={0}
                 register={register}

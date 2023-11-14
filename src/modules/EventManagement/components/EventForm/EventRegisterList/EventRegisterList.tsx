@@ -195,7 +195,7 @@ const EventRegisterList = () => {
                         className={classNames(' px-4 py-1 rounded-full', {
                           'bg-[#b3a3fa]/90 text-[#6c4df6]': registration.status === 'Pending',
                           'bg-[#fab3a3]/90 text-[#f64d4d]': registration.status === 'Rejected',
-                          'bg-[#d0ffc7]/90 text-[#41ff93]': registration.status === 'Approved'
+                          'bg-[#eaffe6]/90 text-[#44e751]': registration.status === 'Approved'
                         })}
                       >
                         {StatusToMessage(registration.status)}
@@ -293,9 +293,6 @@ const EventRegisterList = () => {
                         <Button
                           type='submit'
                           classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[80px]'
-                          onClick={() => {
-                            console.log('alo')
-                          }}
                         >
                           Từ chối
                         </Button>

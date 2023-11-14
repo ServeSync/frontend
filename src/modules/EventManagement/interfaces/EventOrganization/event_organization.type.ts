@@ -9,22 +9,22 @@ export interface EventOrganizationsListType {
 export interface EventOrganizationType {
   id: string
   name: string
-  description: string
   email: string
   phoneNumber: string
   address: string
   imageUrl: string
+  organizationId: string
   role: string
-  organizationId?: string
   representatives: RepresentativeType[]
   contacts: ContactType[]
 }
 
 export interface EventOrganizationForm {
+  id: string
   name: string
-  description: string
   email: string
-  phoneNumber: string
   address: string
+  organizationId: string
+  phoneNumber: string
   imageUrl: string
 }

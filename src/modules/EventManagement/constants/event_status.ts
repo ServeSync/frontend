@@ -8,6 +8,12 @@ export const eventStatus = [
   { id: 'Upcoming', name: 'Sắp diễn ra' }
 ]
 
+export const eventStatusFilter = [
+  { id: 'Rejected', name: 'Bị hủy' },
+  { id: 'Approved', name: 'Đã duyệt' },
+  { id: 'Pending', name: 'Đang kiểm duyệt' }
+]
+
 interface Status {
   [key: string]: string
 }

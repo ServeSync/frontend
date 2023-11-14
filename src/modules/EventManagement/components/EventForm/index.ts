@@ -1,4 +1,4 @@
-export * from './EventForm'
+export * from './EventFormInformation'
 export * from './CreateEventOrganizationForm'
 export * from './CreateEventOrganizationContactForm'
 export * from './RegisterEventRoleForm'

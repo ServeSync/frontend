@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -9,7 +9,7 @@ import { EventOrganizationFormType, EventRole, FormEvent } from '../../../interf
 import { FormEventSchema, FormEventType } from '../../../utils'
 import { ApproveEventCommandHandler, CancelEventCommandHandler, GetEventByIdQuery } from '../../../services'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
-import EditEvent from '../EditEvent/EditEvent'
+import EditEventInformation from '../EditEventInformation/EditEventInformation'
 import EditEventRegistration from '../EditEventRegistration'
 import EditEventOrganization from '../EditEventOrganization'
 import { useNavigate } from 'react-router-dom'
@@ -19,9 +19,10 @@ import AttendanceStudentsList from '../AttendanceStudentsList'
 import RegisteredStudentsList from '../RegisteredStudentsList'
 import Swal from 'sweetalert2'
 import { handleError } from 'src/modules/Share/utils'
-import { EditorState } from 'draft-js'
+import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
 import Restricted from 'src/modules/Share/components/Restricted'
 import { RejectEventCommandHandler } from 'src/modules/EventManagement/services/Event/rejectEvent.command-handler'
+import draftToHtml from 'draftjs-to-html'
 
 const EditEventPage = () => {
   const [file, setFile] = useState<File>()
@@ -80,6 +81,32 @@ const EditEventPage = () => {
 
   const getEventByIdQuery = new GetEventByIdQuery(queryEventConfig.id as string)
   const event = getEventByIdQuery.fetch()
+
+  useEffect(() => {
+    if (event) {
+      setValue('name', event.name)
+      setValue('introduction', event.introduction)
+      setValue('imageUrl', event.imageUrl)
+      setValue('startAt', event.startAt)
+      setValue('endAt', event.endAt)
+      setValue('address.fullAddress', event.address.fullAddress)
+      setValue('address.latitude', event.address.latitude.toString())
+      setValue('address.longitude', event.address.longitude.toString())
+      setValue('type', event.type)
+      setValue('categoryId', event.activity.eventCategoryId)
+      setValue('activityId', event.activity.id)
+      const blocksFromHTML = convertFromHTML(event.description as string)
+      const content = EditorState.createWithContent(
+        ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
+      )
+      setDescription(content)
+      setValue('description', draftToHtml(convertToRaw(content.getCurrentContent())))
+      // setValue('registrationInfos', event.registrationInfos)
+      // setValue('attendanceInfos', event.attendanceInfos)
+      setDataEventRole(event.roles)
+      setValue('representativeOrganizationId', event.representativeOrganization.id)
+    }
+  }, [event, setValue])
 
   const cancelEventCommandHandler = new CancelEventCommandHandler()
 
@@ -213,7 +240,7 @@ const EditEventPage = () => {
               </Tabs>
             </Box>
             <Box className='mt-6'>
-              <EditEvent
+              <EditEventInformation
                 page={page}
                 index={0}
                 register={register}

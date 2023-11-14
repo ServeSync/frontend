@@ -30,7 +30,10 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 <Controller
                   name={`registrationInfos.${index}.startAt`}
                   control={control}
-                  render={({ field: { onChange, value = dayjs(item.startAt) }, fieldState: { error } }) => (
+                  render={({
+                    field: { onChange, value = event ? dayjs(item.startAt) : null },
+                    fieldState: { error }
+                  }) => (
                     <div className='col-span-5'>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimeField']}>
@@ -53,7 +56,10 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 <Controller
                   name={`registrationInfos.${index}.endAt`}
                   control={control}
-                  render={({ field: { onChange, value = dayjs(item.endAt) }, fieldState: { error } }) => (
+                  render={({
+                    field: { onChange, value = event ? dayjs(item.endAt) : null },
+                    fieldState: { error }
+                  }) => (
                     <div className='col-span-5'>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimeField']}>
@@ -130,7 +136,6 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                             />
                           </DemoContainer>
                         </LocalizationProvider>
-
                         <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
                           {error && error.message}
                           {errors.registrationInfos?.message}
@@ -211,7 +216,10 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 <Controller
                   name={`attendanceInfos.${index}.startAt`}
                   control={control}
-                  render={({ field: { onChange, value = dayjs(item.startAt) }, fieldState: { error } }) => (
+                  render={({
+                    field: { onChange, value = event ? dayjs(item.startAt) : null },
+                    fieldState: { error }
+                  }) => (
                     <div className='col-span-5'>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimeField']}>
@@ -234,7 +242,10 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 <Controller
                   name={`attendanceInfos.${index}.endAt`}
                   control={control}
-                  render={({ field: { onChange, value = dayjs(item.endAt) }, fieldState: { error } }) => (
+                  render={({
+                    field: { onChange, value = event ? dayjs(item.endAt) : null },
+                    fieldState: { error }
+                  }) => (
                     <div className='col-span-5'>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimeField']}>

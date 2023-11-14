@@ -2,6 +2,7 @@ import { Control, UseFormGetValues, UseFormSetValue, FieldErrors } from 'react-h
 import { useEffect, useState } from 'react'
 import {
   EventDetailType,
+  EventOrganizationForm,
   EventOrganizationFormType,
   EventOrganizationRepFormType,
   EventOrganizationType,
@@ -36,10 +37,13 @@ const EditEventOrganization = ({
   const [listEventOrganizationsAdded, setListEventOrganizationsAdded] = useState<EventOrganizationType[]>([])
   const [errorsLocal, setErrorsLocal] = useState<string>('')
 
-  const [representatives, setRepresentatives] = useState<EventOrganizationType[]>([])
+  const [representatives, setRepresentatives] = useState<EventOrganizationForm[]>([])
 
   useEffect(() => {
-    event && setListEventOrganizationsAdded(event.organizations)
+    if (event) {
+      setListEventOrganizationsAdded(event.organizations)
+      setRepresentatives([...representatives, event.representativeOrganization])
+    }
   }, [event, setListEventOrganizationsAdded])
 
   useEffect(() => {
@@ -88,7 +92,7 @@ const EditEventOrganization = ({
         setErrorsLocal('')
         setRepresentatives([
           ...representatives,
-          eventOrganizations && (eventOrganizations.data.find((item) => item.id === id) as EventOrganizationType)
+          eventOrganizations && eventOrganizations.data.find((item) => item.id === id)
         ])
       }
     } else {
