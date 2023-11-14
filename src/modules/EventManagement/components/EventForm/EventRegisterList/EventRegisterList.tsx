@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { yupResolver } from '@hookform/resolvers/yup'
 import { TextField } from '@mui/material'
+import classNames from 'classnames'
 import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { RegisteredStudentsTableHeader, StatusToMessage } from 'src/modules/EventManagement/constants'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import { RegisteredStudentsType } from 'src/modules/EventManagement/interfaces'
-import { ApproveStudentCommandHandler, GetRegisteredStudentsQuery } from 'src/modules/EventManagement/services'
+import { GetRegisteredStudentsQuery, RejectRegistrationCommandHandler } from 'src/modules/EventManagement/services'
+import { ApproveRegistrationCommandHandler } from 'src/modules/EventManagement/services/Student/approveRegistration.command-handler'
+import { FormRejectRegistrationEventType, FormRejectRegistrationSchema } from 'src/modules/EventManagement/utils'
 import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import Pagination from 'src/modules/Share/components/Pagination'
@@ -22,8 +28,8 @@ const EventRegisterList = () => {
     setIsOpenModalRegisterEvent(false)
   }
 
-  const handleOpenModalRegisterEvent = (student: RegisteredStudentsType) => {
-    setStudent(student)
+  const handleOpenModalRegisterEvent = (registration: RegisteredStudentsType) => {
+    setRegistration(registration)
     setIsOpenModalRegisterEvent(true)
   }
 
@@ -32,11 +38,11 @@ const EventRegisterList = () => {
   const getRegisteredStudentsQuery = new GetRegisteredStudentsQuery(queryEventConfig.id as string, page)
   const registeredStudents = getRegisteredStudentsQuery.fetch()
 
-  const [student, setStudent] = useState<RegisteredStudentsType>()
+  const [registration, setRegistration] = useState<RegisteredStudentsType>()
 
-  const approveStudentCommandHandler = new ApproveStudentCommandHandler()
+  const approveRegistrationCommandHandler = new ApproveRegistrationCommandHandler()
 
-  const handleApproveStudent = (id: string, eventRegisterId: string) => {
+  const handleApproveRegistration = (id: string, eventRegisterId: string) => {
     Swal.fire({
       title: 'Xác nhận duyệt ?',
       text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
@@ -48,7 +54,7 @@ const EventRegisterList = () => {
       cancelButtonText: 'Hủy'
     }).then((result) => {
       if (result.isConfirmed) {
-        approveStudentCommandHandler.handle(
+        approveRegistrationCommandHandler.handle(
           { id: id, eventRegisterId: eventRegisterId },
           () => {
             Swal.fire('Đã duyệt!', 'Duyệt sinh viên thành công', 'success')
@@ -60,6 +66,44 @@ const EventRegisterList = () => {
       }
     })
   }
+
+  const { handleSubmit, control, setError } = useForm<FormRejectRegistrationEventType>({
+    resolver: yupResolver(FormRejectRegistrationSchema)
+  })
+
+  const rejectRegistrationCommandHandler = new RejectRegistrationCommandHandler()
+
+  const handleRejectRegistration = (id: string, eventRegisterId: string) =>
+    handleSubmit((data) => {
+      Swal.fire({
+        title: 'Xác nhận từ chối ?',
+        text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#26C6DA',
+        cancelButtonColor: '#dc2626',
+        confirmButtonText: 'Xác nhận',
+        cancelButtonText: 'Hủy'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const body = {
+            id: id,
+            eventRegisterId: eventRegisterId,
+            data
+          }
+          rejectRegistrationCommandHandler.handle(
+            body,
+            () => {
+              toast.success('Từ chối vai trò thành công !')
+              handleCloseModalRegisterEvent()
+            },
+            (error: any) => {
+              handleError<FormRejectRegistrationEventType>(error, setError)
+            }
+          )
+        }
+      })
+    })
 
   return (
     <div>
@@ -98,35 +142,38 @@ const EventRegisterList = () => {
                 </tr>
               </thead>
               <tbody>
-                {registeredStudents.data.map((student, index) => (
+                {registeredStudents.data.map((registration, index) => (
                   <tr
-                    key={student.id}
+                    key={registration.id}
                     className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
                     onClick={() => {
-                      handleOpenModalRegisterEvent(student)
+                      handleOpenModalRegisterEvent(registration)
                     }}
                   >
                     <th className='px-2 py-4 font-medium'>{index + 1}</th>
                     <th className='px-2 py-4 font-medium flex flex-row items-center gap-3'>
-                      <img src={student.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
+                      <img src={registration.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
                       <div className='flex flex-col'>
-                        <span className='font-semibold'>{student.name}</span>
-                        <span className='text-gray-400 text-[12px]'>{student.code}</span>
+                        <span className='font-semibold'>{registration.name}</span>
+                        <span className='text-gray-400 text-[12px]'>{registration.code}</span>
                       </div>
                     </th>
-                    <th className='px-2 py-4 font-medium'>{student.email}</th>
-                    <th className='px-2 py-4 font-medium'>{student.homeRoomName}</th>
-                    <th className='px-2 py-4 font-medium'>{student.role}</th>
-                    <th className='px-2 py-4 font-medium'>{StatusToMessage(student.status)}</th>
-                    <th className='px-2 py-4 font-medium w-[15%]'>{formatDateTime(student.registeredAt)}</th>
+                    <th className='px-2 py-4 font-medium'>{registration.email}</th>
+                    <th className='px-2 py-4 font-medium'>{registration.homeRoomName}</th>
+                    <th className='px-2 py-4 font-medium'>{registration.role}</th>
+                    <th className='px-2 py-4 font-medium'>{StatusToMessage(registration.status)}</th>
+                    <th className='px-2 py-4 font-medium w-[15%]'>{formatDateTime(registration.registeredAt)}</th>
                   </tr>
                 ))}
               </tbody>
             </table>
             <ModalCustom isOpenModal={isOpenModalRegisterEvent} handleClose={handleCloseModalRegisterEvent}>
-              {student !== undefined && (
+              {registration !== undefined && (
                 <div className='bg-white p-10 rounded-xl w-[760px]'>
-                  <form className='flex flex-col gap-4'>
+                  <form
+                    className='flex flex-col gap-4'
+                    onSubmit={handleRejectRegistration(registration.studentId, registration.id)}
+                  >
                     <div className='flex justify-between '>
                       <h2 className='font-semibold text-[24px]'>Đơn đề nghị tham gia sự kiện</h2>
                       <Button classNameButton='' onClick={handleCloseModalRegisterEvent}>
@@ -142,13 +189,28 @@ const EventRegisterList = () => {
                         </svg>
                       </Button>
                     </div>
-                    <h3 className='font-medium text-[20px]'>Thông tin chung</h3>
+                    <div className='flex justify-between items-center'>
+                      <h3 className='font-medium text-[20px]'>Thông tin chung</h3>
+                      <span
+                        className={classNames(' px-4 py-1 rounded-full', {
+                          'bg-[#b3a3fa]/90 text-[#6c4df6]': registration.status === 'Pending',
+                          'bg-[#fab3a3]/90 text-[#f64d4d]': registration.status === 'Rejected',
+                          'bg-[#d0ffc7]/90 text-[#41ff93]': registration.status === 'Approved'
+                        })}
+                      >
+                        {StatusToMessage(registration.status)}
+                      </span>
+                    </div>
                     <div className='flex justify-between items-center'>
                       <div className='flex items-center gap-3'>
-                        <img src={student.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
+                        <img
+                          src={registration.imageUrl}
+                          alt=''
+                          className='rounded-full object-cover w-[50px] h-[50px]'
+                        />
                         <div className='flex flex-col'>
-                          <span className='font-semibold text-[16px]'>{student.name}</span>
-                          <span className='text-gray-400 text-[14px]'>{student.code}</span>
+                          <span className='font-semibold text-[16px]'>{registration.name}</span>
+                          <span className='text-gray-400 text-[14px]'>{registration.code}</span>
                         </div>
                       </div>
                       <div className='flex gap-6 text-[16px]'>
@@ -167,7 +229,7 @@ const EventRegisterList = () => {
                               d='M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z'
                             />
                           </svg>
-                          <span>{student.role}</span>
+                          <span>{registration.role}</span>
                         </div>
                         <div className='flex items-center gap-2'>
                           <svg
@@ -184,7 +246,7 @@ const EventRegisterList = () => {
                               d='M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z'
                             />
                           </svg>
-                          <span>{formatDateTime(student.registeredAt)}</span>
+                          <span>{formatDateTime(registration.registeredAt)}</span>
                         </div>
                       </div>
                     </div>
@@ -196,41 +258,51 @@ const EventRegisterList = () => {
                         className='w-full bg-gray-100'
                         multiline
                         rows={4}
-                        value={student.description}
+                        value={registration.description}
                         disabled
                       />
                     </div>
-                    {student.status !== 'Approved' && (
+                    {registration.status !== 'Approved' && (
                       <div className='flex flex-col gap-4'>
-                        <label htmlFor='description'>Lí do từ chối</label>
-                        <TextField
-                          id='description'
-                          placeholder='Lí do từ chối'
-                          className='w-full bg-gray-100'
-                          multiline
-                          rows={4}
-                          value={student.rejectReason}
-                          disabled={student.status === 'Rejected'}
+                        <Controller
+                          name='rejectReason'
+                          control={control}
+                          render={({ field: { onChange }, fieldState: { error } }) => (
+                            <div className='flex flex-col gap-2'>
+                              <label htmlFor='description'>Lí do từ chối</label>
+                              <TextField
+                                id='rejectReason'
+                                placeholder='Lí do từ chối'
+                                className='w-full bg-gray-100'
+                                onChange={onChange}
+                                multiline
+                                rows={4}
+                                value={registration.rejectReason}
+                                disabled={registration.status === 'Rejected'}
+                              />
+                              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                                {error?.message}
+                              </span>
+                            </div>
+                          )}
                         />
                       </div>
                     )}
-                    {student.status === 'Pending' && (
+                    {registration.status === 'Pending' && (
                       <div className='flex gap-6 justify-end'>
                         <Button
-                          type='button'
+                          type='submit'
                           classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[80px]'
+                          onClick={() => {
+                            console.log('alo')
+                          }}
                         >
                           Từ chối
                         </Button>
                         <Button
                           type='button'
                           classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[80px]'
-                          onClick={() =>
-                            handleApproveStudent(
-                              student && (student.studentId as string),
-                              queryEventConfig.id as string
-                            )
-                          }
+                          onClick={() => handleApproveRegistration(registration.studentId, registration.id)}
                         >
                           Duyệt
                         </Button>

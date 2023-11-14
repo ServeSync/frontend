@@ -1,4 +1,4 @@
 export interface RegisteredEventType {
   eventRoleId: string
-  description?: string
+  description: string
 }

@@ -106,6 +106,8 @@ const EventForm = ({
       setValue('introduction', event.introduction)
       setValue('imageUrl', event.imageUrl)
       setValue('type', event.type)
+      setValue('startAt', event.startAt)
+      setValue('endAt', event.endAt)
       setValue('categoryId', event.activity.eventCategoryId)
       setValue('activityId', event.activity.id)
       setValue('address.fullAddress', event.address.fullAddress)
@@ -116,6 +118,7 @@ const EventForm = ({
         ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
       )
       setDescription(content)
+      setValue('description', draftToHtml(convertToRaw(content.getCurrentContent())))
     }
   }, [event, setValue, setDescription])
 

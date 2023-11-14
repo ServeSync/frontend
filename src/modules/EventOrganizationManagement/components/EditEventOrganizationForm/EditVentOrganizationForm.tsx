@@ -41,7 +41,6 @@ const EditEventOrganizationForm = ({
       setValue('description', eventOrganization.description)
     }
   }, [eventOrganization, setValue])
-  console.log(eventOrganization)
 
   return (
     <Fragment>
@@ -50,7 +49,7 @@ const EditEventOrganizationForm = ({
           <div className='flex justify-between items-center mb-4'>
             <h2 className='text-[20px] font-semibold'>Thông tin ban tổ chức</h2>
           </div>
-          <div className='grid grid-cols-4 gap-6 items-center '>
+          <div className='grid grid-cols-4 gap-8 items-center '>
             <div className='col-span-1'>
               <InputAvatar
                 previewImage={previewImage}
@@ -59,7 +58,7 @@ const EditEventOrganizationForm = ({
                 avatar={eventOrganization && eventOrganization.imageUrl}
               />
             </div>
-            <div className='col-span-3'>
+            <div className='col-span-3 flex flex-col gap-4'>
               <Controller
                 name='name'
                 control={control}

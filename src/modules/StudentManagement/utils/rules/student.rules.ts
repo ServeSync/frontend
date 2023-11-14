@@ -1,11 +1,8 @@
 import * as yup from 'yup'
 
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-
 export const FormStudentSchema = yup.object({
-  code: yup.string().trim().required('Vui lòng nhập mã số sinh viên !').length(9, 'Mã số sinh viên không hợp lệ!'),
-  fullName: yup.string().trim().required('Vui lòng nhập tên !').min(5, 'Họ và tên tối thiểu 5 kí tự'),
+  code: yup.string().trim().required('Vui lòng nhập mã số sinh viên !').length(9, 'Mã số sinh viên không hợp lệ !'),
+  fullName: yup.string().trim().required('Vui lòng nhập tên !').min(5, 'Họ và tên tối thiểu 5 kí tự !'),
   email: yup.string().trim().required('Vui lòng nhập Email !').email('Email không hợp lệ !'),
   gender: yup.string().required('Vui lòng chọn giới tính !'),
   birth: yup
@@ -23,8 +20,8 @@ export const FormStudentSchema = yup.object({
     .string()
     .trim()
     .required('Vui lòng nhập số điện thoại !')
-    .length(10, 'Số điện thoại không hợp lệ!')
-    .matches(phoneRegExp, 'Số điện thoại không hợp lệ !'),
+    .length(10, 'Số điện thoại không hợp lệ !')
+    .matches(/^0[0-9]{9}$/, 'Số điện thoại không hợp lệ !'),
   homeTown: yup.string().trim().required('Vui lòng nhập nơi sinh !'),
   address: yup.string().trim().required('Vui lòng nhập địa chỉ !'),
   citizenId: yup.string().trim().required('Vui lòng nhập căn cước công dân !'),

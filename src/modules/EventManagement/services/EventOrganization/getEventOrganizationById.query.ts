@@ -17,7 +17,7 @@ class GetEventOrganizationByIdQuery {
       queryKey: ['event_organization', id],
       queryFn: () => eventOrganizationAPI.getEventOrganizationById(id),
       enabled: id !== undefined,
-      staleTime: 1 * 60 * 1000,
+      staleTime: 3 * 60 * 1000,
       onError: (error: any) => {
         handleError(error)
         this._navigate(path.event_organization)
