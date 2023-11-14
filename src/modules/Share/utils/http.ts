@@ -53,7 +53,7 @@ class Http {
         }
         return response
       },
-      (error: any) => {
+      async (error: any) => {
         if (
           ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(error.response?.status as number)
         ) {
@@ -87,7 +87,7 @@ class Http {
       }
     )
   }
-  private handleRefreshToken() {
+  private async handleRefreshToken() {
     return authAPI
       .refreshToken({
         accessToken: this.accessToken,

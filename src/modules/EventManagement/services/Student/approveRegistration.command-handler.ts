@@ -3,20 +3,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import studentAPI from './student.api'
 
-class ApproveStudentCommandHandler {
+class ApproveRegistrationCommandHandler {
   private _queryClient
-  private _approveStudentMutation
+  private _approveRegistrationMutation
 
   constructor() {
     this._queryClient = useQueryClient()
-    this._approveStudentMutation = useMutation({
+    this._approveRegistrationMutation = useMutation({
       mutationFn: (body: { id: string; eventRegisterId: string }) =>
-        studentAPI.approveStudent(body.id, body.eventRegisterId)
+        studentAPI.approveRegistration(body.id, body.eventRegisterId)
     })
   }
 
   handle = (body: { id: string; eventRegisterId: string }, handleSuccess: any, handleError: any) => {
-    return this._approveStudentMutation.mutate(body, {
+    return this._approveRegistrationMutation.mutate(body, {
       onSuccess: () => {
         this._queryClient.invalidateQueries({
           queryKey: ['registered_students']
@@ -30,8 +30,8 @@ class ApproveStudentCommandHandler {
   }
 
   isLoading() {
-    return this._approveStudentMutation.isLoading
+    return this._approveRegistrationMutation.isLoading
   }
 }
 
-export { ApproveStudentCommandHandler }
+export { ApproveRegistrationCommandHandler }

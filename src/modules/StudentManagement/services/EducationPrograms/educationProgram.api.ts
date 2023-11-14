@@ -4,7 +4,8 @@ import { EducationProgramType, StudentEducationProgramResultType } from '../../i
 const educationProgramAPI = {
   getListEducationPrograms: () => http.get<EducationProgramType[]>('/education-programs'),
 
-  getStudentEducationProgramResult: (id: string) => http.get<StudentEducationProgramResultType>(`/students/${id}/education-program`)
+  getStudentEducationProgramResult: (id: string) =>
+    http.get<StudentEducationProgramResultType>(`/students/${id}/education-program`)
 }
 
 export default educationProgramAPI

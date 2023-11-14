@@ -1,15 +1,5 @@
 import * as yup from 'yup'
 
-export const FormFilterOrganizerSchema = yup.object({
-  name: yup.string(),
-  email: yup.string(),
-  phoneNumber: yup.string(),
-  address: yup.string(),
-  search: yup.string().trim()
-})
-
-export type FormFilterOrganizerType = yup.InferType<typeof FormFilterOrganizerSchema>
-
 export const FormEventOrganizationSchema = yup.object({
   name: yup.string().trim().required('Vui lòng nhập tên tổ chức !'),
   description: yup.string().trim().required('Vui lòng nhập mô tả !'),
@@ -25,3 +15,13 @@ export const FormEventOrganizationSchema = yup.object({
 })
 
 export type FormEventOrganizationType = yup.InferType<typeof FormEventOrganizationSchema>
+
+export const FormFilterOrganizerSchema = yup.object({
+  name: yup.string(),
+  email: yup.string(),
+  phoneNumber: yup.string(),
+  address: yup.string(),
+  search: yup.string().trim()
+})
+
+export type FormFilterOrganizerType = yup.InferType<typeof FormFilterOrganizerSchema>

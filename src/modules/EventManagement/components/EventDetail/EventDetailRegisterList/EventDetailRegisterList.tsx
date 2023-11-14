@@ -3,9 +3,7 @@ import { useState } from 'react'
 import { RegisteredStudentsTableHeader, StatusToMessage } from 'src/modules/EventManagement/constants'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import { GetRegisteredStudentsQuery } from 'src/modules/EventManagement/services'
-import Button from 'src/modules/Share/components/Button'
 import Pagination from 'src/modules/Share/components/Pagination'
-import PopoverCustom from 'src/modules/Share/components/Popover'
 import path from 'src/modules/Share/constants/path'
 import { formatDateTime } from 'src/modules/Share/utils'
 
@@ -19,27 +17,6 @@ const EventDetailRegisterList = () => {
 
   return (
     <div>
-      <div className='w-full mb-5 flex justify-end'>
-        <PopoverCustom renderPopover={<div className='h-[300px] w-[300px]'></div>}>
-          <Button classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth={1.5}
-              stroke='currentColor'
-              className='w-6 h-6'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z'
-              />
-            </svg>
-            <span>Lọc</span>
-          </Button>
-        </PopoverCustom>
-      </div>
       <div>
         {registeredStudents && registeredStudents.total > 0 ? (
           <div>

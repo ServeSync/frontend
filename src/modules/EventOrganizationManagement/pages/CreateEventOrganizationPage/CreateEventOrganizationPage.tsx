@@ -35,9 +35,7 @@ const CreateEventOrganizationPage = () => {
 
   const handleCreateEventOrganization = handleSubmit(async (data) => {
     createEventOrganizationCommandHandler.handle(
-      {
-        ...data
-      },
+      data,
       file as File,
       () => {
         toast.success('Thêm nhà tổ chức thành công !')
@@ -66,7 +64,7 @@ const CreateEventOrganizationPage = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Create Organiztion</title>
+        <title>Create Organization</title>
         <meta name='description' content='This is create student page of the project' />
       </Helmet>
       <form onSubmit={handleCreateEventOrganization}>

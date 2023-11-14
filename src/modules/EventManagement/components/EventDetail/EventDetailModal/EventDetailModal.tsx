@@ -12,10 +12,6 @@ import { FormEventType, FormRegisterEventSchema, FormRegisterEventType } from 's
 import { yupResolver } from '@hookform/resolvers/yup'
 import { RegisterEventCommandHandler } from 'src/modules/EventManagement/services'
 import { toast } from 'react-toastify'
-import { createSearchParams, useNavigate } from 'react-router-dom'
-import path from 'src/modules/Share/constants/path'
-import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
-
 interface Props {
   event: EventDetailType
   mapImageURL: string | null
@@ -44,10 +40,6 @@ const EventDetailModal = ({
   const [roleId, setRoleId] = useState<string>()
   const [isOpenModalRegisterEvent, setIsOpenModalRegisterEvent] = useState(false)
 
-  const navigate = useNavigate()
-
-  const queryEventConfig = useQueryEventConfig()
-
   const handleCloseModalRegisterEvent = () => {
     setIsOpenModalRegisterEvent(false)
   }
@@ -72,10 +64,7 @@ const EventDetailModal = ({
       body,
       () => {
         toast.success('Đăng kí sự kiện thành công !')
-        navigate({
-          pathname: path.event_detail,
-          search: createSearchParams(queryEventConfig.id).toString()
-        })
+        handleCloseModalRegisterEvent()
       },
       (error: any) => {
         handleError<FormEventType>(error, setError)

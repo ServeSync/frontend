@@ -14,9 +14,7 @@ import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import Restricted from 'src/modules/Share/components/Restricted'
 
 const EventOrganizationPage = () => {
-  const FilterOrganizerForm = useForm<FormFilterOrganizerType>({
-    resolver: yupResolver(FormFilterOrganizerSchema)
-  })
+  const navigate = useNavigate()
 
   const getAllOrganizationQuery = new GetAllEventOrganizationsQuery()
   const organizers = getAllOrganizationQuery.fetch()
@@ -24,7 +22,9 @@ const EventOrganizationPage = () => {
   const queryOrganizationConfig = useQueryOrganizationConfig()
   const SortOrganizer = useSorting({ queryConfig: queryOrganizationConfig, pathname: path.event_organization })
 
-  const navigate = useNavigate()
+  const FilterOrganizerForm = useForm<FormFilterOrganizerType>({
+    resolver: yupResolver(FormFilterOrganizerSchema)
+  })
 
   const onEditEventOrganization = (id: string) => {
     navigate(
@@ -39,6 +39,7 @@ const EventOrganizationPage = () => {
       }
     )
   }
+
   return (
     <Fragment>
       <Helmet>
@@ -76,7 +77,7 @@ const EventOrganizationPage = () => {
         queryConfig={queryOrganizationConfig}
         pageSize={getAllOrganizationQuery.getTotalPages()}
         pathname={path.event_organization}
-        className='flex justify-center'
+        className='flex justify-end'
       />
     </Fragment>
   )

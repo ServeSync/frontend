@@ -26,12 +26,12 @@ const CreateEventOrganizationForm = ({
 }: Props) => {
   return (
     <Fragment>
-      <div className='grid grid-cols-4 gap-6 items-center '>
-        <div className='col-span-1'>
+      <div className='grid grid-cols-4 gap-8 items-center'>
+        <div className='col-span-1 flex flex-col items-center'>
           <InputAvatar previewImage={previewImage} onChange={onChange} register={register} />
           <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.imageUrl?.message}</span>
         </div>
-        <div className='col-span-3'>
+        <div className='col-span-3 flex flex-col gap-4'>
           <Controller
             name='name'
             control={control}
@@ -42,7 +42,7 @@ const CreateEventOrganizationForm = ({
                   <TextField
                     id='name'
                     label='Tên tổ chức'
-                    placeholder='Nhập vào tên tổ chức'
+                    placeholder='Nhập tên tổ chức'
                     className='w-full bg-white'
                     onChange={onChange}
                   />
@@ -129,7 +129,7 @@ const CreateEventOrganizationForm = ({
           />
         </div>
       </div>
-      <div className='flex justify-end gap-6 border-b-2 pb-5'>
+      <div className='flex justify-end gap-6 pb-5'>
         <Button
           type='button'
           classNameButton='bg-[#9a9a9a] py-2 px-4 rounded-lg text-[16px] text-white font-semibold'

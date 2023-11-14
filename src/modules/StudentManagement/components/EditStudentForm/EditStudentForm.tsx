@@ -66,6 +66,7 @@ const EditStudentForm = ({
       setValue('imageUrl', student.imageUrl)
     }
   }, [student, faculties, educationPrograms, setValue])
+  console.log(student)
 
   return (
     <Fragment>

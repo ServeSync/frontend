@@ -35,6 +35,7 @@ const EditEventOrganizationPage = () => {
   const prevEventOrganizationConfig = location.state
 
   const queryEventOrganizationConfig = useQueryEventConfig()
+
   const getEventOrganizationByIdQuery = new GetEventOrganizationByIdQuery(queryEventOrganizationConfig.id as string)
   const eventOrganization = getEventOrganizationByIdQuery.fetch()
 

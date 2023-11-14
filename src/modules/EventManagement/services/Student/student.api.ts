@@ -1,11 +1,12 @@
 import http from 'src/modules/Share/utils/http'
+import { FormRejectRegistrationEventType } from '../../utils'
 
 const studentAPI = {
-  approveStudent: (id: string, eventRegisterId: string) =>
+  approveRegistration: (id: string, eventRegisterId: string) =>
     http.post(`/students/${id}/event-registers/${eventRegisterId}/approve`),
 
-  rejectStudent: (id: string, eventRegisterId: string, rejectReason: string) =>
-    http.post(`/students/${id}/event-registers/${eventRegisterId}/reject`, rejectReason)
+  rejectRegistration: (body: { id: string; eventRegisterId: string; data: FormRejectRegistrationEventType }) =>
+    http.post(`/students/${body.id}/event-registers/${body.eventRegisterId}/reject`, body.data)
 }
 
 export default studentAPI

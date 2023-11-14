@@ -1,3 +1,3 @@
 export * from './student.api'
-export * from './approveStudent.command-handler'
-export * from './rejectStudent.command-handler'
+export * from './approveRegistration.command-handler'
+export * from './rejectRegistration.command-handler'
