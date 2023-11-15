@@ -6,11 +6,11 @@ import { ProfileStudent } from '../../interfaces/Profile'
 class GetProfileStudentQuery {
   private _query
 
-  constructor() {
+  constructor(isAuthenticated: boolean) {
     this._query = useQuery({
-      queryKey: ['profile'],
+      queryKey: ['profile_student'],
       queryFn: () => profileAPI.getProfileStudent(),
-      staleTime: 3 * 60 * 1000
+      enabled: isAuthenticated
     })
   }
 
@@ -19,7 +19,7 @@ class GetProfileStudentQuery {
   }
 
   isLoading() {
-    return this._query.isLoading
+    return this._query.isLoading || this._query.isRefetching
   }
 }
 
