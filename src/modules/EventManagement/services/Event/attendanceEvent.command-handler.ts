@@ -5,9 +5,10 @@ import { EventAttendance } from '../../interfaces'
 
 class AttendanceEventCommandHandler {
   handle = (body: { id: string; data: EventAttendance }, handleSuccess: any, handleError: any) => {
-    eventAPI.attendanceEvent(body)
-            .then(res => handleSuccess(res))
-            .catch(error => handleError(error.response.data))
+    eventAPI
+      .attendanceEvent(body)
+      .then((res) => handleSuccess(res))
+      .catch((error) => handleError(error.response.data))
   }
 }
 

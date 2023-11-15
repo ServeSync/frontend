@@ -8,7 +8,7 @@ class GetAllEventsByStatusQuery {
 
   constructor(eventStatus: string, size?: number) {
     this._query = useQuery({
-      queryKey: ['events', eventStatus, size],
+      queryKey: ['events_by_status', eventStatus, size],
       queryFn: () => eventAPI.getListEventsByStatus(eventStatus, size),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000

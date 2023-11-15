@@ -364,7 +364,7 @@ const EventDetailPage = () => {
               isOpenModalAttendanceInfos={isOpenModalAttendanceInfos}
               handleCloseModalAttendanceInfos={handleCloseModalAttendanceInfos}
             />
-            <div className='w-full h-full px-[10%] overflow-hidden'>
+            <div className='w-full h-full overflow-hidden'>
               <Box>
                 <Box>
                   <Tabs

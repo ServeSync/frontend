@@ -42,7 +42,7 @@ const InputAvatar = ({ onChange, register, previewImage, avatar }: Props) => {
           src={
             previewImage ||
             (avatar && avatar) ||
-            'https://cdn2.iconfinder.com/data/icons/user-interface-outlined-2020/48/create_new_account-512.png'
+            'http://res.cloudinary.com/dboijruhe/image/upload/v1699979173/ServeSync/f0bc9f0a-a909-4a98-9d2f-f0dde8efdc81-avatar-default.png'
           }
           alt='avatar'
           className='rounded-full top-0 h-full w-full object-cover object-top absolute'
