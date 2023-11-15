@@ -16,7 +16,6 @@ class CreateOrganizationInfoCommandHandler {
     form.append('file', file)
     const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
     organizationInfo.imageUrl = uploadImageResponse.data.url
-
     return organizationInfo
   }
 

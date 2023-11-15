@@ -1,3 +1,3 @@
-import EventPendingInfoPage from './EventPendingInfo'
+import EventPendingInfoPage from './EventPendingInfoPage'
 
 export default EventPendingInfoPage

@@ -2,6 +2,7 @@ import { EventOrganizationsListType } from 'src/modules/EventManagement/interfac
 import HeaderTable from 'src/modules/Share/components/HeaderTable'
 import { OrganizerTableHeader } from '../../constants'
 import Skeleton from 'react-loading-skeleton'
+import { formatDateOfBirth } from 'src/modules/Share/utils'
 
 interface Props {
   organizers: EventOrganizationsListType
@@ -22,16 +23,22 @@ const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onS
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                   key={index}
                 >
-                  <th className='px-2 py-4 font-medium w-[25%]'>
+                  <th className='px-2 py-4 font-medium w-[16%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[25%]'>
+                  <th className='px-2 py-4 font-medium w-[16%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[25%]'>
+                  <th className='px-2 py-4 font-medium w-[16%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium w-[25%]'>
+                  <th className='px-2 py-4 font-medium w-[16%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium w-[16%]'>
+                    <Skeleton className='h-[16px]' borderRadius={20} />
+                  </th>
+                  <th className='px-2 py-4 font-medium '>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
                 </tr>
@@ -43,13 +50,15 @@ const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onS
                 key={organizer.id}
                 onClick={() => onEditOrganization(organizer.id)}
               >
-                <th className='px-2 py-4 font-medium w-[40%] flex items-center gap-3'>
+                <th className='px-2 py-4 font-medium  flex items-center gap-3'>
                   <img src={organizer.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
-                  <span className='whitespace-nowrap '>{organizer.name}</span>
+                  <span className='whitespace-nowrap'>{organizer.name}</span>
                 </th>
-                <th className='px-2 py-4 font-medium w-[20%]'>{organizer.email}</th>
-                <th className='px-2 py-4 font-medium w-[20%]'>{organizer.phoneNumber}</th>
-                <th className='px-2 py-4 font-medium overflow-hidden'>{organizer.address}</th>
+                <th className='px-2 py-4 font-medium '>{organizer.email}</th>
+                <th className='px-2 py-4 font-medium '>{organizer.address}</th>
+                <th className='px-2 py-4 font-medium '>{organizer.phoneNumber}</th>
+                <th className='px-2 py-4 font-medium '>{formatDateOfBirth(organizer.created)}</th>
+                <th className='px-2 py-4 font-medium text-center'>{organizer.hostedEvents}</th>
               </tr>
             ))}
       </tbody>

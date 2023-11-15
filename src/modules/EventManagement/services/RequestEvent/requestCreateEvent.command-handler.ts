@@ -4,7 +4,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
 import requestEventAPI from './request_event.api'
 import { RequestEventForm } from '../../interfaces/RequestEventForm/request_event-form.type'
-import { toast } from 'react-toastify'
 
 class RequestCreateEventCommandHandler {
   private _queryClient
@@ -19,7 +18,7 @@ class RequestCreateEventCommandHandler {
     })
   }
 
-  handle = async (event: RequestEventForm, file: File, handleSuccess: any) => {
+  handle = async (event: RequestEventForm, file: File, handleSuccess: any, handleError: any) => {
     const form = new FormData()
     form.append('file', file)
     const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
@@ -33,7 +32,7 @@ class RequestCreateEventCommandHandler {
         handleSuccess()
       },
       onError: () => {
-        toast.error('Chưa có dữ liệu ban tổ chức!')
+        handleError()
       }
     })
   }

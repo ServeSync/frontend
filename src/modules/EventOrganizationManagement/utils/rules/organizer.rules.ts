@@ -11,7 +11,11 @@ export const FormEventOrganizationSchema = yup.object({
     .length(10, 'Số điện thoại không hợp lệ!')
     .matches(/^0[0-9]{9}$/, 'Số điện thoại không hợp lệ !'),
   address: yup.string().trim().required('Vui lòng nhập địa chỉ !'),
-  imageUrl: yup.string().required('Vui lòng chọn ảnh !')
+  imageUrl: yup.string().required('Vui lòng chọn ảnh !'),
+  identityId: yup.string(),
+  hostedEvents: yup.number(),
+  created: yup.string(),
+  lastModified: yup.string()
 })
 
 export type FormEventOrganizationType = yup.InferType<typeof FormEventOrganizationSchema>

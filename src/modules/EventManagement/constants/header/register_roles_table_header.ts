@@ -17,14 +17,18 @@ export const RegisterRoleTableHeader = [
   },
   {
     id: '5',
-    name: 'Đã duyệt'
+    name: 'Đã đăng ký'
   },
   {
     id: '6',
-    name: 'Yêu cầu duyệt'
+    name: 'Đã duyệt'
   },
   {
     id: '7',
+    name: 'Yêu cầu duyệt'
+  },
+  {
+    id: '8',
     name: 'Hành động'
   }
 ]
