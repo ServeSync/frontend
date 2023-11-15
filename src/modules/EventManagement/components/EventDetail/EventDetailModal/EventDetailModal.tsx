@@ -38,7 +38,7 @@ const EventDetailModal = ({
   handleCloseModalAttendanceInfos
 }: Props) => {
   const [roleId, setRoleId] = useState<string>()
-  const [isOpenModalRegisterEvent, setIsOpenModalRegisterEvent] = useState(false)
+  const [isOpenModalRegisterEvent, setIsOpenModalRegisterEvent] = useState<boolean>(false)
 
   const handleCloseModalRegisterEvent = () => {
     setIsOpenModalRegisterEvent(false)
@@ -65,6 +65,7 @@ const EventDetailModal = ({
       () => {
         toast.success('Đăng kí sự kiện thành công !')
         handleCloseModalRegisterEvent()
+        handleCloseModalTableRegisterEvent()
       },
       (error: any) => {
         handleError<FormEventType>(error, setError)
@@ -150,33 +151,40 @@ const EventDetailModal = ({
                 </tr>
               </thead>
               <tbody>
-                {event.roles.map((role) => (
-                  <tr
-                    key={role.id}
-                    className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
-                  >
-                    <th className='px-2 py-4 font-medium'>{role.name}</th>
-                    <th className='px-2 py-4 font-medium'>{Parser(role.description)}</th>
-                    <th className='px-2 py-4 font-medium'>{role.quantity}</th>
-                    <th className='px-2 py-4 font-medium'>{role.score}</th>
-                    <th className='px-2 py-4 font-medium'>{role.registered}</th>
-                    <th className='px-2 py-4 font-medium'>
-                      <input type='checkbox' defaultChecked={role.isNeedApprove} disabled readOnly className='ml-12' />
-                    </th>
-                    <th className='px-2 py-4 font-medium'>
-                      {(role.approvedRegistered as number) < Number(role?.quantity) &&
-                        (!role.isRegistered as boolean) && (
-                          <Button
-                            type='button'
-                            classNameButton='bg-[#26C6DA] py-1 px-4 rounded-full text-[14px] text-white font-semibold'
-                            onClick={() => handleOpenModalRegisterEvent(role?.id as string)}
-                          >
-                            Đăng kí
-                          </Button>
-                        )}
-                    </th>
-                  </tr>
-                ))}
+                {event &&
+                  event.roles.map((role) => (
+                    <tr
+                      key={role.id}
+                      className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
+                    >
+                      <th className='px-2 py-4 font-medium'>{role.name}</th>
+                      <th className='px-2 py-4 font-medium'>{Parser(role.description)}</th>
+                      <th className='px-2 py-4 font-medium'>{role.quantity}</th>
+                      <th className='px-2 py-4 font-medium'>{role.score}</th>
+                      <th className='px-2 py-4 font-medium'>{role.registered}</th>
+                      <th className='px-2 py-4 font-medium'>
+                        <input
+                          type='checkbox'
+                          defaultChecked={role.isNeedApprove}
+                          disabled
+                          readOnly
+                          className='ml-12'
+                        />
+                      </th>
+                      <th className='px-2 py-4 font-medium'>
+                        {(role.approvedRegistered as number) < Number(role?.quantity) &&
+                          (!role.isRegistered as boolean) && (
+                            <Button
+                              type='button'
+                              classNameButton='bg-[#26C6DA] py-1 px-4 rounded-full text-[14px] text-white font-semibold'
+                              onClick={() => handleOpenModalRegisterEvent(role?.id as string)}
+                            >
+                              Đăng kí
+                            </Button>
+                          )}
+                      </th>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </form>

@@ -19,7 +19,7 @@ export const StatusToMessage = (status: string) => {
     Done: 'Đã tổ chức',
     Expired: 'Đã hết hạn',
     Pending: 'Đang kiểm duyệt',
-    Rejected: 'Bị hủy',
+    Rejected: 'Đã từ chối',
     Attendance: 'Đang trong thời gian điểm danh',
     Registration: 'Đang trong thời gian đăng ký',
     Upcoming: 'Sắp diễn ra',

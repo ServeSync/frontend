@@ -11,6 +11,7 @@ interface RestrictedRouteProps {
 
 const Restricted = ({ to, fallback, loadingComponent, children }: RestrictedRouteProps) => {
   const [loading, allowed] = usePermission(to)
+  console.log(to)
 
   if (loading) {
     return <Fragment>{loadingComponent}</Fragment>

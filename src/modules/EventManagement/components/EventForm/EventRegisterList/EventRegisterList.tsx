@@ -58,6 +58,7 @@ const EventRegisterList = () => {
           { id: id, eventRegisterId: eventRegisterId },
           () => {
             Swal.fire('Đã duyệt!', 'Duyệt sinh viên thành công', 'success')
+            handleCloseModalRegisterEvent()
           },
           (error: any) => {
             handleError(error)
@@ -293,9 +294,6 @@ const EventRegisterList = () => {
                         <Button
                           type='submit'
                           classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[80px]'
-                          onClick={() => {
-                            console.log('alo')
-                          }}
                         >
                           Từ chối
                         </Button>

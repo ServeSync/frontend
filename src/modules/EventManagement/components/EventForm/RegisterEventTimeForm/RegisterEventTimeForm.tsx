@@ -8,6 +8,8 @@ import { FormEventType } from '../../../utils'
 import Button from 'src/modules/Share/components/Button'
 import { EventDetailType } from 'src/modules/EventManagement/interfaces'
 import dayjs from 'dayjs'
+import ModalCustom from 'src/modules/Share/components/Modal'
+import { useState } from 'react'
 
 interface Props {
   control: Control<FormEventType>
@@ -18,6 +20,16 @@ interface Props {
 }
 
 const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttendance, event }: Props) => {
+  const [isOpenQRImage, setIsOpenQRImage] = useState<boolean>(false)
+
+  const handleCloseQRImage = () => {
+    setIsOpenQRImage(false)
+  }
+
+  const handleOpenQRImage = () => {
+    setIsOpenQRImage(true)
+  }
+
   return (
     <div>
       <div>
@@ -26,7 +38,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
         </div>
         {event
           ? event.registrationInfos.map((item, index: number) => (
-              <div className='grid grid-cols-11 gap-x-6 mb-2' key={item.id}>
+              <div className='grid grid-cols-12 gap-x-6 mb-2' key={item.id}>
                 <Controller
                   name={`registrationInfos.${index}.startAt`}
                   control={control}
@@ -72,7 +84,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                     </div>
                   )}
                 />
-                <div className='flex items-center justify-end'>
+                <div className='flex items-center justify-end col-span-2'>
                   {index === 0 ? (
                     <Button
                       type='button'
@@ -207,7 +219,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
         </div>
         {event
           ? event.attendanceInfos.map((item, index: number) => (
-              <div className='grid grid-cols-11 gap-x-6 mb-2' key={item.id}>
+              <div className='grid grid-cols-12 gap-x-6 mb-2' key={item.id}>
                 <Controller
                   name={`attendanceInfos.${index}.startAt`}
                   control={control}
@@ -253,7 +265,37 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                     </div>
                   )}
                 />
-                <div className='flex items-center justify-end'>
+                <div className='flex items-center justify-end col-span-2 gap-4'>
+                  <Button
+                    type='button'
+                    classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
+                    onClick={handleOpenQRImage}
+                  >
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='w-6 h-6'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z'
+                      />
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z'
+                      />
+                    </svg>
+                  </Button>
+                  <ModalCustom isOpenModal={isOpenQRImage} handleClose={handleCloseQRImage}>
+                    <div className='col-span-1 flex justify-center outline-none'>
+                      <img src={item.qrCodeUrl} alt='Static Map' className='rounded-lg h-[500px] outline-none' />
+                    </div>
+                  </ModalCustom>
                   {index === 0 ? (
                     <Button
                       type='button'

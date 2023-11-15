@@ -162,9 +162,11 @@ const EventForm = ({
                 </svg>
               </div>
             </Input>
-            <div className='px-4 py-2 rounded-full bg-[#26dc9c] text-white h-[40px]'>
-              {StatusToMessage(event?.status as string)}
-            </div>
+            {event && (
+              <div className='px-4 py-2 rounded-full bg-[#26dc9c] text-white h-[40px]'>
+                {StatusToMessage(event?.status as string)}
+              </div>
+            )}
           </div>
           <div className='col-span-4'>
             <div className='w-full h-[calc(100%-40px)] rounded-xl'>

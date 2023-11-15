@@ -42,9 +42,9 @@ export const HandleHeading = (location: string) => {
 //   // 'ServeSync.Permissions.Events.RejectRegistration',
 //   // 'ServeSync.Permissions.Events.ApproveRegistration',
 //   // 'ServeSync.Permissions.EventOrganizations.View',
-//   'ServeSync.Permissions.EventOrganizations.Create',
-//   'ServeSync.Permissions.EventOrganizations.Update',
-//   'ServeSync.Permissions.EventOrganizations.Delete',
+// 'ServeSync.Permissions.EventOrganizations.Create',
+// 'ServeSync.Permissions.EventOrganizations.Update',
+// 'ServeSync.Permissions.EventOrganizations.Delete',
 //   'ServeSync.Permissions.EventCollaborationRequests.Approve',
 //   'ServeSync.Permissions.EventCollaborationRequests.Reject',
 //   'ServeSync.Permissions.EventCollaborationRequests.View'

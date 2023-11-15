@@ -35,7 +35,9 @@ const CreateEventOrganizationContactForm = ({
 
   const [listContactsAdded, setListContactsAdded] = useState<RepresentativeType[]>([])
 
-  const getAllContactsByOrganizationIdQuery = new GetAllContactsByOrganizationIdQuery(eventOrganization.id)
+  const getAllContactsByOrganizationIdQuery = new GetAllContactsByOrganizationIdQuery(
+    eventOrganization.organizationId as string
+  )
   const contactsList = getAllContactsByOrganizationIdQuery.fetch() as ContactsListType
   const contacts = contactsList && contactsList.data
 
