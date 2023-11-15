@@ -57,7 +57,7 @@ const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onS
                 <th className='px-2 py-4 font-medium '>{organizer.email}</th>
                 <th className='px-2 py-4 font-medium '>{organizer.address}</th>
                 <th className='px-2 py-4 font-medium '>{organizer.phoneNumber}</th>
-                <th className='px-2 py-4 font-medium '>{formatDateOfBirth(organizer.created)}</th>
+                <th className='px-2 py-4 font-medium '>{formatDateOfBirth(organizer.created as string)}</th>
                 <th className='px-2 py-4 font-medium text-center'>{organizer.hostedEvents}</th>
               </tr>
             ))}
