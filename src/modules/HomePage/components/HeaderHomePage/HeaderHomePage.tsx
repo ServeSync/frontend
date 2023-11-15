@@ -1,6 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
-import { Fragment, useContext, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import path from 'src/modules/Share/constants/path'
 import { logo } from 'src/modules/Share/assets/image'
 import Button from 'src/modules/Share/components/Button'
@@ -17,6 +17,10 @@ const LandingPageHeader = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 
+  const [hasScrolled, setHasScrolled] = useState<boolean>(false)
+
+  const [scrolled, setScrolled] = useState(true)
+
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen)
   }
@@ -30,9 +34,34 @@ const LandingPageHeader = () => {
     navigate(path.login)
   }
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      setHasScrolled(scrollTop > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    setScrolled(false)
+  }, [scrolled])
+
   return (
     <Fragment>
-      <header className='relative mx-auto w-[80%] h-auto flex justify-between items-center py-8 top-0 left-0 right-0 bg-transparent z-50'>
+      <header
+        className={classNames(
+          'sticky mx-auto h-auto flex justify-between items-center py-1 top-0 left-0 right-0 bg-transparent  z-50 px-36',
+          {
+            'shadow-bottom shadow-2xl bg-white': hasScrolled
+          }
+        )}
+      >
         <Link to={path.home_page} className='flex w-56 items-center gap-4 leading-10 font-serif mb-4'>
           <img src={logo} alt='logo-img' className='w-20 h-20' />
           <span className='font-semibold text-[36px] font-Pacifico text-[#26C6DA]'>ServeSync</span>

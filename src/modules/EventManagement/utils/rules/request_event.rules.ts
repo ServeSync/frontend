@@ -23,10 +23,11 @@ export const FormRequestEventSchema = yup.object().shape({
   startAt: yup
     .string()
     .required('Vui lòng nhập thời gian bắt đầu sự kiện!')
-    .test('is-future', 'Ngày bắt đầu không được trong quá khứ', function (startAt) {
+    .test('is-future', 'Ngày bắt đầu phải sau ngày hiện tại 24h', function (startAt) {
       const startDate = new Date(startAt)
       const now = new Date()
-      return startDate > now
+      const minStartDate = new Date(now.getTime() + 24 * 60 * 60 * 1000)
+      return startDate > minStartDate
     }),
   endAt: yup
     .string()

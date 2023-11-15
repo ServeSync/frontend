@@ -11,12 +11,22 @@ export const OrganizerTableHeader = [
   },
   {
     id: '3',
+    name: 'Địa chỉ',
+    sort: ''
+  },
+  {
+    id: '4',
     name: 'Số điện thoại',
     sort: 'PhoneNumber'
   },
   {
-    id: '4',
-    name: 'Địa chỉ',
+    id: '5',
+    name: 'Ngày tạo',
+    sort: ''
+  },
+  {
+    id: '6',
+    name: 'Sự kiện đã tổ chức',
     sort: ''
   }
 ]

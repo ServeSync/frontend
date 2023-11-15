@@ -118,7 +118,6 @@ const EventDetailPage = () => {
               <div className='flex flex-col'>
                 <h1 className='text-[54px] font-semibold break-words text-[#195E8E]'>{event.name}</h1>
                 <h2 className='text-black text-[25px] font-medium break-words'>{event.introduction}</h2>
-                <h3 className='text-[#A0A2A4] text-[20px] font-light break-words'>{TypeToMessage(event.type)}</h3>
                 <div className='text-center font-medium flex items-center gap-3 mt-2'>
                   <img
                     src={event.representativeOrganization.imageUrl}
@@ -152,7 +151,7 @@ const EventDetailPage = () => {
                   )
                 ) : (
                   <span className='inline-flex items-center bg-green-50 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20 px-4 py-2 rounded-full'>
-                    Đã đăng ký.
+                    Đã đăng ký
                   </span>
                 )}
               </div>
@@ -244,13 +243,32 @@ const EventDetailPage = () => {
                       {event.activity.minScore.toFixed(2)} - {event.activity.maxScore.toFixed(2)} điểm
                     </span>
                   </div>
+                  <div className='flex gap-2'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#195E8E] flex-shrink-0'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z'
+                      />
+                    </svg>
+                    <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center truncate'>
+                      {event.activity.name}
+                    </span>
+                  </div>
                 </div>
                 <Button classNameButton='col-span-1 flex  justify-center outline-none' onClick={handleOpenModalMap}>
                   {mapImageURL && (
-                    <img src={mapImageURL} alt='Static Map' className='object-cover h-[150px] rounded-lg' />
+                    <img src={mapImageURL} alt='Static Map' className='object-cover h-[200px] rounded-lg' />
                   )}
                 </Button>
-                <div className='col-span-1 flex flex-col justify-between gap-5'>
+                <div className='col-span-1 flex flex-col gap-10'>
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
                       <p className='font-semibold text-[16px] text-[#1F2933] break-words'>Khung giờ đăng ký</p>
