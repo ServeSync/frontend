@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
@@ -19,6 +20,7 @@ import { EditorState, convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 import RequestEvent from '../RequestEvent'
 import RequestEventOrganization from '../RequestEventOrganization'
+import { handleError } from 'src/modules/Share/utils'
 
 const RequestEventPage = () => {
   const [page, setPage] = useState<number>(0)
@@ -116,7 +118,6 @@ const RequestEventPage = () => {
             navigate(path.home_page)
             toast.success('Yêu cầu thêm sự kiện thành công !')
           },
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (error: any) => {
             handleError(error)
           }
