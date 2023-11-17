@@ -53,8 +53,8 @@ const EventPendingPage = () => {
       page: 1,
       startAt: formatDateFilter(data.startAt as string),
       endAt: formatDateFilter(data.endAt as string),
-      type: data.type,
       status: data.status,
+      type: data.type,
       search: data.search
     }
     navigate({

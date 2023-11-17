@@ -8,10 +8,10 @@ import { RegisteredStudentsListType } from '../../interfaces'
 class GetRegisteredStudentsQuery {
   private _query
 
-  constructor(id: string, page: number) {
+  constructor(id: string, page: number, status?: string) {
     this._query = useQuery({
-      queryKey: ['registered_students', id, page],
-      queryFn: () => eventAPI.getRegisteredStudents(id, page),
+      queryKey: status ? ['registered_students', id, page, status] : ['registered_students', id, page],
+      queryFn: () => eventAPI.getRegisteredStudents(id, page, status),
       enabled: id !== undefined,
       staleTime: 3 * 60 * 1000,
       onError: (error: any) => {
@@ -19,6 +19,10 @@ class GetRegisteredStudentsQuery {
       }
     })
   }
+  fetchDataWithStatus(id: string, page: number, status: string) {
+    this._query.refetch({ queryKey: ['registered_students', id, page, status] })
+  }
+
   fetch() {
     return this._query.data?.data as RegisteredStudentsListType
   }

@@ -12,6 +12,7 @@ import { handleError } from 'src/modules/Share/utils'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import Restricted from 'src/modules/Share/components/Restricted'
+import Swal from 'sweetalert2'
 
 const EditEventPendingPage = () => {
   const [page, setPage] = useState<number>(0)
@@ -33,29 +34,55 @@ const EditEventPendingPage = () => {
   const rejectRequestEvent = new RejectRequestEvent()
 
   const handleApproveRequestEvent = () => {
-    approveRequestEvent.handle(
-      queryEventPendingConfig.id as string,
-      () => {
-        navigate(path.event_pending)
-        toast.success('Chấp thuận thành công')
-      },
-      (error: any) => {
-        handleError(error)
+    Swal.fire({
+      title: 'Xác nhận tổ đồng ý tổ chức sự kiện?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        approveRequestEvent.handle(
+          queryEventPendingConfig.id as string,
+          () => {
+            navigate(path.event_pending)
+            toast.success('Chấp thuận thành công')
+          },
+          (error: any) => {
+            handleError(error)
+          }
+        )
       }
-    )
+    })
   }
 
   const handleRejectRequestEvent = () => {
-    rejectRequestEvent.handle(
-      queryEventPendingConfig.id as string,
-      () => {
-        navigate(path.event_pending)
-        toast.success('Đã từ chối')
-      },
-      (error: any) => {
-        handleError(error)
+    Swal.fire({
+      title: 'Từ chối lời đề nghị tổ chức sự kiện?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'error',
+      showCancelButton: true,
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        rejectRequestEvent.handle(
+          queryEventPendingConfig.id as string,
+          () => {
+            navigate(path.event_pending)
+            toast.success('Đã từ chối')
+          },
+          (error: any) => {
+            handleError(error)
+          }
+        )
       }
-    )
+    })
   }
   return (
     <Fragment>

@@ -12,6 +12,7 @@ const useQueryRequestEventConfig = () => {
     {
       startDate: queryRequestEventParams.startDate,
       endDate: queryRequestEventParams.endDate,
+      status: queryRequestEventParams.status,
       type: queryRequestEventParams.type,
       search: queryRequestEventParams.search,
       sorting: queryRequestEventParams.sorting,
