@@ -29,16 +29,18 @@ const CreateEventOrganizationContactForm = ({
   index,
   listEventOrganizationsAdded,
   setListEventOrganizationsAdded,
-  handleRemoveEventOrganization
+  handleRemoveEventOrganization,
+  event
 }: Props) => {
   const [errors, setErrors] = useState<string>('')
 
   const [listContactsAdded, setListContactsAdded] = useState<RepresentativeType[]>([])
 
   const getAllContactsByOrganizationIdQuery = new GetAllContactsByOrganizationIdQuery(
-    eventOrganization.organizationId as string
+    event ? (eventOrganization.organizationId as string) : eventOrganization.id
   )
   const contactsList = getAllContactsByOrganizationIdQuery.fetch() as ContactsListType
+
   const contacts = contactsList && contactsList.data
 
   const handleAddContact = () => {

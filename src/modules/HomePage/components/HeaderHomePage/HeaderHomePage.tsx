@@ -11,7 +11,7 @@ import { Popover } from '@mui/material'
 import { clearTokenFromLocalStorage } from 'src/modules/Authentication/utils'
 import Skeleton from 'react-loading-skeleton'
 
-const LandingPageHeader = () => {
+const HeaderHomePage = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(AppContext)
 
   const navigate = useNavigate()
@@ -360,4 +360,4 @@ const LandingPageHeader = () => {
   )
 }
 
-export default LandingPageHeader
+export default HeaderHomePage

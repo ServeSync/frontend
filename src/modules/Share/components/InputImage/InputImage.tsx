@@ -38,7 +38,7 @@ const InputImage = ({ onChange, register, previewImage, avatar }: Props) => {
           src={
             previewImage ||
             (avatar && avatar) ||
-            'https://cdn.sforum.vn/sforum/wp-content/uploads/2020/08/Pastel-iPhone-wallpaper-Arthur1992aS-iDownloadBlog-Blue-thumbnail-1472x1472-1.jpeg'
+            'http://res.cloudinary.com/dboijruhe/image/upload/v1700115786/ServeSync/66ff73a6-cf63-4258-8c45-c61192b850e3-background-default.jpg'
           }
           alt='avatar'
           className='top-0 h-full w-full object-cover object-center absolute rounded-2xl'

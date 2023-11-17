@@ -28,3 +28,21 @@ export const StatusToMessage = (status: string) => {
   }
   return mappedEventStatus[`${status}`]
 }
+
+interface StatusButton {
+  [key: string]: boolean
+}
+
+export const StatusIsShowButton = (status: string) => {
+  const mappedEventStatus: StatusButton = {
+    Cancelled: false,
+    Happening: false,
+    Done: false,
+    Expired: false,
+    Pending: true,
+    Rejected: false,
+    Upcoming: true,
+    Approved: true
+  }
+  return mappedEventStatus[`${status}`]
+}

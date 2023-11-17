@@ -337,14 +337,16 @@ const EventRegisterList = () => {
                       <div className='flex gap-6 justify-end'>
                         <Button
                           type='submit'
-                          classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[80px]'
+                          classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[108px]'
+                          isLoading={rejectRegistrationCommandHandler.isLoading()}
                         >
                           Từ chối
                         </Button>
                         <Button
                           type='button'
-                          classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[80px]'
+                          classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
                           onClick={() => handleApproveRegistration(registration.studentId, registration.id)}
+                          isLoading={approveRegistrationCommandHandler.isLoading()}
                         >
                           Duyệt
                         </Button>

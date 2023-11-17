@@ -1,3 +1,6 @@
+import FooterHomePage from 'src/modules/HomePage/components/FooterHomePage'
+import HeaderHomePage from 'src/modules/HomePage/components/HeaderHomePage'
+
 interface Props {
   children?: React.ReactNode
 }
@@ -5,8 +8,9 @@ interface Props {
 const HomePageLayout = ({ children }: Props) => {
   return (
     <div>
-      <div className='w-[30%] h-[60%] bg-[#26C6DA]/80 shadow-2xl rounded-full blur-[200px] absolute top-[50px] left-[-100px]'></div>
+      <HeaderHomePage />
       {children}
+      <FooterHomePage />
     </div>
   )
 }

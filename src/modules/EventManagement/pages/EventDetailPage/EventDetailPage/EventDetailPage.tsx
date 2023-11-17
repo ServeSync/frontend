@@ -7,13 +7,11 @@ import { Box, Tab, Tabs } from '@mui/material'
 import useQueryEventConfig from '../../../hooks/useQueryEventConfig'
 import { GetEventByIdQuery } from '../../../services'
 import { formatDateTime } from 'src/modules/Share/utils'
-import LandingPageHeader from 'src/modules/HomePage/components/HeaderHomePage/HeaderHomePage'
 import { LocationType } from 'src/modules/EventManagement/interfaces'
 import EventDetailRegisterListPage from '../EventDetailRegisterListPage'
 import EventDetailAttendanceListPage from '../EventDetailAttendanceListPage'
 import EventDetailInformationPage from '../EventDetailInformationPage'
 import EventDetailOrganizationPage from '../EventDetailOrganizationPage'
-import FooterHomePage from 'src/modules/HomePage/components/FooterHomePage'
 import Button from 'src/modules/Share/components/Button'
 import { AppContext } from 'src/modules/Share/contexts'
 import { StatusToMessage, TypeToMessage } from 'src/modules/EventManagement/constants'
@@ -111,7 +109,6 @@ const EventDetailPage = () => {
         <meta name='description' content='This is event detail page of the project' />
       </Helmet>
       <div>
-        <LandingPageHeader />
         {event && (
           <div className='relative bg-white h-full pb-[100px] mx-auto'>
             <div className='flex mb-10 px-[10%] justify-between'>
@@ -138,21 +135,25 @@ const EventDetailPage = () => {
                 </div>
               </div>
               <div className='flex justify-between items-end'>
-                {!event.isRegistered ? (
-                  event.calculatedStatus == 'Registration' ? (
+                {event.isRegistered ? (
+                  event.isAttendance ? (
+                    <span className='inline-flex items-center bg-green-50 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20 px-4 py-2 rounded-full'>
+                      Đã điểm danh
+                    </span>
+                  ) : (
+                    <span className='inline-flex items-center bg-green-50 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20 px-4 py-2 rounded-full'>
+                      Đã đăng ký
+                    </span>
+                  )
+                ) : (
+                  event.calculatedStatus == 'Registration' && (
                     <Button
                       onClick={handleRegisterEvent}
                       classNameButton='bg-[#0E91EF] text-white px-8 py-3 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md text-center  no-underline flex-shrink-0'
                     >
                       Đăng ký ngay
                     </Button>
-                  ) : (
-                    <span></span>
                   )
-                ) : (
-                  <span className='inline-flex items-center bg-green-50 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20 px-4 py-2 rounded-full'>
-                    Đã đăng ký
-                  </span>
                 )}
               </div>
             </div>
@@ -421,7 +422,6 @@ const EventDetailPage = () => {
             </div>
           </div>
         )}
-        <FooterHomePage />
       </div>
     </Fragment>
   )

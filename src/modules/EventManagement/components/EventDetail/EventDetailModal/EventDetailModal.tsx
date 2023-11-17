@@ -114,7 +114,8 @@ const EventDetailModal = ({
             <div className='flex justify-end'>
               <Button
                 type='submit'
-                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold'
+                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold w-[114px]'
+                isLoading={registerEventCommandHandler.isLoading()}
               >
                 Đăng kí
               </Button>
@@ -127,7 +128,7 @@ const EventDetailModal = ({
           <form>
             <div className='flex justify-between mb-8'>
               <h2 className='font-semibold text-[18px]'>Đăng kí tham gia sự kiện</h2>
-              <Button classNameButton='' onClick={handleCloseModalTableRegisterEvent}>
+              <Button type='button' onClick={handleCloseModalTableRegisterEvent}>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
@@ -175,15 +176,19 @@ const EventDetailModal = ({
                       </th>
                       <th className='px-2 py-4 font-medium'>
                         {(role.approvedRegistered as number) < Number(role?.quantity) &&
-                          (!role.isRegistered as boolean) && (
-                            <Button
-                              type='button'
-                              classNameButton='bg-[#26C6DA] py-1 px-4 rounded-full text-[14px] text-white font-semibold'
-                              onClick={() => handleOpenModalRegisterEvent(role?.id as string)}
-                            >
-                              Đăng kí
-                            </Button>
-                          )}
+                        (!role.isRegistered as boolean) ? (
+                          <Button
+                            type='button'
+                            classNameButton='bg-[#26C6DA] py-1 px-4 rounded-full text-[14px] text-white font-semibold'
+                            onClick={() => handleOpenModalRegisterEvent(role?.id as string)}
+                          >
+                            Đăng kí
+                          </Button>
+                        ) : (role.isRegistered as boolean) ? (
+                          <span>Đã đăng kí</span>
+                        ) : (
+                          <span>Đủ số lượng</span>
+                        )}
                       </th>
                     </tr>
                   ))}

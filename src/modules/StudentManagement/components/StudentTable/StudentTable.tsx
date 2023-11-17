@@ -64,7 +64,7 @@ const StudentTable = ({ students, onEditStudent, onSort, isLoading }: Props) => 
                 <th className='px-2 py-4 font-medium w-[12%]'>{student.homeRoom.name}</th>
                 <th className='px-2 py-4 font-medium w-[25%]'>{student.faculty.name}</th>
                 <th className='px-2 py-4 font-medium w-[10%]'>{student.educationProgram.name}</th>
-                <th className='px-2 py-4 font-medium'>0</th>
+                <th className='px-2 py-4 font-medium'>{student.score}</th>
               </tr>
             ))}
       </tbody>

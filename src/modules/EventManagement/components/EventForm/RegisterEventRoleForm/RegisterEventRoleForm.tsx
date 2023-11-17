@@ -67,8 +67,8 @@ const RegisterEventRoleForm = ({
       name: { ...getValues('roles') }.name as string,
       isNeedApprove: Boolean({ ...getValues('roles') }.isNeedApprove),
       description: draftToHtml(convertToRaw(description.getCurrentContent())),
-      quantity: ({ ...getValues('roles') }.quantity as string).replace(/^0+/, ''),
-      score: ({ ...getValues('roles') }.score as string).replace(/^0+/, '')
+      quantity: ({ ...getValues('roles') }.quantity as string).replace(/^0+/, '').trim(),
+      score: ({ ...getValues('roles') }.score as string).replace(/^0+/, '').trim()
     }
     const regexNumber = /^\d+$/
     const eventRoles: EventRole[] = [...dataEventRole]
@@ -80,7 +80,7 @@ const RegisterEventRoleForm = ({
         setErrorsLocal('Mô tả vài trò ít nhất 10 kí tự !')
       } else if (eventRoles.some((item) => item.name === role.name)) {
         setErrorsLocal('Vai trò đã tồn tại !')
-      } else if (!regexNumber.test(role.quantity) || !regexNumber.test(role.score)) {
+      } else if (!regexNumber.test(role.quantity.trim()) || !regexNumber.test(role.score.trim())) {
         setErrorsLocal('Vui lòng nhập số lượng và điểm là số dương !')
       } else {
         if (isEditEventRole) {
