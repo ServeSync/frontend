@@ -109,15 +109,22 @@ const RequestEventPage = () => {
           EventOrganizationInfo: organizationDataPromise,
           EventOrganizationContactInfo: organizationContactDataPromise
         }
-        await requestCreateEventCommandHandler.handle({ ...body }, file as File, () => {
-          toast.success('Yêu cầu thêm sự kiện thành công !')
-          navigate({
-            pathname: path.home_page
-          })
-        })
+        await requestCreateEventCommandHandler.handle(
+          { ...body },
+          file as File,
+          () => {
+            navigate(path.home_page)
+            toast.success('Yêu cầu thêm sự kiện thành công !')
+          },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (error: any) => {
+            handleError(error)
+          }
+        )
       }
     } catch (error) {
       console.log(error)
+      toast.error('Yêu cầu thêm sự kiện thất bại !')
     }
   })
 

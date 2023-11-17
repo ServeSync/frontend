@@ -9,6 +9,7 @@ import { TextField } from '@mui/material'
 import { EditEventOrganizationTableHeader } from 'src/modules/EventManagement/constants'
 import { gender } from 'src/modules/StudentManagement/constants'
 import Button from 'src/modules/Share/components/Button'
+import { formatDateOfBirth } from 'src/modules/Share/utils'
 interface Props {
   register: UseFormRegister<FormEventOrganizationType>
   setValue: UseFormSetValue<FormEventOrganizationType>
@@ -45,7 +46,7 @@ const EditEventOrganizationForm = ({
   return (
     <Fragment>
       {eventOrganization && (
-        <div className='border-[1px] border-gray-300 p-6 rounded-xl'>
+        <div className=''>
           <div className='flex justify-between items-center mb-4'>
             <h2 className='text-[20px] font-semibold'>Thông tin ban tổ chức</h2>
           </div>
@@ -224,7 +225,7 @@ const EditEventOrganizationForm = ({
                         <span className='text-gray-400 text-[12px]'>{item.position}</span>
                       </div>
                     </th>
-                    <th className='px-2 py-4 font-medium'>{item.birth}</th>
+                    <th className='px-2 py-4 font-medium'>{formatDateOfBirth(item.birth)}</th>
                     <th className='px-2 py-4 font-medium'>
                       {gender.find((option) => option.id === item.gender.toString())?.name}
                     </th>

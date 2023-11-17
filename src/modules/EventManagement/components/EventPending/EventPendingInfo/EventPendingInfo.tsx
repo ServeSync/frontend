@@ -1,12 +1,13 @@
 import { TextField } from '@mui/material'
 import { ContentState, EditorState, convertFromHTML } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import { TypeToMessage } from 'src/modules/EventManagement/constants'
+import { StatusToMessage, TypeToMessage } from 'src/modules/EventManagement/constants'
 import { EventPendingType } from 'src/modules/EventManagement/interfaces'
 import Button from 'src/modules/Share/components/Button'
 import { formatDateTime } from 'src/modules/Share/utils'
 import { useEffect, useMemo, useState } from 'react'
 import ModalCustom from 'src/modules/Share/components/Modal'
+import classNames from 'classnames'
 
 interface Props {
   eventPending: EventPendingType
@@ -51,22 +52,34 @@ const EventPendingInfo = ({ eventPending }: Props) => {
           <div className='col-span-12 w-full text-[#195E8E] font-bold text-[42px] bg-transparent pr-4  outline-none'>
             {eventPending.name}
           </div>
-          <div className='col-span-12 flex selection:items-center justify-center gap-2'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth={1.5}
-              stroke='currentColor'
-              className='w-6 h-6'
+          <div className='col-span-12 flex selection:items-center justify-between gap-2'>
+            <div className='flex gap-x-2'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='w-6 h-6'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10'
+                />
+              </svg>
+              <span className='w-full text-black/90 text-[16px] bg-transparent'>{eventPending.introduction}</span>
+            </div>
+            <div
+              className={classNames('px-4 py-2 rounded-full h-[40px]', {
+                'bg-[#26dc9c] text-white': eventPending.status === 'Approved',
+                'bg-[#fca310] text-white': eventPending.status === 'Expired',
+                'bg-[#195E8E] text-white': eventPending.status === 'Pending',
+                'bg-[#ff4d4f] text-white': eventPending.status === 'Rejected'
+              })}
             >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10'
-              />
-            </svg>
-            <span className='w-full text-black/90 text-[16px] bg-transparent'>{eventPending.introduction}</span>
+              {StatusToMessage(eventPending.status as string)}
+            </div>
           </div>
           <div className='col-span-4'>
             <img src={eventPending.imageUrl} alt='' className='object-cover rounded-2xl w-full h-full' />

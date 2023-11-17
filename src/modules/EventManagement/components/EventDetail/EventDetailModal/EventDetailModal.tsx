@@ -145,7 +145,7 @@ const EventDetailModal = ({
               <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
                 <tr className='text-[14px] text-gray-600'>
                   {RegisterRoleTableHeader.map((item) => (
-                    <th key={item.id} className='px-2 py-2 font-semibold'>
+                    <th key={item.id} className='px-2 py-2 font-semibold '>
                       {item.name}
                     </th>
                   ))}
@@ -160,9 +160,11 @@ const EventDetailModal = ({
                     >
                       <th className='px-2 py-4 font-medium'>{role.name}</th>
                       <th className='px-2 py-4 font-medium'>{Parser(role.description)}</th>
-                      <th className='px-2 py-4 font-medium'>{role.quantity}</th>
-                      <th className='px-2 py-4 font-medium'>{role.score}</th>
-                      <th className='px-2 py-4 font-medium'>{role.registered}</th>
+                      <th className='px-2 py-4 font-medium text-center'>{role.quantity}</th>
+                      <th className='px-2 py-4 font-medium text-center'>{role.score}</th>
+                      <th className='px-2 py-4 font-medium text-center'>{role.registered}</th>
+                      <th className='px-2 py-4 font-medium text-center'>{role.approvedRegistered}</th>
+
                       <th className='px-2 py-4 font-medium'>
                         <input
                           type='checkbox'

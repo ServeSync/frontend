@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TextField } from '@mui/material'
@@ -5,12 +6,21 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { RegisteredStudentsTableHeader, StatusToMessage } from 'src/modules/EventManagement/constants'
+import {
+  RegisteredStudentsTableHeader,
+  StatusToMessage,
+  pendingEventStatus
+} from 'src/modules/EventManagement/constants'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import { RegisteredStudentsType } from 'src/modules/EventManagement/interfaces'
 import { GetRegisteredStudentsQuery, RejectRegistrationCommandHandler } from 'src/modules/EventManagement/services'
 import { ApproveRegistrationCommandHandler } from 'src/modules/EventManagement/services/Student/approveRegistration.command-handler'
-import { FormRejectRegistrationEventType, FormRejectRegistrationSchema } from 'src/modules/EventManagement/utils'
+import {
+  FormFilterEventRegisterListSchema,
+  FormFilterEventRegisterListType,
+  FormRejectRegistrationEventType,
+  FormRejectRegistrationSchema
+} from 'src/modules/EventManagement/utils'
 import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import Pagination from 'src/modules/Share/components/Pagination'
@@ -18,12 +28,20 @@ import PopoverCustom from 'src/modules/Share/components/Popover'
 import path from 'src/modules/Share/constants/path'
 import { formatDateTime, handleError } from 'src/modules/Share/utils'
 import Swal from 'sweetalert2'
+import Filter from '../../Filter'
+import { URLSearchParamsInit, createSearchParams, useNavigate } from 'react-router-dom'
+import { isEmpty, omitBy } from 'lodash'
 
 const EventRegisterList = () => {
   const [page, setPage] = useState<number>(1)
 
   const [isOpenModalRegisterEvent, setIsOpenModalRegisterEvent] = useState(false)
 
+  const FilterEventRegisterListForm = useForm<FormFilterEventRegisterListType>({
+    resolver: yupResolver(FormFilterEventRegisterListSchema)
+  })
+
+  const navigate = useNavigate()
   const handleCloseModalRegisterEvent = () => {
     setIsOpenModalRegisterEvent(false)
   }
@@ -106,10 +124,36 @@ const EventRegisterList = () => {
       })
     })
 
+  const handleSubmitFormFilter = FilterEventRegisterListForm.handleSubmit((data) => {
+    const config = {
+      ...queryEventConfig,
+      page: 1,
+      status: data.status
+    }
+    navigate({
+      pathname: path.edit_event,
+      search: createSearchParams(omitBy(config, isEmpty) as URLSearchParamsInit).toString()
+    })
+  })
+
+  const handleResetFormFilter = () => {
+    FilterEventRegisterListForm.setValue('status', '')
+  }
+
   return (
     <div>
       <div className='w-full mb-5 flex justify-end'>
-        <PopoverCustom renderPopover={<div className='h-[300px] w-[300px]'></div>}>
+        <PopoverCustom
+          renderPopover={
+            <form onSubmit={handleSubmitFormFilter}>
+              <Filter
+                options={pendingEventStatus}
+                control={FilterEventRegisterListForm.control}
+                onResetForm={handleResetFormFilter}
+              />
+            </form>
+          }
+        >
           <Button classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'>
             <svg
               xmlns='http://www.w3.org/2000/svg'

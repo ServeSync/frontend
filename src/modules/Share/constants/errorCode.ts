@@ -157,13 +157,28 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Vai trò đã được đăng ký đủ số lượng !',
       type: 'Server'
     },
-    'EventCollaborationRequest:000002': {
-      message: 'Ngày duyệt sự kiện phải trước ngày tổ chức hơn 1 ngày !',
+    'EventCollaborationRequest:000001': {
+      message: 'Yêu cầu tạo sự kiện không tồn tại !',
       type: 'Server'
     },
-
+    'EventCollaborationRequest:000002': {
+      message: 'Quá hạn duyệt yêu cầu tạo sự kiện !',
+      type: 'Server'
+    },
+    'EventCollaborationRequest:000003': {
+      message: 'Yêu cầu tạo sự kiện không ở trạng thái cần chờ xử lý !',
+      type: 'Server'
+    },
+    'EventCollaborationRequest:000004': {
+      message: 'Không thể từ chối yêu cầu tạo sự kiện !',
+      type: 'Server'
+    },
     'EventActivity:000001': {
       message: 'Hoạt động sự kiện không tồn tại !',
+      type: 'Server'
+    },
+    'EventOrganization:000001': {
+      message: 'Nhà tổ chức sự kiện không tồn tại !',
       type: 'Server'
     },
     'EventOrganization:000002': {
