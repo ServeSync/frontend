@@ -1,6 +1,6 @@
 /* eslint-disable import/named */
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Fragment, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { listEventStatus } from 'src/modules/EventManagement/constants'
 import { FormFilterEventSchema, FormFilterEventType } from 'src/modules/EventManagement/utils'
@@ -14,9 +14,9 @@ import path from 'src/modules/Share/constants/path'
 import { URLSearchParamsInit, createSearchParams, useNavigate } from 'react-router-dom'
 import { isEmpty, omitBy } from 'lodash'
 import { EventsListType } from 'src/modules/EventManagement/interfaces'
-import ListEventCard from '../ListEventCard'
 import Pagination from 'src/modules/Share/components/Pagination'
 import { listEventPage } from 'src/modules/Share/assets/image'
+import CardEvent from '../CardEvent'
 
 interface Props {
   events: EventsListType
@@ -45,7 +45,8 @@ const ListEvent = ({ events, pageSize }: Props) => {
       endDate: formatDateFilter(data.endAt as string),
       eventType: data.type,
       eventStatus: data.status,
-      search: data.search
+      search: data.search,
+      size: 9
     }
     navigate({
       pathname: path.list_events,
@@ -53,7 +54,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
     })
   })
   return (
-    <Fragment>
+    <div>
       <div
         className='w-full flex justify-center items-center pb-24 pt-10'
         style={{
@@ -62,11 +63,11 @@ const ListEvent = ({ events, pageSize }: Props) => {
       >
         <img src={listEventPage} alt='' className='max-w-[20%]' />
       </div>
-      <div className='flex justify-between items-center pt-[16px] pb-[40px] font-normal relative max-w-screen-xl mx-auto'>
+      <div className='flex justify-between items-center pt-[16px] pb-[40px] font-normal relative w-[80%] mx-auto'>
         <form className='absolute  w-full mx-auto flex items-center flex-col -top-16' onSubmit={handleSubmitFormFilter}>
           <span className='text-[30px] font-normal'>Tìm kiếm sự kiện phù hợp với bạn</span>
           <InputSearch
-            classNameInput='bg-white border-[1px] border-gray-900 rounded-md h-[44px] w-[500px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
+            classNameInput='bg-white border-[1px] rounded-md h-[44px] w-[500px] outline-none pl-8 pr-2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
             name='search'
             placeholder='Tìm kiếm'
             register={FilterEventForm.register}
@@ -119,14 +120,22 @@ const ListEvent = ({ events, pageSize }: Props) => {
           </div>
         </div>
       </div>
-      <ListEventCard events={events} />
+      <div className='grid grid-cols-3 gap-12 w-[80%] mx-auto'>
+        {events &&
+          events.data.length > 0 &&
+          events.data.map((event, index) => {
+            if (event.status === 'Happening' || event.status === 'Upcoming' || event.status === 'Done') {
+              return <CardEvent event={event} key={index} />
+            }
+          })}
+      </div>
       <Pagination
-        queryConfig={queryEventConfig}
+        queryConfig={{ ...queryEventConfig, size: 9 }}
         pageSize={pageSize}
         pathname={path.list_events}
         className='flex justify-end'
       />
-    </Fragment>
+    </div>
   )
 }
 

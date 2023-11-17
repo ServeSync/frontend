@@ -1,8 +1,6 @@
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { GetAllEventsQuery } from 'src/modules/EventManagement/services'
-import HeaderHomePage from '../../components/HeaderHomePage'
-import FooterHomePage from '../../components/FooterHomePage'
 import ListEventCard from '../../components/ListEvent'
 import { homePage_01, homePage_03 } from 'src/modules/Share/assets/image'
 
@@ -18,7 +16,6 @@ const EventsPage = () => {
         <meta name='description' content='This is events page of the project' />
       </Helmet>
       <div>
-        <HeaderHomePage />
         <ListEventCard events={events} pageSize={pageSize} />
         <div className='flex flex-col justify-center items-center py-8 px-4 m-auto mt-20 max-w-screen-xl w-full'>
           <div className='w-full h-full lg:px-40 py-12 inline-flex justify-center items-center relative'>
@@ -78,7 +75,6 @@ const EventsPage = () => {
             </div>
           </div>
         </div>
-        <FooterHomePage />
       </div>
     </Fragment>
   )

@@ -24,7 +24,7 @@ class CreateEventCommandHandler {
     const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
     event.imageUrl = uploadImageResponse.data.url
 
-    return this._createEventMutation.mutate(event, {
+    return await this._createEventMutation.mutateAsync(event, {
       onSuccess: () => {
         this._queryClient.invalidateQueries({
           queryKey: ['events']
@@ -39,6 +39,14 @@ class CreateEventCommandHandler {
 
   isLoading() {
     return this._uploadImageMutation.isLoading || this._createEventMutation.isLoading
+  }
+
+  isSuccess() {
+    return this._createEventMutation.isSuccess
+  }
+
+  isIdle() {
+    return this._createEventMutation.isIdle
   }
 }
 

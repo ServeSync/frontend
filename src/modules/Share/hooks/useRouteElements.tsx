@@ -87,17 +87,21 @@ const useRouteElements = () => {
     {
       path: path.event_detail,
       element: (
-        <Suspense>
-          <EventDetailPage />
-        </Suspense>
+        <HomePageLayout>
+          <Suspense>
+            <EventDetailPage />
+          </Suspense>
+        </HomePageLayout>
       )
     },
     {
       path: path.list_events,
       element: (
-        <Suspense>
-          <EventsPage />
-        </Suspense>
+        <HomePageLayout>
+          <Suspense>
+            <EventsPage />
+          </Suspense>
+        </HomePageLayout>
       )
     },
     {
@@ -162,9 +166,11 @@ const useRouteElements = () => {
         {
           path: path.request_event,
           element: (
-            <Suspense>
-              <RequestEventPage />
-            </Suspense>
+            <HomePageLayout>
+              <Suspense>
+                <RequestEventPage />
+              </Suspense>
+            </HomePageLayout>
           )
         }
       ]

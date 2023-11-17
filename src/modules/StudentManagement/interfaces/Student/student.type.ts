@@ -26,18 +26,19 @@ export interface StudentsListType {
       id: string
       code: string
       fullName: string
+      gender: boolean
+      dateOfBirth: string
+      homeTown: string
+      address: string
+      imageUrl: string
+      citizenId: string
       email: string
       phone: string
-      dateOfBirth: string
-      gender: boolean
-      address: string
-      faculty: FacultyType
-      imageUrl: string
       identityId: string
-      citizenId: string
-      homeTown: string
+      faculty: FacultyType
       homeRoom: HomeRoomType
       educationProgram: EducationProgramType
+      score: number
     }
   ]
 }

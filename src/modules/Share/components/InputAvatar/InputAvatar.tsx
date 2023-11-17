@@ -42,7 +42,7 @@ const InputAvatar = ({ onChange, register, previewImage, avatar }: Props) => {
           src={
             previewImage ||
             (avatar && avatar) ||
-            'http://res.cloudinary.com/dboijruhe/image/upload/v1699979173/ServeSync/f0bc9f0a-a909-4a98-9d2f-f0dde8efdc81-avatar-default.png'
+            'http://res.cloudinary.com/dboijruhe/image/upload/v1700103279/ServeSync/2258daa6-cf90-456e-9184-4258b455c78e-avatar-default.png'
           }
           alt='avatar'
           className='rounded-full top-0 h-full w-full object-cover object-top absolute'

@@ -15,12 +15,10 @@ import { useNavigate } from 'react-router-dom'
 import { MarkerType } from '../../../interfaces'
 import { omit } from 'lodash'
 import Button from 'src/modules/Share/components/Button'
-import LandingPageHeader from 'src/modules/HomePage/components/HeaderHomePage/HeaderHomePage'
 import { EditorState, convertToRaw } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 import RequestEvent from '../RequestEvent'
 import RequestEventOrganization from '../RequestEventOrganization'
-import FooterHomePage from 'src/modules/HomePage/components/FooterHomePage'
 
 const RequestEventPage = () => {
   const [page, setPage] = useState<number>(0)
@@ -149,9 +147,8 @@ const RequestEventPage = () => {
       </Helmet>
       <div>
         <div className='w-[20%] h-[20%] bg-[#26C6DA]/80 shadow-xl blur-[200px] absolute top-[20px] left-[-100px]'></div>
-        <LandingPageHeader />
         <form onSubmit={handleSubmitForm}>
-          <div className='max-w-[1280px] mx-auto pb-4 mt-10 mb-10'>
+          <div className='w-[80%] mx-auto pb-4 mt-10 mb-10'>
             <Box>
               <Box>
                 <Tabs
@@ -228,7 +225,6 @@ const RequestEventPage = () => {
             </div>
           </div>
         </form>
-        <FooterHomePage />
       </div>
     </Fragment>
   )

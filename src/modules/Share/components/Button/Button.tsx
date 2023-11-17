@@ -1,6 +1,6 @@
 interface Props {
   type?: 'submit' | 'button' | 'reset' | undefined
-  classNameButton: string
+  classNameButton?: string
   children?: React.ReactNode
   isLoading?: boolean
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined

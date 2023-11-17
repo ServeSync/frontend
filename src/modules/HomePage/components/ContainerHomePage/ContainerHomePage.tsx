@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
-import { EventsListType } from 'src/modules/EventManagement/interfaces'
 import ContainerEvent from '../EventContainer'
 import { global_image, homePage_01, homePage_02, homePage_03 } from 'src/modules/Share/assets/image'
+import { GetAllEventsByStatusQuery } from 'src/modules/EventManagement/services'
 
-interface Props {
-  eventsDone: EventsListType
-  eventsHappening: EventsListType
-  eventsUpcoming: EventsListType
-}
+const ContainerHomePage = () => {
+  const getAllEventsDoneQuery = new GetAllEventsByStatusQuery('done')
+  const eventsDone = getAllEventsDoneQuery.fetch()
 
-const ContainerHomePage = ({ eventsDone, eventsHappening, eventsUpcoming }: Props) => {
+  const getAllEventHappeningQuery = new GetAllEventsByStatusQuery('happening')
+  const eventsHappening = getAllEventHappeningQuery.fetch()
+
+  const getAllEventUpcomingQuery = new GetAllEventsByStatusQuery('upcoming')
+  const eventsUpcoming = getAllEventUpcomingQuery.fetch()
+
   return (
     <div className='flex flex-col pb-[200px] overflow-hidden w-[80%] mx-auto'>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center w-full py-8 px-4 m-auto'>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useState } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
 import { toast } from 'react-toastify'
@@ -34,6 +34,8 @@ const CreateEventPage = () => {
   const [dataEventOrganization, setDataEventOrganization] = useState<EventOrganizationFormType[]>([])
   const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
 
+  const isSuccess = useRef(false)
+
   const {
     register,
     handleSubmit,
@@ -63,7 +65,7 @@ const CreateEventPage = () => {
 
   const createEventCommandHandler = new CreateEventCommandHandler()
 
-  const handleSubmitForm = handleSubmit((data) => {
+  const handleSubmitForm = handleSubmit(async (data) => {
     if (dataEventRole.length === 0) {
       setError('roles', { message: 'Sự kiện có ít nhất 1 vai trò !' })
     } else if (dataEventOrganization.some((item) => item.organizationReps.length === 0)) {
@@ -75,14 +77,13 @@ const CreateEventPage = () => {
         roles: dataEventRole,
         organizations: dataEventOrganization
       } as FormEvent
-      createEventCommandHandler.handle(
+      await createEventCommandHandler.handle(
         body,
         file as File,
         () => {
+          isSuccess.current = true
           toast.success('Thêm sự kiện thành công !')
-          navigate({
-            pathname: path.event
-          })
+          navigate(path.event)
         },
         (error: any) => {
           handleError<FormEventType>(error, setError)
@@ -91,12 +92,16 @@ const CreateEventPage = () => {
     }
   })
 
-  const onIsSuccess = () => {
-    setTimeout(() => {
-      if (createEventCommandHandler && createEventCommandHandler.isLoading() === false) {
-        toast.error('Vui lòng kiểm tra lại dữ liệu!')
+  const handleCreateEvent = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    try {
+      await handleSubmitForm()
+      if (!isSuccess.current) {
+        toast.error('Vui lòng kiểm tra lại thông tin !')
       }
-    }, 300)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -174,23 +179,23 @@ const CreateEventPage = () => {
             </Box>
           </Box>
         </div>
-        <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 px-4 py-2 bg-slate-100 w-full z-20'>
-          <Link
-            to={path.event}
-            className='flex justify-center items-center bg-[#989899] w-[60px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
-          >
-            Hủy
-          </Link>
-          <Button
-            type='submit'
-            isLoading={createEventCommandHandler.isLoading()}
-            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[140px]'
-            onClick={onIsSuccess}
-          >
-            Tạo sự kiện
-          </Button>
-        </div>
       </form>
+      <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 px-4 py-2 bg-slate-100 w-full z-20'>
+        <Link
+          to={path.event}
+          className='flex justify-center items-center bg-[#989899] w-[60px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+        >
+          Hủy
+        </Link>
+        <Button
+          type='submit'
+          isLoading={createEventCommandHandler.isLoading()}
+          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[140px]'
+          onClick={handleCreateEvent}
+        >
+          Tạo sự kiện
+        </Button>
+      </div>
     </Fragment>
   )
 }
