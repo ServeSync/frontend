@@ -250,7 +250,7 @@ const EventDetailPage = () => {
                       viewBox='0 0 24 24'
                       strokeWidth={1.5}
                       stroke='currentColor'
-                      className='w-6 h-6 text-[#26C6DA]'
+                      className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#26C6DA] flex-shrink-0'
                     >
                       <path
                         strokeLinecap='round'
