@@ -1,16 +1,12 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
-import { TextField } from '@mui/material'
+import { MenuItem, TextField } from '@mui/material'
 import classNames from 'classnames'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import {
-  RegisteredStudentsTableHeader,
-  StatusToMessage,
-  pendingEventStatus
-} from 'src/modules/EventManagement/constants'
+import { RegisteredStudentsTableHeader, StatusToMessage } from 'src/modules/EventManagement/constants'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import { RegisteredStudentsType } from 'src/modules/EventManagement/interfaces'
 import { GetRegisteredStudentsQuery, RejectRegistrationCommandHandler } from 'src/modules/EventManagement/services'
@@ -24,13 +20,9 @@ import {
 import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import Pagination from 'src/modules/Share/components/Pagination'
-import PopoverCustom from 'src/modules/Share/components/Popover'
 import path from 'src/modules/Share/constants/path'
 import { formatDateTime, handleError } from 'src/modules/Share/utils'
 import Swal from 'sweetalert2'
-import Filter from '../../Filter'
-import { URLSearchParamsInit, createSearchParams, useNavigate } from 'react-router-dom'
-import { isEmpty, omitBy } from 'lodash'
 
 const EventRegisterList = () => {
   const [page, setPage] = useState<number>(1)
@@ -41,7 +33,6 @@ const EventRegisterList = () => {
     resolver: yupResolver(FormFilterEventRegisterListSchema)
   })
 
-  const navigate = useNavigate()
   const handleCloseModalRegisterEvent = () => {
     setIsOpenModalRegisterEvent(false)
   }
@@ -53,7 +44,12 @@ const EventRegisterList = () => {
 
   const queryEventConfig = useQueryEventConfig()
 
-  const getRegisteredStudentsQuery = new GetRegisteredStudentsQuery(queryEventConfig.id as string, page)
+  const getRegisteredStudentsQuery = new GetRegisteredStudentsQuery(
+    queryEventConfig.id as string,
+    page,
+    FilterEventRegisterListForm.watch('status') || ''
+  )
+
   const registeredStudents = getRegisteredStudentsQuery.fetch()
 
   const [registration, setRegistration] = useState<RegisteredStudentsType>()
@@ -124,54 +120,37 @@ const EventRegisterList = () => {
       })
     })
 
-  const handleSubmitFormFilter = FilterEventRegisterListForm.handleSubmit((data) => {
-    const config = {
-      ...queryEventConfig,
-      page: 1,
-      status: data.status
+  const fetchRegisteredStudents = async () => {
+    try {
+      const status = FilterEventRegisterListForm.watch('status') || ''
+      await getRegisteredStudentsQuery.fetchDataWithStatus(queryEventConfig.id as string, page, status)
+    } catch (error) {
+      console.error(error)
     }
-    navigate({
-      pathname: path.edit_event,
-      search: createSearchParams(omitBy(config, isEmpty) as URLSearchParamsInit).toString()
-    })
-  })
-
-  const handleResetFormFilter = () => {
-    FilterEventRegisterListForm.setValue('status', '')
   }
-
+  const handleSubmitFormFilter = FilterEventRegisterListForm.handleSubmit(() => {
+    fetchRegisteredStudents()
+  })
   return (
     <div>
       <div className='w-full mb-5 flex justify-end'>
-        <PopoverCustom
-          renderPopover={
-            <form onSubmit={handleSubmitFormFilter}>
-              <Filter
-                options={pendingEventStatus}
-                control={FilterEventRegisterListForm.control}
-                onResetForm={handleResetFormFilter}
-              />
-            </form>
-          }
-        >
-          <Button classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth={1.5}
-              stroke='currentColor'
-              className='w-6 h-6'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z'
-              />
-            </svg>
-            <span>Lọc</span>
-          </Button>
-        </PopoverCustom>
+        <form onSubmit={handleSubmitFormFilter}>
+          <div className='flex items-center '>
+            <Controller
+              name='status'
+              control={FilterEventRegisterListForm.control}
+              defaultValue=''
+              render={({ field }) => (
+                <TextField {...field} id='status' select label='Trạng thái' variant='outlined' className=' w-[200px]'>
+                  <MenuItem value=''>Tất cả</MenuItem>
+                  <MenuItem value='Pending'>Đang kiểm duyệt</MenuItem>
+                  <MenuItem value='Approved'>Đã duyệt</MenuItem>
+                  <MenuItem value='Rejected'>Đã từ chối</MenuItem>
+                </TextField>
+              )}
+            />
+          </div>
+        </form>
       </div>
       <div>
         {registeredStudents && registeredStudents.total > 0 ? (

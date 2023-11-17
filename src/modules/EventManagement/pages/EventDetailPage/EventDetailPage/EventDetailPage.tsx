@@ -251,14 +251,15 @@ const EventDetailPage = () => {
                       viewBox='0 0 24 24'
                       strokeWidth={1.5}
                       stroke='currentColor'
-                      className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#195E8E] flex-shrink-0'
+                      className='w-6 h-6 max-sm:w-4 max-sm:h-4 text-[#26C6DA] flex-shrink-0'
                     >
                       <path
                         strokeLinecap='round'
                         strokeLinejoin='round'
-                        d='M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z'
+                        d='M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z'
                       />
                     </svg>
+
                     <span className='text-[#A0A2A4] text-[15px] font-normal break-words text-center truncate'>
                       {event.activity.name}
                     </span>
