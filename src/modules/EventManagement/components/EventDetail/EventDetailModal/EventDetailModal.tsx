@@ -145,7 +145,7 @@ const EventDetailModal = ({
               <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
                 <tr className='text-[14px] text-gray-600'>
                   {RegisterRoleTableHeader.map((item) => (
-                    <th key={item.id} className='px-2 py-2 font-semibold '>
+                    <th key={item.id} className='px-2 py-2 font-semibold'>
                       {item.name}
                     </th>
                   ))}
@@ -158,23 +158,24 @@ const EventDetailModal = ({
                       key={role.id}
                       className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-100'
                     >
-                      <th className='px-2 py-4 font-medium'>{role.name}</th>
-                      <th className='px-2 py-4 font-medium'>{Parser(role.description)}</th>
-                      <th className='px-2 py-4 font-medium text-center'>{role.quantity}</th>
-                      <th className='px-2 py-4 font-medium text-center'>{role.score}</th>
-                      <th className='px-2 py-4 font-medium text-center'>{role.registered}</th>
-                      <th className='px-2 py-4 font-medium text-center'>{role.approvedRegistered}</th>
-
-                      <th className='px-2 py-4 font-medium'>
+                      <th className='px-2 py-4 font-medium w-[120px]'>{role.name}</th>
+                      <th className='px-2 py-4 font-medium overflow-hidden'>
+                        <span className='line-clamp-1'>{Parser(role.description)}</span>
+                      </th>
+                      <th className='px-2 py-4 font-medium text-center w-[76px]'>{role.quantity}</th>
+                      <th className='px-2 py-4 font-medium text-center w-[50]'>{role.score}</th>
+                      <th className='px-2 py-4 font-medium text-center w-[96px]'>{role.registered}</th>
+                      <th className='px-2 py-4 font-medium text-center w-[80px]'>{role.approvedRegistered}</th>
+                      <th className='px-2 py-4 font-medium w-[116px]'>
                         <input
                           type='checkbox'
                           defaultChecked={role.isNeedApprove}
                           disabled
                           readOnly
-                          className='ml-12'
+                          className='ml-10'
                         />
                       </th>
-                      <th className='px-2 py-4 font-medium'>
+                      <th className='px-2 py-4 font-medium w-[140px]'>
                         {(role.approvedRegistered as number) < Number(role?.quantity) &&
                         (!role.isRegistered as boolean) ? (
                           <Button
@@ -184,10 +185,8 @@ const EventDetailModal = ({
                           >
                             Đăng kí
                           </Button>
-                        ) : (role.isRegistered as boolean) ? (
-                          <span>Đã đăng kí</span>
                         ) : (
-                          <span>Đủ số lượng</span>
+                          StatusToMessage(role.status)
                         )}
                       </th>
                     </tr>

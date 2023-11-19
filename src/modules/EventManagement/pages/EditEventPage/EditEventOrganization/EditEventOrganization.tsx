@@ -39,7 +39,10 @@ const EditEventOrganization = ({
   const [representatives, setRepresentatives] = useState<EventOrganizationType[]>([])
 
   useEffect(() => {
-    event && setListEventOrganizationsAdded(event.organizations)
+    if (event) {
+      setListEventOrganizationsAdded(event.organizations)
+      // setRepresentatives([...representatives, event.representativeOrganization])
+    }
   }, [event, setListEventOrganizationsAdded])
 
   useEffect(() => {

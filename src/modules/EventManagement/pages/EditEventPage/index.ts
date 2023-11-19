@@ -1,4 +1,4 @@
-export * from './EditEvent'
+export * from './EditEventInformation'
 export * from './EditEventOrganization'
 export * from './EditEventRegistration'
 export * from './EditEventPage'

@@ -219,7 +219,7 @@ const EventRegisterList = () => {
                         className={classNames(' px-4 py-1 rounded-full', {
                           'bg-[#b3a3fa]/90 text-[#6c4df6]': registration.status === 'Pending',
                           'bg-[#fab3a3]/90 text-[#f64d4d]': registration.status === 'Rejected',
-                          'bg-[#d0ffc7]/90 text-[#41ff93]': registration.status === 'Approved'
+                          'bg-[#eaffe6]/90 text-[#44e751]': registration.status === 'Approved'
                         })}
                       >
                         {StatusToMessage(registration.status)}

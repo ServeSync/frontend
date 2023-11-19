@@ -8,12 +8,12 @@ import {
   UseFormRegister,
   UseFormSetError
 } from 'react-hook-form'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { Autocomplete, TextField } from '@mui/material'
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
+import { EditorState, convertToRaw } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormEventType, FormSearchMapSchema, FormSearchMapType } from '../../../utils'
@@ -43,7 +43,7 @@ interface Props {
   setDescription: React.Dispatch<React.SetStateAction<EditorState>>
 }
 
-const EventForm = ({
+const CreateEventInformationForm = ({
   control,
   register,
   setValue,
@@ -94,34 +94,6 @@ const EventForm = ({
     resolver: yupResolver(FormSearchMapSchema)
   })
 
-  useEffect(() => {
-    if (event && activities) {
-      setValue('activityId', event?.activity.id)
-    }
-  }, [event, activities, setValue])
-
-  useEffect(() => {
-    if (event) {
-      setValue('name', event.name)
-      setValue('introduction', event.introduction)
-      setValue('imageUrl', event.imageUrl)
-      setValue('type', event.type)
-      setValue('startAt', event.startAt)
-      setValue('endAt', event.endAt)
-      setValue('categoryId', event.activity.eventCategoryId)
-      setValue('activityId', event.activity.id)
-      setValue('address.fullAddress', event.address.fullAddress)
-      setValue('address.latitude', event.address.latitude.toString())
-      setValue('address.longitude', event.address.longitude.toString())
-      const blocksFromHTML = convertFromHTML(event.description as string)
-      const content = EditorState.createWithContent(
-        ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
-      )
-      setDescription(content)
-      setValue('description', draftToHtml(convertToRaw(content.getCurrentContent())))
-    }
-  }, [event, setValue, setDescription])
-
   return (
     <div>
       <div className='flex flex-col gap-y-2'>
@@ -164,7 +136,7 @@ const EventForm = ({
             </Input>
             {event && (
               <div className='px-4 py-2 rounded-full bg-[#26dc9c] text-white h-[40px]'>
-                {StatusToMessage(event?.status as string)}
+                {StatusToMessage(event.status)}
               </div>
             )}
           </div>
@@ -185,7 +157,7 @@ const EventForm = ({
             <Controller
               name='startAt'
               control={control}
-              render={({ field: { onChange, value = event ? dayjs(event.startAt) : null }, fieldState: { error } }) => (
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <div className='col-span-6 mt-[-8px]'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateTimeField']}>
@@ -193,7 +165,7 @@ const EventForm = ({
                         label='Thời gian bắt đầu'
                         format='DD/MM/YYYY HH:mm'
                         onChange={onChange}
-                        value={value}
+                        value={event ? dayjs(value) : null}
                         className='bg-white'
                       />
                     </DemoContainer>
@@ -205,10 +177,7 @@ const EventForm = ({
             <Controller
               name='endAt'
               control={control}
-              render={({
-                field: { onChange, value = (event && dayjs(event.endAt)) || null },
-                fieldState: { error }
-              }) => (
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <div className='col-span-6 mt-[-8px]'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateTimeField']}>
@@ -216,7 +185,7 @@ const EventForm = ({
                         label='Thời gian kết thúc'
                         format='DD/MM/YYYY HH:mm'
                         onChange={onChange}
-                        value={value}
+                        value={event ? dayjs(value) : null}
                         className='bg-white'
                       />
                     </DemoContainer>
@@ -427,4 +396,4 @@ const EventForm = ({
   )
 }
 
-export default EventForm
+export default CreateEventInformationForm

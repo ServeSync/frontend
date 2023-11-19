@@ -2,9 +2,9 @@ import { Control, UseFormSetValue, FieldErrors, UseFormRegister, UseFormSetError
 import { useState } from 'react'
 import { FormEventType } from '../../../utils'
 import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../../services'
-import EventForm from 'src/modules/EventManagement/components/EventForm/EventForm'
 import { ActivityType, EventCategoryType } from 'src/modules/EventManagement/interfaces'
 import { EditorState } from 'draft-js'
+import CreateEventInformationForm from 'src/modules/EventManagement/components/EventForm/CreateEventInformationForm'
 
 interface Props {
   page: number
@@ -20,7 +20,7 @@ interface Props {
   setDescription: React.Dispatch<React.SetStateAction<EditorState>>
 }
 
-const CreateEvent = ({
+const CreateEventInformation = ({
   page,
   index,
   register,
@@ -48,7 +48,7 @@ const CreateEvent = ({
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
       {page === index && (
-        <EventForm
+        <CreateEventInformationForm
           control={control}
           register={register}
           setValue={setValue}
@@ -67,4 +67,4 @@ const CreateEvent = ({
   )
 }
 
-export default CreateEvent
+export default CreateEventInformation

@@ -75,7 +75,7 @@ export interface EventPendingType {
 export interface FormEvent {
   name: string
   introduction: string
-  imageUrl?: string | undefined
+  imageUrl: string
   startAt: string
   endAt: string
   type: string
@@ -97,6 +97,35 @@ export interface FormEvent {
   roles: EventRole[]
   organizations: EventOrganizationFormType[]
   representativeOrganizationId: string
+}
+
+export interface FormEditEvent {
+  name: string
+  introduction: string
+  description: string
+  imageUrl: string
+  startAt: string
+  endAt: string
+  type: string
+  activityId: string
+  representativeOrganizationId: string
+  address: {
+    fullAddress: string
+    longitude: string
+    latitude: string
+  }
+  registrationInfos: {
+    id: string
+    startAt: string
+    endAt: string
+  }[]
+  attendanceInfos: {
+    id: string
+    startAt: string
+    endAt: string
+  }[]
+  roles: EventRole[]
+  organizations: EventOrganizationFormType[]
 }
 
 export interface EventDetailType {
@@ -128,6 +157,7 @@ export interface EventDetailType {
       isNeedApprove: boolean
       score: string
       quantity: string
+      status: string
     }
   ]
   organizations: [

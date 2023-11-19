@@ -9,13 +9,12 @@ export interface EventOrganizationsListType {
 export interface EventOrganizationType {
   id: string
   name: string
-  description: string
   email: string
   phoneNumber: string
   address: string
   imageUrl: string
+  organizationId: string
   role: string
-  organizationId?: string
   identityId?: string
   hostedEvents?: number
   created?: string
@@ -26,9 +25,9 @@ export interface EventOrganizationType {
 
 export interface EventOrganizationForm {
   name: string
-  description: string
   email: string
-  phoneNumber: string
   address: string
+  organizationId: string
+  phoneNumber: string
   imageUrl: string
 }

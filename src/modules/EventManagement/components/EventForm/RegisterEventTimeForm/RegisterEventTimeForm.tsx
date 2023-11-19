@@ -42,7 +42,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 <Controller
                   name={`registrationInfos.${index}.startAt`}
                   control={control}
-                  render={({ field: { onChange, value = dayjs(item.startAt) }, fieldState: { error } }) => (
+                  render={({ field: { onChange }, fieldState: { error } }) => (
                     <div className='col-span-5'>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimeField']}>
@@ -50,7 +50,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                             label='Thời gian bắt đầu'
                             format='DD/MM/YYYY HH:mm'
                             onChange={onChange}
-                            value={value}
+                            value={dayjs(item.startAt)}
                             className='bg-white'
                           />
                         </DemoContainer>
@@ -65,7 +65,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 <Controller
                   name={`registrationInfos.${index}.endAt`}
                   control={control}
-                  render={({ field: { onChange, value = dayjs(item.endAt) }, fieldState: { error } }) => (
+                  render={({ field: { onChange }, fieldState: { error } }) => (
                     <div className='col-span-5'>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimeField']}>
@@ -73,7 +73,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                             label='Thời gian kết thúc'
                             format='DD/MM/YYYY HH:mm'
                             onChange={onChange}
-                            value={value}
+                            value={dayjs(item.endAt)}
                             className='bg-white'
                           />
                         </DemoContainer>
@@ -223,7 +223,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 <Controller
                   name={`attendanceInfos.${index}.startAt`}
                   control={control}
-                  render={({ field: { onChange, value = dayjs(item.startAt) }, fieldState: { error } }) => (
+                  render={({ field: { onChange }, fieldState: { error } }) => (
                     <div className='col-span-5'>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimeField']}>
@@ -231,7 +231,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                             label='Thời gian bắt đầu'
                             format='DD/MM/YYYY HH:mm'
                             onChange={onChange}
-                            value={value}
+                            value={dayjs(item.startAt)}
                             className='bg-white'
                           />
                         </DemoContainer>
@@ -246,7 +246,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                 <Controller
                   name={`attendanceInfos.${index}.endAt`}
                   control={control}
-                  render={({ field: { onChange, value = dayjs(item.endAt) }, fieldState: { error } }) => (
+                  render={({ field: { onChange }, fieldState: { error } }) => (
                     <div className='col-span-5'>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DateTimeField']}>
@@ -254,7 +254,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                             label='Thời gian kết thúc'
                             format='DD/MM/YYYY HH:mm'
                             onChange={onChange}
-                            value={value}
+                            value={dayjs(item.endAt)}
                             className='bg-white'
                           />
                         </DemoContainer>

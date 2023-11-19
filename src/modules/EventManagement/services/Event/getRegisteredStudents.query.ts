@@ -13,6 +13,7 @@ class GetRegisteredStudentsQuery {
       queryKey: status ? ['registered_students', id, page, status] : ['registered_students', id, page],
       queryFn: () => eventAPI.getRegisteredStudents(id, page, status),
       enabled: id !== undefined,
+      keepPreviousData: true,
       staleTime: 3 * 60 * 1000,
       onError: (error: any) => {
         handleError(error)

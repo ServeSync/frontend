@@ -12,11 +12,11 @@ import { FormEventSchema, FormEventType } from '../../../utils'
 import { CreateEventCommandHandler } from '../../../services'
 import path from 'src/modules/Share/constants/path'
 import { handleError } from 'src/modules/Share/utils'
-import CreateEvent from '../CreateEvent'
 import CreateEventRegistration from '../CreateEventRegistration'
 import CreateEventOrganization from '../CreateEventOrganization'
 import Button from 'src/modules/Share/components/Button'
 import { EditorState } from 'draft-js'
+import CreateEventInformation from '../CreateEventInformation'
 
 const CreateEventPage = () => {
   const [file, setFile] = useState<File>()
@@ -141,7 +141,7 @@ const CreateEventPage = () => {
               </Tabs>
             </Box>
             <Box className='mt-6'>
-              <CreateEvent
+              <CreateEventInformation
                 page={page}
                 index={0}
                 register={register}
