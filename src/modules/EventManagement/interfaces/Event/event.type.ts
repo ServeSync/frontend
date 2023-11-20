@@ -1,3 +1,4 @@
+import { ContactType, RepresentativeType } from 'src/modules/EventOrganizationManagement/interfaces'
 import { Activity, Address, EventOrganizationFormType, EventRole, RepresentativeOrganization } from '..'
 
 export interface EventType {
@@ -88,45 +89,18 @@ export interface FormEvent {
   }
   description: string
   registrationInfos: {
+    id?: string
     startAt: string
     endAt: string
   }[]
   attendanceInfos: {
+    id?: string
     startAt: string
     endAt: string
   }[]
   roles: EventRole[]
   organizations: EventOrganizationFormType[]
   representativeOrganizationId: string
-}
-
-export interface FormEditEvent {
-  name: string
-  introduction: string
-  description: string
-  imageUrl: string
-  startAt: string
-  endAt: string
-  type: string
-  activityId: string
-  representativeOrganizationId: string
-  address: {
-    fullAddress: string
-    longitude: string
-    latitude: string
-  }
-  registrationInfos: {
-    id: string
-    startAt: string
-    endAt: string
-  }[]
-  attendanceInfos: {
-    id: string
-    startAt: string
-    endAt: string
-  }[]
-  roles: EventRole[]
-  organizations: EventOrganizationFormType[]
 }
 
 export interface EventDetailType {
@@ -240,6 +214,14 @@ export interface EventDetailType {
     phoneNumber: string
     imageUrl: string
     organizationId: string
+    description: string
+    role: string
+    identityId?: string
+    hostedEvents?: number
+    created?: string
+    lastModified?: string
+    representatives: RepresentativeType[]
+    contacts: ContactType[]
   }
   nearestRegistrationInfoId: string
   nearestAttendanceInfoId: string

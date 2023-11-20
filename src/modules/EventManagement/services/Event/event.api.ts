@@ -5,7 +5,6 @@ import {
   EventDetailType,
   EventsListConfig,
   EventsListType,
-  FormEditEvent,
   FormEvent,
   RegisteredEventType,
   RegisteredStudentsListType
@@ -18,7 +17,7 @@ const eventAPI = {
 
   createEvent: (body: FormEvent) => http.post('/events', body),
 
-  editEvent: (body: { id: string; data: FormEditEvent }) => http.put(`/events/${body.id}`, body.data),
+  editEvent: (body: { id: string; data: FormEvent }) => http.put(`/events/${body.id}`, body.data),
 
   attendanceEvent: (body: { id: string; data: EventAttendance }) =>
     http.post(`/events/${body.id}/event-attendances`, body.data),
