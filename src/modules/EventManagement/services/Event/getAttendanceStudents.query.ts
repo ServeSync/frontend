@@ -15,7 +15,6 @@ class GetAttendanceStudentsQuery {
       enabled: id !== undefined,
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000,
-
       onError: (error: any) => {
         handleError(error)
       }

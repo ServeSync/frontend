@@ -26,12 +26,6 @@ export interface EventsListType {
   data: EventType[]
 }
 
-export interface EventsPendingListType {
-  total: number
-  totalPages: number
-  data: EventPendingType[]
-}
-
 export interface EventPendingType {
   id: string
   name: string
@@ -70,6 +64,13 @@ export interface EventPendingType {
     minScore: number
     maxScore: number
   }
+  eventId: string
+}
+
+export interface EventsPendingListType {
+  total: number
+  totalPages: number
+  data: EventPendingType[]
 }
 
 export interface FormEvent {

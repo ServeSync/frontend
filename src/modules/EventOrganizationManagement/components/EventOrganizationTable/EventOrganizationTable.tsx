@@ -1,8 +1,8 @@
-import { EventOrganizationsListType } from 'src/modules/EventManagement/interfaces'
 import HeaderTable from 'src/modules/Share/components/HeaderTable'
-import { OrganizerTableHeader } from '../../constants'
+import { EventOrganizationTableHeader } from '../../constants'
 import Skeleton from 'react-loading-skeleton'
 import { formatDateOfBirth } from 'src/modules/Share/utils'
+import { EventOrganizationsListType } from '../../interfaces'
 
 interface Props {
   organizers: EventOrganizationsListType
@@ -10,10 +10,11 @@ interface Props {
   onSort: (column: string) => void
   isLoading: boolean
 }
+
 const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onSort }: Props) => {
   return (
     <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
-      <HeaderTable header={OrganizerTableHeader} onSort={onSort} />
+      <HeaderTable header={EventOrganizationTableHeader} onSort={onSort} />
       <tbody>
         {isLoading
           ? Array(10)

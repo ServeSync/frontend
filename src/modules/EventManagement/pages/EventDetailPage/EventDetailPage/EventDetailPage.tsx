@@ -15,7 +15,10 @@ import EventDetailOrganizationPage from '../EventDetailOrganizationPage'
 import Button from 'src/modules/Share/components/Button'
 import { AppContext } from 'src/modules/Share/contexts'
 import { StatusToMessage, TypeToMessage } from 'src/modules/EventManagement/constants'
-import EventDetailModal from 'src/modules/EventManagement/components/EventDetail/EventDetailModal'
+import MapImageModal from 'src/modules/EventManagement/components/EventDetail/EventDetailModal/MapImageModal'
+import RegistrationInformationModal from 'src/modules/EventManagement/components/EventDetail/EventDetailModal/RegistrationInformationModal'
+import AttendanceInformationModal from 'src/modules/EventManagement/components/EventDetail/EventDetailModal/AttendanceInformationModal'
+import RegisterEventModal from 'src/modules/EventManagement/components/EventDetail/EventDetailModal/RegisterEventModal'
 
 const EventDetailPage = () => {
   const { isAuthenticated } = useContext(AppContext)
@@ -56,14 +59,14 @@ const EventDetailPage = () => {
     setIsOpenModalAttendanceInfos(true)
   }
 
-  const [isOpenMapImage, setIsOpenMapImage] = useState(false)
+  const [isOpenModalMapImage, setIsOpenModalMapImage] = useState(false)
 
-  const handleCloseModalMap = () => {
-    setIsOpenMapImage(false)
+  const handleCloseModalMapImage = () => {
+    setIsOpenModalMapImage(false)
   }
 
-  const handleOpenModalMap = () => {
-    setIsOpenMapImage(true)
+  const handleOpenModalMapImage = () => {
+    setIsOpenModalMapImage(true)
   }
 
   const [page, setPage] = useState<number>(0)
@@ -156,6 +159,11 @@ const EventDetailPage = () => {
                   )
                 )}
               </div>
+              <RegisterEventModal
+                event={event}
+                isOpenModalTableRegisterEvent={isOpenModalTableRegisterEvent}
+                handleCloseModalTableRegisterEvent={handleCloseModalTableRegisterEvent}
+              />
             </div>
             <div className='relative mb-[200px] px-[10%]'>
               <img
@@ -265,11 +273,16 @@ const EventDetailPage = () => {
                     </span>
                   </div>
                 </div>
-                <Button classNameButton='col-span-1 flex  justify-center outline-none' onClick={handleOpenModalMap}>
+                <Button classNameButton='col-span-1 flex justify-center outline-none' onClick={handleOpenModalMapImage}>
                   {mapImageURL && (
                     <img src={mapImageURL} alt='Static Map' className='object-cover h-[200px] rounded-lg' />
                   )}
                 </Button>
+                <MapImageModal
+                  mapImageURL={mapImageURL}
+                  isOpenModalMapImage={isOpenModalMapImage}
+                  handleCloseModalMapImage={handleCloseModalMapImage}
+                />
                 <div className='col-span-1 flex flex-col gap-10'>
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
@@ -311,6 +324,11 @@ const EventDetailPage = () => {
                       </div>
                     </div>
                   </div>
+                  <RegistrationInformationModal
+                    event={event}
+                    isOpenModalRegistrationInfos={isOpenModalRegistrationInfos}
+                    handleCloseModalRegistrationInfos={handleCloseModalRegistrationInfos}
+                  />
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
                       <p className='font-semibold text-[16px] text-[#1F2933] break-words'>Khung giờ điểm danh</p>
@@ -351,6 +369,11 @@ const EventDetailPage = () => {
                       </div>
                     </div>
                   </div>
+                  <AttendanceInformationModal
+                    event={event}
+                    isOpenModalAttendanceInfos={isOpenModalAttendanceInfos}
+                    handleCloseModalAttendanceInfos={handleCloseModalAttendanceInfos}
+                  />
                 </div>
               </div>
             </div>
@@ -372,18 +395,6 @@ const EventDetailPage = () => {
                 <div className='text-[20px] font-normal'>Sinh viên tham dự</div>
               </div>
             </div>
-            <EventDetailModal
-              event={event}
-              mapImageURL={mapImageURL}
-              isOpenMapImage={isOpenMapImage}
-              handleCloseModalMap={handleCloseModalMap}
-              isOpenModalTableRegisterEvent={isOpenModalTableRegisterEvent}
-              handleCloseModalTableRegisterEvent={handleCloseModalTableRegisterEvent}
-              isOpenModalRegistrationInfos={isOpenModalRegistrationInfos}
-              handleCloseModalRegistrationInfos={handleCloseModalRegistrationInfos}
-              isOpenModalAttendanceInfos={isOpenModalAttendanceInfos}
-              handleCloseModalAttendanceInfos={handleCloseModalAttendanceInfos}
-            />
             <div className='w-full h-full overflow-hidden'>
               <Box>
                 <Box>

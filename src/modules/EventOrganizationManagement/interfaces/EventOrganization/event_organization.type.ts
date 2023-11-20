@@ -14,6 +14,7 @@ export interface EventOrganizationType {
   address: string
   imageUrl: string
   organizationId: string
+  description: string
   role: string
   identityId?: string
   hostedEvents?: number

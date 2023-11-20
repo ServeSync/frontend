@@ -6,6 +6,7 @@ import Button from 'src/modules/Share/components/Button'
 import InputAvatar from 'src/modules/Share/components/InputAvatar'
 import { FormEventOrganizationType } from '../../utils'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
 interface Props {
   register: UseFormRegister<FormEventOrganizationType>
   errors: FieldErrors<FormEventOrganizationType>
@@ -15,6 +16,7 @@ interface Props {
   onCancel: () => void
   isLoading: boolean
 }
+
 const CreateEventOrganizationForm = ({
   register,
   control,
@@ -141,7 +143,7 @@ const CreateEventOrganizationForm = ({
           classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
           isLoading={isLoading}
         >
-          Lưu
+          Tạo
         </Button>
       </div>
     </Fragment>

@@ -1,11 +1,8 @@
 import http from 'src/modules/Share/utils/http'
-import {
-  ContactsListType,
-  EventOrganizationForm,
-  EventOrganizationType,
-  EventOrganizationsListType
-} from '../../interfaces'
+
 import { EventOrganizationConfig } from '../../interfaces/EventOrganization/event_organization.config'
+import { FormEventOrganizationType } from 'src/modules/EventOrganizationManagement/utils'
+import { ContactsListType, EventOrganizationType, EventOrganizationsListType } from '../../interfaces'
 
 const eventOrganizationAPI = {
   getListEventOrganizations: (params: EventOrganizationConfig) =>
@@ -15,10 +12,10 @@ const eventOrganizationAPI = {
 
   getListContactsByOrganizationId: (id: string) => http.get<ContactsListType>(`/event-organizations/${id}/contacts`),
 
-  createEventOrganization: (body: EventOrganizationForm) =>
+  createEventOrganization: (body: FormEventOrganizationType) =>
     http.post<EventOrganizationType>('/event-organizations', body),
 
-  editEventOrganization: (body: { id: string; data: EventOrganizationForm }) =>
+  editEventOrganization: (body: { id: string; data: FormEventOrganizationType }) =>
     http.put(`/event-organizations/${body.id}`, body.data),
 
   deleteEventOrganization: (id: string) => http.delete(`/event-organizations/${id}`)

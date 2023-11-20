@@ -3,11 +3,6 @@
 import { Fragment, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import EditEventOrganizationForm from '../../components/EditEventOrganizationForm'
-import {
-  DeleteEventOrganizationCommandHandler,
-  EditEventOrganizationCommandHandler,
-  GetEventOrganizationByIdQuery
-} from 'src/modules/EventManagement/services'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import { FormEventOrganizationSchema, FormEventOrganizationType } from '../../utils'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -17,6 +12,11 @@ import { toast } from 'react-toastify'
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import Swal from 'sweetalert2'
+import {
+  DeleteEventOrganizationCommandHandler,
+  EditEventOrganizationCommandHandler,
+  GetEventOrganizationByIdQuery
+} from '../../services'
 
 const EditEventOrganizationPage = () => {
   const [file, setFile] = useState<File>()
@@ -28,6 +28,7 @@ const EditEventOrganizationPage = () => {
   const handleChangeFile = (file?: File) => {
     setFile(file)
   }
+
   const navigate = useNavigate()
 
   const location = useLocation()
@@ -99,6 +100,7 @@ const EditEventOrganizationPage = () => {
       search: createSearchParams(prevEventOrganizationConfig).toString()
     })
   }
+
   return (
     <Fragment>
       <Helmet>

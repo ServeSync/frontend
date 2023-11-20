@@ -1,4 +1,4 @@
-import EventDetailOrganizer from '../../../components/EventDetail/EventDetailOrganization'
+import EventDetailOrganization from 'src/modules/EventManagement/components/EventDetail/EventDetailOrganization'
 import { EventDetailType } from '../../../interfaces'
 
 interface Props {
@@ -6,10 +6,11 @@ interface Props {
   index: number
   event: EventDetailType
 }
+
 const EventDetailOrganizationPage = ({ page, index, event }: Props) => {
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-2' aria-controls='simple-tabpanel-2' className='px-[10%]'>
-      {page === index && <EventDetailOrganizer event={event} />}
+      {page === index && <EventDetailOrganization event={event} />}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { isUndefined, omitBy } from 'lodash'
-import { EventOrganizationConfig } from 'src/modules/EventManagement/interfaces/EventOrganization/event_organization.config'
+import { EventOrganizationConfig } from 'src/modules/EventOrganizationManagement/interfaces/EventOrganization/event_organization.config'
 import { useQueryParams } from 'src/modules/Share/hooks'
 
 export type QueryOrganizerConfig = {

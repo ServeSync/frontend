@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
-import { ContactsListType } from '../../interfaces'
 import eventOrganizationAPI from './event_organization.api'
+import { ContactsListType } from '../../interfaces'
 
 class GetAllContactsByOrganizationIdQuery {
   private _query

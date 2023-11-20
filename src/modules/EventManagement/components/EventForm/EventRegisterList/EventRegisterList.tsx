@@ -8,7 +8,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { RegisteredStudentsTableHeader, StatusToMessage } from 'src/modules/EventManagement/constants'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
-import { RegisteredStudentsType } from 'src/modules/EventManagement/interfaces'
+import { RegisteredStudentType } from 'src/modules/EventManagement/interfaces'
 import { GetRegisteredStudentsQuery, RejectRegistrationCommandHandler } from 'src/modules/EventManagement/services'
 import { ApproveRegistrationCommandHandler } from 'src/modules/EventManagement/services/Student/approveRegistration.command-handler'
 import {
@@ -37,7 +37,7 @@ const EventRegisterList = () => {
     setIsOpenModalRegisterEvent(false)
   }
 
-  const handleOpenModalRegisterEvent = (registration: RegisteredStudentsType) => {
+  const handleOpenModalRegisterEvent = (registration: RegisteredStudentType) => {
     setRegistration(registration)
     setIsOpenModalRegisterEvent(true)
   }
@@ -52,7 +52,7 @@ const EventRegisterList = () => {
 
   const registeredStudents = getRegisteredStudentsQuery.fetch()
 
-  const [registration, setRegistration] = useState<RegisteredStudentsType>()
+  const [registration, setRegistration] = useState<RegisteredStudentType>()
 
   const approveRegistrationCommandHandler = new ApproveRegistrationCommandHandler()
 

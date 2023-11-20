@@ -3,8 +3,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
 import { FormEventType } from '../../../utils'
-import { EventOrganizationType } from '../../../interfaces'
 import Button from 'src/modules/Share/components/Button'
+import { EventOrganizationType } from 'src/modules/EventOrganizationManagement/interfaces'
 
 interface Props {
   control: Control<FormEventType>

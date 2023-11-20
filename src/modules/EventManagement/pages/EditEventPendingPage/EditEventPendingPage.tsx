@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Button from 'src/modules/Share/components/Button'
 import useQueryRequestEventConfig from '../../hooks/useQueryRequestEventConfig'
-import { ApproveRequestEvent, GetEventPendingQuery, RejectRequestEvent } from '../../services'
+import { ApproveRequestEvent, GetEventPendingByIdQuery, RejectRequestEvent } from '../../services'
 import EventPendingInfoPage from '../EventPending/EventPendingInfoPage'
 import EventPendingOrganizationPage from '../EventPending/EventPendingOrganizationPage'
 import { toast } from 'react-toastify'
@@ -21,11 +21,12 @@ const EditEventPendingPage = () => {
     event.preventDefault()
     setPage(newPage)
   }
+
   const navigate = useNavigate()
 
   const queryEventPendingConfig = useQueryRequestEventConfig()
 
-  const getEventPendingQuery = new GetEventPendingQuery(queryEventPendingConfig.id as string)
+  const getEventPendingQuery = new GetEventPendingByIdQuery(queryEventPendingConfig.id as string)
 
   const eventPending = getEventPendingQuery.fetch()
 

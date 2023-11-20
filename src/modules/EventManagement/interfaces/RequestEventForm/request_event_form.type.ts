@@ -6,7 +6,7 @@ export interface RequestEventForm {
   introduction: string
   description: string
   capacity: string
-  imageUrl?: string
+  imageUrl: string
   startAt: string
   endAt: string
   eventType: string

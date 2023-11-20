@@ -7,6 +7,7 @@ import { formatDateOfBirth } from 'src/modules/Share/utils'
 interface Props {
   eventPending: EventPendingType
 }
+
 const EventPendingOrganization = ({ eventPending }: Props) => {
   if (!eventPending) return null
   const contentState = convertFromHTML(eventPending.organization.description)

@@ -1,10 +1,10 @@
 export interface EventOrganizationContactInfo {
-  name?: string
-  email?: string
-  phoneNumber?: string
-  gender?: string
-  address?: string
-  birth?: string
-  position?: string
-  imageUrl?: string
+  name: string
+  email: string
+  phoneNumber: string
+  gender: string
+  address: string
+  birth: string
+  position: string
+  imageUrl: string
 }
