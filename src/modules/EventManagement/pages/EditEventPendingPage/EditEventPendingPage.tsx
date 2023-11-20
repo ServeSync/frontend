@@ -36,7 +36,7 @@ const EditEventPendingPage = () => {
 
   const handleApproveRequestEvent = () => {
     Swal.fire({
-      title: 'Xác nhận tổ đồng ý tổ chức sự kiện?',
+      title: 'Xác nhận đồng ý tổ chức sự kiện?',
       text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
       icon: 'question',
       showCancelButton: true,

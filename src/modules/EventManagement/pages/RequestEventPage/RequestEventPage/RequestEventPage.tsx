@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useMemo, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
 import { FormRequestEventSchema, FormRequestEventType } from '../../../utils'
@@ -56,6 +56,8 @@ const RequestEventPage = () => {
     setDescription(editorState)
     setValue('description', draftToHtml(convertToRaw(description.getCurrentContent())))
   }
+
+  const isSuccess = useRef(false)
 
   const {
     register,
@@ -128,6 +130,17 @@ const RequestEventPage = () => {
       toast.error('Yêu cầu thêm sự kiện thất bại !')
     }
   })
+  const handleRequestEvent = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    try {
+      await handleSubmitForm()
+      if (!isSuccess.current) {
+        toast.error('Vui lòng kiểm tra lại thông tin !')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const handleChangeFile = (file?: File) => {
     setFile(file)
@@ -227,6 +240,7 @@ const RequestEventPage = () => {
                   requestCreateOrganizationContactInfo.isLoading()
                 }
                 classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
+                onClick={handleRequestEvent}
               >
                 Tạo
               </Button>

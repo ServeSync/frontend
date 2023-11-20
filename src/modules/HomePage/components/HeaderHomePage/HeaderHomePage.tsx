@@ -59,7 +59,7 @@ const HeaderHomePage = () => {
         className={classNames(
           'sticky mx-auto h-auto flex justify-between items-center py-1 top-0 left-0 right-0 bg-transparent  z-50 px-36',
           {
-            'shadow-bottom shadow-2xl bg-white': hasScrolled
+            'shadow-bottom shadow-xl bg-white': hasScrolled
           }
         )}
       >

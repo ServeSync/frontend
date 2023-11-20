@@ -24,7 +24,7 @@ const EventPendingTable = ({ eventsPending, isLoading, onSort, onEditEventPendin
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                   key={index}
                 >
-                  <th className='px-2 py-4 font-medium  w-[20%]'>
+                  <th className='px-2 py-4 font-medium w-[20%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
                   <th className='px-2 py-4 font-medium'>
