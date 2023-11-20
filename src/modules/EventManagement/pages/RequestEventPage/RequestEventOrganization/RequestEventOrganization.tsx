@@ -14,6 +14,7 @@ interface Props {
   previewImageOrganizer: string
   previewImageOrganizerContact: string
 }
+
 const RequestEventOrganization = ({
   page,
   index,

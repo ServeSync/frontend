@@ -1,10 +1,4 @@
-export interface RegisteredStudentsListType {
-  total: number
-  totalPages: number
-  data: RegisteredStudentsType[]
-}
-
-export interface RegisteredStudentsType {
+export interface RegisteredStudentType {
   role: string
   id: string
   code: string
@@ -18,4 +12,9 @@ export interface RegisteredStudentsType {
   imageUrl: string
   homeRoomName: string
   registeredAt: string
+}
+export interface RegisteredStudentsListType {
+  total: number
+  totalPages: number
+  data: RegisteredStudentType[]
 }

@@ -1,11 +1,11 @@
 import { Control, Controller, UseFormGetValues, UseFormResetField, UseFormSetValue, FieldErrors } from 'react-hook-form'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { Autocomplete, TextField } from '@mui/material'
 import Button from 'src/modules/Share/components/Button'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { FormEventType } from '../../../utils'
-import { EventDetailType, EventRole } from '../../../interfaces'
+import { EventRole } from '../../../interfaces'
 import { RoleTableHeader, isNeedApprove } from '../../../constants'
 import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
@@ -20,7 +20,6 @@ interface Props {
   setValue: UseFormSetValue<FormEventType>
   dataEventRole: EventRole[]
   setDataEventRole: React.Dispatch<React.SetStateAction<EventRole[]>>
-  event?: EventDetailType
 }
 
 const RegisterEventRoleForm = ({
@@ -30,8 +29,7 @@ const RegisterEventRoleForm = ({
   resetField,
   setValue,
   dataEventRole,
-  setDataEventRole,
-  event
+  setDataEventRole
 }: Props) => {
   const [isEditEventRole, setIsEditEventRole] = useState<boolean>(false)
   const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
@@ -42,10 +40,6 @@ const RegisterEventRoleForm = ({
 
   const [index, setIndex] = useState<number>(0)
   const [errorsLocal, setErrorsLocal] = useState<string>('')
-
-  useEffect(() => {
-    event && setDataEventRole(event.roles)
-  }, [event, setDataEventRole])
 
   const onEditEventRole = (index: number) => {
     setIsEditEventRole(true)

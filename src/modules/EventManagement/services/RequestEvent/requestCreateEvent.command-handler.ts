@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
 import requestEventAPI from './request_event.api'
-import { RequestEventForm } from '../../interfaces/RequestEventForm/request_event-form.type'
+import { RequestEventForm } from '../../interfaces/RequestEventForm/request_event_form.type'
 
 class RequestCreateEventCommandHandler {
   private _queryClient

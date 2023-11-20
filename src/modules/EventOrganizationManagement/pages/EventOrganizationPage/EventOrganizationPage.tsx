@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import InputSearch from 'src/modules/Share/components/InputSearch'
 import { FormFilterOrganizerSchema, FormFilterOrganizerType } from '../../utils'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { GetAllEventOrganizationsQuery } from 'src/modules/EventManagement/services'
 import useSorting from 'src/modules/Share/hooks/useSorting'
 import path from 'src/modules/Share/constants/path'
 import Pagination from 'src/modules/Share/components/Pagination'
@@ -12,6 +11,7 @@ import useQueryOrganizationConfig from '../../hooks/useQueryOrganizationConfig'
 import EventOrganizationTable from '../../components/EventOrganizationTable'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import Restricted from 'src/modules/Share/components/Restricted'
+import { GetAllEventOrganizationsQuery } from '../../services'
 
 const EventOrganizationPage = () => {
   const navigate = useNavigate()

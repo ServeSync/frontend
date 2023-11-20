@@ -1,4 +1,4 @@
-import EventPendingInfo from 'src/modules/EventManagement/components/EventPending/EventPendingInfo'
+import EventPendingInformation from 'src/modules/EventManagement/components/EventPending/EventPendingInformation'
 import { EventPendingType } from 'src/modules/EventManagement/interfaces'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 const EventPendingInfoPage = ({ page, index, eventPending }: Props) => {
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
-      {page === index && <EventPendingInfo eventPending={eventPending} />}
+      {page === index && <EventPendingInformation eventPending={eventPending} />}
     </div>
   )
 }

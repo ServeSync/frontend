@@ -1,3 +1,3 @@
 export * from './event_category.api'
-export * from '../EventCategory/getAllEventCategories.query'
-export * from '../EventCategory/getAllActivitiesByCategoryId.query'
+export * from './getAllActivitiesByCategoryId.query'
+export * from './getAllEventCategories.query'

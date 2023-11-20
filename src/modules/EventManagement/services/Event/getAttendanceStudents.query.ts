@@ -13,6 +13,7 @@ class GetAttendanceStudentsQuery {
       queryKey: ['attendance_students', id],
       queryFn: () => eventAPI.getAttendanceStudents(id),
       enabled: id !== undefined,
+      keepPreviousData: true,
       staleTime: 3 * 60 * 1000,
       onError: (error: any) => {
         handleError(error)

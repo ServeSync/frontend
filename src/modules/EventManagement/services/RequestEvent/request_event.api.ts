@@ -1,5 +1,5 @@
 import http from 'src/modules/Share/utils/http'
-import { RequestEventForm } from '../../interfaces/RequestEventForm/request_event-form.type'
+import { RequestEventForm } from '../../interfaces/RequestEventForm/request_event_form.type'
 import { EventPendingType, EventsPendingListType, RequestEventsListConfig } from '../../interfaces'
 
 const requestEventAPI = {

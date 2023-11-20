@@ -1,3 +1,3 @@
 export * from './EventPendingTable'
-export * from './EventPendingInfo'
+export * from './EventPendingInformation'
 export * from './EventPendingOrganization'

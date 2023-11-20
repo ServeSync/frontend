@@ -4,6 +4,7 @@ import Parser from 'html-react-parser'
 interface Props {
   event: EventDetailType
 }
+
 const EventDetailInformation = ({ event }: Props) => {
   return (
     <div className='w-full flex flex-col gap-40'>

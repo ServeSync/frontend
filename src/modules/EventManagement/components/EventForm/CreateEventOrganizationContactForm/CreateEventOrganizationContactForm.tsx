@@ -4,10 +4,15 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
 import { useState } from 'react'
 import { FormEventType } from '../../../utils'
-import { ContactsListType, EventDetailType, EventOrganizationType, RepresentativeType } from '../../../interfaces'
-import { GetAllContactsByOrganizationIdQuery } from '../../../services'
 import Button from 'src/modules/Share/components/Button'
 import { EventOrganizationTableHeader } from '../../../constants'
+import {
+  ContactsListType,
+  EventOrganizationType,
+  RepresentativeType
+} from 'src/modules/EventOrganizationManagement/interfaces'
+import { EventDetailType } from 'src/modules/EventManagement/interfaces'
+import { GetAllContactsByOrganizationIdQuery } from 'src/modules/EventOrganizationManagement/services'
 
 interface Props {
   control: Control<FormEventType>
@@ -39,6 +44,7 @@ const CreateEventOrganizationContactForm = ({
   const getAllContactsByOrganizationIdQuery = new GetAllContactsByOrganizationIdQuery(
     event ? (eventOrganization.organizationId as string) : eventOrganization.id
   )
+
   const contactsList = getAllContactsByOrganizationIdQuery.fetch() as ContactsListType
 
   const contacts = contactsList && contactsList.data

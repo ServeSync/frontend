@@ -1,10 +1,4 @@
-export interface AttendanceStudentsListType {
-  total: number
-  totalPage: number
-  data: AttendanceStudentsType[]
-}
-
-export interface AttendanceStudentsType {
+export interface AttendanceStudentType {
   id: string
   code: string
   name: string
@@ -15,4 +9,10 @@ export interface AttendanceStudentsType {
   homeRoomName: string
   score: number
   attendanceAt: string
+}
+
+export interface AttendanceStudentsListType {
+  total: number
+  totalPage: number
+  data: AttendanceStudentType[]
 }

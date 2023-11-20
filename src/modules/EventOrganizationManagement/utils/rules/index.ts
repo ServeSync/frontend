@@ -1,1 +1,1 @@
-export * from './organizer.rules'
+export * from './eventOrganization.rules'

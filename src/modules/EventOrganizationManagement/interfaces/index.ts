@@ -1,1 +1,1 @@
-export * from './Organizer'
+export * from './EventOrganization'

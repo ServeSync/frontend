@@ -5,19 +5,13 @@ import CreateEventOrganizationForm from '../../components/CreateEventOrganizatio
 import { FormEventOrganizationSchema, FormEventOrganizationType } from '../../utils'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { CreateEventOrganizationCommandHandler } from 'src/modules/EventManagement/services'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import { handleError } from 'src/modules/Share/utils'
+import { CreateEventOrganizationCommandHandler } from '../../services'
 
 const CreateEventOrganizationPage = () => {
-  const [file, setFile] = useState<File>()
-
-  const previewImage = useMemo(() => {
-    return file ? URL.createObjectURL(file) : ''
-  }, [file])
-
   const navigate = useNavigate()
 
   const {
@@ -30,6 +24,18 @@ const CreateEventOrganizationPage = () => {
   } = useForm<FormEventOrganizationType>({
     resolver: yupResolver(FormEventOrganizationSchema)
   })
+
+  const [file, setFile] = useState<File>()
+
+  const previewImage = useMemo(() => {
+    return file ? URL.createObjectURL(file) : ''
+  }, [file])
+
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
+    setValue('imageUrl', ' ')
+    setError('imageUrl', { message: '' })
+  }
 
   const createEventOrganizationCommandHandler = new CreateEventOrganizationCommandHandler()
 
@@ -53,12 +59,6 @@ const CreateEventOrganizationPage = () => {
     navigate({
       pathname: path.event_organization
     })
-  }
-
-  const handleChangeFile = (file?: File) => {
-    setFile(file)
-    setValue('imageUrl', ' ')
-    setError('imageUrl', { message: '' })
   }
 
   return (

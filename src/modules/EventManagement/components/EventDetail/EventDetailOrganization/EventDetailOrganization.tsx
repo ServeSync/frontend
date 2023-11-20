@@ -4,6 +4,7 @@ import { EventDetailType } from '../../../interfaces'
 interface Props {
   event: EventDetailType
 }
+
 const EventDetailOrganization = ({ event }: Props) => {
   return (
     <div className='flex flex-col gap-10'>

@@ -1,15 +1,11 @@
 import { Control, UseFormGetValues, UseFormSetValue, FieldErrors } from 'react-hook-form'
 import { useEffect, useState } from 'react'
-import {
-  EventOrganizationFormType,
-  EventOrganizationRepFormType,
-  EventOrganizationType,
-  EventOrganizationsListType
-} from '../../../interfaces'
+import { EventOrganizationFormType, EventOrganizationRepFormType } from '../../../interfaces'
 import { FormEventType } from '../../../utils'
-import { GetAllEventOrganizationsQuery } from '../../../services'
 import CreateEventOrganizationForm from 'src/modules/EventManagement/components/EventForm/CreateEventOrganizationForm'
 import CreateEventOrganizationContactForm from 'src/modules/EventManagement/components/EventForm/CreateEventOrganizationContactForm'
+import { EventOrganizationType, EventOrganizationsListType } from 'src/modules/EventOrganizationManagement/interfaces'
+import { GetAllEventOrganizationsQuery } from 'src/modules/EventOrganizationManagement/services'
 
 interface Props {
   page: number
