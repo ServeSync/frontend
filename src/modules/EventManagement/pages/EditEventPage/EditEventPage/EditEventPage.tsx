@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -7,7 +7,12 @@ import { useForm, useFieldArray } from 'react-hook-form'
 import _ from 'lodash'
 import { EventOrganizationFormType, EventRole, FormEvent } from '../../../interfaces'
 import { FormEventSchema, FormEventType } from '../../../utils'
-import { ApproveEventCommandHandler, CancelEventCommandHandler, GetEventByIdQuery } from '../../../services'
+import {
+  ApproveEventCommandHandler,
+  CancelEventCommandHandler,
+  EditEventCommandHandler,
+  GetEventByIdQuery
+} from '../../../services'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import EditEventRegistration from '../EditEventRegistration'
 import EditEventOrganization from '../EditEventOrganization'
@@ -24,6 +29,7 @@ import { RejectEventCommandHandler } from 'src/modules/EventManagement/services/
 import { StatusIsShowButton } from 'src/modules/EventManagement/constants'
 import EditEventInformation from '../EditEventInformation/EditEventInformation'
 import draftToHtml from 'draftjs-to-html'
+import { toast } from 'react-toastify'
 
 const EditEventPage = () => {
   const [file, setFile] = useState<File>()
@@ -36,6 +42,10 @@ const EditEventPage = () => {
   }
 
   const navigate = useNavigate()
+
+  const isSuccess = useRef(false)
+
+  const queryEventConfig = useQueryEventConfig()
 
   const [dataEventRole, setDataEventRole] = useState<EventRole[]>([])
   const [dataEventOrganization, setDataEventOrganization] = useState<EventOrganizationFormType[]>([])
@@ -68,17 +78,37 @@ const EditEventPage = () => {
     name: 'attendanceInfos'
   })
 
-  const handleSubmitForm = handleSubmit((data) => {
-    const body = {
-      ...data,
-      ..._.omit(data, 'categoryId'),
-      roles: dataEventRole,
-      organizations: dataEventOrganization
-    } as FormEvent
-    console.log(body)
-  })
+  const editEventCommandHandler = new EditEventCommandHandler()
 
-  const queryEventConfig = useQueryEventConfig()
+  const handleSubmitForm = handleSubmit(async (data) => {
+    if (dataEventRole.length === 0) {
+      setError('roles', { message: 'Sự kiện có ít nhất 1 vai trò !' })
+    } else if (dataEventOrganization.some((item) => item.organizationReps.length === 0)) {
+      setError('organizations.organizationReps', { message: 'Ban tổ chức có ít nhất 1 nhà đại diện !' })
+    } else {
+      const body = {
+        ...data,
+        ..._.omit(data, 'categoryId'),
+        roles: dataEventRole,
+        organizations: dataEventOrganization
+      } as FormEvent
+      await editEventCommandHandler.handle(
+        {
+          id: queryEventConfig.id as string,
+          data: body
+        },
+        file as File,
+        () => {
+          isSuccess.current = true
+          toast.success('Cập nhật sự kiện thành công !')
+          navigate(path.event)
+        },
+        (error: any) => {
+          handleError<FormEventType>(error, setError)
+        }
+      )
+    }
+  })
 
   const getEventByIdQuery = new GetEventByIdQuery(queryEventConfig.id as string)
   const event = getEventByIdQuery.fetch()

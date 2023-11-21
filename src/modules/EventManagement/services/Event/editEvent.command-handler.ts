@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
 import eventAPI from './event.api'
-import { FormEditEvent } from '../../interfaces'
+import { FormEvent } from '../../interfaces'
 class EditEventCommandHandler {
   private _queryClient
   private _uploadImageMutation
@@ -13,11 +13,11 @@ class EditEventCommandHandler {
     this._queryClient = useQueryClient()
     this._uploadImageMutation = useMutation(imageAPI.uploadImage)
     this._editEventMutation = useMutation({
-      mutationFn: (body: { id: string; data: FormEditEvent }) => eventAPI.editEvent(body)
+      mutationFn: (body: { id: string; data: FormEvent }) => eventAPI.editEvent(body)
     })
   }
 
-  handle = async (body: { id: string; data: FormEditEvent }, file: File, handleSuccess: any, handleError: any) => {
+  handle = async (body: { id: string; data: FormEvent }, file: File, handleSuccess: any, handleError: any) => {
     if (file !== undefined) {
       const form = new FormData()
       form.append('file', file)

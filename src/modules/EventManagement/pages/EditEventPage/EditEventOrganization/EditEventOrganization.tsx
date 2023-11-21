@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Control, UseFormGetValues, UseFormSetValue, FieldErrors } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { EventDetailType, EventOrganizationFormType, EventOrganizationRepFormType } from '../../../interfaces'
@@ -31,36 +32,43 @@ const EditEventOrganization = ({
   const [listEventOrganizationsAdded, setListEventOrganizationsAdded] = useState<EventOrganizationType[]>([])
   const [errorsLocal, setErrorsLocal] = useState<string>('')
 
+  console.log(listEventOrganizationsAdded)
+
   const [representatives, setRepresentatives] = useState<EventOrganizationType[]>([])
 
   useEffect(() => {
     if (event) {
       setListEventOrganizationsAdded(event.organizations)
-      // setRepresentatives([...representatives, event.representativeOrganization])
+      setRepresentatives([...representatives, event.representativeOrganization])
     }
   }, [event, setListEventOrganizationsAdded])
 
   useEffect(() => {
-    const organization = listEventOrganizationsAdded.map((item) => {
-      let organizationReps: EventOrganizationRepFormType[] = []
-      item.representatives.map((contact) => {
-        organizationReps = [
-          ...organizationReps,
-          {
-            organizationRepId: contact.id,
-            role: contact.role
-          }
-        ]
+    if (listEventOrganizationsAdded) {
+      const organization = listEventOrganizationsAdded.map((item) => {
+        let organizationReps: EventOrganizationRepFormType[] = []
+        item &&
+          item.representatives.map((contact) => {
+            organizationReps = [
+              ...organizationReps,
+              {
+                id: contact.id,
+                organizationRepId: contact.organizationRepId,
+                role: contact.role
+              }
+            ]
+          })
+        const result: EventOrganizationFormType = {
+          organizationId: item.organizationId,
+          role: item.role,
+          id: item.id,
+          organizationReps: organizationReps
+        }
+        return result
       })
-      const result: EventOrganizationFormType = {
-        organizationId: item.id,
-        role: item.role,
-        organizationReps: organizationReps
-      }
-      return result
-    })
-    setDataEventOrganization(organization)
-  }, [listEventOrganizationsAdded, setDataEventOrganization])
+      setDataEventOrganization(organization)
+    }
+  }, [listEventOrganizationsAdded])
 
   const getAllEventOrganizationsQuery = new GetAllEventOrganizationsQuery()
   const eventOrganizations = getAllEventOrganizationsQuery.fetch() as EventOrganizationsListType
