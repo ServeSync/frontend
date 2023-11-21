@@ -188,7 +188,7 @@ const CreateEventPage = () => {
           Hủy
         </Link>
         <Button
-          type='submit'
+          type='button'
           isLoading={createEventCommandHandler.isLoading()}
           classNameButton='bg-[#26C6DA] py-2 px-4 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[140px]'
           onClick={handleCreateEvent}
