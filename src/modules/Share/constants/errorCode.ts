@@ -190,7 +190,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server'
     },
     'EventOrganization:000003': {
-      message: 'Nhà tổ chức hiện đang tổ chức một sự kiện ',
+      message: 'Không thể xóa tổ chức đã tham gia tổ chức sự kiện trước đó ',
       type: 'Server'
     },
     'EventOrganization:000004': {

@@ -10,7 +10,7 @@ const HomePage = () => {
         <meta name='description' content='This is student management page of the project' />
       </Helmet>
       <div>
-        <div className='w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] absolute top-[50px] left-[-100px]'></div>
+        <div className='w-[30%] h-[30%] bg-[#26C6DA]/80 shadow-xl blur-[150px] absolute top-[230px] left-[-100px]'></div>
         <ContainerHomePage />
       </div>
     </Fragment>

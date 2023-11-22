@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useMemo, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Box, Tab, Tabs } from '@mui/material'
 import { FormRequestEventSchema, FormRequestEventType } from '../../../utils'
@@ -56,6 +56,8 @@ const RequestEventPage = () => {
     setDescription(editorState)
     setValue('description', draftToHtml(convertToRaw(description.getCurrentContent())))
   }
+
+  const isSuccess = useRef(false)
 
   const {
     register,
@@ -129,6 +131,18 @@ const RequestEventPage = () => {
     }
   })
 
+  const handleRequestEvent = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    try {
+      await handleSubmitForm()
+      if (!isSuccess.current) {
+        toast.error('Vui lòng kiểm tra lại thông tin !')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const handleChangeFile = (file?: File) => {
     setFile(file)
     setValue('imageUrl', ' ')
@@ -151,12 +165,12 @@ const RequestEventPage = () => {
     <Fragment>
       <Helmet>
         <title>Request Event</title>
-        <meta name='description' content='This is create event page of the project' />
+        <meta name='description' content='This is request event page of the project' />
       </Helmet>
       <div>
         <div className='w-[20%] h-[20%] bg-[#26C6DA]/80 shadow-xl blur-[200px] absolute top-[20px] left-[-100px]'></div>
-        <form onSubmit={handleSubmitForm}>
-          <div className='w-[80%] mx-auto pb-4 mt-10 mb-10'>
+        <div className='w-[80%] mx-auto pb-4 mt-10 mb-10'>
+          <form onSubmit={handleSubmitForm}>
             <Box>
               <Box>
                 <Tabs
@@ -211,28 +225,29 @@ const RequestEventPage = () => {
                 />
               </Box>
             </Box>
-            <div className='col-span-12 flex justify-end gap-x-6'>
-              <Button
-                type='button'
-                classNameButton='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-gray-800 font-semibold'
-                onClick={handleReset}
-              >
-                Làm mới
-              </Button>
-              <Button
-                type='submit'
-                isLoading={
-                  requestCreateEventCommandHandler.isLoading() ||
-                  requestCreateOrganizationInfo.isLoading() ||
-                  requestCreateOrganizationContactInfo.isLoading()
-                }
-                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
-              >
-                Tạo
-              </Button>
-            </div>
+          </form>
+          <div className='col-span-12 flex justify-end gap-x-6'>
+            <Button
+              type='button'
+              classNameButton='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-gray-800 font-semibold'
+              onClick={handleReset}
+            >
+              Làm mới
+            </Button>
+            <Button
+              type='button'
+              isLoading={
+                requestCreateEventCommandHandler.isLoading() ||
+                requestCreateOrganizationInfo.isLoading() ||
+                requestCreateOrganizationContactInfo.isLoading()
+              }
+              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
+              onClick={handleRequestEvent}
+            >
+              Tạo
+            </Button>
           </div>
-        </form>
+        </div>
       </div>
     </Fragment>
   )
