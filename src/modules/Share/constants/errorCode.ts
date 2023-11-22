@@ -79,7 +79,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server'
     },
     'Student:000010': {
-      message: 'Bạn chưa đăng ký tham gia sự kiện !',
+      message: 'Bạn không được duyệt tham gia sự kiện !',
       type: 'Server'
     },
     'Student:000011': {
@@ -123,6 +123,14 @@ export function ErrorCodeToMessage(errorCode: string): {
     },
     'Event:000005': {
       message: 'Sự kiện không thể bị hủy !',
+      type: 'Server'
+    },
+    'Event:000006': {
+      message: 'Sự kiện đã bắt đầu !',
+      type: 'Server'
+    },
+    'Event:000009': {
+      message: 'Sự kiện không thể cập nhật vì sự kiện đã diễn ra phiên đăng ký !',
       type: 'Server'
     },
     'EventAttendanceInfo:000001': {
@@ -192,6 +200,11 @@ export function ErrorCodeToMessage(errorCode: string): {
     'EventOrganization:000004': {
       message: 'Tên nhà tổ chức sự kiện đã tồn tại',
       type: 'Server'
+    },
+    PasswordMismatch: {
+      message: 'Mật khẩu hiện tại không đúng !',
+      type: 'Server',
+      field: 'currentPassword'
     }
   }
 

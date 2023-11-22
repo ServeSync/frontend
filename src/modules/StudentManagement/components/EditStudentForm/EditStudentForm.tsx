@@ -233,7 +233,7 @@ const EditStudentForm = ({
                 <div>
                   <TextField
                     id='address'
-                    label='Địa địa chỉ cư trú'
+                    label='Địa chỉ cư trú'
                     value={value}
                     placeholder='Nhập địa chỉ cư trú'
                     className='w-full bg-white'
