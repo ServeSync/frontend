@@ -43,7 +43,7 @@ const EditEventPage = () => {
 
   const navigate = useNavigate()
 
-  const isSuccess = useRef(false)
+  const isErrorLocal = useRef(false)
 
   const queryEventConfig = useQueryEventConfig()
 
@@ -99,16 +99,29 @@ const EditEventPage = () => {
         },
         file as File,
         () => {
-          isSuccess.current = true
+          isErrorLocal.current = false
           toast.success('Cập nhật sự kiện thành công !')
           navigate(path.event)
         },
         (error: any) => {
+          isErrorLocal.current = false
           handleError<FormEventType>(error, setError)
         }
       )
     }
   })
+
+  const handleEditEvent = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    try {
+      await handleSubmitForm()
+      if (isErrorLocal.current) {
+        toast.error('Vui lòng kiểm tra lại thông tin !')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const getEventByIdQuery = new GetEventByIdQuery(queryEventConfig.id as string)
   const event = getEventByIdQuery.fetch()
@@ -317,52 +330,54 @@ const EditEventPage = () => {
             </Box>
           </Box>
         </div>
-        {event && StatusIsShowButton(event.status) && (
-          <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 px-4 py-2 bg-slate-100 w-full z-20'>
-            {event.status === 'Pending' ? (
-              <div className='flex items-center gap-6'>
-                <Restricted to={'ServeSync.Permissions.Events.Reject'}>
-                  <Button
-                    type='button'
-                    classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
-                    onClick={() => handleRejectEvent(event.id)}
-                  >
-                    Từ chối
-                  </Button>
-                </Restricted>
-                <Restricted to={'ServeSync.Permissions.Events.Approve'}>
-                  <Button
-                    classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[128px]'
-                    onClick={() => handleApproveEvent(event.id)}
-                  >
-                    Chấp thuận
-                  </Button>
-                </Restricted>
-              </div>
-            ) : (
-              <div className='flex items-center gap-6'>
-                <Restricted to={'ServeSync.Permissions.Events.Cancel'}>
-                  <Button
-                    type='button'
-                    classNameButton='flex justify-center items-center bg-[#989899] w-[150px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
-                    onClick={() => handleCancelEvent(event.id)}
-                  >
-                    Hủy sự kiện
-                  </Button>
-                </Restricted>
-                <Restricted to={'ServeSync.Permissions.Events.Edit'}>
-                  <Button
-                    type='submit'
-                    classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[120px]'
-                  >
-                    Cập nhật
-                  </Button>
-                </Restricted>
-              </div>
-            )}
-          </div>
-        )}
       </form>
+      {event && StatusIsShowButton(event.status) && (
+        <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 px-4 py-2 bg-slate-100 w-full z-20'>
+          {event.status === 'Pending' ? (
+            <div className='flex items-center gap-6'>
+              <Restricted to={'ServeSync.Permissions.Events.Reject'}>
+                <Button
+                  type='button'
+                  classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
+                  onClick={() => handleRejectEvent(event.id)}
+                >
+                  Từ chối
+                </Button>
+              </Restricted>
+              <Restricted to={'ServeSync.Permissions.Events.Approve'}>
+                <Button
+                  type='button'
+                  classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[128px]'
+                  onClick={() => handleApproveEvent(event.id)}
+                >
+                  Chấp thuận
+                </Button>
+              </Restricted>
+            </div>
+          ) : (
+            <div className='flex items-center gap-6'>
+              <Restricted to={'ServeSync.Permissions.Events.Cancel'}>
+                <Button
+                  type='button'
+                  classNameButton='flex justify-center items-center bg-[#989899] w-[150px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+                  onClick={() => handleCancelEvent(event.id)}
+                >
+                  Hủy sự kiện
+                </Button>
+              </Restricted>
+              <Restricted to={'ServeSync.Permissions.Events.Edit'}>
+                <Button
+                  type='button'
+                  classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[120px]'
+                  onClick={handleEditEvent}
+                >
+                  Cập nhật
+                </Button>
+              </Restricted>
+            </div>
+          )}
+        </div>
+      )}
     </Fragment>
   )
 }

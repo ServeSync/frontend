@@ -7,7 +7,8 @@ const profileAPI = {
 
   getProfileStudent: () => http.get<ProfileStudent>('/profile/student'),
 
-  changePassword: (body: FormChangePasswordType) => http.post('./profile/change-password', body)
+  changePassword: (body: Omit<FormChangePasswordType, 'confirmPassword'>) =>
+    http.post('./profile/change-password', body)
 }
 
 export default profileAPI
