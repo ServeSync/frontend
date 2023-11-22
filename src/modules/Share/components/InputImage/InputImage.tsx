@@ -8,9 +8,10 @@ interface Props {
   register: UseFormRegister<any>
   previewImage: string
   avatar?: string
+  disabled?: boolean
 }
 
-const InputImage = ({ onChange, register, previewImage, avatar }: Props) => {
+const InputImage = ({ onChange, register, previewImage, avatar, disabled }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const OnFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +48,7 @@ const InputImage = ({ onChange, register, previewImage, avatar }: Props) => {
           type='button'
           classNameButton='absolute bg-slate-100 outline-none w-[48px] h-[48px] bottom-6 right-6 rounded-full'
           onClick={handleUploadFile}
+          disabled={disabled}
         >
           <div className='flex items-center justify-center'>
             <svg

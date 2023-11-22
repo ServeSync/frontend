@@ -10,6 +10,7 @@ import { EventDetailType } from 'src/modules/EventManagement/interfaces'
 import dayjs from 'dayjs'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import { useState } from 'react'
+import { StatusIsDisable } from 'src/modules/EventManagement/constants'
 
 interface Props {
   control: Control<FormEventType>
@@ -52,6 +53,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                             onChange={onChange}
                             value={dayjs(item.startAt)}
                             className='bg-white'
+                            readOnly={StatusIsDisable(event.status) || event.hasOrganizedRegistration}
                           />
                         </DemoContainer>
                       </LocalizationProvider>
@@ -75,6 +77,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                             onChange={onChange}
                             value={dayjs(item.endAt)}
                             className='bg-white'
+                            readOnly={StatusIsDisable(event.status) || event.hasOrganizedRegistration}
                           />
                         </DemoContainer>
                       </LocalizationProvider>
@@ -90,6 +93,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                       type='button'
                       classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                       onClick={() => FieldRegistration.append({ startAt: '', endAt: '' })}
+                      disabled={StatusIsDisable(event.status)}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -107,6 +111,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                       type='button'
                       classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                       onClick={() => FieldRegistration.remove(index)}
+                      disabled={StatusIsDisable(event.status)}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -142,7 +147,6 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                             />
                           </DemoContainer>
                         </LocalizationProvider>
-
                         <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
                           {error && error.message}
                           {errors.registrationInfos?.message}
@@ -233,6 +237,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                             onChange={onChange}
                             value={dayjs(item.startAt)}
                             className='bg-white'
+                            readOnly={StatusIsDisable(event.status)}
                           />
                         </DemoContainer>
                       </LocalizationProvider>
@@ -256,6 +261,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                             onChange={onChange}
                             value={dayjs(item.endAt)}
                             className='bg-white'
+                            readOnly={StatusIsDisable(event.status)}
                           />
                         </DemoContainer>
                       </LocalizationProvider>
@@ -301,6 +307,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                       type='button'
                       classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                       onClick={() => FieldAttendance.append({ startAt: '', endAt: '' })}
+                      disabled={StatusIsDisable(event.status)}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -318,6 +325,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                       type='button'
                       classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                       onClick={() => FieldAttendance.remove(index)}
+                      disabled={StatusIsDisable(event.status)}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'

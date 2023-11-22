@@ -5,8 +5,8 @@ import Button from 'src/modules/Share/components/Button'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { FormEventType } from '../../../utils'
-import { EventRole } from '../../../interfaces'
-import { RoleTableHeader, isNeedApprove } from '../../../constants'
+import { EventDetailType, EventRole } from '../../../interfaces'
+import { RoleTableHeader, StatusIsDisable, isNeedApprove } from '../../../constants'
 import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import draftToHtml from 'draftjs-to-html'
@@ -20,6 +20,7 @@ interface Props {
   setValue: UseFormSetValue<FormEventType>
   dataEventRole: EventRole[]
   setDataEventRole: React.Dispatch<React.SetStateAction<EventRole[]>>
+  event?: EventDetailType
 }
 
 const RegisterEventRoleForm = ({
@@ -29,7 +30,8 @@ const RegisterEventRoleForm = ({
   resetField,
   setValue,
   dataEventRole,
-  setDataEventRole
+  setDataEventRole,
+  event
 }: Props) => {
   const [isEditEventRole, setIsEditEventRole] = useState<boolean>(false)
   const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
@@ -157,6 +159,7 @@ const RegisterEventRoleForm = ({
                         type='button'
                         classNameButton='py-2 px-2 rounded-lg text-[14px] hover:bg-gray-200'
                         onClick={() => onEditEventRole(index)}
+                        disabled={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
                       >
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
@@ -177,6 +180,7 @@ const RegisterEventRoleForm = ({
                         type='button'
                         classNameButton='py-2 px-2 rounded-lg text-[14px] hover:bg-slate-200'
                         onClick={() => handleRemoveEventRole(index)}
+                        disabled={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
                       >
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
@@ -193,7 +197,6 @@ const RegisterEventRoleForm = ({
                           />
                         </svg>
                       </Button>
-                      <button type='button'></button>
                     </div>
                   </th>
                 </tr>
@@ -201,121 +204,123 @@ const RegisterEventRoleForm = ({
           </tbody>
         </table>
       </div>
-      <div className='border-[1px] border-gray-300 p-4'>
-        <div className='grid grid-cols-12 gap-6'>
-          <Controller
-            name='roles.name'
-            control={control}
-            render={({ field: { onChange, value = '' } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-4'>
-                  <TextField
-                    id='role_name'
-                    label='Vai trò'
-                    placeholder='Nhập vai trò'
-                    className='w-full bg-white'
-                    onChange={onChange}
-                    value={value}
-                  />
-                </div>
-              </LocalizationProvider>
-            )}
-          />
-          <Controller
-            name='roles.quantity'
-            control={control}
-            render={({ field: { onChange, value = '' } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-2'>
-                  <TextField
-                    id='role_quantity'
-                    label='Số lượng'
-                    className='w-full bg-white'
-                    onChange={onChange}
-                    value={value}
-                  />
-                </div>
-              </LocalizationProvider>
-            )}
-          />
-          <Controller
-            name='roles.score'
-            control={control}
-            render={({ field: { onChange, value = '' } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-2'>
-                  <TextField
-                    id='role_score'
-                    label='Điểm'
-                    className='w-full bg-white'
-                    onChange={onChange}
-                    value={value}
-                  />
-                </div>
-              </LocalizationProvider>
-            )}
-          />
-          <Controller
-            name={'roles.isNeedApprove'}
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-4'>
-                  <Autocomplete
-                    disablePortal
-                    id='isNeedApprove'
-                    options={isNeedApprove}
-                    value={isNeedApprove.find((option) => option.id === value) || null}
-                    getOptionLabel={(option) => option.name}
-                    noOptionsText='Không có lựa chọn'
-                    renderInput={(params) => <TextField {...params} label='Yêu cầu duyệt' />}
-                    onChange={(_, option) => onChange(option ? option.id : '')}
-                    className='bg-white'
-                  />
-                </div>
-              </LocalizationProvider>
-            )}
-          />
-          <div className='col-span-12'>
-            <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
-              <Editor
-                editorState={description}
-                onEditorStateChange={onEditorStateChange}
-                placeholder='Nhập mô tả vai trò'
-              />
+      {(!event?.hasOrganizedRegistration || event?.hasOrganizedRegistration === undefined) && (
+        <div className='border-[1px] border-gray-300 p-4'>
+          <div className='grid grid-cols-12 gap-6'>
+            <Controller
+              name='roles.name'
+              control={control}
+              render={({ field: { onChange, value = '' } }) => (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <div className='col-span-4'>
+                    <TextField
+                      id='role_name'
+                      label='Vai trò'
+                      placeholder='Nhập vai trò'
+                      className='w-full bg-white'
+                      onChange={onChange}
+                      value={value}
+                    />
+                  </div>
+                </LocalizationProvider>
+              )}
+            />
+            <Controller
+              name='roles.quantity'
+              control={control}
+              render={({ field: { onChange, value = '' } }) => (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <div className='col-span-2'>
+                    <TextField
+                      id='role_quantity'
+                      label='Số lượng'
+                      className='w-full bg-white'
+                      onChange={onChange}
+                      value={value}
+                    />
+                  </div>
+                </LocalizationProvider>
+              )}
+            />
+            <Controller
+              name='roles.score'
+              control={control}
+              render={({ field: { onChange, value = '' } }) => (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <div className='col-span-2'>
+                    <TextField
+                      id='role_score'
+                      label='Điểm'
+                      className='w-full bg-white'
+                      onChange={onChange}
+                      value={value}
+                    />
+                  </div>
+                </LocalizationProvider>
+              )}
+            />
+            <Controller
+              name={'roles.isNeedApprove'}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <div className='col-span-4'>
+                    <Autocomplete
+                      disablePortal
+                      id='isNeedApprove'
+                      options={isNeedApprove}
+                      value={isNeedApprove.find((option) => option.id === value) || null}
+                      getOptionLabel={(option) => option.name}
+                      noOptionsText='Không có lựa chọn'
+                      renderInput={(params) => <TextField {...params} label='Yêu cầu duyệt' />}
+                      onChange={(_, option) => onChange(option ? option.id : '')}
+                      className='bg-white'
+                    />
+                  </div>
+                </LocalizationProvider>
+              )}
+            />
+            <div className='col-span-12'>
+              <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
+                <Editor
+                  editorState={description}
+                  onEditorStateChange={onEditorStateChange}
+                  placeholder='Nhập mô tả vai trò'
+                />
+              </div>
+              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errorsLocal}</span>
+              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                {errors && errors.roles?.message}
+              </span>
             </div>
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errorsLocal}</span>
-            <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-              {errors && errors.roles?.message}
-            </span>
-          </div>
-          <div className='flex justify-end col-span-12 gap-4'>
-            {isEditEventRole && (
+            <div className='flex justify-end col-span-12 gap-4'>
+              {isEditEventRole && (
+                <Button
+                  type='button'
+                  classNameButton='bg-gray-300 py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
+                  onClick={handleCancelEdit}
+                >
+                  Hủy
+                </Button>
+              )}
               <Button
                 type='button'
-                classNameButton='bg-gray-300 py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
-                onClick={handleCancelEdit}
+                classNameButton='bg-[#da4848] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
+                onClick={handleResetForm}
               >
-                Hủy
+                Làm mới
               </Button>
-            )}
-            <Button
-              type='button'
-              classNameButton='bg-[#da4848] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
-              onClick={handleResetForm}
-            >
-              Làm mới
-            </Button>
-            <Button
-              type='button'
-              classNameButton='bg-[#26da38] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
-              onClick={handleSubmit}
-            >
-              {isEditEventRole ? 'Lưu' : 'Thêm'}
-            </Button>
+              <Button
+                type='button'
+                classNameButton='bg-[#26da38] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
+                onClick={handleSubmit}
+              >
+                {isEditEventRole ? 'Lưu' : 'Thêm'}
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </Fragment>
   )
 }

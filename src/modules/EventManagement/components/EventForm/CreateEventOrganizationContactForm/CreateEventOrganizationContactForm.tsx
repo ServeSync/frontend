@@ -5,7 +5,7 @@ import { Autocomplete, TextField } from '@mui/material'
 import { useState } from 'react'
 import { FormEventType } from '../../../utils'
 import Button from 'src/modules/Share/components/Button'
-import { EventOrganizationTableHeader } from '../../../constants'
+import { EventOrganizationTableHeader, StatusIsDisable } from '../../../constants'
 import {
   ContactsListType,
   EventOrganizationType,
@@ -90,6 +90,7 @@ const CreateEventOrganizationContactForm = ({
           type='button'
           classNameButton='hover:bg-slate-200 rounded-lg p-2'
           onClick={() => handleRemoveEventOrganization(index)}
+          disabled={event && StatusIsDisable(event.status)}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -181,6 +182,7 @@ const CreateEventOrganizationContactForm = ({
                     type='button'
                     classNameButton='py-2 px-2 rounded-lg text-[14px] hover:bg-slate-200 ml-4'
                     onClick={() => handleDeleteContact(index, id)}
+                    disabled={event && StatusIsDisable(event.status)}
                   >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -202,61 +204,63 @@ const CreateEventOrganizationContactForm = ({
             ))}
         </tbody>
       </table>
-      <div>
-        <div className='col-span-4 flex justify-between items-center mb-4'>
-          <h2 className='text-[16px] font-semibold'>Thêm đại diện</h2>
-        </div>
-        <div className='grid grid-cols-9 gap-x-6'>
-          <Controller
-            name={'organizations.organizationReps.organizationRepId'}
-            control={control}
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+      {(!(event && StatusIsDisable(event.status)) || event === undefined) && (
+        <div>
+          <div className='col-span-4 flex justify-between items-center mb-4'>
+            <h2 className='text-[16px] font-semibold'>Thêm đại diện</h2>
+          </div>
+          <div className='grid grid-cols-9 gap-x-6'>
+            <Controller
+              name={'organizations.organizationReps.organizationRepId'}
+              control={control}
+              defaultValue=''
+              render={({ field: { onChange, value } }) => (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <div className='col-span-4'>
+                    <Autocomplete
+                      disablePortal
+                      id='contacts'
+                      options={contacts ? contacts : []}
+                      value={(contacts && contacts.find((option) => option.id === value)) || null}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => <TextField {...params} label='Chọn đại diện' />}
+                      onChange={(_, option) => onChange(option ? option.id : '')}
+                      className='bg-white'
+                    />
+                    <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors}</span>
+                  </div>
+                </LocalizationProvider>
+              )}
+            />
+            <Controller
+              name={'organizations.organizationReps.role'}
+              control={control}
+              defaultValue=''
+              render={({ field: { onChange, value } }) => (
                 <div className='col-span-4'>
-                  <Autocomplete
-                    disablePortal
-                    id='contacts'
-                    options={contacts ? contacts : []}
-                    value={(contacts && contacts.find((option) => option.id === value)) || null}
-                    getOptionLabel={(option) => option.name}
-                    renderInput={(params) => <TextField {...params} label='Chọn đại diện' />}
-                    onChange={(_, option) => onChange(option ? option.id : '')}
-                    className='bg-white'
+                  <TextField
+                    id='role'
+                    label='Vai trò'
+                    placeholder='Nhập vai trò'
+                    className='w-full'
+                    value={value}
+                    onChange={onChange}
                   />
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors}</span>
                 </div>
-              </LocalizationProvider>
-            )}
-          />
-          <Controller
-            name={'organizations.organizationReps.role'}
-            control={control}
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
-              <div className='col-span-4'>
-                <TextField
-                  id='role'
-                  label='Vai trò'
-                  placeholder='Nhập vai trò'
-                  className='w-full'
-                  value={value}
-                  onChange={onChange}
-                />
-              </div>
-            )}
-          />
-          <div className='flex justify-end'>
-            <Button
-              type='button'
-              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[48px] mt-[4px]'
-              onClick={handleAddContact}
-            >
-              Thêm
-            </Button>
+              )}
+            />
+            <div className='flex justify-end'>
+              <Button
+                type='button'
+                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[48px] mt-[4px]'
+                onClick={handleAddContact}
+              >
+                Thêm
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

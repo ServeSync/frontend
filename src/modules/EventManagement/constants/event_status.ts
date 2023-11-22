@@ -33,16 +33,16 @@ interface StatusButton {
   [key: string]: boolean
 }
 
-export const StatusIsShowButton = (status: string) => {
+export const StatusIsDisable = (status: string) => {
   const mappedEventStatus: StatusButton = {
-    Cancelled: false,
-    Happening: false,
-    Done: false,
-    Expired: false,
-    Pending: true,
-    Rejected: false,
-    Upcoming: true,
-    Approved: true
+    Cancelled: true,
+    Happening: true,
+    Done: true,
+    Expired: true,
+    Rejected: true,
+    Pending: false,
+    Upcoming: false,
+    Approved: false
   }
   return mappedEventStatus[`${status}`]
 }

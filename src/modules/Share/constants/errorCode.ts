@@ -12,6 +12,7 @@ export function ErrorCodeToMessage(errorCode: string): {
   field?: string
 } {
   const mappedErrorCode: ErrorCode = {
+    // Auth
     'User:000002': {
       message: 'Tài khoản không tồn tại !',
       type: 'Server',
@@ -38,6 +39,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Đổi mật khẩu thất bại !',
       type: 'Server'
     },
+    // Role
     DuplicateRoleName: {
       message: 'Role đã tồn tại !',
       type: 'Server',
@@ -47,6 +49,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Role không cho phép thêm mới, xóa và chỉnh sửa !',
       type: 'Server'
     },
+    // Student
     'Student:000001': {
       message: 'Mã số sinh viên đã tồn tại !',
       type: 'Server',
@@ -67,11 +70,11 @@ export function ErrorCodeToMessage(errorCode: string): {
       field: 'email'
     },
     'Student:000007': {
-      message: 'Sinh viên đã đăng kí sự kiện với vai trò đã chọn',
+      message: 'Bạn đã đăng kí sự kiện với vai trò đã chọn',
       type: 'Server'
     },
     'Student:000008': {
-      message: 'Sinh viên đã được chấp nhận tham gia sự kiện',
+      message: 'Bạn đã được chấp nhận tham gia sự kiện',
       type: 'Server'
     },
     'Student:000009': {
@@ -94,21 +97,25 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Đơn xin đăng ký không tồn tại !',
       type: 'Server'
     },
+    // Faculty
     'Faculty:000002': {
       message: 'Khoa không tồn tại!',
       type: 'Server',
       field: 'facultyId'
     },
+    // HomeRoom
     'HomeRoom:000002': {
       message: 'Lớp sinh hoạt không tồn tại!',
       type: 'Server',
       field: 'homeRoomId'
     },
+    // EducationProgram
     'EducationProgram:000002': {
       message: 'Hệ đào tạo không tồn tại!',
       type: 'Server',
       field: 'educationProgramId'
     },
+    // Event
     'Event:000002': {
       message: 'Không phải thời điểm đăng ký !',
       type: 'Server'
@@ -129,10 +136,19 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Sự kiện đã bắt đầu !',
       type: 'Server'
     },
+    'Event:000007': {
+      message: 'Sự kiện không thể được chấp thuận !',
+      type: 'Server'
+    },
+    'Event:00000': {
+      message: 'Sự kiện không thể bị từ chối !',
+      type: 'Server'
+    },
     'Event:000009': {
       message: 'Sự kiện không thể cập nhật vì sự kiện đã diễn ra phiên đăng ký !',
       type: 'Server'
     },
+    // Event Attendance
     'EventAttendanceInfo:000001': {
       message: 'Thời gian điểm danh bị trùng nhau !',
       type: 'Server',
@@ -143,10 +159,35 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server',
       field: 'attendanceInfos'
     },
+    'EventAttendanceInfo:000004': {
+      message: 'Khung giờ điểm danh không tồn tại !',
+      type: 'Server',
+      field: 'attendanceInfos'
+    },
     'EventAttendanceInfo:000005': {
-      message: 'Yêu cầu điểm danh không hợp lệ!',
+      message: 'Yêu cầu điểm danh không hợp lệ !',
       type: 'Server'
     },
+    'EventAttendanceInfo:000006': {
+      message: 'Không thể cập nhật thông tin điểm danh !',
+      type: 'Server'
+    },
+
+    // Organization In Event
+    'OrganizationInEvent:000002': {
+      message: 'Nhà tổ chức chưa được thêm vào sự kiện !',
+      type: 'Server'
+    },
+    'OrganizationInEvent:000003': {
+      message: 'Không thể cập nhật thông tin tổ chức !',
+      type: 'Server'
+    },
+    // Event Organization Representative
+    'OrganizationRepInEvent:000002': {
+      message: 'Nhà đại diện không được thêm vào sự kiện !',
+      type: 'Server'
+    },
+    // Event Registration
     'EventRegistration:000002': {
       message: 'Khung giờ đăng ký bị trùng với thời gian diễn ra sự kiện !',
       type: 'Server',
@@ -157,6 +198,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server',
       field: 'registrationInfos'
     },
+    // Event Role
     'EventRole:000002': {
       message: 'Vai trò không tồn tại !',
       type: 'Server'
@@ -165,6 +207,11 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Vai trò đã được đăng ký đủ số lượng !',
       type: 'Server'
     },
+    'EventRole:000004': {
+      message: 'Vai trò không thể cập nhật !',
+      type: 'Server'
+    },
+    // Event Collaboration Request
     'EventCollaborationRequest:000001': {
       message: 'Yêu cầu tạo sự kiện không tồn tại !',
       type: 'Server'
@@ -185,6 +232,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Hoạt động sự kiện không tồn tại !',
       type: 'Server'
     },
+    // Event Organization
     'EventOrganization:000001': {
       message: 'Nhà tổ chức sự kiện không tồn tại !',
       type: 'Server'
@@ -201,6 +249,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Tên nhà tổ chức sự kiện đã tồn tại',
       type: 'Server'
     },
+    // Change Password
     PasswordMismatch: {
       message: 'Mật khẩu hiện tại không đúng !',
       type: 'Server',
