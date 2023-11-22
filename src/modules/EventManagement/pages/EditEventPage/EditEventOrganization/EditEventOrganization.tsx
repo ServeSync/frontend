@@ -32,8 +32,6 @@ const EditEventOrganization = ({
   const [listEventOrganizationsAdded, setListEventOrganizationsAdded] = useState<EventOrganizationType[]>([])
   const [errorsLocal, setErrorsLocal] = useState<string>('')
 
-  console.log(listEventOrganizationsAdded)
-
   const [representatives, setRepresentatives] = useState<EventOrganizationType[]>([])
 
   useEffect(() => {

@@ -129,6 +129,10 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Sự kiện đã bắt đầu !',
       type: 'Server'
     },
+    'Event:000009': {
+      message: 'Sự kiện không thể cập nhật vì sự kiện đã diễn ra phiên đăng ký !',
+      type: 'Server'
+    },
     'EventAttendanceInfo:000001': {
       message: 'Thời gian điểm danh bị trùng nhau !',
       type: 'Server',
