@@ -18,6 +18,7 @@ const EventDetailPage = lazy(() => import('src/modules/EventManagement/pages/Eve
 const RequestEventPage = lazy(() => import('src/modules/EventManagement/pages/RequestEventPage/RequestEventPage'))
 const AttendanceEvent = lazy(() => import('src/modules/EventManagement/pages/AttendanceEventPage'))
 const EventsPage = lazy(() => import('src/modules/HomePage/pages/EventsPage'))
+const ProfileClientPage = lazy(() => import('src/modules/HomePage/pages/ProfileClientPage'))
 const ForgetPassword = lazy(() => import('src/modules/Authentication/pages/ForgetPassword'))
 const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetPassword'))
 
@@ -100,6 +101,16 @@ const useRouteElements = () => {
         <HomePageLayout>
           <Suspense>
             <EventsPage />
+          </Suspense>
+        </HomePageLayout>
+      )
+    },
+    {
+      path: path.profile_clients,
+      element: (
+        <HomePageLayout>
+          <Suspense>
+            <ProfileClientPage />
           </Suspense>
         </HomePageLayout>
       )
