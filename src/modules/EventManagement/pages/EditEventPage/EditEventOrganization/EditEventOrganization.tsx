@@ -92,7 +92,8 @@ const EditEventOrganization = ({
         setErrorsLocal('')
         setRepresentatives([
           ...representatives,
-          eventOrganizations && (eventOrganizations.data.find((item) => item.id === id) as EventOrganizationType)
+          eventOrganizations &&
+            (eventOrganizations.data.find((item) => item.organizationId === id) as EventOrganizationType)
         ])
       }
     } else {
@@ -136,6 +137,7 @@ const EditEventOrganization = ({
             handleAddEventOrganization={handleAddEventOrganization}
             errorsLocal={errorsLocal}
             errors={errors}
+            event={event}
           />
         </div>
       )}

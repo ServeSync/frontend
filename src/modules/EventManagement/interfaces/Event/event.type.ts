@@ -121,6 +121,7 @@ export interface EventDetailType {
   description: string
   isRegistered: boolean
   isAttendance: boolean
+  canAccess: boolean
   roles: [
     {
       id?: string
@@ -152,9 +153,9 @@ export interface EventDetailType {
           name: string
           imageUrl: string
           email: string
+          address: string
           phoneNumber: string
           position: string
-          address: string
           role: string
           organizationRepId: string
         }
@@ -175,6 +176,18 @@ export interface EventDetailType {
       ]
     }
   ]
+  created: {
+    id: string
+    at: string
+    fullName: string
+    imageUrl: string
+  }
+  modified: {
+    id: string
+    at: string
+    fullName: string
+    imageUrl: string
+  }
   registrationInfos: [
     {
       id: string
@@ -225,6 +238,7 @@ export interface EventDetailType {
   }
   nearestRegistrationInfoId: string
   nearestAttendanceInfoId: string
+  hasOrganizedRegistration: boolean
 }
 
 export interface StudentAttendedEvent extends EventType {

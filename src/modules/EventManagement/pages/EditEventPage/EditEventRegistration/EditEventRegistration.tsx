@@ -60,6 +60,7 @@ const EditEventRegistration = ({
             resetField={resetField}
             dataEventRole={dataEventRole}
             setDataEventRole={setDataEventRole}
+            event={event}
           />
         </div>
       )}

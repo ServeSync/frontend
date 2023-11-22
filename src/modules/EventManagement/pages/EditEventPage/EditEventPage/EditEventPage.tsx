@@ -26,7 +26,7 @@ import { handleError } from 'src/modules/Share/utils'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
 import Restricted from 'src/modules/Share/components/Restricted'
 import { RejectEventCommandHandler } from 'src/modules/EventManagement/services/Event/rejectEvent.command-handler'
-import { StatusIsShowButton } from 'src/modules/EventManagement/constants'
+import { StatusIsDisable } from 'src/modules/EventManagement/constants'
 import EditEventInformation from '../EditEventInformation/EditEventInformation'
 import draftToHtml from 'draftjs-to-html'
 import { toast } from 'react-toastify'
@@ -92,6 +92,8 @@ const EditEventPage = () => {
         roles: dataEventRole,
         organizations: dataEventOrganization
       } as FormEvent
+      console.log(body)
+
       await editEventCommandHandler.handle(
         {
           id: queryEventConfig.id as string,
@@ -148,7 +150,7 @@ const EditEventPage = () => {
       setValue('registrationInfos', event.registrationInfos)
       setValue('attendanceInfos', event.attendanceInfos)
       setDataEventRole(event.roles)
-      setValue('representativeOrganizationId', event.representativeOrganization.id)
+      setValue('representativeOrganizationId', event.representativeOrganization.organizationId)
     }
   }, [event, setValue])
 
@@ -331,7 +333,7 @@ const EditEventPage = () => {
           </Box>
         </div>
       </form>
-      {event && StatusIsShowButton(event.status) && (
+      {event && !StatusIsDisable(event.status) && (
         <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 px-4 py-2 bg-slate-100 w-full z-20'>
           {event.status === 'Pending' ? (
             <div className='flex items-center gap-6'>
@@ -370,6 +372,7 @@ const EditEventPage = () => {
                   type='button'
                   classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[120px]'
                   onClick={handleEditEvent}
+                  isLoading={editEventCommandHandler.isLoading()}
                 >
                   Cập nhật
                 </Button>
