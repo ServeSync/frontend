@@ -26,6 +26,8 @@ import EventsOfStudentTable from '../../components/EventsOfStudentTable'
 import { FormStudentSchema, FormStudentType } from '../../utils'
 import { StudentAttendedEvent, StudentAttendedEventsListType } from 'src/modules/EventManagement/interfaces'
 import Button from 'src/modules/Share/components/Button'
+import ModalCustom from 'src/modules/Share/components/Modal'
+import ExportFile from '../../components/ExportFile'
 
 const EditStudentPage = () => {
   const [file, setFile] = useState<File>()
@@ -152,6 +154,16 @@ const EditStudentPage = () => {
     }
   }
 
+  const [isOpenModalExportFile, setIsOpenModalExportFile] = useState<boolean>(false)
+
+  const handleOpenModalExportFile = () => {
+    setIsOpenModalExportFile(true)
+  }
+
+  const handleCloseModalExportFile = () => {
+    setIsOpenModalExportFile(false)
+  }
+
   return (
     <Fragment>
       <Helmet>
@@ -193,6 +205,7 @@ const EditStudentPage = () => {
               <div className='flex justify-between items-center'>
                 <p className='font-semibold'>Danh sách hoạt động phục vụ cộng đồng sinh viên đã tham gia</p>
                 <Button
+                  onClick={handleOpenModalExportFile}
                   type='button'
                   classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
                 >
@@ -212,6 +225,12 @@ const EditStudentPage = () => {
                   </svg>
                   <span>Xuất file</span>
                 </Button>
+                <ModalCustom isOpenModal={isOpenModalExportFile} handleClose={handleCloseModalExportFile}>
+                  <ExportFile
+                    handleCloseModalExportFile={handleCloseModalExportFile}
+                    queryStudentConfig={queryStudentConfig}
+                  />
+                </ModalCustom>
               </div>
             </div>
             <EventsOfStudentTable events={attendedEvents} isLoading={getAttendedEventsQuery.isLoading()} />
