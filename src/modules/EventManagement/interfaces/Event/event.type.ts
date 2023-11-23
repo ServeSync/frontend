@@ -147,6 +147,7 @@ export interface EventDetailType {
       imageUrl: string
       organizationId: string
       role: string
+      status: string
       representatives: [
         {
           id: string
@@ -172,6 +173,7 @@ export interface EventDetailType {
           position: string
           address: string
           organizationRepId: string
+          status: string
         }
       ]
     }
@@ -229,6 +231,7 @@ export interface EventDetailType {
     organizationId: string
     description: string
     role: string
+    status: string
     identityId?: string
     hostedEvents?: number
     created?: string
