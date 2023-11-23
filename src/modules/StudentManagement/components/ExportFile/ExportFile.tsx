@@ -8,7 +8,6 @@ import { FormExportFileSchema, FormExportFileType } from '../../utils'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ExportAttendanceEventsCommandHandler } from '../../services'
 import { toast } from 'react-toastify'
-import * as FileSaver from 'file-saver'
 
 interface Props {
   handleCloseModalExportFile: () => void
@@ -27,13 +26,6 @@ const ExportFile = ({ handleCloseModalExportFile, queryStudentConfig }: Props) =
       {
         id: queryStudentConfig.id as string,
         data: data
-      },
-      () => {
-        const data = exportAttendanceEventsCommandHandler.onSuccess()
-        const blob = new Blob([data], {
-          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'
-        })
-        FileSaver.saveAs(blob, 'student.xlsx')
       },
       () => {
         toast.error('File không đúng định dạng')

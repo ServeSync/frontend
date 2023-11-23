@@ -22,7 +22,9 @@ const studentAPI = {
     }),
 
   exportAttendanceEvents: (body: { id: string; data: FormExportFileType }) =>
-    http.post(`/students/${body.id}/attendance-events/export`, body.data),
+    http.post(`/students/${body.id}/attendance-events/export`, body.data, {
+      responseType: 'arraybuffer'
+    }),
 
   getAttendedEvents: (id: string, page: number) =>
     http.get<StudentAttendedEventsListType>(`/students/${id}/attendance-events`, { params: { page } })
