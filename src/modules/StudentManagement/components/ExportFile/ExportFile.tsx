@@ -6,22 +6,32 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { FormExportFileSchema, FormExportFileType } from '../../utils'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { ExportAttendanceEventsCommandHandler } from '../../services'
+import { toast } from 'react-toastify'
 
 interface Props {
   handleCloseModalExportFile: () => void
   queryStudentConfig: QueryStudentConfig
 }
 
-const ExportFile = ({ handleCloseModalExportFile }: Props) => {
-  const { control } = useForm<FormExportFileType>({
+const ExportFile = ({ handleCloseModalExportFile, queryStudentConfig }: Props) => {
+  const { handleSubmit, control } = useForm<FormExportFileType>({
     resolver: yupResolver(FormExportFileSchema)
   })
 
-  //   const exportAttendanceEventsByStudentIdQuery = new ExportAttendanceEventsByStudentIdQuery(
-  //     queryStudentConfig.id as string
-  //   )
+  const exportAttendanceEventsCommandHandler = new ExportAttendanceEventsCommandHandler()
 
-  const handleExportFile = () => {}
+  const handleExportFile = handleSubmit((data) => {
+    exportAttendanceEventsCommandHandler.handle(
+      {
+        id: queryStudentConfig.id as string,
+        data: data
+      },
+      () => {
+        toast.error('File không đúng định dạng')
+      }
+    )
+  })
 
   return (
     <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg w-[620px]'>
@@ -40,11 +50,11 @@ const ExportFile = ({ handleCloseModalExportFile }: Props) => {
           </svg>
         </Button>
       </div>
-      <form className='w-full'>
+      <form className='w-full' onSubmit={handleExportFile}>
         <div className='flex flex-col gap-2'>
           <div className='flex items-center justify-between'>
             <Controller
-              name='startAt'
+              name='formDate'
               control={control}
               render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <div className='col-span-6 mt-[-8px]'>
@@ -64,7 +74,7 @@ const ExportFile = ({ handleCloseModalExportFile }: Props) => {
               )}
             />
             <Controller
-              name='endAt'
+              name='toDate'
               control={control}
               render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <div className='col-span-6 mt-[-8px]'>
