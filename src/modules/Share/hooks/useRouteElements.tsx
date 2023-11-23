@@ -105,16 +105,7 @@ const useRouteElements = () => {
         </HomePageLayout>
       )
     },
-    {
-      path: path.profile_clients,
-      element: (
-        <HomePageLayout>
-          <Suspense>
-            <ProfileClientPage />
-          </Suspense>
-        </HomePageLayout>
-      )
-    },
+
     {
       path: '',
       element: <ProtectedStudentRoute />,
@@ -125,6 +116,16 @@ const useRouteElements = () => {
             <Suspense>
               <AttendanceEvent />
             </Suspense>
+          )
+        },
+        {
+          path: path.profile_clients,
+          element: (
+            <HomePageLayout>
+              <Suspense>
+                <ProfileClientPage />
+              </Suspense>
+            </HomePageLayout>
           )
         }
       ]
