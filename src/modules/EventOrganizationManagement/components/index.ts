@@ -1,3 +1,6 @@
 export * from './EventOrganizationTable'
+export * from './EventOrganizationContactTable'
 export * from './EditEventOrganizationForm'
 export * from './CreateEventOrganizationForm'
+export * from './CreateEventOrganizationContactForm'
+export * from './EditEventOrganizationContactForm'

@@ -16,6 +16,7 @@ export interface EventOrganizationType {
   organizationId: string
   description: string
   role: string
+  status: string
   identityId?: string
   hostedEvents?: number
   created?: string
