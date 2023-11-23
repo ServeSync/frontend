@@ -2,7 +2,7 @@ import HeaderTable from 'src/modules/Share/components/HeaderTable'
 import Skeleton from 'react-loading-skeleton'
 import { formatDateOfBirth } from 'src/modules/Share/utils'
 import { EventOrganizationsListType } from '../../interfaces'
-import { EventOrganizationTableHeader } from '../../constants'
+import { EventOrganizationTableHeader, StatusOrganizationToMessage } from '../../constants'
 
 interface Props {
   organizers: EventOrganizationsListType
@@ -55,6 +55,7 @@ const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onS
                 <th className='px-2 py-4 font-medium '>{organizer.address}</th>
                 <th className='px-2 py-4 font-medium '>{organizer.phoneNumber}</th>
                 <th className='px-2 py-4 font-medium '>{formatDateOfBirth(organizer.created as string)}</th>
+                <th className='px-2 py-4 font-medium '>{StatusOrganizationToMessage(organizer.status)}</th>
                 <th className='px-2 py-4 font-medium text-center'>{organizer.hostedEvents}</th>
               </tr>
             ))}

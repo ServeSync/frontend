@@ -62,7 +62,7 @@ const EventOrganizationPage = () => {
               state={queryOrganizationConfig}
               className='flex items-center text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
             >
-              Thêm nhà tổ chức
+              Mời nhà tổ chức
             </Link>
           </Restricted>
         </div>

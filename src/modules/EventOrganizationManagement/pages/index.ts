@@ -1,3 +1,5 @@
 export * from './EventOrganizationPage'
 export * from './EditEventOrganizationPage'
 export * from './CreateEventOrganizationPage'
+export * from './CreateOrganizationContactPage'
+export * from './EditOrganizationContactPage'

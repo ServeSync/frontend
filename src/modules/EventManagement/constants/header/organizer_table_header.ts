@@ -64,5 +64,9 @@ export const EditEventOrganizationTableHeader = [
   {
     id: '5',
     name: 'Số điện thoại'
+  },
+  {
+    id: '6',
+    name: 'Trạng thái'
   }
 ]

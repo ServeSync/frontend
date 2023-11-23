@@ -26,6 +26,11 @@ export const EventOrganizationTableHeader = [
   },
   {
     id: '6',
+    name: 'Trạng thái',
+    sort: ''
+  },
+  {
+    id: '7',
     name: 'Sự kiện đã tổ chức',
     sort: ''
   }

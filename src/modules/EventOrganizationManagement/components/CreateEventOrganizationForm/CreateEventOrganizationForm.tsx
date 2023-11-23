@@ -143,7 +143,7 @@ const CreateEventOrganizationForm = ({
           classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
           isLoading={isLoading}
         >
-          Tạo
+          Gửi
         </Button>
       </div>
     </Fragment>

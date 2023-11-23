@@ -13,6 +13,10 @@ export function ErrorCodeToMessage(errorCode: string): {
 } {
   const mappedErrorCode: ErrorCode = {
     // Auth
+    'User:000001': {
+      message: 'Người dùng  không tồn tại !',
+      type: 'Server'
+    },
     'User:000002': {
       message: 'Tài khoản không tồn tại !',
       type: 'Server',
@@ -211,6 +215,11 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Vai trò không thể cập nhật !',
       type: 'Server'
     },
+    'EventOrganizationContact:000005': {
+      message: 'Đại diện không ở trạng thái chờ !',
+      type: 'Server'
+    },
+
     // Event Collaboration Request
     'EventCollaborationRequest:000001': {
       message: 'Yêu cầu tạo sự kiện không tồn tại !',
@@ -247,6 +256,22 @@ export function ErrorCodeToMessage(errorCode: string): {
     },
     'EventOrganization:000004': {
       message: 'Tên nhà tổ chức sự kiện đã tồn tại',
+      type: 'Server'
+    },
+    'EventOrganizationContact:000001': {
+      message: 'Nhà đại diện tổ chức không tồn tại',
+      type: 'Server'
+    },
+    'EventOrganizationContact:000002': {
+      message: 'Nhà đại diện không thuộc về tổ chức',
+      type: 'Server'
+    },
+    'EventOrganizationContact:000003': {
+      message: 'Email đã được thiết lập ở một thành viên khác trong tổ chức',
+      type: 'Server'
+    },
+    'EventOrganizationContact:000004': {
+      message: 'Không thể xóa nhà đại diện tổ chức',
       type: 'Server'
     },
     // Change Password

@@ -27,4 +27,5 @@ export interface ContactType {
   position: string
   address: string
   organizationRepId: string
+  status: string
 }
