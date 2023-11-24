@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
 export const FormEventOrganizationSchema = yup.object({
-  name: yup.string().trim().required('Vui lòng nhập tên tổ chức !'),
+  name: yup.string().trim().required('Vui lòng nhập tên tổ chức !').min(5, 'Tên tổ chức tối thiểu 5 kí tự !'),
   description: yup.string().trim().required('Vui lòng nhập mô tả !'),
   email: yup.string().trim().required('Vui lòng nhập email !').email('Email không hợp lệ !'),
   phoneNumber: yup

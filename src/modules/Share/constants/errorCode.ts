@@ -258,6 +258,14 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Tên nhà tổ chức sự kiện đã tồn tại',
       type: 'Server'
     },
+    'EventOrganization:000005': {
+      message: 'Nhà tổ chức không ở trạng thái chờ',
+      type: 'Server'
+    },
+    'EventOrganization:000006': {
+      message: 'Nhà tổ chức không ở trạng thái kích hoạt',
+      type: 'Server'
+    },
     'EventOrganizationContact:000001': {
       message: 'Nhà đại diện tổ chức không tồn tại',
       type: 'Server'

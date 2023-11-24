@@ -31,6 +31,7 @@ const CreateOrganizationContactPage = ({ eventOrganization, handleClose }: Props
     control,
     handleSubmit,
     setError,
+
     setValue,
     formState: { errors }
   } = useForm<FormEventOrganizationContactType>({
@@ -79,8 +80,22 @@ const CreateOrganizationContactPage = ({ eventOrganization, handleClose }: Props
           errors={errors}
           onChange={handleChangeFile}
           previewImage={previewImage}
-          isLoading={createOrganizationContactCommandHandler.isLoading()}
         />
+        <div className='flex justify-end gap-6'>
+          <Button
+            type='button'
+            classNameButton='bg-[#9a9a9a] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6'
+            onClick={handleClose}
+          >
+            Hủy
+          </Button>
+          <Button
+            isLoading={createOrganizationContactCommandHandler.isLoading()}
+            classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6 w-[90px]'
+          >
+            Lưu
+          </Button>
+        </div>
       </form>
     </div>
   )

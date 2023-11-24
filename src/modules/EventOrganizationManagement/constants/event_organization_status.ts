@@ -3,8 +3,8 @@ interface Status {
 }
 export const StatusOrganizationToMessage = (stautus: string) => {
   const mappedEventStatus: Status = {
-    Pending: 'Đang chờ ',
-    Active: 'Đã đồng ý',
+    Pending: 'Đã mời',
+    Active: 'Đã kích hoạt',
     Rejected: 'Đã từ chối'
   }
   return mappedEventStatus[`${stautus}`]

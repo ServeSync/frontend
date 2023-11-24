@@ -7,7 +7,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { gender } from 'src/modules/StudentManagement/constants'
-import Button from 'src/modules/Share/components/Button'
 
 interface Props {
   register: UseFormRegister<FormEventOrganizationContactType>
@@ -15,16 +14,8 @@ interface Props {
   control: Control<FormEventOrganizationContactType>
   onChange: (file?: File) => void
   previewImage: string
-  isLoading: boolean
 }
-const CreateEventOrganizationContactForm = ({
-  register,
-  control,
-  errors,
-  previewImage,
-  onChange,
-  isLoading
-}: Props) => {
+const CreateEventOrganizationContactForm = ({ register, control, errors, previewImage, onChange }: Props) => {
   return (
     <Fragment>
       <div className='grid grid-cols-4 gap-4'>
@@ -168,20 +159,6 @@ const CreateEventOrganizationContactForm = ({
             )}
           />
         </div>
-      </div>
-      <div className='flex justify-end gap-6'>
-        <Button
-          type='button'
-          classNameButton='bg-gray-300 py-2 px-4 rounded-lg text-[14px] text-gray-800 font-semibold mt-6'
-        >
-          Làm mới
-        </Button>
-        <Button
-          isLoading={isLoading}
-          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6 w-[90px]'
-        >
-          Lưu
-        </Button>
       </div>
     </Fragment>
   )

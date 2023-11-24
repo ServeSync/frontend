@@ -11,6 +11,8 @@ interface Props {
   isLoading: boolean
 }
 const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onSort }: Props) => {
+  console.log(organizers)
+
   return (
     <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
       <HeaderTable header={EventOrganizationTableHeader} onSort={onSort} />
@@ -50,13 +52,13 @@ const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onS
                 key={organizer.id}
                 onClick={() => onEditOrganization(organizer.id)}
               >
-                <th className='px-2 py-4 font-medium'>{organizer.name}</th>
-                <th className='px-2 py-4 font-medium '>{organizer.email}</th>
-                <th className='px-2 py-4 font-medium '>{organizer.address}</th>
-                <th className='px-2 py-4 font-medium '>{organizer.phoneNumber}</th>
-                <th className='px-2 py-4 font-medium '>{formatDateOfBirth(organizer.created as string)}</th>
-                <th className='px-2 py-4 font-medium '>{StatusOrganizationToMessage(organizer.status)}</th>
-                <th className='px-2 py-4 font-medium text-center'>{organizer.hostedEvents}</th>
+                <th className='px-2 py-4 font-medium w-[22%]'>{organizer.name}</th>
+                <th className='px-2 py-4 font-medium w-[10%]'>{organizer.email}</th>
+                <th className='px-2 py-4 font-medium w-[12%]'>{organizer.phoneNumber}</th>
+                <th className='px-2 py-4 font-medium w-[12%]'>{formatDateOfBirth(organizer.created as string)}</th>
+                <th className='px-2 py-4 font-medium w-[12%]'>{StatusOrganizationToMessage(organizer.status)}</th>
+                <th className='px-2 py-4 font-medium w-[15%]'>{organizer.address}</th>
+                <th className='px-2 py-4 font-medium text-center '>{organizer.hostedEvents}</th>
               </tr>
             ))}
       </tbody>

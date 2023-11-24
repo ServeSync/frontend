@@ -9,24 +9,25 @@ export const EventOrganizationTableHeader = [
     name: 'Email',
     sort: 'Email'
   },
+
   {
     id: '3',
-    name: 'Địa chỉ',
-    sort: ''
-  },
-  {
-    id: '4',
     name: 'Số điện thoại',
     sort: 'PhoneNumber'
   },
   {
-    id: '5',
+    id: '4',
     name: 'Ngày tạo',
     sort: ''
   },
   {
-    id: '6',
+    id: '5',
     name: 'Trạng thái',
+    sort: ''
+  },
+  {
+    id: '6',
+    name: 'Địa chỉ',
     sort: ''
   },
   {
