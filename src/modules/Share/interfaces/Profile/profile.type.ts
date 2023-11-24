@@ -37,4 +37,5 @@ export interface ProfileStudent {
   email: string
   phone: string
   identityId: string
+  score: string
 }
