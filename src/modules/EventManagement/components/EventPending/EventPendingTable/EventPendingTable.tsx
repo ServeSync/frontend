@@ -61,8 +61,8 @@ const EventPendingTable = ({ eventsPending, isLoading, onSort, onEditEventPendin
                   <span className='line-clamp-1'>{event.organization.name}</span>
                 </th>
                 <th className='px-2 py-4 font-medium w-[8%]'>{event.capacity}</th>
-                <th className='px-2 py-4 font-medium w-[12%]'>{formatDateTime(event.startAt)}</th>
-                <th className='px-2 py-4 font-medium w-[12%]'>{formatDateTime(event.endAt)}</th>
+                <th className='px-2 py-4 font-medium w-[15%]'>{formatDateTime(event.startAt)}</th>
+                <th className='px-2 py-4 font-medium w-[15%]'>{formatDateTime(event.endAt)}</th>
                 <th className='px-2 py-4 font-medium w-[10%]'>{TypeToMessage(event.type)}</th>
                 <th className='px-2 py-4 font-medium w-[12%]'>{StatusToMessage(event.status)}</th>
               </tr>

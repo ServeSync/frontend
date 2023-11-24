@@ -44,7 +44,7 @@ const CreateEventOrganizationPage = () => {
       data,
       file as File,
       () => {
-        toast.success('Thêm nhà tổ chức thành công !')
+        toast.success('Gửi lời mời nhà tổ chức thành công !')
         navigate({
           pathname: path.event_organization
         })
