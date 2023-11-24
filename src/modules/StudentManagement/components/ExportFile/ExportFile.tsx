@@ -1,5 +1,4 @@
 import Button from 'src/modules/Share/components/Button'
-import { QueryStudentConfig } from '../../hooks'
 import { Controller, useForm } from 'react-hook-form'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -11,10 +10,10 @@ import { toast } from 'react-toastify'
 
 interface Props {
   handleCloseModalExportFile: () => void
-  queryStudentConfig: QueryStudentConfig
+  id: string
 }
 
-const ExportFile = ({ handleCloseModalExportFile, queryStudentConfig }: Props) => {
+const ExportFile = ({ handleCloseModalExportFile, id }: Props) => {
   const { handleSubmit, control } = useForm<FormExportFileType>({
     resolver: yupResolver(FormExportFileSchema)
   })
@@ -24,7 +23,7 @@ const ExportFile = ({ handleCloseModalExportFile, queryStudentConfig }: Props) =
   const handleExportFile = handleSubmit((data) => {
     exportAttendanceEventsCommandHandler.handle(
       {
-        id: queryStudentConfig.id as string,
+        id: id,
         data: data
       },
       () => {
