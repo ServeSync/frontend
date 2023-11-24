@@ -48,7 +48,7 @@ const CreateOrganizationContactPage = ({ eventOrganization, handleClose }: Props
       },
       file as File,
       () => {
-        toast.success('Thêm thành viên thành công !')
+        toast.success('Gửi lời mời thành viên thành công !')
         handleClose()
       },
       (error: any) => {
