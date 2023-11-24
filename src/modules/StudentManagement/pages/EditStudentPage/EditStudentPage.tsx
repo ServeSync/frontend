@@ -228,7 +228,7 @@ const EditStudentPage = () => {
                 <ModalCustom isOpenModal={isOpenModalExportFile} handleClose={handleCloseModalExportFile}>
                   <ExportFile
                     handleCloseModalExportFile={handleCloseModalExportFile}
-                    queryStudentConfig={queryStudentConfig}
+                    id={queryStudentConfig.id as string}
                   />
                 </ModalCustom>
               </div>
