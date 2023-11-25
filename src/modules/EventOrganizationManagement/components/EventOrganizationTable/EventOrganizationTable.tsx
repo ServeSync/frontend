@@ -11,8 +11,6 @@ interface Props {
   isLoading: boolean
 }
 const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onSort }: Props) => {
-  console.log(organizers)
-
   return (
     <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
       <HeaderTable header={EventOrganizationTableHeader} onSort={onSort} />

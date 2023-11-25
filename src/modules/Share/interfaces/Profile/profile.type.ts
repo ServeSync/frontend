@@ -1,12 +1,19 @@
 export type Permission = string
-
+export interface Tenants {
+  id: string
+  name: string
+  avatarUrl: string
+}
 export interface Profile {
   id: string
   fullName: string
   email: string
   avatarUrl: string
+  tenantId: string
+  isTenantOwner: boolean
   roles: string[]
   permissions: Permission[]
+  tenants: Tenants[]
 }
 
 export interface ProfileStudent {
@@ -38,4 +45,8 @@ export interface ProfileStudent {
   phone: string
   identityId: string
   score: string
+}
+
+export interface TenantId {
+  tenantId: string
 }
