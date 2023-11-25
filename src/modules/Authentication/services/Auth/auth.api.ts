@@ -1,6 +1,7 @@
 import http from 'src/modules/Share/utils/http'
 import { AuthResponse, RefreshResponse } from '../../interfaces'
 import { FormSignInType } from '../../utils'
+import { TenantId } from 'src/modules/Share/interfaces'
 
 const authAPI = {
   adminSignIn: (body: FormSignInType) => http.post<AuthResponse>('/auth/admin-portal/sign-in', body),
@@ -12,7 +13,10 @@ const authAPI = {
   resetPassword: (body: { token: string; newPassword: string }) => http.post('auth/forget-password/callback', body),
 
   refreshToken: (body: { accessToken: string; refreshToken: string }) =>
-    http.post<RefreshResponse>('auth/refresh-token', body)
+    http.post<RefreshResponse>('auth/refresh-token', body),
+
+  exchangeTenantAccessToken: (tenantId: TenantId) =>
+    http.post<AuthResponse>('auth/exchange-tenant-access-token', tenantId)
 }
 
 export default authAPI
