@@ -53,7 +53,7 @@ const EditOrganizationContactPage = ({ eventOrganization, OrganizationContact, h
       },
       file as File,
       () => {
-        toast.success('Sửa thông thành viên thành công !')
+        toast.success('Sửa thông tin thành viên thành công !')
         handleClose()
       },
       (error: any) => {
