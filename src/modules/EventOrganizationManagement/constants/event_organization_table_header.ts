@@ -6,23 +6,22 @@ export const EventOrganizationTableHeader = [
   },
   {
     id: '2',
-    name: 'Email',
-    sort: 'Email'
-  },
-
-  {
-    id: '3',
     name: 'Số điện thoại',
     sort: 'PhoneNumber'
   },
   {
+    id: '3',
+    name: 'Email',
+    sort: 'Email'
+  },
+  {
     id: '4',
-    name: 'Ngày tạo',
+    name: 'Sự kiện đã tổ chức',
     sort: ''
   },
   {
     id: '5',
-    name: 'Trạng thái',
+    name: 'Ngày tạo',
     sort: ''
   },
   {
@@ -32,7 +31,7 @@ export const EventOrganizationTableHeader = [
   },
   {
     id: '7',
-    name: 'Sự kiện đã tổ chức',
+    name: 'Trạng thái',
     sort: ''
   }
 ]

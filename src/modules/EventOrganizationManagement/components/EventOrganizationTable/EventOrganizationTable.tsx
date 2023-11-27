@@ -24,7 +24,7 @@ const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onS
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                   key={index}
                 >
-                  <th className='px-2 py-4 font-medium w-[16%]'>
+                  <th className='px-2 py-4 font-medium'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
                   <th className='px-2 py-4 font-medium w-[16%]'>
@@ -39,7 +39,7 @@ const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onS
                   <th className='px-2 py-4 font-medium w-[16%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
-                  <th className='px-2 py-4 font-medium '>
+                  <th className='px-2 py-4 font-medium w-[10%]'>
                     <Skeleton className='h-[16px]' borderRadius={20} />
                   </th>
                 </tr>
@@ -47,17 +47,22 @@ const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onS
           : organizers &&
             organizers.data.map((organizer) => (
               <tr
-                className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50 '
+                className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50  '
                 key={organizer.id}
                 onClick={() => onEditOrganization(organizer.id)}
               >
-                <th className='px-2 py-4 font-medium w-[22%]'>{organizer.name}</th>
-                <th className='px-2 py-4 font-medium w-[10%]'>{organizer.email}</th>
+                <th className='px-2 py-4 font-medium overflow-hidden'>
+                  <span className='line-clamp-1'> {organizer.name}</span>
+                </th>
                 <th className='px-2 py-4 font-medium w-[12%]'>{organizer.phoneNumber}</th>
+                <th className='px-2 py-4 font-medium'>{organizer.email}</th>
+                <th className='px-2 py-4 font-medium text-center w-[8%]'>{organizer.hostedEvents}</th>
+
                 <th className='px-2 py-4 font-medium w-[12%]'>{formatDateOfBirth(organizer.created as string)}</th>
-                <th className='px-2 py-4 font-medium w-[12%]'>{StatusOrganizationToMessage(organizer.status)}</th>
-                <th className='px-2 py-4 font-medium w-[15%]'>{organizer.address}</th>
-                <th className='px-2 py-4 font-medium text-center '>{organizer.hostedEvents}</th>
+                <th className='px-2 py-4 font-medium overflow-hidden'>
+                  <span className='line-clamp-1'>{organizer.address}</span>
+                </th>
+                <th className='px-2 py-4 font-medium w-[15%]'>{StatusOrganizationToMessage(organizer.status)}</th>
               </tr>
             ))}
       </tbody>

@@ -80,13 +80,7 @@ const Header = () => {
             {getProfileQuery.isLoading() ? (
               <Skeleton className='min-w-[120px] h-[20px]' />
             ) : (
-              <span>
-                {profile.tenants
-                  .filter((tenant) => tenant.id === profile.tenantId)
-                  .map((filteredTenant) => (
-                    <span key={filteredTenant.id}>{filteredTenant.name}</span>
-                  ))}
-              </span>
+              <span>{profile.fullName}</span>
             )}
             <div>
               <Button
@@ -193,7 +187,7 @@ const Header = () => {
                     handleClosePopover()
                   }}
                   anchorOrigin={{
-                    vertical: 'bottom',
+                    vertical: 'top',
                     horizontal: 'left'
                   }}
                   transformOrigin={{
