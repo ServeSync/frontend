@@ -169,13 +169,15 @@ const Header = () => {
 
                 <Button
                   onClick={handleOpenNestedPopover}
-                  classNameButton='flex items-center cursor-pointer w-full  p-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-800'
+                  classNameButton='flex items-center cursor-pointer w-full p-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-800'
                 >
                   <Avatar alt='Remy Sharp' src={profile.avatarUrl} sx={{ width: 16, height: 16 }} className=' mr-3' />
                   {profile.tenants
                     .filter((tenant) => tenant.id === profile.tenantId)
                     .map((filteredTenant) => (
-                      <span key={filteredTenant.id}>{filteredTenant.name}</span>
+                      <span key={filteredTenant.id} className='w-[100px] truncate'>
+                        {filteredTenant.name}
+                      </span>
                     ))}
                 </Button>
                 <Popover
