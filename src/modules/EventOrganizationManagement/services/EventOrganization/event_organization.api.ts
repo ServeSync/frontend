@@ -8,12 +8,13 @@ import {
 import { ContactsListType, EventOrganizationType, EventOrganizationsListType } from '../../interfaces'
 
 const eventOrganizationAPI = {
-  getListEventOrganizations: (params: EventOrganizationConfig) =>
-    http.get<EventOrganizationsListType>('/event-organizations', { params }),
+  getListEventOrganizations: (params: EventOrganizationConfig, status?: string) =>
+    http.get<EventOrganizationsListType>('/event-organizations', { params: { ...params, status } }),
 
   getEventOrganizationById: (id: string) => http.get<EventOrganizationType>(`/event-organizations/${id}`),
 
-  getListContactsByOrganizationId: (id: string) => http.get<ContactsListType>(`/event-organizations/${id}/contacts`),
+  getListContactsByOrganizationId: (id: string, status?: string) =>
+    http.get<ContactsListType>(`/event-organizations/${id}/contacts`, { params: { status } }),
 
   createEventOrganization: (body: FormEventOrganizationType) =>
     http.post<EventOrganizationType>('/event-organizations', body),

@@ -113,6 +113,10 @@ export interface EventDetailType {
   type: string
   status: string
   calculatedStatus: string
+  email: string
+  phoneNumber: string
+  organizationId: string
+  role: string
   address: {
     fullAddress: string
     longitude: number
@@ -148,15 +152,19 @@ export interface EventDetailType {
       organizationId: string
       role: string
       status: string
+      identityId?: string
+      hostedEvents?: number
+      created?: string
+      lastModified?: string
       representatives: [
         {
           id: string
           name: string
           imageUrl: string
           email: string
-          address: string
           phoneNumber: string
           position: string
+          address: string
           role: string
           organizationRepId: string
         }

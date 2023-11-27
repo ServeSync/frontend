@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -92,8 +93,6 @@ const EditEventPage = () => {
         roles: dataEventRole,
         organizations: dataEventOrganization
       } as FormEvent
-      console.log(body)
-
       await editEventCommandHandler.handle(
         {
           id: queryEventConfig.id as string,
@@ -147,7 +146,9 @@ const EditEventPage = () => {
       )
       setDescription(content)
       setValue('description', draftToHtml(convertToRaw(content.getCurrentContent())))
+      event.registrationInfos.map((item) => FieldRegistration.append({ startAt: item.startAt, endAt: item.endAt }))
       setValue('registrationInfos', event.registrationInfos)
+      event.attendanceInfos.map((item) => FieldAttendance.append({ startAt: item.startAt, endAt: item.endAt }))
       setValue('attendanceInfos', event.attendanceInfos)
       setDataEventRole(event.roles)
       setValue('representativeOrganizationId', event.representativeOrganization.organizationId)
@@ -320,6 +321,7 @@ const EditEventPage = () => {
                 getValues={getValues}
                 errors={errors}
                 setValue={setValue}
+                dataEventOrganization={dataEventOrganization}
                 setDataEventOrganization={setDataEventOrganization}
                 event={event}
               />

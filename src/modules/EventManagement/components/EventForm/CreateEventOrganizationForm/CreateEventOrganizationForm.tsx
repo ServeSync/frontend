@@ -89,7 +89,7 @@ const CreateEventOrganizationForm = ({
           </div>
         </div>
         <div>
-          <div className='col-span-4 flex justify-between items-center mb-4'>
+          <div className='mb-4'>
             <h2 className='text-[16px]'>Đơn vị đại diện</h2>
           </div>
           <Controller
@@ -98,19 +98,22 @@ const CreateEventOrganizationForm = ({
             defaultValue=''
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div className='col-span-'>
+                <div>
                   <Autocomplete
                     disablePortal
                     id='representative_organization'
                     options={representatives ? representatives : []}
                     value={
-                      representatives && representatives.find((option) => (option?.organizationId as string) === value)
+                      representatives &&
+                      representatives.find(
+                        (option) => (event ? (option?.organizationId as string) : (option?.id as string)) === value
+                      )
                     }
                     getOptionLabel={(option) => option.name}
                     noOptionsText='Không có lựa chọn'
                     renderInput={(params) => <TextField {...params} label='Chọn tổ chức' />}
                     onChange={(_, option) => {
-                      onChange(option ? option.id : '')
+                      onChange(option ? (event ? option.organizationId : option.id) : '')
                     }}
                     className='bg-white'
                   />
