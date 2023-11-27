@@ -1,7 +1,6 @@
 import { Control, FieldErrors, UseFormRegister } from 'react-hook-form'
 import { FormRequestEventType } from '../../../utils'
 import RequestEventOrganizationForm from 'src/modules/EventManagement/components/RequestEventForm/RequestEventOrganizationForm'
-import RequestEventOrganizationContactForm from 'src/modules/EventManagement/components/RequestEventForm/RequestEventOrganizationContactForm'
 
 interface Props {
   page: number
@@ -32,13 +31,8 @@ const RequestEventOrganization = ({
         <div className='flex flex-col gap-y-2 w-full mx-auto'>
           <RequestEventOrganizationForm
             handleChangeFileOrganizer={handleChangeFileOrganizer}
-            previewImageOrganizer={previewImageOrganizer}
-            register={register}
-            control={control}
-            errors={errors}
-          />
-          <RequestEventOrganizationContactForm
             handleChangeFileOrganizerContact={handleChangeFileOrganizerContact}
+            previewImageOrganizer={previewImageOrganizer}
             previewImageOrganizerContact={previewImageOrganizerContact}
             register={register}
             control={control}

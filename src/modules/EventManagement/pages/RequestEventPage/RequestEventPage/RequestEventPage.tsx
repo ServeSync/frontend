@@ -95,7 +95,6 @@ const RequestEventPage = () => {
         { ...getValues('EventOrganizationInfo') },
         fileOrganizer as File
       )
-
       const organizationContactDataPromise = await requestCreateOrganizationContactInfo.handle(
         { ...getValues('EventOrganizationContactInfo') },
         fileOrganizerContact as File
@@ -107,6 +106,16 @@ const RequestEventPage = () => {
       ])
 
       if (organizationData && organizationContactData) {
+        if (organizationData.email === organizationContactData.email) {
+          setError('EventOrganizationInfo.email', {
+            type: 'manual',
+            message: 'Email nhà tổ chức không được trùng với email thành viên'
+          })
+          setError('EventOrganizationContactInfo.email', {
+            type: 'manual',
+            message: 'Email nhà tổ chức không được trùng với email thành viên'
+          })
+        }
         const newData = omit(data, 'categoryId')
         const body = {
           ...newData,
@@ -117,6 +126,7 @@ const RequestEventPage = () => {
           { ...body },
           file as File,
           () => {
+            isSuccess.current = true
             navigate(path.home_page)
             toast.success('Yêu cầu thêm sự kiện thành công !')
           },
@@ -127,7 +137,6 @@ const RequestEventPage = () => {
       }
     } catch (error) {
       console.log(error)
-      toast.error('Yêu cầu thêm sự kiện thất bại !')
     }
   })
 
