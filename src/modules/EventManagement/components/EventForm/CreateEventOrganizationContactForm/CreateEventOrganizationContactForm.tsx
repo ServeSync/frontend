@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Control, Controller, UseFormGetValues, UseFormSetValue } from 'react-hook-form'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FormEventType } from '../../../utils'
 import Button from 'src/modules/Share/components/Button'
 import { EventOrganizationTableHeader, StatusIsDisable } from '../../../constants'
@@ -11,7 +12,7 @@ import {
   EventOrganizationType,
   RepresentativeType
 } from 'src/modules/EventOrganizationManagement/interfaces'
-import { EventDetailType } from 'src/modules/EventManagement/interfaces'
+import { EventDetailType, EventOrganizationFormType } from 'src/modules/EventManagement/interfaces'
 import { GetAllContactsByOrganizationIdQuery } from 'src/modules/EventOrganizationManagement/services'
 
 interface Props {
@@ -24,6 +25,7 @@ interface Props {
   setListEventOrganizationsAdded: React.Dispatch<React.SetStateAction<EventOrganizationType[]>>
   handleRemoveEventOrganization: (id: number) => void
   event?: EventDetailType
+  dataEventOrganization: EventOrganizationFormType[]
 }
 
 const CreateEventOrganizationContactForm = ({
@@ -35,44 +37,83 @@ const CreateEventOrganizationContactForm = ({
   listEventOrganizationsAdded,
   setListEventOrganizationsAdded,
   handleRemoveEventOrganization,
-  event
+  event,
+  dataEventOrganization
 }: Props) => {
   const [errors, setErrors] = useState<string>('')
 
   const [listContactsAdded, setListContactsAdded] = useState<RepresentativeType[]>([])
 
+  useEffect(() => {
+    if (event && eventOrganization.representatives !== undefined) {
+      eventOrganization.representatives.map((item) => {
+        setListContactsAdded([...listContactsAdded, item])
+      })
+    }
+  }, [event, eventOrganization.representatives])
+
   const getAllContactsByOrganizationIdQuery = new GetAllContactsByOrganizationIdQuery(
-    event ? (eventOrganization.organizationId as string) : eventOrganization.id
+    event
+      ? dataEventOrganization && dataEventOrganization.length === event.organizations.length
+        ? (eventOrganization.organizationId as string)
+        : eventOrganization.id
+      : eventOrganization.id,
+    'Active'
   )
 
   const contactsList = getAllContactsByOrganizationIdQuery.fetch() as ContactsListType
 
-  const contacts = contactsList && contactsList.data
+  const representatives = contactsList && contactsList.data
 
   const handleAddContact = () => {
     const id = getValues('organizations.organizationReps.organizationRepId')
     const role = { ...getValues('organizations') }.organizationReps.role as string
-    if (role && role !== '' && id && id !== '') {
-      if (role.length < 5) {
-        setErrors('Vai trò nhà tổ chức ít nhất 5 kí tự')
-      } else if (listContactsAdded.some((item) => item.id === id)) {
-        setErrors('Nhà tổ chức đã được thêm vào sự kiện !')
-      } else {
-        const contact = contacts.find((item) => item.id === id) as RepresentativeType
-        const body = {
-          ...contact,
-          role: role
+    if (event) {
+      if (role && role !== '' && id && id !== '') {
+        if (role.length < 5) {
+          setErrors('Vai trò nhà tổ chức ít nhất 5 kí tự !')
+        } else if (listContactsAdded.some((item) => item.organizationRepId === id)) {
+          setErrors('Nhà tổ chức đã được thêm vào sự kiện !')
+        } else {
+          const representative = representatives.find((item) => item.id === id) as RepresentativeType
+          const body = {
+            ...representative,
+            role: role
+          }
+          const data = [...listEventOrganizationsAdded]
+          data[index].representatives = [...data[index].representatives, body]
+          setListEventOrganizationsAdded(data)
+          setValue('organizations.organizationReps.organizationRepId', undefined)
+          setValue('organizations.organizationReps.role', '')
+          setErrors('')
+          setListContactsAdded([...listContactsAdded, body])
         }
-        const data = [...listEventOrganizationsAdded]
-        data[index].representatives = [...data[index].representatives, body]
-        setListEventOrganizationsAdded(data)
-        setValue('organizations.organizationReps.organizationRepId', undefined)
-        setValue('organizations.organizationReps.role', '')
-        setErrors('')
-        setListContactsAdded([...listContactsAdded, body])
+      } else {
+        setErrors('Vui lòng nhập đầy đủ thông tin !')
       }
     } else {
-      setErrors('Vui lòng nhập đầy đủ thông tin !')
+      if (role && role !== '' && id && id !== '') {
+        if (role.length < 5) {
+          setErrors('Vai trò nhà tổ chức ít nhất 5 kí tự')
+        } else if (listContactsAdded.some((item) => item.id === id)) {
+          setErrors('Nhà tổ chức đã được thêm vào sự kiện !')
+        } else {
+          const representative = representatives.find((item) => item.id === id) as RepresentativeType
+          const body = {
+            ...representative,
+            role: role
+          }
+          const data = [...listEventOrganizationsAdded]
+          data[index].representatives = [...data[index].representatives, body]
+          setListEventOrganizationsAdded(data)
+          setValue('organizations.organizationReps.organizationRepId', undefined)
+          setValue('organizations.organizationReps.role', '')
+          setErrors('')
+          setListContactsAdded([...listContactsAdded, body])
+        }
+      } else {
+        setErrors('Vui lòng nhập đầy đủ thông tin !')
+      }
     }
   }
 
@@ -219,9 +260,9 @@ const CreateEventOrganizationContactForm = ({
                   <div className='col-span-4'>
                     <Autocomplete
                       disablePortal
-                      id='contacts'
-                      options={contacts ? contacts : []}
-                      value={(contacts && contacts.find((option) => option.id === value)) || null}
+                      id='representatives'
+                      options={representatives ? representatives : []}
+                      value={(representatives && representatives.find((option) => option.id === value)) || null}
                       getOptionLabel={(option) => option.name}
                       renderInput={(params) => <TextField {...params} label='Chọn đại diện' />}
                       onChange={(_, option) => onChange(option ? option.id : '')}

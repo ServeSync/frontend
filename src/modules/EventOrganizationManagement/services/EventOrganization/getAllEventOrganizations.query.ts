@@ -8,12 +8,15 @@ class GetAllEventOrganizationsQuery {
   private _query
   private _queryEventOrganizationConfig
 
-  constructor() {
+  constructor(status?: string) {
     this._queryEventOrganizationConfig = useQueryOrganizationConfig()
     this._query = useQuery({
       queryKey: ['event_organizations', this._queryEventOrganizationConfig],
       queryFn: () =>
-        eventOrganizationAPI.getListEventOrganizations(this._queryEventOrganizationConfig as EventOrganizationConfig),
+        eventOrganizationAPI.getListEventOrganizations(
+          this._queryEventOrganizationConfig as EventOrganizationConfig,
+          status
+        ),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000
     })

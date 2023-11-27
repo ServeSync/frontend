@@ -15,6 +15,7 @@ interface Props {
   getValues: UseFormGetValues<FormEventType>
   errors: FieldErrors<FormEventType>
   setValue: UseFormSetValue<FormEventType>
+  dataEventOrganization: EventOrganizationFormType[]
   setDataEventOrganization: React.Dispatch<React.SetStateAction<EventOrganizationFormType[]>>
   event: EventDetailType
 }
@@ -26,10 +27,12 @@ const EditEventOrganization = ({
   getValues,
   errors,
   setValue,
+  dataEventOrganization,
   setDataEventOrganization,
   event
 }: Props) => {
   const [listEventOrganizationsAdded, setListEventOrganizationsAdded] = useState<EventOrganizationType[]>([])
+
   const [errorsLocal, setErrorsLocal] = useState<string>('')
 
   const [representatives, setRepresentatives] = useState<EventOrganizationType[]>([])
@@ -37,15 +40,15 @@ const EditEventOrganization = ({
   useEffect(() => {
     if (event) {
       setListEventOrganizationsAdded(event.organizations)
-      setRepresentatives([...representatives, event.representativeOrganization])
+      setRepresentatives(event.organizations)
     }
   }, [event, setListEventOrganizationsAdded])
 
   useEffect(() => {
     if (listEventOrganizationsAdded) {
-      const organization = listEventOrganizationsAdded.map((item) => {
+      listEventOrganizationsAdded.map((item) => {
         let organizationReps: EventOrganizationRepFormType[] = []
-        item &&
+        item.representatives.length > 0 &&
           item.representatives.map((contact) => {
             organizationReps = [
               ...organizationReps,
@@ -57,18 +60,17 @@ const EditEventOrganization = ({
             ]
           })
         const result: EventOrganizationFormType = {
+          id: item.id,
           organizationId: item.organizationId,
           role: item.role,
-          id: item.id,
           organizationReps: organizationReps
         }
-        return result
+        setDataEventOrganization([...dataEventOrganization, result])
       })
-      setDataEventOrganization(organization)
     }
   }, [listEventOrganizationsAdded])
 
-  const getAllEventOrganizationsQuery = new GetAllEventOrganizationsQuery()
+  const getAllEventOrganizationsQuery = new GetAllEventOrganizationsQuery('Active')
   const eventOrganizations = getAllEventOrganizationsQuery.fetch() as EventOrganizationsListType
 
   const handleAddEventOrganization = () => {
@@ -84,7 +86,7 @@ const EditEventOrganization = ({
         const body = {
           ...eventOrganization,
           role: role,
-          contacts: []
+          representatives: []
         }
         setListEventOrganizationsAdded([...listEventOrganizationsAdded, body])
         setValue('organizations.organizationId', undefined)
@@ -92,8 +94,7 @@ const EditEventOrganization = ({
         setErrorsLocal('')
         setRepresentatives([
           ...representatives,
-          eventOrganizations &&
-            (eventOrganizations.data.find((item) => item.organizationId === id) as EventOrganizationType)
+          eventOrganizations && (eventOrganizations.data.find((item) => item.id === id) as EventOrganizationType)
         ])
       }
     } else {
@@ -127,6 +128,7 @@ const EditEventOrganization = ({
                   setListEventOrganizationsAdded={setListEventOrganizationsAdded}
                   handleRemoveEventOrganization={handleRemoveEventOrganization}
                   event={event}
+                  dataEventOrganization={dataEventOrganization}
                 />
               </div>
             ))}

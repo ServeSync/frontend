@@ -6,10 +6,10 @@ import { ContactsListType } from '../../interfaces'
 class GetAllContactsByOrganizationIdQuery {
   private _query
 
-  constructor(organizationId: string) {
+  constructor(organizationId: string, status?: string) {
     this._query = useQuery({
       queryKey: ['contacts', organizationId],
-      queryFn: () => eventOrganizationAPI.getListContactsByOrganizationId(organizationId),
+      queryFn: () => eventOrganizationAPI.getListContactsByOrganizationId(organizationId, status),
       enabled: organizationId !== '' && organizationId !== undefined,
       staleTime: 3 * 60 * 1000
     })

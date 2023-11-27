@@ -14,6 +14,7 @@ interface Props {
   errors: FieldErrors<FormEventType>
   getValues: UseFormGetValues<FormEventType>
   setValue: UseFormSetValue<FormEventType>
+  dataEventOrganization: EventOrganizationFormType[]
   setDataEventOrganization: React.Dispatch<React.SetStateAction<EventOrganizationFormType[]>>
 }
 
@@ -24,9 +25,11 @@ const CreateEventOrganization = ({
   errors,
   getValues,
   setValue,
+  dataEventOrganization,
   setDataEventOrganization
 }: Props) => {
   const [listEventOrganizationsAdded, setListEventOrganizationsAdded] = useState<EventOrganizationType[]>([])
+
   const [errorsLocal, setErrorsLocal] = useState<string>('')
 
   const [representatives, setRepresentatives] = useState<EventOrganizationType[]>([])
@@ -53,7 +56,7 @@ const CreateEventOrganization = ({
     setDataEventOrganization(organization)
   }, [listEventOrganizationsAdded, setDataEventOrganization])
 
-  const getAllEventOrganizationsQuery = new GetAllEventOrganizationsQuery()
+  const getAllEventOrganizationsQuery = new GetAllEventOrganizationsQuery('Active')
   const eventOrganizations = getAllEventOrganizationsQuery.fetch() as EventOrganizationsListType
 
   const handleAddEventOrganization = () => {
@@ -110,6 +113,7 @@ const CreateEventOrganization = ({
                   listEventOrganizationsAdded={listEventOrganizationsAdded}
                   setListEventOrganizationsAdded={setListEventOrganizationsAdded}
                   handleRemoveEventOrganization={handleRemoveEventOrganization}
+                  dataEventOrganization={dataEventOrganization}
                 />
               </div>
             ))}

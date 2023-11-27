@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
@@ -9,9 +10,10 @@ import path from 'src/modules/Share/constants/path'
 import Pagination from 'src/modules/Share/components/Pagination'
 import useQueryOrganizationConfig from '../../hooks/useQueryOrganizationConfig'
 import EventOrganizationTable from '../../components/EventOrganizationTable'
-import { Link, createSearchParams, useNavigate } from 'react-router-dom'
+import { Link, URLSearchParamsInit, createSearchParams, useNavigate } from 'react-router-dom'
 import Restricted from 'src/modules/Share/components/Restricted'
 import { GetAllEventOrganizationsQuery } from '../../services'
+import { isEmpty, omitBy } from 'lodash'
 
 const EventOrganizationPage = () => {
   const navigate = useNavigate()
@@ -24,6 +26,18 @@ const EventOrganizationPage = () => {
 
   const FilterOrganizerForm = useForm<FormFilterOrganizerType>({
     resolver: yupResolver(FormFilterOrganizerSchema)
+  })
+
+  const handleSubmitFormFilter = FilterOrganizerForm.handleSubmit((data) => {
+    const config = {
+      ...queryOrganizationConfig,
+      page: 1,
+      search: data.search
+    }
+    navigate({
+      pathname: path.event_organization,
+      search: createSearchParams(omitBy(config, isEmpty) as URLSearchParamsInit).toString()
+    })
   })
 
   const onEditEventOrganization = (id: string) => {
@@ -48,7 +62,7 @@ const EventOrganizationPage = () => {
       </Helmet>
       <div>
         <div className='flex justify-between items-center pt-[16px] pb-[40px] font-normal'>
-          <form>
+          <form onSubmit={handleSubmitFormFilter}>
             <InputSearch
               classNameInput='bg-white border-[1px] border-gray-200 rounded-md h-[44px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
               placeholder='Tìm kiếm nhà tổ chức'

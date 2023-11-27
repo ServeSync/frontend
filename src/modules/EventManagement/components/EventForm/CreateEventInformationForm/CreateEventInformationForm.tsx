@@ -168,7 +168,7 @@ const CreateEventInformationForm = ({
                         label='Thời gian bắt đầu'
                         format='DD/MM/YYYY HH:mm'
                         onChange={onChange}
-                        value={event ? dayjs(value) : null}
+                        value={event ? dayjs(value) : value !== undefined ? dayjs(value) : null}
                         className='bg-white'
                         readOnly={event && StatusIsDisable(event.status)}
                       />
@@ -189,7 +189,7 @@ const CreateEventInformationForm = ({
                         label='Thời gian kết thúc'
                         format='DD/MM/YYYY HH:mm'
                         onChange={onChange}
-                        value={event ? dayjs(value) : null}
+                        value={event ? dayjs(value) : value !== undefined ? dayjs(value) : null}
                         className='bg-white'
                         readOnly={event && StatusIsDisable(event.status)}
                       />

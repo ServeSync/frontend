@@ -174,6 +174,7 @@ const CreateEventPage = () => {
                 errors={errors}
                 getValues={getValues}
                 setValue={setValue}
+                dataEventOrganization={dataEventOrganization}
                 setDataEventOrganization={setDataEventOrganization}
               />
             </Box>
