@@ -14,6 +14,8 @@ interface Props {
   handleClose: () => void
 }
 const CreateOrganizationContactPage = ({ eventOrganization, handleClose }: Props) => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const [file, setFile] = useState<File>()
 
   const previewImage = useMemo(() => {
@@ -41,20 +43,31 @@ const CreateOrganizationContactPage = ({ eventOrganization, handleClose }: Props
   const createOrganizationContactCommandHandler = new CreateEventOrganizationContactCommandHandler()
 
   const handleCreateOrganizationContact = handleSubmit(async (data) => {
-    createOrganizationContactCommandHandler.handle(
-      {
-        id: eventOrganization.id as string,
-        data: data
-      },
-      file as File,
-      () => {
-        toast.success('Gửi lời mời thành viên thành công !')
-        handleClose()
-      },
-      (error: any) => {
-        handleError<FormEventOrganizationContactType>(error, setError)
+    try {
+      if (data.email === eventOrganization.email) {
+        setError('email', { message: 'Email không được trùng email tổ chức' })
+        return
       }
-    )
+      setIsLoading(true)
+
+      await createOrganizationContactCommandHandler.handle(
+        {
+          id: eventOrganization.id as string,
+          data: data
+        },
+        file as File,
+        () => {
+          toast.success('Gửi lời mời thành viên thành công !')
+          handleClose()
+        },
+        (error: any) => {
+          handleError<FormEventOrganizationContactType>(error, setError)
+        }
+      )
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
   })
   return (
     <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg w-[1000px]'>
@@ -90,7 +103,7 @@ const CreateOrganizationContactPage = ({ eventOrganization, handleClose }: Props
             Hủy
           </Button>
           <Button
-            isLoading={createOrganizationContactCommandHandler.isLoading()}
+            isLoading={isLoading}
             classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6 w-[90px]'
           >
             Lưu
