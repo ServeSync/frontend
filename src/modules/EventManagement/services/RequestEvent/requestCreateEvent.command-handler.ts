@@ -24,7 +24,7 @@ class RequestCreateEventCommandHandler {
     const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
     event.imageUrl = uploadImageResponse?.data.url
 
-    return this._requestCreateEventMutation.mutate(event, {
+    return await this._requestCreateEventMutation.mutateAsync(event, {
       onSuccess: () => {
         this._queryClient.invalidateQueries({
           queryKey: ['pending_events']
