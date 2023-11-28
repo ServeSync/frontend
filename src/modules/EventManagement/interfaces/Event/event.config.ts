@@ -8,4 +8,5 @@ export interface EventsListConfig {
   sorting?: string
   page?: number
   size?: number
+  defaultFilters?: string
 }
