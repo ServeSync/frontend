@@ -12,9 +12,9 @@ interface Props {
 
 const ChangeTenant = ({ profile }: Props) => {
   const navigate = useNavigate()
-  const exchaceTenantCommandHandler = new ChangeTenantCommandHandler()
+  const exchangeTenantCommandHandler = new ChangeTenantCommandHandler()
   const handleExchangeTenant = (tenantId: string) => {
-    exchaceTenantCommandHandler.handle(
+    exchangeTenantCommandHandler.handle(
       { tenantId },
       () => {
         navigate(path.dashboard)
