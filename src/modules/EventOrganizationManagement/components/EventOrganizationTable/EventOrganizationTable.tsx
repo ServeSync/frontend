@@ -56,12 +56,13 @@ const EventOrganizationTable = ({ organizers, isLoading, onEditOrganization, onS
                 </th>
                 <th className='px-2 py-4 font-medium w-[12%]'>{organizer.phoneNumber}</th>
                 <th className='px-2 py-4 font-medium'>{organizer.email}</th>
-                <th className='px-2 py-4 font-medium text-center w-[8%]'>{organizer.hostedEvents}</th>
-
-                <th className='px-2 py-4 font-medium w-[12%]'>{formatDateOfBirth(organizer.created as string)}</th>
                 <th className='px-2 py-4 font-medium overflow-hidden'>
                   <span className='line-clamp-1'>{organizer.address}</span>
                 </th>
+                <th className='px-2 py-4 font-medium text-center w-[8%]'>{organizer.hostedEvents}</th>
+
+                <th className='px-2 py-4 font-medium w-[12%]'>{formatDateOfBirth(organizer.created as string)}</th>
+
                 <th className='px-2 py-4 font-medium w-[15%]'>{StatusOrganizationToMessage(organizer.status)}</th>
               </tr>
             ))}
