@@ -8,6 +8,7 @@ import InputAvatar from 'src/modules/Share/components/InputAvatar'
 import { ProfileStudent } from 'src/modules/Share/interfaces'
 import { formatDateOfBirth } from 'src/modules/Share/utils'
 import { FormStudentType } from 'src/modules/StudentManagement/utils'
+
 interface Props {
   register: UseFormRegister<FormStudentType>
   setValue: UseFormSetValue<FormStudentType>
@@ -17,6 +18,7 @@ interface Props {
   previewImage: string
   isLoadingEdit: boolean
 }
+
 const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, register, isLoadingEdit }: Props) => {
   useEffect(() => {
     if (profile) {
@@ -35,6 +37,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
       setValue('imageUrl', profile.imageUrl)
     }
   }, [profile, setValue])
+
   return (
     <Fragment>
       <div className='grid grid-cols-6 gap-6'>
@@ -63,7 +66,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     placeholder='Nhập mã số sinh viên'
                     className='w-full bg-white'
                     InputProps={{
-                      readOnly: true
+                      disabled: true
                     }}
                   />
                 </div>
@@ -84,7 +87,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     placeholder='Nhập họ và tên'
                     className='w-full bg-white'
                     InputProps={{
-                      readOnly: true
+                      disabled: true
                     }}
                   />
                 </div>
@@ -124,7 +127,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value == false ? 'Nữ' : 'Nam'}
                     className='w-full bg-white'
                     InputProps={{
-                      readOnly: true
+                      disabled: true
                     }}
                   />
                 </div>
@@ -144,7 +147,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={formatDateOfBirth(value)}
                     className='w-full bg-white'
                     InputProps={{
-                      readOnly: true
+                      disabled: true
                     }}
                   />
                 </div>
@@ -224,7 +227,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     className='w-full bg-white'
                     InputProps={{
-                      readOnly: true
+                      disabled: true
                     }}
                   />
                 </div>
@@ -244,7 +247,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     className='w-full bg-white'
                     InputProps={{
-                      readOnly: true
+                      disabled: true
                     }}
                   />
                 </div>
@@ -264,7 +267,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     className='w-full bg-white'
                     InputProps={{
-                      readOnly: true
+                      disabled: true
                     }}
                   />
                 </div>
@@ -284,7 +287,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     className='w-full bg-white'
                     InputProps={{
-                      readOnly: true
+                      disabled: true
                     }}
                   />
                 </div>

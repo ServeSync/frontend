@@ -22,6 +22,7 @@ interface Props {
   events: EventsListType
   pageSize: number
 }
+
 const ListEvent = ({ events, pageSize }: Props) => {
   const navigate = useNavigate()
   const [scrolled, setScrolled] = useState(true)
@@ -53,6 +54,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
       search: createSearchParams(omitBy(config, isEmpty) as URLSearchParamsInit).toString()
     })
   })
+
   return (
     <div>
       <div
