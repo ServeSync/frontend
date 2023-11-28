@@ -16,17 +16,17 @@ export const EventOrganizationTableHeader = [
   },
   {
     id: '4',
-    name: 'Sự kiện đã tổ chức',
+    name: 'Địa chỉ',
     sort: ''
   },
   {
     id: '5',
-    name: 'Ngày tạo',
+    name: 'Sự kiện đã tổ chức',
     sort: ''
   },
   {
     id: '6',
-    name: 'Địa chỉ',
+    name: 'Ngày tạo',
     sort: ''
   },
   {
