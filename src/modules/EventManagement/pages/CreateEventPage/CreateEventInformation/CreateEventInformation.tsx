@@ -16,8 +16,8 @@ interface Props {
   errors: FieldErrors<FormEventType>
   file: File | undefined
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>
-  description: EditorState
-  setDescription: React.Dispatch<React.SetStateAction<EditorState>>
+  descriptionEvent: EditorState
+  setDescriptionEvent: React.Dispatch<React.SetStateAction<EditorState>>
 }
 
 const CreateEventInformation = ({
@@ -30,8 +30,8 @@ const CreateEventInformation = ({
   errors,
   file,
   setFile,
-  description,
-  setDescription
+  descriptionEvent,
+  setDescriptionEvent
 }: Props) => {
   const [categoryId, setCategoryId] = useState<string>('')
 
@@ -59,8 +59,8 @@ const CreateEventInformation = ({
           file={file}
           setFile={setFile}
           onChangeCategory={handleChangeCategory}
-          description={description}
-          setDescription={setDescription}
+          descriptionEvent={descriptionEvent}
+          setDescriptionEvent={setDescriptionEvent}
         />
       )}
     </div>

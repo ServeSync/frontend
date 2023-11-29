@@ -20,7 +20,7 @@ import {
 import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import EventOrganizationContactTable from '../../components/EventOrganizationContactTable'
-import CreateOrganizationContactPage from '../CreateOrganizationContactPage'
+import CreateEventOrganizationContactPage from '../CreateEventOrganizationContactPage'
 
 const EditEventOrganizationPage = () => {
   const [file, setFile] = useState<File>()
@@ -116,7 +116,7 @@ const EditEventOrganizationPage = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Edit Event Organization</title>
+        <title>Edit Organization</title>
         <meta name='description' content='This is edit event organization of the project'></meta>
       </Helmet>
       {eventOrganization && (
@@ -146,7 +146,10 @@ const EditEventOrganizationPage = () => {
             )}
           </div>
           <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModalChange}>
-            <CreateOrganizationContactPage eventOrganization={eventOrganization} handleClose={handleCloseModalChange} />
+            <CreateEventOrganizationContactPage
+              eventOrganization={eventOrganization}
+              handleClose={handleCloseModalChange}
+            />
           </ModalCustom>
           {eventOrganization.contacts.length == 0 ? (
             <div className='flex flex-col items-center mt-3 text-[#A0A2A4]'>

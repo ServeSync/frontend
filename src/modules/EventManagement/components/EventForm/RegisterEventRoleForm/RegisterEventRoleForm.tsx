@@ -15,11 +15,13 @@ import Parser from 'html-react-parser'
 interface Props {
   control: Control<FormEventType>
   getValues: UseFormGetValues<FormEventType>
+  setValue: UseFormSetValue<FormEventType>
   errors: FieldErrors<FormEventType>
   resetField: UseFormResetField<FormEventType>
-  setValue: UseFormSetValue<FormEventType>
   dataEventRole: EventRole[]
   setDataEventRole: React.Dispatch<React.SetStateAction<EventRole[]>>
+  descriptionEventRole: EditorState
+  setDescriptionEventRole: React.Dispatch<React.SetStateAction<EditorState>>
   event?: EventDetailType
 }
 
@@ -31,13 +33,14 @@ const RegisterEventRoleForm = ({
   setValue,
   dataEventRole,
   setDataEventRole,
+  descriptionEventRole,
+  setDescriptionEventRole,
   event
 }: Props) => {
   const [isEditEventRole, setIsEditEventRole] = useState<boolean>(false)
-  const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
 
   const onEditorStateChange = (editorState: EditorState) => {
-    setDescription(editorState)
+    setDescriptionEventRole(editorState)
   }
 
   const [index, setIndex] = useState<number>(0)
@@ -49,22 +52,22 @@ const RegisterEventRoleForm = ({
     const data = [...dataEventRole]
     setValue('roles.name', data[index].name)
     setValue('roles.isNeedApprove', data[index].isNeedApprove.toString())
-    setValue('roles.quantity', data[index].quantity)
-    setValue('roles.score', data[index].score)
+    setValue('roles.quantity', data[index].quantity.toString())
+    setValue('roles.score', data[index].score.toString())
     const blocksFromHTML = convertFromHTML(data[index].description as string)
     const description = EditorState.createWithContent(
       ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
     )
-    setDescription(description)
+    setDescriptionEventRole(description)
   }
 
   const handleSubmit = () => {
     const role = {
       name: { ...getValues('roles') }.name as string,
       isNeedApprove: Boolean({ ...getValues('roles') }.isNeedApprove),
-      description: draftToHtml(convertToRaw(description.getCurrentContent())),
-      quantity: ({ ...getValues('roles') }.quantity as string).replace(/^0+/, '').trim(),
-      score: ({ ...getValues('roles') }.score as string).replace(/^0+/, '').trim()
+      description: draftToHtml(convertToRaw(descriptionEventRole.getCurrentContent())),
+      quantity: ({ ...getValues('roles') }.quantity?.toString() as string).replace(/^0+/, '').trim(),
+      score: ({ ...getValues('roles') }.score?.toString() as string).replace(/^0+/, '').trim()
     }
     const regexNumber = /^\d+$/
     const eventRoles: EventRole[] = [...dataEventRole]
@@ -89,7 +92,7 @@ const RegisterEventRoleForm = ({
         }
         setErrorsLocal('')
         reset()
-        setDescription(EditorState.createEmpty())
+        setDescriptionEventRole(EditorState.createEmpty())
       }
     } else {
       setErrorsLocal('Vui lòng nhập đầy đủ dữ liệu !')
@@ -104,13 +107,13 @@ const RegisterEventRoleForm = ({
 
   const handleResetForm = () => {
     reset()
-    setDescription(EditorState.createEmpty())
+    setDescriptionEventRole(EditorState.createEmpty())
   }
 
   const handleCancelEdit = () => {
     setIsEditEventRole(false)
     reset()
-    setDescription(EditorState.createEmpty())
+    setDescriptionEventRole(EditorState.createEmpty())
   }
 
   const reset = () => {
@@ -283,7 +286,7 @@ const RegisterEventRoleForm = ({
             <div className='col-span-12'>
               <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
                 <Editor
-                  editorState={description}
+                  editorState={descriptionEventRole}
                   onEditorStateChange={onEditorStateChange}
                   placeholder='Nhập mô tả vai trò'
                 />

@@ -1,0 +1,3 @@
+import CreateEventOrganizationContactPage from './CreateEventOrganizationContactPage'
+
+export default CreateEventOrganizationContactPage

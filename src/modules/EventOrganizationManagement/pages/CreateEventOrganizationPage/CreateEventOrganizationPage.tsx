@@ -65,7 +65,7 @@ const CreateEventOrganizationPage = () => {
     <Fragment>
       <Helmet>
         <title>Create Organization</title>
-        <meta name='description' content='This is create student page of the project' />
+        <meta name='description' content='This is create organization page of the project' />
       </Helmet>
       <form onSubmit={handleCreateEventOrganization}>
         <CreateEventOrganizationForm

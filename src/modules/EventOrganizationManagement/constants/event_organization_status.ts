@@ -1,11 +1,11 @@
 interface Status {
   [key: string]: string
 }
-export const StatusOrganizationToMessage = (stautus: string) => {
-  const mappedEventStatus: Status = {
+export const StatusOrganizationToMessage = (status: string) => {
+  const mappedEventOrganizationStatus: Status = {
     Pending: 'Đã mời',
     Active: 'Đã kích hoạt',
     Rejected: 'Đã từ chối'
   }
-  return mappedEventStatus[`${stautus}`]
+  return mappedEventOrganizationStatus[`${status}`]
 }

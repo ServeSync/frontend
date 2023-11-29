@@ -11,6 +11,7 @@ import { FormEventType } from '../../../utils'
 import { EventDetailType, EventRole } from '../../../interfaces'
 import RegisterEventTimeForm from 'src/modules/EventManagement/components/EventForm/RegisterEventTimeForm'
 import RegisterEventRoleForm from 'src/modules/EventManagement/components/EventForm/RegisterEventRoleForm'
+import { EditorState } from 'draft-js'
 
 interface Props {
   page: number
@@ -24,6 +25,8 @@ interface Props {
   FieldAttendance: UseFieldArrayReturn<FormEventType, 'attendanceInfos'>
   dataEventRole: EventRole[]
   setDataEventRole: React.Dispatch<React.SetStateAction<EventRole[]>>
+  descriptionEventRole: EditorState
+  setDescriptionEventRole: React.Dispatch<React.SetStateAction<EditorState>>
   event: EventDetailType
 }
 
@@ -39,6 +42,8 @@ const EditEventRegistration = ({
   FieldAttendance,
   dataEventRole,
   setDataEventRole,
+  descriptionEventRole,
+  setDescriptionEventRole,
   event
 }: Props) => {
   return (
@@ -60,6 +65,8 @@ const EditEventRegistration = ({
             resetField={resetField}
             dataEventRole={dataEventRole}
             setDataEventRole={setDataEventRole}
+            descriptionEventRole={descriptionEventRole}
+            setDescriptionEventRole={setDescriptionEventRole}
             event={event}
           />
         </div>

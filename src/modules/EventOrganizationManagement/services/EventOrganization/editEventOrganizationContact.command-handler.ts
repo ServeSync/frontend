@@ -31,6 +31,7 @@ class EditEventOrganizationContactCommandHandler {
       const uploadImageResponse = await this._uploadImageMutation.mutateAsync(form)
       body.data.imageUrl = uploadImageResponse.data.url
     }
+
     return this._editEventOrganizationContactMutation.mutate(body, {
       onSuccess: () => {
         this._queryClient.invalidateQueries({

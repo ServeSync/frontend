@@ -12,7 +12,7 @@ import {
   EventOrganizationType,
   RepresentativeType
 } from 'src/modules/EventOrganizationManagement/interfaces'
-import { EventDetailType, EventOrganizationFormType } from 'src/modules/EventManagement/interfaces'
+import { EventDetailType } from 'src/modules/EventManagement/interfaces'
 import { GetAllContactsByOrganizationIdQuery } from 'src/modules/EventOrganizationManagement/services'
 
 interface Props {
@@ -25,7 +25,6 @@ interface Props {
   setListEventOrganizationsAdded: React.Dispatch<React.SetStateAction<EventOrganizationType[]>>
   handleRemoveEventOrganization: (id: number) => void
   event?: EventDetailType
-  dataEventOrganization: EventOrganizationFormType[]
 }
 
 const CreateEventOrganizationContactForm = ({
@@ -37,27 +36,20 @@ const CreateEventOrganizationContactForm = ({
   listEventOrganizationsAdded,
   setListEventOrganizationsAdded,
   handleRemoveEventOrganization,
-  event,
-  dataEventOrganization
+  event
 }: Props) => {
   const [errors, setErrors] = useState<string>('')
 
-  const [listContactsAdded, setListContactsAdded] = useState<RepresentativeType[]>([])
+  const [listRepresentativesAdded, setListRepresentativesAdded] = useState<RepresentativeType[]>([])
 
   useEffect(() => {
     if (event && eventOrganization.representatives !== undefined) {
-      eventOrganization.representatives.map((item) => {
-        setListContactsAdded([...listContactsAdded, item])
-      })
+      setListRepresentativesAdded(eventOrganization.representatives)
     }
   }, [event, eventOrganization.representatives])
 
   const getAllContactsByOrganizationIdQuery = new GetAllContactsByOrganizationIdQuery(
-    event
-      ? dataEventOrganization && dataEventOrganization.length === event.organizations.length
-        ? (eventOrganization.organizationId as string)
-        : eventOrganization.id
-      : eventOrganization.id,
+    event ? (eventOrganization.organizationId as string) : eventOrganization.id,
     'Active'
   )
 
@@ -72,13 +64,15 @@ const CreateEventOrganizationContactForm = ({
       if (role && role !== '' && id && id !== '') {
         if (role.length < 5) {
           setErrors('Vai trò nhà tổ chức ít nhất 5 kí tự !')
-        } else if (listContactsAdded.some((item) => item.organizationRepId === id)) {
+        } else if (listRepresentativesAdded.some((item) => item.organizationRepId === id)) {
           setErrors('Nhà tổ chức đã được thêm vào sự kiện !')
         } else {
           const representative = representatives.find((item) => item.id === id) as RepresentativeType
           const body = {
             ...representative,
-            role: role
+            id: '',
+            role: role,
+            organizationRepId: representative.id
           }
           const data = [...listEventOrganizationsAdded]
           data[index].representatives = [...data[index].representatives, body]
@@ -86,7 +80,7 @@ const CreateEventOrganizationContactForm = ({
           setValue('organizations.organizationReps.organizationRepId', undefined)
           setValue('organizations.organizationReps.role', '')
           setErrors('')
-          setListContactsAdded([...listContactsAdded, body])
+          setListRepresentativesAdded([...listRepresentativesAdded, body])
         }
       } else {
         setErrors('Vui lòng nhập đầy đủ thông tin !')
@@ -95,7 +89,7 @@ const CreateEventOrganizationContactForm = ({
       if (role && role !== '' && id && id !== '') {
         if (role.length < 5) {
           setErrors('Vai trò nhà tổ chức ít nhất 5 kí tự')
-        } else if (listContactsAdded.some((item) => item.id === id)) {
+        } else if (listRepresentativesAdded.some((item) => item.id === id)) {
           setErrors('Nhà tổ chức đã được thêm vào sự kiện !')
         } else {
           const representative = representatives.find((item) => item.id === id) as RepresentativeType
@@ -109,7 +103,7 @@ const CreateEventOrganizationContactForm = ({
           setValue('organizations.organizationReps.organizationRepId', undefined)
           setValue('organizations.organizationReps.role', '')
           setErrors('')
-          setListContactsAdded([...listContactsAdded, body])
+          setListRepresentativesAdded([...listRepresentativesAdded, body])
         }
       } else {
         setErrors('Vui lòng nhập đầy đủ thông tin !')

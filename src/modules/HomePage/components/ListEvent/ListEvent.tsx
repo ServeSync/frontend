@@ -25,6 +25,7 @@ interface Props {
 
 const ListEvent = ({ events, pageSize }: Props) => {
   const navigate = useNavigate()
+
   const [scrolled, setScrolled] = useState(true)
 
   useEffect(() => {

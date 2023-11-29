@@ -12,7 +12,9 @@ interface Props {
 
 const ChangeTenant = ({ profile }: Props) => {
   const navigate = useNavigate()
+
   const exchangeTenantCommandHandler = new ChangeTenantCommandHandler()
+
   const handleExchangeTenant = (tenantId: string) => {
     exchangeTenantCommandHandler.handle(
       { tenantId },
@@ -37,8 +39,8 @@ const ChangeTenant = ({ profile }: Props) => {
           })}
           onClick={() => handleExchangeTenant(tenant.id)}
         >
-          <Avatar alt='Remy Sharp' src={tenant.avatarUrl} sx={{ width: 16, height: 16 }} className='mr-3' />
-          <span className='w-[100px] truncate text-sm  font-medium'>{tenant.name}</span>
+          <Avatar alt='avatar' src={tenant.avatarUrl} sx={{ width: 16, height: 16 }} className='mr-3' />
+          <span className='w-[100px] truncate text-sm font-medium'>{tenant.name}</span>
         </button>
       ))}
     </div>

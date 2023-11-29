@@ -16,8 +16,8 @@ interface Props {
   file: File | undefined
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>
   event: EventDetailType
-  description: EditorState
-  setDescription: React.Dispatch<React.SetStateAction<EditorState>>
+  descriptionEvent: EditorState
+  setDescriptionEvent: React.Dispatch<React.SetStateAction<EditorState>>
 }
 
 const EditEventInformation = ({
@@ -30,8 +30,8 @@ const EditEventInformation = ({
   file,
   setFile,
   event,
-  description,
-  setDescription
+  descriptionEvent,
+  setDescriptionEvent
 }: Props) => {
   const [categoryId, setCategoryId] = useState<string>(event ? event.activity.eventCategoryId : '')
 
@@ -63,8 +63,8 @@ const EditEventInformation = ({
           setFile={setFile}
           onChangeCategory={handleChangeCategory}
           event={event}
-          description={description}
-          setDescription={setDescription}
+          descriptionEvent={descriptionEvent}
+          setDescriptionEvent={setDescriptionEvent}
         />
       )}
     </div>

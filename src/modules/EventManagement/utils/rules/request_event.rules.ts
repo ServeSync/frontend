@@ -63,30 +63,85 @@ export const FormRequestEventSchema = yup.object().shape({
     address: yup.string().required('Vui lòng nhập địa chỉ !'),
     imageUrl: yup.string().required('Vui lòng chọn ảnh!')
   }),
-  EventOrganizationContactInfo: yup.object().shape({
-    name: yup.string().required('Vui lòng nhập tên người đại diện !'),
-    email: yup.string().trim().required('Vui lòng nhập email !').email('Email không hợp lệ !'),
-    phoneNumber: yup
-      .string()
-      .trim()
-      .required('Vui lòng nhập số điện thoại !')
-      .length(10, 'Số điện thoại không hợp lệ!')
-      .matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
-    gender: yup.string().required('Vui lòng chọn giới tính !'),
-    address: yup.string().required('Vui lòng nhập địa chỉ !'),
-    birth: yup
-      .string()
-      .required('Vui lòng chọn ngày sinh !')
-      .test('is-before-today', 'Ngày sinh phải bé hơn ngày hiện tại !', function (value) {
-        if (!value) {
-          return true
-        }
-        const dob = new Date(value)
-        return dob < today
+  EventOrganizationContactInfo: yup
+    .object()
+    .shape({
+      name: yup.string().required('Vui lòng nhập tên người đại diện !'),
+      email: yup.string().trim().required('Vui lòng nhập email !').email('Email không hợp lệ !'),
+      phoneNumber: yup
+        .string()
+        .trim()
+        .required('Vui lòng nhập số điện thoại !')
+        .length(10, 'Số điện thoại không hợp lệ!')
+        .matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
+      gender: yup.string().required('Vui lòng chọn giới tính !'),
+      birth: yup
+        .string()
+        .required('Vui lòng chọn ngày sinh !')
+        .test('is-before-today', 'Ngày sinh phải bé hơn ngày hiện tại !', function (value) {
+          if (!value) {
+            return true
+          }
+          const dob = new Date(value)
+          return dob < today
+        }),
+      eventType: yup.string().required('Vui lòng chọn loại sự kiện !'),
+      categoryId: yup.string().required('Vui lòng chọn danh mục sự kiện !'),
+      activityId: yup.string().required('Vui lòng chọn hoạt động !'),
+      address: yup.object().shape({
+        fullAddress: yup.string().required('Vui lòng nhập địa chỉ !'),
+        longitude: yup.string().required('Vui lòng nhập kinh độ!'),
+        latitude: yup.string().required('Vui lòng nhập vĩ độ !')
       }),
-    position: yup.string().required('Vui lòng nhập chức vụ !'),
-    imageUrl: yup.string().required('Vui lòng chọn ảnh!')
-  })
+      EventOrganizationInfo: yup.object().shape({
+        name: yup.string().required('Vui lòng nhập tên tổ chức !'),
+        description: yup.string().required('Vui lòng nhập mô tả tổ chức !'),
+        email: yup.string().trim().required('Vui lòng nhập email !').email('Email không hợp lệ !'),
+        phoneNumber: yup
+          .string()
+          .trim()
+          .required('Vui lòng nhập số điện thoại !')
+          .length(10, 'Số điện thoại không hợp lệ!')
+          .matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
+        address: yup.string().required('Vui lòng nhập địa chỉ !'),
+        imageUrl: yup.string().required('Vui lòng chọn ảnh!')
+      }),
+      EventOrganizationContactInfo: yup.object().shape({
+        name: yup.string().required('Vui lòng nhập tên người đại diện !'),
+        email: yup.string().trim().required('Vui lòng nhập email !').email('Email không hợp lệ !'),
+        phoneNumber: yup
+          .string()
+          .trim()
+          .required('Vui lòng nhập số điện thoại !')
+          .length(10, 'Số điện thoại không hợp lệ!')
+          .matches(phoneRegExp, 'Số điện thoại không hợp lệ'),
+        gender: yup.string().required('Vui lòng chọn giới tính !'),
+        address: yup.string().required('Vui lòng nhập địa chỉ !'),
+        birth: yup
+          .string()
+          .required('Vui lòng chọn ngày sinh !')
+          .test('is-before-today', 'Ngày sinh phải bé hơn ngày hiện tại !', function (value) {
+            if (!value) {
+              return true
+            }
+            const dob = new Date(value)
+            return dob < today
+          }),
+        position: yup.string().required('Vui lòng nhập chức vụ !'),
+        imageUrl: yup.string().required('Vui lòng chọn ảnh!')
+      })
+    })
+    .test('is-emails-different', 'Email của tổ chức và người đại diện không được trùng nhau!', function (value) {
+      const organizationInfoEmail = this.parent.EventOrganizationInfo.email
+      const contactInfoEmail = this.parent.EventOrganizationContactInfo.email
+      if (organizationInfoEmail && contactInfoEmail && organizationInfoEmail === contactInfoEmail) {
+        throw new yup.ValidationError(
+          'Email của tổ chức và người đại diện không được trùng nhau!',
+          value,
+          'EventOrganizationContactInfo.email'
+        )
+      }
+    })
 })
 
 export type FormRequestEventType = yup.InferType<typeof FormRequestEventSchema>

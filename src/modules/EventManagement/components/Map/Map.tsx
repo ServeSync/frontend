@@ -19,6 +19,7 @@ interface Props {
   setMarkers: React.Dispatch<React.SetStateAction<MarkerType[]>>
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 const Map = ({
   register,
   handleSubmit,

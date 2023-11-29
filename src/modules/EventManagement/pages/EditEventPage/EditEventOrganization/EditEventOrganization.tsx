@@ -27,7 +27,6 @@ const EditEventOrganization = ({
   getValues,
   errors,
   setValue,
-  dataEventOrganization,
   setDataEventOrganization,
   event
 }: Props) => {
@@ -46,7 +45,7 @@ const EditEventOrganization = ({
 
   useEffect(() => {
     if (listEventOrganizationsAdded) {
-      listEventOrganizationsAdded.map((item) => {
+      const organization = listEventOrganizationsAdded.map((item) => {
         let organizationReps: EventOrganizationRepFormType[] = []
         item.representatives.length > 0 &&
           item.representatives.map((contact) => {
@@ -65,10 +64,11 @@ const EditEventOrganization = ({
           role: item.role,
           organizationReps: organizationReps
         }
-        setDataEventOrganization([...dataEventOrganization, result])
+        return result
       })
+      setDataEventOrganization(organization)
     }
-  }, [listEventOrganizationsAdded])
+  }, [listEventOrganizationsAdded, setDataEventOrganization])
 
   const getAllEventOrganizationsQuery = new GetAllEventOrganizationsQuery('Active')
   const eventOrganizations = getAllEventOrganizationsQuery.fetch() as EventOrganizationsListType
@@ -79,23 +79,22 @@ const EditEventOrganization = ({
     if (role && role !== '' && id && id !== '') {
       if (role.length < 5) {
         setErrorsLocal('Vai trò đại diện ít nhất 5 kí tự')
-      } else if (listEventOrganizationsAdded.some((item) => item.id === id)) {
+      } else if (listEventOrganizationsAdded.some((item) => item.organizationId === id)) {
         setErrorsLocal('Ban tổ chức đã được thêm vào sự kiện !')
       } else {
         const eventOrganization = eventOrganizations.data.find((item) => item.id === id) as EventOrganizationType
         const body = {
           ...eventOrganization,
+          id: '',
           role: role,
-          representatives: []
+          representatives: [],
+          organizationId: eventOrganization.id
         }
         setListEventOrganizationsAdded([...listEventOrganizationsAdded, body])
         setValue('organizations.organizationId', undefined)
         setValue('organizations.role', '')
         setErrorsLocal('')
-        setRepresentatives([
-          ...representatives,
-          eventOrganizations && (eventOrganizations.data.find((item) => item.id === id) as EventOrganizationType)
-        ])
+        setRepresentatives([...representatives, body])
       }
     } else {
       setErrorsLocal('Vui lòng nhập đầy đủ thông tin !')
@@ -128,7 +127,6 @@ const EditEventOrganization = ({
                   setListEventOrganizationsAdded={setListEventOrganizationsAdded}
                   handleRemoveEventOrganization={handleRemoveEventOrganization}
                   event={event}
-                  dataEventOrganization={dataEventOrganization}
                 />
               </div>
             ))}

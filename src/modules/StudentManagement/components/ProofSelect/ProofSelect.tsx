@@ -11,7 +11,6 @@ interface Props {
 
 const ProofSelect = ({ handleCloseModalProofSelect }: Props) => {
   const [eventId, setEventId] = useState<string>()
-  console.log(eventId)
 
   const getAllEventsQuery = new GetAllEventsQuery()
   const eventsList = getAllEventsQuery.fetch()

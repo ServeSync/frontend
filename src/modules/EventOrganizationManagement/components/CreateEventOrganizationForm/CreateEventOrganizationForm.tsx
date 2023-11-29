@@ -43,7 +43,7 @@ const CreateEventOrganizationForm = ({
                 <div>
                   <TextField
                     id='name'
-                    label='Tên tổ chức'
+                    label='Tên nhà tổ chức'
                     placeholder='Nhập tên tổ chức'
                     className='w-full bg-white'
                     onChange={onChange}
@@ -62,7 +62,7 @@ const CreateEventOrganizationForm = ({
                 <div>
                   <TextField
                     id='description'
-                    label='Mô tả nhà tổ chức sự kiện'
+                    label='Mô tả nhà tổ chức'
                     placeholder='Nhập mô tả'
                     className='w-full bg-white'
                     onChange={onChange}
@@ -81,7 +81,7 @@ const CreateEventOrganizationForm = ({
                 <div>
                   <TextField
                     id='email'
-                    label='Email'
+                    label='Email nhà tổ chức'
                     placeholder='Nhập Email'
                     className='w-full bg-white'
                     onChange={onChange}
