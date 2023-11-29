@@ -38,9 +38,9 @@ interface Props {
   file: File | undefined
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>
   onChangeCategory: (id: string) => void
+  descriptionEvent: EditorState
+  setDescriptionEvent: React.Dispatch<React.SetStateAction<EditorState>>
   event?: EventDetailType
-  description: EditorState
-  setDescription: React.Dispatch<React.SetStateAction<EditorState>>
 }
 
 const CreateEventInformationForm = ({
@@ -55,22 +55,22 @@ const CreateEventInformationForm = ({
   setFile,
   onChangeCategory,
   event,
-  description,
-  setDescription
+  descriptionEvent,
+  setDescriptionEvent
 }: Props) => {
   const previewImage = useMemo(() => {
     return file ? URL.createObjectURL(file) : ''
   }, [file])
 
-  const onEditorStateChange = (editorState: EditorState) => {
-    setDescription(editorState)
-    setValue('description', draftToHtml(convertToRaw(description.getCurrentContent())))
-  }
-
   const handleChangeFile = (file?: File) => {
     setFile(file)
     setValue('imageUrl', ' ')
     setError && setError('imageUrl', { message: '' })
+  }
+
+  const onEditorStateChange = (editorState: EditorState) => {
+    setDescriptionEvent(editorState)
+    setValue('description', draftToHtml(convertToRaw(descriptionEvent.getCurrentContent())))
   }
 
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -392,7 +392,7 @@ const CreateEventInformationForm = ({
             <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
               <Editor
                 placeholder='Nhập mô tả sự kiện'
-                editorState={description}
+                editorState={descriptionEvent}
                 onEditorStateChange={onEditorStateChange}
                 readOnly={event && StatusIsDisable(event.status)}
               />

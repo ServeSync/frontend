@@ -32,7 +32,9 @@ const CreateEventPage = () => {
 
   const [dataEventRole, setDataEventRole] = useState<EventRole[]>([])
   const [dataEventOrganization, setDataEventOrganization] = useState<EventOrganizationFormType[]>([])
-  const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
+
+  const [descriptionEvent, setDescriptionEvent] = useState<EditorState>(EditorState.createEmpty())
+  const [descriptionEventRole, setDescriptionEventRole] = useState<EditorState>(EditorState.createEmpty())
 
   const isSuccess = useRef(false)
 
@@ -151,8 +153,8 @@ const CreateEventPage = () => {
                 errors={errors}
                 file={file}
                 setFile={setFile}
-                description={description}
-                setDescription={setDescription}
+                descriptionEvent={descriptionEvent}
+                setDescriptionEvent={setDescriptionEvent}
               />
               <CreateEventRegistration
                 page={page}
@@ -166,6 +168,8 @@ const CreateEventPage = () => {
                 FieldAttendance={FieldAttendance}
                 dataEventRole={dataEventRole}
                 setDataEventRole={setDataEventRole}
+                descriptionEventRole={descriptionEventRole}
+                setDescriptionEventRole={setDescriptionEventRole}
               />
               <CreateEventOrganization
                 page={page}

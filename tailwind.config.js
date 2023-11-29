@@ -12,5 +12,8 @@ module.exports = {
       Pacifico: 'Pacifico'
     }
   },
-  plugins: [require('@tailwindcss/line-clamp')]
+  plugins: [require('@tailwindcss/line-clamp'), require('tailwind-scrollbar')],
+  variants: {
+    scrollbar: ['rounded']
+  }
 }

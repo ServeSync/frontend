@@ -50,7 +50,9 @@ const EditEventPage = () => {
 
   const [dataEventRole, setDataEventRole] = useState<EventRole[]>([])
   const [dataEventOrganization, setDataEventOrganization] = useState<EventOrganizationFormType[]>([])
-  const [description, setDescription] = useState<EditorState>(EditorState.createEmpty())
+
+  const [descriptionEvent, setDescriptionEvent] = useState<EditorState>(EditorState.createEmpty())
+  const [descriptionEventRole, setDescriptionEventRole] = useState<EditorState>(EditorState.createEmpty())
 
   const {
     register,
@@ -105,7 +107,7 @@ const EditEventPage = () => {
           navigate(path.event)
         },
         (error: any) => {
-          isErrorLocal.current = false
+          // isErrorLocal.current = false
           handleError<FormEventType>(error, setError)
         }
       )
@@ -144,7 +146,7 @@ const EditEventPage = () => {
       const content = EditorState.createWithContent(
         ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
       )
-      setDescription(content)
+      setDescriptionEvent(content)
       setValue('description', draftToHtml(convertToRaw(content.getCurrentContent())))
       event.registrationInfos.map((item) => FieldRegistration.append({ startAt: item.startAt, endAt: item.endAt }))
       setValue('registrationInfos', event.registrationInfos)
@@ -297,8 +299,8 @@ const EditEventPage = () => {
                 file={file}
                 setFile={setFile}
                 event={event}
-                description={description}
-                setDescription={setDescription}
+                descriptionEvent={descriptionEvent}
+                setDescriptionEvent={setDescriptionEvent}
               />
               <EditEventRegistration
                 page={page}
@@ -312,6 +314,8 @@ const EditEventPage = () => {
                 FieldAttendance={FieldAttendance}
                 dataEventRole={dataEventRole}
                 setDataEventRole={setDataEventRole}
+                descriptionEventRole={descriptionEventRole}
+                setDescriptionEventRole={setDescriptionEventRole}
                 event={event}
               />
               <EditEventOrganization

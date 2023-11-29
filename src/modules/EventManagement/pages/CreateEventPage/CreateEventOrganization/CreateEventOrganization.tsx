@@ -25,7 +25,6 @@ const CreateEventOrganization = ({
   errors,
   getValues,
   setValue,
-  dataEventOrganization,
   setDataEventOrganization
 }: Props) => {
   const [listEventOrganizationsAdded, setListEventOrganizationsAdded] = useState<EventOrganizationType[]>([])
@@ -113,7 +112,6 @@ const CreateEventOrganization = ({
                   listEventOrganizationsAdded={listEventOrganizationsAdded}
                   setListEventOrganizationsAdded={setListEventOrganizationsAdded}
                   handleRemoveEventOrganization={handleRemoveEventOrganization}
-                  dataEventOrganization={dataEventOrganization}
                 />
               </div>
             ))}

@@ -35,7 +35,7 @@ const ProofForm = ({ handleCloseModalProofForm, eventId }: Props) => {
   })
 
   return (
-    <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg w-[620px]'>
+    <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg w-[620px] h-[90vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#a6a6a6] scrollbar-track-[#e1e1e1]'>
       <div className='flex justify-between items-center w-full'>
         <div>
           <h2 className='text-[20px] font-semibold'>Đơn nộp minh chứng</h2>
