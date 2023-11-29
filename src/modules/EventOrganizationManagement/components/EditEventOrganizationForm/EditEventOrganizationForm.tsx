@@ -9,6 +9,7 @@ import Button from 'src/modules/Share/components/Button'
 import { EventOrganizationType } from '../../interfaces'
 import { StatusOrganizationToMessage } from '../../constants'
 import classNames from 'classnames'
+
 interface Props {
   register: UseFormRegister<FormEventOrganizationType>
   setValue: UseFormSetValue<FormEventOrganizationType>
@@ -20,6 +21,7 @@ interface Props {
   onCancel: () => void
   handleDeleteEventOrganization: (id: string) => void
 }
+
 const EditEventOrganizationForm = ({
   register,
   setValue,
@@ -45,7 +47,7 @@ const EditEventOrganizationForm = ({
   return (
     <Fragment>
       {eventOrganization && (
-        <div className=''>
+        <div>
           <div className='flex justify-between items-center mb-4'>
             <h2 className='text-[20px] font-semibold'>Thông tin nhà tổ chức sự kiện</h2>
             <div
@@ -80,7 +82,7 @@ const EditEventOrganizationForm = ({
                     <div>
                       <TextField
                         id='name'
-                        label='Tên tổ chức'
+                        label='Tên nhà tổ chức'
                         value={value}
                         placeholder='Nhập vào tên tổ chức'
                         className='w-full bg-white'
@@ -103,7 +105,7 @@ const EditEventOrganizationForm = ({
                     <div>
                       <TextField
                         id='description'
-                        label='Mô tả nhà tổ chức sự kiện'
+                        label='Mô tả nhà tổ chức'
                         value={value}
                         placeholder='Nhập mô tả'
                         className='w-full bg-white'
@@ -126,7 +128,7 @@ const EditEventOrganizationForm = ({
                     <div>
                       <TextField
                         id='email'
-                        label='Email'
+                        label='Email nhà tổ chức'
                         value={value}
                         placeholder='Nhập Email'
                         className='w-full bg-white'

@@ -7,6 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Autocomplete, TextField } from '@mui/material'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { gender } from 'src/modules/StudentManagement/constants'
+import Button from 'src/modules/Share/components/Button'
 
 interface Props {
   register: UseFormRegister<FormEventOrganizationContactType>
@@ -14,16 +15,27 @@ interface Props {
   control: Control<FormEventOrganizationContactType>
   onChange: (file?: File) => void
   previewImage: string
+  isLoading: boolean
+  handleClose: () => void
 }
-const CreateEventOrganizationContactForm = ({ register, control, errors, previewImage, onChange }: Props) => {
+
+const CreateEventOrganizationContactForm = ({
+  register,
+  control,
+  errors,
+  previewImage,
+  onChange,
+  isLoading,
+  handleClose
+}: Props) => {
   return (
     <Fragment>
-      <div className='grid grid-cols-4 gap-4'>
-        <div className='col-span-1 flex flex-col items-center mx-6'>
+      <div className='grid grid-cols-12 gap-4'>
+        <div className='col-span-4 flex flex-col items-center mx-4'>
           <InputAvatar register={register} onChange={onChange} previewImage={previewImage} />
           <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.imageUrl?.message}</span>
         </div>
-        <div className='col-span-3 grid grid-cols-2 gap-x-6 gap-y-4 text-[14px] font-semibold text-gray-600 placeholder:text-black'>
+        <div className='col-span-8 grid grid-cols-2 gap-x-6 gap-y-4 text-[14px] font-semibold text-gray-600 placeholder:text-black'>
           <Controller
             name='name'
             control={control}
@@ -98,8 +110,6 @@ const CreateEventOrganizationContactForm = ({ register, control, errors, preview
               </LocalizationProvider>
             )}
           />
-        </div>
-        <div className='col-span-4 grid grid-cols-3 gap-x-6 text-[14px] font-semibold text-gray-600 placeholder:text-black'>
           <Controller
             name='gender'
             control={control}
@@ -158,6 +168,21 @@ const CreateEventOrganizationContactForm = ({ register, control, errors, preview
               </LocalizationProvider>
             )}
           />
+          <div className='flex justify-end gap-6'>
+            <Button
+              type='button'
+              classNameButton='bg-[#9a9a9a] py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[48px]'
+              onClick={handleClose}
+            >
+              Hủy
+            </Button>
+            <Button
+              isLoading={isLoading}
+              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px] h-[48px]'
+            >
+              Lưu
+            </Button>
+          </div>
         </div>
       </div>
     </Fragment>

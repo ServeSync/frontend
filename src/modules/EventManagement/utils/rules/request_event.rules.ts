@@ -101,7 +101,7 @@ export const FormRequestEventSchema = yup
       )
     }
 
-    return true // Validation passed
+    return true
   })
 
 export type FormRequestEventType = yup.InferType<typeof FormRequestEventSchema>

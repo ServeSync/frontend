@@ -12,6 +12,7 @@ interface Props {
   title: string
   event: EventsListType
 }
+
 SwiperCore.use([Navigation, Pagination])
 
 const ContainerEvent = ({ heading, title, event }: Props) => {

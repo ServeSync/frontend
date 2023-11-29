@@ -16,8 +16,8 @@ export const FormEventOrganizationSchema = yup.object({
 
 export type FormEventOrganizationType = yup.InferType<typeof FormEventOrganizationSchema>
 
-export const FormFilterOrganizerSchema = yup.object({
+export const FormFilterOrganizationSchema = yup.object({
   search: yup.string().trim()
 })
 
-export type FormFilterOrganizerType = yup.InferType<typeof FormFilterOrganizerSchema>
+export type FormFilterOrganizationType = yup.InferType<typeof FormFilterOrganizationSchema>

@@ -10,9 +10,10 @@ import { ContactType, EventOrganizationType } from '../../interfaces'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import dayjs from 'dayjs'
 import { gender } from 'src/modules/StudentManagement/constants'
+
 interface Props {
   eventOrganization: EventOrganizationType
-  OrganizationContact: ContactType | null
+  organizationContact: ContactType | null
   register: UseFormRegister<FormEventOrganizationContactType>
   setValue: UseFormSetValue<FormEventOrganizationContactType>
   control: Control<FormEventOrganizationContactType>
@@ -22,12 +23,13 @@ interface Props {
   isLoading: boolean
   handleDeleteOrganizationContact: (id: string, idContact: string) => void
 }
+
 const EditEventOrganizationContactForm = ({
   eventOrganization,
   register,
   setValue,
   control,
-  OrganizationContact,
+  organizationContact,
   errors,
   handleDeleteOrganizationContact,
   onChange,
@@ -35,39 +37,40 @@ const EditEventOrganizationContactForm = ({
   isLoading
 }: Props) => {
   useEffect(() => {
-    if (OrganizationContact) {
-      setValue('name', OrganizationContact.name)
-      setValue('email', OrganizationContact.email)
-      setValue('birth', OrganizationContact.birth)
-      setValue('phoneNumber', OrganizationContact.phoneNumber)
-      setValue('gender', OrganizationContact.gender.toString())
-      setValue('address', OrganizationContact.address)
-      setValue('position', OrganizationContact.position)
-      setValue('imageUrl', OrganizationContact.imageUrl)
+    if (organizationContact) {
+      setValue('name', organizationContact.name)
+      setValue('email', organizationContact.email)
+      setValue('birth', organizationContact.birth)
+      setValue('phoneNumber', organizationContact.phoneNumber)
+      setValue('gender', organizationContact.gender.toString())
+      setValue('address', organizationContact.address)
+      setValue('position', organizationContact.position)
+      setValue('imageUrl', organizationContact.imageUrl)
     }
-  }, [OrganizationContact, setValue])
+  }, [organizationContact, setValue])
+
   return (
     <Fragment>
-      {OrganizationContact && (
-        <div className=''>
-          <div className='grid grid-cols-4 gap-4'>
-            <div className='col-span-1 flex flex-col items-center mx-6'>
+      {organizationContact && (
+        <div>
+          <div className='grid grid-cols-12 gap-4'>
+            <div className='col-span-4 flex flex-col items-center mx-6'>
               <InputAvatar
                 register={register}
                 onChange={onChange}
                 previewImage={previewImage}
-                avatar={OrganizationContact && OrganizationContact.imageUrl}
+                avatar={organizationContact && organizationContact.imageUrl}
               />
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
                 {errors.imageUrl?.message}
               </span>
             </div>
-            <div className='col-span-3 grid grid-cols-2 gap-x-6 gap-y-4 text-[14px] font-semibold text-gray-600 placeholder:text-black'>
+            <div className='col-span-8 grid grid-cols-2 gap-x-6 gap-y-4 text-[14px] font-semibold text-gray-600 placeholder:text-black'>
               <Controller
                 name='name'
                 control={control}
                 render={({
-                  field: { onChange, value = OrganizationContact && OrganizationContact.name },
+                  field: { onChange, value = organizationContact && organizationContact.name },
                   fieldState: { error }
                 }) => (
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -89,7 +92,7 @@ const EditEventOrganizationContactForm = ({
                 name='email'
                 control={control}
                 render={({
-                  field: { onChange, value = OrganizationContact && OrganizationContact.email },
+                  field: { onChange, value = organizationContact && organizationContact.email },
                   fieldState: { error }
                 }) => (
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -102,7 +105,7 @@ const EditEventOrganizationContactForm = ({
                         className='w-full bg-white'
                         onChange={onChange}
                         InputProps={{
-                          readOnly: true
+                          disabled: true
                         }}
                       />
                       <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -114,7 +117,7 @@ const EditEventOrganizationContactForm = ({
                 name='birth'
                 control={control}
                 render={({
-                  field: { onChange, value = OrganizationContact && OrganizationContact.birth },
+                  field: { onChange, value = organizationContact && organizationContact.birth },
                   fieldState: { error }
                 }) => (
                   <div className='mt-[-8px]'>
@@ -138,7 +141,7 @@ const EditEventOrganizationContactForm = ({
                 control={control}
                 defaultValue=''
                 render={({
-                  field: { onChange, value = OrganizationContact && OrganizationContact.phoneNumber },
+                  field: { onChange, value = organizationContact && organizationContact.phoneNumber },
                   fieldState: { error }
                 }) => (
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -156,8 +159,6 @@ const EditEventOrganizationContactForm = ({
                   </LocalizationProvider>
                 )}
               />
-            </div>
-            <div className='col-span-4 grid grid-cols-3 gap-x-6 text-[14px] font-semibold text-gray-600 placeholder:text-black'>
               <Controller
                 name='gender'
                 control={control}
@@ -186,7 +187,7 @@ const EditEventOrganizationContactForm = ({
                 control={control}
                 defaultValue=''
                 render={({
-                  field: { onChange, value = OrganizationContact && OrganizationContact.position },
+                  field: { onChange, value = organizationContact && organizationContact.position },
                   fieldState: { error }
                 }) => (
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -209,7 +210,7 @@ const EditEventOrganizationContactForm = ({
                 control={control}
                 defaultValue=''
                 render={({
-                  field: { onChange, value = OrganizationContact && OrganizationContact.address },
+                  field: { onChange, value = organizationContact && organizationContact.address },
                   fieldState: { error }
                 }) => (
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -227,22 +228,22 @@ const EditEventOrganizationContactForm = ({
                   </LocalizationProvider>
                 )}
               />
+              <div className='flex justify-end gap-6'>
+                <Button
+                  type='button'
+                  classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[48px]'
+                  onClick={() => handleDeleteOrganizationContact(eventOrganization.id, organizationContact?.id)}
+                >
+                  Xóa
+                </Button>
+                <Button
+                  isLoading={isLoading}
+                  classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px] h-[48px]'
+                >
+                  Lưu
+                </Button>
+              </div>
             </div>
-          </div>
-          <div className='flex justify-end gap-6'>
-            <Button
-              type='button'
-              classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6 w-[90px]'
-              onClick={() => handleDeleteOrganizationContact(eventOrganization.id, OrganizationContact?.id)}
-            >
-              Xóa
-            </Button>
-            <Button
-              isLoading={isLoading}
-              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold mt-6 w-[90px]'
-            >
-              Lưu
-            </Button>
           </div>
         </div>
       )}

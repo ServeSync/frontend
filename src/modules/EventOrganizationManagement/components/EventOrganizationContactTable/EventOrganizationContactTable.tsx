@@ -5,10 +5,12 @@ import { gender } from 'src/modules/StudentManagement/constants'
 import { StatusOrganizationToMessage } from '../../constants'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import { useState } from 'react'
-import EditOrganizationContactPage from '../../pages/EditOrganizationContactPage'
+import EditEventOrganizationContactPage from '../../pages/EditEventOrganizationContactPage'
+
 interface Props {
   eventOrganization: EventOrganizationType
 }
+
 const EventOrganizationContactTable = ({ eventOrganization }: Props) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 
@@ -18,13 +20,14 @@ const EventOrganizationContactTable = ({ eventOrganization }: Props) => {
     setIsOpenModal(true)
     setSelectedItem(item)
   }
+
   const handleCloseModalChange = () => {
     setIsOpenModal(false)
     setSelectedItem(null)
   }
 
   return (
-    <div className=''>
+    <div>
       <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'>
         <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
           <tr className='text-[14px] text-gray-600'>
@@ -61,9 +64,9 @@ const EventOrganizationContactTable = ({ eventOrganization }: Props) => {
         </tbody>
       </table>
       <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModalChange}>
-        <EditOrganizationContactPage
+        <EditEventOrganizationContactPage
           eventOrganization={eventOrganization}
-          OrganizationContact={selectedItem}
+          organizationContact={selectedItem}
           handleClose={handleCloseModalChange}
         />
       </ModalCustom>
