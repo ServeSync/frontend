@@ -18,6 +18,7 @@ const useQueryEventConfig = () => {
       sorting: queryEventParams.sorting,
       page: queryEventParams.page || 1,
       size: queryEventParams.size || 10,
+      defaultFilters: queryEventParams.defaultFilters || 'Personalized',
       id: queryEventParams.id
     },
     isUndefined
