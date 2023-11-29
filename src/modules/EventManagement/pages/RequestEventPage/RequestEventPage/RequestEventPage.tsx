@@ -91,20 +91,31 @@ const RequestEventPage = () => {
 
   const handleSubmitForm = handleSubmit(async (data) => {
     try {
-      const organizationDataPromise = await requestCreateOrganizationInfo.handle(
-        { ...getValues('EventOrganizationInfo') },
-        fileOrganizer as File
-      )
-      const organizationContactDataPromise = await requestCreateOrganizationContactInfo.handle(
-        { ...getValues('EventOrganizationContactInfo') },
-        fileOrganizerContact as File
-      )
+      let organizationDataPromise
+      let organizationContactDataPromise
+      if (getValues('EventOrganizationInfo').imageUrl === ' ') {
+        organizationDataPromise = await requestCreateOrganizationInfo.handle(
+          { ...getValues('EventOrganizationInfo') },
+          fileOrganizer as File
+        )
+        setValue('EventOrganizationInfo.imageUrl', organizationDataPromise.imageUrl)
+      } else {
+        organizationDataPromise = getValues('EventOrganizationInfo')
+      }
+      if (getValues('EventOrganizationContactInfo').imageUrl === ' ') {
+        organizationContactDataPromise = await requestCreateOrganizationContactInfo.handle(
+          { ...getValues('EventOrganizationContactInfo') },
+          fileOrganizerContact as File
+        )
+        setValue('EventOrganizationContactInfo.imageUrl', organizationContactDataPromise.imageUrl)
+      } else {
+        organizationContactDataPromise = getValues('EventOrganizationContactInfo')
+      }
 
       const [organizationData, organizationContactData] = await Promise.all([
         organizationDataPromise,
         organizationContactDataPromise
       ])
-
       if (organizationData && organizationContactData) {
         if (organizationData.email === organizationContactData.email) {
           setError('EventOrganizationInfo.email', {
