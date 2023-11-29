@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
 import profileAPI from 'src/modules/Share/services/Profile/profile.api'
-import { FormProfileStudentType } from '../../utils'
+import { FormProfileStudentType } from '../../utils/rules/profile.rules'
 
 /* eslint-disable react-hooks/rules-of-hooks */
 class EditProfileStudentCommandHandler {
