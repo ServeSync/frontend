@@ -9,7 +9,6 @@ import InputSearch from 'src/modules/Share/components/InputSearch'
 import PopoverCustom from 'src/modules/Share/components/Popover'
 import Filter from 'src/modules/EventManagement/components/Filter'
 import { formatDateFilter } from 'src/modules/Share/utils'
-import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import path from 'src/modules/Share/constants/path'
 import { URLSearchParamsInit, createSearchParams, useNavigate } from 'react-router-dom'
 import { isEmpty, omitBy } from 'lodash'
@@ -17,6 +16,7 @@ import { EventsListType } from 'src/modules/EventManagement/interfaces'
 import Pagination from 'src/modules/Share/components/Pagination'
 import { listEventPage } from 'src/modules/Share/assets/image'
 import CardEvent from '../CardEvent'
+import useQueryEventClientConfig from 'src/modules/EventManagement/hooks/useQueryEventClientConfig'
 
 interface Props {
   events: EventsListType
@@ -37,18 +37,17 @@ const ListEvent = ({ events, pageSize }: Props) => {
     resolver: yupResolver(FormFilterEventSchema)
   })
 
-  const queryEventConfig = useQueryEventConfig()
+  const queryEventClientConfig = useQueryEventClientConfig()
 
   const handleSubmitFormFilter = FilterEventForm.handleSubmit((data) => {
     const config = {
-      ...queryEventConfig,
+      ...queryEventClientConfig,
       page: 1,
       startDate: formatDateFilter(data.startAt as string),
       endDate: formatDateFilter(data.endAt as string),
       eventType: data.type,
       eventStatus: data.status,
-      search: data.search,
-      size: 9
+      search: data.search
     }
     navigate({
       pathname: path.list_events,
@@ -56,6 +55,13 @@ const ListEvent = ({ events, pageSize }: Props) => {
     })
   })
 
+  const handleResetFormFilter = () => {
+    FilterEventForm.resetField('search')
+    FilterEventForm.resetField('startAt')
+    FilterEventForm.resetField('endAt')
+    FilterEventForm.setValue('type', '')
+    FilterEventForm.setValue('status', '')
+  }
   return (
     <div>
       <div
@@ -98,7 +104,11 @@ const ListEvent = ({ events, pageSize }: Props) => {
             <PopoverCustom
               renderPopover={
                 <form onSubmit={handleSubmitFormFilter}>
-                  <Filter options={listEventStatus} control={FilterEventForm.control} onResetForm={() => {}} />
+                  <Filter
+                    options={listEventStatus}
+                    control={FilterEventForm.control}
+                    onResetForm={handleResetFormFilter}
+                  />
                 </form>
               }
             >
@@ -133,10 +143,10 @@ const ListEvent = ({ events, pageSize }: Props) => {
           })}
       </div>
       <Pagination
-        queryConfig={{ ...queryEventConfig, size: 9 }}
+        queryConfig={{ ...queryEventClientConfig, size: 9 }}
         pageSize={pageSize}
         pathname={path.list_events}
-        className='flex justify-end'
+        className='flex justify-center'
       />
     </div>
   )

@@ -146,7 +146,7 @@ const RegisterEventModal = ({ event, isOpenModalTableRegisterEvent, handleCloseM
                         <span className='line-clamp-1'>{Parser(role.description)}</span>
                       </th>
                       <th className='px-2 py-4 font-medium text-center w-[76px]'>{role.quantity}</th>
-                      <th className='px-2 py-4 font-medium text-center w-[50]'>{role.score}</th>
+                      <th className='px-2 py-4 font-medium text-center w-[50px]'>{role.score}</th>
                       <th className='px-2 py-4 font-medium text-center w-[96px]'>{role.registered}</th>
                       <th className='px-2 py-4 font-medium text-center w-[80px]'>{role.approvedRegistered}</th>
                       <th className='px-2 py-4 font-medium w-[116px]'>
