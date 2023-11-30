@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { listEventStatus } from 'src/modules/EventManagement/constants'
 import { FormFilterEventSchema, FormFilterEventType } from 'src/modules/EventManagement/utils'
-import Button from 'src/modules/Share/components/Button'
 import InputSearch from 'src/modules/Share/components/InputSearch'
-import PopoverCustom from 'src/modules/Share/components/Popover'
 import Filter from 'src/modules/EventManagement/components/Filter'
 import { formatDateFilter } from 'src/modules/Share/utils'
 import path from 'src/modules/Share/constants/path'
@@ -17,6 +15,8 @@ import Pagination from 'src/modules/Share/components/Pagination'
 import { listEventPage } from 'src/modules/Share/assets/image'
 import CardEvent from '../CardEvent'
 import useQueryEventClientConfig from 'src/modules/EventManagement/hooks/useQueryEventClientConfig'
+import { Popover } from '@mui/material'
+import Button from 'src/modules/Share/components/Button'
 
 interface Props {
   events: EventsListType
@@ -29,7 +29,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
   const [scrolled, setScrolled] = useState(true)
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 300)
     setScrolled(false)
   }, [events, scrolled])
 
@@ -62,6 +62,17 @@ const ListEvent = ({ events, pageSize }: Props) => {
     FilterEventForm.setValue('type', '')
     FilterEventForm.setValue('status', '')
   }
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+
+  const handleOpenPopover = (event: React.MouseEvent<HTMLButtonElement>) => {
+    window.scrollTo(0, 300)
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClosePopover = () => {
+    setAnchorEl(null)
+  }
+  const isOpen = Boolean(anchorEl)
+  const id = isOpen ? 'popover' : undefined
   return (
     <div>
       <div
@@ -100,37 +111,46 @@ const ListEvent = ({ events, pageSize }: Props) => {
             </svg>
             <span>Sắp xếp</span>
           </div>
-          <div className='flex gap-4'>
-            <PopoverCustom
-              renderPopover={
-                <form onSubmit={handleSubmitFormFilter}>
-                  <Filter
-                    options={listEventStatus}
-                    control={FilterEventForm.control}
-                    onResetForm={handleResetFormFilter}
-                  />
-                </form>
-              }
+          <div className=''></div>
+          <Button
+            onClick={handleOpenPopover}
+            classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'
+          >
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-6 h-6'
             >
-              <Button classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-6 h-6'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z'
-                  />
-                </svg>
-                <span>Lọc</span>
-              </Button>
-            </PopoverCustom>
-          </div>
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z'
+              />
+            </svg>
+            <span>Lọc</span>
+          </Button>
+          <Popover
+            id={id}
+            open={isOpen}
+            anchorEl={anchorEl}
+            onClose={handleClosePopover}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center'
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center'
+            }}
+            anchorReference='anchorEl'
+          >
+            <form onSubmit={handleSubmitFormFilter}>
+              <Filter options={listEventStatus} control={FilterEventForm.control} onResetForm={handleResetFormFilter} />
+            </form>
+          </Popover>
         </div>
       </div>
       <div className='grid grid-cols-3 gap-12 w-[80%] mx-auto'>
