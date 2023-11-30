@@ -14,7 +14,6 @@ const useQueryEventClientConfig = () => {
       sorting: queryEventParams.sorting,
       page: queryEventParams.page || 1,
       size: queryEventParams.size || 9,
-      defaultFilters: queryEventParams.defaultFilters || 'Personalized',
       id: queryEventParams.id
     },
     isUndefined

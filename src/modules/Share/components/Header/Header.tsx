@@ -175,7 +175,7 @@ const Header = () => {
                   {profile.tenants
                     .filter((tenant) => tenant.id === profile.tenantId)
                     .map((filteredTenant) => (
-                      <span key={filteredTenant.id} className='w-[100px] truncate'>
+                      <span key={filteredTenant.id} className='w-[120px] truncate'>
                         {filteredTenant.name}
                       </span>
                     ))}
