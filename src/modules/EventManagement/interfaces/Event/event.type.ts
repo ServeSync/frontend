@@ -263,3 +263,15 @@ export interface StudentAttendedEventsListType {
   totalPages: number
   data: StudentAttendedEvent[]
 }
+
+export interface StudentRegisteredEvent extends EventType {
+  roleId: string
+  role: string
+  score: number
+}
+
+export interface StudentRegisteredEventsListType {
+  total: number
+  totalPages: number
+  data: StudentRegisteredEvent[]
+}

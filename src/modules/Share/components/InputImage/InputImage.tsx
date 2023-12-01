@@ -2,6 +2,7 @@
 import { Fragment, useRef } from 'react'
 import { UseFormRegister } from 'react-hook-form'
 import Button from '../Button'
+import classNames from 'classnames'
 
 interface Props {
   onChange?: (file?: File) => void
@@ -9,9 +10,21 @@ interface Props {
   previewImage: string
   avatar?: string
   disabled?: boolean
+  children?: React.ReactNode
+  classNameButton?: string
+  isHiddenButton: boolean
 }
 
-const InputImage = ({ onChange, register, previewImage, avatar, disabled }: Props) => {
+const InputImage = ({
+  onChange,
+  register,
+  previewImage,
+  avatar,
+  disabled,
+  children,
+  classNameButton = 'absolute bg-slate-100 outline-none w-[48px] h-[48px] bottom-6 right-6 rounded-full',
+  isHiddenButton
+}: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const OnFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,38 +47,25 @@ const InputImage = ({ onChange, register, previewImage, avatar, disabled }: Prop
         onChange={OnFileChange}
         onClick={(event) => ((event.target as any).value = null)}
       />
-      <div className='relative bg-[#AAE4E6] outline-none h-full w-full rounded-2xl'>
-        <img
-          src={
-            previewImage ||
-            (avatar && avatar) ||
-            'http://res.cloudinary.com/dboijruhe/image/upload/v1700115786/ServeSync/66ff73a6-cf63-4258-8c45-c61192b850e3-background-default.jpg'
-          }
-          alt='avatar'
-          className='top-0 h-full w-full object-cover object-center absolute rounded-2xl'
-        />
+      <div className='relative bg-[#fbfbfb] outline-none h-full w-full rounded-xl overflow-hidden'>
+        {previewImage || (avatar && avatar) ? (
+          <img
+            src={previewImage || (avatar && avatar)}
+            alt=''
+            className='top-0 h-full w-full object-cover object-center absolute rounded-xl'
+          />
+        ) : (
+          <div className='border-[1px] w-full h-full rounded-xl'></div>
+        )}
         <Button
           type='button'
-          classNameButton='absolute bg-slate-100 outline-none w-[48px] h-[48px] bottom-6 right-6 rounded-full'
+          classNameButton={classNames(classNameButton, {
+            'opacity-0': (previewImage || (avatar && avatar)) && isHiddenButton === true
+          })}
           onClick={handleUploadFile}
           disabled={disabled}
         >
-          <div className='flex items-center justify-center'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth={1.5}
-              stroke='currentColor'
-              className='w-6 h-6'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'
-              />
-            </svg>
-          </div>
+          {children}
         </Button>
       </div>
     </Fragment>
