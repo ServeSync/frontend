@@ -15,9 +15,10 @@ import { handleError } from 'src/modules/Share/utils'
 
 interface Props {
   handleCloseModalProofFormExternal: () => void
+  handleCloseModalProofSelect: () => void
 }
 
-const ProofExternalForm = ({ handleCloseModalProofFormExternal }: Props) => {
+const ProofExternalForm = ({ handleCloseModalProofFormExternal, handleCloseModalProofSelect }: Props) => {
   const [file, setFile] = useState<File>()
 
   const previewImage = useMemo(() => {
@@ -48,6 +49,8 @@ const ProofExternalForm = ({ handleCloseModalProofFormExternal }: Props) => {
       data,
       file as File,
       () => {
+        handleCloseModalProofFormExternal()
+        handleCloseModalProofSelect()
         toast.success('Tạo minh chứng thành công !')
       },
       (error: any) => {

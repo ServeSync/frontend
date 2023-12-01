@@ -1,4 +1,4 @@
-import { Autocomplete, TextField } from '@mui/material'
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import Button from '../../../../Share/components/Button'
 import { useEffect, useState } from 'react'
 import ModalCustom from 'src/modules/Share/components/Modal'
@@ -37,10 +37,11 @@ const ProofSelect = ({ handleCloseModalProofSelect, studentId }: Props) => {
   useEffect(() => {
     proofType === 'internal' && handleOpenModalProofFormInternal()
     proofType === 'external' && handleOpenModalProofFormExternal()
+    setProofType('')
   }, [proofType])
 
   return (
-    <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg w-[620px]'>
+    <div className='flex flex-col justify-between gap-6 items-center bg-white px-6 rounded-lg w-[620px] pt-8 pb-16'>
       <div className='flex justify-between items-center w-full'>
         <div>
           <h2 className='text-[20px] font-semibold'>Đơn nộp minh chứng</h2>
@@ -62,28 +63,35 @@ const ProofSelect = ({ handleCloseModalProofSelect, studentId }: Props) => {
       <form className='w-full'>
         <div className='flex flex-col gap-6'>
           <div className='flex flex-col gap-4'>
-            <label htmlFor='event_id'>Sự kiện</label>
-            <Autocomplete
-              disablePortal
-              id='event_id'
-              options={proofTypes}
-              value={proofTypes.find((option) => option.id === proofType)}
-              getOptionLabel={(option) => option.name}
-              noOptionsText='Không có lựa chọn'
-              renderInput={(params) => <TextField {...params} />}
-              onChange={(_, option) => {
-                setProofType(option ? option.id : '')
-              }}
-            />
+            <FormControl variant='standard' sx={{ minWidth: 120 }}>
+              <InputLabel id='demo-simple-select-standard-label'>Chọn loại sự kiện</InputLabel>
+              <Select labelId='event_type_id' id='event_type' label='Loại sự kiện' className='pt-2'>
+                {proofTypes.map((item) => (
+                  <MenuItem
+                    value={item.id}
+                    key={item.id}
+                    onClick={() => {
+                      setProofType(item.id)
+                    }}
+                  >
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <ModalCustom isOpenModal={isOpenModalProofFormInternal} handleClose={handleCloseModalProofFormInternal}>
             <ProofInternalForm
               handleCloseModalProofFormInternal={handleCloseModalProofFormInternal}
+              handleCloseModalProofSelect={handleCloseModalProofSelect}
               studentId={studentId}
             />
           </ModalCustom>
           <ModalCustom isOpenModal={isOpenModalProofFormExternal} handleClose={handleCloseModalProofFormExternal}>
-            <ProofExternalForm handleCloseModalProofFormExternal={handleCloseModalProofFormExternal} />
+            <ProofExternalForm
+              handleCloseModalProofFormExternal={handleCloseModalProofFormExternal}
+              handleCloseModalProofSelect={handleCloseModalProofSelect}
+            />
           </ModalCustom>
         </div>
       </form>
