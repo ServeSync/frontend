@@ -17,7 +17,7 @@ import EventsOfStudentTable from 'src/modules/StudentManagement/components/Event
 import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import ExportFile from 'src/modules/StudentManagement/components/ExportFile'
-import ProofSelect from 'src/modules/StudentManagement/components/ProofSelect'
+import ProofSelect from 'src/modules/StudentManagement/components/Proof/ProofSelect'
 
 const ProfileClientPage = () => {
   const { isAuthenticated } = useContext(AppContext)
@@ -160,7 +160,10 @@ const ProfileClientPage = () => {
                       <span>Minh chứng</span>
                     </Button>
                     <ModalCustom isOpenModal={isOpenModalProofSelect} handleClose={handleCloseModalProofSelect}>
-                      <ProofSelect handleCloseModalProofSelect={handleCloseModalProofSelect} />
+                      <ProofSelect
+                        handleCloseModalProofSelect={handleCloseModalProofSelect}
+                        studentId={profile.id as string}
+                      />
                     </ModalCustom>
                     <Button
                       onClick={handleOpenModalExportFile}

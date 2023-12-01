@@ -1,6 +1,6 @@
 import http from 'src/modules/Share/utils/http'
 import { StudentForm, StudentType, StudentsListConfig, StudentsListType } from '../../interfaces'
-import { StudentAttendedEventsListType } from 'src/modules/EventManagement/interfaces'
+import { StudentAttendedEventsListType, StudentRegisteredEventsListType } from 'src/modules/EventManagement/interfaces'
 import { FormExportFileType } from '../../utils'
 
 const studentAPI = {
@@ -27,7 +27,9 @@ const studentAPI = {
     }),
 
   getAttendedEvents: (id: string, page: number) =>
-    http.get<StudentAttendedEventsListType>(`/students/${id}/attendance-events`, { params: { page } })
+    http.get<StudentAttendedEventsListType>(`/students/${id}/attendance-events`, { params: { page } }),
+
+  getRegisteredEvents: (id: string) => http.get<StudentRegisteredEventsListType>(`/students/${id}/registered-events`)
 }
 
 export default studentAPI

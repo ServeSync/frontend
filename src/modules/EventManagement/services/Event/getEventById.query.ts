@@ -12,7 +12,7 @@ class GetEventByIdQuery {
     this._query = useQuery({
       queryKey: ['event', id],
       queryFn: () => eventAPI.getEventById(id),
-      enabled: id !== undefined,
+      enabled: id !== undefined && id !== '',
       onError: (error: any) => {
         handleError(error)
       }
