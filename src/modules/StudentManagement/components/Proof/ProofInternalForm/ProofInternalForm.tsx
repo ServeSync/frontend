@@ -249,8 +249,32 @@ const ProofInternalForm = ({ handleCloseModalProofFormInternal, studentId }: Pro
               )}
             />
             <div className='col-span-2'>
-              <div className='w-full h-[80px] rounded-xl'>
-                <InputImage register={register} onChange={handleChangeFile} previewImage={previewImage} />
+              <div className='w-full h-[240px] rounded-lg'>
+                <InputImage
+                  register={register}
+                  onChange={handleChangeFile}
+                  previewImage={previewImage}
+                  classNameButton='absolute bg-slate-200 outline-none w-full h-full top-0 left-0'
+                  isHiddenButton={true}
+                >
+                  <div className='flex items-center justify-center'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='w-8 h-8'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15'
+                      />
+                    </svg>
+                  </div>
+                  <span>Tải ảnh minh chứng tham gia sự kiện</span>
+                </InputImage>
               </div>
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
                 {errors.imageUrl?.message}
