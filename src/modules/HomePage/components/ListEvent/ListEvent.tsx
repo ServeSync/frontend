@@ -1,6 +1,6 @@
 /* eslint-disable import/named */
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { listEventStatus } from 'src/modules/EventManagement/constants'
 import { FormFilterEventSchema, FormFilterEventType } from 'src/modules/EventManagement/utils'
@@ -29,7 +29,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
   const [scrolled, setScrolled] = useState(true)
 
   useEffect(() => {
-    window.scrollTo(0, 300)
+    window.scrollTo(0, 0)
     setScrolled(false)
   }, [events, scrolled])
 
@@ -74,7 +74,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
   const isOpen = Boolean(anchorEl)
   const id = isOpen ? 'popover' : undefined
   return (
-    <div>
+    <Fragment>
       <div
         className='w-full flex justify-center items-center pb-24 pt-10'
         style={{
@@ -168,7 +168,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
         pathname={path.list_events}
         className='flex justify-center'
       />
-    </div>
+    </Fragment>
   )
 }
 

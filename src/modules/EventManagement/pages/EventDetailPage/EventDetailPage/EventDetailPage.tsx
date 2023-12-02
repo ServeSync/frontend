@@ -173,7 +173,7 @@ const EventDetailPage = () => {
                 className='w-full min-h-[500px] max-h-[600px] rounded-3xl max-w-full object-cover'
               />
               <div className='bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-[70%] absolute right-0 left-0 mx-auto bottom-[-160px] grid grid-cols-3 px-10 py-8 rounded-2xl gap-4'>
-                <div className='col-span-1 flex flex-col gap-4'>
+                <div className='col-span-1 flex flex-col gap-4 justify-end'>
                   <div className='flex gap-2'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -255,9 +255,9 @@ const EventDetailPage = () => {
                     </span>
                   </div>
                 </div>
-                <Button classNameButton='col-span-1 flex justify-center outline-none' onClick={handleOpenModalMapImage}>
+                <Button classNameButton='col-span-1 flex justify-end outline-none' onClick={handleOpenModalMapImage}>
                   {mapImageURL && (
-                    <img src={mapImageURL} alt='Static Map' className='object-cover h-[200px] rounded-lg' />
+                    <img src={mapImageURL} alt='Static Map' className='object-cover h-[160px] rounded-lg' />
                   )}
                 </Button>
                 <MapImageModal
@@ -265,7 +265,7 @@ const EventDetailPage = () => {
                   isOpenModalMapImage={isOpenModalMapImage}
                   handleCloseModalMapImage={handleCloseModalMapImage}
                 />
-                <div className='col-span-1 flex flex-col gap-10'>
+                <div className='col-span-1 flex flex-col gap-10 justify-end'>
                   <div className='gap-2 flex flex-col'>
                     <div className='flex justify-between'>
                       <p className='font-semibold text-[16px] text-[#1F2933] break-words'>Khung giờ đăng ký</p>

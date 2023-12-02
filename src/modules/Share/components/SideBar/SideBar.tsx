@@ -324,7 +324,7 @@ const SideBar = () => {
             </Restricted>
             <li className='py-2'>
               <NavLink
-                to={path.proof}
+                to={path.proofs}
                 className={({ isActive }) =>
                   classNames(
                     'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
