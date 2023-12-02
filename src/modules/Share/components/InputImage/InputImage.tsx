@@ -51,7 +51,7 @@ const InputImage = ({
         {previewImage || (avatar && avatar) ? (
           <img
             src={previewImage || (avatar && avatar)}
-            alt=''
+            alt='avatar'
             className='top-0 h-full w-full object-cover object-center absolute rounded-xl'
           />
         ) : (

@@ -18,10 +18,11 @@ import { FormProofInternalSchema, FormProofInternalType } from 'src/modules/Stud
 
 interface Props {
   handleCloseModalProofFormInternal: () => void
+  handleCloseModalProofSelect: () => void
   studentId: string
 }
 
-const ProofInternalForm = ({ handleCloseModalProofFormInternal, studentId }: Props) => {
+const ProofInternalForm = ({ handleCloseModalProofFormInternal, handleCloseModalProofSelect, studentId }: Props) => {
   const [eventId, setEventId] = useState<string>()
 
   const getRegisteredEventsByStudent = new GetRegisteredEventsByStudent(studentId)
@@ -62,6 +63,7 @@ const ProofInternalForm = ({ handleCloseModalProofFormInternal, studentId }: Pro
       file as File,
       () => {
         handleCloseModalProofFormInternal()
+        handleCloseModalProofSelect()
         toast.success('Tạo minh chứng thành công !')
       },
       (error: any) => {
@@ -219,10 +221,11 @@ const ProofInternalForm = ({ handleCloseModalProofFormInternal, studentId }: Pro
             </div>
             <div className='col-span-1 mb-[18px]'>
               <TextField
+                defaultValue=''
                 id='score'
                 label='Điểm'
                 className='w-full bg-white'
-                value={events ? events.find((option) => option.id === eventId)?.score : ''}
+                value={(events && events.find((option) => option.id === eventId)?.score) || ''}
                 InputProps={{
                   disabled: true
                 }}
