@@ -53,6 +53,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
       pathname: path.list_events,
       search: createSearchParams(omitBy(config, isEmpty) as URLSearchParamsInit).toString()
     })
+    handleClosePopover()
   })
 
   const handleResetFormFilter = () => {
@@ -139,11 +140,11 @@ const ListEvent = ({ events, pageSize }: Props) => {
             onClose={handleClosePopover}
             anchorOrigin={{
               vertical: 'bottom',
-              horizontal: 'center'
+              horizontal: 'right'
             }}
             transformOrigin={{
               vertical: 'top',
-              horizontal: 'center'
+              horizontal: 'right'
             }}
             anchorReference='anchorEl'
           >
