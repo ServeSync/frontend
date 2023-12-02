@@ -3,7 +3,7 @@
 import { useMutation } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
 import proofAPI from './proof.api'
-import { FormProofExternalType } from '../../utils'
+import { FormProofExternalType } from 'src/modules/StudentManagement/utils'
 
 class MakeProofExternalCommandHandler {
   private _uploadImageMutation

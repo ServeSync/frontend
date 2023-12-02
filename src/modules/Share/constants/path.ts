@@ -25,7 +25,7 @@ const path = {
   event_organization: '/admin/event_organizations',
   create_organization: '/admin/event_organizations/create',
   edit_event_organization: '/admin/event_organizations/edit',
-  proof: '/admin/proofs',
+  proofs: '/admin/proofs',
   complaint: '/admin/complaints'
 } as const
 
