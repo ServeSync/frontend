@@ -21,6 +21,9 @@ class ApproveProof {
         this._queryClient.invalidateQueries({
           queryKey: ['proofs']
         })
+        this._queryClient.invalidateQueries({
+          queryKey: ['proof', id]
+        })
         handleSuccess()
       },
       onError: (error: any) => {
