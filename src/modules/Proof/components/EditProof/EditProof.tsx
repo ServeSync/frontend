@@ -12,7 +12,7 @@ import { ApproveProof, RejectProof } from 'src/modules/StudentManagement/service
 import { useNavigate } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import { toast } from 'react-toastify'
-import { handleError } from 'src/modules/Share/utils'
+import { formatDateTimeVN, handleError } from 'src/modules/Share/utils'
 
 interface Props {
   proof: ProofDetailType
@@ -107,7 +107,7 @@ const EditProof = ({ proof, handleCloseModalChange }: Props) => {
                 <TextField
                   id='organizationName'
                   label='Thời gian bắt đầu'
-                  value={proof.startAt}
+                  value={formatDateTimeVN(proof.startAt)}
                   className='w-full bg-white'
                   InputProps={{
                     readOnly: true
@@ -118,7 +118,7 @@ const EditProof = ({ proof, handleCloseModalChange }: Props) => {
                 <TextField
                   id='organizationName'
                   label='Thời gian kết thúc'
-                  value={proof.endAt}
+                  value={formatDateTimeVN(proof.endAt)}
                   className='w-full bg-white'
                   InputProps={{
                     readOnly: true
@@ -143,7 +143,7 @@ const EditProof = ({ proof, handleCloseModalChange }: Props) => {
                 <TextField
                   id=''
                   label='Thời gian điểm danh'
-                  value={proof.attendanceAt}
+                  value={formatDateTimeVN(proof.attendanceAt)}
                   className='w-full bg-white'
                   InputProps={{
                     readOnly: true
