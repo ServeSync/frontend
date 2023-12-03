@@ -8,7 +8,8 @@ export const HandleHeading = (location: string) => {
     students: 'Quản lý sinh viên',
     roles: 'Quản lý Roles',
     pending_events: 'Quản lý đề nghị hợp tác',
-    event_organizations: 'Quản lý nhà tổ chức sự kiện'
+    event_organizations: 'Quản lý nhà tổ chức sự kiện',
+    proofs: 'Quản lý minh chứng'
   }
   return mappedHeading[`${location}`]
 }

@@ -38,6 +38,23 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
     }
   }, [profile, setValue])
 
+  const handleReset = () => {
+    if (profile) {
+      setValue('code', profile.code)
+      setValue('fullName', profile.fullName)
+      setValue('email', profile.email)
+      setValue('gender', profile.gender.toString())
+      setValue('birth', formatDateOfBirth(profile.dateOfBirth))
+      setValue('phone', profile.phone)
+      setValue('homeTown', profile.homeTown)
+      setValue('address', profile.address)
+      setValue('citizenId', profile.citizenId)
+      setValue('facultyId', profile.faculty.name)
+      setValue('homeRoomId', profile.homeRoom.name)
+      setValue('educationProgramId', profile.educationProgram.name)
+      setValue('imageUrl', profile.imageUrl)
+    }
+  }
   return (
     <Fragment>
       <div className='grid grid-cols-6 gap-6'>
@@ -297,7 +314,11 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
         </div>
       </div>
       <div className='flex justify-end gap-6 pt-5'>
-        <Button type='button' classNameButton='bg-[#9a9a9a] py-2 px-4 rounded-lg text-[16px] text-white font-semibold'>
+        <Button
+          onClick={handleReset}
+          type='button'
+          classNameButton='bg-[#9a9a9a] py-2 px-4 rounded-lg text-[16px] text-white font-semibold'
+        >
           Làm mới
         </Button>
         <Button

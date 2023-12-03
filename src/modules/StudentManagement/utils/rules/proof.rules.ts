@@ -93,3 +93,8 @@ export const FormProofSpecialSchema = yup.object().shape({
 })
 
 export type FormProofSpecialType = yup.InferType<typeof FormProofSpecialSchema>
+export const FormRejectProofSchema = yup.object().shape({
+  rejectReason: yup.string().required('Vui lòng nhập lý do !').min(10, 'Lý do có ít nhất 10 kí tự !')
+})
+
+export type FormRejectProofType = yup.InferType<typeof FormRejectProofSchema>

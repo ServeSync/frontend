@@ -40,7 +40,7 @@ const ChangeTenant = ({ profile }: Props) => {
           onClick={() => handleExchangeTenant(tenant.id)}
         >
           <Avatar alt='avatar' src={tenant.avatarUrl} sx={{ width: 16, height: 16 }} className='mr-3' />
-          <span className='w-[150px] truncate text-sm font-medium'>{tenant.name}</span>
+          <span className='min-w-[120px] w-full truncate flex justify-start text-sm font-medium'>{tenant.name}</span>
         </button>
       ))}
     </div>
