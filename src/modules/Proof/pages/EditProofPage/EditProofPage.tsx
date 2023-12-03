@@ -38,7 +38,7 @@ const EditProofPage = ({ proofId, handleCloseModalChange }: Props) => {
           <h2 className='font-semibold'>Thông tin chung</h2>
           <div className='flex justify-between'>
             <div className='px-2 py-4 font-medium flex items-center gap-x-3'>
-              <img src={proof?.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
+              <img src={proof.student.imageUrl} alt='' className='rounded-full object-cover w-[50px] h-[50px]' />
               <div className='flex flex-col'>
                 <span className='font-semibold'>{proof.student.fullName}</span>
                 <span className='text-gray-400 text-[12px]'>{proof.student.email}</span>
