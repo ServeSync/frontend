@@ -27,7 +27,6 @@ const ProofPage = () => {
   const getAllProofQuery = new GetAllProofsQuery()
 
   const proofs = getAllProofQuery.fetch()
-  console.log(proofs)
   const FilterProofForm = useForm<FormFilterProofType>({
     resolver: yupResolver(FormFilterProofSchema)
   })
