@@ -7,7 +7,7 @@ export const ProofTableHeader = [
   {
     id: '2',
     name: 'Tên sinh viên',
-    sort: 'Fullname'
+    sort: 'StudentName'
   },
   {
     id: '3',
