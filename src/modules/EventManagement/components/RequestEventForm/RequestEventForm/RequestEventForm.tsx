@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Editor } from 'react-draft-wysiwyg'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormRequestEventType, FormSearchMapSchema, FormSearchMapType } from '../../../utils'
-import { ActivityType, EventCategoryType, LocationType, MarkerType } from '../../../interfaces'
+import { EventActivityType, EventCategoryType, LocationType, MarkerType } from '../../../interfaces'
 import { eventType } from '../../../constants'
 import Button from 'src/modules/Share/components/Button'
 import Map from '../../Map'
@@ -23,7 +23,7 @@ interface Props {
   errors: FieldErrors<FormRequestEventType>
   setValue: UseFormSetValue<FormRequestEventType>
   eventCategories: EventCategoryType[]
-  activities: ActivityType[]
+  activities: EventActivityType[]
   previewImage: string
   handleChangeFile: (file?: File) => void
   handleChangeCategory: (id: string) => void

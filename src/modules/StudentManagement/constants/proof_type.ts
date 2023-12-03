@@ -1,10 +1,14 @@
 export const proofTypes = [
   {
     id: 'internal',
-    name: 'Sự kiện trong trường'
+    name: 'Minh chứng sự kiện trong trường'
   },
   {
     id: 'external',
-    name: 'Sự kiện ngoài trường'
+    name: 'Minh chứng sự kiện ngoài trường'
+  },
+  {
+    id: 'special',
+    name: 'Minh chứng đặc biệt'
   }
 ]

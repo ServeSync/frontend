@@ -5,6 +5,7 @@ import ModalCustom from 'src/modules/Share/components/Modal'
 import { proofTypes } from 'src/modules/StudentManagement/constants'
 import ProofInternalForm from '../ProofInternalForm'
 import ProofExternalForm from '../ProofExternalForm'
+import ProofSpecialForm from '../ProofSpecialForm'
 
 interface Props {
   handleCloseModalProofSelect: () => void
@@ -34,9 +35,20 @@ const ProofSelect = ({ handleCloseModalProofSelect, studentId }: Props) => {
     setIsOpenModalProofFormExternal(false)
   }
 
+  const [isOpenModalProofFormSpecial, setIsOpenModalProofFormSpecial] = useState<boolean>(false)
+
+  const handleOpenModalProofFormSpecial = () => {
+    setIsOpenModalProofFormSpecial(true)
+  }
+
+  const handleCloseModalProofFormSpecial = () => {
+    setIsOpenModalProofFormSpecial(false)
+  }
+
   useEffect(() => {
     proofType === 'internal' && handleOpenModalProofFormInternal()
     proofType === 'external' && handleOpenModalProofFormExternal()
+    proofType === 'special' && handleOpenModalProofFormSpecial()
     setProofType('')
   }, [proofType])
 
@@ -64,8 +76,8 @@ const ProofSelect = ({ handleCloseModalProofSelect, studentId }: Props) => {
         <div className='flex flex-col gap-6'>
           <div className='flex flex-col gap-4'>
             <FormControl variant='standard' sx={{ minWidth: 120 }}>
-              <InputLabel id='demo-simple-select-standard-label'>Chọn loại sự kiện</InputLabel>
-              <Select labelId='event_type_id' id='event_type' label='Loại sự kiện' className='pt-2'>
+              <InputLabel id='demo-simple-select-standard-label'>Chọn loại minh chứng</InputLabel>
+              <Select labelId='proof_type_id' id='proof_type' label='Loại minh chứng' className='pt-2'>
                 {proofTypes.map((item) => (
                   <MenuItem
                     value={item.id}
@@ -90,6 +102,12 @@ const ProofSelect = ({ handleCloseModalProofSelect, studentId }: Props) => {
           <ModalCustom isOpenModal={isOpenModalProofFormExternal} handleClose={handleCloseModalProofFormExternal}>
             <ProofExternalForm
               handleCloseModalProofFormExternal={handleCloseModalProofFormExternal}
+              handleCloseModalProofSelect={handleCloseModalProofSelect}
+            />
+          </ModalCustom>
+          <ModalCustom isOpenModal={isOpenModalProofFormSpecial} handleClose={handleCloseModalProofFormSpecial}>
+            <ProofSpecialForm
+              handleCloseModalProofFormSpecial={handleCloseModalProofFormSpecial}
               handleCloseModalProofSelect={handleCloseModalProofSelect}
             />
           </ModalCustom>

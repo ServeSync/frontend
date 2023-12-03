@@ -1,4 +1,4 @@
-export interface ActivityType {
+export interface EventActivityType {
   minScore: number
   maxScore: number
   eventCategoryId: string

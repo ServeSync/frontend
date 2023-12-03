@@ -260,23 +260,14 @@ const ProofInternalForm = ({ handleCloseModalProofFormInternal, handleCloseModal
                   classNameButton='absolute bg-slate-200 outline-none w-full h-full top-0 left-0'
                   isHiddenButton={true}
                 >
-                  <div className='flex items-center justify-center'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-8 h-8'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15'
-                      />
-                    </svg>
+                  <div className='flex flex-col justify-center items-center h-full border-[2px] border-dashed border-[#26c6da] rounded-xl'>
+                    <img
+                      className='w-[100px] mb-4'
+                      src='http://res.cloudinary.com/dboijruhe/image/upload/v1701487948/Assets/bda934d3-0b4c-4167-9522-2181193105c1-upload.png'
+                      alt=''
+                    />
+                    <span>Tải ảnh minh chứng tham gia sự kiện</span>
                   </div>
-                  <span>Tải ảnh minh chứng tham gia sự kiện</span>
                 </InputImage>
               </div>
               <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>

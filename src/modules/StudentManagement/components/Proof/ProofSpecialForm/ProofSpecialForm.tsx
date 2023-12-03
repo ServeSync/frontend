@@ -8,18 +8,18 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import InputImage from 'src/modules/Share/components/InputImage'
-import { FormProofExternalSchema, FormProofExternalType } from 'src/modules/StudentManagement/utils'
-import { MakeProofExternalCommandHandler } from 'src/modules/StudentManagement/services/Proof'
+import { FormProofSpecialSchema, FormProofSpecialType } from 'src/modules/StudentManagement/utils'
+import { MakeProofSpecialCommandHandler } from 'src/modules/StudentManagement/services/Proof'
 import { toast } from 'react-toastify'
 import { handleError } from 'src/modules/Share/utils'
 import { GetAllEventActivitiesQuery } from 'src/modules/EventManagement/services'
 
 interface Props {
-  handleCloseModalProofFormExternal: () => void
+  handleCloseModalProofFormSpecial: () => void
   handleCloseModalProofSelect: () => void
 }
 
-const ProofExternalForm = ({ handleCloseModalProofFormExternal, handleCloseModalProofSelect }: Props) => {
+const ProofSpecialForm = ({ handleCloseModalProofFormSpecial, handleCloseModalProofSelect }: Props) => {
   const [file, setFile] = useState<File>()
 
   const previewImage = useMemo(() => {
@@ -32,7 +32,7 @@ const ProofExternalForm = ({ handleCloseModalProofFormExternal, handleCloseModal
     setError('imageUrl', { message: '' })
   }
 
-  const getAllEventActivitiesQuery = new GetAllEventActivitiesQuery('Event')
+  const getAllEventActivitiesQuery = new GetAllEventActivitiesQuery('Individual')
   const activities = getAllEventActivitiesQuery.fetch()
 
   const {
@@ -42,23 +42,23 @@ const ProofExternalForm = ({ handleCloseModalProofFormExternal, handleCloseModal
     setValue,
     setError,
     formState: { errors }
-  } = useForm<FormProofExternalType>({
-    resolver: yupResolver(FormProofExternalSchema)
+  } = useForm<FormProofSpecialType>({
+    resolver: yupResolver(FormProofSpecialSchema)
   })
 
-  const makeProofExternalCommandHandler = new MakeProofExternalCommandHandler()
+  const makeProofSpecialCommandHandler = new MakeProofSpecialCommandHandler()
 
   const handleSubmitForm = handleSubmit((data) => {
-    makeProofExternalCommandHandler.handle(
+    makeProofSpecialCommandHandler.handle(
       data,
       file as File,
       () => {
-        handleCloseModalProofFormExternal()
+        handleCloseModalProofFormSpecial()
         handleCloseModalProofSelect()
         toast.success('Tạo minh chứng thành công !')
       },
       (error: any) => {
-        handleError<FormProofExternalType>(error, setError)
+        handleError<FormProofSpecialType>(error, setError)
       }
     )
   })
@@ -70,7 +70,7 @@ const ProofExternalForm = ({ handleCloseModalProofFormExternal, handleCloseModal
           <h2 className='text-[20px] font-semibold'>Đơn nộp minh chứng</h2>
           <h4 className='text-[12px]'>Đơn này với mục đích nhà trường sẽ xác nhận bạn đã tham gia sự kiện trước đó.</h4>
         </div>
-        <Button classNameButton='p-2 hover:bg-slate-100 rounded-lg' onClick={handleCloseModalProofFormExternal}>
+        <Button classNameButton='p-2 hover:bg-slate-100 rounded-lg' onClick={handleCloseModalProofFormSpecial}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -88,51 +88,15 @@ const ProofExternalForm = ({ handleCloseModalProofFormExternal, handleCloseModal
           <div className='grid grid-cols-2 gap-3'>
             <h2 className='col-span-2'>Thông tin sự kiện</h2>
             <Controller
-              name='eventName'
+              name='title'
               control={control}
               render={({ field: { onChange }, fieldState: { error } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <div className='col-span-2'>
                     <TextField
-                      id='eventName'
-                      label='Tên sự kiện'
-                      placeholder='Nhập tên sự kiên'
-                      className='w-full bg-white '
-                      onChange={onChange}
-                    />
-                    <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
-                  </div>
-                </LocalizationProvider>
-              )}
-            />
-            <Controller
-              name='address'
-              control={control}
-              render={({ field: { onChange }, fieldState: { error } }) => (
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <div className='col-span-2'>
-                    <TextField
-                      id='organizationName'
-                      label='Địa chỉ sự kiện'
-                      placeholder='Nhập địa chỉ sự kiện'
-                      className='w-full bg-white '
-                      onChange={onChange}
-                    />
-                    <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
-                  </div>
-                </LocalizationProvider>
-              )}
-            />
-            <Controller
-              name='organizationName'
-              control={control}
-              render={({ field: { onChange }, fieldState: { error } }) => (
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <div className='col-span-2'>
-                    <TextField
-                      id='organizationName'
-                      label='Nhà tổ chức'
-                      placeholder='Nhập tên nhà tổ chức'
+                      id='title'
+                      label='Tiêu đề minh chứng'
+                      placeholder='Nhập tiêu đề minh chứng'
                       className='w-full bg-white '
                       onChange={onChange}
                     />
@@ -184,26 +148,6 @@ const ProofExternalForm = ({ handleCloseModalProofFormExternal, handleCloseModal
           </div>
           <div className='grid grid-cols-2 gap-3'>
             <h2 className='col-span-2'>Thông tin tham gia sự kiện</h2>
-            <Controller
-              name='attendanceAt'
-              control={control}
-              render={({ field: { onChange, value = null }, fieldState: { error } }) => (
-                <div className='mt-[-8px] col-span-2'>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DatePicker']}>
-                      <DatePicker
-                        label='Ngày điểm danh'
-                        format='DD/MM/YYYY'
-                        onChange={onChange}
-                        value={value}
-                        className='bg-white w-full'
-                      />
-                    </DemoContainer>
-                  </LocalizationProvider>
-                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
-                </div>
-              )}
-            />
             <Controller
               name='role'
               control={control}
@@ -310,7 +254,7 @@ const ProofExternalForm = ({ handleCloseModalProofFormExternal, handleCloseModal
             <Button
               type='submit'
               classNameButton='flex justify-center items-center bg-[#26c6da] w-[118px] h-[40px] text-white p-2 rounded-xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90'
-              isLoading={makeProofExternalCommandHandler.isLoading()}
+              isLoading={makeProofSpecialCommandHandler.isLoading()}
             >
               Xác nhận
             </Button>
@@ -321,4 +265,4 @@ const ProofExternalForm = ({ handleCloseModalProofFormExternal, handleCloseModal
   )
 }
 
-export default ProofExternalForm
+export default ProofSpecialForm

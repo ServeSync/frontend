@@ -1,6 +1,7 @@
 export * from './Event'
 export * from './EventAttendance'
 export * from './EventCategory'
+export * from './EventActivity'
 export * from './EventForm'
 export * from './Map'
 export * from './RequestEventForm'
