@@ -92,12 +92,7 @@ const ProofPage = () => {
           </Button>
         </PopoverCustom>
       </div>
-      <ProofTable
-        proof={proof}
-        isLoading={getAllProofQuery.isLoading()}
-        onSort={SortProof.handleSort}
-        onEditProof={() => {}}
-      />
+      <ProofTable proof={proof} isLoading={getAllProofQuery.isLoading()} onSort={SortProof.handleSort} />
       <Pagination
         queryConfig={queryProofConfig}
         pageSize={getAllProofQuery.getTotalPages()}

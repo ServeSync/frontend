@@ -12,7 +12,6 @@ interface Props {
   proof: ProofListType
   isLoading: boolean
   onSort: (column: string) => void
-  onEditProof: (id: string) => void
 }
 
 const ProofTable = ({ proof, isLoading, onSort }: Props) => {

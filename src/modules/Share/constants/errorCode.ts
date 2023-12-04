@@ -14,7 +14,7 @@ export function ErrorCodeToMessage(errorCode: string): {
   const mappedErrorCode: ErrorCode = {
     // Auth
     'User:000001': {
-      message: 'Người dùng  không tồn tại !',
+      message: 'Người dùng không tồn tại !',
       type: 'Server'
     },
     'User:000002': {
@@ -49,6 +49,10 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server',
       field: 'name'
     },
+    'Role:000001': {
+      message: 'Role không tồn tại !',
+      type: 'Server'
+    },
     'Role:000004': {
       message: 'Role không cho phép thêm mới, xóa và chỉnh sửa !',
       type: 'Server'
@@ -69,20 +73,20 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server'
     },
     'Student:000004': {
-      message: 'Email đã tồn tại!',
+      message: 'Email đã tồn tại !',
       type: 'Server',
       field: 'email'
     },
     'Student:000007': {
-      message: 'Bạn đã đăng kí sự kiện với vai trò đã chọn',
+      message: 'Bạn đã đăng kí sự kiện với vai trò đã chọn !',
       type: 'Server'
     },
     'Student:000008': {
-      message: 'Bạn đã được chấp nhận tham gia sự kiện',
+      message: 'Bạn đã được chấp nhận tham gia sự kiện !',
       type: 'Server'
     },
     'Student:000009': {
-      message: 'Bạn đã điểm danh tham gia sự kiện !',
+      message: 'Bạn đã điểm danh sự kiện !',
       type: 'Server'
     },
     'Student:000010': {
@@ -144,12 +148,16 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Sự kiện không thể được chấp thuận !',
       type: 'Server'
     },
-    'Event:00000': {
+    'Event:000008': {
       message: 'Sự kiện không thể bị từ chối !',
       type: 'Server'
     },
     'Event:000009': {
       message: 'Sự kiện không thể cập nhật vì sự kiện đã diễn ra phiên đăng ký !',
+      type: 'Server'
+    },
+    'Event:000010': {
+      message: 'Sự kiện không ở trạng thái đã tổ chức !',
       type: 'Server'
     },
     // Event Attendance
@@ -176,7 +184,23 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Không thể cập nhật thông tin điểm danh !',
       type: 'Server'
     },
-
+    // Event Role
+    'EventRole:000002': {
+      message: 'Vai trò không tồn tại !',
+      type: 'Server'
+    },
+    'EventRole:000003': {
+      message: 'Vai trò đã được đăng ký đủ số lượng !',
+      type: 'Server'
+    },
+    'EventRole:000004': {
+      message: 'Vai trò không thể cập nhật !',
+      type: 'Server'
+    },
+    'EventOrganizationContact:000005': {
+      message: 'Đại diện không ở trạng thái chờ !',
+      type: 'Server'
+    },
     // Organization In Event
     'OrganizationInEvent:000002': {
       message: 'Nhà tổ chức chưa được thêm vào sự kiện !',
@@ -197,29 +221,35 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server',
       field: 'registrationInfos'
     },
+    'EventRegistration:000003': {
+      message: 'Không thể cập nhật thông tin điểm danh !',
+      type: 'Server',
+      field: 'registrationInfos'
+    },
     'EventRegistration:000004': {
       message: 'Khung giờ đăng ký bị trùng nhau !',
       type: 'Server',
       field: 'registrationInfos'
     },
-    // Event Role
-    'EventRole:000002': {
-      message: 'Vai trò không tồn tại !',
+    'EventRegistration:000005': {
+      message: 'Khung giờ đăng ký không tồn tại !',
+      type: 'Server',
+      field: 'registrationInfos'
+    },
+    //Event Category
+    'EventCategory:000001': {
+      message: 'Loại sự kiện không tồn tại !',
       type: 'Server'
     },
-    'EventRole:000003': {
-      message: 'Vai trò đã được đăng ký đủ số lượng !',
+    'EventActivity:000001': {
+      message: 'Hoạt động sự kiện không tồn tại !',
       type: 'Server'
     },
-    'EventRole:000004': {
-      message: 'Vai trò không thể cập nhật !',
-      type: 'Server'
+    'EventActivity:000002': {
+      message: 'Điểm của vai trò không ở trong khung điểm của hoạt động !',
+      type: 'Server',
+      field: 'score'
     },
-    'EventOrganizationContact:000005': {
-      message: 'Đại diện không ở trạng thái chờ !',
-      type: 'Server'
-    },
-
     // Event Collaboration Request
     'EventCollaborationRequest:000001': {
       message: 'Yêu cầu tạo sự kiện không tồn tại !',
@@ -235,10 +265,6 @@ export function ErrorCodeToMessage(errorCode: string): {
     },
     'EventCollaborationRequest:000004': {
       message: 'Không thể từ chối yêu cầu tạo sự kiện !',
-      type: 'Server'
-    },
-    'EventActivity:000001': {
-      message: 'Hoạt động sự kiện không tồn tại !',
       type: 'Server'
     },
     // Event Organization
@@ -287,6 +313,23 @@ export function ErrorCodeToMessage(errorCode: string): {
       message: 'Mật khẩu hiện tại không đúng !',
       type: 'Server',
       field: 'currentPassword'
+    },
+    // Proof
+    'Proof:000001': {
+      message: 'Minh chứng đã được duyệt !',
+      type: 'Server'
+    },
+    'Proof:000002': {
+      message: 'Minh chứng không tồn tại !',
+      type: 'Server'
+    },
+    'Proof:000003': {
+      message: 'Minh chứng đã được xử lí !',
+      type: 'Server'
+    },
+    'Proof:000004': {
+      message: 'Minh chứng không thể xóa !',
+      type: 'Server'
     }
   }
 

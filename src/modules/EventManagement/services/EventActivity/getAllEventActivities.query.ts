@@ -10,8 +10,7 @@ class GetAllEventActivitiesQuery {
     this._query = useQuery({
       queryKey: ['event_activities'],
       queryFn: () => eventActivityAPI.getListEventActivities({ Type: type }),
-      keepPreviousData: true,
-      staleTime: 3 * 60 * 1000
+      keepPreviousData: true
     })
   }
 
