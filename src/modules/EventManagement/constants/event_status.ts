@@ -12,7 +12,7 @@ interface Status {
   [key: string]: string
 }
 
-export const StatusToMessage = (status: string) => {
+export const StatusEventToMessage = (status: string) => {
   const mappedEventStatus: Status = {
     Cancelled: 'Đã hủy',
     Happening: 'Đang diễn ra',

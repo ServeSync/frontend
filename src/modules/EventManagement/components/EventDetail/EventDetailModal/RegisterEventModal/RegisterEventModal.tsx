@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TextField } from '@mui/material'
 import { Fragment, useState } from 'react'
-import { RegisterRoleTableHeader, StatusToMessage } from 'src/modules/EventManagement/constants'
+import { RegisterRoleTableHeader, StatusEventToMessage } from 'src/modules/EventManagement/constants'
 import { EventDetailType, RegisteredEventType } from 'src/modules/EventManagement/interfaces'
 import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
@@ -169,7 +169,7 @@ const RegisterEventModal = ({ event, isOpenModalTableRegisterEvent, handleCloseM
                             Đăng kí
                           </Button>
                         ) : (
-                          StatusToMessage(role.status)
+                          StatusEventToMessage(role.status)
                         )}
                       </th>
                     </tr>

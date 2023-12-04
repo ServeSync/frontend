@@ -41,7 +41,7 @@ const CreateOrganizationPage = lazy(
 const EditEventOrganizationPage = lazy(
   () => import('src/modules/EventOrganizationManagement/pages/EditEventOrganizationPage')
 )
-const ProofPage = lazy(() => import('src/modules/Proof/pages/ProofPage'))
+const ProofPage = lazy(() => import('src/modules/ProofManagement/pages/ProofPage'))
 const NotFound = lazy(() => import('src/modules/Share/components/NotFound'))
 
 const RejectedRoute = () => {
@@ -343,7 +343,7 @@ const useRouteElements = () => {
           )
         },
         {
-          path: path.proofs,
+          path: path.proof,
           element: (
             <MainLayout>
               <Suspense>

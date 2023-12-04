@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { RegisteredStudentsTableHeader, StatusToMessage } from 'src/modules/EventManagement/constants'
+import { RegisteredStudentsTableHeader, StatusEventToMessage } from 'src/modules/EventManagement/constants'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import { RegisteredStudentType } from 'src/modules/EventManagement/interfaces'
 import { GetRegisteredStudentsQuery, RejectRegistrationCommandHandler } from 'src/modules/EventManagement/services'
@@ -185,7 +185,7 @@ const EventRegisterList = () => {
                     <th className='px-2 py-4 font-medium'>{registration.email}</th>
                     <th className='px-2 py-4 font-medium'>{registration.homeRoomName}</th>
                     <th className='px-2 py-4 font-medium'>{registration.role}</th>
-                    <th className='px-2 py-4 font-medium'>{StatusToMessage(registration.status)}</th>
+                    <th className='px-2 py-4 font-medium'>{StatusEventToMessage(registration.status)}</th>
                     <th className='px-2 py-4 font-medium w-[15%]'>{formatDateTime(registration.registeredAt)}</th>
                   </tr>
                 ))}
@@ -222,7 +222,7 @@ const EventRegisterList = () => {
                           'bg-[#eaffe6]/90 text-[#44e751]': registration.status === 'Approved'
                         })}
                       >
-                        {StatusToMessage(registration.status)}
+                        {StatusEventToMessage(registration.status)}
                       </span>
                     </div>
                     <div className='flex justify-between items-center'>

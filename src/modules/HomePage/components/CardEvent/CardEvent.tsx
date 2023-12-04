@@ -4,7 +4,7 @@ import { EventType } from 'src/modules/EventManagement/interfaces'
 import path from 'src/modules/Share/constants/path'
 import classNames from 'classnames'
 import { formatDateTimeVN } from 'src/modules/Share/utils'
-import { StatusToMessage } from 'src/modules/EventManagement/constants'
+import { StatusEventToMessage } from 'src/modules/EventManagement/constants'
 
 interface Props {
   event: EventType
@@ -149,7 +149,7 @@ const CardEvent = ({ event }: Props) => {
                   })}
                 >
                   <span className='font-normal leading-5 max-sm:leading-3 break-words max-sm:text-[6px] text-[13px]'>
-                    {StatusToMessage(event.status)}
+                    {StatusEventToMessage(event.status)}
                   </span>
                 </div>
               </div>

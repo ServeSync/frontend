@@ -1,4 +1,4 @@
-import { StatusToMessage, TimeInfoTableHeader } from 'src/modules/EventManagement/constants'
+import { StatusEventToMessage, TimeInfoTableHeader } from 'src/modules/EventManagement/constants'
 import { EventDetailType } from 'src/modules/EventManagement/interfaces'
 import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
@@ -47,7 +47,7 @@ const AttendanceInformationModal = ({ event, isOpenModalAttendanceInfos, handleC
               >
                 <th className='px-2 py-4 font-medium'>{formatDateTime(attendanceInfo.startAt)}</th>
                 <th className='px-2 py-4 font-medium'>{formatDateTime(attendanceInfo.endAt)}</th>
-                <th className='px-2 py-4 font-medium'>{StatusToMessage(attendanceInfo.status)}</th>
+                <th className='px-2 py-4 font-medium'>{StatusEventToMessage(attendanceInfo.status)}</th>
               </tr>
             ))}
           </tbody>

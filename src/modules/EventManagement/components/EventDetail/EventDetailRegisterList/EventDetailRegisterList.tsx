@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react'
-import { RegisteredStudentsTableHeader, StatusToMessage } from 'src/modules/EventManagement/constants'
+import { RegisteredStudentsTableHeader, StatusEventToMessage } from 'src/modules/EventManagement/constants'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import { GetRegisteredStudentsQuery } from 'src/modules/EventManagement/services'
 import Pagination from 'src/modules/Share/components/Pagination'
@@ -47,7 +47,7 @@ const EventDetailRegisterList = () => {
                     <th className='px-2 py-4 font-medium'>{student.email}</th>
                     <th className='px-2 py-4 font-medium'>{student.homeRoomName}</th>
                     <th className='px-2 py-4 font-medium'>{student.role}</th>
-                    <th className='px-2 py-4 font-medium'>{StatusToMessage(student.status)}</th>
+                    <th className='px-2 py-4 font-medium'>{StatusEventToMessage(student.status)}</th>
                     <th className='px-2 py-4 font-medium w-[15%]'>{formatDateTime(student.registeredAt)}</th>
                   </tr>
                 ))}

@@ -1,7 +1,7 @@
 import HeaderTable from 'src/modules/Share/components/HeaderTable'
 import { EventsPendingListType } from '../../../interfaces'
 import Skeleton from 'react-loading-skeleton'
-import { EventPendingTableHeader, StatusToMessage, TypeToMessage } from '../../../constants'
+import { EventPendingTableHeader, StatusEventToMessage, TypeEventToMessage } from '../../../constants'
 import { formatDateTime } from 'src/modules/Share/utils'
 
 interface Props {
@@ -63,8 +63,8 @@ const EventPendingTable = ({ eventsPending, isLoading, onSort, onEditEventPendin
                 <th className='px-2 py-4 font-medium w-[8%]'>{event.capacity}</th>
                 <th className='px-2 py-4 font-medium w-[15%]'>{formatDateTime(event.startAt)}</th>
                 <th className='px-2 py-4 font-medium w-[15%]'>{formatDateTime(event.endAt)}</th>
-                <th className='px-2 py-4 font-medium w-[10%]'>{TypeToMessage(event.type)}</th>
-                <th className='px-2 py-4 font-medium w-[12%]'>{StatusToMessage(event.status)}</th>
+                <th className='px-2 py-4 font-medium w-[10%]'>{TypeEventToMessage(event.type)}</th>
+                <th className='px-2 py-4 font-medium w-[12%]'>{StatusEventToMessage(event.status)}</th>
               </tr>
             ))}
       </tbody>

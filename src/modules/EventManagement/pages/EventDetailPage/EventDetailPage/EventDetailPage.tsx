@@ -14,7 +14,7 @@ import EventDetailInformationPage from '../EventDetailInformationPage'
 import EventDetailOrganizationPage from '../EventDetailOrganizationPage'
 import Button from 'src/modules/Share/components/Button'
 import { AppContext } from 'src/modules/Share/contexts'
-import { StatusToMessage, TypeToMessage } from 'src/modules/EventManagement/constants'
+import { StatusEventToMessage, TypeEventToMessage } from 'src/modules/EventManagement/constants'
 import MapImageModal from 'src/modules/EventManagement/components/EventDetail/EventDetailModal/MapImageModal'
 import RegistrationInformationModal from 'src/modules/EventManagement/components/EventDetail/EventDetailModal/RegistrationInformationModal'
 import AttendanceInformationModal from 'src/modules/EventManagement/components/EventDetail/EventDetailModal/AttendanceInformationModal'
@@ -118,7 +118,9 @@ const EventDetailPage = () => {
               <div className='flex flex-col'>
                 <h1 className='text-[54px] font-semibold break-words text-[#195E8E]'>{event.name}</h1>
                 <h2 className='text-black text-[25px] font-medium break-words'>{event.introduction}</h2>
-                <span className='text-[#A0A2A4] text-[15px] font-normal break-words'>{TypeToMessage(event.type)}</span>
+                <span className='text-[#A0A2A4] text-[15px] font-normal break-words'>
+                  {TypeEventToMessage(event.type)}
+                </span>
                 <div className='text-center font-medium flex items-center gap-3 mt-2'>
                   <img
                     src={event.representativeOrganization.imageUrl}
@@ -129,7 +131,7 @@ const EventDetailPage = () => {
                     <div className='font-normal flex items-end mb-1'>
                       <span className='font-semibold text-black'> {event.representativeOrganization.name}</span>
                       <span className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-[#A0A2A4] text-[12px] ring-1 ring-inset ring-gray-500/10 ms-3'>
-                        {StatusToMessage(event.calculatedStatus)}
+                        {StatusEventToMessage(event.calculatedStatus)}
                       </span>
                     </div>
                     <span className='text-[#A0A2A4] text-[16px] font-light'>
