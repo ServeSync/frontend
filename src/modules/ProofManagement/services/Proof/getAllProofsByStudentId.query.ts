@@ -1,18 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import proofAPI from './proof.api'
-import { ProofListConfig, ProofsListType } from '../../interfaces'
-import useQueryProofConfig from '../../hooks/useQueryProofConfig'
+import { ProofsListType } from '../../interfaces'
 
 class GetAllProofsQuery {
   private _query
-  private _queryProofConfig
 
-  constructor() {
-    this._queryProofConfig = useQueryProofConfig()
+  constructor(studentId: string) {
     this._query = useQuery({
-      queryKey: ['proofs', this._queryProofConfig],
-      queryFn: () => proofAPI.getListProofs(this._queryProofConfig as ProofListConfig),
+      queryKey: ['proofs_of_student', studentId],
+      queryFn: () => proofAPI.getListProofsByStudentId(studentId),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000
     })
