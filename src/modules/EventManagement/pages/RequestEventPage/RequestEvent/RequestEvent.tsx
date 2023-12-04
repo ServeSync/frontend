@@ -2,7 +2,7 @@ import { Control, FieldErrors, UseFormRegister, UseFormSetValue } from 'react-ho
 import { FormRequestEventType } from '../../../utils'
 import RequestCreateEventForm from '../../../components/RequestEventForm/RequestEventForm'
 import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../../services'
-import { ActivityType, EventCategoryType, MarkerType } from '../../../interfaces'
+import { EventActivityType, EventCategoryType, MarkerType } from '../../../interfaces'
 import { useState } from 'react'
 import { EditorState } from 'draft-js'
 
@@ -45,7 +45,7 @@ const RequestEvent = ({
   const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoryType[]
 
   const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)
-  const activities = getAllActivitiesByCategoryIdQuery.fetch() as ActivityType[]
+  const activities = getAllActivitiesByCategoryIdQuery.fetch() as EventActivityType[]
 
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>

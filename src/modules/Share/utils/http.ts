@@ -24,7 +24,7 @@ class Http {
     this.refreshTokenRequest = null
     this.instance = axios.create({
       baseURL: connect.baseUrl,
-      timeout: 10000,
+      timeout: 15000,
       headers: {
         'Content-Type': 'application/json'
       }

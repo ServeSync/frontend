@@ -25,8 +25,7 @@ const path = {
   event_organization: '/admin/event_organizations',
   create_organization: '/admin/event_organizations/create',
   edit_event_organization: '/admin/event_organizations/edit',
-  proofs: '/admin/proofs',
-  complaint: '/admin/complaints'
+  proof: '/admin/proofs'
 } as const
 
 export default path

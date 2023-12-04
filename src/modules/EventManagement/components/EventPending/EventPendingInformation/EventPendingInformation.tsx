@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material'
 import { ContentState, EditorState, convertFromHTML } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import { StatusToMessage, TypeToMessage } from 'src/modules/EventManagement/constants'
+import { StatusEventToMessage, TypeEventToMessage } from 'src/modules/EventManagement/constants'
 import { EventPendingType } from 'src/modules/EventManagement/interfaces'
 import Button from 'src/modules/Share/components/Button'
 import { formatDateTime } from 'src/modules/Share/utils'
@@ -78,7 +78,7 @@ const EventPendingInformation = ({ eventPending }: Props) => {
                 'bg-[#ff4d4f] text-white': eventPending.status === 'Rejected'
               })}
             >
-              {StatusToMessage(eventPending.status as string)}
+              {StatusEventToMessage(eventPending.status as string)}
             </div>
           </div>
           <div className='col-span-4'>
@@ -164,7 +164,7 @@ const EventPendingInformation = ({ eventPending }: Props) => {
               <TextField
                 className='w-full'
                 label='Loại sự kiện'
-                value={TypeToMessage(eventPending.type)}
+                value={TypeEventToMessage(eventPending.type)}
                 InputProps={{
                   readOnly: true
                 }}

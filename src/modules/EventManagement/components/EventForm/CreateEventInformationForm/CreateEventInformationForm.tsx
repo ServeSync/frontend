@@ -17,8 +17,8 @@ import { EditorState, convertToRaw } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormEventType, FormSearchMapSchema, FormSearchMapType } from '../../../utils'
-import { ActivityType, EventCategoryType, EventDetailType, LocationType, MarkerType } from '../../../interfaces'
-import { StatusIsDisable, StatusToMessage, eventType } from '../../../constants'
+import { EventActivityType, EventCategoryType, EventDetailType, LocationType, MarkerType } from '../../../interfaces'
+import { StatusIsDisable, StatusEventToMessage, eventType } from '../../../constants'
 import Button from 'src/modules/Share/components/Button'
 import Map from '../../Map'
 import ModalCustom from 'src/modules/Share/components/Modal'
@@ -34,7 +34,7 @@ interface Props {
   setError?: UseFormSetError<FormEventType>
   errors: FieldErrors<FormEventType>
   eventCategories: EventCategoryType[]
-  activities: ActivityType[]
+  activities: EventActivityType[]
   file: File | undefined
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>
   onChangeCategory: (id: string) => void
@@ -138,7 +138,7 @@ const CreateEventInformationForm = ({
             </Input>
             {event && (
               <div className='px-4 py-2 rounded-full bg-[#26dc9c] text-white h-[40px]'>
-                {StatusToMessage(event.status)}
+                {StatusEventToMessage(event.status)}
               </div>
             )}
           </div>
