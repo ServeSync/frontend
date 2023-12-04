@@ -27,7 +27,7 @@ const ExportFile = ({ handleCloseModalExportFile, id }: Props) => {
         data: data
       },
       () => {
-        toast.error('File không đúng định dạng')
+        toast.error('File không đúng định dạng !')
       }
     )
   })
