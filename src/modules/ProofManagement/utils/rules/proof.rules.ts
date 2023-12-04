@@ -56,6 +56,17 @@ export const FormProofExternalSchema = yup.object().shape({
       const attendanceDate = new Date(attendanceAt)
       const now = new Date()
       return attendanceDate < now
+    })
+    .test('is-past', 'Ngày điểm danh phải trong thời gian diễn ra sự kiện', function (attendanceAt) {
+      const startAt = this.parent.startAt
+      const endAt = this.parent.endAt
+      if (!startAt || !endAt) {
+        return true
+      }
+      const startDate = new Date(startAt)
+      const endDate = new Date(endAt)
+      const attendanceDate = new Date(attendanceAt)
+      return attendanceDate > startDate && attendanceDate < endDate
     }),
   role: yup.string().required('Vui lòng nhập vai trò trong sự kiện !').min(5, 'Vai trò sự kiên có ít nhất 5 kí tự !'),
   score: yup
