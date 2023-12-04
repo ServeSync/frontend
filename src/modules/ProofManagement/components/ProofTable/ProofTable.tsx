@@ -15,12 +15,13 @@ interface Props {
 }
 
 const ProofTable = ({ proofs, isLoading, onSort }: Props) => {
+  const [proofId, setProofId] = useState<string>()
+
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
-  const [selectedItem, setSelectedItem] = useState<string>('')
 
   const handleOpenModalChange = (id: string) => {
     setIsOpenModal(true)
-    setSelectedItem(id)
+    setProofId(id)
   }
 
   const handleCloseModalChange = () => {
@@ -82,7 +83,7 @@ const ProofTable = ({ proofs, isLoading, onSort }: Props) => {
         </tbody>
       </table>
       <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModalChange}>
-        <ViewProofPage proofId={selectedItem} handleCloseModalChange={handleCloseModalChange} />
+        <ViewProofPage proofId={proofId} handleCloseModalChange={handleCloseModalChange} />
       </ModalCustom>
     </Fragment>
   )

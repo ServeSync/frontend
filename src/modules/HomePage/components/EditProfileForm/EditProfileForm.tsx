@@ -313,7 +313,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
           />
         </div>
       </div>
-      <div className='flex justify-end gap-6 pt-5'>
+      <div className='flex justify-end gap-6 py-5 border-b-[2px]'>
         <Button
           onClick={handleReset}
           type='button'

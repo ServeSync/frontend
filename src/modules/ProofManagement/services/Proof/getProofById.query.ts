@@ -5,7 +5,7 @@ import proofAPI from './proof.api'
 import { handleError } from 'src/modules/Share/utils'
 import { ProofDetailType } from 'src/modules/ProofManagement/interfaces'
 
-class GetProofById {
+class GetProofByIdQuery {
   private _query
 
   constructor(id: string) {
@@ -29,4 +29,4 @@ class GetProofById {
   }
 }
 
-export { GetProofById }
+export { GetProofByIdQuery }

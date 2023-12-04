@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import proofAPI from './proof.api'
 import { ProofsListType } from '../../interfaces'
 
-class GetAllProofsQuery {
+class GetAllProofsByStudentIdQuery {
   private _query
 
   constructor(studentId: string) {
@@ -28,4 +28,4 @@ class GetAllProofsQuery {
   }
 }
 
-export { GetAllProofsQuery }
+export { GetAllProofsByStudentIdQuery }

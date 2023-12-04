@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { StatusEventToMessage } from 'src/modules/EventManagement/constants'
 import Button from 'src/modules/Share/components/Button'
 import { formatDateTime, handleError } from 'src/modules/Share/utils'
-import { ApproveProofCommandHandler, GetProofById, RejectProofCommandHandler } from '../../services'
+import { ApproveProofCommandHandler, GetProofByIdQuery, RejectProofCommandHandler } from '../../services'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
 import ViewProofForm from '../../components/ViewProofForm'
 
 interface Props {
-  proofId: string
+  proofId: string | undefined
   handleCloseModalChange: () => void
 }
 
@@ -60,8 +60,8 @@ const ViewProofPage = ({ proofId, handleCloseModalChange }: Props) => {
     )
   })
 
-  const getProofById = new GetProofById(proofId)
-  const proof = getProofById.fetch()
+  const getProofByIdQuery = new GetProofByIdQuery(proofId as string)
+  const proof = getProofByIdQuery.fetch()
 
   return (
     <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg w-[700px]  max-h-[90vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#a6a6a6] scrollbar-track-[#e1e1e1]'>
