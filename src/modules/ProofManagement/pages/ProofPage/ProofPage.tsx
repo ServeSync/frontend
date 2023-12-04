@@ -25,7 +25,7 @@ const ProofPage = () => {
   const SortProof = useSorting({ queryConfig: queryProofConfig, pathname: path.proof })
 
   const getAllProofQuery = new GetAllProofsQuery()
-  const proof = getAllProofQuery.fetch()
+  const proofs = getAllProofQuery.fetch()
 
   const FilterProofForm = useForm<FormFilterProofType>({
     resolver: yupResolver(FormFilterProofSchema)
@@ -92,7 +92,7 @@ const ProofPage = () => {
           </Button>
         </PopoverCustom>
       </div>
-      <ProofTable proof={proof} isLoading={getAllProofQuery.isLoading()} onSort={SortProof.handleSort} />
+      <ProofTable proofs={proofs} isLoading={getAllProofQuery.isLoading()} onSort={SortProof.handleSort} />
       <Pagination
         queryConfig={queryProofConfig}
         pageSize={getAllProofQuery.getTotalPages()}

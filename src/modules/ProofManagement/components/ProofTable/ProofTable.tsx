@@ -1,5 +1,5 @@
 import HeaderTable from 'src/modules/Share/components/HeaderTable'
-import { ProofListType } from '../../interfaces'
+import { ProofsListType } from '../../interfaces'
 import { ProofTableHeader } from '../../constants'
 import Skeleton from 'react-loading-skeleton'
 import { formatDateTimeVN } from 'src/modules/Share/utils'
@@ -9,12 +9,12 @@ import { StatusEventToMessage, TypeEventToMessage } from 'src/modules/EventManag
 import ViewProofPage from '../../pages/ViewProofPage'
 
 interface Props {
-  proof: ProofListType
+  proofs: ProofsListType
   isLoading: boolean
   onSort: (column: string) => void
 }
 
-const ProofTable = ({ proof, isLoading, onSort }: Props) => {
+const ProofTable = ({ proofs, isLoading, onSort }: Props) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
   const [selectedItem, setSelectedItem] = useState<string>('')
 
@@ -60,8 +60,8 @@ const ProofTable = ({ proof, isLoading, onSort }: Props) => {
                     </th>
                   </tr>
                 ))
-            : proof &&
-              proof.data.map((proof, id: number) => (
+            : proofs &&
+              proofs.data.map((proof, id: number) => (
                 <tr
                   className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                   key={`${id}${proof.id}`}

@@ -1,4 +1,4 @@
-export interface ProofListType {
+export interface ProofsListType {
   total: number
   totalPages: number
   data: ProofType[]
@@ -10,15 +10,26 @@ export interface ProofType {
   proofType: string
   eventName: string
   organizationName: string
+  role: string
   address: string
   imageUrl: string
-  startAt: string
-  endAt: string
+  score: number
+
   student: {
     id: string
     fullName: string
     imageUrl: string
   }
+  activity: {
+    minScore: number
+    maxScore: number
+    eventCategoryId: string
+    id: string
+    name: string
+  }
+  startAt: string
+  endAt: string
+  attendanceAt: string
   created: string
   lastModified: string
 }
