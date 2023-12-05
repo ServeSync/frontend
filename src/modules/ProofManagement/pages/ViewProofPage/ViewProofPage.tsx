@@ -11,6 +11,7 @@ import { FormRejectProofSchema, FormRejectProofType } from '../../utils'
 import path from 'src/modules/Share/constants/path'
 import { useForm } from 'react-hook-form'
 import ViewProofForm from '../../components/ViewProofForm'
+import Swal from 'sweetalert2'
 
 interface Props {
   proofId: string | undefined
@@ -27,37 +28,63 @@ const ViewProofPage = ({ proofId, handleCloseModalChange }: Props) => {
   const approveProofCommandHandler = new ApproveProofCommandHandler()
 
   const handleApproveProof = () => {
-    approveProofCommandHandler.handle(
-      proof.id,
-      () => {
-        handleCloseModalChange()
-        navigate(path.proof)
-        toast.success('Chấp thuận thành công')
-      },
-      (error: any) => {
-        handleError(error)
+    Swal.fire({
+      title: 'Xác nhận duyệt ?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        approveProofCommandHandler.handle(
+          proof.id,
+          () => {
+            Swal.fire('Đã duyệt!', 'Chấp nhận thành công', 'success')
+            handleCloseModalChange()
+            navigate(path.proof)
+          },
+          (error: any) => {
+            handleError(error)
+          }
+        )
       }
-    )
+    })
   }
 
   const rejectProofCommandHandler = new RejectProofCommandHandler()
 
   const handleRejectProof = handleSubmit((data) => {
-    const body = {
-      id: proof.id,
-      data
-    }
-    rejectProofCommandHandler.handle(
-      body,
-      () => {
-        handleCloseModalChange()
-        navigate(path.proof)
-        toast.success('Từ chối thành công !')
-      },
-      (error: any) => {
-        handleError(error)
+    Swal.fire({
+      title: 'Xác nhận từ chối ?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const body = {
+          id: proof.id,
+          data
+        }
+        rejectProofCommandHandler.handle(
+          body,
+          () => {
+            handleCloseModalChange()
+            navigate(path.proof)
+            toast.success('Từ chối thành công !')
+          },
+          (error: any) => {
+            handleError(error)
+          }
+        )
       }
-    )
+    })
   })
 
   const getProofByIdQuery = new GetProofByIdQuery(proofId as string)

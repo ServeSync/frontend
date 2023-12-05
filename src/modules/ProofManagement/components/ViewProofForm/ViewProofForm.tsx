@@ -153,7 +153,7 @@ const ViewProofForm = ({
                 <img src={proof.imageUrl} alt='' className='object-cover rounded-2xl w-full h-full' />
               </div>
             </div>
-            {proof.proofStatus === 'Pending' && (
+            {proof.proofStatus !== 'Approved' && (
               <form onSubmit={handleRejectProof}>
                 <Controller
                   name='rejectReason'
@@ -164,11 +164,15 @@ const ViewProofForm = ({
                         <TextField
                           id='rejectReason'
                           label='Lý do từ chối'
+                          value={proof.rejectReason}
                           placeholder='Nhập lý do'
                           className='w-full bg-white '
                           onChange={onChange}
                           multiline
                           rows={3}
+                          InputProps={{
+                            readOnly: proof.proofStatus === 'Reject'
+                          }}
                         />
                         <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
                           {error?.message}
@@ -177,23 +181,25 @@ const ViewProofForm = ({
                     </LocalizationProvider>
                   )}
                 />
-                <div className='flex gap-x-6  justify-end items-center'>
-                  <Button
-                    type='submit'
-                    classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[108px]'
-                    isLoading={isLoadingReject}
-                  >
-                    Từ chối
-                  </Button>
-                  <Button
-                    type='button'
-                    classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[100px]'
-                    onClick={handleApproveProof}
-                    isLoading={isLoadingApprove}
-                  >
-                    Duyệt
-                  </Button>
-                </div>
+                {proof.proofStatus === 'Pending' && (
+                  <div className='flex gap-x-6  justify-end items-center'>
+                    <Button
+                      type='submit'
+                      classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[108px]'
+                      isLoading={isLoadingReject}
+                    >
+                      Từ chối
+                    </Button>
+                    <Button
+                      type='button'
+                      classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[100px]'
+                      onClick={handleApproveProof}
+                      isLoading={isLoadingApprove}
+                    >
+                      Duyệt
+                    </Button>
+                  </div>
+                )}
               </form>
             )}
           </div>
