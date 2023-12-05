@@ -45,9 +45,8 @@ const ProofInternalForm = ({
       setValue && setValue('attendanceAt', proof.attendanceAt)
       setValue && setValue('imageUrl', proof.imageUrl)
       setValue && setValue('eventRoleId', events && (events.find((option) => option.id === eventId)?.roleId as string))
-      setEventId(proof.eventId)
     }
-  }, [proof, setValue, setEventId, eventId, events])
+  }, [proof, setValue, eventId, events])
 
   return (
     <div className='flex flex-col gap-4'>
@@ -56,14 +55,14 @@ const ProofInternalForm = ({
         <Controller
           name='eventId'
           control={control}
-          render={({ field: { onChange, value = proof && proof.eventId }, fieldState: { error } }) => (
+          render={({ field: { onChange }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='flex flex-col bg-white col-span-2'>
                 <Autocomplete
                   disablePortal
                   id='event_id'
                   options={events ? events : []}
-                  value={(events && events.find((option) => option.id === value)) || null}
+                  value={(events && events.find((option) => option.id === eventId)) || null}
                   getOptionLabel={(option) => option.name}
                   noOptionsText='Không có lựa chọn'
                   renderInput={(params) => <TextField {...params} />}
@@ -81,7 +80,7 @@ const ProofInternalForm = ({
           <TextField
             id='address'
             label='Địa chỉ sự kiện'
-            value={proof ? proof.address : event ? event.address.fullAddress : ''}
+            value={proof && eventId !== '' ? proof.address : event ? event.address.fullAddress : ''}
             className='w-full bg-white'
             InputProps={{
               disabled: true
@@ -92,7 +91,7 @@ const ProofInternalForm = ({
           <TextField
             id='organization'
             label='Nhà tổ chức'
-            value={proof ? proof.organizationName : event ? event.name : ''}
+            value={proof && eventId !== '' ? proof.organizationName : event ? event.name : ''}
             className='w-full bg-white col-span-2'
             InputProps={{
               disabled: true
@@ -105,7 +104,7 @@ const ProofInternalForm = ({
               <DatePicker
                 label='Ngày bắt đầu'
                 format='DD/MM/YYYY'
-                value={proof ? dayjs(proof.startAt) : event ? dayjs(event?.startAt) : null}
+                value={proof && eventId !== '' ? dayjs(proof.startAt) : event ? dayjs(event?.startAt) : null}
                 className='bg-white'
                 disabled
               />
@@ -118,7 +117,7 @@ const ProofInternalForm = ({
               <DatePicker
                 label='Ngày kết thúc'
                 format='DD/MM/YYYY'
-                value={proof ? dayjs(proof.endAt) : event ? dayjs(event?.endAt) : null}
+                value={proof && eventId !== '' ? dayjs(proof.endAt) : event ? dayjs(event?.endAt) : null}
                 className='bg-white'
                 disabled
               />
@@ -150,7 +149,7 @@ const ProofInternalForm = ({
                     label='Ngày điểm danh'
                     format='DD/MM/YYYY'
                     onChange={onChange}
-                    value={proof ? dayjs(value) : value !== undefined ? dayjs(value) : null}
+                    value={proof && eventId !== '' ? dayjs(value) : null}
                     className='bg-white w-full'
                   />
                 </DemoContainer>
@@ -185,15 +184,15 @@ const ProofInternalForm = ({
         <Controller
           name='description'
           control={control}
-          render={({ field: { onChange, value = proof && proof.description }, fieldState: { error } }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2'>
                 <TextField
                   id='description'
                   label='Mô tả'
                   placeholder='Nhập mô tả'
-                  value={value}
-                  className='w-full bg-white '
+                  value={eventId !== '' ? value : ''}
+                  className='w-full bg-white'
                   onChange={onChange}
                   multiline
                   rows={3}
@@ -211,7 +210,7 @@ const ProofInternalForm = ({
               previewImage={previewImage}
               classNameButton='absolute bg-slate-200 outline-none w-full h-full top-0 left-0'
               isHiddenButton={true}
-              avatar={proof && proof.imageUrl}
+              avatar={proof && eventId !== '' ? proof.imageUrl : ''}
             >
               <div className='flex flex-col justify-center items-center h-full border-[2px] border-dashed border-[#26c6da] rounded-xl'>
                 <img
