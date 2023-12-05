@@ -13,17 +13,22 @@ interface Props {
 }
 
 const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
+  educationProgramResult.eventScore = 12
+  educationProgramResult.gainScore = 24
   const chartData = {
     datasets: [
       {
         data: [
-          educationProgramResult?.gainScore,
-          educationProgramResult?.requiredActivityScore > educationProgramResult?.gainScore
-            ? educationProgramResult?.requiredActivityScore - educationProgramResult?.gainScore
+          educationProgramResult?.eventScore,
+          educationProgramResult?.proofScore,
+          educationProgramResult?.requiredActivityScore >
+          educationProgramResult?.eventScore + educationProgramResult?.proofScore
+            ? educationProgramResult?.requiredActivityScore -
+              (educationProgramResult?.eventScore + educationProgramResult?.proofScore)
             : 0
         ],
-        backgroundColor: ['#296EF0', '#EBEBEB'],
-        borderColor: ['#296EF0', '#EBEBEB'],
+        backgroundColor: ['#296EF0', '#FFC107', '#EBEBEB'],
+        borderColor: ['#296EF0', '#FFC107', '#EBEBEB'],
         borderWidth: 1
       }
     ]
@@ -62,7 +67,11 @@ const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
             <Doughnut
               data={chartData}
               className='h-[160px]'
-              options={{ maintainAspectRatio: false, cutout: '70%', responsive: true }}
+              options={{
+                maintainAspectRatio: false,
+                cutout: '70%',
+                responsive: true
+              }}
               plugins={[drawMiddleTextPlugin]}
             />
           )}
@@ -88,6 +97,19 @@ const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
               <span>:</span>
             </div>
             <b className='h-[20px] ml-2'>{isLoading ? <Skeleton /> : educationProgramResult.numberOfEvents}</b>
+          </div>
+          <div className='flex leading-7'>
+            <div className='flex justify-between w-[200px]'>
+              <span>Số lượng minh chứng</span>
+              <span>:</span>
+            </div>
+            <b className='h-[20px] ml-2'>
+              {isLoading ? (
+                <Skeleton />
+              ) : (
+                `${educationProgramResult.numberOfApprovedProofs} / ${educationProgramResult.numberOfProofs}`
+              )}
+            </b>
           </div>
           <div className='flex leading-7'>
             <div className='flex justify-between w-[200px]'>

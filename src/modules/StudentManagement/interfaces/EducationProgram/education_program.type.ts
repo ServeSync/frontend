@@ -12,4 +12,8 @@ export interface StudentEducationProgramResultType {
   requiredCredit: number
   numberOfEvents: number
   gainScore: number
+  eventScore: number
+  proofScore: number
+  numberOfProofs: number
+  numberOfApprovedProofs: number
 }
