@@ -73,6 +73,12 @@ const EditProofInternal = ({ proof, studentId, handleDeleteProof, isLoadingDelet
     }
   }, [events, eventId, setValue])
 
+  useEffect(() => {
+    if (proof) {
+      setEventId(proof.eventId)
+    }
+  }, [setEventId, proof])
+
   return (
     <form className='w-full' onSubmit={handleSubmitForm}>
       <ProofInternalForm
