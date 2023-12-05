@@ -13,8 +13,6 @@ interface Props {
 }
 
 const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
-  educationProgramResult.eventScore = 12
-  educationProgramResult.gainScore = 24
   const chartData = {
     datasets: [
       {
