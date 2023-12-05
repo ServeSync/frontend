@@ -104,8 +104,16 @@ const CreateProofInternal = ({ handleCloseModalProofFormInternal, handleCloseMod
           setEventId={setEventId}
           previewImage={previewImage}
           handleChangeFile={handleChangeFile}
-          isLoading={makeProofInternalCommandHandler.isLoading()}
         />
+        <div className='flex justify-end items-center gap-6'>
+          <Button
+            type='submit'
+            classNameButton='flex justify-center items-center bg-[#26c6da] w-[118px] h-[40px] text-white p-2 rounded-xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90'
+            isLoading={makeProofInternalCommandHandler.isLoading()}
+          >
+            Xác nhận
+          </Button>
+        </div>
       </form>
     </div>
   )

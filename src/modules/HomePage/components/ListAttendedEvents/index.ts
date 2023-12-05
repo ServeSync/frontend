@@ -1,3 +1,3 @@
-import ListEventsAttended from './ListEventsAttended'
+import ListAttendedEvents from './ListAttendedEvents'
 
-export default ListEventsAttended
+export default ListAttendedEvents

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Autocomplete, TextField } from '@mui/material'
-import Button from '../../../../Share/components/Button'
 import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -16,18 +15,9 @@ interface Props {
   activities: EventActivityType[]
   previewImage: string
   handleChangeFile: (file?: File) => void
-  isLoading: boolean
 }
 
-const ProofExternalForm = ({
-  control,
-  register,
-  errors,
-  activities,
-  previewImage,
-  handleChangeFile,
-  isLoading
-}: Props) => {
+const ProofExternalForm = ({ control, register, errors, activities, previewImage, handleChangeFile }: Props) => {
   return (
     <div className='flex flex-col gap-4'>
       <div className='grid grid-cols-2 gap-3'>
@@ -248,15 +238,6 @@ const ProofExternalForm = ({
           </div>
           <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.imageUrl?.message}</span>
         </div>
-      </div>
-      <div className='flex justify-end items-center'>
-        <Button
-          type='submit'
-          classNameButton='flex justify-center items-center bg-[#26c6da] w-[118px] h-[40px] text-white p-2 rounded-xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90'
-          isLoading={isLoading}
-        >
-          Xác nhận
-        </Button>
       </div>
     </div>
   )

@@ -87,8 +87,16 @@ const CreateProofExternal = ({ handleCloseModalProofFormExternal, handleCloseMod
           activities={activities}
           previewImage={previewImage}
           handleChangeFile={handleChangeFile}
-          isLoading={makeProofExternalCommandHandler.isLoading()}
         />
+        <div className='flex justify-end items-center gap-6'>
+          <Button
+            type='submit'
+            classNameButton='flex justify-center items-center bg-[#26c6da] w-[118px] h-[40px] text-white p-2 rounded-xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90'
+            isLoading={makeProofExternalCommandHandler.isLoading()}
+          >
+            Xác nhận
+          </Button>
+        </div>
       </form>
     </div>
   )

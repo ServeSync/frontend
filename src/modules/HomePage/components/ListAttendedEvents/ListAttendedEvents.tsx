@@ -16,7 +16,7 @@ interface Props {
   isLoading: boolean
 }
 
-const ListEventsAttended = ({ tab, index, profile, isLoading }: Props) => {
+const ListAttendedEvents = ({ tab, index, profile, isLoading }: Props) => {
   const [isOpenModalExportFile, setIsOpenModalExportFile] = useState<boolean>(false)
 
   const handleOpenModalExportFile = () => {
@@ -125,4 +125,4 @@ const ListEventsAttended = ({ tab, index, profile, isLoading }: Props) => {
   )
 }
 
-export default ListEventsAttended
+export default ListAttendedEvents

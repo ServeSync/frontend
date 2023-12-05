@@ -27,6 +27,10 @@ class DeleteProofCommandHandler {
       }
     })
   }
+
+  isLoading() {
+    return this._deleteProofMutation.isLoading
+  }
 }
 
 export { DeleteProofCommandHandler }

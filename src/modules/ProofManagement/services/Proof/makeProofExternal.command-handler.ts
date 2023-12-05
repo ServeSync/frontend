@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import imageAPI from 'src/modules/Share/services/Image/image.api'
 import proofAPI from './proof.api'
 import { FormProofExternalType } from '../../utils'
 
 class MakeProofExternalCommandHandler {
+  private _queryClient
   private _uploadImageMutation
   private _makeProofExternalMutation
 
   constructor() {
+    this._queryClient = useQueryClient()
     this._uploadImageMutation = useMutation(imageAPI.uploadImage)
     this._makeProofExternalMutation = useMutation({
       mutationFn: (body: FormProofExternalType) => proofAPI.makeProofExternal(body)
@@ -24,6 +26,9 @@ class MakeProofExternalCommandHandler {
 
     return this._makeProofExternalMutation.mutate(proof, {
       onSuccess: () => {
+        this._queryClient.invalidateQueries({
+          queryKey: ['proofs_of_student']
+        })
         handleSuccess()
       },
       onError: (error: any) => {

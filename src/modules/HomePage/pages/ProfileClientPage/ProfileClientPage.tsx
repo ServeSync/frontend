@@ -11,8 +11,8 @@ import { FormStudentSchema, FormStudentType } from 'src/modules/StudentManagemen
 import { toast } from 'react-toastify'
 import { handleError } from 'src/modules/Share/utils'
 import { Box, Tab, Tabs } from '@mui/material'
-import ListEventsAttended from '../../components/ListAttendedEvents'
-import ListProofsCreated from '../../components/ListCreatedProof'
+import ListAttendedEvents from '../../components/ListAttendedEvents'
+import ListCreatedProofs from '../../components/ListCreatedProofs'
 
 const ProfileClientPage = () => {
   const { isAuthenticated } = useContext(AppContext)
@@ -109,8 +109,8 @@ const ProfileClientPage = () => {
               </Tabs>
             </Box>
             <Box className='mt-6'>
-              <ListEventsAttended tab={tab} index={0} profile={profile} isLoading={getProfileQuery.isLoading()} />
-              <ListProofsCreated tab={tab} index={1} profile={profile} />
+              <ListAttendedEvents tab={tab} index={0} profile={profile} isLoading={getProfileQuery.isLoading()} />
+              <ListCreatedProofs tab={tab} index={1} profile={profile} />
             </Box>
           </Box>
         </div>
