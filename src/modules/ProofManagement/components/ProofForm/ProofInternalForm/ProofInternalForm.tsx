@@ -4,37 +4,51 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import dayjs from 'dayjs'
-import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form'
+import { useEffect } from 'react'
+import { Control, Controller, FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { EventDetailType, StudentRegisteredEvent } from 'src/modules/EventManagement/interfaces'
+import { ProofDetailType } from 'src/modules/ProofManagement/interfaces'
 import { FormProofInternalType } from 'src/modules/ProofManagement/utils'
-import Button from 'src/modules/Share/components/Button'
 import InputImage from 'src/modules/Share/components/InputImage'
 
 interface Props {
   control: Control<FormProofInternalType>
   register: UseFormRegister<FormProofInternalType>
   errors: FieldErrors<FormProofInternalType>
+  setValue?: UseFormSetValue<FormProofInternalType>
   events: StudentRegisteredEvent[]
-  event: EventDetailType
+  event?: EventDetailType
   eventId: string | undefined
   setEventId: React.Dispatch<React.SetStateAction<string | undefined>>
   previewImage: string
   handleChangeFile: (file?: File) => void
-  isLoading: boolean
+  proof?: ProofDetailType
 }
 
 const ProofInternalForm = ({
   control,
   register,
   errors,
+  setValue,
   events,
   event,
   eventId,
   setEventId,
   previewImage,
   handleChangeFile,
-  isLoading
+  proof
 }: Props) => {
+  useEffect(() => {
+    if (proof) {
+      setValue && setValue('eventId', proof.eventId)
+      setValue && setValue('description', proof.description)
+      setValue && setValue('attendanceAt', proof.attendanceAt)
+      setValue && setValue('imageUrl', proof.imageUrl)
+      setValue && setValue('eventRoleId', events && (events.find((option) => option.id === eventId)?.roleId as string))
+      setEventId(proof.eventId)
+    }
+  }, [proof, setValue, setEventId, eventId, events])
+
   return (
     <div className='flex flex-col gap-4'>
       <div className='grid grid-cols-2 gap-3'>
@@ -42,7 +56,7 @@ const ProofInternalForm = ({
         <Controller
           name='eventId'
           control={control}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
+          render={({ field: { onChange, value = proof && proof.eventId }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='flex flex-col bg-white col-span-2'>
                 <Autocomplete
@@ -67,7 +81,7 @@ const ProofInternalForm = ({
           <TextField
             id='address'
             label='Địa chỉ sự kiện'
-            value={event ? event.address.fullAddress : ''}
+            value={proof ? proof.address : event ? event.address.fullAddress : ''}
             className='w-full bg-white'
             InputProps={{
               disabled: true
@@ -78,7 +92,7 @@ const ProofInternalForm = ({
           <TextField
             id='organization'
             label='Nhà tổ chức'
-            value={event ? event.name : ''}
+            value={proof ? proof.organizationName : event ? event.name : ''}
             className='w-full bg-white col-span-2'
             InputProps={{
               disabled: true
@@ -91,7 +105,7 @@ const ProofInternalForm = ({
               <DatePicker
                 label='Ngày bắt đầu'
                 format='DD/MM/YYYY'
-                value={event ? dayjs(event.startAt) : null}
+                value={proof ? dayjs(proof.startAt) : event ? dayjs(event?.startAt) : null}
                 className='bg-white'
                 disabled
               />
@@ -104,7 +118,7 @@ const ProofInternalForm = ({
               <DatePicker
                 label='Ngày kết thúc'
                 format='DD/MM/YYYY'
-                value={event ? dayjs(event.endAt) : null}
+                value={proof ? dayjs(proof.endAt) : event ? dayjs(event?.endAt) : null}
                 className='bg-white'
                 disabled
               />
@@ -128,7 +142,7 @@ const ProofInternalForm = ({
         <Controller
           name='attendanceAt'
           control={control}
-          render={({ field: { onChange, value = null }, fieldState: { error } }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <div className='mt-[-8px] col-span-2'>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker']}>
@@ -136,7 +150,7 @@ const ProofInternalForm = ({
                     label='Ngày điểm danh'
                     format='DD/MM/YYYY'
                     onChange={onChange}
-                    value={value}
+                    value={proof ? dayjs(value) : value !== undefined ? dayjs(value) : null}
                     className='bg-white w-full'
                   />
                 </DemoContainer>
@@ -171,13 +185,14 @@ const ProofInternalForm = ({
         <Controller
           name='description'
           control={control}
-          render={({ field: { onChange }, fieldState: { error } }) => (
+          render={({ field: { onChange, value = proof && proof.description }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2'>
                 <TextField
                   id='description'
                   label='Mô tả'
                   placeholder='Nhập mô tả'
+                  value={value}
                   className='w-full bg-white '
                   onChange={onChange}
                   multiline
@@ -196,6 +211,7 @@ const ProofInternalForm = ({
               previewImage={previewImage}
               classNameButton='absolute bg-slate-200 outline-none w-full h-full top-0 left-0'
               isHiddenButton={true}
+              avatar={proof && proof.imageUrl}
             >
               <div className='flex flex-col justify-center items-center h-full border-[2px] border-dashed border-[#26c6da] rounded-xl'>
                 <img
@@ -209,15 +225,6 @@ const ProofInternalForm = ({
           </div>
           <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errors.imageUrl?.message}</span>
         </div>
-      </div>
-      <div className='flex justify-end items-center'>
-        <Button
-          type='submit'
-          classNameButton='flex justify-center items-center bg-[#26c6da] w-[118px] h-[40px] text-white p-2 rounded-xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90'
-          isLoading={isLoading}
-        >
-          Xác nhận
-        </Button>
       </div>
     </div>
   )

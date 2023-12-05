@@ -36,6 +36,9 @@ class EditProofInternalCommandHandler {
         this._queryClient.invalidateQueries({
           queryKey: ['proofs_of_student']
         })
+        this._queryClient.invalidateQueries({
+          queryKey: ['proof', body.id]
+        })
         handleSuccess()
       },
       onError: (error: any) => {

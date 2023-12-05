@@ -5,14 +5,15 @@ import { StatusEventToMessage, TypeEventToMessage } from 'src/modules/EventManag
 import { formatDateTime } from 'src/modules/Share/utils'
 import { Fragment, useState } from 'react'
 import ModalCustom from 'src/modules/Share/components/Modal'
-import ViewProofPage from 'src/modules/ProofManagement/pages/ViewProofPage'
+import EditProofPage from 'src/modules/ProofManagement/pages/EditProofPage/EditProofPage'
 
 interface Props {
   proofs: ProofType[]
   isLoading: boolean
+  studentId: string
 }
 
-const ProofsOfStudentTable = ({ proofs, isLoading }: Props) => {
+const ProofsOfStudentTable = ({ proofs, isLoading, studentId }: Props) => {
   const [proofId, setProofId] = useState<string>()
 
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
@@ -90,7 +91,7 @@ const ProofsOfStudentTable = ({ proofs, isLoading }: Props) => {
         </tbody>
       </table>
       <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModalChange}>
-        <ViewProofPage proofId={proofId} handleCloseModalChange={handleCloseModalChange} />
+        <EditProofPage proofId={proofId} studentId={studentId} handleCloseModalChange={handleCloseModalChange} />
       </ModalCustom>
     </Fragment>
   )

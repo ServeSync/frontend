@@ -87,8 +87,16 @@ const CreateProofSpecial = ({ handleCloseModalProofFormSpecial, handleCloseModal
           activities={activities}
           previewImage={previewImage}
           handleChangeFile={handleChangeFile}
-          isLoading={makeProofSpecialCommandHandler.isLoading()}
         />
+        <div className='flex justify-end items-center'>
+          <Button
+            type='submit'
+            classNameButton='flex justify-center items-center bg-[#26c6da] w-[118px] h-[40px] text-white p-2 rounded-xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90'
+            isLoading={makeProofSpecialCommandHandler.isLoading()}
+          >
+            Xác nhận
+          </Button>
+        </div>
       </form>
     </div>
   )

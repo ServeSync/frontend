@@ -12,7 +12,7 @@ interface Props {
   profile: ProfileStudent
 }
 
-const ListProofsCreated = ({ tab, index, profile }: Props) => {
+const ListCreatedProofs = ({ tab, index, profile }: Props) => {
   const [isOpenModalProofSelect, setIsOpenModalProofSelect] = useState<boolean>(false)
 
   const handleOpenModalProofSelect = () => {
@@ -72,7 +72,11 @@ const ListProofsCreated = ({ tab, index, profile }: Props) => {
               </div>
             </div>
           </div>
-          <ProofsOfStudentTable proofs={proofsOfStudent.data} isLoading={getAllProofsByStudentIdQuery.isLoading()} />
+          <ProofsOfStudentTable
+            proofs={proofsOfStudent.data}
+            isLoading={getAllProofsByStudentIdQuery.isLoading()}
+            studentId={profile.id as string}
+          />
           {proofsOfStudent?.totalPages > 1 && page < proofsOfStudent?.totalPages && (
             <div className='flex justify-center mt-3'>
               <Button classNameButton='text-[12px] text-[#1635F4]' onClick={onLoadMore}>
@@ -105,4 +109,4 @@ const ListProofsCreated = ({ tab, index, profile }: Props) => {
   )
 }
 
-export default ListProofsCreated
+export default ListCreatedProofs

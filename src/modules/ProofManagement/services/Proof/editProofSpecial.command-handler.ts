@@ -5,7 +5,7 @@ import imageAPI from 'src/modules/Share/services/Image/image.api'
 import proofAPI from './proof.api'
 import { FormProofSpecialType } from '../../utils'
 
-class MakeProofSpecialCommandHandler {
+class EditProofSpecialCommandHandler {
   private _queryClient
   private _uploadImageMutation
   private _editProofSpecialMutation
@@ -36,6 +36,9 @@ class MakeProofSpecialCommandHandler {
         this._queryClient.invalidateQueries({
           queryKey: ['proofs_of_student']
         })
+        this._queryClient.invalidateQueries({
+          queryKey: ['proof', body.id]
+        })
         handleSuccess()
       },
       onError: (error: any) => {
@@ -49,4 +52,4 @@ class MakeProofSpecialCommandHandler {
   }
 }
 
-export { MakeProofSpecialCommandHandler }
+export { EditProofSpecialCommandHandler }

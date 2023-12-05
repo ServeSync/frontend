@@ -35,6 +35,7 @@ export interface ProofType {
 }
 
 export interface ProofDetailType {
+  eventId: string
   description: string
   rejectReason: string
   id: string
