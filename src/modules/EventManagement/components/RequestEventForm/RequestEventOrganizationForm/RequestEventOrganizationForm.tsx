@@ -59,7 +59,7 @@ const RequestEventOrganizationForm = ({
                     id='name'
                     label='Tên tổ chức'
                     placeholder='Nhập tên tổ chức'
-                    className='w-full bg-white '
+                    className='w-full bg-white'
                     onChange={onChange}
                     value={value}
                   />

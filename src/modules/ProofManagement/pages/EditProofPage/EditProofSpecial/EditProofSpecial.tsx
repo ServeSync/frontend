@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { GetAllEventActivitiesQuery } from 'src/modules/EventManagement/services'
 import ProofSpecialForm from 'src/modules/ProofManagement/components/ProofForm/ProofSpecialForm'
 import { ProofDetailType } from 'src/modules/ProofManagement/interfaces'
 import { EditProofSpecialCommandHandler } from 'src/modules/ProofManagement/services/Proof/editProofSpecial.command-handler'
 import { FormProofSpecialSchema, FormProofSpecialType } from 'src/modules/ProofManagement/utils'
 import Button from 'src/modules/Share/components/Button'
+import { handleError } from 'src/modules/Share/utils'
 
 interface Props {
   proof: ProofDetailType
@@ -44,19 +47,19 @@ const EditProofSpecial = ({ proof, handleDeleteProof, isLoadingDelete }: Props) 
   const editProofSpecialCommandHandler = new EditProofSpecialCommandHandler()
 
   const handleSubmitForm = handleSubmit((data) => {
-    // makeProofSpecialCommandHandler.handle(
-    //   data,
-    //   file as File,
-    //   () => {
-    //     handleCloseModalProofFormSpecial()
-    //     handleCloseModalProofSelect()
-    //     toast.success('Tạo minh chứng thành công !')
-    //   },
-    //   (error: any) => {
-    //     handleError<FormProofSpecialType>(error, setError)
-    //   }
-    // )
-    console.log(data)
+    editProofSpecialCommandHandler.handle(
+      {
+        id: proof.id,
+        data
+      },
+      file as File,
+      () => {
+        toast.success('Tạo minh chứng thành công !')
+      },
+      (error: any) => {
+        handleError<FormProofSpecialType>(error, setError)
+      }
+    )
   })
 
   return (
@@ -65,9 +68,11 @@ const EditProofSpecial = ({ proof, handleDeleteProof, isLoadingDelete }: Props) 
         control={control}
         register={register}
         errors={errors}
+        setValue={setValue}
         activities={activities}
         previewImage={previewImage}
         handleChangeFile={handleChangeFile}
+        proof={proof}
       />
       {proof && proof.proofStatus === 'Pending' && (
         <div className='flex justify-end items-center gap-6'>
