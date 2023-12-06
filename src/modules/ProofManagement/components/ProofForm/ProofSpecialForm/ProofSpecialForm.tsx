@@ -15,11 +15,11 @@ interface Props {
   control: Control<FormProofSpecialType>
   register: UseFormRegister<FormProofSpecialType>
   errors: FieldErrors<FormProofSpecialType>
-  setValue: UseFormSetValue<FormProofSpecialType>
+  setValue?: UseFormSetValue<FormProofSpecialType>
   activities: EventActivityType[]
   previewImage: string
   handleChangeFile: (file?: File) => void
-  proof: ProofDetailType
+  proof?: ProofDetailType
 }
 
 const ProofSpecialForm = ({
