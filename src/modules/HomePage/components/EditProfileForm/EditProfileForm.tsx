@@ -223,7 +223,7 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Địa địa chỉ cư trú'
                     value={value}
                     placeholder='Nhập địa chỉ cư trú'
-                    className='w-full bg-white '
+                    className='w-full bg-white'
                     onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>

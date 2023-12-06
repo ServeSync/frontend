@@ -166,7 +166,7 @@ const ViewProofForm = ({
                           label='Lý do từ chối'
                           value={proof.rejectReason}
                           placeholder='Nhập lý do'
-                          className='w-full bg-white '
+                          className='w-full bg-white'
                           onChange={onChange}
                           multiline
                           rows={3}

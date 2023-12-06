@@ -1,23 +1,50 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Autocomplete, TextField } from '@mui/material'
-import { Control, Controller, FieldErrors, UseFormRegister } from 'react-hook-form'
+import { Control, Controller, FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import InputImage from 'src/modules/Share/components/InputImage'
 import { FormProofSpecialType } from 'src/modules/ProofManagement/utils'
 import { EventActivityType } from 'src/modules/EventManagement/interfaces'
+import { ProofDetailType } from 'src/modules/ProofManagement/interfaces'
+import { useEffect } from 'react'
+import dayjs from 'dayjs'
 
 interface Props {
   control: Control<FormProofSpecialType>
   register: UseFormRegister<FormProofSpecialType>
   errors: FieldErrors<FormProofSpecialType>
+  setValue: UseFormSetValue<FormProofSpecialType>
   activities: EventActivityType[]
   previewImage: string
   handleChangeFile: (file?: File) => void
+  proof: ProofDetailType
 }
 
-const ProofSpecialForm = ({ control, register, errors, activities, previewImage, handleChangeFile }: Props) => {
+const ProofSpecialForm = ({
+  control,
+  register,
+  errors,
+  setValue,
+  activities,
+  previewImage,
+  handleChangeFile,
+  proof
+}: Props) => {
+  useEffect(() => {
+    if (proof) {
+      setValue && setValue('title', proof.eventName)
+      setValue && setValue('startAt', proof.startAt)
+      setValue && setValue('endAt', proof.endAt)
+      setValue && setValue('role', proof.role)
+      setValue && setValue('score', proof.score.toString())
+      setValue && setValue('activityId', proof.activity.id)
+      setValue && setValue('description', proof.description)
+      setValue && setValue('imageUrl', proof.imageUrl)
+    }
+  }, [proof, setValue])
+
   return (
     <div className='flex flex-col gap-4'>
       <div className='grid grid-cols-2 gap-3'>
@@ -25,15 +52,16 @@ const ProofSpecialForm = ({ control, register, errors, activities, previewImage,
         <Controller
           name='title'
           control={control}
-          render={({ field: { onChange }, fieldState: { error } }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2'>
                 <TextField
                   id='title'
                   label='Tiêu đề minh chứng'
                   placeholder='Nhập tiêu đề minh chứng'
-                  className='w-full bg-white '
+                  value={proof && value}
                   onChange={onChange}
+                  className='w-full bg-white'
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
@@ -43,15 +71,15 @@ const ProofSpecialForm = ({ control, register, errors, activities, previewImage,
         <Controller
           name='startAt'
           control={control}
-          render={({ field: { onChange, value = null }, fieldState: { error } }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <div className='mt-[-8px] col-span-1'>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker']}>
                   <DatePicker
                     label='Ngày bắt đầu'
                     format='DD/MM/YYYY'
+                    value={proof ? dayjs(value) : null}
                     onChange={onChange}
-                    value={value}
                     className='bg-white w-full'
                   />
                 </DemoContainer>
@@ -63,15 +91,15 @@ const ProofSpecialForm = ({ control, register, errors, activities, previewImage,
         <Controller
           name='endAt'
           control={control}
-          render={({ field: { onChange, value = null }, fieldState: { error } }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <div className='mt-[-8px] col-span-1'>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker']}>
                   <DatePicker
                     label='Ngày kết thúc'
                     format='DD/MM/YYYY'
+                    value={proof ? dayjs(value) : null}
                     onChange={onChange}
-                    value={value}
                     className='bg-white w-full'
                   />
                 </DemoContainer>
@@ -86,15 +114,16 @@ const ProofSpecialForm = ({ control, register, errors, activities, previewImage,
         <Controller
           name='role'
           control={control}
-          render={({ field: { onChange }, fieldState: { error } }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2'>
                 <TextField
                   id='role'
                   label='Vai trò'
                   placeholder='Nhập vai trò'
-                  className='w-full bg-white '
+                  value={proof && value}
                   onChange={onChange}
+                  className='w-full bg-white'
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
@@ -104,15 +133,16 @@ const ProofSpecialForm = ({ control, register, errors, activities, previewImage,
         <Controller
           name='score'
           control={control}
-          render={({ field: { onChange }, fieldState: { error } }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2'>
                 <TextField
                   id='score'
                   label='Điểm'
                   placeholder='Nhập điểm'
-                  className='w-full bg-white '
+                  value={proof && value}
                   onChange={onChange}
+                  className='w-full bg-white'
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
@@ -144,17 +174,18 @@ const ProofSpecialForm = ({ control, register, errors, activities, previewImage,
         <Controller
           name='description'
           control={control}
-          render={({ field: { onChange }, fieldState: { error } }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='col-span-2'>
                 <TextField
                   id='description'
                   label='Mô tả'
                   placeholder='Nhập mô tả'
-                  className='w-full bg-white '
+                  value={proof && value}
                   onChange={onChange}
                   multiline
                   rows={3}
+                  className='w-full bg-white'
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
@@ -169,6 +200,7 @@ const ProofSpecialForm = ({ control, register, errors, activities, previewImage,
               previewImage={previewImage}
               classNameButton='absolute bg-slate-200 outline-none w-full h-full top-0 left-0'
               isHiddenButton={true}
+              avatar={proof ? proof.imageUrl : ''}
             >
               <div className='flex flex-col justify-center items-center h-full border-[2px] border-dashed border-[#26c6da] rounded-xl'>
                 <img
