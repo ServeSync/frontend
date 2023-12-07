@@ -54,7 +54,7 @@ const EditProofExternal = ({ proof, handleDeleteProof, isLoadingDelete }: Props)
       },
       file as File,
       () => {
-        toast.success('Tạo minh chứng thành công !')
+        toast.success('Cập nhật minh chứng thành công !')
       },
       (error: any) => {
         handleError<FormProofExternalType>(error, setError)

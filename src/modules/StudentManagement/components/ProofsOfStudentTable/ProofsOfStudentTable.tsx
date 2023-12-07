@@ -81,9 +81,6 @@ const ProofsOfStudentTable = ({ proofs, isLoading, studentId }: Props) => {
                   <th className='px-2 py-4 font-medium'>{proof.eventName}</th>
                   <th className='px-2 py-4 font-medium'>{proof.student.fullName}</th>
                   <th className='px-2 py-4 font-medium'>{formatDateTime(proof.created)}</th>
-                  <th className='px-2 py-4 font-medium'>
-                    {proof.attendanceAt !== null ? formatDateTime(proof.attendanceAt) : ''}
-                  </th>
                   <th className='px-2 py-4 font-medium'>{TypeEventToMessage(proof.proofType)}</th>
                   <th className='px-2 py-4 font-medium'>{StatusEventToMessage(proof.proofStatus)}</th>
                 </tr>
