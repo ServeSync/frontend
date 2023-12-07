@@ -274,7 +274,8 @@ export function ErrorCodeToMessage(errorCode: string): {
     },
     'EventOrganization:000002': {
       message: 'Email này đã được đăng ký bởi tổ chức khác',
-      type: 'Server'
+      type: 'Server',
+      field: 'email'
     },
     'EventOrganization:000003': {
       message: 'Không thể xóa tổ chức đã tham gia tổ chức sự kiện trước đó ',
@@ -282,7 +283,8 @@ export function ErrorCodeToMessage(errorCode: string): {
     },
     'EventOrganization:000004': {
       message: 'Tên nhà tổ chức sự kiện đã tồn tại',
-      type: 'Server'
+      type: 'Server',
+      field: 'name'
     },
     'EventOrganization:000005': {
       message: 'Nhà tổ chức không ở trạng thái chờ',
