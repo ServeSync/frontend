@@ -213,7 +213,7 @@ const RequestEventPage = () => {
                     '.MuiTabs-indicator': { backgroundColor: '#26c6da' }
                   }}
                 >
-                  <Tab label='Thông tin chung' id='tab-1' aria-controls='simple-tabpanel-1' className='capitalize' />
+                  <Tab label='Thông tin sự kiện' id='tab-1' aria-controls='simple-tabpanel-1' className='capitalize' />
                   <Tab label='Ban tổ chức sự kiện' id='tab-2' aria-controls='simple-tabpanel-3' />
                 </Tabs>
               </Box>

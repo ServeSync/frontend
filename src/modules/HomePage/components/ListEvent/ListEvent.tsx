@@ -155,13 +155,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
         </div>
       </div>
       <div className='grid grid-cols-3 gap-12 w-[80%] mx-auto'>
-        {events &&
-          events.data.length > 0 &&
-          events.data.map((event, index) => {
-            if (event.status === 'Happening' || event.status === 'Upcoming' || event.status === 'Done') {
-              return <CardEvent event={event} key={index} />
-            }
-          })}
+        {events && events.data.length > 0 && events.data.map((event, index) => <CardEvent event={event} key={index} />)}
       </div>
       <Pagination
         queryConfig={{ ...queryEventClientConfig, size: 9 }}

@@ -9,7 +9,7 @@ const useQueryEventClientConfig = () => {
       startDate: queryEventParams.startDate,
       endDate: queryEventParams.endDate,
       eventType: queryEventParams.eventType,
-      eventStatus: queryEventParams.eventStatus,
+      eventStatus: queryEventParams.eventStatus || 'Approved',
       search: queryEventParams.search,
       sorting: queryEventParams.sorting,
       page: queryEventParams.page || 1,
