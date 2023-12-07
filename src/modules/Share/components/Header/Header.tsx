@@ -107,47 +107,6 @@ const Header = () => {
                   horizontal: 'right'
                 }}
               >
-                <Link
-                  to={'/profile'}
-                  className='flex items-center cursor-pointer text-sm font-medium hover:bg-gray-100 hover:text-gray-800 px-3 py-2'
-                >
-                  <svg
-                    fill='none'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                    className='w-4 h-4 mr-3'
-                    aria-hidden='true'
-                  >
-                    <path d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' />
-                  </svg>
-                  <span className='w-[140px]'>Thông tin cá nhân</span>
-                </Link>
-                <Button
-                  onClick={() => {
-                    handleOpenModalChangePassword()
-                    handleClosePopover()
-                  }}
-                  classNameButton='flex items-center cursor-pointer w-full p-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-800'
-                >
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='w-4 h-4 mr-3'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'
-                    />
-                  </svg>
-                  <span>Đổi mật khẩu</span>
-                </Button>
                 {profile.isTenantOwner && (
                   <Button classNameButton='flex items-center cursor-pointer w-full  p-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-800'>
                     <svg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' className='w-4 h-4 mr-3'>
@@ -166,7 +125,6 @@ const Header = () => {
                     <span>Quản lí tổ chức</span>
                   </Button>
                 )}
-
                 <Button
                   onClick={handleOpenNestedPopover}
                   classNameButton='flex items-center cursor-pointer w-full p-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-800'
@@ -199,6 +157,29 @@ const Header = () => {
                 >
                   <ChangeTenant profile={profile} />
                 </Popover>
+                <Button
+                  onClick={() => {
+                    handleOpenModalChangePassword()
+                    handleClosePopover()
+                  }}
+                  classNameButton='flex items-center cursor-pointer w-full p-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-800'
+                >
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='w-4 h-4 mr-3'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'
+                    />
+                  </svg>
+                  <span>Đổi mật khẩu</span>
+                </Button>
                 <Link
                   to={'/settings'}
                   className='flex items-center cursor-pointer w-full text-sm font-medium hover:bg-gray-100 hover:text-gray-800 p-3 py-2'

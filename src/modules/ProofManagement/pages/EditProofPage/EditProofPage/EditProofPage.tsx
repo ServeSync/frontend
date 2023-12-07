@@ -8,6 +8,7 @@ import { DeleteProofCommandHandler } from 'src/modules/ProofManagement/services/
 import { toast } from 'react-toastify'
 import { handleError } from 'src/modules/Share/utils'
 import { FormProofInternalType } from 'src/modules/ProofManagement/utils'
+import Swal from 'sweetalert2'
 
 interface Props {
   proofId: string | undefined
@@ -22,16 +23,29 @@ const EditProofPage = ({ proofId, studentId, handleCloseModalChange }: Props) =>
   const deleteProofCommandHandler = new DeleteProofCommandHandler()
 
   const handleDeleteProof = (id: string) => {
-    deleteProofCommandHandler.handle(
-      id,
-      () => {
-        handleCloseModalChange()
-        toast.success('Xóa minh chứng thành công !')
-      },
-      (error: any) => {
-        handleError<FormProofInternalType>(error)
+    Swal.fire({
+      title: 'Xác nhận xóa?',
+      text: 'Bạn sẽ không thể hoàn tác khi xác nhận!',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#26C6DA',
+      cancelButtonColor: '#dc2626',
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProofCommandHandler.handle(
+          id,
+          () => {
+            handleCloseModalChange()
+            toast.success('Xóa minh chứng thành công !')
+          },
+          (error: any) => {
+            handleError<FormProofInternalType>(error)
+          }
+        )
       }
-    )
+    })
   }
 
   return (
