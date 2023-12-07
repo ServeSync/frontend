@@ -17,15 +17,10 @@ export const ProofsOfStudentTableHeader = [
   },
   {
     id: '5',
-    name: 'Ngày điểm danh'
-  },
-
-  {
-    id: '6',
     name: 'Loại'
   },
   {
-    id: '7',
+    id: '6',
     name: 'Trạng thái'
   }
 ]

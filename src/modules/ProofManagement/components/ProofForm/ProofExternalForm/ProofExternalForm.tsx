@@ -65,6 +65,9 @@ const ProofExternalForm = ({
                   value={proof && value}
                   onChange={onChange}
                   className='w-full bg-white'
+                  InputProps={{
+                    disabled: proof && proof.proofStatus !== 'Pending'
+                  }}
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
@@ -84,6 +87,9 @@ const ProofExternalForm = ({
                   value={proof && value}
                   onChange={onChange}
                   className='w-full bg-white'
+                  InputProps={{
+                    disabled: proof && proof.proofStatus !== 'Pending'
+                  }}
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
@@ -103,6 +109,9 @@ const ProofExternalForm = ({
                   value={proof && value}
                   onChange={onChange}
                   className='w-full bg-white'
+                  InputProps={{
+                    disabled: proof && proof.proofStatus !== 'Pending'
+                  }}
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
@@ -122,6 +131,7 @@ const ProofExternalForm = ({
                     value={proof ? dayjs(value) : null}
                     onChange={onChange}
                     className='bg-white w-full'
+                    disabled={proof && proof.proofStatus !== 'Pending'}
                   />
                 </DemoContainer>
               </LocalizationProvider>
@@ -142,6 +152,7 @@ const ProofExternalForm = ({
                     value={proof ? dayjs(value) : null}
                     onChange={onChange}
                     className='bg-white w-full'
+                    disabled={proof && proof.proofStatus !== 'Pending'}
                   />
                 </DemoContainer>
               </LocalizationProvider>
@@ -165,6 +176,7 @@ const ProofExternalForm = ({
                     value={proof ? dayjs(value) : null}
                     onChange={onChange}
                     className='bg-white w-full'
+                    disabled={proof && proof.proofStatus !== 'Pending'}
                   />
                 </DemoContainer>
               </LocalizationProvider>
@@ -185,6 +197,9 @@ const ProofExternalForm = ({
                   value={proof && value}
                   onChange={onChange}
                   className='w-full bg-white'
+                  InputProps={{
+                    disabled: proof && proof.proofStatus !== 'Pending'
+                  }}
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
@@ -204,6 +219,9 @@ const ProofExternalForm = ({
                   value={proof && value}
                   onChange={onChange}
                   className='w-full bg-white'
+                  InputProps={{
+                    disabled: proof && proof.proofStatus !== 'Pending'
+                  }}
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
@@ -226,6 +244,7 @@ const ProofExternalForm = ({
                   renderInput={(params) => <TextField {...params} label='Hoạt động sự kiện' />}
                   onChange={(_, option) => onChange(option ? option.id : '')}
                   className='bg-white'
+                  disabled={proof && proof.proofStatus !== 'Pending'}
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
@@ -247,12 +266,28 @@ const ProofExternalForm = ({
                   multiline
                   rows={3}
                   className='w-full bg-white'
+                  InputProps={{
+                    disabled: proof && proof.proofStatus !== 'Pending'
+                  }}
                 />
                 <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
               </div>
             </LocalizationProvider>
           )}
         />
+        {proof && proof.proofStatus === 'Rejected' && (
+          <div className='col-span-2 mb-4'>
+            <TextField
+              id='rejectReason'
+              label='Lí do từ chối'
+              value={proof.rejectReason}
+              className='w-full bg-white'
+              InputProps={{
+                disabled: true
+              }}
+            />
+          </div>
+        )}
         <div className='col-span-2'>
           <div className='w-full h-[240px] rounded-lg'>
             <InputImage
@@ -262,6 +297,7 @@ const ProofExternalForm = ({
               classNameButton='absolute bg-slate-200 outline-none w-full h-full top-0 left-0'
               isHiddenButton={true}
               avatar={proof ? proof.imageUrl : ''}
+              disabled={proof && proof.proofStatus !== 'Pending'}
             >
               <div className='flex flex-col justify-center items-center h-full border-[2px] border-dashed border-[#26c6da] rounded-xl'>
                 <img
