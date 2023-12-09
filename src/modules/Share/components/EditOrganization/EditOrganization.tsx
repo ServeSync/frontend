@@ -14,12 +14,14 @@ import { toast } from 'react-toastify'
 import { Box, Tab, Tabs } from '@mui/material'
 import OrganizationInfo from '../OrganizationInfo'
 import OrganizationContactInfo from '../OrganizationContactInfo'
+
 interface Props {
   organizationId: string
   handleCloseModal: () => void
 }
 const EditOrganization = ({ organizationId, handleCloseModal }: Props) => {
   const [page, setPage] = useState<number>(0)
+
   const handleChange = (event: React.SyntheticEvent, newPage: number) => {
     event.preventDefault()
     setPage(newPage)
@@ -38,9 +40,12 @@ const EditOrganization = ({ organizationId, handleCloseModal }: Props) => {
   const { register, control, setValue, handleSubmit, setError } = useForm<FormEventOrganizationType>({
     resolver: yupResolver(FormEventOrganizationSchema)
   })
+
   const getOrganizationByIdQuery = new GetEventOrganizationByIdQuery(organizationId)
   const organization = getOrganizationByIdQuery.fetch()
+
   const editEventOrganizationCommandHandler = new EditEventOrganizationCommandHandler()
+
   const handleSubmitForm = handleSubmit(async (data) => {
     editEventOrganizationCommandHandler.handle(
       {
@@ -57,6 +62,7 @@ const EditOrganization = ({ organizationId, handleCloseModal }: Props) => {
       }
     )
   })
+
   return (
     <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg w-[1000px] '>
       <div className='flex justify-between items-center w-full'>

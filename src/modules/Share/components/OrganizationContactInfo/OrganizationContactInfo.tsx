@@ -6,6 +6,7 @@ interface Props {
   index: number
   organization: EventOrganizationType
 }
+
 const OrganizationContactInfo = ({ page, index, organization }: Props) => {
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>

@@ -9,6 +9,7 @@ import Button from 'src/modules/Share/components/Button'
 import { EventOrganizationType } from '../../interfaces'
 import { StatusOrganizationToMessage } from '../../constants'
 import classNames from 'classnames'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 interface Props {
   register: UseFormRegister<FormEventOrganizationType>
@@ -198,19 +199,23 @@ const EditEventOrganizationForm = ({
             >
               Hủy
             </Button>
-            <Button
-              type='button'
-              classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[16px] text-white font-semibold'
-              onClick={() => handleDeleteEventOrganization(eventOrganization.id)}
-            >
-              Xóa
-            </Button>
-            <Button
-              classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
-              isLoading={isLoadingEdit}
-            >
-              Lưu
-            </Button>
+            <Restricted to='ServeSync.Permissions.EventOrganizations.Delete'>
+              <Button
+                type='button'
+                classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[16px] text-white font-semibold'
+                onClick={() => handleDeleteEventOrganization(eventOrganization.id)}
+              >
+                Xóa
+              </Button>
+            </Restricted>
+            <Restricted to='ServeSync.Permissions.EventOrganizations.Update'>
+              <Button
+                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
+                isLoading={isLoadingEdit}
+              >
+                Lưu
+              </Button>
+            </Restricted>
           </div>
         </div>
       )}

@@ -17,6 +17,7 @@ const EditOrganizationInfo = ({ organization }: Props) => {
   const handleCloseModalChange = () => {
     setIsOpenModal(false)
   }
+
   return (
     <Fragment>
       <div className='mt-4 mb-2 flex justify-end'>

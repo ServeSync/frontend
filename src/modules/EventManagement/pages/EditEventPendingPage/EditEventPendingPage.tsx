@@ -126,7 +126,7 @@ const EditEventPendingPage = () => {
       </div>
       {eventPending && eventPending.status === 'Pending' && (
         <div className='flex justify-end gap-x-6 fixed bottom-0 right-0 p-5 bg-slate-100 w-full z-20'>
-          <Restricted to={'ServeSync.Permissions.Events.RejectRegistration'}>
+          <Restricted to={'ServeSync.Permissions.EventCollaborationRequests.Reject'}>
             <Button
               type='button'
               classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'
@@ -135,7 +135,7 @@ const EditEventPendingPage = () => {
               Từ chối
             </Button>
           </Restricted>
-          <Restricted to={'ServeSync.Permissions.Events.ApproveRegistration'}>
+          <Restricted to={'ServeSync.Permissions.EventCollaborationRequests.Approve'}>
             <Button
               type='button'
               classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50'

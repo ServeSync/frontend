@@ -208,7 +208,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <Restricted to='ServeSync.Permissions.Roles.View' fallback={<NotAllowed />}>
+                <Restricted to='ServeSync.Permissions.Roles.Management' fallback={<NotAllowed />}>
                   <RolePage />
                 </Restricted>
               </Suspense>
@@ -220,7 +220,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <Restricted to='ServeSync.Permissions.Students.View' fallback={<NotAllowed />}>
+                <Restricted to='ServeSync.Permissions.Students.Management' fallback={<NotAllowed />}>
                   <StudentPage />
                 </Restricted>
               </Suspense>
@@ -244,10 +244,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <Restricted
-                  to={'ServeSync.Permissions.Students.ViewProfile' && 'ServeSync.Permissions.Students.Edit'}
-                  fallback={<NotAllowed />}
-                >
+                <Restricted to={'ServeSync.Permissions.Students.ViewProfile'} fallback={<NotAllowed />}>
                   <EditStudentPage />
                 </Restricted>
               </Suspense>
@@ -259,7 +256,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <Restricted to={'ServeSync.Permissions.Events.View'} fallback={<NotAllowed />}>
+                <Restricted to={'ServeSync.Permissions.Events.Management'} fallback={<NotAllowed />}>
                   <EventPage />
                 </Restricted>
               </Suspense>
@@ -295,7 +292,12 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <EventPending />
+                <Restricted
+                  to={'ServeSync.Permissions.EventCollaborationRequests.Management'}
+                  fallback={<NotAllowed />}
+                >
+                  <EventPending />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -305,7 +307,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <EditEventPendingPage />
+                <Restricted to={'ServeSync.Permissions.EventCollaborationRequests.View'} fallback={<NotAllowed />}>
+                  <EditEventPendingPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -315,7 +319,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <Restricted to={'ServeSync.Permissions.EventOrganizations.View'} fallback={<NotAllowed />}>
+                <Restricted to={'ServeSync.Permissions.EventOrganizations.Management'} fallback={<NotAllowed />}>
                   <EventOrganizationPage />
                 </Restricted>
               </Suspense>
@@ -327,7 +331,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <CreateOrganizationPage />
+                <Restricted to={'ServeSync.Permissions.EventOrganizations.Create'} fallback={<NotAllowed />}>
+                  <CreateOrganizationPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -337,7 +343,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <EditEventOrganizationPage />
+                <Restricted to={'ServeSync.Permissions.EventOrganizations.Update'} fallback={<NotAllowed />}>
+                  <EditEventOrganizationPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )
@@ -347,7 +355,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <ProofPage />
+                <Restricted to={'ServeSync.Permissions.Proofs.Management'} fallback={<NotAllowed />}>
+                  <ProofPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )

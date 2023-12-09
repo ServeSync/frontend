@@ -14,6 +14,7 @@ interface Props {
   previewImage: string
   isLoadingEdit: boolean
 }
+
 const OrganizationInfo = ({
   page,
   index,

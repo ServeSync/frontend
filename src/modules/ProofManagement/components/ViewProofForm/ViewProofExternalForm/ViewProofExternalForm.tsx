@@ -8,6 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import Button from 'src/modules/Share/components/Button'
 import { formatDateTimeVN } from 'src/modules/Share/utils'
 import { FormRejectProofType } from '../../../utils'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 interface Props {
   proof: ProofDetailType
@@ -182,21 +183,25 @@ const ViewProofExternalForm = ({
                 />
                 {proof.proofStatus === 'Pending' && (
                   <div className='flex gap-x-6  justify-end items-center'>
-                    <Button
-                      type='submit'
-                      classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[108px]'
-                      isLoading={isLoadingReject}
-                    >
-                      Từ chối
-                    </Button>
-                    <Button
-                      type='button'
-                      classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[100px]'
-                      onClick={handleApproveProof}
-                      isLoading={isLoadingApprove}
-                    >
-                      Duyệt
-                    </Button>
+                    <Restricted to='ServeSync.Permissions.Proofs.Reject'>
+                      <Button
+                        type='submit'
+                        classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[108px]'
+                        isLoading={isLoadingReject}
+                      >
+                        Từ chối
+                      </Button>
+                    </Restricted>
+                    <Restricted to='ServeSync.Permissions.Proofs.Approve'>
+                      <Button
+                        type='button'
+                        classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[100px]'
+                        onClick={handleApproveProof}
+                        isLoading={isLoadingApprove}
+                      >
+                        Duyệt
+                      </Button>
+                    </Restricted>
                   </div>
                 )}
               </form>

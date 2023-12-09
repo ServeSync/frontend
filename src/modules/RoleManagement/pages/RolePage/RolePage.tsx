@@ -20,7 +20,6 @@ import RoleForm from '../../components/RoleForm'
 import RoleTable from '../../components/RoleTable'
 import PermissionPage from '../PermissionPage'
 import useQueryRoleConfig from '../../hooks/useQueryRoleConfig'
-import Restricted from 'src/modules/Share/components/Restricted'
 
 const RolePage = () => {
   const [isEditForm, setIsEditForm] = useState<boolean>(false)
@@ -149,9 +148,7 @@ const RolePage = () => {
           <RoleTable roles={roles} onEditRole={onEditRole} roleID={role?.id} isLoading={getAllRolesQuery.isLoading()} />
         </div>
         <div className='col-span-3'>
-          <Restricted to={'ServeSync.Permissions.Roles.ViewPermissions'}>
-            <PermissionPage onDeleteRole={handleDeleteRole} />
-          </Restricted>
+          <PermissionPage onDeleteRole={handleDeleteRole} />
         </div>
       </div>
     </Fragment>

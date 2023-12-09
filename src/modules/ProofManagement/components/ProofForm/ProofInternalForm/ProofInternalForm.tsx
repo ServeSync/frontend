@@ -127,10 +127,10 @@ const ProofInternalForm = ({
         </div>
         <div className='col-span-2'>
           <TextField
-            id='introduce'
-            value={event ? event.introduction : ''}
+            id='activity'
+            value={proof && eventId !== '' ? proof.activity.name : event ? event.activity.name : ''}
             className='w-full bg-white'
-            label='Giới thiệu'
+            label='Hoạt động'
             InputProps={{
               disabled: true
             }}

@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment } from 'react'
-import { ProofDetailType } from '../../../interfaces'
 import { TextField } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import Button from 'src/modules/Share/components/Button'
-
 import { formatDateTimeVN } from 'src/modules/Share/utils'
-import { FormRejectProofType } from '../../../utils'
+import { ProofDetailType } from 'src/modules/ProofManagement/interfaces'
+import { FormRejectProofType } from 'src/modules/ProofManagement/utils'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 interface Props {
   proof: ProofDetailType
@@ -19,7 +19,7 @@ interface Props {
   isLoadingApprove: boolean
 }
 
-const ViewProofInternalForm = ({
+const ViewProofForm = ({
   proof,
   control,
   handleApproveProof,
@@ -70,7 +70,7 @@ const ViewProofInternalForm = ({
               <div className='col-span-1 mt-[-8px] mb-[18px]'>
                 <TextField
                   id='organizationName'
-                  label='Ngày bắt đầu'
+                  label='Thời gian bắt đầu'
                   value={formatDateTimeVN(proof.startAt)}
                   className='w-full bg-white'
                   InputProps={{
@@ -81,7 +81,7 @@ const ViewProofInternalForm = ({
               <div className='col-span-1 mt-[-8px] mb-[18px]'>
                 <TextField
                   id='organizationName'
-                  label='Ngày kết thúc'
+                  label='Thời gian kết thúc'
                   value={formatDateTimeVN(proof.endAt)}
                   className='w-full bg-white'
                   InputProps={{
@@ -92,7 +92,7 @@ const ViewProofInternalForm = ({
               <div className='col-span-2 '>
                 <TextField
                   id='activityName'
-                  label='Hoạt động sự kiện'
+                  label='Tên hoạt động'
                   value={proof.activity.name}
                   className='w-full bg-white'
                   InputProps={{
@@ -183,21 +183,25 @@ const ViewProofInternalForm = ({
                 />
                 {proof.proofStatus === 'Pending' && (
                   <div className='flex gap-x-6  justify-end items-center'>
-                    <Button
-                      type='submit'
-                      classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[108px]'
-                      isLoading={isLoadingReject}
-                    >
-                      Từ chối
-                    </Button>
-                    <Button
-                      type='button'
-                      classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[100px]'
-                      onClick={handleApproveProof}
-                      isLoading={isLoadingApprove}
-                    >
-                      Duyệt
-                    </Button>
+                    <Restricted to='ServeSync.Permissions.Proofs.Reject'>
+                      <Button
+                        type='submit'
+                        classNameButton='bg-[#FF5252] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[108px]'
+                        isLoading={isLoadingReject}
+                      >
+                        Từ chối
+                      </Button>
+                    </Restricted>
+                    <Restricted to='ServeSync.Permissions.Proofs.Approve'>
+                      <Button
+                        type='button'
+                        classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold z-50 w-[100px]'
+                        onClick={handleApproveProof}
+                        isLoading={isLoadingApprove}
+                      >
+                        Duyệt
+                      </Button>
+                    </Restricted>
                   </div>
                 )}
               </form>
@@ -209,4 +213,4 @@ const ViewProofInternalForm = ({
   )
 }
 
-export default ViewProofInternalForm
+export default ViewProofForm
