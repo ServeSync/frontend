@@ -9,7 +9,7 @@ export const FormExportFileSchema = yup.object().shape({
     }
     const startDate = new Date(formDate)
     const endDate = new Date(toDate)
-    return endDate > startDate
+    return endDate >= startDate
   })
 })
 
