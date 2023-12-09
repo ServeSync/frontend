@@ -315,7 +315,7 @@ const EventRegisterList = () => {
                     )}
                     {registration.status === 'Pending' && (
                       <div className='flex gap-6 justify-end'>
-                        <Restricted to='ServeSync.Permissions.Students.RejectRegistration'>
+                        <Restricted to='ServeSync.Permissions.Events.RejectRegistration'>
                           <Button
                             type='submit'
                             classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[108px]'
@@ -324,7 +324,7 @@ const EventRegisterList = () => {
                             Từ chối
                           </Button>
                         </Restricted>
-                        <Restricted to='ServeSync.Permissions.Students.ApproveRegistration'>
+                        <Restricted to='ServeSync.Permissions.Events.ApproveRegistration'>
                           <Button
                             type='button'
                             classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
