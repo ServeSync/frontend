@@ -136,7 +136,7 @@ const Header = () => {
                   horizontal: 'right'
                 }}
               >
-                {profile.isTenantOwner && (
+                {profile.isTenantOwner && profile.roles[0] != 'Quản trị viên' && (
                   <Button
                     classNameButton='flex items-center cursor-pointer w-full  p-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-800'
                     onClick={() => {
