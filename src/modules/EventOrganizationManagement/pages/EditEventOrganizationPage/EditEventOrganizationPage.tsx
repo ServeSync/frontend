@@ -116,7 +116,7 @@ const EditEventOrganizationPage = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Edit Organization</title>
+        <title>Edit Event Organization</title>
         <meta name='description' content='This is edit event organization of the project'></meta>
       </Helmet>
       {eventOrganization && (
