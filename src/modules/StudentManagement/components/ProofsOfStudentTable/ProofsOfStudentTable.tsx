@@ -2,7 +2,7 @@ import Skeleton from 'react-loading-skeleton'
 import { ProofType } from 'src/modules/ProofManagement/interfaces'
 import { ProofsOfStudentTableHeader } from '../../constants'
 import { StatusEventToMessage, TypeEventToMessage } from 'src/modules/EventManagement/constants'
-import { formatDateTime } from 'src/modules/Share/utils'
+import { formatDateTimeVN } from 'src/modules/Share/utils'
 import { Fragment, useState } from 'react'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import EditProofPage from 'src/modules/ProofManagement/pages/EditProofPage/EditProofPage'
@@ -79,8 +79,10 @@ const ProofsOfStudentTable = ({ proofs, isLoading, studentId }: Props) => {
                 >
                   <th className='px-2 py-4 font-medium'>{index + 1}</th>
                   <th className='px-2 py-4 font-medium'>{proof.eventName}</th>
-                  <th className='px-2 py-4 font-medium'>{proof.student.fullName}</th>
-                  <th className='px-2 py-4 font-medium'>{formatDateTime(proof.created)}</th>
+                  <th className='px-2 py-4 font-medium'>{formatDateTimeVN(proof.created)}</th>
+                  <th className='px-2 py-4 font-medium'>
+                    {proof.lastModified ? `${formatDateTimeVN(proof.lastModified)}` : ' - '}
+                  </th>
                   <th className='px-2 py-4 font-medium'>{TypeEventToMessage(proof.proofType)}</th>
                   <th className='px-2 py-4 font-medium'>{StatusEventToMessage(proof.proofStatus)}</th>
                 </tr>

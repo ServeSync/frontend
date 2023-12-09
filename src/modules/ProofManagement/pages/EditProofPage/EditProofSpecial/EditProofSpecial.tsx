@@ -15,9 +15,10 @@ interface Props {
   proof: ProofDetailType
   handleDeleteProof: (id: string) => void
   isLoadingDelete: boolean
+  handleCloseModalChange: () => void
 }
 
-const EditProofSpecial = ({ proof, handleDeleteProof, isLoadingDelete }: Props) => {
+const EditProofSpecial = ({ proof, handleDeleteProof, isLoadingDelete, handleCloseModalChange }: Props) => {
   const [file, setFile] = useState<File>()
 
   const previewImage = useMemo(() => {
@@ -54,6 +55,7 @@ const EditProofSpecial = ({ proof, handleDeleteProof, isLoadingDelete }: Props) 
       },
       file as File,
       () => {
+        handleCloseModalChange()
         toast.success('Tạo minh chứng thành công !')
       },
       (error: any) => {

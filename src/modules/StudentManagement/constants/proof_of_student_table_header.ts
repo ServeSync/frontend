@@ -9,11 +9,11 @@ export const ProofsOfStudentTableHeader = [
   },
   {
     id: '3',
-    name: 'Tên sinh viên'
+    name: 'Ngày tạo'
   },
   {
     id: '4',
-    name: 'Ngày tạo'
+    name: 'Ngày chỉnh sửa'
   },
   {
     id: '5',

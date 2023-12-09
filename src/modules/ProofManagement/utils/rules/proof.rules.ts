@@ -47,7 +47,7 @@ export const FormProofExternalSchema = yup.object().shape({
       }
       const startDate = new Date(startAt)
       const endDate = new Date(endAt)
-      return endDate > startDate
+      return endDate >= startDate
     }),
   attendanceAt: yup
     .string()
@@ -66,7 +66,7 @@ export const FormProofExternalSchema = yup.object().shape({
       const startDate = new Date(startAt)
       const endDate = new Date(endAt)
       const attendanceDate = new Date(attendanceAt)
-      return attendanceDate > startDate && attendanceDate < endDate
+      return attendanceDate >= startDate && attendanceDate <= endDate
     }),
   role: yup.string().required('Vui lòng nhập vai trò trong sự kiện !').min(5, 'Vai trò sự kiên có ít nhất 5 kí tự !'),
   score: yup
@@ -105,7 +105,7 @@ export const FormProofSpecialSchema = yup.object().shape({
       }
       const startDate = new Date(startAt)
       const endDate = new Date(endAt)
-      return endDate > startDate
+      return endDate >= startDate
     }),
   role: yup.string().required('Vui lòng nhập vai trò !').min(5, 'Vai trò có ít nhất 5 kí tự !'),
   score: yup
