@@ -145,7 +145,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server'
     },
     'Event:000007': {
-      message: 'Sự kiện không thể được chấp thuận !',
+      message: 'Sự kiện không thể được chấp thuận vì thời gian hiện tại lớn hơn phiên đăng ký',
       type: 'Server'
     },
     'Event:000008': {
@@ -274,7 +274,8 @@ export function ErrorCodeToMessage(errorCode: string): {
     },
     'EventOrganization:000002': {
       message: 'Email này đã được đăng ký bởi tổ chức khác',
-      type: 'Server'
+      type: 'Server',
+      field: 'email'
     },
     'EventOrganization:000003': {
       message: 'Không thể xóa tổ chức đã tham gia tổ chức sự kiện trước đó ',
@@ -282,7 +283,8 @@ export function ErrorCodeToMessage(errorCode: string): {
     },
     'EventOrganization:000004': {
       message: 'Tên nhà tổ chức sự kiện đã tồn tại',
-      type: 'Server'
+      type: 'Server',
+      field: 'name'
     },
     'EventOrganization:000005': {
       message: 'Nhà tổ chức không ở trạng thái chờ',

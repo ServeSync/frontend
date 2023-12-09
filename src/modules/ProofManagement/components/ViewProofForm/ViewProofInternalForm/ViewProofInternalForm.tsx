@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment } from 'react'
-import { ProofDetailType } from '../../interfaces'
 import { TextField } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import Button from 'src/modules/Share/components/Button'
-
 import { formatDateTimeVN } from 'src/modules/Share/utils'
-import { FormRejectProofType } from '../../utils'
+import { ProofDetailType } from 'src/modules/ProofManagement/interfaces'
+import { FormRejectProofType } from 'src/modules/ProofManagement/utils'
 import Restricted from 'src/modules/Share/components/Restricted'
 
 interface Props {

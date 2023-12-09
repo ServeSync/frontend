@@ -1,3 +1,4 @@
-import ViewProofPage from './ViewProofPage'
-
-export default ViewProofPage
+export * from './ViewProofPage'
+export * from './ViewProofInternal'
+export * from './ViewProofExternal'
+export * from './ViewProofSpecial'
