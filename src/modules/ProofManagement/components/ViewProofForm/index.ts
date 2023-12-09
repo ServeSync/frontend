@@ -1,3 +1,3 @@
-import ViewProofForm from './ViewProofForm'
-
-export default ViewProofForm
+export * from './ViewProofExternalForm'
+export * from './ViewProofInternalForm'
+export * from './ViewProofSpecialForm'

@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment } from 'react'
-import { ProofDetailType } from '../../interfaces'
+import { ProofDetailType } from '../../../interfaces'
 import { TextField } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import Button from 'src/modules/Share/components/Button'
-
 import { formatDateTimeVN } from 'src/modules/Share/utils'
-import { FormRejectProofType } from '../../utils'
+import { FormRejectProofType } from '../../../utils'
 
 interface Props {
   proof: ProofDetailType
@@ -19,7 +18,7 @@ interface Props {
   isLoadingApprove: boolean
 }
 
-const ViewProofForm = ({
+const ViewProofExternalForm = ({
   proof,
   control,
   handleApproveProof,
@@ -59,7 +58,7 @@ const ViewProofForm = ({
               <div className='col-span-2 mb-[18px]'>
                 <TextField
                   id='organizationName'
-                  label='Tên nhà tổ chức'
+                  label='Nhà tổ chức'
                   value={proof.organizationName}
                   className='w-full bg-white'
                   InputProps={{
@@ -70,7 +69,7 @@ const ViewProofForm = ({
               <div className='col-span-1 mt-[-8px] mb-[18px]'>
                 <TextField
                   id='organizationName'
-                  label='Thời gian bắt đầu'
+                  label='Ngày bắt đầu'
                   value={formatDateTimeVN(proof.startAt)}
                   className='w-full bg-white'
                   InputProps={{
@@ -81,19 +80,8 @@ const ViewProofForm = ({
               <div className='col-span-1 mt-[-8px] mb-[18px]'>
                 <TextField
                   id='organizationName'
-                  label='Thời gian kết thúc'
+                  label='Ngày kết thúc'
                   value={formatDateTimeVN(proof.endAt)}
-                  className='w-full bg-white'
-                  InputProps={{
-                    readOnly: true
-                  }}
-                />
-              </div>
-              <div className='col-span-2 '>
-                <TextField
-                  id='activityName'
-                  label='Tên hoạt động'
-                  value={proof.activity.name}
                   className='w-full bg-white'
                   InputProps={{
                     readOnly: true
@@ -106,7 +94,7 @@ const ViewProofForm = ({
               <div className='col-span-2 mb-[18px]'>
                 <TextField
                   id=''
-                  label='Thời gian điểm danh'
+                  label='Ngày điểm danh'
                   value={formatDateTimeVN(proof.attendanceAt)}
                   className='w-full bg-white'
                   InputProps={{
@@ -114,7 +102,7 @@ const ViewProofForm = ({
                   }}
                 />
               </div>
-              <div className='col-span-1 mb-[18px]'>
+              <div className='col-span-2 mb-[18px]'>
                 <TextField
                   id='role'
                   label='Vai trò tham gia'
@@ -125,11 +113,22 @@ const ViewProofForm = ({
                   }}
                 />
               </div>
-              <div className='col-span-1 mb-[18px]'>
+              <div className='col-span-2 mb-[18px]'>
                 <TextField
                   id='role'
                   label='Điểm '
                   value={proof.score}
+                  className='w-full bg-white'
+                  InputProps={{
+                    readOnly: true
+                  }}
+                />
+              </div>
+              <div className='col-span-2 mb-[18px]'>
+                <TextField
+                  id='activityName'
+                  label='Hoạt động sự kiện'
+                  value={proof.activity.name}
                   className='w-full bg-white'
                   InputProps={{
                     readOnly: true
@@ -209,4 +208,4 @@ const ViewProofForm = ({
   )
 }
 
-export default ViewProofForm
+export default ViewProofExternalForm

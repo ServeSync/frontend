@@ -6,7 +6,7 @@ import { formatDateTimeVN } from 'src/modules/Share/utils'
 import { Fragment, useState } from 'react'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import { StatusEventToMessage, TypeEventToMessage } from 'src/modules/EventManagement/constants'
-import ViewProofPage from '../../pages/ViewProofPage'
+import ViewProofPage from '../../pages/ViewProofPage/ViewProofPage'
 
 interface Props {
   proofs: ProofsListType
@@ -75,7 +75,9 @@ const ProofTable = ({ proofs, isLoading, onSort }: Props) => {
                     <span className='line-clamp-1'>{proof.student.fullName}</span>
                   </th>
                   <th className='px-2 py-4 font-medium w-[18%]'>{formatDateTimeVN(proof.created)}</th>
-                  <th className='px-2 py-4 font-medium w-[18%]'>{formatDateTimeVN(proof.lastModified)}</th>
+                  <th className='px-2 py-4 font-medium w-[18%]'>
+                    {proof.lastModified ? `${formatDateTimeVN(proof.lastModified)}` : ' - '}
+                  </th>
                   <th className='px-2 py-4 font-medium w-[12%]'>{TypeEventToMessage(proof.proofType)}</th>
                   <th className='px-2 py-4 font-medium w-[12%]'>{StatusEventToMessage(proof.proofStatus)}</th>
                 </tr>
