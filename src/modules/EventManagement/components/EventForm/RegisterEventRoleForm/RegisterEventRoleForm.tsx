@@ -291,35 +291,39 @@ const RegisterEventRoleForm = ({
                   placeholder='Nhập mô tả vai trò'
                 />
               </div>
-              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errorsLocal}</span>
-              <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
-                {errors && errors.roles?.message}
-              </span>
-            </div>
-            <div className='flex justify-end col-span-12 gap-4'>
-              {isEditEventRole && (
-                <Button
-                  type='button'
-                  classNameButton='bg-gray-300 py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
-                  onClick={handleCancelEdit}
-                >
-                  Hủy
-                </Button>
-              )}
-              <Button
-                type='button'
-                classNameButton='bg-[#da4848] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
-                onClick={handleResetForm}
-              >
-                Làm mới
-              </Button>
-              <Button
-                type='button'
-                classNameButton='bg-[#26da38] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
-                onClick={handleSubmit}
-              >
-                {isEditEventRole ? 'Lưu' : 'Thêm'}
-              </Button>
+              <div className='flex justify-between'>
+                <div>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{errorsLocal}</span>
+                  <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                    {errors && errors.roles?.message}
+                  </span>
+                </div>
+                <div className='flex justify-end gap-4 mt-2'>
+                  {isEditEventRole && (
+                    <Button
+                      type='button'
+                      classNameButton='bg-gray-300 py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
+                      onClick={handleCancelEdit}
+                    >
+                      Hủy
+                    </Button>
+                  )}
+                  <Button
+                    type='button'
+                    classNameButton='bg-[#da4848] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
+                    onClick={handleResetForm}
+                  >
+                    Làm mới
+                  </Button>
+                  <Button
+                    type='button'
+                    classNameButton='bg-[#26da38] py-2 px-6 rounded-xl text-[14px] text-white font-semibold h-[48px]'
+                    onClick={handleSubmit}
+                  >
+                    {isEditEventRole ? 'Lưu' : 'Thêm'}
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
