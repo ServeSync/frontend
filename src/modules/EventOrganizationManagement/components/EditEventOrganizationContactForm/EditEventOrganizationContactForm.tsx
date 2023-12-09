@@ -10,6 +10,7 @@ import { ContactType, EventOrganizationType } from '../../interfaces'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import dayjs from 'dayjs'
 import { gender } from 'src/modules/StudentManagement/constants'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 interface Props {
   eventOrganization: EventOrganizationType
@@ -226,19 +227,23 @@ const EditEventOrganizationContactForm = ({
               )}
             />
             <div className='flex justify-end gap-6'>
-              <Button
-                type='button'
-                classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[48px]'
-                onClick={() => handleDeleteOrganizationContact(eventOrganization.id, organizationContact?.id)}
-              >
-                Xóa
-              </Button>
-              <Button
-                isLoading={isLoading}
-                classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px] h-[48px]'
-              >
-                Lưu
-              </Button>
+              <Restricted to='ServeSync.Permissions.EventOrganizations.RemoveContact'>
+                <Button
+                  type='button'
+                  classNameButton='bg-red-500 py-2 px-4 rounded-lg text-[14px] text-white font-semibold h-[48px]'
+                  onClick={() => handleDeleteOrganizationContact(eventOrganization.id, organizationContact?.id)}
+                >
+                  Xóa
+                </Button>
+              </Restricted>
+              <Restricted to='ServeSync.Permissions.EventOrganizations.UpdateContact'>
+                <Button
+                  isLoading={isLoading}
+                  classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px] h-[48px]'
+                >
+                  Lưu
+                </Button>
+              </Restricted>
             </div>
           </div>
         </div>

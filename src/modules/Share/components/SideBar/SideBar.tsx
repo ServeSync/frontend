@@ -111,16 +111,7 @@ const SideBar = () => {
                 </span>
               </NavLink>
             </li>
-            <Restricted
-              to={
-                'ServeSync.Permissions.Roles.View' ||
-                'ServeSync.Permissions.Roles.Create' ||
-                'ServeSync.Permissions.Roles.Edit' ||
-                'ServeSync.Permissions.Roles.Delete' ||
-                'ServeSync.Permissions.Roles.UpdatePermissions' ||
-                'ServeSync.Permissions.Roles.ViewPermissions'
-              }
-            >
+            <Restricted to={'ServeSync.Permissions.Roles.Management'}>
               <li className='py-2'>
                 <NavLink
                   to={path.role}
@@ -150,16 +141,7 @@ const SideBar = () => {
                 </NavLink>
               </li>
             </Restricted>
-            <Restricted
-              to={
-                'ServeSync.Permissions.Students.View' ||
-                'ServeSync.Permissions.Students.Create' ||
-                'ServeSync.Permissions.Students.Edit' ||
-                'ServeSync.Permissions.Students.Delete' ||
-                'ServeSync.Permissions.Students.EditProfile' ||
-                'ServeSync.Permissions.Students.ViewProfile'
-              }
-            >
+            <Restricted to={'ServeSync.Permissions.Students.Management'}>
               <li className='py-2'>
                 <NavLink
                   to={path.student}
@@ -189,18 +171,7 @@ const SideBar = () => {
                 </NavLink>
               </li>
             </Restricted>
-            <Restricted
-              to={
-                'ServeSync.Permissions.Events.View' ||
-                'ServeSync.Permissions.Events.Create' ||
-                'ServeSync.Permissions.Events.Edit' ||
-                'ServeSync.Permissions.Events.Approve' ||
-                'ServeSync.Permissions.Students.Reject' ||
-                'ServeSync.Permissions.Students.Cancel' ||
-                'ServeSync.Permissions.Events.RejectRegistration' ||
-                'ServeSync.Permissions.Events.ApproveRegistration'
-              }
-            >
+            <Restricted to={'ServeSync.Permissions.Events.Management'}>
               <li className='py-2'>
                 <NavLink
                   to={path.event}
@@ -238,13 +209,7 @@ const SideBar = () => {
                 </NavLink>
               </li>
             </Restricted>
-            <Restricted
-              to={
-                // 'ServeSync.Permissions.EventCollaborationRequests.Approve' ||
-                // 'ServeSync.Permissions.EventCollaborationRequests.Reject' ||
-                'ServeSync.Permissions.EventCollaborationRequests.View'
-              }
-            >
+            <Restricted to={'ServeSync.Permissions.EventCollaborationRequests.Management'}>
               <li className='py-2'>
                 <NavLink
                   to={path.event_pending}
@@ -282,9 +247,7 @@ const SideBar = () => {
                 </NavLink>
               </li>
             </Restricted>
-            <Restricted
-              to={'ServeSync.Permissions.EventOrganizations.Update' || ' ServeSync.Permissions.EventOrganizations.View'}
-            >
+            <Restricted to={'ServeSync.Permissions.EventOrganizations.Management'}>
               <li className='py-2'>
                 <NavLink
                   to={path.event_organization}
@@ -322,42 +285,44 @@ const SideBar = () => {
                 </NavLink>
               </li>
             </Restricted>
-            <li className='py-2'>
-              <NavLink
-                to={path.proof}
-                className={({ isActive }) =>
-                  classNames(
-                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
-                    {
-                      'text-gray-200': isActive
-                    }
-                  )
-                }
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth='1.5'
-                  stroke='currentColor'
-                  className='w-6 h-6 text-[#26C6DA]'
+            <Restricted to={'ServeSync.Permissions.Proofs.Management'}>
+              <li className='py-2'>
+                <NavLink
+                  to={path.proof}
+                  className={({ isActive }) =>
+                    classNames(
+                      'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
+                      {
+                        'text-gray-200': isActive
+                      }
+                    )
+                  }
                 >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z'
-                  />
-                </svg>
-                <span
-                  className={classNames('overflow-hidden', {
-                    'ml-4': expanded,
-                    'w-0': !expanded
-                  })}
-                >
-                  Quản lý minh chứng
-                </span>
-              </NavLink>
-            </li>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth='1.5'
+                    stroke='currentColor'
+                    className='w-6 h-6 text-[#26C6DA]'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z'
+                    />
+                  </svg>
+                  <span
+                    className={classNames('overflow-hidden', {
+                      'ml-4': expanded,
+                      'w-0': !expanded
+                    })}
+                  >
+                    Quản lý minh chứng
+                  </span>
+                </NavLink>
+              </li>
+            </Restricted>
           </ul>
         </div>
       </div>

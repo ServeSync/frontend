@@ -21,6 +21,7 @@ import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import EventOrganizationContactTable from '../../components/EventOrganizationContactTable'
 import CreateEventOrganizationContactPage from '../CreateEventOrganizationContactPage'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 const EditEventOrganizationPage = () => {
   const [file, setFile] = useState<File>()
@@ -136,21 +137,23 @@ const EditEventOrganizationPage = () => {
           </form>
           <div className='mt-4 mb-2 flex justify-between'>
             <h3 className='text-[16px] font-semibold'>Danh sách thành viên</h3>
-            {eventOrganization.status == 'Active' && (
-              <Button
-                onClick={handleOpenModalChange}
-                classNameButton='text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
-              >
-                Mời thành viên gia nhập
-              </Button>
-            )}
+            <Restricted to='ServeSync.Permissions.EventOrganizations.AddContact'>
+              {eventOrganization.status == 'Active' && (
+                <Button
+                  onClick={handleOpenModalChange}
+                  classNameButton='text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg'
+                >
+                  Mời thành viên gia nhập
+                </Button>
+              )}
+              <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModalChange}>
+                <CreateEventOrganizationContactPage
+                  eventOrganization={eventOrganization}
+                  handleClose={handleCloseModalChange}
+                />
+              </ModalCustom>
+            </Restricted>
           </div>
-          <ModalCustom isOpenModal={isOpenModal} handleClose={handleCloseModalChange}>
-            <CreateEventOrganizationContactPage
-              eventOrganization={eventOrganization}
-              handleClose={handleCloseModalChange}
-            />
-          </ModalCustom>
           {eventOrganization.contacts.length == 0 ? (
             <div className='flex flex-col items-center mt-3 text-[#A0A2A4]'>
               <svg

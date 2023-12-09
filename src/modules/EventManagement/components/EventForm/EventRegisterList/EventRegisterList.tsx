@@ -20,6 +20,7 @@ import {
 import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import Pagination from 'src/modules/Share/components/Pagination'
+import Restricted from 'src/modules/Share/components/Restricted'
 import path from 'src/modules/Share/constants/path'
 import { formatDateTime, handleError } from 'src/modules/Share/utils'
 import Swal from 'sweetalert2'
@@ -314,21 +315,25 @@ const EventRegisterList = () => {
                     )}
                     {registration.status === 'Pending' && (
                       <div className='flex gap-6 justify-end'>
-                        <Button
-                          type='submit'
-                          classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[108px]'
-                          isLoading={rejectRegistrationCommandHandler.isLoading()}
-                        >
-                          Từ chối
-                        </Button>
-                        <Button
-                          type='button'
-                          classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
-                          onClick={() => handleApproveRegistration(registration.studentId, registration.id)}
-                          isLoading={approveRegistrationCommandHandler.isLoading()}
-                        >
-                          Duyệt
-                        </Button>
+                        <Restricted to='ServeSync.Permissions.Students.RejectRegistration'>
+                          <Button
+                            type='submit'
+                            classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[108px]'
+                            isLoading={rejectRegistrationCommandHandler.isLoading()}
+                          >
+                            Từ chối
+                          </Button>
+                        </Restricted>
+                        <Restricted to='ServeSync.Permissions.Students.ApproveRegistration'>
+                          <Button
+                            type='button'
+                            classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
+                            onClick={() => handleApproveRegistration(registration.studentId, registration.id)}
+                            isLoading={approveRegistrationCommandHandler.isLoading()}
+                          >
+                            Duyệt
+                          </Button>
+                        </Restricted>
                       </div>
                     )}
                   </form>

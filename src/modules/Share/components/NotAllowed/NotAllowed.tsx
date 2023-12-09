@@ -5,7 +5,7 @@ const NotAllowed = () => {
         <div className='inline-flex rounded-full bg-[#fff3c6] p-4'>
           <div className='rounded-full bg-[#f0e697] stroke-[#ecb849] p-4'>
             <svg
-              className='h-16 w-16 fill-[#ecb849]/80'
+              className='h-16 w-16 fill-[#ecb849]/50'
               viewBox='0 0 28 28'
               fill='none'
               xmlns='http://www.w3.org/2000/svg'
@@ -19,7 +19,7 @@ const NotAllowed = () => {
             </svg>
           </div>
         </div>
-        <h1 className='mt-5 text-[36px] font-bold text-slate-800 lg:text-[50px]'>405 - Not Allowed</h1>
+        <h1 className='mt-5 text-[28px] font-bold text-slate-800 lg:text-[42px]'>Bạn không có quyền truy cập !</h1>
       </div>
     </div>
   )

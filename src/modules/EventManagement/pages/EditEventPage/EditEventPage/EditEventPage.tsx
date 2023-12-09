@@ -341,50 +341,52 @@ const EditEventPage = () => {
       </form>
       {event && !StatusIsDisable(event.status) && (
         <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 px-4 py-2 bg-slate-100 w-full z-20'>
-          {event.status === 'Pending' ? (
-            <div className='flex items-center gap-6'>
-              <Restricted to={'ServeSync.Permissions.Events.Reject'}>
-                <Button
-                  type='button'
-                  classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
-                  onClick={() => handleRejectEvent(event.id)}
-                >
-                  Từ chối
-                </Button>
-              </Restricted>
-              <Restricted to={'ServeSync.Permissions.Events.Approve'}>
-                <Button
-                  type='button'
-                  classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[128px]'
-                  onClick={() => handleApproveEvent(event.id)}
-                >
-                  Chấp thuận
-                </Button>
-              </Restricted>
-            </div>
-          ) : (
-            <div className='flex items-center gap-6'>
-              <Restricted to={'ServeSync.Permissions.Events.Cancel'}>
-                <Button
-                  type='button'
-                  classNameButton='flex justify-center items-center bg-[#989899] w-[150px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
-                  onClick={() => handleCancelEvent(event.id)}
-                >
-                  Hủy sự kiện
-                </Button>
-              </Restricted>
-              <Restricted to={'ServeSync.Permissions.Events.Edit'}>
-                <Button
-                  type='button'
-                  classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[120px]'
-                  onClick={handleEditEvent}
-                  isLoading={editEventCommandHandler.isLoading()}
-                >
-                  Cập nhật
-                </Button>
-              </Restricted>
-            </div>
-          )}
+          <div className='flex items-center gap-6'>
+            {event.status === 'Pending' ? (
+              <Fragment>
+                <Restricted to={'ServeSync.Permissions.Events.Reject'}>
+                  <Button
+                    type='button'
+                    classNameButton='bg-[#dd5353] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[100px]'
+                    onClick={() => handleRejectEvent(event.id)}
+                  >
+                    Từ chối
+                  </Button>
+                </Restricted>
+                <Restricted to={'ServeSync.Permissions.Events.Approve'}>
+                  <Button
+                    type='button'
+                    classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[128px]'
+                    onClick={() => handleApproveEvent(event.id)}
+                  >
+                    Chấp thuận
+                  </Button>
+                </Restricted>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <Restricted to={'ServeSync.Permissions.Events.Cancel'}>
+                  <Button
+                    type='button'
+                    classNameButton='flex justify-center items-center bg-[#989899] w-[150px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+                    onClick={() => handleCancelEvent(event.id)}
+                  >
+                    Hủy sự kiện
+                  </Button>
+                </Restricted>
+              </Fragment>
+            )}
+            <Restricted to={'ServeSync.Permissions.Events.Edit'}>
+              <Button
+                type='button'
+                classNameButton='bg-[#26C6DA] p-2 rounded-xl text-[14px] text-white font-semibold h-[44px] w-[120px]'
+                onClick={handleEditEvent}
+                isLoading={editEventCommandHandler.isLoading()}
+              >
+                Cập nhật
+              </Button>
+            </Restricted>
+          </div>
         </div>
       )}
     </Fragment>
