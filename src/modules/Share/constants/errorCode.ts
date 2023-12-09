@@ -145,7 +145,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server'
     },
     'Event:000007': {
-      message: 'Sự kiện không thể được chấp thuận !',
+      message: 'Sự kiện không thể được chấp thuận vì  thời gian hiện tại lớn hơn phiên đăng ký',
       type: 'Server'
     },
     'Event:000008': {
