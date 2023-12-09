@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Popover from '@mui/material/Popover'
 import { AppContext } from '../../contexts'
 import { GetProfileQuery } from '../../services'
-import { clearTokenFromLocalStorage } from 'src/modules/Authentication/utils'
+import { clearTokenFromLocalStorage, getAccessTokenFromLocalStorage } from 'src/modules/Authentication/utils'
 import path from '../../constants/path'
 import Button from '../Button'
 import { HandleHeading } from '../../constants'
@@ -12,6 +12,8 @@ import ModalCustom from '../Modal'
 import ChangePassword from '../ChangePassword'
 import ChangeTenant from '../ChangeTenant'
 import { Avatar } from '@mui/material'
+import EditOrganization from '../EditOrganization'
+import { JWT } from '../../interfaces'
 
 const Header = () => {
   const { setIsAuthenticated } = useContext(AppContext)
@@ -22,6 +24,23 @@ const Header = () => {
 
   const getProfileQuery = new GetProfileQuery()
   const profile = getProfileQuery.fetch()
+
+  const token = getAccessTokenFromLocalStorage()
+  const parseJwt = (token: string) => {
+    const base64Url = token.split('.')[1]
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+    const jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+        })
+        .join('')
+    )
+    return JSON.parse(jsonPayload) as JWT
+  }
+  const JWTInfo = parseJwt(token)
 
   const handleLogout = () => {
     setIsAuthenticated(false)
@@ -36,6 +55,16 @@ const Header = () => {
 
   const handleCloseModalChangePassword = () => {
     setIsOpenModalChangePassword(false)
+  }
+
+  const [isOpenModalOrganization, setIsOpenModalOrganization] = useState<boolean>(false)
+
+  const handleOpenModalOrganization = () => {
+    setIsOpenModalOrganization(true)
+  }
+
+  const handleCloseModalOrganization = () => {
+    setIsOpenModalOrganization(false)
   }
 
   const [nestedAnchorEl, setNestedAnchorEl] = useState<HTMLButtonElement | null>(null)
@@ -108,7 +137,13 @@ const Header = () => {
                 }}
               >
                 {profile.isTenantOwner && (
-                  <Button classNameButton='flex items-center cursor-pointer w-full  p-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-800'>
+                  <Button
+                    classNameButton='flex items-center cursor-pointer w-full  p-3 py-2 text-sm font-medium hover:bg-gray-100 hover:text-gray-800'
+                    onClick={() => {
+                      handleOpenModalOrganization()
+                      handleClosePopover()
+                    }}
+                  >
                     <svg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' className='w-4 h-4 mr-3'>
                       <g id='SVGRepo_bgCarrier' strokeWidth={0} />
                       <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' />
@@ -221,6 +256,9 @@ const Header = () => {
             </div>
             <ModalCustom isOpenModal={isOpenModalChangePassword} handleClose={handleCloseModalChangePassword}>
               <ChangePassword handleCloseModal={handleCloseModalChangePassword} />
+            </ModalCustom>
+            <ModalCustom isOpenModal={isOpenModalOrganization} handleClose={handleCloseModalOrganization}>
+              <EditOrganization organizationId={JWTInfo.ReferenceId} handleCloseModal={handleCloseModalOrganization} />
             </ModalCustom>
           </div>
         </div>
