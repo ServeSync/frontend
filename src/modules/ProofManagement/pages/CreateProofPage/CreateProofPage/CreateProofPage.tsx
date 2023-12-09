@@ -53,7 +53,7 @@ const CreateProofPage = ({ handleCloseModalProofSelect, studentId }: Props) => {
   }, [proofType])
 
   return (
-    <div className='flex flex-col justify-between gap-6 items-center bg-white px-6 rounded-lg w-[620px] pt-8 pb-16'>
+    <div className='flex flex-col justify-between gap-6 items-center bg-white px-6 rounded-lg w-[680px] max-h-[90vh] pt-8 pb-16'>
       <div className='flex justify-between items-center w-full'>
         <div>
           <h2 className='text-[20px] font-semibold'>Đơn nộp minh chứng</h2>

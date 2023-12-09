@@ -49,7 +49,7 @@ const EditProofPage = ({ proofId, studentId, handleCloseModalChange }: Props) =>
   }
 
   return (
-    <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg w-[620px]  max-h-[90vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#a6a6a6] scrollbar-track-[#e1e1e1]'>
+    <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg w-[680px] max-h-[90vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-[#a6a6a6] scrollbar-track-[#e1e1e1]'>
       <div className='flex justify-between items-center w-full'>
         <div>
           <h2 className='text-[20px] font-semibold'>Đơn nộp minh chứng</h2>
@@ -68,32 +68,35 @@ const EditProofPage = ({ proofId, studentId, handleCloseModalChange }: Props) =>
           </svg>
         </Button>
       </div>
-      <div>
-        <div>
+      <div className='w-full'>
+        <div className='w-full'>
           {proof && proof.proofType === 'Internal' && (
             <EditProofInternal
               proof={proof}
               studentId={studentId}
               handleDeleteProof={handleDeleteProof}
               isLoadingDelete={deleteProofCommandHandler.isLoading()}
+              handleCloseModalChange={handleCloseModalChange}
             />
           )}
         </div>
-        <div>
+        <div className='w-full'>
           {proof && proof.proofType === 'External' && (
             <EditProofExternal
               proof={proof}
               handleDeleteProof={handleDeleteProof}
               isLoadingDelete={deleteProofCommandHandler.isLoading()}
+              handleCloseModalChange={handleCloseModalChange}
             />
           )}
         </div>
-        <div>
+        <div className='w-full'>
           {proof && proof.proofType === 'Special' && (
             <EditProofSpecial
               proof={proof}
               handleDeleteProof={handleDeleteProof}
               isLoadingDelete={deleteProofCommandHandler.isLoading()}
+              handleCloseModalChange={handleCloseModalChange}
             />
           )}
         </div>

@@ -16,9 +16,10 @@ interface Props {
   studentId: string
   handleDeleteProof: (id: string) => void
   isLoadingDelete: boolean
+  handleCloseModalChange: () => void
 }
 
-const EditProofInternal = ({ proof, studentId, handleDeleteProof, isLoadingDelete }: Props) => {
+const EditProofInternal = ({ proof, studentId, handleDeleteProof, isLoadingDelete, handleCloseModalChange }: Props) => {
   const [eventId, setEventId] = useState<string>()
 
   const getRegisteredEventsByStudent = new GetRegisteredEventsByStudent(studentId)
@@ -58,13 +59,13 @@ const EditProofInternal = ({ proof, studentId, handleDeleteProof, isLoadingDelet
       },
       file as File,
       () => {
+        handleCloseModalChange()
         toast.success('Cập nhật minh chứng thành công !')
       },
       (error: any) => {
         handleError<FormProofInternalType>(error, setError)
       }
     )
-    console.log(data)
   })
 
   useEffect(() => {

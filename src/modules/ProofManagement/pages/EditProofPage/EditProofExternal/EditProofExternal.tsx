@@ -15,9 +15,10 @@ interface Props {
   proof: ProofDetailType
   handleDeleteProof: (id: string) => void
   isLoadingDelete: boolean
+  handleCloseModalChange: () => void
 }
 
-const EditProofExternal = ({ proof, handleDeleteProof, isLoadingDelete }: Props) => {
+const EditProofExternal = ({ proof, handleDeleteProof, isLoadingDelete, handleCloseModalChange }: Props) => {
   const [file, setFile] = useState<File>()
 
   const previewImage = useMemo(() => {
@@ -54,13 +55,13 @@ const EditProofExternal = ({ proof, handleDeleteProof, isLoadingDelete }: Props)
       },
       file as File,
       () => {
+        handleCloseModalChange()
         toast.success('Cập nhật minh chứng thành công !')
       },
       (error: any) => {
         handleError<FormProofExternalType>(error, setError)
       }
     )
-    console.log(data)
   })
   return (
     <form className='w-full' onSubmit={handleSubmitForm}>

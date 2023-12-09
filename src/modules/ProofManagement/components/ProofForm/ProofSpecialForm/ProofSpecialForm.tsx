@@ -8,7 +8,7 @@ import InputImage from 'src/modules/Share/components/InputImage'
 import { FormProofSpecialType } from 'src/modules/ProofManagement/utils'
 import { EventActivityType } from 'src/modules/EventManagement/interfaces'
 import { ProofDetailType } from 'src/modules/ProofManagement/interfaces'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 
 interface Props {
@@ -45,9 +45,11 @@ const ProofSpecialForm = ({
     }
   }, [proof, setValue])
 
+  const [activitySelected, setActivitySelected] = useState<EventActivityType | null>()
+
   return (
     <div className='flex flex-col gap-4'>
-      <div className='grid grid-cols-2 gap-3'>
+      <div className='grid grid-cols-2 gap-4'>
         <h2 className='col-span-2'>Thông tin sự kiện</h2>
         <Controller
           name='title'
@@ -139,6 +141,32 @@ const ProofSpecialForm = ({
           )}
         />
         <Controller
+          name='activityId'
+          control={control}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <div className='col-span-2'>
+                <Autocomplete
+                  disablePortal
+                  id='activity'
+                  options={activities ? activities : []}
+                  value={(activities && activities.find((option) => option.id === value)) || null}
+                  getOptionLabel={(option) => option.name}
+                  noOptionsText='Không có lựa chọn'
+                  renderInput={(params) => <TextField {...params} label='Hoạt động sự kiện' />}
+                  onChange={(_, option) => {
+                    onChange(option ? option.id : '')
+                    setActivitySelected(option && option)
+                  }}
+                  className='bg-white'
+                  disabled={proof && proof.proofStatus !== 'Pending'}
+                />
+                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
+              </div>
+            </LocalizationProvider>
+          )}
+        />
+        <Controller
           name='score'
           control={control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -155,34 +183,17 @@ const ProofSpecialForm = ({
                     disabled: proof && proof.proofStatus !== 'Pending'
                   }}
                 />
-                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
+                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                  {activitySelected !== undefined &&
+                    activitySelected !== null &&
+                    `Khoảng điểm của hoạt động ${activitySelected?.minScore} - ${activitySelected?.maxScore}`}
+                  <span>{error && ` / ${error?.message}`}</span>
+                </span>
               </div>
             </LocalizationProvider>
           )}
         />
-        <Controller
-          name='activityId'
-          control={control}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <div className='col-span-2'>
-                <Autocomplete
-                  disablePortal
-                  id='activity'
-                  options={activities ? activities : []}
-                  value={(activities && activities.find((option) => option.id === value)) || null}
-                  getOptionLabel={(option) => option.name}
-                  noOptionsText='Không có lựa chọn'
-                  renderInput={(params) => <TextField {...params} label='Hoạt động sự kiện' />}
-                  onChange={(_, option) => onChange(option ? option.id : '')}
-                  className='bg-white'
-                  disabled={proof && proof.proofStatus !== 'Pending'}
-                />
-                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
-              </div>
-            </LocalizationProvider>
-          )}
-        />
+
         <Controller
           name='description'
           control={control}

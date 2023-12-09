@@ -246,7 +246,7 @@ export function ErrorCodeToMessage(errorCode: string): {
       type: 'Server'
     },
     'EventActivity:000002': {
-      message: 'Điểm của vai trò không ở trong khung điểm của hoạt động !',
+      message: 'Điểm không nằm trong trong khoảng điểm của hoạt động !',
       type: 'Server',
       field: 'score'
     },
