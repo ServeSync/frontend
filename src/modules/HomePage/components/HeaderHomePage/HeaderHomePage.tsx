@@ -130,8 +130,8 @@ const HeaderHomePage = () => {
               </div>
             </div>
           ) : (
-            <div className='flex items-center gap-4'>
-              <span className='text-[18px] font-semibold text-[#195E8E]'>{profile?.fullName}</span>
+            <div className='flex items-center gap-4 '>
+              <span className='text-[18px] font-semibold text-[#195E8E] hidden lg:flex'>{profile?.fullName}</span>
               <div>
                 <Button
                   onClick={handleOpenPopover}
@@ -143,6 +143,7 @@ const HeaderHomePage = () => {
                     className='rounded-full top-0 h-full w-full object-cover object-top absolute'
                   />
                 </Button>
+
                 <Popover
                   id={id}
                   open={isOpen}
@@ -240,6 +241,23 @@ const HeaderHomePage = () => {
               <ModalCustom isOpenModal={isOpenModalChangePassword} handleClose={handleCloseModalChangePassword}>
                 <ChangePassword handleCloseModal={handleCloseModalChangePassword} />
               </ModalCustom>
+              <button
+                className=' text-[2.8rem] transition-all hover:text-[#26C6DA] lg:hidden'
+                onClick={handleMenuToggle}
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='30'
+                  height='30'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                >
+                  <path d='M4 6l16 0'></path>
+                  <path d='M4 12l16 0'></path>
+                  <path d='M4 18l16 0'></path>
+                </svg>
+              </button>
             </div>
           )
         ) : (
@@ -258,20 +276,6 @@ const HeaderHomePage = () => {
             </Link>
           </div>
         )}
-        <button className=' text-[2.8rem] transition-all hover:text-[#26C6DA] lg:hidden' onClick={handleMenuToggle}>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='30'
-            height='30'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-          >
-            <path d='M4 6l16 0'></path>
-            <path d='M4 12l16 0'></path>
-            <path d='M4 18l16 0'></path>
-          </svg>
-        </button>
       </header>
       <div
         className={classNames(
@@ -283,37 +287,60 @@ const HeaderHomePage = () => {
         )}
       >
         <div className='bg-white w-full max-md:w-[35%] h-full transform transition-transform duration-300 flex flex-col'>
-          <div className='p-4 flex items-center gap-12'>
-            <Button
-              classNameButton='text-[2.8rem] transition-all hover:text-[#26C6DA] lg:hidden space-y-4'
-              onClick={handleMenuToggle}
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='30'
-                height='30'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
+          {isAuthenticated ? (
+            <div className='p-4 flex items-center gap-12'>
+              <Button
+                classNameButton='text-[2.8rem] transition-all hover:text-[#26C6DA] lg:hidden space-y-4'
+                onClick={handleMenuToggle}
               >
-                <path d='M4 6l16 0'></path>
-                <path d='M4 12l16 0'></path>
-                <path d='M4 18l16 0'></path>
-              </svg>
-            </Button>
-            <Link
-              to={path.request_event}
-              className='text-black px-4 py-4 rounded-full transition-all duration-300 hover:bg-slate-100  no-underline flex-shrink-0 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'
-            >
-              Yêu cầu sự kiện
-            </Link>
-            <Link
-              className='bg-[#5D50C6] text-white px-10 py-4 rounded-full shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 hover:bg-[#5D50C6]/80 no-underline flex-shrink-0'
-              to={path.login}
-            >
-              Đăng nhập
-            </Link>
-          </div>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='30'
+                  height='30'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                >
+                  <path d='M4 6l16 0'></path>
+                  <path d='M4 12l16 0'></path>
+                  <path d='M4 18l16 0'></path>
+                </svg>
+              </Button>
+            </div>
+          ) : (
+            <div className='p-4 flex items-center gap-12'>
+              <Button
+                classNameButton='text-[2.8rem] transition-all hover:text-[#26C6DA] lg:hidden space-y-4'
+                onClick={handleMenuToggle}
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='30'
+                  height='30'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                >
+                  <path d='M4 6l16 0'></path>
+                  <path d='M4 12l16 0'></path>
+                  <path d='M4 18l16 0'></path>
+                </svg>
+              </Button>
+              <Link
+                to={path.request_event}
+                className='text-black px-4 py-4 rounded-full transition-all duration-300 hover:bg-slate-100  no-underline flex-shrink-0 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'
+              >
+                Yêu cầu sự kiện
+              </Link>
+              <Link
+                className='bg-[#5D50C6] text-white px-10 py-4 rounded-full shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 hover:bg-[#5D50C6]/80 no-underline flex-shrink-0'
+                to={path.login}
+              >
+                Đăng nhập
+              </Link>
+            </div>
+          )}
+
           <ul className='flex flex-col font-medium mt-4 rounded-lg bg-gray-50  text-[#191825]/50'>
             <NavLink
               to={path.home_page}
