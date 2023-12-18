@@ -1,8 +1,9 @@
 import Skeleton from 'react-loading-skeleton'
 import HeaderTable from 'src/modules/Share/components/HeaderTable'
-import { EventTableHeader, StatusEventToMessage, TypeEventToMessage } from '../../constants'
+import { EventTableHeader } from '../../constants'
 import { formatDateTimeVN } from 'src/modules/Share/utils'
 import { EventsListType } from '../../interfaces'
+import { StatusToMessage, TypeToMessage } from 'src/modules/Share/constants'
 
 interface Props {
   events: EventsListType
@@ -67,8 +68,8 @@ const EventTable = ({ events, isLoading, onSort, onEditEvent }: Props) => {
                 <th className='px-2 py-4 font-medium w-[8%]'>{event.registered}</th>
                 <th className='px-2 py-4 font-medium w-[12%]'>{formatDateTimeVN(event.startAt)}</th>
                 <th className='px-2 py-4 font-medium w-[12%]'>{formatDateTimeVN(event.endAt)}</th>
-                <th className='px-2 py-4 font-medium w-[10%]'>{TypeEventToMessage(event.type)}</th>
-                <th className='px-2 py-4 font-medium w-[12%]'>{StatusEventToMessage(event.status)}</th>
+                <th className='px-2 py-4 font-medium w-[10%]'>{TypeToMessage(event.type)}</th>
+                <th className='px-2 py-4 font-medium w-[12%]'>{StatusToMessage(event.status)}</th>
               </tr>
             ))}
       </tbody>

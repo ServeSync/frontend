@@ -1,7 +1,8 @@
-import { StatusEventToMessage, TimeInfoTableHeader } from 'src/modules/EventManagement/constants'
+import { TimeTableHeader } from 'src/modules/EventManagement/constants'
 import { EventDetailType } from 'src/modules/EventManagement/interfaces'
 import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
+import { StatusToMessage } from 'src/modules/Share/constants'
 import { formatDateTime } from 'src/modules/Share/utils'
 
 interface Props {
@@ -36,7 +37,7 @@ const RegistrationInformationModal = ({
         <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2 my-6'>
           <thead className='bg-[#edeeef] border-[1px] border-gray-200'>
             <tr className='text-[14px] text-gray-600'>
-              {TimeInfoTableHeader.map((item) => (
+              {TimeTableHeader.map((item) => (
                 <th key={item.id} className='px-2 py-2 font-semibold'>
                   {item.name}
                 </th>
@@ -51,7 +52,7 @@ const RegistrationInformationModal = ({
               >
                 <th className='px-2 py-4 font-medium'>{formatDateTime(registrationInfo.startAt)}</th>
                 <th className='px-2 py-4 font-medium'>{formatDateTime(registrationInfo.endAt)}</th>
-                <th className='px-2 py-4 font-medium'>{StatusEventToMessage(registrationInfo.status)}</th>
+                <th className='px-2 py-4 font-medium'>{StatusToMessage(registrationInfo.status)}</th>
               </tr>
             ))}
           </tbody>

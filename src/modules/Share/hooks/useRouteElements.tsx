@@ -15,7 +15,9 @@ import NotAllowed from '../components/NotAllowed'
 const StudentSignIn = lazy(() => import('src/modules/Authentication/pages/StudentSignIn'))
 const HomePage = lazy(() => import('src/modules/HomePage/pages/HomePage'))
 const EventDetailPage = lazy(() => import('src/modules/EventManagement/pages/EventDetailPage/EventDetailPage'))
-const RequestEventPage = lazy(() => import('src/modules/EventManagement/pages/RequestEventPage/RequestEventPage'))
+const RequestEventPage = lazy(
+  () => import('src/modules/CollaborationRequestManagement/pages/RequestEventPage/RequestEventPage')
+)
 const AttendanceEvent = lazy(() => import('src/modules/EventManagement/pages/AttendanceEventPage'))
 const EventsPage = lazy(() => import('src/modules/HomePage/pages/EventsPage'))
 const ProfileClientPage = lazy(() => import('src/modules/HomePage/pages/ProfileClientPage'))
@@ -32,8 +34,13 @@ const EditStudentPage = lazy(() => import('src/modules/StudentManagement/pages/E
 const EventPage = lazy(() => import('src/modules/EventManagement/pages/EventPage'))
 const CreateEventPage = lazy(() => import('src/modules/EventManagement/pages/CreateEventPage/CreateEventPage'))
 const EditEventPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPage/EditEventPage'))
-const EventPending = lazy(() => import('src/modules/EventManagement/pages/EventPending/EventPendingPage'))
-const EditEventPendingPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPendingPage'))
+const CollaborationRequestPage = lazy(
+  () => import('src/modules/CollaborationRequestManagement/pages/CollaborationRequestPage')
+)
+const ViewCollaborationRequestPage = lazy(
+  () =>
+    import('src/modules/CollaborationRequestManagement/pages/ViewCollaborationRequestPage/ViewCollaborationRequestPage')
+)
 const EventOrganizationPage = lazy(() => import('src/modules/EventOrganizationManagement/pages/EventOrganizationPage'))
 const CreateOrganizationPage = lazy(
   () => import('src/modules/EventOrganizationManagement/pages/CreateEventOrganizationPage')
@@ -288,7 +295,7 @@ const useRouteElements = () => {
           )
         },
         {
-          path: path.event_pending,
+          path: path.collaboration_request,
           element: (
             <MainLayout>
               <Suspense>
@@ -296,19 +303,19 @@ const useRouteElements = () => {
                   to={'ServeSync.Permissions.EventCollaborationRequests.Management'}
                   fallback={<NotAllowed />}
                 >
-                  <EventPending />
+                  <CollaborationRequestPage />
                 </Restricted>
               </Suspense>
             </MainLayout>
           )
         },
         {
-          path: path.edit_event_pending,
+          path: path.view_collaboration_request,
           element: (
             <MainLayout>
               <Suspense>
                 <Restricted to={'ServeSync.Permissions.EventCollaborationRequests.View'} fallback={<NotAllowed />}>
-                  <EditEventPendingPage />
+                  <ViewCollaborationRequestPage />
                 </Restricted>
               </Suspense>
             </MainLayout>

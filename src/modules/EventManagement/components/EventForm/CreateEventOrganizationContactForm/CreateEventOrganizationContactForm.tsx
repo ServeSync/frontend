@@ -6,7 +6,7 @@ import { Autocomplete, TextField } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { FormEventType } from '../../../utils'
 import Button from 'src/modules/Share/components/Button'
-import { EventOrganizationTableHeader, StatusIsDisable } from '../../../constants'
+import { EventOrganizationTableHeader } from '../../../constants'
 import {
   ContactsListType,
   EventOrganizationType,
@@ -14,6 +14,7 @@ import {
 } from 'src/modules/EventOrganizationManagement/interfaces'
 import { EventDetailType } from 'src/modules/EventManagement/interfaces'
 import { GetAllContactsByOrganizationIdQuery } from 'src/modules/EventOrganizationManagement/services'
+import { StatusIsDisable } from 'src/modules/Share/constants'
 
 interface Props {
   control: Control<FormEventType>

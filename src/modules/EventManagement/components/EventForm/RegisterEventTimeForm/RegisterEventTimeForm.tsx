@@ -10,7 +10,7 @@ import { EventDetailType } from 'src/modules/EventManagement/interfaces'
 import dayjs from 'dayjs'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import { Fragment, useState } from 'react'
-import { StatusIsDisable } from 'src/modules/EventManagement/constants'
+import { StatusIsDisable } from 'src/modules/Share/constants'
 
 interface Props {
   control: Control<FormEventType>

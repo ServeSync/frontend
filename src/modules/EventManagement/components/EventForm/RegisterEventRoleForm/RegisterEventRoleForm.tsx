@@ -6,11 +6,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { FormEventType } from '../../../utils'
 import { EventDetailType, EventRole } from '../../../interfaces'
-import { RoleTableHeader, StatusIsDisable, isNeedApprove } from '../../../constants'
+import { RoleTableHeader, isNeedApprove } from '../../../constants'
 import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import draftToHtml from 'draftjs-to-html'
 import Parser from 'html-react-parser'
+import { StatusIsDisable } from 'src/modules/Share/constants'
 
 interface Props {
   control: Control<FormEventType>

@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { RegisteredStudentsTableHeader, StatusEventToMessage } from 'src/modules/EventManagement/constants'
+import { RegisteredStudentsTableHeader } from 'src/modules/EventManagement/constants'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
 import { RegisteredStudentType } from 'src/modules/EventManagement/interfaces'
 import { GetRegisteredStudentsQuery, RejectRegistrationCommandHandler } from 'src/modules/EventManagement/services'
@@ -21,6 +21,7 @@ import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
 import Pagination from 'src/modules/Share/components/Pagination'
 import Restricted from 'src/modules/Share/components/Restricted'
+import { StatusToMessage } from 'src/modules/Share/constants'
 import path from 'src/modules/Share/constants/path'
 import { formatDateTime, handleError } from 'src/modules/Share/utils'
 import Swal from 'sweetalert2'
@@ -186,7 +187,7 @@ const EventRegisterList = () => {
                     <th className='px-2 py-4 font-medium'>{registration.email}</th>
                     <th className='px-2 py-4 font-medium'>{registration.homeRoomName}</th>
                     <th className='px-2 py-4 font-medium'>{registration.role}</th>
-                    <th className='px-2 py-4 font-medium'>{StatusEventToMessage(registration.status)}</th>
+                    <th className='px-2 py-4 font-medium'>{StatusToMessage(registration.status)}</th>
                     <th className='px-2 py-4 font-medium w-[15%]'>{formatDateTime(registration.registeredAt)}</th>
                   </tr>
                 ))}
@@ -223,7 +224,7 @@ const EventRegisterList = () => {
                           'bg-[#eaffe6]/90 text-[#44e751]': registration.status === 'Approved'
                         })}
                       >
-                        {StatusEventToMessage(registration.status)}
+                        {StatusToMessage(registration.status)}
                       </span>
                     </div>
                     <div className='flex justify-between items-center'>

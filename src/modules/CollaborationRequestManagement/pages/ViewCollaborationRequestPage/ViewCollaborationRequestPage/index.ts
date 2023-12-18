@@ -1,0 +1,3 @@
+import ViewCollaborationRequestPage from './ViewCollaborationRequestPage'
+
+export default ViewCollaborationRequestPage

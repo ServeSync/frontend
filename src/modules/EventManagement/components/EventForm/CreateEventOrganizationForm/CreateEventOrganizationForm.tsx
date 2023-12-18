@@ -5,7 +5,7 @@ import { Autocomplete, TextField } from '@mui/material'
 import { FormEventType } from '../../../utils'
 import Button from 'src/modules/Share/components/Button'
 import { EventOrganizationType } from 'src/modules/EventOrganizationManagement/interfaces'
-import { StatusIsDisable } from 'src/modules/EventManagement/constants'
+import { StatusIsDisable } from 'src/modules/Share/constants'
 import { EventDetailType } from 'src/modules/EventManagement/interfaces'
 
 interface Props {

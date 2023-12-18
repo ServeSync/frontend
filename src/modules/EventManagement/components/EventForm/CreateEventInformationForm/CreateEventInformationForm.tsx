@@ -18,7 +18,7 @@ import { Editor } from 'react-draft-wysiwyg'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormEventType, FormSearchMapSchema, FormSearchMapType } from '../../../utils'
 import { EventActivityType, EventCategoryType, EventDetailType, LocationType, MarkerType } from '../../../interfaces'
-import { StatusIsDisable, StatusEventToMessage, eventType } from '../../../constants'
+import { eventType } from '../../../constants'
 import Button from 'src/modules/Share/components/Button'
 import Map from '../../Map'
 import ModalCustom from 'src/modules/Share/components/Modal'
@@ -26,6 +26,7 @@ import InputImage from 'src/modules/Share/components/InputImage'
 import Input from 'src/modules/Share/components/Input'
 import dayjs from 'dayjs'
 import draftToHtml from 'draftjs-to-html'
+import { StatusIsDisable, StatusToMessage } from 'src/modules/Share/constants'
 
 interface Props {
   control: Control<FormEventType>
@@ -138,7 +139,7 @@ const CreateEventInformationForm = ({
             </Input>
             {event && (
               <div className='px-4 py-2 rounded-full bg-[#26dc9c] text-white h-[40px]'>
-                {StatusEventToMessage(event.status)}
+                {StatusToMessage(event.status)}
               </div>
             )}
           </div>

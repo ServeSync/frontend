@@ -1,0 +1,3 @@
+import CollaborationRequestOrganizationPage from './CollaborationRequestOrganizationPage'
+
+export default CollaborationRequestOrganizationPage

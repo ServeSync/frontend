@@ -212,7 +212,7 @@ const SideBar = () => {
             <Restricted to={'ServeSync.Permissions.EventCollaborationRequests.Management'}>
               <li className='py-2'>
                 <NavLink
-                  to={path.event_pending}
+                  to={path.collaboration_request}
                   className={({ isActive }) =>
                     classNames(
                       'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
