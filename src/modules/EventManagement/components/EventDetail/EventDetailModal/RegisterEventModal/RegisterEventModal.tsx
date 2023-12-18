@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TextField } from '@mui/material'
 import { Fragment, useState } from 'react'
-import { RegisterRoleTableHeader, StatusEventToMessage } from 'src/modules/EventManagement/constants'
+import { RegisterRoleTableHeader } from 'src/modules/EventManagement/constants'
 import { EventDetailType, RegisteredEventType } from 'src/modules/EventManagement/interfaces'
 import Button from 'src/modules/Share/components/Button'
 import ModalCustom from 'src/modules/Share/components/Modal'
@@ -12,6 +12,7 @@ import { FormEventType, FormRegisterEventSchema, FormRegisterEventType } from 's
 import { yupResolver } from '@hookform/resolvers/yup'
 import { RegisterEventCommandHandler } from 'src/modules/EventManagement/services'
 import { toast } from 'react-toastify'
+import { StatusToMessage } from 'src/modules/Share/constants'
 
 interface Props {
   event: EventDetailType
@@ -169,7 +170,7 @@ const RegisterEventModal = ({ event, isOpenModalTableRegisterEvent, handleCloseM
                             Đăng kí
                           </Button>
                         ) : (
-                          StatusEventToMessage(role.status)
+                          StatusToMessage(role.status)
                         )}
                       </th>
                     </tr>

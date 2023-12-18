@@ -1,0 +1,3 @@
+import CollaborationRequestInformationPage from './CollaborationRequestInformationPage'
+
+export default CollaborationRequestInformationPage

@@ -1,6 +1,5 @@
 export * from './event.rules'
 export * from './filter_event.rules'
-export * from './request_event.rules'
 export * from './search_map.rules'
 export * from './register_event.rules'
 export * from './reject_registration.rules'

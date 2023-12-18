@@ -1,0 +1,3 @@
+import CollaborationRequestOrganizationForm from './CollaborationRequestOrganizationForm'
+
+export default CollaborationRequestOrganizationForm

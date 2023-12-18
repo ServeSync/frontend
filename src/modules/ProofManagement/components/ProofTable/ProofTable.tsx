@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton'
 import { formatDateTimeVN } from 'src/modules/Share/utils'
 import { Fragment, useState } from 'react'
 import ModalCustom from 'src/modules/Share/components/Modal'
-import { StatusEventToMessage, TypeEventToMessage } from 'src/modules/EventManagement/constants'
+import { StatusToMessage, TypeToMessage } from 'src/modules/Share/constants'
 import ViewProofPage from '../../pages/ViewProofPage/ViewProofPage'
 
 interface Props {
@@ -78,8 +78,8 @@ const ProofTable = ({ proofs, isLoading, onSort }: Props) => {
                   <th className='px-2 py-4 font-medium w-[18%]'>
                     {proof.lastModified ? `${formatDateTimeVN(proof.lastModified)}` : ' - '}
                   </th>
-                  <th className='px-2 py-4 font-medium w-[12%]'>{TypeEventToMessage(proof.proofType)}</th>
-                  <th className='px-2 py-4 font-medium w-[12%]'>{StatusEventToMessage(proof.proofStatus)}</th>
+                  <th className='px-2 py-4 font-medium w-[12%]'>{TypeToMessage(proof.proofType)}</th>
+                  <th className='px-2 py-4 font-medium w-[12%]'>{StatusToMessage(proof.proofStatus)}</th>
                 </tr>
               ))}
         </tbody>
