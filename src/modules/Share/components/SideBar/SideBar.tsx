@@ -323,6 +323,44 @@ const SideBar = () => {
                 </NavLink>
               </li>
             </Restricted>
+            <li className='py-2'>
+              <NavLink
+                to={path.calendar}
+                className={({ isActive }) =>
+                  classNames(
+                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
+                    {
+                      'text-gray-200': isActive
+                    }
+                  )
+                }
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  data-slot='icon'
+                  className='w-6 h-6 text-[#26C6DA]'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5'
+                  />
+                </svg>
+
+                <span
+                  className={classNames('overflow-hidden', {
+                    'ml-4': expanded,
+                    'w-0': !expanded
+                  })}
+                >
+                  Lịch
+                </span>
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
