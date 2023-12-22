@@ -10,6 +10,7 @@ import { PermissionProvider } from '../contexts'
 import { Permission } from '../interfaces'
 import Restricted from '../components/Restricted'
 import NotAllowed from '../components/NotAllowed'
+import Calendar from 'src/modules/Calendar/pages/Calendar'
 
 //Client
 const StudentSignIn = lazy(() => import('src/modules/Authentication/pages/StudentSignIn'))
@@ -206,6 +207,16 @@ const useRouteElements = () => {
             <MainLayout>
               <Suspense>
                 <Dashboard />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.calendar,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <Calendar />
               </Suspense>
             </MainLayout>
           )

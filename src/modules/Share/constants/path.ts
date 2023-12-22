@@ -13,6 +13,7 @@ const path = {
   //Admin
   admin_login: '/admin/login',
   dashboard: '/admin/dashboard',
+  calendar: '/admin/calendar',
   role: '/admin/roles',
   student: '/admin/students',
   create_student: '/admin/students/create',
