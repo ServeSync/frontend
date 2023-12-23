@@ -2,7 +2,7 @@ export const logo = 'https://res.cloudinary.com/dboijruhe/image/upload/v16984720
 export const global_image =
   'http://res.cloudinary.com/dboijruhe/image/upload/v1702117547/ServeSync/8959ecd9-7167-491e-89a3-11f5bdafbd45-8d0b3da488e360fcb93103240156f714_1.png'
 export const homePage_01 =
-  'http://res.cloudinary.com/dboijruhe/image/upload/v1699333500/ServeSync/6aa0528c-287e-4baa-8fda-fdc77d018813-1.jpg'
+  'http://res.cloudinary.com/dboijruhe/image/upload/v1703292451/ServeSync/25195448-278d-41d4-8cf7-fef930c488e8-b6cd8b0885bfeed6a85d18f5883fe6f6.jpg'
 export const homePage_02 =
   'http://res.cloudinary.com/dboijruhe/image/upload/v1699333667/ServeSync/d8c0e09d-140b-411b-865c-c3b37a6e4e43-2.png'
 export const homePage_03 =

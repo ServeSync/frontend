@@ -79,17 +79,20 @@ const HeaderHomePage = () => {
     <Fragment>
       <header
         className={classNames(
-          'sticky mx-auto h-auto flex justify-between items-center py-1 top-0 left-0 right-0 bg-transparent  z-50 px-36',
+          'sticky mx-auto h-auto flex justify-between items-center py-1 top-0 left-0 right-0 bg-transparent z-50 lg:px-36 md:px-14 max-sm:px-5 ',
           {
             'shadow-bottom shadow-xl bg-white': hasScrolled
           }
         )}
       >
-        <Link to={path.home_page} className='flex w-56 items-center gap-4 leading-10 font-serif mb-4'>
-          <img src={logo} alt='logo-img' className='w-20 h-20' />
-          <span className='font-semibold text-[36px] font-Pacifico text-[#26C6DA]'>ServeSync</span>
+        <Link to={path.home_page} className='flex w-56 items-center gap-4 leading-10 font-serif '>
+          <img src={logo} alt='logo-img' className='lg:w-20 lg:h-20 md:h-16 md:w-16 sm:h-10 sm:w-10 max-sm:h-8' />
+          <span className='font-semibold sm:text-[24px] md:text-[28px] lg:text-[36px] font-Pacifico text-[#26C6DA]'>
+            ServeSync
+          </span>
         </Link>
-        <ul className='lg:flex lg:items-center gap-8 list-none font-semibold text-[#191825]/50 hidden text-[18px]'>
+
+        <ul className='xl:flex xl:items-center gap-8 list-none font-semibold text-[#191825]/50 hidden text-[18px]'>
           <NavLink
             to={path.home_page}
             className={({ isActive }) =>
@@ -261,15 +264,15 @@ const HeaderHomePage = () => {
             </div>
           )
         ) : (
-          <div className='font-medium items-center text-[14px] hidden lg:flex gap-4'>
+          <div className='flex font-medium items-center max-sm:text-[6px] md:text-[10px] lg:text-[14px] gap-4 max-sm:gap-2'>
             <Link
               to={path.request_event}
-              className='text-black px-4 py-4 rounded-full transition-all duration-300 hover:bg-slate-100  no-underline flex-shrink-0 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'
+              className='text-black lg:px-4 lg:py-4 md:px-2 md:py-2 max-sm:px-1 max-sm:py-1 rounded-full transition-all duration-300 hover:bg-slate-100  no-underline flex-shrink-0 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'
             >
               Yêu cầu sự kiện
             </Link>
             <Link
-              className='bg-[#5D50C6] text-white px-10 py-4 rounded-full shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 hover:bg-[#5D50C6]/80 no-underline flex-shrink-0'
+              className='bg-[#5D50C6] text-white lg:px-10 lg:py-4 md:px-6 md:py-2 max-sm:px-4 max-sm:py-1 rounded-full shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 hover:bg-[#5D50C6]/80 no-underline flex-shrink-0'
               to={path.login}
             >
               Đăng nhập
