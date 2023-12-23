@@ -1,5 +1,4 @@
 /* eslint-disable import/named */
-
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { GetAllCollaborationRequestsQuery } from '../../services/CollaborationRequest/getAllCollaborationRequests.query'
