@@ -4,7 +4,11 @@ import OverviewStatistics from '../../components/OverviewStatistics'
 import StudentStatistics from '../../components/StudentStatistics'
 import EventStatistics from '../../components/EventStatistics'
 import ProofStatistics from '../../components/ProofStatistics'
-import { GetAllAttendanceStudentsOfStatisticQuery, GetAllRegisteredStudentsOfStatisticQuery } from '../../services'
+import {
+  GetAllAttendanceStudentsOfStatisticQuery,
+  GetAllProofsOfStatisticQuery,
+  GetAllRegisteredStudentsOfStatisticQuery
+} from '../../services'
 import { GetAllEventsOfStatisticQuery } from '../../services/Statistic/getAllEventsOfStatistic.query'
 
 const Dashboard = () => {
@@ -20,6 +24,11 @@ const Dashboard = () => {
 
   const getAllEventsOfStatisticQuery = new GetAllEventsOfStatisticQuery(typeEventsOfStatistic)
   const eventsOfStatistic = getAllEventsOfStatisticQuery.fetch()
+
+  const [typeProofsOfStatistic, setTypeProofsOfStatistic] = useState<string>()
+
+  const getAllProofsOfStatisticQuery = new GetAllProofsOfStatisticQuery(typeProofsOfStatistic)
+  const proofsOfStatistic = getAllProofsOfStatisticQuery.fetch()
 
   return (
     <Fragment>
@@ -41,7 +50,11 @@ const Dashboard = () => {
             typeEventsOfStatistic={typeEventsOfStatistic}
             setTypeEventsOfStatistic={setTypeEventsOfStatistic}
           />
-          <ProofStatistics />
+          <ProofStatistics
+            proofsOfStatistic={proofsOfStatistic && proofsOfStatistic.data}
+            typeProofsOfStatistic={typeProofsOfStatistic}
+            setTypeProofsOfStatistic={setTypeProofsOfStatistic}
+          />
         </div>
       </div>
     </Fragment>

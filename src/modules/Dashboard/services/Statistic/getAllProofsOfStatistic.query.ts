@@ -4,13 +4,13 @@ import { useQuery } from '@tanstack/react-query'
 import statisticAPI from './statistic.api'
 import { ListStatisticType } from '../../interfaces'
 
-class GetAllEventsOfStatisticQuery {
+class GetAllProofsOfStatisticQuery {
   private _query
 
   constructor(type?: string) {
     this._query = useQuery({
-      queryKey: ['events', type],
-      queryFn: () => statisticAPI.getListEventsOfStatisticQuery(type),
+      queryKey: ['proofs', type],
+      queryFn: () => statisticAPI.getListProofsOfStatisticQuery(type),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000
     })
@@ -20,4 +20,4 @@ class GetAllEventsOfStatisticQuery {
     return this._query.data?.data as ListStatisticType
   }
 }
-export { GetAllEventsOfStatisticQuery }
+export { GetAllProofsOfStatisticQuery }

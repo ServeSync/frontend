@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import statisticAPI from './statistic.api'
-import { StatisticType } from '../../interfaces'
+import { StudentsStatisticType } from '../../interfaces'
 
 class GetAllRegisteredStudentsOfStatisticQuery {
   private _query
@@ -17,7 +17,7 @@ class GetAllRegisteredStudentsOfStatisticQuery {
   }
 
   fetch() {
-    return this._query.data?.data as StatisticType[]
+    return this._query.data?.data as StudentsStatisticType[]
   }
 }
 export { GetAllRegisteredStudentsOfStatisticQuery }

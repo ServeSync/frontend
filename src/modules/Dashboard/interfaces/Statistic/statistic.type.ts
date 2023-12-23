@@ -1,14 +1,14 @@
-export interface StatisticType {
+export interface StudentsStatisticType {
   name: string
   value: number
 }
 
-export interface EventStatisticType {
+export interface StatisticType {
   status: string
   count: number
 }
 
-export interface ListEventsStatisticType {
+export interface ListStatisticType {
   total: number
-  data: EventStatisticType[]
+  data: StatisticType[]
 }
