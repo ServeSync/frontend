@@ -11,20 +11,23 @@ import {
 } from 'chart.js'
 import { StatisticType } from '../../interfaces'
 import { Autocomplete, TextField } from '@mui/material'
-import { createSearchParams, useNavigate } from 'react-router-dom'
-import path from 'src/modules/Share/constants/path'
-import { StatisticOptions } from '../../constants'
-import useQueryStatisticConfig from '../../hooks/useQueryStatisticConfig'
-import { useState } from 'react'
+import { StudentStatisticOptions } from '../../constants'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 interface Props {
   registeredStudentsOfStatistic: StatisticType[]
   attendanceStudentsOfStatistic: StatisticType[]
+  typeStudentsOfStatistic: string | undefined
+  setTypeStudentsOfStatistic: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
-const StudentStatistics = ({ registeredStudentsOfStatistic, attendanceStudentsOfStatistic }: Props) => {
+const StudentStatistics = ({
+  registeredStudentsOfStatistic,
+  attendanceStudentsOfStatistic,
+  typeStudentsOfStatistic,
+  setTypeStudentsOfStatistic
+}: Props) => {
   const options = {
     responsive: true,
     plugins: {
@@ -63,11 +66,6 @@ const StudentStatistics = ({ registeredStudentsOfStatistic, attendanceStudentsOf
     ]
   }
 
-  const navigate = useNavigate()
-
-  const queryStatisticConfig = useQueryStatisticConfig()
-  const [type, setType] = useState<string>(queryStatisticConfig && (queryStatisticConfig.Type as string))
-
   return (
     <div className='flex justify-center'>
       <div className='w-[80%] relative'>
@@ -76,20 +74,14 @@ const StudentStatistics = ({ registeredStudentsOfStatistic, attendanceStudentsOf
           <Autocomplete
             disablePortal
             id='gender'
-            options={StatisticOptions}
-            value={StatisticOptions.find((option) => option.id === type) || null}
+            options={StudentStatisticOptions}
+            value={StudentStatisticOptions.find((option) => option.id === typeStudentsOfStatistic) || null}
             getOptionLabel={(option) => option.name}
             noOptionsText='Không có lựa chọn'
             renderInput={(params) => <TextField {...params} label='Chọn loại' />}
             onChange={(_, option) => {
               if (option && option.id !== undefined) {
-                setType(option.id as string)
-                navigate({
-                  pathname: path.dashboard,
-                  search: createSearchParams({
-                    Type: option.id as string
-                  }).toString()
-                })
+                setTypeStudentsOfStatistic(option.id as string)
               }
             }}
           />

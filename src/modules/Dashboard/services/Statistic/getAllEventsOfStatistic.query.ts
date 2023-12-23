@@ -2,22 +2,22 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import statisticAPI from './statistic.api'
-import { StatisticType } from '../../interfaces'
+import { ListEventsStatisticType } from '../../interfaces'
 
-class GetAllRegisteredStudentsOfStatisticQuery {
+class GetAllEventsOfStatisticQuery {
   private _query
 
   constructor(type?: string) {
     this._query = useQuery({
-      queryKey: ['statistic_registered_students', type],
-      queryFn: () => statisticAPI.getListRegisteredStudentsOfStatisticQuery(type),
+      queryKey: ['events', type],
+      queryFn: () => statisticAPI.getListEventsOfStatisticQuery(type),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000
     })
   }
 
   fetch() {
-    return this._query.data?.data as StatisticType[]
+    return this._query.data?.data as ListEventsStatisticType
   }
 }
-export { GetAllRegisteredStudentsOfStatisticQuery }
+export { GetAllEventsOfStatisticQuery }

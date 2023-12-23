@@ -2,18 +2,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import statisticAPI from './statistic.api'
-import useQueryStatisticConfig from '../../hooks/useQueryStatisticConfig'
 import { StatisticType } from '../../interfaces'
 
 class GetAllAttendanceStudentsOfStatisticQuery {
   private _query
-  private _queryStatisticConfig
 
-  constructor() {
-    this._queryStatisticConfig = useQueryStatisticConfig()
+  constructor(type?: string) {
     this._query = useQuery({
-      queryKey: ['statistic_attendance_students', this._queryStatisticConfig],
-      queryFn: () => statisticAPI.getListAttendanceStudentsOfStatisticQuery(this._queryStatisticConfig),
+      queryKey: ['statistic_attendance_students', type],
+      queryFn: () => statisticAPI.getListAttendanceStudentsOfStatisticQuery(type),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000
     })
