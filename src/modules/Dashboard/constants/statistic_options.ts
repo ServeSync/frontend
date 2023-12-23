@@ -1,4 +1,4 @@
-export const StatisticOptions = [
+export const StudentStatisticOptions = [
   {
     id: 'Date',
     name: 'Ngày'
@@ -14,5 +14,24 @@ export const StatisticOptions = [
   {
     id: 'Year',
     name: 'Năm'
+  }
+]
+
+export const StatisticOptions = [
+  {
+    id: 'Today',
+    name: 'Hôm nay'
+  },
+  {
+    id: 'ThisWeek',
+    name: 'Tuần này'
+  },
+  {
+    id: 'ThisMonth',
+    name: 'Tháng này'
+  },
+  {
+    id: 'ThisYear',
+    name: 'Năm này'
   }
 ]
