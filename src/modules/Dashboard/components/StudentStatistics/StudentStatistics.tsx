@@ -9,15 +9,15 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
-import { StatisticType } from '../../interfaces'
+import { StudentsStatisticType } from '../../interfaces'
 import { Autocomplete, TextField } from '@mui/material'
 import { StudentStatisticOptions } from '../../constants'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 interface Props {
-  registeredStudentsOfStatistic: StatisticType[]
-  attendanceStudentsOfStatistic: StatisticType[]
+  registeredStudentsOfStatistic: StudentsStatisticType[]
+  attendanceStudentsOfStatistic: StudentsStatisticType[]
   typeStudentsOfStatistic: string | undefined
   setTypeStudentsOfStatistic: React.Dispatch<React.SetStateAction<string | undefined>>
 }

@@ -1,13 +1,13 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
-import { EventStatisticType } from '../../interfaces'
+import { StatisticType } from '../../interfaces'
 import { Autocomplete, TextField } from '@mui/material'
 import { StatisticOptions } from '../../constants'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 interface Props {
-  eventsOfStatistic: EventStatisticType[]
+  eventsOfStatistic: StatisticType[]
   typeEventsOfStatistic: string | undefined
   setTypeEventsOfStatistic: React.Dispatch<React.SetStateAction<string | undefined>>
 }
