@@ -28,6 +28,7 @@ const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetP
 const AdminSignIn = lazy(() => import('src/modules/Authentication/pages/AdminSignIn'))
 const Dashboard = lazy(() => import('src/modules/Dashboard/pages/Dashboard'))
 const RolePage = lazy(() => import('src/modules/RoleManagement/pages/RolePage'))
+const UserPage = lazy(() => import('src/modules/UserManagement/pages/UserPage'))
 const StudentPage = lazy(() => import('src/modules/StudentManagement/pages/StudentPage'))
 const CreateStudentPage = lazy(() => import('src/modules/StudentManagement/pages/CreateStudentPage'))
 const EditStudentPage = lazy(() => import('src/modules/StudentManagement/pages/EditStudentPage'))
@@ -230,6 +231,16 @@ const useRouteElements = () => {
                 <Restricted to='ServeSync.Permissions.Students.Management' fallback={<NotAllowed />}>
                   <StudentPage />
                 </Restricted>
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.user,
+          element: (
+            <MainLayout>
+              <Suspense>
+                <UserPage />
               </Suspense>
             </MainLayout>
           )
