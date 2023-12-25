@@ -21,7 +21,7 @@ const Dashboard = () => {
   const getAllRegisteredStudentsOfStatisticQuery = new GetAllRegisteredStudentsOfStatisticQuery(typeStudentsOfStatistic)
   const registeredStudentsOfStatistic = getAllRegisteredStudentsOfStatisticQuery.fetch()
 
-  const getAllAttendanceStudentsOfStatisticQuery = new GetAllAttendanceStudentsOfStatisticQuery()
+  const getAllAttendanceStudentsOfStatisticQuery = new GetAllAttendanceStudentsOfStatisticQuery(typeStudentsOfStatistic)
   const attendanceStudentsOfStatistic = getAllAttendanceStudentsOfStatisticQuery.fetch()
 
   const [typeEventsOfStatistic, setTypeEventsOfStatistic] = useState<string>()
