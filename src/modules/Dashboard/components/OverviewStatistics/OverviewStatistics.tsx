@@ -1,4 +1,10 @@
-const OverviewStatistics = () => {
+import { TotalStatisticsType } from '../../interfaces'
+
+interface Props {
+  totalStatistics: TotalStatisticsType
+}
+
+const OverviewStatistics = ({ totalStatistics }: Props) => {
   return (
     <div className='flex justify-between p-6 rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] mx-[5%]'>
       <div className='flex gap-3 px-4'>
@@ -21,7 +27,7 @@ const OverviewStatistics = () => {
         </div>
         <div className='flex flex-col justify-between'>
           <span className='text-gray-400 text-[16px]'>Sự kiện</span>
-          <span className='text-[18px] font-semibold'>5</span>
+          <span className='text-[18px] font-semibold'>{totalStatistics?.totalEvents}</span>
         </div>
       </div>
       <div className='border-r-[0.5px] h-[50px] border-gray-200'></div>
@@ -36,7 +42,7 @@ const OverviewStatistics = () => {
         </div>
         <div className='flex flex-col justify-between'>
           <span className='text-gray-400 text-[16px]'>Sinh viên</span>
-          <span className='text-[18px] font-semibold'>120</span>
+          <span className='text-[18px] font-semibold'>{totalStatistics?.totalStudents}</span>
         </div>
       </div>
       <div className='border-r-[0.5px] h-[50px] border-gray-200'></div>
@@ -60,7 +66,7 @@ const OverviewStatistics = () => {
         </div>
         <div className='flex flex-col justify-between'>
           <span className='text-gray-400 text-[16px]'>Tổ chức</span>
-          <span className='text-[18px] font-semibold'>20</span>
+          <span className='text-[18px] font-semibold'>{totalStatistics?.totalOrganizations}</span>
         </div>
       </div>
       <div className='border-r-[0.5px] h-[50px] border-gray-200'></div>
@@ -84,7 +90,7 @@ const OverviewStatistics = () => {
         </div>
         <div className='flex flex-col justify-between'>
           <span className='text-gray-400 text-[16px]'>Minh chứng</span>
-          <span className='text-[18px] font-semibold'>45</span>
+          <span className='text-[18px] font-semibold'>{totalStatistics?.totalProof}</span>
         </div>
       </div>
     </div>

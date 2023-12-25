@@ -10,8 +10,12 @@ import {
   GetAllRegisteredStudentsOfStatisticQuery
 } from '../../services'
 import { GetAllEventsOfStatisticQuery } from '../../services/Statistic/getAllEventsOfStatistic.query'
+import { GetTotalStatisticsQuery } from '../../services/Statistic'
 
 const Dashboard = () => {
+  const getTotalStatisticsQuery = new GetTotalStatisticsQuery()
+  const totalStatistics = getTotalStatisticsQuery.fetch()
+
   const [typeStudentsOfStatistic, setTypeStudentsOfStatistic] = useState<string>()
 
   const getAllRegisteredStudentsOfStatisticQuery = new GetAllRegisteredStudentsOfStatisticQuery(typeStudentsOfStatistic)
@@ -37,7 +41,7 @@ const Dashboard = () => {
         <meta name='description' content='This is Dashboard page of the project' />
       </Helmet>
       <div className='flex flex-col gap-12'>
-        <OverviewStatistics />
+        <OverviewStatistics totalStatistics={totalStatistics} />
         <StudentStatistics
           registeredStudentsOfStatistic={registeredStudentsOfStatistic}
           attendanceStudentsOfStatistic={attendanceStudentsOfStatistic}
