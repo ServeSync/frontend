@@ -8,7 +8,14 @@ export interface StatisticType {
   count: number
 }
 
-export interface ListStatisticType {
+export interface ListStatisticsType {
   total: number
   data: StatisticType[]
+}
+
+export interface TotalStatisticsType {
+  totalEvents: number
+  totalStudents: number
+  totalOrganizations: number
+  totalProof: number
 }

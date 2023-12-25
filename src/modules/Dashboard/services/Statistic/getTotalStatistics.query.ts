@@ -2,22 +2,22 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import statisticAPI from './statistic.api'
-import { ListStatisticsType } from '../../interfaces'
+import { TotalStatisticsType } from '../../interfaces'
 
-class GetAllProofsOfStatisticQuery {
+class GetTotalStatisticsQuery {
   private _query
 
-  constructor(type?: string) {
+  constructor() {
     this._query = useQuery({
-      queryKey: ['proofs', type],
-      queryFn: () => statisticAPI.getListProofsOfStatisticQuery(type),
+      queryKey: ['statistics'],
+      queryFn: () => statisticAPI.getTotalStatistics(),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000
     })
   }
 
   fetch() {
-    return this._query.data?.data as ListStatisticsType
+    return this._query.data?.data as TotalStatisticsType
   }
 }
-export { GetAllProofsOfStatisticQuery }
+export { GetTotalStatisticsQuery }
