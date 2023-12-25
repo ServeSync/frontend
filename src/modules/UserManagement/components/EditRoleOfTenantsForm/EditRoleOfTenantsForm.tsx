@@ -19,7 +19,9 @@ const EditRoleOfTenantsForm = ({ userId, tenantId, handleClose }: Props) => {
   const listRoleOfTenant = getListRoleOfTenant.fetch()
 
   const getAllRolesQuery = new GetAllRolesQuery()
-  const roles = getAllRolesQuery.fetch()
+  const allRoles = getAllRolesQuery.fetch()
+
+  const roles = allRoles?.filter((role) => !role.isDefault)
 
   const [checkboxValues, setCheckboxValues] = useState<{ [id: string]: boolean }>({})
 
@@ -35,7 +37,7 @@ const EditRoleOfTenantsForm = ({ userId, tenantId, handleClose }: Props) => {
       })
     }
     setCheckboxValues(updatedCheckboxValues)
-  }, [listRoleOfTenant, roles])
+  }, [listRoleOfTenant, allRoles])
 
   const handleCheckboxChange = (roleId: string, checked: boolean) => {
     setCheckboxValues((prevValues) => ({
@@ -73,6 +75,19 @@ const EditRoleOfTenantsForm = ({ userId, tenantId, handleClose }: Props) => {
     <Fragment>
       <div className='flex flex-col'>
         <div className='grid grid-cols-3 gap-x-2 gap-y-6'>
+          {listRoleOfTenant &&
+            listRoleOfTenant
+              .filter((role) => role.isDefault)
+              .map((role) => {
+                return (
+                  <div key={role.id} className='flex items-center gap-3'>
+                    <input type='checkbox' checked disabled value={role.name} />
+                    <label htmlFor={role.id} className='flex items-center'>
+                      <span>{role.name}</span>
+                    </label>
+                  </div>
+                )
+              })}
           {roles &&
             roles.map((role) => {
               return (
@@ -105,6 +120,7 @@ const EditRoleOfTenantsForm = ({ userId, tenantId, handleClose }: Props) => {
             type='submit'
             classNameButton='bg-[#33b6c7] hover:bg-[#33b6c7]/80 rounded-lg px-3 py-2 text-white w-[120px]'
             onClick={handleSubmitForm}
+            isLoading={editRoleOfTenantCommandHandler.isLoading()}
           >
             Cập nhật
           </Button>
