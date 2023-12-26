@@ -171,43 +171,44 @@ const SideBar = () => {
                 </NavLink>
               </li>
             </Restricted>
-            <li className='py-2'>
-              <NavLink
-                to={path.user}
-                className={({ isActive }) =>
-                  classNames(
-                    'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
-                    {
-                      'text-gray-200': isActive
-                    }
-                  )
-                }
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-6 h-6 text-[#26C6DA]'
+            <Restricted to={'ServeSync.Permissions.Users.Management'}>
+              <li className='py-2'>
+                <NavLink
+                  to={path.user}
+                  className={({ isActive }) =>
+                    classNames(
+                      'flex w-full h-[24px] items-center text-sm font-semibold hover:text-gray-200 overflow-hidden transition-all',
+                      {
+                        'text-gray-200': isActive
+                      }
+                    )
+                  }
                 >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'
-                  />
-                </svg>
-
-                <span
-                  className={classNames('overflow-hidden', {
-                    'ml-4': expanded,
-                    'w-0': !expanded
-                  })}
-                >
-                  Quản lý người dùng
-                </span>
-              </NavLink>
-            </li>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='w-6 h-6 text-[#26C6DA]'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'
+                    />
+                  </svg>
+                  <span
+                    className={classNames('overflow-hidden', {
+                      'ml-4': expanded,
+                      'w-0': !expanded
+                    })}
+                  >
+                    Quản lý người dùng
+                  </span>
+                </NavLink>
+              </li>
+            </Restricted>
             <Restricted to={'ServeSync.Permissions.Events.Management'}>
               <li className='py-2'>
                 <NavLink
