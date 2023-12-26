@@ -6,7 +6,7 @@ interface Props {
 
 const OverviewStatistics = ({ totalStatistics }: Props) => {
   return (
-    <div className='flex justify-between p-6 rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] mx-[5%]'>
+    <div className='flex justify-between p-6 rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] w-[90%] mx-auto'>
       <div className='flex gap-3 px-4'>
         <div className='bg-[#ffdfc9] p-3 text-[#ff6a00] rounded-lg flex items-center'>
           <svg

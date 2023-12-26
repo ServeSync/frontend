@@ -111,14 +111,14 @@ const HeaderHomePage = () => {
             Sự kiện
           </NavLink>
           <NavLink
-            to={'/!'}
+            to={path.calendar_clients}
             className={({ isActive }) =>
               classNames('cursor-pointer transition-all duration-300 hover:text-black flex-shrink-0', {
                 'text-black': isActive
               })
             }
           >
-            Thông tin
+            Lịch
           </NavLink>
         </ul>
         {isAuthenticated ? (

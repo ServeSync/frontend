@@ -10,7 +10,6 @@ import { PermissionProvider } from '../contexts'
 import { Permission } from '../interfaces'
 import Restricted from '../components/Restricted'
 import NotAllowed from '../components/NotAllowed'
-import Calendar from 'src/modules/Calendar/pages/Calendar'
 
 //Client
 const StudentSignIn = lazy(() => import('src/modules/Authentication/pages/StudentSignIn'))
@@ -28,11 +27,13 @@ const ResetPassword = lazy(() => import('src/modules/Authentication/pages/ResetP
 //Admin
 const AdminSignIn = lazy(() => import('src/modules/Authentication/pages/AdminSignIn'))
 const Dashboard = lazy(() => import('src/modules/Dashboard/pages/Dashboard'))
+const Calendar = lazy(() => import('src/modules/Calendar/pages/Calendar'))
 const RolePage = lazy(() => import('src/modules/RoleManagement/pages/RolePage'))
 const StudentPage = lazy(() => import('src/modules/StudentManagement/pages/StudentPage'))
 const CreateStudentPage = lazy(() => import('src/modules/StudentManagement/pages/CreateStudentPage'))
 const EditStudentPage = lazy(() => import('src/modules/StudentManagement/pages/EditStudentPage'))
 const EventPage = lazy(() => import('src/modules/EventManagement/pages/EventPage'))
+
 const CreateEventPage = lazy(() => import('src/modules/EventManagement/pages/CreateEventPage/CreateEventPage'))
 const EditEventPage = lazy(() => import('src/modules/EventManagement/pages/EditEventPage/EditEventPage'))
 const CollaborationRequestPage = lazy(
@@ -114,7 +115,7 @@ const useRouteElements = () => {
         </HomePageLayout>
       )
     },
-
+    // Protected Student routes
     {
       path: '',
       element: <ProtectedStudentRoute />,
@@ -133,6 +134,18 @@ const useRouteElements = () => {
             <HomePageLayout>
               <Suspense>
                 <ProfileClientPage />
+              </Suspense>
+            </HomePageLayout>
+          )
+        },
+        {
+          path: path.calendar_clients,
+          element: (
+            <HomePageLayout>
+              <Suspense>
+                <div className='justify-center items-center m-auto my-10 max-w-screen-xl w-full'>
+                  <Calendar />
+                </div>
               </Suspense>
             </HomePageLayout>
           )
