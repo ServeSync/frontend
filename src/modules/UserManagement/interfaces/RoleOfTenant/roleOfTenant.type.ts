@@ -3,5 +3,3 @@ export interface RoleOfTenant {
   name: string
   isDefault: boolean
 }
-
-export type ListRoleOfTenant = RoleOfTenant[]

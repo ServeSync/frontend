@@ -112,7 +112,6 @@ const ListEvent = ({ events, pageSize }: Props) => {
             </svg>
             <span>Sắp xếp</span>
           </div>
-          <div className=''></div>
           <Button
             onClick={handleOpenPopover}
             classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'

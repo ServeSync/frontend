@@ -11,6 +11,7 @@ interface Props {
   onSort: (column: string) => void
   isLoading: boolean
 }
+
 const UserTable = ({ users, onSort, isLoading }: Props) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 
@@ -25,8 +26,9 @@ const UserTable = ({ users, onSort, isLoading }: Props) => {
     setIsOpenModal(false)
     setSelectedItem('')
   }
+
   return (
-    <div className=''>
+    <div>
       <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
         <HeaderTable header={UserTableHeader} onSort={onSort} />
         <tbody>
@@ -38,13 +40,10 @@ const UserTable = ({ users, onSort, isLoading }: Props) => {
                     className='text-[14px] text-gray-600 border-b-[1px] border-gray-200 cursor-pointer hover:bg-gray-50'
                     key={index}
                   >
-                    <th className='px-2 py-4 font-medium w-[20%]'>
+                    <th className='px-2 py-4 font-medium w-[50%]'>
                       <Skeleton className='h-[16px]' borderRadius={20} />
                     </th>
-                    <th className='px-2 py-4 font-medium w-[20%]'>
-                      <Skeleton className='h-[16px]' borderRadius={20} />
-                    </th>
-                    <th className='px-2 py-4 font-medium w-[20%]'>
+                    <th className='px-2 py-4 font-medium w-[50%]'>
                       <Skeleton className='h-[16px]' borderRadius={20} />
                     </th>
                   </tr>
@@ -58,7 +57,6 @@ const UserTable = ({ users, onSort, isLoading }: Props) => {
                 >
                   <th className='px-2 py-4 font-medium w-[20%]'>{user.userName}</th>
                   <th className='px-2 py-4 font-medium w-[20%]'>{user.email}</th>
-                  <th className='px-2 py-4 font-medium w-[20%]'>****************</th>
                 </tr>
               ))}
         </tbody>

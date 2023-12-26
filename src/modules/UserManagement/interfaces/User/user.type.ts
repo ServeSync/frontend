@@ -3,6 +3,7 @@ export interface UsersListType {
   totalPages: number
   data: UserType[]
 }
+
 export interface UserType {
   id: string
   userName: string
