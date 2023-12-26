@@ -3,6 +3,7 @@ import { Autocomplete, TextField } from '@mui/material'
 import Button from 'src/modules/Share/components/Button'
 import { GetUserDetailQuery } from '../../services/User'
 import EditRoleOfTenantsForm from '../EditRoleOfTenantsForm'
+import Restricted from 'src/modules/Share/components/Restricted'
 
 interface Props {
   userId: string
@@ -43,20 +44,22 @@ const UserDetail = ({ userId, handleClose }: Props) => {
             <TextField disabled id='outlined-disabled' label='Email' value={userDetail.email} />
           </div>
           <div className='flex flex-col py-2 gap-5'>
-            <h3 className='font-medium text-[16px]'>Phân quyền</h3>
-            <Autocomplete
-              disablePortal
-              id='tenants'
-              options={userDetail.tenants || []}
-              getOptionLabel={(option) => option.name}
-              defaultValue={userDetail.tenants[0] || tenantId}
-              noOptionsText='Không có lựa chọn'
-              renderInput={(params) => <TextField {...params} label='Tenants' />}
-              onChange={(_, option) => {
-                handleChangeTenant && handleChangeTenant(option?.id as string)
-              }}
-              className='bg-white w-full'
-            />
+            <Restricted to={'ServeSync.Permissions.Users.ViewRoles'}>
+              <h3 className='font-medium text-[16px]'>Phân quyền</h3>
+              <Autocomplete
+                disablePortal
+                id='tenants'
+                options={userDetail.tenants || []}
+                getOptionLabel={(option) => option.name}
+                defaultValue={userDetail.tenants[0] || tenantId}
+                noOptionsText='Không có lựa chọn'
+                renderInput={(params) => <TextField {...params} label='Tenants' />}
+                onChange={(_, option) => {
+                  handleChangeTenant && handleChangeTenant(option?.id as string)
+                }}
+                className='bg-white w-full'
+              />
+            </Restricted>
             <form>
               <EditRoleOfTenantsForm
                 userId={userId}

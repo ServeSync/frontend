@@ -264,7 +264,9 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <UserPage />
+                <Restricted to='ServeSync.Permissions.Users.Management' fallback={<NotAllowed />}>
+                  <UserPage />
+                </Restricted>
               </Suspense>
             </MainLayout>
           )

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { EditRoleOfTenantCommandHandler, GetListRolesOfTenantQuery } from '../../services/User'
 import { GetAllRolesQuery } from 'src/modules/RoleManagement/services'
 import Button from 'src/modules/Share/components/Button'
@@ -9,6 +9,7 @@ import { FormRoleOfTenantSchema, FormRoleOfTenantType } from '../../utils'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
 import { handleError } from 'src/modules/Share/utils'
+import Restricted from 'src/modules/Share/components/Restricted'
 interface Props {
   userId: string
   tenantId: string
@@ -71,8 +72,8 @@ const EditRoleOfTenantsForm = ({ userId, tenantId, handleClose }: Props) => {
   })
 
   return (
-    <Fragment>
-      <div className='flex flex-col'>
+    <div className='flex flex-col'>
+      <Restricted to={'ServeSync.Permissions.Users.ViewRoles'}>
         <div className='grid grid-cols-1 gap-y-2'>
           {listRolesOfTenant &&
             listRolesOfTenant
@@ -107,7 +108,9 @@ const EditRoleOfTenantsForm = ({ userId, tenantId, handleClose }: Props) => {
               )
             })}
         </div>
-        <div className='flex justify-end gap-4 mt-5'>
+      </Restricted>
+      <div className='flex justify-end gap-4 mt-5'>
+        <Restricted to={'ServeSync.Permissions.Users.EditRoles'}>
           <Button
             type='button'
             classNameButton='bg-gray-400 hover:bg-gray-400/80 rounded-lg px-3 py-2 text-white'
@@ -123,9 +126,9 @@ const EditRoleOfTenantsForm = ({ userId, tenantId, handleClose }: Props) => {
           >
             Cập nhật
           </Button>
-        </div>
+        </Restricted>
       </div>
-    </Fragment>
+    </div>
   )
 }
 
