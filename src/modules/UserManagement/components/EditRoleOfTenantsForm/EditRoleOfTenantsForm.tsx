@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useEffect, useState } from 'react'
-import { EditRoleOfTenantCommandHandler, GetListRoleOfTenantQuery } from '../../services/User'
+import { EditRoleOfTenantCommandHandler, GetListRolesOfTenantQuery } from '../../services/User'
 import { GetAllRolesQuery } from 'src/modules/RoleManagement/services'
 import Button from 'src/modules/Share/components/Button'
 import { useForm } from 'react-hook-form'
@@ -15,21 +15,20 @@ interface Props {
   handleClose: () => void
 }
 const EditRoleOfTenantsForm = ({ userId, tenantId, handleClose }: Props) => {
-  const getListRoleOfTenant = new GetListRoleOfTenantQuery(userId, tenantId)
-  const listRoleOfTenant = getListRoleOfTenant.fetch()
+  const getListRolesOfTenant = new GetListRolesOfTenantQuery(userId, tenantId)
+  const listRolesOfTenant = getListRolesOfTenant.fetch()
 
   const getAllRolesQuery = new GetAllRolesQuery()
   const allRoles = getAllRolesQuery.fetch()
-
   const roles = allRoles?.filter((role) => !role.isDefault)
 
   const [checkboxValues, setCheckboxValues] = useState<{ [id: string]: boolean }>({})
 
   useEffect(() => {
     const updatedCheckboxValues = { ...checkboxValues }
-    if (listRoleOfTenant) {
+    if (listRolesOfTenant) {
       roles?.forEach((role) => {
-        updatedCheckboxValues[role.id] = listRoleOfTenant.some((RoleOfTenant) => RoleOfTenant.id === role.id)
+        updatedCheckboxValues[role.id] = listRolesOfTenant.some((RoleOfTenant) => RoleOfTenant.id === role.id)
       })
     } else {
       roles?.forEach((role) => {
@@ -37,7 +36,7 @@ const EditRoleOfTenantsForm = ({ userId, tenantId, handleClose }: Props) => {
       })
     }
     setCheckboxValues(updatedCheckboxValues)
-  }, [listRoleOfTenant, allRoles])
+  }, [listRolesOfTenant, allRoles])
 
   const handleCheckboxChange = (roleId: string, checked: boolean) => {
     setCheckboxValues((prevValues) => ({
@@ -74,9 +73,9 @@ const EditRoleOfTenantsForm = ({ userId, tenantId, handleClose }: Props) => {
   return (
     <Fragment>
       <div className='flex flex-col'>
-        <div className='grid grid-cols-3 gap-x-2 gap-y-6'>
-          {listRoleOfTenant &&
-            listRoleOfTenant
+        <div className='grid grid-cols-1 gap-y-2'>
+          {listRolesOfTenant &&
+            listRolesOfTenant
               .filter((role) => role.isDefault)
               .map((role) => {
                 return (

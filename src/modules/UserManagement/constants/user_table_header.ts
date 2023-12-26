@@ -8,10 +8,5 @@ export const UserTableHeader = [
     id: '2',
     name: 'Email',
     sort: 'Email'
-  },
-  {
-    id: '3',
-    name: 'Password',
-    sort: ''
   }
 ]

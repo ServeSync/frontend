@@ -9,4 +9,5 @@ export interface EventsListConfig {
   page?: number
   size?: number
   defaultFilters?: string
+  isPaging?: boolean
 }

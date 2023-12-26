@@ -1,9 +1,9 @@
-import { GetAllEventsQuery } from 'src/modules/EventManagement/services'
+import { GetAllEventsForCalendarQuery } from 'src/modules/EventManagement/services'
 import Scheduler from '../../components/Scheduler'
 
 const Calendar = () => {
-  const getAllEventsQuery = new GetAllEventsQuery()
-  const events = getAllEventsQuery.fetch()
+  const getAllEventsForCalendarQuery = new GetAllEventsForCalendarQuery(false)
+  const events = getAllEventsForCalendarQuery.fetch()
 
   return <Scheduler events={events && events.data} />
 }

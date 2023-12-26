@@ -48,7 +48,7 @@ const Dashboard = () => {
           typeStudentsOfStatistic={typeStudentsOfStatistic}
           setTypeStudentsOfStatistic={setTypeStudentsOfStatistic}
         />
-        <div className='flex gap-12 mx-[5%] justify-between'>
+        <div className='flex gap-12 w-[90%] mx-auto justify-between'>
           <EventStatistics
             eventsOfStatistic={eventsOfStatistic && eventsOfStatistic.data}
             typeEventsOfStatistic={typeEventsOfStatistic}

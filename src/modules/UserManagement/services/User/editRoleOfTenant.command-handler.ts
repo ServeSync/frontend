@@ -18,7 +18,7 @@ class EditRoleOfTenantCommandHandler {
     return this._editRoleOfTenantMutation.mutate(body, {
       onSuccess: () => {
         this._queryClient.invalidateQueries({
-          queryKey: ['rolesOfTenant']
+          queryKey: ['roles_of_tenant']
         })
         handleSuccess()
       },

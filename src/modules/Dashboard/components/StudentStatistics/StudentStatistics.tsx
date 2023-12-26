@@ -68,7 +68,7 @@ const StudentStatistics = ({
 
   return (
     <div className='flex justify-center'>
-      <div className='w-[80%] relative'>
+      <div className='w-[90%] mx-auto relative'>
         <Line options={options} data={chart} />
         <div className='w-[140px] text-gray-600 absolute top-[16px] right-[32px]'>
           <Autocomplete
