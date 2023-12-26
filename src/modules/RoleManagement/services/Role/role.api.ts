@@ -6,9 +6,10 @@ const roleAPI = {
 
   getRoleById: (id: string) => http.get<RoleType>(`/roles/${id}`),
 
-  createRole: (body: Omit<RoleType, 'id'>) => http.post<RoleType>('/roles', body),
+  createRole: (body: Omit<RoleType, 'id' | 'isDefault'>) => http.post<RoleType>('/roles', body),
 
-  editRole: (body: { id: string; data: Omit<RoleType, 'id'> }) => http.put<RoleType>(`/roles/${body.id}`, body.data),
+  editRole: (body: { id: string; data: Omit<RoleType, 'id' | 'isDefault'> }) =>
+    http.put<RoleType>(`/roles/${body.id}`, body.data),
 
   deleteRole: (id: string) => http.delete(`/roles/${id}`),
 

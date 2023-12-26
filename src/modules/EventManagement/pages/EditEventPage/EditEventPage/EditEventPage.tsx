@@ -249,7 +249,7 @@ const EditEventPage = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Create Event</title>
+        <title>Edit Event</title>
         <meta name='description' content='This is create event page of the project' />
       </Helmet>
       <form onSubmit={handleSubmitForm}>

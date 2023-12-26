@@ -7,4 +7,5 @@ export interface RolesListType {
 export interface RoleType {
   id: string
   name: string
+  isDefault: boolean
 }

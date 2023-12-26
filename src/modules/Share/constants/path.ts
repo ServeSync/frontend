@@ -16,6 +16,8 @@ const path = {
   dashboard: '/admin/dashboard',
   calendar: '/admin/calendar',
   role: '/admin/roles',
+  user: '/admin/user',
+  edit_user: '/admin/user/edit',
   student: '/admin/students',
   create_student: '/admin/students/create',
   edit_student: '/admin/students/edit',
