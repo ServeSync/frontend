@@ -54,7 +54,9 @@ const Input = ({
         />
       )}
       {children && children}
-      <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error}</span>
+      <span className='block lg:min-h-[16px] md:min-h-[12px] max-md:min-h-[10px] text-red-600 text-xs md:mt-1 font-medium lg:text-[12px] md:text-[10px] max-md:text-[6px]'>
+        {error}
+      </span>
     </div>
   )
 }
