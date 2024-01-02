@@ -99,7 +99,7 @@ const ProofInternalForm = ({
             }}
           />
         </div>
-        <div className='col-span-1 mt-[-8px] mb-[18px]'>
+        <div className='col-span-1 max-md:col-span-2 mt-[-8px] mb-[18px]'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DateTimeField']}>
               <DatePicker
@@ -112,7 +112,7 @@ const ProofInternalForm = ({
             </DemoContainer>
           </LocalizationProvider>
         </div>
-        <div className='col-span-1 mt-[-8px] mb-[18px]'>
+        <div className='col-span-1 max-md:col-span-2 mt-[-8px] mb-[18px]'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DateTimeField']}>
               <DatePicker

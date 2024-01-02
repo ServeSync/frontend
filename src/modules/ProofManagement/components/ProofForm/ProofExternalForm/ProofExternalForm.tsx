@@ -124,7 +124,7 @@ const ProofExternalForm = ({
           name='startAt'
           control={control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <div className='mt-[-8px] col-span-1'>
+            <div className='mt-[-8px] col-span-1 max-md:col-span-2'>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker']}>
                   <DatePicker
@@ -145,7 +145,7 @@ const ProofExternalForm = ({
           name='endAt'
           control={control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <div className='mt-[-8px] col-span-1'>
+            <div className='mt-[-8px] col-span-1 max-md:col-span-2'>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker']}>
                   <DatePicker

@@ -57,8 +57,8 @@ const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
 
   return (
     <Fragment>
-      <div className='grid grid-cols-4 gap-6'>
-        <div className='col-span-1'>
+      <div className='grid grid-cols-4 md:gap-6 max-md:gap-4'>
+        <div className='md:col-span-1 max-md:col-span-4'>
           {isLoading ? (
             <Skeleton className='h-[160px]' />
           ) : (
@@ -74,34 +74,40 @@ const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
             />
           )}
         </div>
-        <div className='col-span-3 flex flex-col text-[14px] mt-6'>
+        <div className='md:col-span-3 max-md:col-span-4 flex flex-col text-[14px] mt-6'>
           <div className='flex leading-7'>
-            <div className='flex justify-between w-[200px]'>
+            <div className='flex justify-between md:w-[200px] max-md:w-[180px] text-[16px] max-md:text-[14px]'>
               <span>Hệ đào tạo</span>
               <span>:</span>
             </div>
-            <b className='h-[20px] ml-2'>{isLoading ? <Skeleton /> : educationProgramResult.name}</b>
+            <b className='h-[20px] ml-2 text-[16px] max-md:text-[14px]'>
+              {isLoading ? <Skeleton /> : educationProgramResult.name}
+            </b>
           </div>
           <div className='flex leading-7'>
-            <div className='flex justify-between w-[200px]'>
+            <div className='flex justify-between md:w-[200px] max-md:w-[180px] text-[16px] max-md:text-[14px]'>
               <span>Số điểm yêu cầu</span>
               <span>:</span>
             </div>
-            <b className='h-[20px] ml-2'>{isLoading ? <Skeleton /> : educationProgramResult.requiredActivityScore}</b>
+            <b className='h-[20px] ml-2 text-[16px] max-md:text-[14px]'>
+              {isLoading ? <Skeleton /> : educationProgramResult.requiredActivityScore}
+            </b>
           </div>
           <div className='flex leading-7'>
-            <div className='flex justify-between w-[200px]'>
+            <div className='flex justify-between md:w-[200px] max-md:w-[180px] text-[16px] max-md:text-[14px]'>
               <span>Số hoạt động đã tham gia</span>
               <span>:</span>
             </div>
-            <b className='h-[20px] ml-2'>{isLoading ? <Skeleton /> : educationProgramResult.numberOfEvents}</b>
+            <b className='h-[20px] ml-2 text-[16px] max-md:text-[14px]'>
+              {isLoading ? <Skeleton /> : educationProgramResult.numberOfEvents}
+            </b>
           </div>
           <div className='flex leading-7'>
-            <div className='flex justify-between w-[200px]'>
+            <div className='flex justify-between md:w-[200px] max-md:w-[180px] text-[16px] max-md:text-[14px]'>
               <span>Số lượng minh chứng</span>
               <span>:</span>
             </div>
-            <b className='h-[20px] ml-2'>
+            <b className='h-[20px] ml-2 text-[16px] max-md:text-[14px]'>
               {isLoading ? (
                 <Skeleton />
               ) : (
@@ -110,11 +116,13 @@ const CircleChart = ({ educationProgramResult, isLoading }: Props) => {
             </b>
           </div>
           <div className='flex leading-7'>
-            <div className='flex justify-between w-[200px]'>
+            <div className='flex justify-between md:w-[200px] max-md:w-[180px] text-[16px] max-md:text-[14px]'>
               <span>Số điểm đã tích lũy</span>
               <span>:</span>
             </div>
-            <b className='h-[20px] ml-2'>{isLoading ? <Skeleton /> : educationProgramResult.gainScore}</b>
+            <b className='h-[20px] ml-2 text-[16px] max-md:text-[14px]'>
+              {isLoading ? <Skeleton /> : educationProgramResult.gainScore}
+            </b>
           </div>
         </div>
       </div>
