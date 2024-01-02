@@ -67,7 +67,7 @@ const ProtectedStudentRoute = () => {
 const ProtectedRoute = () => {
   const { isAuthenticated } = useContext(AppContext)
 
-  const getProfileQuery = new GetProfileQuery()
+  const getProfileQuery = new GetProfileQuery(isAuthenticated)
   const permissions = getProfileQuery.fetch()?.permissions
 
   const fetchPermission = (permission: Permission): boolean => {

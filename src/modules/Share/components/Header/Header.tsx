@@ -16,13 +16,13 @@ import EditOrganization from '../EditOrganization'
 import { JWT } from '../../interfaces'
 
 const Header = () => {
-  const { setIsAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, setIsAuthenticated } = useContext(AppContext)
 
   const navigate = useNavigate()
 
   const location = useLocation().pathname.split('/').slice(2)
 
-  const getProfileQuery = new GetProfileQuery()
+  const getProfileQuery = new GetProfileQuery(isAuthenticated)
   const profile = getProfileQuery.fetch()
 
   const token = getAccessTokenFromLocalStorage()

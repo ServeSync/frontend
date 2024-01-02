@@ -16,7 +16,7 @@ const Dashboard = () => {
   const getTotalStatisticsQuery = new GetTotalStatisticsQuery()
   const totalStatistics = getTotalStatisticsQuery.fetch()
 
-  const [typeStudentsOfStatistic, setTypeStudentsOfStatistic] = useState<string>()
+  const [typeStudentsOfStatistic, setTypeStudentsOfStatistic] = useState<string>('Date')
 
   const getAllRegisteredStudentsOfStatisticQuery = new GetAllRegisteredStudentsOfStatisticQuery(typeStudentsOfStatistic)
   const registeredStudentsOfStatistic = getAllRegisteredStudentsOfStatisticQuery.fetch()
@@ -24,12 +24,12 @@ const Dashboard = () => {
   const getAllAttendanceStudentsOfStatisticQuery = new GetAllAttendanceStudentsOfStatisticQuery(typeStudentsOfStatistic)
   const attendanceStudentsOfStatistic = getAllAttendanceStudentsOfStatisticQuery.fetch()
 
-  const [typeEventsOfStatistic, setTypeEventsOfStatistic] = useState<string>()
+  const [typeEventsOfStatistic, setTypeEventsOfStatistic] = useState<string>('Today')
 
   const getAllEventsOfStatisticQuery = new GetAllEventsOfStatisticQuery(typeEventsOfStatistic)
   const eventsOfStatistic = getAllEventsOfStatisticQuery.fetch()
 
-  const [typeProofsOfStatistic, setTypeProofsOfStatistic] = useState<string>()
+  const [typeProofsOfStatistic, setTypeProofsOfStatistic] = useState<string>('Today')
 
   const getAllProofsOfStatisticQuery = new GetAllProofsOfStatisticQuery(typeProofsOfStatistic)
   const proofsOfStatistic = getAllProofsOfStatisticQuery.fetch()

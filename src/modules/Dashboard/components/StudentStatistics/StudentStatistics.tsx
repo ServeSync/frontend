@@ -12,6 +12,7 @@ import {
 import { StudentsStatisticType } from '../../interfaces'
 import { Autocomplete, TextField } from '@mui/material'
 import { StudentStatisticOptions } from '../../constants'
+import { StatusToMessage } from 'src/modules/Share/constants'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
@@ -19,7 +20,7 @@ interface Props {
   registeredStudentsOfStatistic: StudentsStatisticType[]
   attendanceStudentsOfStatistic: StudentsStatisticType[]
   typeStudentsOfStatistic: string | undefined
-  setTypeStudentsOfStatistic: React.Dispatch<React.SetStateAction<string | undefined>>
+  setTypeStudentsOfStatistic: React.Dispatch<React.SetStateAction<string>>
 }
 
 const StudentStatistics = ({
@@ -45,7 +46,7 @@ const StudentStatistics = ({
   }
 
   const chart = {
-    labels: registeredStudentsOfStatistic && registeredStudentsOfStatistic.map((item) => item.name),
+    labels: registeredStudentsOfStatistic && registeredStudentsOfStatistic.map((item) => StatusToMessage(item.name)),
     datasets: [
       {
         label: 'Sinh viên đăng kí',

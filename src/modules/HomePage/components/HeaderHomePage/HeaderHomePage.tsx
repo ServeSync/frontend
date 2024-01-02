@@ -5,7 +5,7 @@ import path from 'src/modules/Share/constants/path'
 import { logo } from 'src/modules/Share/assets/image'
 import Button from 'src/modules/Share/components/Button'
 import { AppContext } from 'src/modules/Share/contexts'
-import { GetProfileStudentQuery } from 'src/modules/Share/services'
+import { GetProfileQuery } from 'src/modules/Share/services'
 import { Popover } from '@mui/material'
 import { clearTokenFromLocalStorage } from 'src/modules/Authentication/utils'
 import Skeleton from 'react-loading-skeleton'
@@ -43,8 +43,8 @@ const HeaderHomePage = () => {
     setScrolled(false)
   }, [scrolled])
 
-  const getProfileStudentQuery = new GetProfileStudentQuery(isAuthenticated)
-  const profile = getProfileStudentQuery.fetch()
+  const getProfileQuery = new GetProfileQuery(isAuthenticated)
+  const profile = getProfileQuery.fetch()
 
   const handleLogout = () => {
     setIsAuthenticated(false)
@@ -125,7 +125,7 @@ const HeaderHomePage = () => {
           </NavLink>
         </ul>
         {isAuthenticated ? (
-          getProfileStudentQuery.isLoading() ? (
+          getProfileQuery.isLoading() ? (
             <div className='flex items-center gap-4'>
               <Skeleton className='min-w-[120px] h-[20px]' />
               <div className='rounded-full overflow-hidden'>
@@ -141,12 +141,11 @@ const HeaderHomePage = () => {
                   classNameButton='relative bg-slate-300 rounded-full outline-none w-[60px] pt-[100%]'
                 >
                   <img
-                    src={profile?.imageUrl}
+                    src={profile?.avatarUrl}
                     alt='avatar'
                     className='rounded-full top-0 h-full w-full object-cover object-top absolute'
                   />
                 </Button>
-
                 <Popover
                   id={id}
                   open={isOpen}
