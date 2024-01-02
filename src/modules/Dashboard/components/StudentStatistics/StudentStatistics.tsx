@@ -12,7 +12,6 @@ import {
 import { StudentsStatisticType } from '../../interfaces'
 import { Autocomplete, TextField } from '@mui/material'
 import { StudentStatisticOptions } from '../../constants'
-import { StatusToMessage } from 'src/modules/Share/constants'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
