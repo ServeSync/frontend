@@ -16,8 +16,8 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
   const [isHiddenPassword, setIsHiddenPassword] = useState<boolean>(true)
 
   return (
-    <div className='flex flex-col gap-4'>
-      <div className='flex flex-col gap-4'>
+    <div className='flex flex-col lg:gap-4 md:gap-2 max-md:gap-1'>
+      <div className='flex flex-col lg:gap-4 md:gap-2 max-md:gap-1'>
         <Input
           register={register}
           id='new_password'
@@ -26,17 +26,17 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
           type={isHiddenPassword ? 'password' : 'text'}
           autoComplete='on'
           className='flex flex-col relative'
-          classNameInput='border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none h-[48px]'
+          classNameInput='border-[2px] border-[#26C6DA] rounded-md lg:py-2 md:pl-10 max-md:pl-4 pr-4 outline-none w-full lg:h-[48px] md:h-[36px] max-md:h-[24px] lg:text-[16px] md:text-[12px] max-md:text-[6px]'
           error={errors.newPassword?.message}
         >
-          <div className='absolute left-[4px] top-[8px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
+          <div className='absolute lg:left-[4px] lg:top-[8px] md:top-[4px] md:left-[5px] max-md:top-[2px] max-md:left-[-4px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
               strokeWidth='1.5'
               stroke='currentColor'
-              className='w-6 h-6'
+              className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
             >
               <path
                 strokeLinecap='round'
@@ -48,7 +48,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
           {isHiddenPassword ? (
             <Button
               type='button'
-              classNameButton='absolute right-[4px] top-[8px] cursor-pointer px-2 py-1 text-[#26C6DA]'
+              classNameButton='absolute lg:right-[4px] lg:top-[8px] md:right-[2px] md:top-[4px] max-md:right-[1px] max-md:top-[2.5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
               onClick={() => setIsHiddenPassword(!isHiddenPassword)}
             >
               <svg
@@ -57,7 +57,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth='1.5'
                 stroke='currentColor'
-                className='h-6 w-6'
+                className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
               >
                 <path
                   strokeLinecap='round'
@@ -69,7 +69,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
           ) : (
             <Button
               type='button'
-              classNameButton='absolute right-[4px] top-[8px] cursor-pointer px-2 py-1 text-[#26C6DA]'
+              classNameButton='absolute lg:right-[4px] lg:top-[8px] md:right-[2px] md:top-[4px] max-md:right-[1px] max-md:top-[2.5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
               onClick={() => setIsHiddenPassword(!isHiddenPassword)}
             >
               <svg
@@ -78,7 +78,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth='1.5'
                 stroke='currentColor'
-                className='h-6 w-6'
+                className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
               >
                 <path
                   strokeLinecap='round'
@@ -98,17 +98,17 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
           type={isHiddenPassword ? 'password' : 'text'}
           autoComplete='on'
           className='flex flex-col relative'
-          classNameInput='border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none h-[48px]'
+          classNameInput='border-[2px] border-[#26C6DA] rounded-md lg:py-2 md:pl-10 max-md:pl-4 pr-4 outline-none w-full lg:h-[48px] md:h-[36px] max-md:h-[24px] lg:text-[16px] md:text-[12px] max-md:text-[6px]'
           error={errors.confirmPassword?.message}
         >
-          <div className='absolute left-[4px] top-[10px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
+          <div className='absolute lg:left-[4px] lg:top-[8px] md:top-[4px] md:left-[5px] max-md:top-[2px] max-md:left-[-4px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
               strokeWidth='1.5'
               stroke='currentColor'
-              className='w-6 h-6'
+              className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
             >
               <path
                 strokeLinecap='round'
@@ -120,7 +120,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
           {isHiddenPassword ? (
             <Button
               type='button'
-              classNameButton='absolute right-[4px] top-[8px] cursor-pointer px-2 py-1 text-[#26C6DA]'
+              classNameButton='absolute lg:right-[4px] lg:top-[8px] md:right-[2px] md:top-[4px] max-md:right-[1px] max-md:top-[2.5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
               onClick={() => setIsHiddenPassword(!isHiddenPassword)}
             >
               <svg
@@ -129,7 +129,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth='1.5'
                 stroke='currentColor'
-                className='h-6 w-6'
+                className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
               >
                 <path
                   strokeLinecap='round'
@@ -141,7 +141,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
           ) : (
             <Button
               type='button'
-              classNameButton='absolute right-[4px] top-[8px] cursor-pointer px-2 py-1 text-[#26C6DA]'
+              classNameButton='absolute lg:right-[4px] lg:top-[8px] md:right-[2px] md:top-[4px] max-md:right-[1px] max-md:top-[2.5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
               onClick={() => setIsHiddenPassword(!isHiddenPassword)}
             >
               <svg
@@ -150,7 +150,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
                 viewBox='0 0 24 24'
                 strokeWidth='1.5'
                 stroke='currentColor'
-                className='h-6 w-6'
+                className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
               >
                 <path
                   strokeLinecap='round'
@@ -166,7 +166,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
       <div className='flex justify-end gap-2'>
         <Link
           to={path.login}
-          className='flex justify-center items-center bg-[#195E8E] w-[60px] h-[50px] text-white p-2 rounded-2xl font-semibold hover:w-[70px] hover:bg-[#dd5353] transition-all duration-300'
+          className='flex justify-center items-center bg-[#195E8E] md:w-[60px] md:h-[50px] max-md:w-[40px] max-md:h-[30px] text-white lg:p-2 md:rounded-2xl max-md:rounded-xl font-semibold md:hover:w-[70px] max-md:hover:w-[50px] hover:bg-[#dd5353] transition-all duration-300'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -174,7 +174,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
             viewBox='0 0 24 24'
             strokeWidth={1.5}
             stroke='currentColor'
-            className='w-6 h-6 m-0'
+            className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3 m-0'
           >
             <path
               strokeLinecap='round'
@@ -185,7 +185,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
         </Link>
         <Button
           type='submit'
-          classNameButton='flex justify-center items-center bg-[#195E8E] w-[72px] h-[50px] text-white p-2 rounded-2xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90'
+          classNameButton='flex justify-center items-center bg-[#195E8E] md:w-[70px] md:h-[50px] max-md:w-[40px] max-md:h-[30px] text-white p-2 md:rounded-2xl max-md:rounded-xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/80'
           isLoading={isLoading}
         >
           <svg
@@ -194,7 +194,7 @@ const ResetPasswordForm = ({ register, errors, isLoading }: Props) => {
             viewBox='0 0 24 24'
             strokeWidth={1.5}
             stroke='currentColor'
-            className='w-6 h-6'
+            className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
           >
             <path
               strokeLinecap='round'
