@@ -46,7 +46,7 @@ const StudentStatistics = ({
   }
 
   const chart = {
-    labels: registeredStudentsOfStatistic && registeredStudentsOfStatistic.map((item) => StatusToMessage(item.name)),
+    labels: registeredStudentsOfStatistic && registeredStudentsOfStatistic.map((item) => item.name),
     datasets: [
       {
         label: 'Sinh viên đăng kí',

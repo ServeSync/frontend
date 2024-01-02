@@ -34,6 +34,8 @@ const Dashboard = () => {
   const getAllProofsOfStatisticQuery = new GetAllProofsOfStatisticQuery(typeProofsOfStatistic)
   const proofsOfStatistic = getAllProofsOfStatisticQuery.fetch()
 
+  console.log(registeredStudentsOfStatistic, attendanceStudentsOfStatistic)
+
   return (
     <Fragment>
       <Helmet>
