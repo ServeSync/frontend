@@ -45,7 +45,7 @@ const InputAvatar = ({ onChange, register, previewImage, avatar }: Props) => {
             'http://res.cloudinary.com/dboijruhe/image/upload/v1700226509/ServeSync/98ab36c2-5939-4135-b919-52f0d0e6360d-avatar-default.png'
           }
           alt='avatar'
-          className='rounded-full top-0 h-full w-full object-cover object-top absolute'
+          className='rounded-full top-0 h-full w-full  object-cover object-top absolute '
         />
       </Button>
     </Fragment>

@@ -63,7 +63,7 @@ const AdminSignIn = () => {
             <h1 className='lg:text-[40px] md:text-[30px] max-md:text-[18px] text-[#195E8E] font-bold mb-[10px]'>
               Đăng nhập
             </h1>
-            <h2 className='text-[#195E8E] lg:text-[16px] max-md:text-[12px] sm:text-[10px]'>
+            <h2 className='text-[#195E8E] lg:text-[16px] md:text-[12px] sm:text-[10px]'>
               Hệ thống quản lý hoạt động cộng đồng.
             </h2>
           </div>
