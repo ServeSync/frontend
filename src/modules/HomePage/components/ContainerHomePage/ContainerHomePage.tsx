@@ -15,7 +15,7 @@ const ContainerHomePage = () => {
   const eventsUpcoming = getAllEventUpcomingQuery.fetch()
 
   return (
-    <div className='flex flex-col lg:pb-[200px] overflow-hidden w-[80%] mx-auto'>
+    <div className='flex flex-col lg:pb-[120px] overflow-hidden mx-auto xl:px-36 lg:px-20 md:px-14 max-md:px-5'>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center w-full lg:py-8 lg:px-4 max-lg:py-4 m-auto'>
         <div className='flex flex-col lg:gap-11 md:gap-8 max-sm:gap-4 lg:max-w-[50%] max-lg:items-center'>
           <h1 className='w-full text-black lg:text-[70px] md:text-[50px] max-sm:text-[20px] font-normal break-words'>
@@ -42,7 +42,7 @@ const ContainerHomePage = () => {
       <div className='flex justify-between max-lg:flex-col items-center lg:gap-20  w-full lg:py-8 lg:px-4 max-lg:py-4 m-auto'>
         <div className='lg:max-w-[50%] md:max-w-[80%] relative'>
           <img src={homePage_02} alt='' className='rounded-[30px] z-20 relative' />
-          <div className='absolute lg:w-[110%] md:w-[130%] max-md:w-[100%] lg:h-[80%] md:h-[60%] bg-[#26C6DA]/80 top-[200px] left-[-100px] z-10 rounded-r-full'></div>
+          <div className='absolute lg:w-[110%] md:w-[130%] max-md:w-[100%] lg:h-[80%] md:h-[60%] bg-[#26C6DA]/80 top-[200px]  z-10 rounded-r-full'></div>
         </div>
         <div className='relative flex flex-col lg:gap-5 md:gap-3 lg:mt-20 md:mt-10 max-md:mt-5 w-full'>
           <h2 className='text-[#F85E9F] lg:text-[44px] md:text-[30px] max-md:text-[14px] font-normal uppercase break-words lg:tracking-[4px] md:tracking-[3px] max-md:tracking-[2px]'>

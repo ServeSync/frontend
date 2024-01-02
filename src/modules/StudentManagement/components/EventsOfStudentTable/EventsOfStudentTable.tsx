@@ -12,7 +12,7 @@ const EventsOfStudentTable = ({ events, isLoading }: Props) => {
   return (
     <table className='w-full bg-white text-left border-[1px] border-gray-200 p-2'>
       <thead className='bg-[#f7f8f9] border-[1px] border-gray-200'>
-        <tr className='text-[14px] text-gray-600'>
+        <tr className='lg:text-[16px] md:text-[10px] max-md:text-[6px] text-gray-600'>
           {EventsOfStudentTableHeader.map((item) => (
             <th className='px-2 py-2 font-medium cursor-pointer' key={item.id}>
               <span>{item.name}</span>

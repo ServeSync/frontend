@@ -13,7 +13,7 @@ interface Props {
 
 const ForgetPasswordForm = ({ register, errors, isLoading }: Props) => {
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col lg:gap-4 md:gap-2 max-md:gap-1'>
       <Input
         register={register}
         id='userNameOrEmail'
@@ -21,17 +21,17 @@ const ForgetPasswordForm = ({ register, errors, isLoading }: Props) => {
         placeholder='Nhập Email hoặc Mã số sinh viên'
         autoComplete='on'
         className='flex-1 relative'
-        classNameInput='border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none w-full h-[48px]'
+        classNameInput='border-[2px] border-[#26C6DA] rounded-md lg:py-2 md:pl-10 max-md:pl-4 pr-4 outline-none w-full lg:h-[48px] md:h-[36px] max-md:h-[24px] lg:text-[16px] md:text-[12px] max-md:text-[6px]'
         error={errors.userNameOrEmail?.message}
       >
-        <div className='absolute left-[4px] top-[8px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
+        <div className='absolute lg:left-[4px] lg:top-[8px] md:top-[4px] md:left-[5px] max-md:top-[6px] max-md:left-[-4px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
             strokeWidth='1.5'
             stroke='currentColor'
-            className='w-6 h-6'
+            className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
           >
             <path
               strokeLinecap='round'
@@ -44,7 +44,7 @@ const ForgetPasswordForm = ({ register, errors, isLoading }: Props) => {
       <div className='flex justify-end gap-2'>
         <Link
           to={path.login}
-          className='flex justify-center items-center bg-[#195E8E] w-[60px] h-[50px] text-white p-2 rounded-2xl font-semibold hover:w-[70px] hover:bg-[#dd5353] transition-all duration-300'
+          className='flex justify-center items-center bg-[#195E8E] md:w-[60px] md:h-[50px] max-md:w-[40px] max-md:h-[30px] text-white lg:p-2 md:rounded-2xl max-md:rounded-xl font-semibold md:hover:w-[70px] max-md:hover:w-[50px] hover:bg-[#dd5353] transition-all duration-300'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -52,7 +52,7 @@ const ForgetPasswordForm = ({ register, errors, isLoading }: Props) => {
             viewBox='0 0 24 24'
             strokeWidth={1.5}
             stroke='currentColor'
-            className='w-6 h-6 m-0'
+            className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3 m-0'
           >
             <path
               strokeLinecap='round'
@@ -63,7 +63,7 @@ const ForgetPasswordForm = ({ register, errors, isLoading }: Props) => {
         </Link>
         <Button
           type='submit'
-          classNameButton='flex justify-center items-center bg-[#195E8E] w-[72px] h-[48px] text-white p-2 rounded-2xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/80'
+          classNameButton='flex justify-center items-center bg-[#195E8E] md:w-[70px] md:h-[50px] max-md:w-[40px] max-md:h-[30px] text-white p-2 md:rounded-2xl max-md:rounded-xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/80'
           isLoading={isLoading}
         >
           <svg
@@ -72,7 +72,7 @@ const ForgetPasswordForm = ({ register, errors, isLoading }: Props) => {
             viewBox='0 0 24 24'
             strokeWidth={1.5}
             stroke='currentColor'
-            className='w-6 h-6'
+            className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
           >
             <path
               strokeLinecap='round'

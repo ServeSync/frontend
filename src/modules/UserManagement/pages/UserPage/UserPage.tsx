@@ -51,7 +51,7 @@ const UserPage = () => {
           <form onSubmit={handleSubmitFormFilter}>
             <InputSearch
               classNameInput='bg-white border-[1px] border-gray-200 rounded-md h-[44px] w-[240px] outline-[#26C6DA] pl-8 pr-2 shadow-sm font-normal text-gray-600 placeholder:font-normal placeholder:text-[14px]'
-              placeholder='Tìm kiếm người dùng'
+              placeholder='Tìm kiếm người dùngg'
               name='search'
               register={FilterUserForm.register}
             />

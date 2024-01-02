@@ -40,26 +40,18 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
 
   const handleReset = () => {
     if (profile) {
-      setValue('code', profile.code)
-      setValue('fullName', profile.fullName)
       setValue('email', profile.email)
-      setValue('gender', profile.gender.toString())
-      setValue('birth', formatDateOfBirth(profile.dateOfBirth))
       setValue('phone', profile.phone)
       setValue('homeTown', profile.homeTown)
       setValue('address', profile.address)
-      setValue('citizenId', profile.citizenId)
-      setValue('facultyId', profile.faculty.name)
-      setValue('homeRoomId', profile.homeRoom.name)
-      setValue('educationProgramId', profile.educationProgram.name)
       setValue('imageUrl', profile.imageUrl)
     }
   }
   return (
     <Fragment>
-      <div className='grid grid-cols-6 gap-6'>
+      <div className='md:grid md:grid-cols-6 max-md:flex max-md:flex-col gap-6'>
         <div className='col-span-1'>
-          <div className='flex flex-col items-center justify-center'>
+          <div className='flex flex-col items-center justify-center max-md:w-[30%] mx-auto'>
             <InputAvatar
               register={register}
               onChange={onChange}
@@ -68,20 +60,36 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
             />
           </div>
         </div>
-        <div className='col-span-5 grid grid-cols-3 gap-x-6 gap-y-4 text-[14px]'>
+        <div className='col-span-5 grid grid-cols-3 lg:gap-x-6 lg:gap-y-4 md:gap-x-4 md:gap-y-3 max-md:gap-x-2 max-md:gap-y-2 '>
           <Controller
             name='code'
             control={control}
             defaultValue=''
             render={({ field: { value = profile && profile.code } }) => (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <div>
+                <div className='w-full'>
                   <TextField
                     id='code'
                     label='Mã số sinh viên'
                     value={value}
                     placeholder='Nhập mã số sinh viên'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -103,6 +111,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập họ và tên'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -124,6 +148,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập Email'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -143,6 +183,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Giới tính'
                     value={value == false ? 'Nữ' : 'Nam'}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -163,6 +219,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Ngày sinh'
                     value={formatDateOfBirth(value)}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -184,6 +256,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập số điện thoại'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -204,6 +292,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập nơi sinh'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -224,6 +328,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập địa chỉ cư trú'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -243,6 +363,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Căn cước công dân'
                     value={value}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -263,6 +399,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Khoa'
                     value={value}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -283,6 +435,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Lớp sinh hoạt'
                     value={value}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -303,6 +471,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Hệ đào tạo'
                     value={value}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -313,17 +497,17 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
           />
         </div>
       </div>
-      <div className='flex justify-end gap-6 py-5 border-b-[2px]'>
+      <div className='flex md:justify-end max-md:justify-center gap-6 py-5 border-b-[2px]'>
         <Button
           onClick={handleReset}
           type='button'
-          classNameButton='bg-[#9a9a9a] py-2 px-4 rounded-lg text-[16px] text-white font-semibold'
+          classNameButton='bg-[#9a9a9a] py-2 md:px-4 max-md:px-2 rounded-lg md:text-[16px] max-md:text-[12px] text-white font-semibold w-[100px]'
         >
           Làm mới
         </Button>
         <Button
           type='submit'
-          classNameButton='bg-[#26C6DA] py-2 px-4 rounded-lg text-[14px] text-white font-semibold w-[90px]'
+          classNameButton='bg-[#26C6DA] py-2 md:px-4 max-md:px-2 rounded-lg md:text-[16px] max-md:text-[12px] text-white font-semibold w-[90px]'
           isLoading={isLoadingEdit}
         >
           Lưu

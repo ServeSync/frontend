@@ -16,24 +16,24 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
   const [isHiddenPassword, setIsHiddenPassword] = useState<boolean>(true)
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col lg:gap-2 md:gap-1'>
       <Input
         register={register}
         id='userNameOrEmail'
         name='userNameOrEmail'
         placeholder='Nhập Email'
         className='flex flex-col relative'
-        classNameInput='border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none h-[48px]'
+        classNameInput='border-[2px] border-[#26C6DA] rounded-md lg:py-2 md:pl-10 max-md:pl-4 pr-4 outline-none lg:h-[48px] md:h-[36px] max-md:h-[24px] lg:text-[16px] md:text-[12px] max-md:text-[8px]'
         error={errors.userNameOrEmail?.message}
       >
-        <div className='absolute left-[4px] top-[8px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
+        <div className='absolute lg:left-[4px] lg:top-[8px] md:top-[4px] md:left-[5px] max-md:top-[2.5px] max-md:left-[-4px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
             strokeWidth='1.5'
             stroke='currentColor'
-            className='w-6 h-6'
+            className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
           >
             <path
               strokeLinecap='round'
@@ -51,17 +51,17 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
         autoComplete='on'
         type={isHiddenPassword ? 'password' : 'text'}
         className='flex flex-col relative'
-        classNameInput='border-[2px] border-[#26C6DA] rounded-md py-2 pl-10 pr-4 outline-none h-[48px]'
+        classNameInput='border-[2px] border-[#26C6DA] rounded-md lg:py-2 md:pl-10 max-md:pl-4 pr-4 outline-none lg:h-[48px] md:h-[36px] max-md:h-[24px] lg:text-[16px] md:text-[12px] max-md:text-[8px]'
         error={errors.password?.message}
       >
-        <div className='absolute left-[4px] top-[8px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
+        <div className='absolute lg:left-[4px] lg:top-[8px] md:top-[4px] md:left-[5px] max-md:top-[2.5px] max-md:left-[-4px] cursor-pointer px-2 py-1 text-[#26C6DA]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
             strokeWidth='1.5'
             stroke='currentColor'
-            className='w-6 h-6'
+            className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
           >
             <path
               strokeLinecap='round'
@@ -73,7 +73,7 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
         {isHiddenPassword ? (
           <Button
             type='button'
-            classNameButton='absolute right-[4px] top-[8px] cursor-pointer px-2 py-1 text-[#26C6DA]'
+            classNameButton='absolute lg:right-[4px] lg:top-[8px] md:right-[2px] md:top-[4px] max-md:right-[1px] max-md:top-[2.5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
             onClick={() => setIsHiddenPassword(!isHiddenPassword)}
           >
             <svg
@@ -82,7 +82,7 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
               viewBox='0 0 24 24'
               strokeWidth='1.5'
               stroke='currentColor'
-              className='h-6 w-6'
+              className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
             >
               <path
                 strokeLinecap='round'
@@ -94,7 +94,7 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
         ) : (
           <Button
             type='button'
-            classNameButton='absolute right-[4px] top-[8px] cursor-pointer px-2 py-1 text-[#26C6DA]'
+            classNameButton='absolute lg:right-[4px] lg:top-[8px] md:right-[2px] md:top-[4px] max-md:right-[1px] max-md:top-[2.5px] cursor-pointer px-2 py-1 text-[#26C6DA]'
             onClick={() => setIsHiddenPassword(!isHiddenPassword)}
           >
             <svg
@@ -103,7 +103,7 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
               viewBox='0 0 24 24'
               strokeWidth='1.5'
               stroke='currentColor'
-              className='h-6 w-6'
+              className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-3 max-md:h-3'
             >
               <path
                 strokeLinecap='round'
@@ -118,13 +118,13 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
       <div className='flex justify-between'>
         <Link
           to={path.forget_password}
-          className='text-[16px] text-right text-[#195E8E] font-semibold mb-4 hover:text-[#195E8E]/60 hover:underline'
+          className='lg:text-[16px] md:text-[12px] max-md:text-[8px] text-right text-[#195E8E] font-semibold md:mb-4 max-md:mb-2 hover:text-[#195E8E]/60 hover:underline'
         >
           Quên mật khẩu ?
         </Link>
         <Link
           to={path.home_page}
-          className='text-[16px] text-right text-[#195E8E] font-semibold mb-4 hover:text-[#195E8E]/60 hover:underline'
+          className='lg:text-[16px] md:text-[12px] max-md:text-[8px] text-right text-[#195E8E] font-semibold md:mb-4 max-md:mb-2 hover:text-[#195E8E]/60 hover:underline'
         >
           Trang chủ
         </Link>
@@ -132,13 +132,16 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
       <Button
         type='submit'
         isLoading={isLoading}
-        classNameButton='w-full bg-[#195E8E] hover:bg-[#195E8E]/80 p-2 rounded-xl text-[18px] text-white font-semibold'
+        classNameButton='w-full bg-[#195E8E] hover:bg-[#195E8E]/80 p-2 max-md:p-1 rounded-xl lg:text-[18px] md:text-[14px] max-md:text-[10px] text-white font-semibold'
       >
         Đăng nhập
       </Button>
-      <div className='mt-8 text-[15px] flex justify-center'>
-        <span className='mr-2'>Muốn hợp tác với chúng tôi ?</span>
-        <Link to={'/!'} className='text-right text-[#52aff2] mb-4 hover:underline'>
+      <div className='md:mt-12 max-md:mt-4 mt-8 text-[15px] flex justify-center'>
+        <span className='md:text-[12px] max-md:text-[8px] mr-2'>Muốn hợp tác với chúng tôi ?</span>
+        <Link
+          to={'/!'}
+          className='lg:text-[16px] md:text-[12px] max-md:text-[10px] text-right text-[#52aff2] mb-4 hover:underline'
+        >
           Đăng kí tổ chức sự kiện
         </Link>
       </div>

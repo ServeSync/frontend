@@ -33,9 +33,9 @@ const ExportFile = ({ handleCloseModalExportFile, id }: Props) => {
   })
 
   return (
-    <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg w-[620px]'>
+    <div className='flex flex-col justify-between gap-6 items-center bg-white p-6 rounded-lg md:w-[620px] max-md:w-[400px]'>
       <div className='flex justify-between items-center w-full'>
-        <h2 className='text-[20px] font-semibold'>Xuất file kết quả tham gia hoạt động cộng đồng</h2>
+        <h2 className='text-[16px] font-semibold max-md:text-[12px]'>Xuất file kết quả tham gia hoạt động cộng đồng</h2>
         <Button classNameButton='p-2 hover:bg-slate-100 rounded-lg' onClick={handleCloseModalExportFile}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -43,15 +43,15 @@ const ExportFile = ({ handleCloseModalExportFile, id }: Props) => {
             viewBox='0 0 24 24'
             strokeWidth={1.5}
             stroke='currentColor'
-            className='w-6 h-6 '
+            className='w-6 h-6 max-md:w-5 max-md:h-5'
           >
             <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
           </svg>
         </Button>
       </div>
-      <form className='w-full' onSubmit={handleExportFile}>
+      <form className='w-full overflow-hidden' onSubmit={handleExportFile}>
         <div className='flex flex-col gap-2'>
-          <div className='flex items-center justify-between'>
+          <div className='flex items-center justify-between max-md:flex-col'>
             <Controller
               name='formDate'
               control={control}
@@ -65,6 +65,22 @@ const ExportFile = ({ handleCloseModalExportFile, id }: Props) => {
                         onChange={onChange}
                         value={value}
                         className='bg-white'
+                        sx={{
+                          '& .MuiInputBase-root': {
+                            '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                              sm: {
+                                padding: '10px 14px',
+                                height: '28px',
+                                fontSize: '14px'
+                              },
+                              xs: {
+                                padding: '8px 10px',
+                                height: '24px',
+                                fontSize: '12px'
+                              }
+                            }
+                          }
+                        }}
                       />
                     </DemoContainer>
                   </LocalizationProvider>
@@ -85,6 +101,29 @@ const ExportFile = ({ handleCloseModalExportFile, id }: Props) => {
                         onChange={onChange}
                         value={value}
                         className='bg-white'
+                        sx={{
+                          '& .MuiInputBase-root': {
+                            '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                              sm: {
+                                padding: '10px 14px',
+                                height: '28px',
+                                fontSize: '14px'
+                              },
+                              xs: {
+                                padding: '8px 10px',
+                                height: '24px',
+                                fontSize: '12px'
+                              }
+                            }
+                          },
+                          '& .css-a643pv-MuiStack-root': {
+                            '& .MuiTextField-root': {
+                              xs: {
+                                minWidth: '240px'
+                              }
+                            }
+                          }
+                        }}
                       />
                     </DemoContainer>
                   </LocalizationProvider>
@@ -94,11 +133,11 @@ const ExportFile = ({ handleCloseModalExportFile, id }: Props) => {
             />
           </div>
           <div className='flex justify-between items-center'>
-            <span className='text-gray-400'>File được xuất ở định dạng excel.</span>
+            <span className='text-gray-400 text-[16px] max-md:text-[12px]'>File được xuất ở định dạng excel.</span>
             <Button
               onClick={handleExportFile}
               type='button'
-              classNameButton='flex justify-center items-center bg-[#195E8E] w-[118px] h-[40px] text-white p-2 rounded-xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90'
+              classNameButton='flex justify-center items-center bg-[#195E8E] w-[118px] h-[40px] text-white p-2 max-md:p-1 rounded-xl font-semibold transition-all duration-300 hover:bg-[#195E8E]/90 text-[16px] max-md:text-[12px]'
             >
               Xuất File
             </Button>

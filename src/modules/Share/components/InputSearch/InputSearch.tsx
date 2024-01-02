@@ -18,7 +18,7 @@ const InputSearch = ({ classNameInput, name, register, placeholder }: Props) => 
         viewBox='0 0 24 24'
         strokeWidth='1.5'
         stroke='currentColor'
-        className='w-4 h-4 absolute top-[14px] left-[12px] text-gray-600'
+        className='w-4 h-4 absolute top-[14px] left-[12px] max-md:top-[8px] max-md:left-[8px] text-gray-600'
       >
         <path
           strokeLinecap='round'
