@@ -368,7 +368,7 @@ const EditEventPage = () => {
                 <Restricted to={'ServeSync.Permissions.Events.Cancel'}>
                   <Button
                     type='button'
-                    classNameButton='flex justify-center items-center bg-[#989899] w-[150px] h-[44px] text-white p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
+                    classNameButton='flex justify-center items-center bg-[#989899] w-[150px] h-[44px] text-white text-[14px] p-2 rounded-xl font-semibold hover:bg-[#dd5353] transition-all'
                     onClick={() => handleCancelEvent(event.id)}
                   >
                     Hủy sự kiện

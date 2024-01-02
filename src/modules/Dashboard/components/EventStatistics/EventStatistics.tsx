@@ -3,23 +3,27 @@ import { Doughnut } from 'react-chartjs-2'
 import { StatisticType } from '../../interfaces'
 import { Autocomplete, TextField } from '@mui/material'
 import { StatisticOptions } from '../../constants'
+import { StatusToMessage } from 'src/modules/Share/constants'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 interface Props {
   eventsOfStatistic: StatisticType[]
   typeEventsOfStatistic: string | undefined
-  setTypeEventsOfStatistic: React.Dispatch<React.SetStateAction<string | undefined>>
+  setTypeEventsOfStatistic: React.Dispatch<React.SetStateAction<string>>
 }
 
 const EventStatistics = ({ eventsOfStatistic, typeEventsOfStatistic, setTypeEventsOfStatistic }: Props) => {
   const data = {
-    labels: eventsOfStatistic && eventsOfStatistic.map((item) => item.status),
+    labels: eventsOfStatistic && eventsOfStatistic.map((item) => StatusToMessage(item.status)),
     datasets: [
       {
-        data: eventsOfStatistic && eventsOfStatistic.map((item) => item.count),
-        backgroundColor: ['#ff0037', '#29a9ff', '#fbc94c', '#a2ff56', '#eb56ff', '#fb8a00', '#00fbea'],
-        borderColor: ['#ff0037', '#29a9ff', '#fbc94c', '#a2ff56', '#eb56ff', '#fb8a00', '#00fbea'],
+        data: [
+          ...(eventsOfStatistic ? eventsOfStatistic.map((item) => item.count) : []),
+          eventsOfStatistic && eventsOfStatistic.every((item) => item.count === 0) ? 100 : 0
+        ],
+        backgroundColor: ['#ff0037', '#29a9ff', '#fbc94c', '#a2ff56', '#eb56ff', '#fb8a00', '#00fbea', '#EBEBEB'],
+        borderColor: ['#ff0037', '#29a9ff', '#fbc94c', '#a2ff56', '#eb56ff', '#fb8a00', '#00fbea', '#EBEBEB'],
         borderWidth: 1
       }
     ]

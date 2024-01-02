@@ -4,10 +4,6 @@ export const StudentStatisticOptions = [
     name: 'Ngày'
   },
   {
-    id: 'Week',
-    name: 'Tuần'
-  },
-  {
     id: 'Month',
     name: 'Tháng'
   },
@@ -21,10 +17,6 @@ export const StatisticOptions = [
   {
     id: 'Today',
     name: 'Hôm nay'
-  },
-  {
-    id: 'ThisWeek',
-    name: 'Tuần này'
   },
   {
     id: 'ThisMonth',

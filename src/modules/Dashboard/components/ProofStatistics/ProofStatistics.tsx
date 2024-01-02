@@ -3,23 +3,27 @@ import { Doughnut } from 'react-chartjs-2'
 import { StatisticType } from '../../interfaces'
 import { Autocomplete, TextField } from '@mui/material'
 import { StatisticOptions } from '../../constants'
+import { StatusToMessage } from 'src/modules/Share/constants'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 interface Props {
   proofsOfStatistic: StatisticType[]
   typeProofsOfStatistic: string | undefined
-  setTypeProofsOfStatistic: React.Dispatch<React.SetStateAction<string | undefined>>
+  setTypeProofsOfStatistic: React.Dispatch<React.SetStateAction<string>>
 }
 
 const ProofStatistics = ({ proofsOfStatistic, typeProofsOfStatistic, setTypeProofsOfStatistic }: Props) => {
   const data = {
-    labels: proofsOfStatistic && proofsOfStatistic.map((item) => item.status),
+    labels: proofsOfStatistic && proofsOfStatistic.map((item) => StatusToMessage(item.status)),
     datasets: [
       {
-        data: proofsOfStatistic && proofsOfStatistic.map((item) => item.count),
-        backgroundColor: ['#f90339', '#189ef8', '#ddb143'],
-        borderColor: ['#f90339', '#189ef8', '#ddb143'],
+        data: [
+          ...(proofsOfStatistic ? proofsOfStatistic.map((item) => item.count) : []),
+          proofsOfStatistic && proofsOfStatistic.every((item) => item.count === 0) ? 100 : 0
+        ],
+        backgroundColor: ['#ddb143', '#189ef8', '#f90339', '#EBEBEB'],
+        borderColor: ['#ddb143', '#189ef8', '#f90339', '#EBEBEB'],
         borderWidth: 1
       }
     ]
