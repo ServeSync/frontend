@@ -74,6 +74,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập mã số sinh viên'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -95,6 +111,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập họ và tên'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -116,6 +148,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập Email'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -135,6 +183,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Giới tính'
                     value={value == false ? 'Nữ' : 'Nam'}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -155,6 +219,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Ngày sinh'
                     value={formatDateOfBirth(value)}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -176,6 +256,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập số điện thoại'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -196,6 +292,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập nơi sinh'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -216,6 +328,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     value={value}
                     placeholder='Nhập địa chỉ cư trú'
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     onChange={onChange}
                   />
                   <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
@@ -235,6 +363,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Căn cước công dân'
                     value={value}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -255,6 +399,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Khoa'
                     value={value}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -275,6 +435,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Lớp sinh hoạt'
                     value={value}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}
@@ -295,6 +471,22 @@ const EditProfileForm = ({ profile, onChange, previewImage, setValue, control, r
                     label='Hệ đào tạo'
                     value={value}
                     className='w-full bg-white'
+                    sx={{
+                      '& .MuiInputBase-root': {
+                        '& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input': {
+                          sm: {
+                            padding: '10px 14px',
+                            height: '28px',
+                            fontSize: '14px'
+                          },
+                          xs: {
+                            padding: '8px 10px',
+                            height: '20px',
+                            fontSize: '10px'
+                          }
+                        }
+                      }
+                    }}
                     InputProps={{
                       disabled: true
                     }}

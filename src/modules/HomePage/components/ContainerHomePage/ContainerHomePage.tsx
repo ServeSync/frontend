@@ -15,7 +15,7 @@ const ContainerHomePage = () => {
   const eventsUpcoming = getAllEventUpcomingQuery.fetch()
 
   return (
-    <div className='flex flex-col lg:pb-[120px] overflow-hidden mx-auto xl:px-36 lg:px-20 md:px-14 max-sm:px-5'>
+    <div className='flex flex-col lg:pb-[120px] overflow-hidden mx-auto xl:px-36 lg:px-20 md:px-14 max-md:px-5'>
       <div className='flex max-lg:flex-col gap-10 justify-between items-center w-full lg:py-8 lg:px-4 max-lg:py-4 m-auto'>
         <div className='flex flex-col lg:gap-11 md:gap-8 max-sm:gap-4 lg:max-w-[50%] max-lg:items-center'>
           <h1 className='w-full text-black lg:text-[70px] md:text-[50px] max-sm:text-[20px] font-normal break-words'>

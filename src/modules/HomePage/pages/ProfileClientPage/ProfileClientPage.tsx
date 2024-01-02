@@ -69,7 +69,7 @@ const ProfileClientPage = () => {
         <meta name='description' content='This is profile client page of the project' />
       </Helmet>
       {profile && (
-        <div className='mx-auto lg:px-36 md:px-14 max-md:px-5 py-10'>
+        <div className='mx-auto lg:px-36 md:px-14 max-md:px-5 py-10 flex flex-col lg:pb-[120px] overflow-hidden  xl:px-36  '>
           <form onSubmit={handleSubmitForm}>
             <EditProfileForm
               register={register}
@@ -94,6 +94,15 @@ const ProfileClientPage = () => {
                       color: '#2f2f2f',
                       textTransform: 'none',
                       fontSize: '16px',
+                      margin: '0 10px',
+                      fontFamily: 'Open Sans',
+                      letterSpacing: '0',
+                      fontWeight: '600'
+                    },
+                    sm: {
+                      color: '#2f2f2f',
+                      textTransform: 'none',
+                      fontSize: '14px',
                       margin: '0 10px',
                       fontFamily: 'Open Sans',
                       letterSpacing: '0',
