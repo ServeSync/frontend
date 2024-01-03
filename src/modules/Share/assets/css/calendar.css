@@ -1,0 +1,40 @@
+@media (max-width: 767px) {
+  .fc-toolbar-title {
+    font-size: 14px !important;
+  }
+  .fc .fc-button {
+    font-size: 8px !important;
+    padding: 4px 6px;
+  }
+  .fc .fc-button .fc-icon {
+    font-size: 8px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .fc-toolbar-title {
+    font-size: 18px !important;
+  }
+  .fc .fc-button {
+    font-size: 14px !important;
+    padding: 4px 8px;
+  }
+  .fc .fc-button .fc-icon {
+    font-size: 14px !important;
+    vertical-align: baseline;
+  }
+}
+
+@media (min-width: 1024px) {
+  .fc-toolbar-title {
+    font-size: 32px !important;
+  }
+  .fc .fc-button {
+    font-size: 16px !important;
+    padding: 6px 10px;
+  }
+  .fc .fc-button .fc-icon {
+    font-size: 16px !important;
+    vertical-align: middle;
+  }
+}

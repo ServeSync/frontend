@@ -46,7 +46,7 @@ const Scheduler = ({ events }: Props) => {
           minute: '2-digit',
           meridiem: 'short'
         }}
-        eventColor='#26C6DA'
+        eventColor='#26C6D4'
         events={calendar}
       />
     </div>
