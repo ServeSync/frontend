@@ -152,8 +152,14 @@ const StudentPage = () => {
           </form>
           <div className='flex gap-4'>
             <PopoverCustom
-              renderPopover={
-                <form onSubmit={handleSubmitFormFilter}>
+              renderPopover={(onClose) => (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    handleSubmitFormFilter()
+                    onClose()
+                  }}
+                >
                   <Filter
                     control={FilterStudentForm.control}
                     onResetForm={handleResetFormFilter}
@@ -163,7 +169,7 @@ const StudentPage = () => {
                     homeRooms={homeRooms}
                   />
                 </form>
-              }
+              )}
             >
               <Button classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'>
                 <svg

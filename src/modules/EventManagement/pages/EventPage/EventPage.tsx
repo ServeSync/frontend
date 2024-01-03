@@ -90,11 +90,17 @@ const EventPage = () => {
           </form>
           <div className='flex gap-4'>
             <PopoverCustom
-              renderPopover={
-                <form onSubmit={handleSubmitFormFilter}>
+              renderPopover={(onClose) => (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    handleSubmitFormFilter()
+                    onClose()
+                  }}
+                >
                   <Filter options={eventStatus} control={FilterEventForm.control} onResetForm={handleResetFormFilter} />
                 </form>
-              }
+              )}
             >
               <Button classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 rounded-lg cursor-pointer'>
                 <svg
@@ -124,18 +130,35 @@ const EventPage = () => {
             </Restricted>
           </div>
         </div>
-        <EventTable
-          events={events}
-          isLoading={getAllEventsQuery.isLoading()}
-          onSort={SortEvent.handleSort}
-          onEditEvent={onEditEvent}
-        />
-        <Pagination
-          queryConfig={queryEventConfig}
-          pageSize={getAllEventsQuery.getTotalPages()}
-          pathname={path.event}
-          className='flex justify-end'
-        />
+        {events?.total > 0 ? (
+          <div className=''>
+            <EventTable
+              events={events}
+              isLoading={getAllEventsQuery.isLoading()}
+              onSort={SortEvent.handleSort}
+              onEditEvent={onEditEvent}
+            />
+            <Pagination
+              queryConfig={queryEventConfig}
+              pageSize={getAllEventsQuery.getTotalPages()}
+              pathname={path.event}
+              className='flex justify-end'
+            />
+          </div>
+        ) : (
+          <div className='flex w-full items-center justify-center'>
+            <div className='text-center'>
+              <div className='inline-flex rounded-full bg-[#c6f8ff] p-4 overflow-hidden'>
+                <svg xmlns='http://www.w3.org/2000/svg' id='calendar' className='w-16 h-16'>
+                  <path d='M53 5h-8v4H19V5h-8v4H0v50h64V9H53V5zm-6 2h4v6h-4V7zM13 7h4v6h-4V7zM2 57V19h60v38H2zm60-46v6H2v-6h9v4h8v-4h26v4h8v-4h9z'></path>
+                </svg>
+              </div>
+              <h1 className='mt-5 lg:text-[40px] md:text-[20px] max-md:text-[14px] font-bold text-slate-800'>
+                Không có sự kiện nào
+              </h1>
+            </div>
+          </div>
+        )}
       </div>
     </Fragment>
   )
