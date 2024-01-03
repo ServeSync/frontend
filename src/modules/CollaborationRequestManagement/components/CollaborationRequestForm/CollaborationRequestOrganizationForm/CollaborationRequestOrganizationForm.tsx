@@ -1,6 +1,4 @@
 import { TextField } from '@mui/material'
-import { ContentState, EditorState, convertFromHTML } from 'draft-js'
-import { Editor } from 'react-draft-wysiwyg'
 import { formatDateOfBirth } from 'src/modules/Share/utils'
 import { CollaborationRequestType } from 'src/modules/CollaborationRequestManagement/interfaces'
 
@@ -10,11 +8,6 @@ interface Props {
 
 const CollaborationRequestOrganizationForm = ({ collaborationRequest }: Props) => {
   if (!collaborationRequest) return null
-
-  const contentState = convertFromHTML(collaborationRequest.organization.description)
-  const description = EditorState.createWithContent(
-    ContentState.createFromBlockArray(contentState.contentBlocks, contentState.entityMap)
-  )
 
   return (
     <div className='flex flex-col gap-y-8 w-full mx-auto'>
@@ -71,9 +64,16 @@ const CollaborationRequestOrganizationForm = ({ collaborationRequest }: Props) =
             />
           </div>
           <div className='col-span-6'>
-            <div className='border-[1px] border-[#C8C8C8] rounded-lg overflow-hidden'>
-              <Editor readOnly editorState={description} />
-            </div>
+            <TextField
+              className='w-full'
+              label='Mô tả tổ chức'
+              value={collaborationRequest.organization.description}
+              multiline={true}
+              rows={5}
+              InputProps={{
+                readOnly: true
+              }}
+            />
           </div>
         </div>
       </div>
