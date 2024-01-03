@@ -27,12 +27,16 @@ jobs:
             TAG=0.1.$CIRCLE_BUILD_NUM 
             docker build --build-arg VITE_APP_API_URL=$VITE_APP_API_URL --build-arg VITE_APP_RESETPASSWORD_URL=$VITE_APP_RESETPASSWORD_URL --build-arg VITE_APP_GOOGLE_MAPS_API_KEY=$VITE_APP_GOOGLE_MAPS_API_KEY -t $DOCKER_USER/servesync_web:latest . 
             docker build --build-arg VITE_APP_API_URL=$VITE_APP_API_URL --build-arg VITE_APP_RESETPASSWORD_URL=$VITE_APP_RESETPASSWORD_URL --build-arg VITE_APP_GOOGLE_MAPS_API_KEY=$VITE_APP_GOOGLE_MAPS_API_KEY -t $DOCKER_USER/servesync_web:$TAG . 
+            docker build --build-arg VITE_APP_API_URL=$VITE_APP_API_URL_PROD --build-arg VITE_APP_RESETPASSWORD_URL=$VITE_APP_RESETPASSWORD_URL_PROD --build-arg VITE_APP_GOOGLE_MAPS_API_KEY=$VITE_APP_GOOGLE_MAPS_API_KEY -t $DOCKER_USER/servesync_web_prod:latest . 
+            docker build --build-arg VITE_APP_API_URL=$VITE_APP_API_URL_PROD --build-arg VITE_APP_RESETPASSWORD_URL=$VITE_APP_RESETPASSWORD_URL_PROD --build-arg VITE_APP_GOOGLE_MAPS_API_KEY=$VITE_APP_GOOGLE_MAPS_API_KEY -t $DOCKER_USER/servesync_web_prod:$TAG . 
       - run:
           name: Deploy docker image
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker push $DOCKER_USER/servesync_web:latest
             docker push $DOCKER_USER/servesync_web:$TAG
+            docker push $DOCKER_USER/servesync_web_prod:latest
+            docker push $DOCKER_USER/servesync_web_prod:$TAG
   deploy:
     machine:
       image: ubuntu-2204:2022.10.2
@@ -53,11 +57,11 @@ workflows:
             branches:
               only:
                 - main
-      # - deploy:
-      #     requires:
-      #       - build-and-deploy-web-image
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
-      #           - dev
+      - deploy:
+          requires:
+            - build-and-deploy-web-image
+          filters:
+            branches:
+              only:
+                - main
+                - dev
