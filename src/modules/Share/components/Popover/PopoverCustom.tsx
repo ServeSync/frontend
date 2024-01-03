@@ -4,7 +4,7 @@ import React from 'react'
 
 interface Props {
   children: React.ReactNode
-  renderPopover: React.ReactNode
+  renderPopover: (onClose: () => void) => React.ReactNode
 }
 
 const PopoverCustom = ({ children, renderPopover }: Props) => {
@@ -27,7 +27,7 @@ const PopoverCustom = ({ children, renderPopover }: Props) => {
             }}
             {...bindPopover(popupState)}
           >
-            {renderPopover}
+            {renderPopover(() => popupState.close())}
           </Popover>
         </div>
       )}
