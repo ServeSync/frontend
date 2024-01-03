@@ -21,7 +21,8 @@ const Scheduler = ({ events }: Props) => {
         listEvents.push({
           title: event.name,
           start: event.startAt,
-          end: event.endAt
+          end: event.endAt,
+          color: '#26C6DA'
         })
       })
     setCalendar(listEvents)
@@ -38,7 +39,7 @@ const Scheduler = ({ events }: Props) => {
           end: 'prev,next today'
         }}
         locale={viLocale}
-        dayHeaderClassNames={'bg-[#50a6b1]'}
+        dayHeaderClassNames={'bg-[#195E8E] text-white'}
         dayCellClassNames={'p-4'}
         height={'90vh'}
         eventTimeFormat={{
@@ -46,7 +47,6 @@ const Scheduler = ({ events }: Props) => {
           minute: '2-digit',
           meridiem: 'short'
         }}
-        eventColor='#26C6DA'
         events={calendar}
       />
     </div>

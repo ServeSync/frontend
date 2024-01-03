@@ -41,6 +41,11 @@ const StudentStatistics = ({
           size: 20
         }
       }
+    },
+    scales: {
+      y: {
+        min: 0
+      }
     }
   }
 
