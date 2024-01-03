@@ -87,7 +87,7 @@ const HeaderHomePage = () => {
       >
         <Link to={path.home_page} className='flex w-56 items-center gap-4 leading-10 font-serif '>
           <img src={logo} alt='logo-img' className='lg:w-20 lg:h-20 md:h-16 md:w-16 sm:h-10 sm:w-10 max-sm:h-8' />
-          <span className='font-semibold sm:text-[24px] md:text-[28px] lg:text-[36px] font-Pacifico text-[#26C6DA]'>
+          <span className='font-semibold max-md:text-[24px] md:text-[28px] lg:text-[36px] font-Pacifico text-[#26C6DA]'>
             ServeSync
           </span>
         </Link>
@@ -271,7 +271,7 @@ const HeaderHomePage = () => {
           <div className='flex font-medium items-center max-sm:text-[6px] md:text-[10px] lg:text-[14px] gap-4 max-sm:gap-2'>
             <Link
               to={path.request_event}
-              className='text-black lg:px-4 lg:py-4 md:px-2 md:py-2 max-sm:px-1 max-sm:py-1 rounded-full transition-all duration-300 hover:bg-slate-100  no-underline flex-shrink-0 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'
+              className='text-white bg-[#2FCC2B] lg:px-4 lg:py-4 md:px-2 md:py-2 max-sm:px-1 max-sm:py-1 rounded-full transition-all duration-300 hover:bg-[#2FCC2B]/70  no-underline flex-shrink-0 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'
             >
               Yêu cầu sự kiện
             </Link>

@@ -136,15 +136,6 @@ const AdminSignInForm = ({ register, errors, isLoading }: Props) => {
       >
         Đăng nhập
       </Button>
-      <div className='md:mt-12 max-md:mt-4 mt-8 text-[15px] flex justify-center'>
-        <span className='md:text-[12px] max-md:text-[8px] mr-2'>Muốn hợp tác với chúng tôi ?</span>
-        <Link
-          to={'/!'}
-          className='lg:text-[16px] md:text-[12px] max-md:text-[10px] text-right text-[#52aff2] mb-4 hover:underline'
-        >
-          Đăng kí tổ chức sự kiện
-        </Link>
-      </div>
     </div>
   )
 }

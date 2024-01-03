@@ -144,7 +144,7 @@ const useRouteElements = () => {
           element: (
             <HomePageLayout>
               <Suspense>
-                <div className='justify-center items-center m-auto my-10 max-w-screen-xl w-full'>
+                <div className='my-10 w-full overflow-hidden mx-auto xl:px-36 lg:px-20 md:px-14 max-md:px-5'>
                   <Calendar />
                 </div>
               </Suspense>

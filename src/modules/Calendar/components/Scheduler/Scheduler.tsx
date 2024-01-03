@@ -22,7 +22,7 @@ const Scheduler = ({ events }: Props) => {
           title: event.name,
           start: event.startAt,
           end: event.endAt,
-          color: '#26C6DA'
+          color: '#' + Math.floor(Math.random() * 16777215).toString(16)
         })
       })
     setCalendar(listEvents)
