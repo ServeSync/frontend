@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import profileAPI from './profile.api'
 import { ProfileStudent } from '../../interfaces/Profile'
+import { handleError } from '../../utils'
 
 class GetProfileStudentQuery {
   private _query
@@ -10,7 +12,10 @@ class GetProfileStudentQuery {
     this._query = useQuery({
       queryKey: ['profile_student'],
       queryFn: () => profileAPI.getProfileStudent(),
-      enabled: isAuthenticated
+      enabled: isAuthenticated,
+      onError: (error: any) => {
+        handleError(error)
+      }
     })
   }
 
@@ -19,7 +24,7 @@ class GetProfileStudentQuery {
   }
 
   isLoading() {
-    return this._query.isLoading || this._query.isRefetching
+    return this._query.isLoading
   }
 }
 

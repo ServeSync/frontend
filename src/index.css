@@ -1,5 +1,5 @@
 @import url('../src/modules/Share/assets/css/input_field.css');
-@import url('../src/modules//Share//assets//css//calendar.css');
+@import url('../src/modules/Share/assets/css/calendar.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

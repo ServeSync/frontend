@@ -56,7 +56,7 @@ const ExportFile = ({ handleCloseModalExportFile, id }: Props) => {
               name='formDate'
               control={control}
               render={({ field: { onChange, value }, fieldState: { error } }) => (
-                <div className='col-span-6 mt-[-8px]'>
+                <div className='col-span-6'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateTimeField']}>
                       <DatePicker
@@ -92,7 +92,7 @@ const ExportFile = ({ handleCloseModalExportFile, id }: Props) => {
               name='toDate'
               control={control}
               render={({ field: { onChange, value }, fieldState: { error } }) => (
-                <div className='col-span-6 mt-[-8px]'>
+                <div className='col-span-6'>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateTimeField']}>
                       <DatePicker

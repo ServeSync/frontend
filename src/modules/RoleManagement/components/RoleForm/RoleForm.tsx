@@ -45,7 +45,7 @@ const RoleForm = ({ register, errors, isEditForm, isLoading }: Props) => {
           classNameButton='w-full py-2 bg-[#2a98a6] hover:bg-[#2a98a6]/90 rounded-md text-white'
           isLoading={isLoading}
         >
-          {isEditForm ? 'Cập nhật role' : 'Tạo Role'}
+          {isEditForm ? 'Cập nhật tên Role' : 'Tạo Role'}
         </Button>
       </Restricted>
     </div>

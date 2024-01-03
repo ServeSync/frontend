@@ -1,5 +1,5 @@
 import http from 'src/modules/Share/utils/http'
-import { ListStatisticsType, StudentsStatisticType, TotalStatisticsType } from '../../interfaces'
+import { ListStatisticsType, StatisticConfig, StudentsStatisticType, TotalStatisticsType } from '../../interfaces'
 
 const statisticAPI = {
   getTotalStatistics: () => http.get<TotalStatisticsType>('/statistics'),
@@ -10,11 +10,11 @@ const statisticAPI = {
   getListAttendanceStudentsOfStatisticQuery: (type?: string) =>
     http.get<StudentsStatisticType[]>('/events/attendance-students/statistic', { params: { type } }),
 
-  getListEventsOfStatisticQuery: (type?: string) =>
-    http.get<ListStatisticsType>('/events/statistic', { params: { type } }),
+  getListEventsOfStatisticQuery: (params: StatisticConfig) =>
+    http.get<ListStatisticsType>('/events/statistic', { params }),
 
-  getListProofsOfStatisticQuery: (type?: string) =>
-    http.get<ListStatisticsType>('/proofs/statistics', { params: { type } })
+  getListProofsOfStatisticQuery: (params: StatisticConfig) =>
+    http.get<ListStatisticsType>('/proofs/statistics', { params })
 }
 
 export default statisticAPI
