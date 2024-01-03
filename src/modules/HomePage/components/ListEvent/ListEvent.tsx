@@ -99,24 +99,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
             register={FilterEventForm.register}
           />
         </form>
-        <div className='w-full pt-12 lg:pb-12 flex justify-between items-center'>
-          <div className='flex gap-2'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth={1.5}
-              stroke='currentColor'
-              className='lg:w-6 lg:h-6 md:w-5 md:h-5 max-md:w-4 max-md:h-4'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75'
-              />
-            </svg>
-            <span className='max-md:text-[12px]'>Sắp xếp</span>
-          </div>
+        <div className='w-full pt-12 lg:pb-12 flex justify-end'>
           <Button
             onClick={handleOpenPopover}
             classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 max-md:px-3 rounded-lg cursor-pointer'
@@ -161,12 +144,28 @@ const ListEvent = ({ events, pageSize }: Props) => {
       <div className='grid grid-cols-3 max-md:grid-cols-2 lg:gap-12 md:gap-6 max-md:gap-2 '>
         {events && events.data.length > 0 && events.data.map((event, index) => <CardEvent event={event} key={index} />)}
       </div>
-      <Pagination
-        queryConfig={{ ...queryEventClientConfig, size: 9 }}
-        pageSize={pageSize}
-        pathname={path.list_events}
-        className='flex justify-center'
-      />
+      {events && events.data.length > 0 && (
+        <Pagination
+          queryConfig={{ ...queryEventClientConfig, size: 9 }}
+          pageSize={pageSize}
+          pathname={path.list_events}
+          className='flex justify-center'
+        />
+      )}
+      {events && events.data.length === 0 && (
+        <div className='flex w-full items-center justify-center'>
+          <div className='text-center'>
+            <div className='inline-flex rounded-full bg-[#c6f8ff] p-4 overflow-hidden'>
+              <svg xmlns='http://www.w3.org/2000/svg' id='calendar' className='w-16 h-16'>
+                <path d='M53 5h-8v4H19V5h-8v4H0v50h64V9H53V5zm-6 2h4v6h-4V7zM13 7h4v6h-4V7zM2 57V19h60v38H2zm60-46v6H2v-6h9v4h8v-4h26v4h8v-4h9z'></path>
+              </svg>
+            </div>
+            <h1 className='mt-5 lg:text-[40px] md:text-[20px] max-md:text-[14px] font-bold text-slate-800'>
+              Không có sự kiện vào thời điểm này
+            </h1>
+          </div>
+        </div>
+      )}
     </Fragment>
   )
 }
