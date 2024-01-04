@@ -1,7 +1,6 @@
 import { Control, UseFormSetValue, FieldErrors, UseFormRegister } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { FormEventType } from '../../../utils'
-import { GetAllActivitiesByCategoryIdQuery, GetAllEventCategoriesQuery } from '../../../services'
 import { EventActivityType, EventCategoryType, EventDetailType } from 'src/modules/EventManagement/interfaces'
 import { EditorState } from 'draft-js'
 import CreateEventInformationForm from 'src/modules/EventManagement/components/EventForm/CreateEventInformationForm'
@@ -18,6 +17,10 @@ interface Props {
   event: EventDetailType
   descriptionEvent: EditorState
   setDescriptionEvent: React.Dispatch<React.SetStateAction<EditorState>>
+  setActivitySelected: React.Dispatch<React.SetStateAction<EventActivityType | null | undefined>>
+  eventCategories: EventCategoryType[]
+  activities: EventActivityType[]
+  setCategoryId: React.Dispatch<React.SetStateAction<string>>
 }
 
 const EditEventInformation = ({
@@ -31,10 +34,12 @@ const EditEventInformation = ({
   setFile,
   event,
   descriptionEvent,
-  setDescriptionEvent
+  setDescriptionEvent,
+  setActivitySelected,
+  eventCategories,
+  activities,
+  setCategoryId
 }: Props) => {
-  const [categoryId, setCategoryId] = useState<string>(event ? event.activity.eventCategoryId : '')
-
   const handleChangeCategory = (id: string) => {
     setCategoryId(id)
   }
@@ -42,12 +47,6 @@ const EditEventInformation = ({
   useEffect(() => {
     event && setCategoryId(event.activity.eventCategoryId)
   }, [event, setCategoryId])
-
-  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery('Event')
-  const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoryType[]
-
-  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)
-  const activities = getAllActivitiesByCategoryIdQuery.fetch() as EventActivityType[]
 
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-1' aria-controls='simple-tabpanel-1'>
@@ -65,6 +64,7 @@ const EditEventInformation = ({
           event={event}
           descriptionEvent={descriptionEvent}
           setDescriptionEvent={setDescriptionEvent}
+          setActivitySelected={setActivitySelected}
         />
       )}
     </div>

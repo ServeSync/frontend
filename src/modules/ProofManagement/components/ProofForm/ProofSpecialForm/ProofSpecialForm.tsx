@@ -83,7 +83,7 @@ const ProofSpecialForm = ({
                 <DemoContainer components={['DatePicker']}>
                   <DateTimePicker
                     label='Thời gian bắt đầu'
-                    format='DD/MM/YYYY HH:mm'
+                    format='HH:mm DD/MM/YYYY'
                     value={proof ? dayjs(formatVNDateTime(value)) : null}
                     onChange={onChange}
                     className='bg-white w-full'
@@ -104,7 +104,7 @@ const ProofSpecialForm = ({
                 <DemoContainer components={['DatePicker']}>
                   <DateTimePicker
                     label='Thời gian kết thúc'
-                    format='DD/MM/YYYY HH:mm'
+                    format='HH:mm DD/MM/YYYY'
                     value={proof ? dayjs(formatVNDateTime(value)) : null}
                     onChange={onChange}
                     className='bg-white w-full'
@@ -184,17 +184,16 @@ const ProofSpecialForm = ({
                     disabled: proof && proof.proofStatus !== 'Pending'
                   }}
                 />
-                <span className='block min-h-[16px] text-[#195E8E] text-xs mt-1 font-medium'>
+                <div className='block min-h-[16px] text-[#195E8E] text-xs mt-1 font-medium'>
                   {activitySelected !== undefined &&
                     activitySelected !== null &&
                     `Khoảng điểm của hoạt động ${activitySelected?.minScore} - ${activitySelected?.maxScore}`}
                   <span className='text-red-600'>{error && ` / ${error?.message}`}</span>
-                </span>
+                </div>
               </div>
             </LocalizationProvider>
           )}
         />
-
         <Controller
           name='description'
           control={control}

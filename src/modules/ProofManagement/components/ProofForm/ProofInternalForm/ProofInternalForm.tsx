@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Autocomplete, TextField } from '@mui/material'
-import { DatePicker, DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import dayjs from 'dayjs'
@@ -103,9 +103,9 @@ const ProofInternalForm = ({
         <div className='col-span-1 max-md:col-span-2 mt-[-8px] mb-[18px]'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DateTimeField']}>
-              <DatePicker
+              <DateTimePicker
                 label='Ngày bắt đầu'
-                format='DD/MM/YYYY'
+                format='HH:mm DD/MM/YYYY'
                 value={proof && eventId !== '' ? dayjs(proof.startAt) : event ? dayjs(event?.startAt) : null}
                 className='bg-white'
                 disabled
@@ -116,9 +116,9 @@ const ProofInternalForm = ({
         <div className='col-span-1 max-md:col-span-2 mt-[-8px] mb-[18px]'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DateTimeField']}>
-              <DatePicker
+              <DateTimePicker
                 label='Ngày kết thúc'
-                format='DD/MM/YYYY'
+                format='HH:mm DD/MM/YYYY'
                 value={proof && eventId !== '' ? dayjs(proof.endAt) : event ? dayjs(event?.endAt) : null}
                 className='bg-white'
                 disabled
@@ -149,7 +149,7 @@ const ProofInternalForm = ({
                 <DemoContainer components={['DatePicker']}>
                   <DateTimePicker
                     label='Thời gian điểm danh'
-                    format='DD/MM/YYYY HH:mm'
+                    format='HH:mm DD/MM/YYYY'
                     value={proof && eventId !== '' ? dayjs(formatVNDateTime(value)) : null}
                     onChange={onChange}
                     className='bg-white w-full'

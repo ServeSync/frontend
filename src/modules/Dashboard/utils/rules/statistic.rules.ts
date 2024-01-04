@@ -18,14 +18,14 @@ export type FormTimeStatisticType = yup.InferType<typeof FormTimeStatisticSchema
 
 export const FormTimeStudentsStatisticSchema = yup.object().shape({
   formDate: yup.string(),
-  toDate: yup.string().test('successTime', 'Thời gian thống kê ít nhất 3 ngày', function (toDate) {
+  toDate: yup.string().test('successTime', 'Thời gian thống kê ít nhất 1 ngày', function (toDate) {
     const formDate = this.parent.formDate
     if (!formDate || !toDate) {
       return true
     }
     const startDate = new Date(formDate)
     const endDate = new Date(toDate)
-    const minDays = addDays(startDate, 3)
+    const minDays = addDays(startDate, 1)
     return endDate >= minDays
   })
 })

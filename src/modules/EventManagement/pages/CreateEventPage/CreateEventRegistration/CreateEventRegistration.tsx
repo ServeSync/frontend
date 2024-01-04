@@ -8,7 +8,7 @@ import {
   FieldErrors
 } from 'react-hook-form'
 import { FormEventType } from '../../../utils'
-import { EventRole } from '../../../interfaces'
+import { EventActivityType, EventRole } from '../../../interfaces'
 import RegisterEventTimeForm from 'src/modules/EventManagement/components/EventForm/RegisterEventTimeForm'
 import RegisterEventRoleForm from 'src/modules/EventManagement/components/EventForm/RegisterEventRoleForm'
 import { EditorState } from 'draft-js'
@@ -27,6 +27,7 @@ interface Props {
   setDataEventRole: React.Dispatch<React.SetStateAction<EventRole[]>>
   descriptionEventRole: EditorState
   setDescriptionEventRole: React.Dispatch<React.SetStateAction<EditorState>>
+  activitySelected: EventActivityType | null | undefined
 }
 
 const CreateEventRegistration = ({
@@ -42,7 +43,8 @@ const CreateEventRegistration = ({
   dataEventRole,
   setDataEventRole,
   descriptionEventRole,
-  setDescriptionEventRole
+  setDescriptionEventRole,
+  activitySelected
 }: Props) => {
   return (
     <div role='tabpanel' hidden={page !== index} id='tab-2' aria-controls='simple-tabpanel-2'>
@@ -64,6 +66,7 @@ const CreateEventRegistration = ({
             setDataEventRole={setDataEventRole}
             descriptionEventRole={descriptionEventRole}
             setDescriptionEventRole={setDescriptionEventRole}
+            activitySelected={activitySelected}
           />
         </div>
       )}

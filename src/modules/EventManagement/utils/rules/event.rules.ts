@@ -28,7 +28,7 @@ export const FormEventSchema = yup.object().shape({
       const startDate = new Date(startAt)
       const endDate = new Date(endAt)
       const minTime = addHours(startDate, 1)
-      return endDate > minTime
+      return endDate >= minTime
     }),
   type: yup.string().required('Vui lòng chọn loại sự kiện !'),
   categoryId: yup.string().required('Vui lòng chọn danh mục sự kiện !'),
@@ -47,7 +47,7 @@ export const FormEventSchema = yup.object().shape({
         .test('is-future', 'Thời gian bắt đầu đăng kí không được ở quá khứ', function (startAt) {
           const startDate = new Date(startAt)
           const now = new Date()
-          return startDate > now
+          return startDate >= now
         }),
       endAt: yup
         .string()
@@ -60,7 +60,7 @@ export const FormEventSchema = yup.object().shape({
           const startDate = new Date(startAt)
           const endDate = new Date(endAt)
           const minTime = addMinutes(startDate, 15)
-          return endDate > minTime
+          return endDate >= minTime
         })
     })
   ),
@@ -85,7 +85,7 @@ export const FormEventSchema = yup.object().shape({
           const startDate = new Date(startAt)
           const endDate = new Date(endAt)
           const minTime = addMinutes(startDate, 15)
-          return endDate > minTime
+          return endDate >= minTime
         })
     })
   ),
