@@ -8,7 +8,7 @@ import {
   FieldErrors
 } from 'react-hook-form'
 import { FormEventType } from '../../../utils'
-import { EventDetailType, EventRole } from '../../../interfaces'
+import { EventActivityType, EventDetailType, EventRole } from '../../../interfaces'
 import RegisterEventTimeForm from 'src/modules/EventManagement/components/EventForm/RegisterEventTimeForm'
 import RegisterEventRoleForm from 'src/modules/EventManagement/components/EventForm/RegisterEventRoleForm'
 import { EditorState } from 'draft-js'
@@ -27,6 +27,7 @@ interface Props {
   setDataEventRole: React.Dispatch<React.SetStateAction<EventRole[]>>
   descriptionEventRole: EditorState
   setDescriptionEventRole: React.Dispatch<React.SetStateAction<EditorState>>
+  activitySelected: EventActivityType | null | undefined
   event: EventDetailType
 }
 
@@ -44,6 +45,7 @@ const EditEventRegistration = ({
   setDataEventRole,
   descriptionEventRole,
   setDescriptionEventRole,
+  activitySelected,
   event
 }: Props) => {
   return (
@@ -67,6 +69,7 @@ const EditEventRegistration = ({
             setDataEventRole={setDataEventRole}
             descriptionEventRole={descriptionEventRole}
             setDescriptionEventRole={setDescriptionEventRole}
+            activitySelected={activitySelected}
             event={event}
           />
         </div>

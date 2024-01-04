@@ -218,7 +218,7 @@ const EventRegisterList = () => {
                     <div className='flex justify-between items-center'>
                       <h3 className='font-medium text-[20px]'>Thông tin chung</h3>
                       <span
-                        className={classNames(' px-4 py-1 rounded-full', {
+                        className={classNames('px-4 py-1 rounded-full', {
                           'bg-[#b3a3fa]/90 text-[#6c4df6]': registration.status === 'Pending',
                           'bg-[#fab3a3]/90 text-[#f64d4d]': registration.status === 'Rejected',
                           'bg-[#eaffe6]/90 text-[#44e751]': registration.status === 'Approved'

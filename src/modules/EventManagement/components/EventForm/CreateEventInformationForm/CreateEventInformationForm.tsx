@@ -41,6 +41,7 @@ interface Props {
   onChangeCategory: (id: string) => void
   descriptionEvent: EditorState
   setDescriptionEvent: React.Dispatch<React.SetStateAction<EditorState>>
+  setActivitySelected: React.Dispatch<React.SetStateAction<EventActivityType | null | undefined>>
   event?: EventDetailType
 }
 
@@ -57,7 +58,8 @@ const CreateEventInformationForm = ({
   onChangeCategory,
   event,
   descriptionEvent,
-  setDescriptionEvent
+  setDescriptionEvent,
+  setActivitySelected
 }: Props) => {
   const previewImage = useMemo(() => {
     return file ? URL.createObjectURL(file) : ''
@@ -397,7 +399,10 @@ const CreateEventInformationForm = ({
                       getOptionLabel={(option) => option.name}
                       noOptionsText='Không có lựa chọn'
                       renderInput={(params) => <TextField {...params} label='Hoạt động sự kiện' />}
-                      onChange={(_, option) => onChange(option ? option.id : '')}
+                      onChange={(_, option) => {
+                        onChange(option ? option.id : '')
+                        setActivitySelected(option && option)
+                      }}
                       className='bg-white'
                       readOnly={event && StatusIsDisable(event.status)}
                     />

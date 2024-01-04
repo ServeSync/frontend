@@ -25,7 +25,7 @@ class EditEventCommandHandler {
       body.data.imageUrl = uploadImageResponse.data.url
     }
 
-    return this._editEventMutation.mutate(body, {
+    return await this._editEventMutation.mutateAsync(body, {
       onSuccess: () => {
         this._queryClient.invalidateQueries({
           queryKey: ['events']
@@ -43,6 +43,14 @@ class EditEventCommandHandler {
 
   isLoading() {
     return this._uploadImageMutation.isLoading || this._editEventMutation.isLoading
+  }
+
+  isSuccess() {
+    return this._editEventMutation.isSuccess
+  }
+
+  isIdle() {
+    return this._editEventMutation.isIdle
   }
 }
 

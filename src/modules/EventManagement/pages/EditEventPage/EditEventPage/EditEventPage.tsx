@@ -6,12 +6,20 @@ import { Box, Tab, Tabs } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useFieldArray } from 'react-hook-form'
 import _ from 'lodash'
-import { EventOrganizationFormType, EventRole, FormEvent } from '../../../interfaces'
+import {
+  EventActivityType,
+  EventCategoryType,
+  EventOrganizationFormType,
+  EventRole,
+  FormEvent
+} from '../../../interfaces'
 import { FormEventSchema, FormEventType } from '../../../utils'
 import {
   ApproveEventCommandHandler,
   CancelEventCommandHandler,
   EditEventCommandHandler,
+  GetAllActivitiesByCategoryIdQuery,
+  GetAllEventCategoriesQuery,
   GetEventByIdQuery
 } from '../../../services'
 import useQueryEventConfig from 'src/modules/EventManagement/hooks/useQueryEventConfig'
@@ -44,7 +52,7 @@ const EditEventPage = () => {
 
   const navigate = useNavigate()
 
-  const isErrorLocal = useRef(false)
+  const isSuccess = useRef(false)
 
   const queryEventConfig = useQueryEventConfig()
 
@@ -53,6 +61,20 @@ const EditEventPage = () => {
 
   const [descriptionEvent, setDescriptionEvent] = useState<EditorState>(EditorState.createEmpty())
   const [descriptionEventRole, setDescriptionEventRole] = useState<EditorState>(EditorState.createEmpty())
+
+  const getEventByIdQuery = new GetEventByIdQuery(queryEventConfig.id as string)
+  const event = getEventByIdQuery.fetch()
+
+  const [categoryId, setCategoryId] = useState<string>(event ? event.activity.eventCategoryId : '')
+
+  const getAllEventCategoriesQuery = new GetAllEventCategoriesQuery('Event')
+  const eventCategories = getAllEventCategoriesQuery.fetch() as EventCategoryType[]
+
+  const getAllActivitiesByCategoryIdQuery = new GetAllActivitiesByCategoryIdQuery(categoryId)
+  const activities = getAllActivitiesByCategoryIdQuery.fetch() as EventActivityType[]
+  const activity = activities && activities.find((item) => item.id === event.activity.id)
+
+  const [activitySelected, setActivitySelected] = useState<EventActivityType | null | undefined>(activity && activity)
 
   const {
     register,
@@ -102,12 +124,11 @@ const EditEventPage = () => {
         },
         file as File,
         () => {
-          isErrorLocal.current = false
+          isSuccess.current = true
           toast.success('Cập nhật sự kiện thành công !')
           navigate(path.event)
         },
         (error: any) => {
-          // isErrorLocal.current = false
           handleError<FormEventType>(error, setError)
         }
       )
@@ -118,16 +139,13 @@ const EditEventPage = () => {
     event.preventDefault()
     try {
       await handleSubmitForm()
-      if (isErrorLocal.current) {
+      if (!isSuccess.current) {
         toast.error('Vui lòng kiểm tra lại thông tin !')
       }
     } catch (error) {
       console.log(error)
     }
   }
-
-  const getEventByIdQuery = new GetEventByIdQuery(queryEventConfig.id as string)
-  const event = getEventByIdQuery.fetch()
 
   useEffect(() => {
     if (event) {
@@ -301,6 +319,10 @@ const EditEventPage = () => {
                 event={event}
                 descriptionEvent={descriptionEvent}
                 setDescriptionEvent={setDescriptionEvent}
+                setActivitySelected={setActivitySelected}
+                eventCategories={eventCategories}
+                activities={activities}
+                setCategoryId={setCategoryId}
               />
               <EditEventRegistration
                 page={page}
@@ -316,6 +338,7 @@ const EditEventPage = () => {
                 setDataEventRole={setDataEventRole}
                 descriptionEventRole={descriptionEventRole}
                 setDescriptionEventRole={setDescriptionEventRole}
+                activitySelected={activitySelected}
                 event={event}
               />
               <EditEventOrganization

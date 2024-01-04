@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useFieldArray } from 'react-hook-form'
 import _ from 'lodash'
-import { EventOrganizationFormType, EventRole, FormEvent } from '../../../interfaces'
+import { EventActivityType, EventOrganizationFormType, EventRole, FormEvent } from '../../../interfaces'
 import { FormEventSchema, FormEventType } from '../../../utils'
 import { CreateEventCommandHandler } from '../../../services'
 import path from 'src/modules/Share/constants/path'
@@ -35,6 +35,8 @@ const CreateEventPage = () => {
 
   const [descriptionEvent, setDescriptionEvent] = useState<EditorState>(EditorState.createEmpty())
   const [descriptionEventRole, setDescriptionEventRole] = useState<EditorState>(EditorState.createEmpty())
+
+  const [activitySelected, setActivitySelected] = useState<EventActivityType | null>()
 
   const isSuccess = useRef(false)
 
@@ -155,6 +157,7 @@ const CreateEventPage = () => {
                 setFile={setFile}
                 descriptionEvent={descriptionEvent}
                 setDescriptionEvent={setDescriptionEvent}
+                setActivitySelected={setActivitySelected}
               />
               <CreateEventRegistration
                 page={page}
@@ -170,6 +173,7 @@ const CreateEventPage = () => {
                 setDataEventRole={setDataEventRole}
                 descriptionEventRole={descriptionEventRole}
                 setDescriptionEventRole={setDescriptionEventRole}
+                activitySelected={activitySelected}
               />
               <CreateEventOrganization
                 page={page}

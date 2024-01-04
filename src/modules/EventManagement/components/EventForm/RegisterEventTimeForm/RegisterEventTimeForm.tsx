@@ -34,12 +34,31 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
   return (
     <div>
       <div>
-        <div className='col-span-4 flex justify-between items-center mb-2'>
+        <div className='col-span-4 flex justify-between items-start mb-2'>
           <h2 className='text-[16px]'>Khung giờ đăng kí</h2>
+          {(!event?.hasOrganizedRegistration || event?.hasOrganizedRegistration === undefined) && (
+            <Button
+              type='button'
+              classNameButton='flex items-center justify-center border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
+              onClick={() => FieldRegistration.append({ startAt: '', endAt: '' })}
+              disabled={event && StatusIsDisable(event.status)}
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='w-7 h-7'
+              >
+                <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v12m6-6H6' />
+              </svg>
+            </Button>
+          )}
         </div>
         {FieldRegistration.fields.map((field, index: number) => (
           <div key={field.id}>
-            <div className='grid grid-cols-12 gap-x-6 mb-2'>
+            <div className='grid grid-cols-12 gap-x-6 mb-2 '>
               <Controller
                 name={`registrationInfos.${index}.startAt`}
                 control={control}
@@ -87,31 +106,13 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                   </div>
                 )}
               />
-              <div className='flex items-center justify-end col-span-2'>
-                {index === 0 ? (
-                  <Button
-                    type='button'
-                    classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
-                    onClick={() => FieldRegistration.append({ startAt: '', endAt: '' })}
-                    disabled={event && StatusIsDisable(event.status)}
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-7 h-7'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v12m6-6H6' />
-                    </svg>
-                  </Button>
-                ) : (
+              {(!event?.hasOrganizedRegistration || event?.hasOrganizedRegistration === undefined) && (
+                <div className='flex items-center justify-end col-span-2'>
                   <Button
                     type='button'
                     classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                     onClick={() => FieldRegistration.remove(index)}
-                    disabled={event && StatusIsDisable(event.status)}
+                    disabled={FieldRegistration.fields.length === 1}
                   >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -124,15 +125,34 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                       <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
                     </svg>
                   </Button>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         ))}
       </div>
       <div>
-        <div className='col-span-4 flex justify-between items-center mb-2'>
+        <div className='col-span-4 flex justify-between items-start mb-2'>
           <h2 className='text-[16px]'>Khung giờ điểm danh</h2>
+          {(!event?.hasOrganizedRegistration || event?.hasOrganizedRegistration === undefined) && (
+            <Button
+              type='button'
+              classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
+              onClick={() => FieldAttendance.append({ startAt: '', endAt: '' })}
+              disabled={event && StatusIsDisable(event.status)}
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='w-7 h-7'
+              >
+                <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v12m6-6H6' />
+              </svg>
+            </Button>
+          )}
         </div>
         {FieldAttendance.fields.map((field, index: number) => (
           <div key={field.id}>
@@ -228,30 +248,12 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                         </Fragment>
                       )
                   )}
-                {index === 0 ? (
-                  <Button
-                    type='button'
-                    classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
-                    onClick={() => FieldAttendance.append({ startAt: '', endAt: '' })}
-                    disabled={event && StatusIsDisable(event.status)}
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='w-7 h-7'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v12m6-6H6' />
-                    </svg>
-                  </Button>
-                ) : (
+                {(!event?.hasOrganizedRegistration || event?.hasOrganizedRegistration === undefined) && (
                   <Button
                     type='button'
                     classNameButton='flex items-center justify-center mb-3 border-[1px] border-gray-300 hover:bg-slate-200 h-[48px] w-[48px] rounded-lg'
                     onClick={() => FieldAttendance.remove(index)}
-                    disabled={event && StatusIsDisable(event.status)}
+                    disabled={FieldAttendance.fields.length === 1}
                   >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
