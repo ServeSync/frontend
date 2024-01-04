@@ -77,7 +77,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
   return (
     <Fragment>
       <div
-        className='w-full flex justify-center items-center pb-24 pt-10'
+        className='w-full flex justify-center items-center pb-24 pt-10 n'
         style={{
           background: 'linear-gradient(180deg, rgba(255, 252.88, 252.88, 0.46) 0%, #26C6DA 100%, #6BA0C6 100%)'
         }}
@@ -99,7 +99,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
             register={FilterEventForm.register}
           />
         </form>
-        <div className='w-full pt-12 lg:pb-12 flex justify-end'>
+        <div className='w-full pt-12 lg:pb-12 flex justify-end mx-auto xl:px-36 lg:px-20 md:px-14 max-md:px-5'>
           <Button
             onClick={handleOpenPopover}
             classNameButton='flex items-center gap-1 text-[14px] font-semibold text-white bg-[#26C6DA] px-4 py-2 max-md:px-3 rounded-lg cursor-pointer'
@@ -141,7 +141,7 @@ const ListEvent = ({ events, pageSize }: Props) => {
           </Popover>
         </div>
       </div>
-      <div className='grid grid-cols-3 max-md:grid-cols-2 lg:gap-12 md:gap-6 max-md:gap-2 '>
+      <div className='grid grid-cols-3 max-md:grid-cols-2 lg:gap-12 md:gap-6 max-md:gap-2 mx-auto xl:px-36 lg:px-20 md:px-14 max-md:px-5'>
         {events && events.data.length > 0 && events.data.map((event, index) => <CardEvent event={event} key={index} />)}
       </div>
       {events && events.data.length > 0 && (

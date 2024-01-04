@@ -14,9 +14,9 @@ const EventsPage = () => {
         <title>Events</title>
         <meta name='description' content='This is events page of the project' />
       </Helmet>
-      <div className='flex flex-col lg:pb-[120px] overflow-hidden mx-auto xl:px-36 lg:px-20 md:px-14 max-md:px-5'>
+      <div className='flex flex-col lg:pb-[120px] overflow-hidden '>
         <ListEvent events={events} pageSize={getAllEventQuery.getTotalPages()} />
-        <div className='flex flex-col justify-center items-center w-full lg:py-8 lg:px-4 max-lg:py-4 m-auto lg:mt-20'>
+        <div className='flex flex-col justify-center items-center w-full lg:py-8 lg:px-40 max-lg:py-4 m-auto lg:mt-20'>
           <div className='w-full h-full lg:px-40 lg:py-12 md:py-10 max-md:py-6 inline-flex justify-center items-center relative'>
             <span className='text-center lg:text-[44px] md:text-[30px] max-md:text-[14px] font-normal break-words'>
               Tham gia cùng chúng mình để cùng tay tạo nên các khoảnh khắc đáng nhớ nhé!
