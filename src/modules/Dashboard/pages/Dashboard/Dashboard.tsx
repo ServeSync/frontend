@@ -11,18 +11,24 @@ import {
 } from '../../services'
 import { GetAllEventsOfStatisticQuery } from '../../services/Statistic/getAllEventsOfStatistic.query'
 import { GetTotalStatisticsQuery } from '../../services/Statistic'
-import { StatisticConfig } from '../../interfaces'
+import { StatisticConfig, StudentsStatisticConfig } from '../../interfaces'
 
 const Dashboard = () => {
   const getTotalStatisticsQuery = new GetTotalStatisticsQuery()
   const totalStatistics = getTotalStatisticsQuery.fetch()
 
-  const [typeStudentsOfStatistic, setTypeStudentsOfStatistic] = useState<string>('Date')
+  const [studentsOfStatisticConfig, setStudentsOfStatisticConfig] = useState<StudentsStatisticConfig>({
+    Type: 'Date'
+  })
 
-  const getAllRegisteredStudentsOfStatisticQuery = new GetAllRegisteredStudentsOfStatisticQuery(typeStudentsOfStatistic)
+  const getAllRegisteredStudentsOfStatisticQuery = new GetAllRegisteredStudentsOfStatisticQuery(
+    studentsOfStatisticConfig
+  )
   const registeredStudentsOfStatistic = getAllRegisteredStudentsOfStatisticQuery.fetch()
 
-  const getAllAttendanceStudentsOfStatisticQuery = new GetAllAttendanceStudentsOfStatisticQuery(typeStudentsOfStatistic)
+  const getAllAttendanceStudentsOfStatisticQuery = new GetAllAttendanceStudentsOfStatisticQuery(
+    studentsOfStatisticConfig
+  )
   const attendanceStudentsOfStatistic = getAllAttendanceStudentsOfStatisticQuery.fetch()
 
   const [eventsOfStatisticConfig, setEventsOfStatisticConfig] = useState<StatisticConfig>({ Type: 'Today' })
@@ -46,8 +52,8 @@ const Dashboard = () => {
         <StudentStatistics
           registeredStudentsOfStatistic={registeredStudentsOfStatistic}
           attendanceStudentsOfStatistic={attendanceStudentsOfStatistic}
-          typeStudentsOfStatistic={typeStudentsOfStatistic}
-          setTypeStudentsOfStatistic={setTypeStudentsOfStatistic}
+          studentsOfStatisticConfig={studentsOfStatisticConfig}
+          setStudentsOfStatisticConfig={setStudentsOfStatisticConfig}
         />
         <div className='flex gap-12 w-[90%] mx-auto justify-between'>
           <EventStatistics
