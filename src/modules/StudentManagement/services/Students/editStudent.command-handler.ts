@@ -35,6 +35,12 @@ class EditStudentCommandHandler {
         this._queryClient.invalidateQueries({
           queryKey: ['student']
         })
+        this._queryClient.invalidateQueries({
+          queryKey: ['registered_students']
+        })
+        this._queryClient.invalidateQueries({
+          queryKey: ['attendance_students']
+        })
         handleSuccess()
       },
       onError: (error: any) => {
