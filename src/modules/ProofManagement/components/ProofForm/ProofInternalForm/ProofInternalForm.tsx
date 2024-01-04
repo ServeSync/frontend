@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Autocomplete, TextField } from '@mui/material'
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { DatePicker, DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import dayjs from 'dayjs'
@@ -10,6 +10,7 @@ import { EventDetailType, StudentRegisteredEvent } from 'src/modules/EventManage
 import { ProofDetailType } from 'src/modules/ProofManagement/interfaces'
 import { FormProofInternalType } from 'src/modules/ProofManagement/utils'
 import InputImage from 'src/modules/Share/components/InputImage'
+import { formatVNDateTime } from 'src/modules/Share/utils'
 
 interface Props {
   control: Control<FormProofInternalType>
@@ -146,11 +147,11 @@ const ProofInternalForm = ({
             <div className='mt-[-8px] col-span-2'>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker']}>
-                  <DatePicker
-                    label='Ngày điểm danh'
-                    format='DD/MM/YYYY'
+                  <DateTimePicker
+                    label='Thời gian điểm danh'
+                    format='DD/MM/YYYY HH:mm'
+                    value={proof && eventId !== '' ? dayjs(formatVNDateTime(value)) : null}
                     onChange={onChange}
-                    value={proof && eventId !== '' ? dayjs(value) : null}
                     className='bg-white w-full'
                     disabled={proof && proof.proofStatus !== 'Pending'}
                   />
