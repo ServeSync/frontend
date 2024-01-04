@@ -2,7 +2,7 @@ import { logo } from 'src/modules/Share/assets/image'
 
 const FooterHomePage = () => {
   return (
-    <footer className='text-[#010103] h-auto flex flex-col text-center overflow-hidden mx-auto xl:px-36 lg:px-20 md:px-14 max-md:px-5 py-8 '>
+    <footer className=' text-[#cfcfff] bg-[#e1f9ff] h-auto flex flex-col text-center overflow-hidden mx-auto xl:px-36 lg:px-20 md:px-14 max-md:px-5 py-8 '>
       <div className='flex justify-between pb-6 items-center border-b-2 border-[#26C6DA] mb-5'>
         <div className='flex items-center gap-4'>
           <img src={logo} alt='logo-img' className='lg:w-10 lg:h-10 md:w-8 md:h-8 max-md:w-6 max-md:h-6' />

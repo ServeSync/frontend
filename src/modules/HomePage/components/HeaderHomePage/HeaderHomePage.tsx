@@ -138,7 +138,7 @@ const HeaderHomePage = () => {
               <div>
                 <Button
                   onClick={handleOpenPopover}
-                  classNameButton='relative bg-slate-300 rounded-full outline-none w-[60px] pt-[100%]'
+                  classNameButton='relative bg-slate-300 rounded-full outline-none w-[52px] pt-[100%]'
                 >
                   <img
                     src={profile?.avatarUrl}

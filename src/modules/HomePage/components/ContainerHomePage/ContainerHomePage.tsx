@@ -163,7 +163,7 @@ const ContainerHomePage = () => {
               </span>
             </div>
             <div className='flex items-center lg:gap-8 md:gap-4 max-md:gap-3'>
-              <div className='bg-[#F85E9F] lg:rounded-3xl md:rounded-2xl max-md:rounded-lg lg:p-6 md:p-4 max-md:p-2 text-white'>
+              <div className='bg-[#0CCD07] lg:rounded-3xl md:rounded-2xl max-md:rounded-lg lg:p-6 md:p-4 max-md:p-2 text-white'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
