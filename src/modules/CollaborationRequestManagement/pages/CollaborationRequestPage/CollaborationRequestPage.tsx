@@ -74,8 +74,8 @@ const CollaborationRequestPage = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Events Pending</title>
-        <meta name='description' content='This is event management page of the project' />
+        <title>Collaboration Requests</title>
+        <meta name='description' content='This is Collaboration Requests page of the project' />
       </Helmet>
       <div>
         <div className='flex justify-between items-center pt-[16px] pb-[40px] font-normal'>

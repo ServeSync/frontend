@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Autocomplete, TextField } from '@mui/material'
 import { Control, Controller, FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import InputImage from 'src/modules/Share/components/InputImage'
@@ -10,6 +10,7 @@ import { EventActivityType } from 'src/modules/EventManagement/interfaces'
 import { ProofDetailType } from 'src/modules/ProofManagement/interfaces'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
+import { formatVNDateTime } from 'src/modules/Share/utils'
 
 interface Props {
   control: Control<FormProofSpecialType>
@@ -80,10 +81,10 @@ const ProofSpecialForm = ({
             <div className='mt-[-8px] col-span-1 max-md:col-span-2'>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker']}>
-                  <DatePicker
-                    label='Ngày bắt đầu'
-                    format='DD/MM/YYYY'
-                    value={proof ? dayjs(value) : null}
+                  <DateTimePicker
+                    label='Thời gian bắt đầu'
+                    format='DD/MM/YYYY HH:mm'
+                    value={proof ? dayjs(formatVNDateTime(value)) : null}
                     onChange={onChange}
                     className='bg-white w-full'
                     disabled={proof && proof.proofStatus !== 'Pending'}
@@ -101,10 +102,10 @@ const ProofSpecialForm = ({
             <div className='mt-[-8px] col-span-1 max-md:col-span-2'>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker']}>
-                  <DatePicker
-                    label='Ngày kết thúc'
-                    format='DD/MM/YYYY'
-                    value={proof ? dayjs(value) : null}
+                  <DateTimePicker
+                    label='Thời gian kết thúc'
+                    format='DD/MM/YYYY HH:mm'
+                    value={proof ? dayjs(formatVNDateTime(value)) : null}
                     onChange={onChange}
                     className='bg-white w-full'
                     disabled={proof && proof.proofStatus !== 'Pending'}
@@ -183,11 +184,11 @@ const ProofSpecialForm = ({
                     disabled: proof && proof.proofStatus !== 'Pending'
                   }}
                 />
-                <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>
+                <span className='block min-h-[16px] text-[#195E8E] text-xs mt-1 font-medium'>
                   {activitySelected !== undefined &&
                     activitySelected !== null &&
                     `Khoảng điểm của hoạt động ${activitySelected?.minScore} - ${activitySelected?.maxScore}`}
-                  <span>{error && ` / ${error?.message}`}</span>
+                  <span className='text-red-600'>{error && ` / ${error?.message}`}</span>
                 </span>
               </div>
             </LocalizationProvider>

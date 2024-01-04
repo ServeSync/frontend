@@ -51,7 +51,7 @@ const AdminSignIn = () => {
         <div className='col-span-1 px-10 lg:pt-10 md:pt-5 max-md:pt-3 bg-[#bdeef4] rounded-e-full flex items-center justify-center'>
           <img src={global_image} alt='image_login' className='md:w-[300px] max-md:w-[150px]' />
         </div>
-        <div className='col-span-1 lg:px-10 lg:py-14 md:px-5 md:py-6 max-md:px-4 max-md:py-4 flex flex-col justify-center'>
+        <div className='col-span-1 lg:px-10 lg:py-10 md:px-5 md:py-5 max-md:px-4 max-md:py-4 flex flex-col justify-center'>
           <Link to={path.home_page} className='flex justify-center mb-4'>
             <img
               src={logo}

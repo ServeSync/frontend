@@ -2,15 +2,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from '@tanstack/react-query'
 import statisticAPI from './statistic.api'
-import { ListStatisticsType } from '../../interfaces'
+import { ListStatisticsType, StatisticConfig } from '../../interfaces'
 
 class GetAllProofsOfStatisticQuery {
   private _query
 
-  constructor(type?: string) {
+  constructor(params: StatisticConfig) {
     this._query = useQuery({
-      queryKey: ['proofs', type],
-      queryFn: () => statisticAPI.getListProofsOfStatisticQuery(type),
+      queryKey: ['proofs', params],
+      queryFn: () => statisticAPI.getListProofsOfStatisticQuery(params),
       keepPreviousData: true,
       staleTime: 3 * 60 * 1000
     })

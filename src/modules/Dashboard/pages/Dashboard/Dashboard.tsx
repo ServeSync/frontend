@@ -11,30 +11,35 @@ import {
 } from '../../services'
 import { GetAllEventsOfStatisticQuery } from '../../services/Statistic/getAllEventsOfStatistic.query'
 import { GetTotalStatisticsQuery } from '../../services/Statistic'
+import { StatisticConfig, StudentsStatisticConfig } from '../../interfaces'
 
 const Dashboard = () => {
   const getTotalStatisticsQuery = new GetTotalStatisticsQuery()
   const totalStatistics = getTotalStatisticsQuery.fetch()
 
-  const [typeStudentsOfStatistic, setTypeStudentsOfStatistic] = useState<string>('Date')
+  const [studentsOfStatisticConfig, setStudentsOfStatisticConfig] = useState<StudentsStatisticConfig>({
+    Type: 'Date'
+  })
 
-  const getAllRegisteredStudentsOfStatisticQuery = new GetAllRegisteredStudentsOfStatisticQuery(typeStudentsOfStatistic)
+  const getAllRegisteredStudentsOfStatisticQuery = new GetAllRegisteredStudentsOfStatisticQuery(
+    studentsOfStatisticConfig
+  )
   const registeredStudentsOfStatistic = getAllRegisteredStudentsOfStatisticQuery.fetch()
 
-  const getAllAttendanceStudentsOfStatisticQuery = new GetAllAttendanceStudentsOfStatisticQuery(typeStudentsOfStatistic)
+  const getAllAttendanceStudentsOfStatisticQuery = new GetAllAttendanceStudentsOfStatisticQuery(
+    studentsOfStatisticConfig
+  )
   const attendanceStudentsOfStatistic = getAllAttendanceStudentsOfStatisticQuery.fetch()
 
-  const [typeEventsOfStatistic, setTypeEventsOfStatistic] = useState<string>('Today')
+  const [eventsOfStatisticConfig, setEventsOfStatisticConfig] = useState<StatisticConfig>({ Type: 'Today' })
 
-  const getAllEventsOfStatisticQuery = new GetAllEventsOfStatisticQuery(typeEventsOfStatistic)
+  const getAllEventsOfStatisticQuery = new GetAllEventsOfStatisticQuery(eventsOfStatisticConfig)
   const eventsOfStatistic = getAllEventsOfStatisticQuery.fetch()
 
-  const [typeProofsOfStatistic, setTypeProofsOfStatistic] = useState<string>('Today')
+  const [proofsOfStatisticConfig, setProofsOfStatisticConfig] = useState<StatisticConfig>({ Type: 'Today' })
 
-  const getAllProofsOfStatisticQuery = new GetAllProofsOfStatisticQuery(typeProofsOfStatistic)
+  const getAllProofsOfStatisticQuery = new GetAllProofsOfStatisticQuery(proofsOfStatisticConfig)
   const proofsOfStatistic = getAllProofsOfStatisticQuery.fetch()
-
-  console.log(registeredStudentsOfStatistic, attendanceStudentsOfStatistic)
 
   return (
     <Fragment>
@@ -47,19 +52,19 @@ const Dashboard = () => {
         <StudentStatistics
           registeredStudentsOfStatistic={registeredStudentsOfStatistic}
           attendanceStudentsOfStatistic={attendanceStudentsOfStatistic}
-          typeStudentsOfStatistic={typeStudentsOfStatistic}
-          setTypeStudentsOfStatistic={setTypeStudentsOfStatistic}
+          studentsOfStatisticConfig={studentsOfStatisticConfig}
+          setStudentsOfStatisticConfig={setStudentsOfStatisticConfig}
         />
         <div className='flex gap-12 w-[90%] mx-auto justify-between'>
           <EventStatistics
-            eventsOfStatistic={eventsOfStatistic && eventsOfStatistic.data}
-            typeEventsOfStatistic={typeEventsOfStatistic}
-            setTypeEventsOfStatistic={setTypeEventsOfStatistic}
+            eventsOfStatistic={eventsOfStatistic && eventsOfStatistic?.data}
+            eventsOfStatisticConfig={eventsOfStatisticConfig}
+            setEventsOfStatisticConfig={setEventsOfStatisticConfig}
           />
           <ProofStatistics
-            proofsOfStatistic={proofsOfStatistic && proofsOfStatistic.data}
-            typeProofsOfStatistic={typeProofsOfStatistic}
-            setTypeProofsOfStatistic={setTypeProofsOfStatistic}
+            proofsOfStatistic={proofsOfStatistic && proofsOfStatistic?.data}
+            proofsOfStatisticConfig={proofsOfStatisticConfig}
+            setProofsOfStatisticConfig={setProofsOfStatisticConfig}
           />
         </div>
       </div>

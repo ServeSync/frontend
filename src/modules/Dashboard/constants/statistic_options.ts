@@ -10,6 +10,10 @@ export const StudentStatisticOptions = [
   {
     id: 'Year',
     name: 'Năm'
+  },
+  {
+    id: 'Custom',
+    name: 'Tùy chọn'
   }
 ]
 
@@ -25,5 +29,9 @@ export const StatisticOptions = [
   {
     id: 'ThisYear',
     name: 'Năm này'
+  },
+  {
+    id: 'Custom',
+    name: 'Tùy chọn'
   }
 ]

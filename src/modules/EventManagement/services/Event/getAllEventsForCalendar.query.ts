@@ -19,7 +19,8 @@ class GetAllEventsForCalendarQuery {
     this._query = useQuery({
       queryKey: ['events', this._queryEventConfig],
       queryFn: () => eventAPI.getListEvents(this._queryEventConfig as EventsListConfig),
-      keepPreviousData: true
+      keepPreviousData: true,
+      staleTime: 3 * 60 * 1000
     })
   }
 
