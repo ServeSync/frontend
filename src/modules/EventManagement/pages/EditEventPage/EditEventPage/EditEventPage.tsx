@@ -75,7 +75,6 @@ const EditEventPage = () => {
   const activity = activities && activities.find((item) => item.id === event.activity.id)
 
   const [activitySelected, setActivitySelected] = useState<EventActivityType | null | undefined>()
-  console.log(activitySelected)
 
   useEffect(() => {
     activity && setActivitySelected(activity)
