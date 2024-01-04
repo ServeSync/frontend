@@ -46,6 +46,8 @@ const RegisterEventRoleForm = ({
     setDescriptionEventRole(editorState)
   }
 
+  console.log(activitySelected)
+
   const [index, setIndex] = useState<number>(0)
   const [errorsLocal, setErrorsLocal] = useState<string>('')
 

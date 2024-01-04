@@ -74,7 +74,12 @@ const EditEventPage = () => {
   const activities = getAllActivitiesByCategoryIdQuery.fetch() as EventActivityType[]
   const activity = activities && activities.find((item) => item.id === event.activity.id)
 
-  const [activitySelected, setActivitySelected] = useState<EventActivityType | null | undefined>(activity && activity)
+  const [activitySelected, setActivitySelected] = useState<EventActivityType | null | undefined>()
+  console.log(activitySelected)
+
+  useEffect(() => {
+    activity && setActivitySelected(activity)
+  }, [activities])
 
   const {
     register,
