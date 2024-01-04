@@ -47,15 +47,15 @@ const ForgetPassword = () => {
           <img src={global_image} alt='image_login' className='md:w-[300px] max-md:w-[150px]' />
         </div>
         <div className='col-span-1 lg:px-10 lg:py-20 md:px-5 md:py-10 max-md:px-4 max-md:py-6 flex flex-col justify-center'>
-          <Link to={path.home_page} className='flex justify-center mb-4'>
+          <Link to={path.home_page} className='flex justify-center mb-8'>
             <img
               src={logo}
               alt='logo'
               className='lg:w-[80px] lg:h-[80px] md:w-[60px] md:h-[60px] max-md:w-[40px] max-md:h-[40px]'
             />
           </Link>
-          <div className='md:mb-[20px] max-md:mb-[10px] text-center'>
-            <h1 className='lg:text-[40px] md:text-[30px] max-md:text-[18px] text-[#195E8E] font-bold mb-[10px]'>
+          <div className='md:mb-[40px] max-md:mb-[20px] text-center'>
+            <h1 className='lg:text-[40px] md:text-[30px] max-md:text-[18px] text-[#195E8E] font-bold mb-[20px]'>
               Quên mật khẩu ?
             </h1>
             <h2 className='text-[#195E8E] lg:text-[16px] md:text-[12px] max-md:text-[8px]'>
