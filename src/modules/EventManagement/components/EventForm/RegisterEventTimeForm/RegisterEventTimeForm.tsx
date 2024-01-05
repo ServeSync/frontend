@@ -132,7 +132,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
         ))}
       </div>
       <div>
-        <div className='col-span-4 flex justify-between items-start mb-2'>
+        <div className='col-span-4 flex justify-between items-start'>
           <h2 className='text-[16px]'>Khung giờ điểm danh</h2>
           {(!event?.hasOrganizedRegistration || event?.hasOrganizedRegistration === undefined) && (
             <Button
