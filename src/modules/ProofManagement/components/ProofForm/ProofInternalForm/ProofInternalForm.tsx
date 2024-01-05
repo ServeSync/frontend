@@ -104,9 +104,15 @@ const ProofInternalForm = ({
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DateTimeField']}>
               <DateTimePicker
-                label='Ngày bắt đầu'
+                label='Thời gian bắt đầu'
                 format='HH:mm DD/MM/YYYY'
-                value={proof && eventId !== '' ? dayjs(proof.startAt) : event ? dayjs(event?.startAt) : null}
+                value={
+                  proof && eventId !== ''
+                    ? dayjs(formatVNDateTime(proof.startAt))
+                    : event
+                    ? dayjs(event?.startAt)
+                    : null
+                }
                 className='bg-white'
                 disabled
               />
@@ -117,9 +123,11 @@ const ProofInternalForm = ({
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DateTimeField']}>
               <DateTimePicker
-                label='Ngày kết thúc'
+                label='Thời gian kết thúc'
                 format='HH:mm DD/MM/YYYY'
-                value={proof && eventId !== '' ? dayjs(proof.endAt) : event ? dayjs(event?.endAt) : null}
+                value={
+                  proof && eventId !== '' ? dayjs(formatVNDateTime(proof.endAt)) : event ? dayjs(event?.endAt) : null
+                }
                 className='bg-white'
                 disabled
               />
