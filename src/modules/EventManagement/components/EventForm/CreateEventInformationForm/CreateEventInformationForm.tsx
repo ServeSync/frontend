@@ -109,7 +109,7 @@ const CreateEventInformationForm = ({
             className='col-span-12'
             classNameInput='w-full text-[#195E8E] text-[42px] font-bold placeholder:text-[42px] placeholder:text-[#195E8E] placeholder-bold bg-transparent pr-4 outline-none  h-[50px]'
             error={errors.name?.message}
-            disabled={event && StatusIsDisable(event.status)}
+            disabled={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
           />
           <div className='col-span-12 relative flex justify-between items-start'>
             <Input
@@ -120,7 +120,7 @@ const CreateEventInformationForm = ({
               className='flex-1'
               classNameInput='w-full text-black/90 text-[16px] placeholder:text-black/90 bg-transparent pl-7 pr-4 outline-none h-[28px]'
               error={errors.introduction?.message}
-              disabled={event && StatusIsDisable(event.status)}
+              disabled={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
             >
               <div className='absolute left-0 top-[0px] cursor-pointer text-black'>
                 <svg
@@ -152,7 +152,7 @@ const CreateEventInformationForm = ({
                 onChange={handleChangeFile}
                 previewImage={previewImage}
                 avatar={event?.imageUrl}
-                disabled={event && StatusIsDisable(event.status)}
+                disabled={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
                 isHiddenButton={false}
               >
                 <div className='flex items-center justify-center'>
@@ -191,7 +191,7 @@ const CreateEventInformationForm = ({
                         onChange={onChange}
                         value={event ? dayjs(value) : value !== undefined ? dayjs(value) : null}
                         className='bg-white'
-                        readOnly={event && StatusIsDisable(event.status)}
+                        readOnly={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
                       />
                     </DemoContainer>
                   </LocalizationProvider>
@@ -212,7 +212,7 @@ const CreateEventInformationForm = ({
                         onChange={onChange}
                         value={event ? dayjs(value) : value !== undefined ? dayjs(value) : null}
                         className='bg-white'
-                        readOnly={event && StatusIsDisable(event.status)}
+                        readOnly={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
                       />
                     </DemoContainer>
                   </LocalizationProvider>
@@ -245,7 +245,9 @@ const CreateEventInformationForm = ({
                       className='w-full bg-white'
                       value={value}
                       onChange={onChange}
-                      disabled={event && StatusIsDisable(event.status)}
+                      InputProps={{
+                        readOnly: event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)
+                      }}
                     />
                     <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                   </div>
@@ -302,7 +304,7 @@ const CreateEventInformationForm = ({
                 type='button'
                 classNameButton='border-[1px] border-[#39a4b2] w-[48px] h-[48px] rounded-lg text-[#39a4b2] flex items-center justify-center'
                 onClick={handleOpenModal}
-                disabled={event && StatusIsDisable(event.status)}
+                disabled={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -348,7 +350,7 @@ const CreateEventInformationForm = ({
                       renderInput={(params) => <TextField {...params} label='Chọn loại sự kiện' />}
                       onChange={(_, option) => onChange(option ? option.id : '')}
                       className='bg-white'
-                      readOnly={event && StatusIsDisable(event.status)}
+                      readOnly={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
                     />
                     <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                   </div>
@@ -377,7 +379,7 @@ const CreateEventInformationForm = ({
                         onChangeCategory && onChangeCategory(option?.id as string)
                       }}
                       className='bg-white'
-                      readOnly={event && StatusIsDisable(event.status)}
+                      readOnly={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
                     />
                     <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                   </div>
@@ -404,7 +406,7 @@ const CreateEventInformationForm = ({
                         setActivitySelected(option && option)
                       }}
                       className='bg-white'
-                      readOnly={event && StatusIsDisable(event.status)}
+                      readOnly={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
                     />
                     <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>{error?.message}</span>
                   </div>
@@ -418,7 +420,7 @@ const CreateEventInformationForm = ({
                 placeholder='Nhập mô tả sự kiện'
                 editorState={descriptionEvent}
                 onEditorStateChange={onEditorStateChange}
-                readOnly={event && StatusIsDisable(event.status)}
+                readOnly={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
               />
             </div>
             <span className='block min-h-[16px] text-red-600 text-xs mt-1 font-medium'>

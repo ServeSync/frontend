@@ -84,6 +84,13 @@ const RegisterEventRoleForm = ({
         setErrorsLocal('Vai trò đã tồn tại !')
       } else if (!regexNumber.test(role.quantity.trim()) || !regexNumber.test(role.score.trim())) {
         setErrorsLocal('Vui lòng nhập số lượng và điểm là số dương !')
+      } else if (
+        activitySelected &&
+        !(
+          Number(role.score.trim()) < activitySelected.maxScore && Number(role.score.trim()) > activitySelected.minScore
+        )
+      ) {
+        setErrorsLocal('Vui lòng nhập điểm trong khoảng điểm quy định !')
       } else {
         if (isEditEventRole) {
           const data = [...dataEventRole]
