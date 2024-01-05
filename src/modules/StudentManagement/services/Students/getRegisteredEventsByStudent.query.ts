@@ -6,10 +6,10 @@ import { StudentRegisteredEventsListType } from 'src/modules/EventManagement/int
 class GetRegisteredEventsByStudent {
   private _query
 
-  constructor(id: string) {
+  constructor(id: string, status?: string) {
     this._query = useQuery({
       queryKey: ['student_registered_events', id],
-      queryFn: () => studentAPI.getRegisteredEvents(id),
+      queryFn: () => studentAPI.getRegisteredEvents(id, status),
       enabled: id !== undefined,
       staleTime: 3 * 60 * 1000
     })
