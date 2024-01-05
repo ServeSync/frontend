@@ -324,9 +324,7 @@ const useRouteElements = () => {
           element: (
             <MainLayout>
               <Suspense>
-                <Restricted to={'ServeSync.Permissions.Events.Edit'} fallback={<NotAllowed />}>
-                  <EditEventPage />
-                </Restricted>
+                <EditEventPage />
               </Suspense>
             </MainLayout>
           )
