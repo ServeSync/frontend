@@ -28,7 +28,7 @@ const CreateEventOrganizationForm = ({
   event
 }: Props) => {
   return (
-    (!(event && StatusIsDisable(event.status)) || event === undefined) && (
+    (!(event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)) || event === undefined) && (
       <div>
         <div>
           <div className='col-span-4 flex justify-between items-center mb-4'>

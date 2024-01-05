@@ -114,6 +114,8 @@ const EditEventPage = () => {
       setError('roles', { message: 'Sự kiện có ít nhất 1 vai trò !' })
     } else if (dataEventOrganization.some((item) => item.organizationReps.length === 0)) {
       setError('organizations.organizationReps', { message: 'Ban tổ chức có ít nhất 1 nhà đại diện !' })
+    } else if (dataEventOrganization.length === 0) {
+      setError('organizations.organizationReps', { message: 'Sự kiện có ít nhất 1 ban tổ chức !' })
     } else {
       const body = {
         ...data,
@@ -366,7 +368,7 @@ const EditEventPage = () => {
           </Box>
         </div>
       </form>
-      {event && !StatusIsDisable(event.status) && (
+      {event && !StatusIsDisable(event.status) && !event.hasOrganizedRegistration && (
         <div className='flex justify-end gap-x-6 mt-[160px] fixed bottom-0 right-0 px-4 py-2 bg-slate-100 w-full z-20'>
           <div className='flex items-center gap-6'>
             {event.status === 'Pending' ? (

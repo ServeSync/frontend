@@ -170,7 +170,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                           onChange={onChange}
                           value={event ? dayjs(value) : value !== undefined ? dayjs(value) : null}
                           className='bg-white'
-                          readOnly={event && StatusIsDisable(event.status)}
+                          readOnly={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
                         />
                       </DemoContainer>
                     </LocalizationProvider>
@@ -194,7 +194,7 @@ const RegisterEventTimeForm = ({ control, errors, FieldRegistration, FieldAttend
                           onChange={onChange}
                           value={event ? dayjs(value) : value !== undefined ? dayjs(value) : null}
                           className='bg-white'
-                          readOnly={event && StatusIsDisable(event.status)}
+                          readOnly={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
                         />
                       </DemoContainer>
                     </LocalizationProvider>

@@ -122,23 +122,25 @@ const CreateEventOrganizationContactForm = ({
     <div className='border-[1px] border-gray-300 p-6 rounded-xl'>
       <div className='flex justify-between items-center mb-4'>
         <h2 className='text-[20px] font-semibold'>Thông tin ban tổ chức {index + 1}</h2>
-        <Button
-          type='button'
-          classNameButton='hover:bg-slate-200 rounded-lg p-2'
-          onClick={() => handleRemoveEventOrganization(index)}
-          disabled={event && StatusIsDisable(event.status)}
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='w-6 h-6'
+        {!(event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)) && (
+          <Button
+            type='button'
+            classNameButton='hover:bg-slate-200 rounded-lg p-2'
+            onClick={() => handleRemoveEventOrganization(index)}
+            disabled={event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)}
           >
-            <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
-          </svg>
-        </Button>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-6 h-6'
+            >
+              <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+            </svg>
+          </Button>
+        )}
       </div>
       <div className='grid grid-cols-5 gap-6'>
         <div className='col-span-1 relative bg-slate-300 rounded-full outline-none w-full pt-[100%]'>
@@ -252,7 +254,7 @@ const CreateEventOrganizationContactForm = ({
             ))}
         </tbody>
       </table>
-      {(!(event && StatusIsDisable(event.status)) || event === undefined) && (
+      {(!(event && (StatusIsDisable(event.status) || event.hasOrganizedRegistration)) || event === undefined) && (
         <div>
           <div className='col-span-4 flex justify-between items-center mb-4'>
             <h2 className='text-[16px] font-semibold'>Thêm đại diện</h2>

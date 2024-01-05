@@ -41,12 +41,14 @@ export const FormEventSchema = yup.object().shape({
   description: yup.string().required('Vui lòng nhập mô tả sự kiện !').min(256, 'Mô tả sự kiện ít nhất 256 kí tự !'),
   registrationInfos: yup.array().of(
     yup.object().shape({
-      startAt: yup.string().required('Vui lòng nhập thời gian bắt đầu đăng kí !'),
-      // .test('is-future', 'Thời gian bắt đầu đăng kí không được ở quá khứ', function (startAt) {
-      //   const startDate = new Date(startAt)
-      //   const now = new Date()
-      //   return startDate >= now
-      // }),
+      startAt: yup
+        .string()
+        .required('Vui lòng nhập thời gian bắt đầu đăng kí !')
+        .test('is-future', 'Thời gian bắt đầu đăng kí không được ở quá khứ', function (startAt) {
+          const startDate = new Date(startAt)
+          const now = new Date()
+          return startDate >= now
+        }),
       endAt: yup
         .string()
         .required('Vui lòng nhập thời gian kêt thúc đăng kí !')
