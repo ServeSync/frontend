@@ -117,7 +117,7 @@ const EventDetailPage = () => {
             <div className='flex mb-10 px-[10%] justify-between'>
               <div className='flex flex-col'>
                 <h1 className='text-[54px] font-semibold break-words text-[#195E8E]'>{event.name}</h1>
-                <h2 className='text-black text-[25px] font-medium break-words'>{event.introduction}</h2>
+                <h2 className='text-black text-[20px] font-medium break-words'>{event.introduction}</h2>
                 <span className='text-[#A0A2A4] text-[15px] font-normal break-words'>{TypeToMessage(event.type)}</span>
                 <div className='text-center font-medium flex items-center gap-3 mt-2'>
                   <img

@@ -1,7 +1,18 @@
 import { Link } from 'react-router-dom'
 import path from 'src/modules/Share/constants/path'
 import ContainerEvent from '../EventContainer'
-import { global_image, homePage_01, homePage_02, homePage_03 } from 'src/modules/Share/assets/image'
+import {
+  event_image_01,
+  event_image_02,
+  event_image_03,
+  event_image_04,
+  event_image_05,
+  event_image_06,
+  global_image,
+  homePage_01,
+  homePage_02,
+  homePage_03
+} from 'src/modules/Share/assets/image'
 import { GetAllEventsByStatusQuery } from 'src/modules/EventManagement/services'
 
 const ContainerHomePage = () => {
@@ -211,21 +222,21 @@ const ContainerHomePage = () => {
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={homePage_03}
+                  src={event_image_01}
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={homePage_03}
+                  src={event_image_02}
                 />
               </div>
               <div className='w-full p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={homePage_03}
+                  src={event_image_03}
                 />
               </div>
             </div>
@@ -234,21 +245,21 @@ const ContainerHomePage = () => {
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={homePage_01}
+                  src={event_image_04}
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={homePage_01}
+                  src={event_image_05}
                 />
               </div>
               <div className='w-1/2 p-1 md:p-2'>
                 <img
                   alt='gallery'
                   className='block h-full w-full rounded-lg object-cover object-center'
-                  src={homePage_01}
+                  src={event_image_06}
                 />
               </div>
             </div>
