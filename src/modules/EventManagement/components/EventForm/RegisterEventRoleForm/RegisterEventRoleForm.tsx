@@ -73,12 +73,16 @@ const RegisterEventRoleForm = ({
       score: ({ ...getValues('roles') }.score?.toString() as string).replace(/^0+/, '').trim()
     }
 
-    console.log({ ...getValues('roles') }.isNeedApprove === 'true')
-
     const regexNumber = /^\d+$/
     const eventRoles: EventRole[] = [...dataEventRole]
     isEditEventRole ? eventRoles.splice(index, 1) : eventRoles
-    if (role.description && role.isNeedApprove !== undefined && role.name && role.quantity && role.score) {
+    if (
+      role.description &&
+      { ...getValues('roles') }.isNeedApprove !== null &&
+      role.name &&
+      role.quantity &&
+      role.score
+    ) {
       if (role.name.length < 5) {
         setErrorsLocal('Tên vài trò ít nhất 5 kí tự !')
       } else if (role.description.length <= 10) {
@@ -99,7 +103,6 @@ const RegisterEventRoleForm = ({
         if (isEditEventRole) {
           const data = [...dataEventRole]
           data[index] = role
-
           setDataEventRole(data)
           setIsEditEventRole(false)
         } else {
@@ -113,9 +116,6 @@ const RegisterEventRoleForm = ({
       setErrorsLocal('Vui lòng nhập đầy đủ dữ liệu !')
     }
   }
-
-  console.log(dataEventRole)
-
   const handleRemoveEventRole = (id: number) => {
     const data = [...dataEventRole]
     data.splice(id, 1)
@@ -311,7 +311,9 @@ const RegisterEventRoleForm = ({
                       getOptionLabel={(option) => option.name}
                       noOptionsText='Không có lựa chọn'
                       renderInput={(params) => <TextField {...params} label='Yêu cầu duyệt' />}
-                      onChange={(_, option) => onChange(option ? option.id : '')}
+                      onChange={(_, option) => {
+                        onChange(option ? option.id : null)
+                      }}
                       className='bg-white'
                     />
                   </div>
