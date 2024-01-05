@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { EventType } from 'src/modules/EventManagement/interfaces'
 import { EventCalendarType } from '../../interfaces'
 import viLocale from '@fullcalendar/core/locales/vi'
+import { formatCalendar } from 'src/modules/Share/utils'
 
 interface Props {
   events: EventType[]
@@ -20,8 +21,8 @@ const Scheduler = ({ events }: Props) => {
       events.map((event: EventType) => {
         listEvents.push({
           title: event.name,
-          start: event.startAt,
-          end: event.endAt,
+          start: formatCalendar(event.startAt),
+          end: formatCalendar(event.endAt),
           color: '#' + Math.floor(Math.random() * 16777215).toString(16)
         })
       })

@@ -85,7 +85,7 @@ const EventStatistics = ({ eventsOfStatistic, eventsOfStatisticConfig, setEvents
       </div>
       <Button
         onClick={() => setIsOpenModalEvents(true)}
-        classNameButton='mb-2 h-[24px] text-[14px] text-[#26c6da] font-medium hover:text-[#26c6da]/70 hover:underline'
+        classNameButton='cursor-pointer mb-2 h-[24px] text-[14px] text-[#26c6da] font-medium hover:text-[#26c6da]/70 hover:underline'
       >
         {eventsOfStatisticConfig.StartAt !== undefined &&
           eventsOfStatisticConfig.EndAt !== undefined &&
