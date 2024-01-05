@@ -67,15 +67,22 @@ const RegisterEventRoleForm = ({
   const handleSubmit = () => {
     const role = {
       name: { ...getValues('roles') }.name as string,
-      isNeedApprove: Boolean({ ...getValues('roles') }.isNeedApprove),
+      isNeedApprove: { ...getValues('roles') }.isNeedApprove === 'true',
       description: draftToHtml(convertToRaw(descriptionEventRole.getCurrentContent())),
       quantity: ({ ...getValues('roles') }.quantity?.toString() as string).replace(/^0+/, '').trim(),
       score: ({ ...getValues('roles') }.score?.toString() as string).replace(/^0+/, '').trim()
     }
+
     const regexNumber = /^\d+$/
     const eventRoles: EventRole[] = [...dataEventRole]
     isEditEventRole ? eventRoles.splice(index, 1) : eventRoles
-    if (role.description && role.isNeedApprove && role.name && role.quantity && role.score) {
+    if (
+      role.description &&
+      { ...getValues('roles') }.isNeedApprove !== null &&
+      role.name &&
+      role.quantity &&
+      role.score
+    ) {
       if (role.name.length < 5) {
         setErrorsLocal('Tên vài trò ít nhất 5 kí tự !')
       } else if (role.description.length <= 10) {
@@ -87,7 +94,8 @@ const RegisterEventRoleForm = ({
       } else if (
         activitySelected &&
         !(
-          Number(role.score.trim()) < activitySelected.maxScore && Number(role.score.trim()) > activitySelected.minScore
+          Number(role.score.trim()) <= activitySelected.maxScore &&
+          Number(role.score.trim()) >= activitySelected.minScore
         )
       ) {
         setErrorsLocal('Vui lòng nhập điểm trong khoảng điểm quy định !')
@@ -108,7 +116,6 @@ const RegisterEventRoleForm = ({
       setErrorsLocal('Vui lòng nhập đầy đủ dữ liệu !')
     }
   }
-
   const handleRemoveEventRole = (id: number) => {
     const data = [...dataEventRole]
     data.splice(id, 1)
@@ -170,7 +177,7 @@ const RegisterEventRoleForm = ({
                   <th className='px-2 py-4 font-medium w-[8%]'>{item.quantity}</th>
                   <th className='px-2 py-4 font-medium w-[4%]'>{item.score}</th>
                   <th className='px-2 py-4 font-medium w-[12%]'>
-                    <input type='checkbox' defaultChecked={item.isNeedApprove} disabled readOnly className='ml-12' />
+                    <input type='checkbox' checked={item.isNeedApprove} disabled readOnly className='ml-12' />
                   </th>
                   {(!event?.hasOrganizedRegistration || event?.hasOrganizedRegistration === undefined) && (
                     <th className='px-2 py-4 font-medium w-[10%]'>
@@ -304,7 +311,9 @@ const RegisterEventRoleForm = ({
                       getOptionLabel={(option) => option.name}
                       noOptionsText='Không có lựa chọn'
                       renderInput={(params) => <TextField {...params} label='Yêu cầu duyệt' />}
-                      onChange={(_, option) => onChange(option ? option.id : '')}
+                      onChange={(_, option) => {
+                        onChange(option ? option.id : null)
+                      }}
                       className='bg-white'
                     />
                   </div>
