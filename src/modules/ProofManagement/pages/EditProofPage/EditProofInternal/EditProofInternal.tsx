@@ -22,7 +22,7 @@ interface Props {
 const EditProofInternal = ({ proof, studentId, handleDeleteProof, isLoadingDelete, handleCloseModalChange }: Props) => {
   const [eventId, setEventId] = useState<string>()
 
-  const getRegisteredEventsByStudent = new GetRegisteredEventsByStudent(studentId)
+  const getRegisteredEventsByStudent = new GetRegisteredEventsByStudent(studentId, 'Done')
   const eventsList = getRegisteredEventsByStudent.fetch()
   const events = eventsList && eventsList.data
 
