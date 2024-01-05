@@ -51,3 +51,7 @@ export function formatVNDateTime(date: string) {
 export function formatTime(time: string) {
   return moment(time).tz('Asia/Ho_Chi_Minh').format('HH:mm')
 }
+
+export function formatCalendar(time: string) {
+  return moment(time).add(7, 'hours').format('YYYY-MM-DDTHH:mm:ss')
+}

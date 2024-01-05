@@ -105,7 +105,7 @@ const StudentStatistics = ({
       <div className='w-[90%] mx-auto relative'>
         <Button
           onClick={() => setIsOpenModalStudents(true)}
-          classNameButton='absolute top-[32px] left-[32px] outline-none mb-2 h-[24px] text-[14px] text-[#26c6da] font-medium hover:text-[#26c6da]/70 hover:underline'
+          classNameButton='absolute cursor-pointer top-[32px] left-[32px] outline-none mb-2 h-[24px] text-[14px] text-[#26c6da] font-medium hover:text-[#26c6da]/70 hover:underline'
         >
           {studentsOfStatisticConfig.StartAt !== undefined &&
             studentsOfStatisticConfig.EndAt !== undefined &&
