@@ -138,14 +138,14 @@ const EventDetailPage = () => {
                   </div>
                 </div>
               </div>
-              <div className='flex justify-between items-end'>
+              <div className='flex justify-between items-end '>
                 {event.isRegistered ? (
                   event.isAttendance ? (
-                    <span className='inline-flex items-center bg-green-50 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20 px-4 py-2 rounded-full'>
+                    <span className='truncate inline-flex items-center bg-green-50 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20 px-4 py-2 rounded-full'>
                       Đã điểm danh
                     </span>
                   ) : (
-                    <span className='inline-flex items-center bg-green-50 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20 px-4 py-2 rounded-full'>
+                    <span className='truncate inline-flex items-center bg-green-50 text-[16px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20 px-4 py-2 rounded-full'>
                       Đã đăng ký
                     </span>
                   )
@@ -153,7 +153,7 @@ const EventDetailPage = () => {
                   event.calculatedStatus == 'Registration' && (
                     <Button
                       onClick={handleRegisterEvent}
-                      classNameButton='bg-[#0E91EF] text-white px-8 py-3 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md text-center  no-underline flex-shrink-0'
+                      classNameButton='truncate bg-[#0E91EF] text-white px-8 py-3 rounded-3xl shadow-md transition-all duration-300 hover:shadow-md text-center  no-underline flex-shrink-0'
                     >
                       Đăng ký ngay
                     </Button>
